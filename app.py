@@ -1,4 +1,5 @@
 import streamlit as st
+import time
 
 # إعدادات صفحة التطبيق
 st.set_page_config(
@@ -40,8 +41,6 @@ if st.button("🚀 ابدأ توليد الفيديو", use_container_width=True
         st.warning("⚠️ الرجاء كتابة وصف المشهد أولاً قبل البدء.")
     else:
         with st.spinner("⏳ جاري معالجة الوصف وتوليد الفيديو بالذكاء الاصطناعي... يرجى الانتظار"):
-            # محاكاة عملية التوليد
-            import time
             time.sleep(3)
             
         st.success("✨ تم إنشاء الفيديو بنجاح!")
