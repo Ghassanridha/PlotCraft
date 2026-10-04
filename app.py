@@ -6,7 +6,7 @@ st.set_page_config(
     page_title="PlotCraft - مولد الفيديوهات", page_icon="🎬", layout="centered"
 )
 
-# تصميم وتنسيق CSS مخصص لواجهة داكنة وتصميم احترافي نقي مع تخصيص شكل زر الترقية
+# تصميم وتنسيق CSS مخصص لواجهة داكنة وتصميم احترافي نقي
 st.markdown(
     """
     <style>
@@ -44,17 +44,6 @@ st.markdown(
         margin-bottom: 20px;
         text-align: right;
     }
-    
-    /* تخصيص أيقونة التاج الفضي المطابقة للتصميم المطلوب */
-    .upgrade-crown {
-        display: inline-block;
-        width: 16px;
-        height: 14px;
-        background: linear-gradient(180deg, #ffffff 0%, #94a3b8 50%, #cbd5e1 100%);
-        clip-path: polygon(0% 100%, 100% 100%, 85% 30%, 65% 70%, 50% 20%, 35% 70%, 15% 30%);
-        margin-right: 6px;
-        vertical-align: middle;
-    }
     </style>
 """,
     unsafe_allow_html=True,
@@ -70,8 +59,8 @@ with top_col1:
   )
 
 with top_col2:
-  # قائمة منبثقة للترقية بالتصميم الدقيق المطلوب للأيقونة واللون
-  with st.popover("ترقية <span class='upgrade-crown'></span>"):
+  # استخدام زر بوب أوفر بنص نظيف تماماً بدون أكواد تظهر
+  with st.popover("ترقية 👑"):
     st.markdown(
         "<h3 style='text-align: center; color: #ffffff; margin-bottom:0;'>PlotCraft</h3>",
         unsafe_allow_html=True,
