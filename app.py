@@ -7,7 +7,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# إخفاء الهوامش الزائدة في ستريمليت لملء الشاشة بشكل احترافي
+# إخفاء هوامش ستريمليت بالكامل لملء الشاشة باحترافية
 st.markdown("""
     <style>
         .block-container {
@@ -71,20 +71,20 @@ html_code = """
 </head>
 <body class="text-white flex justify-center items-center w-full min-h-screen">
 
-    <!-- الحاوية الرئيسية بملء الشاشة تماماً -->
-    <main class="w-full max-w-[420px] h-screen bg-[#05070a] relative flex flex-col justify-between overflow-y-auto overflow-x-hidden no-scrollbar pb-24 pt-1">
+    <!-- الحاوية الرئيسية مصممة خصيصاً لتناسب الشاشة بدون أي اقتطاع علوي -->
+    <main class="w-full max-w-[420px] min-h-[820px] bg-[#05070a] relative flex flex-col justify-between overflow-y-auto overflow-x-hidden no-scrollbar pb-28 pt-0">
         
-        <div>
+        <div class="w-full">
             <!-- ================= الشاشة الأولى: الصفحة الرئيسية ================= -->
             <div id="home-screen" class="screen active flex-col">
-                <div class="wormhole-hero-bg p-5 pb-8 relative rounded-b-[35px] overflow-hidden shadow-2xl">
+                <div class="wormhole-hero-bg px-5 pt-3 pb-7 relative rounded-b-[35px] overflow-hidden shadow-2xl">
                     
-                    <div class="flex items-center justify-between mb-6 relative z-10">
+                    <div class="flex items-center justify-between mb-4 relative z-10">
                         <span class="font-black text-sm tracking-wide">بلوت كرافت</span>
                         <span class="px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-[11px] font-bold text-white border border-white/15 cursor-pointer shadow-lg shadow-gray-500/10">ترقية ✨</span>
                     </div>
 
-                    <div class="mb-5 relative z-10">
+                    <div class="mb-4 relative z-10">
                         <h1 class="text-lg font-black text-white leading-relaxed">مساء الخير، أيها المخرج</h1>
                         <h2 class="text-lg font-black text-white">أي قصة سنصنع اليوم؟</h2>
                     </div>
@@ -228,7 +228,6 @@ html_code = """
             btnTools.className = inactiveClass;
             btnWorks.className = inactiveClass;
 
-            // إعادة تمرير الصفحة للأعلى عند تغيير الشاشة لضمان ثبات المحتوى
             document.querySelector('main').scrollTop = 0;
 
             if (screenName === 'home') {
@@ -248,5 +247,5 @@ html_code = """
 </html>
 """
 
-# لقد قمت بضبط الارتفاع الأولي لإطار ستريمليت، ولكن الكود المحدث أدناه يستخدم تقنيات متقدمة لملء الشاشة بالكامل بشكل تلقائي (Responsive)، مما يجعله يتكيف مع حجم شاشة POCO F7 تماماً ويظهر كل الأدوات بوضوح تام!
-st.components.v1.html(html_code, height=765, scrolling=False)
+# رفعنا الارتفاع إلى 840 ليتناسب بدقة مع مساحة العرض الكاملة لشاشة جهازك ويظهر زر الترحيب والترقية بالكامل
+st.components.v1.html(html_code, height=840, scrolling=False)
