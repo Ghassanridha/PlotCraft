@@ -49,7 +49,7 @@ html_code = """
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         
-        /* شريط المتصفح العلوي (Connecting والشير والإعدادات) */
+        /* شريط المتصفح العلوي */
         .top-browser-bar {
             background-color: #12141c;
             padding: 8px 12px;
@@ -135,7 +135,7 @@ html_code = """
 
     <div class="main-container">
         
-        <!-- شريط المتصفح العلوي المطابق للصورة -->
+        <!-- شريط المتصفح العلوي -->
         <div class="top-browser-bar">
             <div style="display: flex; align-items: center; gap: 6px; font-size: 10px; letter-spacing: 0.5px;">
                 <span>...</span>
@@ -155,13 +155,13 @@ html_code = """
             <!-- الشاشة الرئيسية -->
             <div id="home-screen" class="screen active">
                 <div class="hero-section">
-                    <!-- الصف العلوي: زر الترقية يمين، وعنوان التطبيق يسار -->
+                    <!-- الصف العلوي: الاسم يمين، والترقية يسار -->
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                        <span style="background: rgba(255,255,255,0.1); padding: 5px 14px; border-radius: 20px; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 4px; border: 1px solid rgba(255,255,255,0.15);">ترقية ✨</span>
-                        
                         <div style="font-weight: 900; font-size: 16px; letter-spacing: 0.5px; color: #ffffff;">
                             بلوت كرافت
                         </div>
+                        
+                        <span style="background: rgba(255,255,255,0.1); padding: 5px 14px; border-radius: 20px; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 4px; border: 1px solid rgba(255,255,255,0.15);">ترقية ✨</span>
                     </div>
 
                     <!-- الترحيب -->
@@ -170,16 +170,9 @@ html_code = """
                         <h2 style="font-size: 16px; font-weight: 900; color: #ffffff;">أي قصة سنصنع اليوم؟</h2>
                     </div>
 
-                    <!-- مربعات الخيارات السريعة (خطوة بخطوة يمين، سريع يسار) -->
+                    <!-- مربعات الخيارات السريعة -->
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                         
-                        <!-- مربع خطوة بخطوة -->
-                        <div class="glass-box">
-                            <div style="font-size: 16px; margin-bottom: 4px; text-align: right;">💬</div>
-                            <h3 style="font-size: 12px; font-weight: bold; margin-bottom: 2px;">خطوة بخطوة</h3>
-                            <p style="font-size: 9px; color: #94a3b8; line-height: 1.2;">راجع كل خطوة</p>
-                        </div>
-
                         <!-- مربع سريع -->
                         <div class="glass-box">
                             <span style="position: absolute; top: 8px; left: 10px; font-size: 7px; background: rgba(0,0,0,0.5); padding: 2px 6px; border-radius: 10px; color: #cbd5e1; font-weight: bold; border: 1px solid rgba(255,255,255,0.1);">Pro</span>
@@ -188,25 +181,32 @@ html_code = """
                             <p style="font-size: 9px; color: #94a3b8; line-height: 1.2;">إدخال واحد، فيديو كامل</p>
                         </div>
 
+                        <!-- مربع خطوة بخطوة -->
+                        <div class="glass-box">
+                            <div style="font-size: 16px; margin-bottom: 4px; text-align: right;">💬</div>
+                            <h3 style="font-size: 12px; font-weight: bold; margin-bottom: 2px;">خطوة بخطوة</h3>
+                            <p style="font-size: 9px; color: #94a3b8; line-height: 1.2;">راجع كل خطوة</p>
+                        </div>
+
                     </div>
                 </div>
 
                 <!-- قسم إلهام بلوت كرافت -->
                 <div style="padding: 16px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                        <span style="font-size: 11px; color: #94a3b8; font-weight: bold; display: flex; align-items: center; gap: 2px;">عرض الكل <</span>
                         <h3 style="font-size: 14px; font-weight: 800; color: #ffffff;">إلهام بلوت كرافت</h3>
+                        <span style="font-size: 11px; color: #94a3b8; font-weight: bold; display: flex; align-items: center; gap: 2px;">عرض الكل <</span>
                     </div>
 
                     <div style="display: flex; gap: 12px; overflow-x: auto; padding-bottom: 6px;" class="no-scrollbar">
                         
-                        <!-- البطاقة الأولى (THE DELIVERYMAN) -->
+                        <!-- البطاقة الأولى -->
                         <div style="min-width: 140px; height: 200px; border-radius: 16px; background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=300&q=80'); background-size: cover; background-position: center; position: relative; padding: 12px; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid rgba(255,255,255,0.15);">
                             <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.1)); border-radius: 16px;"></div>
                             <span style="position: relative; z-index: 10; font-size: 9px; font-weight: 900; text-align: center; letter-spacing: 0.5px; color: #ffffff;">THE DELIVERYMAN</span>
                         </div>
 
-                        <!-- البطاقة الثانية (THE WRONG DOOR) -->
+                        <!-- البطاقة الثانية -->
                         <div style="min-width: 140px; height: 200px; border-radius: 16px; background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=300&q=80'); background-size: cover; background-position: center; position: relative; padding: 12px; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid rgba(255,255,255,0.15);">
                             <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.1)); border-radius: 16px;"></div>
                             <span style="position: relative; z-index: 10; font-size: 9px; font-weight: 900; text-align: center; letter-spacing: 0.5px; color: #ffffff;">THE WRONG DOOR</span>
@@ -239,19 +239,19 @@ html_code = """
 
         </div>
 
-        <!-- الشريط السفلي (الترتيب المطابق للصورة: الرئيسية، الأدوات، الأعمال) -->
+        <!-- الشريط السفلي (الترتيب: الرئيسية، ثم الأدوات، ثم الأعمال من اليمين لليسار) -->
         <nav class="nav-bar">
-            <button id="btn-works" onclick="switchScreen('works')" class="nav-item">
-                <span>الأعمال</span>
-                <span>💼</span>
+            <button id="btn-home" onclick="switchScreen('home')" class="nav-item active">
+                <span>الرئيسية</span>
+                <span>🏠</span>
             </button>
             <button id="btn-tools" onclick="switchScreen('tools')" class="nav-item">
                 <span>الأدوات</span>
                 <span>🛠</span>
             </button>
-            <button id="btn-home" onclick="switchScreen('home')" class="nav-item active">
-                <span>الرئيسية</span>
-                <span>🏠</span>
+            <button id="btn-works" onclick="switchScreen('works')" class="nav-item">
+                <span>الأعمال</span>
+                <span>💼</span>
             </button>
         </nav>
 
