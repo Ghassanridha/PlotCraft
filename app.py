@@ -1,108 +1,145 @@
-import streamlit as st
 import time
+import streamlit as st
 
-# إعدادات صفحة التطبيق
+# إعدادات الصفحة الأساسية
 st.set_page_config(
-    page_title="PlotCraft - مولد الفيديوهات",
-    page_icon="🎬",
-    layout="wide"
+    page_title="PlotCraft - مولد الفيديوهات", page_icon="🎬", layout="centered"
 )
 
-# تهيئة الذاكرة المؤقتة لحفظ سجل الطلبات بالجلسة الحالية
-if "history" not in st.session_state:
-    st.session_state.history = []
+# تصميم وتنسيق CSS مخصص لواجهة داكنة عصرية
+st.markdown(
+    """
+    <style>
+    /* خلفية التطبيق العامة */
+    .stApp {
+        background-color: #0e1117;
+        color: #ffffff;
+    }
+    /* تنسيق الحقول النصية */
+    .stTextArea textarea {
+        background-color: #1a1f2c;
+        color: white;
+        border-radius: 12px;
+        border: 1px solid #2d3748;
+    }
+    /* تنسيق الأزرار */
+    .stButton button {
+        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        color: white;
+        border-radius: 12px;
+        font-weight: bold;
+        border: none;
+        padding: 0.75rem 1rem;
+        width: 100%;
+    }
+    .stButton button:hover {
+        background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    }
+    /* بطاقات العنوان المخصصة */
+    .header-box {
+        padding: 15px;
+        border-radius: 15px;
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        border: 1px solid #334155;
+        margin-bottom: 20px;
+        text-align: right;
+    }
+    </style>
+""",
+    unsafe_allow_html=True,
+)
 
-# --- الشريط الجانبي للإعدادات والتحكم (Sidebar) ---
-with st.sidebar:
-    st.header("⚙️ إعدادات الإنتاج")
-    
-    # اختيار دقة الفيديو
-    resolution = st.selectbox(
-        "اختر دقة الفيديو:",
-        ["720p (HD)", "1080p (FHD)", "4K (Ultra)"]
-    )
-    
-    # اختيار نسبة العرض إلى الارتفاع (Aspect Ratio)
-    aspect_ratio = st.selectbox(
-        "نسبة عرض الفيديو (Format):",
-        ["16:9 (يوتيوب/عرض)", "9:16 (ريلز/تيك توك)", "1:1 (مربع)"]
-    )
-    
-    st.divider()
-    
-    # قسم السجل المؤقت داخل الشريط الجانبي
-    st.subheader("📂 سجل الطلبات الحالية")
-    if st.session_state.history:
-        for i, item in enumerate(st.session_state.history[::-1]):
-            st.text(f"{i+1}. المدة: {item['duration']}ث | الدقة: {item['res']}")
-    else:
-        st.info("لا توجد طلبات سابقة في هذه الجلسة.")
+# واجهة ترحيبية بتصميم عاصري
+st.markdown(
+    """
+    <div class="header-box">
+        <h3 style="margin:0; color: #f8fafc;">🎬 طاب مساؤك، أيها المخرج</h3>
+        <p style="margin:5px 0 0 0; color: #94a3b8; font-size: 14px;">أي قصة سنصنع اليوم؟</p>
+    </div>
+""",
+    unsafe_allow_html=True,
+)
 
-# --- الواجهة الرئيسية ---
-st.title("🎬 PlotCraft - منصة توليد الفيديوهات المتقدمة")
-st.write("أدخل فكرة السيناريو، ارفع صورتك المرجعية، وحدد إعداداتك لإنتاج فيديو تجريبي متكامل.")
+# إدخال سيناريو الفيديو
+prompt = st.text_area(
+    "أدخل فكرة أو سيناريو الفيديو هنا:",
+    placeholder="اكتب وصف المشهد أو القصة بالتفصيل...",
+    height=120,
+)
 
-# تقسيم الشاشة إلى عمودين لتنسيق أجمل
-col1, col2 = st.columns([2, 1])
+# رفع صورة توضيحية
+uploaded_file = st.file_uploader(
+    "ارفع صورة توضيحية (اختياري):", type=["png", "jpg", "jpeg"]
+)
+
+st.markdown("---")
+
+# دمج الإعدادات في الصفحة الرئيسية (بدل القائمة الجانبية)
+st.markdown(
+    "<h4 style='text-align: right; color: #e2e8f0;'>⚙️ إعدادات الإنتاج</h4>",
+    unsafe_allow_html=True,
+)
+
+col1, col2 = st.columns(2)
 
 with col1:
-    # 1. خانة كتابة النص
-    script_text = st.text_area(
-        "أدخل فكرة أو سيناريو الفيديو هنا:",
-        placeholder="اصف المشهد أو القصة بالتفصيل...",
-        height=150
+    resolution = st.selectbox(
+        "دقة الفيديو", ["720p (سريع)", "1080p (عالي الدقة)", "4K (احترافي)"]
     )
 
 with col2:
-    # 2. خانة رفع الصورة
-    uploaded_file = st.file_uploader(
-        "ارفع صورة توضيحية (اختياري):",
-        type=["png", "jpg", "jpeg"]
+    aspect_ratio = st.selectbox("نسبة العرض", ["16:9 (يوتيوب)", "9:16 (تيك توك/ريلز)"])
+
+# شريط المدة الزمنية
+duration = st.slider("اختر مدة الفيديو (بالثانيات):", 10, 300, 30)
+
+st.markdown("---")
+
+# زر التوليد الرئيسي
+if st.button("🚀 بدء التوليد التجريبي الشامل"):
+  if not prompt.strip():
+    st.warning("يرجى كتابة فكرة أو سيناريو الفيديو أولاً!")
+  else:
+    # محاكاة خطوات العمل بوضوح
+    status_text = st.empty()
+    progress_bar = st.progress(0)
+
+    steps = [
+        ("تحليل السيناريو بالذكاء الاصطناعي...", 25),
+        ("توليد الإطارات والعناصر البصرية...", 50),
+        ("معالجة الصوت والمؤثرات...", 75),
+        ("إنجاز الفيديو النهائي...", 100),
+    ]
+
+    for text, progress in steps:
+      status_text.markdown(f"**{text}**")
+      progress_bar.progress(progress)
+      time.sleep(0.8)
+
+    st.success("✨ تم توليد الفيديو التجريبي بنجاح!")
+
+    # عرض محاكاة للفيديو الناتج
+    st.video("https://www.w3schools.com/html/mov_bbb.mp4")
+
+    # حفظ في سجل الجلسة
+    if "history" not in st.session_state:
+      st.session_state.history = []
+    st.session_state.history.append(
+        {
+            "prompt": prompt,
+            "duration": duration,
+            "resolution": resolution,
+            "time": time.strftime("%H:%M:%S"),
+        }
     )
 
-if uploaded_file is not None:
-    st.image(uploaded_file, caption="الصورة المرجعية للمشروع", width=250)
-
-# 3. شريط اختيار مدة الفيديو (إلى غاية 5 دقائق = 300 ثانية)
-duration = st.slider(
-    "اختر مدة الفيديو المطلوبة:",
-    min_value=10,
-    max_value=300,
-    value=30,
-    step=10,
-    format="%d ثانية"
-)
-
-st.divider()
-
-# 4. زر البدء مع محاكاة خطوات المعالجة (Status & Progress)
-if st.button("🚀 بدء التوليد التجريبي الشامل", use_container_width=True):
-    if not script_text and not uploaded_file:
-        st.warning("⚠️ يرجى كتابة نص أو رفع صورة على الأقل لنستطيع البدء!")
-    else:
-        # استخدام st.status لعرض خطوات العمل بشكل واقعي
-        with st.status("🔄 جاري معالجة المشروع...", expanded=True) as status:
-            st.write("1️⃣ يتم تحليل النص والسيناريو المدخل...")
-            time.sleep(1)
-            
-            if uploaded_file is not None:
-                st.write("2️⃣ يتم دمج ومطابقة الصورة المرجعية مع المشهد...")
-                time.sleep(1.5)
-            else:
-                st.write("2️⃣ تخطي معالجة الصورة (لم يتم رفع صورة)...")
-                time.sleep(0.5)
-                
-            st.write(f"3️⃣ بناء المشاهد النهائية بمدة مستهدفة ({duration} ثانية)...")
-            time.sleep(1)
-            
-            status.update(label="✨ تم إكمال المعالجة بنجاح!", state="complete", expanded=False)
-        
-        # حفظ الطلب في الذاكرة المؤقتة للجلسة
-        st.session_state.history.append({
-            "duration": duration,
-            "res": resolution,
-            "text": script_text[:30] + "..." if script_text else "بدون نص"
-        })
-        
-        st.success(f"✅ تم إصدار الفيديو التجريبي بدقة {resolution} وبمدة {duration} ثانية بنجاح!")
-        st.balloons()
+# عرض سجل الجلسات السابقة (إذا وُجدت)
+if "history" in st.session_state and st.session_state.history:
+  with st.expander("📂 سجل الفيديوهات المنتجة في هذه الجلسة"):
+    for idx, item in enumerate(reversed(st.session_state.history)):
+      st.markdown(
+          f"""**{idx+1}.** الفكرة: `{item['prompt'][:50]}...` <br>
+                ⏱️ المدة: {item['duration']} ثانية | 🖥️ الدقة: {item['resolution']} | ⏰ الوقت: {item['time']}""",
+          unsafe_allow_html=True,
+      )
+      st.markdown("---")
