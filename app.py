@@ -71,8 +71,7 @@ html_code = """
 </head>
 <body class="text-white flex justify-center items-center w-full min-h-screen">
 
-    <!-- الحاوية الرئيسية بوزن مثالي يمنع القص ويترك مساحة مريحة -->
-    <main class="w-full max-w-[420px] min-h-[760px] bg-[#05070a] relative flex flex-col justify-between overflow-y-auto overflow-x-hidden no-scrollbar pb-24 pt-1">
+    <main class="w-full max-w-[420px] min-h-[720px] bg-[#05070a] relative flex flex-col justify-between overflow-y-auto overflow-x-hidden no-scrollbar pb-24 pt-1">
         
         <div class="w-full">
             <!-- ================= الشاشة الأولى: الصفحة الرئيسية ================= -->
@@ -247,5 +246,4 @@ html_code = """
 </html>
 """
 
-# ارتفاع الإطار أصبح 780 ليظهر كل الجزء العلوي بوضوح تام دون أي اقتطاع
-st.components.v1.html(html_code, height=780, scrolling=False)
+st.components.v1.html(html_code, height=720, scrolling=False)
