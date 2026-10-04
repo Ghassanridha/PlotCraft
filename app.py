@@ -67,7 +67,7 @@ html_code = """
             flex-shrink: 0;
         }
         
-        /* قسم الهيدر العلوي */
+        /* الهيدر العلوي */
         .hero-section {
             background: linear-gradient(180deg, rgba(11,13,18,0.3) 0%, rgba(11,13,18,0.95) 85%, #0b0d12 100%),
                         url('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=800&q=80');
@@ -79,7 +79,7 @@ html_code = """
             flex-shrink: 0;
         }
         
-        /* الصناديق الزجاجية للخيارات */
+        /* الصناديق الزجاجية للخيارات جنباً إلى جنب */
         .glass-box {
             background: rgba(255, 255, 255, 0.07);
             backdrop-filter: blur(16px);
@@ -94,7 +94,7 @@ html_code = """
         .screen { display: none; width: 100%; flex-direction: column; }
         .screen.active { display: flex; }
         
-        /* شريط الأزرار الجديد تحت قسم إلهام بلوت كرافت */
+        /* أزرار التنقل */
         .custom-nav-tabs {
             display: flex;
             gap: 8px;
@@ -115,7 +115,6 @@ html_code = """
             cursor: pointer;
             transition: all 0.2s ease;
         }
-        /* شكل الزر عند الضغط (أبيض غامق على أسود) */
         .tab-btn.active {
             background: #000000;
             color: #ffffff;
@@ -148,41 +147,41 @@ html_code = """
             
             <!-- الشاشة الرئيسية -->
             <div id="home-screen" class="screen active">
-                <div>
-                    <div class="hero-section">
-                        <!-- الصف العلوي: الاسم يمين، والترقية يسار -->
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                            <div style="font-weight: 900; font-size: 14px; letter-spacing: 0.5px; color: #ffffff;">
-                                بلوت كرافت
-                            </div>
-                            <span style="background: rgba(255,255,255,0.1); padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: bold; border: 1px solid rgba(255,255,255,0.15);">ترقية ✨</span>
+                
+                <!-- الهيدر العلوي -->
+                <div class="hero-section">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <div style="font-weight: 900; font-size: 14px; letter-spacing: 0.5px; color: #ffffff;">
+                            بلوت كرافت
                         </div>
+                        <span style="background: rgba(255,255,255,0.1); padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: bold; border: 1px solid rgba(255,255,255,0.15);">ترقية ✨</span>
+                    </div>
 
-                        <!-- الترحيب -->
-                        <div style="margin-bottom: 10px; text-align: right;">
-                            <h1 style="font-size: 12px; font-weight: 600; line-height: 1.3; color: #cbd5e1; margin-bottom: 2px;">مساء الخير، أيها المخرج</h1>
-                            <h2 style="font-size: 14px; font-weight: 900; color: #ffffff;">أي قصة سنصنع اليوم؟</h2>
+                    <div style="text-align: right;">
+                        <h1 style="font-size: 12px; font-weight: 600; line-height: 1.3; color: #cbd5e1; margin-bottom: 2px;">مساء الخير، أيها المخرج</h1>
+                        <h2 style="font-size: 14px; font-weight: 900; color: #ffffff;">أي قصة سنصنع اليوم؟</h2>
+                    </div>
+                </div>
+
+                <!-- مربعات الخيارات السريعة (نزلت لتحت وأصبحت بجانب بعضها) -->
+                <div style="padding: 14px 16px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div class="glass-box">
+                            <div style="font-size: 14px; margin-bottom: 4px; text-align: right;">💬</div>
+                            <h3 style="font-size: 11px; font-weight: bold; margin-bottom: 2px;">خطوة بخطوة</h3>
+                            <p style="font-size: 8px; color: #94a3b8;">راجع كل خطوة</p>
                         </div>
-
-                        <!-- مربعات الخيارات السريعة -->
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                            <div class="glass-box">
-                                <div style="font-size: 14px; margin-bottom: 2px; text-align: right;">💬</div>
-                                <h3 style="font-size: 11px; font-weight: bold; margin-bottom: 1px;">خطوة بخطوة</h3>
-                                <p style="font-size: 8px; color: #94a3b8;">راجع كل خطوة</p>
-                            </div>
-                            <div class="glass-box">
-                                <span style="position: absolute; top: 6px; left: 8px; font-size: 6px; background: rgba(0,0,0,0.5); padding: 2px 5px; border-radius: 8px; color: #cbd5e1; font-weight: bold; border: 1px solid rgba(255,255,255,0.1);">Pro</span>
-                                <div style="font-size: 14px; margin-bottom: 2px; text-align: right;">⚡</div>
-                                <h3 style="font-size: 11px; font-weight: bold; margin-bottom: 1px;">سريع</h3>
-                                <p style="font-size: 8px; color: #94a3b8;">إدخال واحد، فيديو كامل</p>
-                            </div>
+                        <div class="glass-box">
+                            <span style="position: absolute; top: 6px; left: 8px; font-size: 6px; background: rgba(0,0,0,0.5); padding: 2px 5px; border-radius: 8px; color: #cbd5e1; font-weight: bold; border: 1px solid rgba(255,255,255,0.1);">Pro</span>
+                            <div style="font-size: 14px; margin-bottom: 4px; text-align: right;">⚡</div>
+                            <h3 style="font-size: 11px; font-weight: bold; margin-bottom: 2px;">سريع</h3>
+                            <p style="font-size: 8px; color: #94a3b8;">إدخال واحد، فيديو كامل</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- قسم إلهام بلوت كرافت -->
-                <div style="padding: 12px 16px;">
+                <div style="padding: 0px 16px 12px 16px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                         <h3 style="font-size: 13px; font-weight: 800; color: #ffffff;">إلهام بلوت كرافت</h3>
                         <span style="font-size: 10px; color: #9ca3af; font-weight: bold;">عرض الكل <</span>
@@ -233,7 +232,7 @@ html_code = """
                 </div>
             </div>
 
-            <!-- أزرار التنقل الجديدة (تحت قسم الإلهام تماماً وبدون إيموجيات) -->
+            <!-- أزرار التنقل -->
             <div class="custom-nav-tabs">
                 <button id="btn-home" onclick="switchScreen('home')" class="tab-btn active">الصفحة الرئيسية</button>
                 <button id="btn-tools" onclick="switchScreen('tools')" class="tab-btn">الأدوات</button>
