@@ -51,8 +51,8 @@ html_code = """
                         url('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=800&q=80');
             background-size: cover;
             background-position: center;
-            /* تم تثبيت المسافة بدقة 26px لضمان عدم اختفاء الاسم أو نقصه */
-            padding: 26px 16px 20px 16px;
+            /* تم زيادة الـ padding-top هنا إلى 45px للتجربة */
+            padding: 45px 16px 20px 16px;
             border-bottom-left-radius: 28px;
             border-bottom-right-radius: 28px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
@@ -189,7 +189,7 @@ html_code = """
 
         </div>
 
-        <!-- الشريط السفلي (الترتيب: الرئيسية يمين، الأدوات وسط، الأعمال يسار) -->
+        <!-- الشريط السفلي -->
         <nav class="nav-bar">
             <button id="btn-home" onclick="switchScreen('home')" class="nav-item active">🏠 الرئيسية</button>
             <button id="btn-tools" onclick="switchScreen('tools')" class="nav-item">🛠 الأدوات</button>
