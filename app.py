@@ -1,139 +1,336 @@
-import streamlit as st
-
-# إعدادات صفحة ستريمليت
-st.set_page_config(
-    page_title="بلوت كرافت",
-    page_icon="🎬",
-    layout="centered",
-    initial_sidebar_state="collapsed"
-)
-
-# كود الواجهة المطابق تماماً لصورتك الأصلية
-html_code = """
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بلوت كرافت</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Tajawal', sans-serif; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>بلوت كرافت</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      font-family: Arial, "Tahoma", sans-serif;
+      background: #090a0c;
+    }
+
+    .glass {
+      background: rgba(25, 27, 30, 0.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .hero-gradient {
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(0,0,0,0.05) 0%,
+          rgba(0,0,0,0.15) 45%,
+          rgba(8,9,11,0.95) 100%
+        );
+    }
+
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .hide-scrollbar {
+      scrollbar-width: none;
+    }
+  </style>
 </head>
-<body class="bg-[#0b0d14] text-white flex justify-center items-center p-0 m-0">
-    <main class="w-full max-w-[420px] min-h-screen bg-[#0c0f17] relative shadow-2xl border border-white/10 flex flex-col justify-between overflow-x-hidden">
-        
-        <!-- الخلفية السينمائية العليا -->
-        <div class="relative w-full h-[410px] overflow-hidden flex-shrink-0">
-            <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80" alt="خلفية" class="absolute inset-0 w-full h-full object-cover object-top opacity-60 scale-105" />
-            <div class="absolute inset-0 bg-gradient-to-b from-[#0b0d14]/60 via-[#0b0d14]/30 to-[#0c0f17]"></div>
-            
-            <!-- الهيدر (ترقية يسار، الاسم والشعار يمين) -->
-            <header class="relative z-10 px-5 pt-8 pb-4 flex items-center justify-between">
-                <button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-xs font-semibold text-white">
-                    <span class="text-amber-400">★</span>
-                    <span>ترقية</span>
-                </button>
-                <div class="flex items-center gap-2">
-                    <h1 class="text-xl font-black tracking-wide text-white">بلوت كرافت</h1>
-                    <div class="w-8 h-8 rounded-full border border-white/30 bg-black/40 flex items-center justify-center p-1 backdrop-blur-sm">
-                        <span class="text-xs">🎬</span>
-                    </div>
-                </div>
-            </header>
 
-            <!-- النص الترحيبي -->
-            <div class="relative z-10 px-6 pt-4 text-right">
-                <h2 class="text-[26px] font-black leading-tight text-white">مساء الخير، أيها المخرج</h2>
-                <p class="text-lg font-bold text-gray-200 mt-1">أي قصة سنصنع اليوم؟</p>
-            </div>
+<body class="min-h-screen text-white">
 
-            <!-- بطاقات المسارات (سريع يسار، خطوة بخطوة يمين) -->
-            <div class="relative z-10 px-5 pt-6 grid grid-cols-2 gap-3.5">
-                <!-- بطاقة سريع (يسار) -->
-                <div class="rounded-2xl bg-white/10 backdrop-blur-xl border border-white/15 p-4 flex flex-col justify-between h-[130px] relative">
-                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-black/40 border border-white/10 text-[10px] text-gray-300 w-fit">Pro only</span>
-                    <div>
-                        <h3 class="text-base font-extrabold text-white">سريع</h3>
-                        <p class="text-[11px] text-gray-300 mt-0.5 leading-snug">إدخال واحد، فيديو كامل</p>
-                    </div>
-                    <div class="self-end w-9 h-9 rounded-xl bg-cyan-500/80 flex items-center justify-center text-white shadow-md">⚡</div>
-                </div>
+  <!-- الصفحة -->
+  <main class="mx-auto min-h-screen w-full max-w-[480px] overflow-hidden bg-[#0b0c0e]">
 
-                <!-- بطاقة خطوة بخطوة (يمين) -->
-                <div class="rounded-2xl bg-white/10 backdrop-blur-xl border border-white/15 p-4 flex flex-col justify-between h-[130px]">
-                    <div class="h-4"></div>
-                    <div>
-                        <h3 class="text-base font-extrabold text-white">خطوة بخطوة</h3>
-                        <p class="text-[11px] text-gray-300 mt-0.5">راجع كل خطوة</p>
-                    </div>
-                    <div class="self-end w-9 h-9 rounded-xl bg-blue-500/80 flex items-center justify-center text-white shadow-md">📁</div>
-                </div>
-            </div>
+    <!-- ================= HERO ================= -->
+    <section class="relative h-[620px] overflow-hidden">
+
+      <!-- صورة الخلفية -->
+      <img
+        src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=900&q=80"
+        class="absolute inset-0 h-full w-full object-cover"
+        alt="Background"
+      >
+
+      <!-- التدرج -->
+      <div class="hero-gradient absolute inset-0"></div>
+
+      <!-- زر الترقية -->
+      <button
+        class="absolute right-5 top-5 z-10 rounded-full bg-white/10 px-5 py-2 text-sm font-bold backdrop-blur-md"
+      >
+        👑 ترقية
+      </button>
+
+      <!-- اسم الموقع -->
+      <div class="absolute left-5 top-5 z-10 flex items-center gap-2">
+        <div class="flex h-9 w-9 items-center justify-center rounded-full bg-white text-black">
+          ✦
         </div>
 
-        <!-- قسم الإلهام والأفلام -->
-        <section class="px-5 pt-4 pb-28 flex-1">
-            <div class="flex items-center justify-between mb-3.5">
-                <span class="text-xs text-gray-400 cursor-pointer">عرض الكل ></span>
-                <h3 class="text-lg font-extrabold text-white">إلهام بلوت كرافت</h3>
+        <span class="text-lg font-bold">
+          بلوت كرافت
+        </span>
+      </div>
+
+
+      <!-- المحتوى -->
+      <div class="absolute inset-x-0 top-[115px] px-5 text-center">
+
+        <h1 class="text-[29px] font-bold leading-[1.45]">
+          مساء الخير، أيها المخرج
+        </h1>
+
+        <p class="mt-1 text-[25px] font-semibold">
+          أي قصة سنصنع اليوم؟
+        </p>
+
+      </div>
+
+
+      <!-- الوجه -->
+      <div class="absolute bottom-[115px] left-1/2 w-[290px] -translate-x-1/2">
+
+        <div class="relative overflow-hidden rounded-[50%]">
+
+          <img
+            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=90"
+            class="h-[330px] w-full object-cover object-top"
+            alt="Creator"
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- بطاقات الأدوات -->
+      <div class="absolute bottom-5 left-0 right-0 px-5">
+
+        <div class="grid grid-cols-2 gap-4">
+
+          <!-- بطاقة -->
+          <div class="glass rounded-[25px] border border-white/10 p-4">
+
+            <div class="mb-3 flex items-center gap-3">
+
+              <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-2xl">
+                ✨
+              </div>
+
+              <div>
+                <h3 class="font-bold">
+                  سريع
+                </h3>
+
+                <p class="text-xs text-gray-400">
+                  إدخال واحد، فيديو كامل
+                </p>
+              </div>
+
             </div>
 
-            <div class="flex gap-3.5 overflow-x-auto no-scrollbar pb-2">
-                <!-- فيلم 1 -->
-                <div class="flex-shrink-0 w-[135px] rounded-2xl overflow-hidden bg-[#141824] border border-white/10">
-                    <div class="h-[180px] relative">
-                        <img src="https://images.unsplash.com/photo-1514533450685-4493e01d1fdc?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover" />
-                        <span class="absolute top-2 right-2 bg-black/60 text-[9px] px-1.5 py-0.5 rounded text-white">رعب</span>
-                    </div>
-                    <div class="p-2 text-center">
-                        <p class="text-[10px] font-bold text-gray-200 truncate">RE: INVITATION</p>
-                    </div>
-                </div>
-
-                <!-- فيلم 2 -->
-                <div class="flex-shrink-0 w-[135px] rounded-2xl overflow-hidden bg-[#141824] border border-white/10">
-                    <div class="h-[180px] relative">
-                        <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover" />
-                        <span class="absolute top-2 right-2 bg-black/60 text-[9px] px-1.5 py-0.5 rounded text-white">غموض</span>
-                    </div>
-                    <div class="p-2 text-center">
-                        <p class="text-[10px] font-bold text-gray-200 truncate">THE WRONG DOOR</p>
-                    </div>
-                </div>
-
-                <!-- فيلم 3 -->
-                <div class="flex-shrink-0 w-[135px] rounded-2xl overflow-hidden bg-[#141824] border border-white/10">
-                    <div class="h-[180px] relative">
-                        <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover" />
-                        <span class="absolute top-2 right-2 bg-black/60 text-[9px] px-1.5 py-0.5 rounded text-white">دراما</span>
-                    </div>
-                    <div class="p-2 text-center">
-                        <p class="text-[10px] font-bold text-gray-200 truncate">THE DELIVERYMAN</p>
-                    </div>
-                </div>
+            <div class="text-center text-[10px] text-gray-500">
+              🔒 Pro only
             </div>
-        </section>
 
-        <!-- شريط الملاحة السفلي (الرئيسية يمين، الملف الشخصي يسار) -->
-        <nav class="absolute bottom-3 left-4 right-4 bg-[#121622]/90 backdrop-blur-xl border border-white/15 rounded-full px-4 py-2.5 flex items-center justify-between z-30 shadow-2xl">
-            <button class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-gray-300">👤</button>
-            <button class="text-gray-400 text-xs font-medium">الأعمال</button>
-            <button class="text-gray-400 text-xs font-medium">الأدوات</button>
-            <button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/15 text-white text-xs font-bold">
-                <span>الصفحة الرئيسية</span>
-                <span class="text-xs">🏠</span>
-            </button>
-        </nav>
-    </main>
+          </div>
+
+
+          <!-- بطاقة -->
+          <div class="glass rounded-[25px] border border-white/10 p-4">
+
+            <div class="mb-3 flex items-center gap-3">
+
+              <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-2xl">
+                💬
+              </div>
+
+              <div>
+                <h3 class="font-bold">
+                  خطوة بخطوة
+                </h3>
+
+                <p class="text-xs text-gray-400">
+                  راجع كل خطوة
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= الأعمال ================= -->
+
+    <section class="px-5 pb-32">
+
+      <div class="mb-5 flex items-center justify-between">
+
+        <h2 class="text-xl font-bold">
+          إلهام بلوت كرافت
+        </h2>
+
+        <button class="text-sm text-gray-400">
+          عرض الكل
+        </button>
+
+      </div>
+
+
+      <!-- الأعمال -->
+      <div class="hide-scrollbar flex gap-4 overflow-x-auto pb-4">
+
+        <!-- Card 1 -->
+        <article class="min-w-[190px] overflow-hidden rounded-[18px] bg-[#161719]">
+
+          <img
+            src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=500&q=80"
+            class="h-[275px] w-full object-cover"
+            alt="Movie"
+          >
+
+          <div class="p-3">
+
+            <h3 class="truncate text-sm font-bold">
+              THE WRONG DOOR
+            </h3>
+
+            <p class="mt-1 text-[10px] text-gray-500">
+              A mysterious story
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <!-- Card 2 -->
+        <article class="min-w-[190px] overflow-hidden rounded-[18px] bg-[#161719]">
+
+          <img
+            src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=500&q=80"
+            class="h-[275px] w-full object-cover"
+            alt="Movie"
+          >
+
+          <div class="p-3">
+
+            <h3 class="truncate text-sm font-bold">
+              THE DELIVERYMAN'S
+              SECRET BILLIONAIRE
+            </h3>
+
+            <p class="mt-1 text-[10px] text-gray-500">
+              A dramatic story
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <!-- Card 3 -->
+        <article class="min-w-[190px] overflow-hidden rounded-[18px] bg-[#161719]">
+
+          <img
+            src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=500&q=80"
+            class="h-[275px] w-full object-cover"
+            alt="Movie"
+          >
+
+          <div class="p-3">
+
+            <h3 class="truncate text-sm font-bold">
+              THE INVITATION
+            </h3>
+
+            <p class="mt-1 text-[10px] text-gray-500">
+              Mystery
+            </p>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= Bottom Navigation ================= -->
+
+    <nav
+      class="fixed bottom-4 left-1/2 z-50 flex w-[calc(100%-32px)] max-w-[450px] -translate-x-1/2 items-center justify-around rounded-[30px] border border-white/10 bg-[#202124]/90 px-3 py-3 shadow-2xl backdrop-blur-xl"
+    >
+
+      <!-- الصفحة -->
+      <button class="flex flex-col items-center gap-1 rounded-2xl bg-white/10 px-5 py-2">
+
+        <span class="text-xl">
+          🏠
+        </span>
+
+        <span class="text-[10px]">
+          الصفحة الرئيسية
+        </span>
+
+      </button>
+
+
+      <!-- الأدوات -->
+      <button class="flex flex-col items-center gap-1 px-4 py-2 text-gray-400">
+
+        <span class="text-xl">
+          ✦
+        </span>
+
+        <span class="text-[10px]">
+          الأدوات
+        </span>
+
+      </button>
+
+
+      <!-- الأعمال -->
+      <button class="flex flex-col items-center gap-1 px-4 py-2 text-gray-400">
+
+        <span class="text-xl">
+          🔥
+        </span>
+
+        <span class="text-[10px]">
+          الأعمال
+        </span>
+
+      </button>
+
+
+      <!-- إنشاء -->
+      <button class="flex flex-col items-center gap-1 px-4 py-2 text-gray-400">
+
+        <span class="text-xl">
+          ▣
+        </span>
+
+        <span class="text-[10px]">
+          إنشاء
+        </span>
+
+      </button>
+
+    </nav>
+
+  </main>
+
 </body>
 </html>
-"""
-
-st.components.v1.html(html_code, height=880, scrolling=True)
