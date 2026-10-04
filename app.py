@@ -6,7 +6,7 @@ st.set_page_config(
     page_title="PlotCraft - مولد الفيديوهات", page_icon="🎬", layout="centered"
 )
 
-# تصميم وتنسيق CSS مخصص لواجهة داكنة وتصميم احترافي نقي
+# تصميم وتنسيق CSS مخصص لواجهة داكنة وتصميم احترافي نقي مع رسم التاج الفضي بدقة
 st.markdown(
     """
     <style>
@@ -44,6 +44,18 @@ st.markdown(
         margin-bottom: 20px;
         text-align: right;
     }
+    
+    /* تصميم التاج الفضي الصغير ذو النتوءات الثلاثة المطابق للصورة تماماً */
+    .exact-silver-crown {
+        display: inline-block;
+        width: 15px;
+        height: 12px;
+        background: linear-gradient(135deg, #ffffff 0%, #94a3b8 50%, #64748b 100%);
+        clip-path: polygon(0% 100%, 100% 100%, 85% 20%, 65% 65%, 50% 10%, 35% 65%, 15% 20%);
+        margin-right: 6px;
+        vertical-align: middle;
+        box-shadow: 0 0 4px rgba(255, 255, 255, 0.4);
+    }
     </style>
 """,
     unsafe_allow_html=True,
@@ -54,13 +66,14 @@ top_col1, top_col2 = st.columns([3, 1])
 
 with top_col1:
   st.markdown(
-      "<h3 style='margin:0; color: #f8fafc; text-align: right;'>PlotCraft</h3>",
+      "<h3 style='margin:0; color: #f8fafc; text-align: right; padding-top: "
+      "8px;'>PlotCraft</h3>",
       unsafe_allow_html=True,
   )
 
 with top_col2:
-  # استخدام زر بوب أوفر بنص نظيف تماماً بدون أكواد تظهر
-  with st.popover("ترقية 👑"):
+  # قائمة منبثقة للترقية مع التاج الفضي المصمم خصيصاً
+  with st.popover("ترقية <span class='exact-silver-crown'></span>"):
     st.markdown(
         "<h3 style='text-align: center; color: #ffffff; margin-bottom:0;'>PlotCraft</h3>",
         unsafe_allow_html=True,
