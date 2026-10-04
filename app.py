@@ -51,8 +51,8 @@ html_code = """
                         url('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=800&q=80');
             background-size: cover;
             background-position: center;
-            /* تم زيادة الـ padding-top هنا إلى 45px للتجربة */
-            padding: 45px 16px 20px 16px;
+            /* تم ضبط الـ padding-top على 50px */
+            padding: 50px 16px 20px 16px;
             border-bottom-left-radius: 28px;
             border-bottom-right-radius: 28px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
