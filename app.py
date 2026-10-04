@@ -29,9 +29,19 @@ with col_title:
 st.write("حول قصصك وصور الشخصيات إلى مقاطع فيديو سينمائية احترافية!")
 st.markdown("---")
 
-# --- سحب المفتاح تلقائياً من إعدادات الأسرار في Streamlit ---
-if "FAL_KEY" in st.secrets:
-    os.environ["FAL_KEY"] = st.secrets["FAL_KEY"]
+# --- حقل إدخال مفتاح الـ API المرئي والمباشر ---
+st.markdown("### 🔑 مفتاح المصادقة (API Key)")
+user_api_key = st.text_input(
+    "أدخل مفتاح fal.ai الخاص بك هنا:",
+    type="password",
+    value="",
+    placeholder="الصق مفتاحك الذي يبدأ بـ fal_sk_ هنا..."
+)
+
+if user_api_key.strip():
+    os.environ["FAL_KEY"] = user_api_key.strip()
+
+st.markdown("---")
 
 # --- 1. خيارات الدقة بشكل أفقي ---
 st.markdown("### ⚙️ دقة الفيديو")
@@ -77,18 +87,24 @@ prompt_text = st.text_area(
 )
 
 if st.button("توليد الفيديو الحقيقي 🚀", use_container_width=True):
+    current_key = os.environ.get("FAL_KEY", "").strip()
+    
     if not prompt_text.strip():
         st.warning("يرجى كتابة وصف المشهد أولاً.")
-    elif not os.environ.get("FAL_KEY"):
-        st.error("⚠️ يرجى إضافة مفتاح الـ FAL_KEY في إعدادات Secrets الخاصة بالتطبيق.")
+    elif not current_key:
+        st.error("⚠️ يرجى إدخال مفتاح fal.ai في الحقل الموجود أعلى الصفحة أولاً لكي تتم عملية التوليد.")
     else:
         with st.spinner(f"جاري معالجة الفيديو بدقة {resolution_option} ولمدة {duration_option} عبر fal.ai... يرجى الانتظار"):
             try:
+                # إرسال الطلب مع تمرير المفتاح صراحةً
                 handler = fal_client.submit(
                     "fal-ai/minimax-video",
                     arguments={
                         "prompt": prompt_text,
                     },
+                    client_config={
+                        "credentials": current_key
+                    }
                 )
                 
                 result = handler.get()
@@ -98,7 +114,7 @@ if st.button("توليد الفيديو الحقيقي 🚀", use_container_widt
                     st.success("تم توليد الفيديو بنجاح! 🎉")
                     st.video(video_url)
                 else:
-                    st.error("حدث خطأ أثناء استخراج رابط الفيديو، تأكد من رصيد الحساب.")
+                    st.error("حدث خطأ أثناء استخراج رابط الفيديو، تأكد من صحة المفتاح ورصيد حسابك.")
                     
             except Exception as e:
                 st.error(f"خطأ في الاتصال بالسيرفر: {e}")
