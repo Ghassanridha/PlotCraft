@@ -45,7 +45,7 @@ html_code = """
             height: 100vh;
             position: relative;
             overflow-y: auto;
-            padding-bottom: 110px;
+            padding-bottom: 150px;
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         
@@ -88,10 +88,10 @@ html_code = """
         .screen { display: none; width: 100%; flex-direction: column; }
         .screen.active { display: flex; }
         
-        /* شريط التنقل السفلي (تم رفع ليفوك بمقدار مناسب) */
+        /* شريط التنقل السفلي المرفوع بشكل ممتاز */
         .nav-bar {
             position: fixed;
-            bottom: 25px;
+            bottom: 65px;
             left: 50%;
             transform: translateX(-50%);
             width: 92%;
@@ -239,7 +239,7 @@ html_code = """
 
         </div>
 
-        <!-- الشريط السفلي (الترتيب: الرئيسية، ثم الأدوات، ثم الأعمال من اليمين لليسار مع الرفع للأعلى) -->
+        <!-- الشريط السفلي (مع الحفاظ على الاسم فوق وثبات كل العناصر) -->
         <nav class="nav-bar">
             <button id="btn-home" onclick="switchScreen('home')" class="nav-item active">
                 <span>الرئيسية</span>
