@@ -6,7 +6,7 @@ st.set_page_config(
     page_title="PlotCraft - مولد الفيديوهات", page_icon="🎬", layout="centered"
 )
 
-# تصميم وتنسيق CSS مخصص لواجهة داكنة وتصميم احترافي نقي مع رسم التاج الفضي بدقة
+# تصميم وتنسيق CSS مخصص لواجهة داكنة وتنسيق النصوص الثنائية (عربي/إنجليزي) بشكل احترافي
 st.markdown(
     """
     <style>
@@ -44,18 +44,6 @@ st.markdown(
         margin-bottom: 20px;
         text-align: right;
     }
-    
-    /* تصميم التاج الفضي الصغير ذو النتوءات الثلاثة المطابق للصورة تماماً */
-    .exact-silver-crown {
-        display: inline-block;
-        width: 15px;
-        height: 12px;
-        background: linear-gradient(135deg, #ffffff 0%, #94a3b8 50%, #64748b 100%);
-        clip-path: polygon(0% 100%, 100% 100%, 85% 20%, 65% 65%, 50% 10%, 35% 65%, 15% 20%);
-        margin-right: 6px;
-        vertical-align: middle;
-        box-shadow: 0 0 4px rgba(255, 255, 255, 0.4);
-    }
     </style>
 """,
     unsafe_allow_html=True,
@@ -66,42 +54,56 @@ top_col1, top_col2 = st.columns([3, 1])
 
 with top_col1:
   st.markdown(
-      "<h3 style='margin:0; color: #f8fafc; text-align: right; padding-top: "
-      "8px;'>PlotCraft</h3>",
+      "<h3 style='margin:0; color: #f8fafc; text-align: right; padding-top:"
+      " 8px;'>PlotCraft</h3>",
       unsafe_allow_html=True,
   )
 
 with top_col2:
-  # قائمة منبثقة للترقية مع التاج الفضي المصمم خصيصاً
-  with st.popover("ترقية <span class='exact-silver-crown'></span>"):
+  # زر الترقية بالعربي والإنجليزي (ترقية | PRO) وبدون أي إيموجي
+  with st.popover("ترقية | PRO"):
     st.markdown(
-        "<h3 style='text-align: center; color: #ffffff; margin-bottom:0;'>PlotCraft</h3>",
+        "<h3 style='text-align: center; color: #ffffff; margin-bottom:0;'>PlotCraft"
+        " PRO</h3>",
         unsafe_allow_html=True,
     )
     st.markdown(
         "<p style='text-align: center; font-size: 12px; color: #94a3b8;"
-        " margin-top:2px;'>حول أفكارك إلى دراما احترافية</p>",
+        " margin-top:2px;'>حول أفكارك إلى دراما احترافية<br><span"
+        " style='font-size: 10px; color: #64748b;'>Turn your ideas into"
+        " professional drama</span></p>",
         unsafe_allow_html=True,
     )
 
     st.markdown("---")
 
-    # خيارات الاشتراكات بنصوص وأرقام فقط بشكل نظيف تماماً
-    if st.button("9.99 دولار | أسبوع | 500 رصيد للتوليد"):
+    # الخطة الأسبوعية مع ترجمة إنجليزية أصغر حجماً بالأسفل
+    if st.button(
+        "9.99 دولار | أسبوع | 500 رصيد للتوليد\n$9.99 | Weekly | 500 Credits"
+    ):
       st.balloons()
-      st.success("تم اختيار الخطة الأسبوعية بنجاح")
+      st.success("تم اختيار الخطة الأسبوعية بنجاح / Weekly plan selected")
 
-    if st.button("29.99 دولار | شهر | 1800 رصيد (الأكثر طلباً)"):
+    # الخطة الشهرية مع ترجمة إنجليزية أصغر حجماً بالأسفل
+    if st.button(
+        "29.99 دولار | شهر | 1800 رصيد (الأكثر طلباً)\n$29.99 | Monthly | 1800"
+        " Credits (Most Popular)"
+    ):
       st.balloons()
-      st.success("تم اختيار الخطة الشهرية بنجاح")
+      st.success("تم اختيار الخطة الشهرية بنجاح / Monthly plan selected")
 
-    if st.button("69.99 دولار | سنة | 5000 رصيد ومميزات كاملة"):
+    # الخطة السنوية مع ترجمة إنجليزية أصغر حجماً بالأسفل
+    if st.button(
+        "69.99 دولار | سنة | 5000 رصيد ومميزات كاملة\n$69.99 | Yearly | 5000"
+        " Credits & Full Features"
+    ):
       st.balloons()
-      st.success("تم اختيار الخطة السنوية بنجاح")
+      st.success("تم اختيار الخطة السنوية بنجاح / Yearly plan selected")
 
     st.markdown(
         "<p style='text-align: center; font-size: 10px; color: #64748b; "
-        "margin-top: 10px;'>تجديد تلقائي، يمكن الإلغاء في أي وقت</p>",
+        "margin-top: 10px;'>تجديد تلقائي، يمكن الإلغاء في أي وقت<br>Auto-renewal,"
+        " cancel anytime</p>",
         unsafe_allow_html=True,
     )
 
