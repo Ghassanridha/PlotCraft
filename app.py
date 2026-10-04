@@ -52,7 +52,7 @@ html_code = """
             height: 100vh;
             position: relative;
             overflow-y: auto;
-            padding-bottom: 120px;
+            padding-bottom: 130px;
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         
@@ -66,9 +66,10 @@ html_code = """
             font-size: 11px;
             color: #9ca3af;
             border-bottom: 1px solid rgba(255,255,255,0.08);
+            flex-shrink: 0;
         }
         
-        /* قسم الهيدر العلوي */
+        /* قسم الهيدر العلوي الثابت */
         .hero-section {
             background: linear-gradient(180deg, rgba(11,13,18,0.3) 0%, rgba(11,13,18,0.95) 85%, #0b0d12 100%),
                         url('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=800&q=80');
@@ -77,6 +78,7 @@ html_code = """
             padding: 14px 16px;
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
+            flex-shrink: 0;
         }
         
         /* الصناديق الزجاجية للخيارات */
@@ -191,14 +193,14 @@ html_code = """
                     </div>
                 </div>
 
-                <!-- قسم إلهام بلوت كرافت (منزل للأسفل قرب شريط الأدوات) -->
-                <div style="padding: 20px 16px 30px 16px;">
+                <!-- قسم إلهام بلوت كرافت (منزل للأسفل تماماً قرب الأدوات) -->
+                <div style="padding: 24px 16px 20px 16px; margin-top: auto;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                         <h3 style="font-size: 13px; font-weight: 800; color: #ffffff;">إلهام بلوت كرافت</h3>
                         <span style="font-size: 10px; color: #9ca3af; font-weight: bold;">عرض الكل <</span>
                     </div>
 
-                    <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px;" class="no-scrollbar">
+                    <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px;" class="no-scrollbar">
                         
                         <!-- الصورة الأولى -->
                         <div style="min-width: 125px; width: 125px; height: 185px; border-radius: 14px; background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=350&q=80'); background-size: cover; background-position: center; position: relative; padding: 10px; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid rgba(255,255,255,0.15); flex-shrink: 0;">
