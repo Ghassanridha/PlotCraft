@@ -9,7 +9,7 @@ st.set_page_config(
 
 st.markdown("""
     <style>
-        /* إخفاء القائمة الجانبية وعناصر ستريمليت الافتراضية */
+        /* إخفاء القائمة الجانبية وعناصر ستريمليت الافتراضية بالكامل */
         [data-testid="stSidebarNav"], [data-testid="collapsedControl"], section[data-testid="stSidebar"] {
             display: none !important;
         }
@@ -79,7 +79,7 @@ html_code = """
             flex-shrink: 0;
         }
         
-        /* الصناديق الزجاجية للخيارات جنباً إلى جنب */
+        /* البطاقات الزجاجية الخيارات السريعة */
         .glass-box {
             background: rgba(255, 255, 255, 0.07);
             backdrop-filter: blur(16px);
@@ -89,17 +89,24 @@ html_code = """
             padding: 12px;
             position: relative;
             text-align: right;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .glass-box:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .screen { display: none; width: 100%; flex-direction: column; }
         .screen.active { display: flex; }
         
-        /* أزرار التنقل */
+        /* أزرار التنقل السفلية */
         .custom-nav-tabs {
             display: flex;
             gap: 8px;
             padding: 14px 16px;
             width: 100%;
+            margin-top: auto;
         }
         .tab-btn {
             flex: 1;
@@ -163,7 +170,7 @@ html_code = """
                     </div>
                 </div>
 
-                <!-- مربعات الخيارات السريعة (نزلت لتحت وأصبحت بجانب بعضها) -->
+                <!-- مربعات الخيارات السريعة جنباً إلى جنب -->
                 <div style="padding: 14px 16px;">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                         <div class="glass-box">
@@ -181,10 +188,10 @@ html_code = """
                 </div>
 
                 <!-- قسم إلهام بلوت كرافت -->
-                <div style="padding: 0px 16px 12px 16px;">
+                <div style="padding: 0px 16px 16px 16px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                         <h3 style="font-size: 13px; font-weight: 800; color: #ffffff;">إلهام بلوت كرافت</h3>
-                        <span style="font-size: 10px; color: #9ca3af; font-weight: bold;">عرض الكل <</span>
+                        <span style="font-size: 10px; color: #9ca3af; font-weight: bold; cursor: pointer;">عرض الكل <</span>
                     </div>
 
                     <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px;" class="no-scrollbar">
@@ -225,7 +232,7 @@ html_code = """
             <!-- شاشة الأعمال -->
             <div id="works-screen" class="screen" style="padding: 16px;">
                 <div style="display: flex; justify-content: flex-end; margin-bottom: 14px;">
-                    <span style="background: rgba(99, 102, 241, 0.2); color: #818cf8; padding: 6px 16px; border-radius: 20px; font-size: 11px; font-weight: bold;">+ مشروع جديد</span>
+                    <span style="background: rgba(99, 102, 241, 0.2); color: #818cf8; padding: 6px 16px; border-radius: 20px; font-size: 11px; font-weight: bold; cursor: pointer;">+ مشروع جديد</span>
                 </div>
                 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 220px;">
                     <p style="font-size: 12px; color: #9ca3af;">لا توجد أعمال محفوظة</p>
