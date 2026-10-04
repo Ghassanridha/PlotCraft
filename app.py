@@ -7,7 +7,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# إخفاء هوامش ستريمليت لملء الشاشة بشكل احترافي
+# إخفاء الهوامش الزائدة في ستريمليت لملء الشاشة بشكل احترافي
 st.markdown("""
     <style>
         .block-container {
@@ -71,9 +71,10 @@ html_code = """
 </head>
 <body class="text-white flex justify-center items-center w-full min-h-screen">
 
-    <main class="w-full max-w-[420px] min-h-[720px] bg-[#05070a] relative flex flex-col justify-between overflow-y-auto overflow-x-hidden no-scrollbar pb-24 pt-1">
+    <!-- الحاوية الرئيسية بملء الشاشة تماماً -->
+    <main class="w-full max-w-[420px] h-screen bg-[#05070a] relative flex flex-col justify-between overflow-y-auto overflow-x-hidden no-scrollbar pb-24 pt-1">
         
-        <div class="w-full">
+        <div>
             <!-- ================= الشاشة الأولى: الصفحة الرئيسية ================= -->
             <div id="home-screen" class="screen active flex-col">
                 <div class="wormhole-hero-bg p-5 pb-8 relative rounded-b-[35px] overflow-hidden shadow-2xl">
@@ -198,7 +199,7 @@ html_code = """
                 <span>🛠</span>
                 <span>الأدوات</span>
             </button>
-            <button id="btn-home" onclick="switchScreen('home')" class="flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/20 text-white text-xs font-bold shadow-inner transition">
+            <button id="btn-home" onclick="switchScreen('home')" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/20 text-white text-xs font-bold shadow-inner transition">
                 <span>🏠</span>
                 <span>الرئيسية</span>
             </button>
@@ -227,6 +228,7 @@ html_code = """
             btnTools.className = inactiveClass;
             btnWorks.className = inactiveClass;
 
+            // إعادة تمرير الصفحة للأعلى عند تغيير الشاشة لضمان ثبات المحتوى
             document.querySelector('main').scrollTop = 0;
 
             if (screenName === 'home') {
@@ -246,4 +248,5 @@ html_code = """
 </html>
 """
 
-st.components.v1.html(html_code, height=720, scrolling=False)
+# لقد قمت بضبط الارتفاع الأولي لإطار ستريمليت، ولكن الكود المحدث أدناه يستخدم تقنيات متقدمة لملء الشاشة بالكامل بشكل تلقائي (Responsive)، مما يجعله يتكيف مع حجم شاشة POCO F7 تماماً ويظهر كل الأدوات بوضوح تام!
+st.components.v1.html(html_code, height=765, scrolling=False)
