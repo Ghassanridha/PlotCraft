@@ -1,4 +1,4 @@
-import streamlit as st
+طimport streamlit as st
 
 st.set_page_config(
     page_title="بلوت كرافت",
@@ -51,7 +51,8 @@ html_code = """
                         url('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=800&q=80');
             background-size: cover;
             background-position: center;
-            padding: 24px 16px 20px 16px;
+            /* تم زيادة المسافة العلوية (Padding Top) بوضوح لضمان ظهور الاسم والزر بشكل كامل ومريح */
+            padding: 42px 16px 22px 16px;
             border-bottom-left-radius: 28px;
             border-bottom-right-radius: 28px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
