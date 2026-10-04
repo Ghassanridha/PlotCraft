@@ -6,7 +6,7 @@ st.set_page_config(
     page_title="PlotCraft - مولد الفيديوهات", page_icon="🎬", layout="centered"
 )
 
-# تصميم وتنسيق CSS مخصص لواجهة داكنة وتنسيق النصوص الثنائية (عربي/إنجليزي) بشكل احترافي
+# تصميم وتنسيق CSS مخصص لواجهة داكنة وتنسيق احترافي للأزرار والنصوص
 st.markdown(
     """
     <style>
@@ -22,7 +22,7 @@ st.markdown(
         border-radius: 12px;
         border: 1px solid #2d3748;
     }
-    /* تنسيق الأزرار الرئيسية */
+    /* تنسيق الأزرار الرئيسية في التطبيق */
     .stButton button {
         background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
         color: white;
@@ -44,6 +44,27 @@ st.markdown(
         margin-bottom: 20px;
         text-align: right;
     }
+    
+    /* تنسيق أزرار خطط الترقية لتكون مرتبة بعناية (عربي فوق وإنجليزي تحته تماماً) */
+    .sub-btn-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        text-align: center;
+    }
+    .sub-ar {
+        font-size: 14px;
+        font-weight: bold;
+        color: #ffffff;
+        margin-bottom: 3px;
+    }
+    .sub-en {
+        font-size: 11px;
+        color: #94a3b8;
+        font-weight: normal;
+    }
     </style>
 """,
     unsafe_allow_html=True,
@@ -60,8 +81,8 @@ with top_col1:
   )
 
 with top_col2:
-  # زر الترقية بالعربي والإنجليزي (ترقية | PRO) وبدون أي إيموجي
-  with st.popover("ترقية | PRO"):
+  # زر الترقية (PRO ترقية) بدون أي فاصل وبدون إيموجي
+  with st.popover("PRO ترقية"):
     st.markdown(
         "<h3 style='text-align: center; color: #ffffff; margin-bottom:0;'>PlotCraft"
         " PRO</h3>",
@@ -77,28 +98,40 @@ with top_col2:
 
     st.markdown("---")
 
-    # الخطة الأسبوعية مع ترجمة إنجليزية أصغر حجماً بالأسفل
+    # الخطة الأسبوعية (مرتبة بشكل عمودي نظيف)
     if st.button(
-        "9.99 دولار | أسبوع | 500 رصيد للتوليد\n$9.99 | Weekly | 500 Credits"
-    ):
-      st.balloons()
-      st.success("تم اختيار الخطة الأسبوعية بنجاح / Weekly plan selected")
+        "weekly_plan_btn", key="btn_week", use_container_width=True
+    ):  # استخدام مفتاح فريد لضمان عمل الزر
+      pass
 
-    # الخطة الشهرية مع ترجمة إنجليزية أصغر حجماً بالأسفل
-    if st.button(
-        "29.99 دولار | شهر | 1800 رصيد (الأكثر طلباً)\n$29.99 | Monthly | 1800"
-        " Credits (Most Popular)"
-    ):
-      st.balloons()
-      st.success("تم اختيار الخطة الشهرية بنجاح / Monthly plan selected")
+    # استخدام طريقة عرض منظمة جداً لأزرار الاشتراكات عبر دمج النصوص بأسطر منفصلة
+    st.markdown(
+        """
+        <style>
+        div[data-testid="stButton"] button {
+            height: auto;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        </style>
+    """,
+        unsafe_allow_html=True,
+    )
 
-    # الخطة السنوية مع ترجمة إنجليزية أصغر حجماً بالأسفل
-    if st.button(
-        "69.99 دولار | سنة | 5000 رصيد ومميزات كاملة\n$69.99 | Yearly | 5000"
-        " Credits & Full Features"
-    ):
+    # الخطة الأسبوعية
+    if st.button("9.99 دولار | أسبوع | 500 رصيد للتوليد \n $9.99 | Weekly | 500 Credits"):
       st.balloons()
-      st.success("تم اختيار الخطة السنوية بنجاح / Yearly plan selected")
+      st.success("تم اختيار الخطة الأسبوعية بنجاح")
+
+    # الخطة الشهرية
+    if st.button("29.99 دولار | شهر | 1800 رصيد (الأكثر طلباً) \n $29.99 | Monthly | 1800 Credits (Most Popular)"):
+      st.balloons()
+      st.success("تم اختيار الخطة الشهرية بنجاح")
+
+    # الخطة السنوية
+    if st.button("69.99 دولار | سنة | 5000 رصيد ومميزات كاملة \n $69.99 | Yearly | 5000 Credits & Full Features"):
+      st.balloons()
+      st.success("تم اختيار الخطة السنوية بنجاح")
 
     st.markdown(
         "<p style='text-align: center; font-size: 10px; color: #64748b; "
