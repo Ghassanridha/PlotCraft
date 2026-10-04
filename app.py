@@ -9,7 +9,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# تطبيق تصميم CSS مخصص لفرض الشكل السينمائي والترتيب الدقيق
+# تطبيق تصميم CSS مخصص لفرض الشكل السينمائي والترتيب الأفقي الدقيق
 st.markdown("""
     <style>
     /* إخفاء عناصر ستريمليت الافتراضية */
@@ -44,6 +44,7 @@ st.markdown("""
         font-weight: 800;
         color: #ffffff;
         text-align: right;
+        letter-spacing: 0.5px;
     }
     
     .pro-btn-container {
@@ -68,23 +69,25 @@ st.markdown("""
         border-color: rgba(255, 255, 255, 0.3);
     }
     
-    /* صف البطاقتين المتجاورتين أفقياً */
+    /* صف البطاقتين المتجاورتين أفقياً (الحل الجذري) */
     .cards-row {
         display: flex;
+        flex-direction: row; /* إجبار العناصر على الاصطفاف جنباً إلى جنب */
         gap: 15px;
         margin-bottom: 20px;
         width: 100%;
         padding: 0 10px;
+        box-sizing: border-box;
     }
     
     /* تصميم البطاقة المشابهة للصورة (يمين: خطوة بخطوة، يسار: سريع) */
     .feature-card {
-        flex: 1;
-        background: linear-gradient(180deg, rgba(11,15,25,0.1) 0%, rgba(11,15,25,0.85) 70%, #0b0f19 100%), 
+        flex: 1; /* كل بطاقة تأخذ نصف المساحة المتاحة */
+        background: linear-gradient(180deg, rgba(11,15,25,0.1) 0%, rgba(11,15,25,0.85) 70%, #0b0f19 100()), 
                     url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1000&auto=format&fit=crop') center/cover;
         border-radius: 20px;
         padding: 20px;
-        height: 320px;
+        height: 320px; /* اجبار البطاقة على أن تكون طويلة ومربعة الشكل */
         display: flex;
         flex-direction: column;
         justify-content: flex-end; /* النصوص في الأسفل */
@@ -92,6 +95,7 @@ st.markdown("""
         cursor: pointer;
         transition: transform 0.2s ease;
         border: 1px solid rgba(255, 255, 255, 0.1);
+        box-sizing: border-box;
     }
     .feature-card:hover {
         transform: translateY(-5px);
@@ -132,7 +136,7 @@ if 'page' not in st.session_state:
     st.session_state.page = 'home'
 
 # ----------------------------------------------------
-# بناء واجهة المستخدم باستخدام HTML المخصص لضمان الترتيب
+# بناء واجهة المستخدم باستخدام HTML المخصص لضمان الترتيب الأفقي
 # ----------------------------------------------------
 
 st.markdown('<div class="main-container">', unsafe_allow_html=True)
@@ -147,7 +151,7 @@ st.markdown(f"""
     </div>
 """, unsafe_allow_html=True)
 
-# خدعة لعمل الزر يعمل
+# خدعة لعمل الزر يعمل برمجياً
 if st.button("...", key="link_to_pro", help="Click to go to Pro page"):
     st.session_state.page = 'pro'
     st.rerun()
@@ -156,34 +160,31 @@ if st.button("...", key="link_to_pro", help="Click to go to Pro page"):
 # 2. الصفحة الرئيسية (Home) - ظهور البطاقتين المتجاورتين تماماً كالصورة
 # ----------------------------------------------------
 if st.session_state.page == 'home':
-    # صف البطاقات الرئيسية المربعة
+    # صف البطاقات الرئيسية المربعة (الحل الجذري عبر CSS)
     st.markdown('<div class="cards-row">', unsafe_allow_html=True)
     
     # البطاقة اليمنى: خطوة بخطوة
-    col_right, col_left = st.columns(2)
-
-    with col_right:
-        st.markdown("""
-            <div class="feature-card" onclick="document.getElementById('btn_step_action').click()">
-                <div class="card-title-lg">خطوة بخطوة</div>
-                <div class="card-subtitle-sm">مساء الخير أيها المخرج، أي قصة سنصنع اليوم؟<br>راجع كل خطوة</div>
-            </div>
-        """, unsafe_allow_html=True)
-        if st.button("بدء خطوة بخطوة", key="btn_step_action", use_container_width=True):
-            st.session_state.page = 'generator'
-            st.rerun()
+    # نستخدم ستريمليت كولمنز داخل ديف الـ CSS
+    st.markdown("""
+        <div class="feature-card" onclick="document.getElementById('btn_step_action').click()">
+            <div class="card-title-lg">خطوة بخطوة</div>
+            <div class="card-subtitle-sm">مساء الخير أيها المخرج، أي قصة سنصنع اليوم؟<br>راجع كل خطوة</div>
+        </div>
+    """, unsafe_allow_html=True)
+    if st.button("بدء خطوة بخطوة", key="btn_step_action", use_container_width=True):
+        st.session_state.page = 'generator'
+        st.rerun()
 
     # البطاقة اليسرى: سريع
-    with col_left:
-        st.markdown("""
-            <div class="feature-card" onclick="document.getElementById('btn_quick_action').click()">
-                <div class="card-title-lg">سريع</div>
-                <div class="card-subtitle-sm">إدخال واحد، فيديو كامل</div>
-            </div>
-        """, unsafe_allow_html=True)
-        if st.button("بدء سريع", key="btn_quick_action", use_container_width=True):
-            st.session_state.page = 'generator'
-            st.rerun()
+    st.markdown("""
+        <div class="feature-card" onclick="document.getElementById('btn_quick_action').click()">
+            <div class="card-title-lg">سريع</div>
+            <div class="card-subtitle-sm">إدخال واحد، فيديو كامل</div>
+        </div>
+    """, unsafe_allow_html=True)
+    if st.button("بدء سريع", key="btn_quick_action", use_container_width=True):
+        st.session_state.page = 'generator'
+        st.rerun()
             
     st.markdown('</div>', unsafe_allow_html=True) # نهاية cards-row
 
@@ -191,7 +192,7 @@ if st.session_state.page == 'home':
     st.markdown('<div class="section-container">', unsafe_allow_html=True)
     st.markdown('<div class="section-title">إلهام الدراما</div>', unsafe_allow_html=True)
     
-    # بوسترات الأفلام (صورة 500x500 من Unsplash)
+    # بوسترات الأفلام
     p1, p2 = st.columns(2)
     with p1:
         st.image("https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=500&auto=format&fit=crop", caption="THE WRONG DOOR", use_container_width=True)
@@ -205,7 +206,7 @@ if st.session_state.page == 'home':
 # ----------------------------------------------------
 elif st.session_state.page == 'generator':
     st.markdown("### مولد الفيديوهات السينمائية")
-    # ... باقي الكود السابق لصفحة التوليد ...
+    # ... باقي الكود السابق ...
 
 # ... باقي المنطق للصفحات الأخرى ...
 
