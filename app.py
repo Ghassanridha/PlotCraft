@@ -49,9 +49,21 @@ html_code = """
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         
-        /* الهيدر العلوي بارتفاع 70px وقياسات دقيقة */
+        /* شريط المتصفح العلوي (Connecting والشير والإعدادات) */
+        .top-browser-bar {
+            background-color: #12141c;
+            padding: 8px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: #9ca3af;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        
+        /* قسم الهيدر العلوي */
         .hero-section {
-            background: linear-gradient(180deg, rgba(11,13,18,0.2) 0%, rgba(11,13,18,0.95) 85%, #0b0d12 100%),
+            background: linear-gradient(180deg, rgba(11,13,18,0.3) 0%, rgba(11,13,18,0.95) 85%, #0b0d12 100%),
                         url('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=800&q=80');
             background-size: cover;
             background-position: center;
@@ -112,10 +124,10 @@ html_code = """
             white-space: nowrap;
         }
         .nav-item.active {
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.15);
             color: #ffffff;
             font-weight: 700;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
     </style>
 </head>
@@ -123,12 +135,27 @@ html_code = """
 
     <div class="main-container">
         
+        <!-- شريط المتصفح العلوي المطابق للصورة -->
+        <div class="top-browser-bar">
+            <div style="display: flex; align-items: center; gap: 6px; font-size: 10px; letter-spacing: 0.5px;">
+                <span>...</span>
+                <span style="color: #e2e8f0; font-weight: bold;">CONNECTING</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; font-size: 13px;">
+                <span>Share</span>
+                <span>⭐</span>
+                <span>✏️</span>
+                <span>🐱</span>
+                <span>⋮</span>
+            </div>
+        </div>
+
         <div style="width: 100%;">
             
             <!-- الشاشة الرئيسية -->
             <div id="home-screen" class="screen active">
                 <div class="hero-section">
-                    <!-- الصف العلوي: زر الترقية يمين، والعنوان يسار -->
+                    <!-- الصف العلوي: زر الترقية يمين، وعنوان التطبيق يسار -->
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                         <span style="background: rgba(255,255,255,0.1); padding: 5px 14px; border-radius: 20px; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 4px; border: 1px solid rgba(255,255,255,0.15);">ترقية ✨</span>
                         
@@ -143,7 +170,7 @@ html_code = """
                         <h2 style="font-size: 16px; font-weight: 900; color: #ffffff;">أي قصة سنصنع اليوم؟</h2>
                     </div>
 
-                    <!-- مربعات الخيارات السريعة -->
+                    <!-- مربعات الخيارات السريعة (خطوة بخطوة يمين، سريع يسار) -->
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                         
                         <!-- مربع خطوة بخطوة -->
@@ -173,13 +200,13 @@ html_code = """
 
                     <div style="display: flex; gap: 12px; overflow-x: auto; padding-bottom: 6px;" class="no-scrollbar">
                         
-                        <!-- البطاقة الأولى -->
+                        <!-- البطاقة الأولى (THE DELIVERYMAN) -->
                         <div style="min-width: 140px; height: 200px; border-radius: 16px; background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=300&q=80'); background-size: cover; background-position: center; position: relative; padding: 12px; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid rgba(255,255,255,0.15);">
                             <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.1)); border-radius: 16px;"></div>
                             <span style="position: relative; z-index: 10; font-size: 9px; font-weight: 900; text-align: center; letter-spacing: 0.5px; color: #ffffff;">THE DELIVERYMAN</span>
                         </div>
 
-                        <!-- البطاقة الثانية -->
+                        <!-- البطاقة الثانية (THE WRONG DOOR) -->
                         <div style="min-width: 140px; height: 200px; border-radius: 16px; background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=300&q=80'); background-size: cover; background-position: center; position: relative; padding: 12px; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid rgba(255,255,255,0.15);">
                             <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.1)); border-radius: 16px;"></div>
                             <span style="position: relative; z-index: 10; font-size: 9px; font-weight: 900; text-align: center; letter-spacing: 0.5px; color: #ffffff;">THE WRONG DOOR</span>
@@ -212,7 +239,7 @@ html_code = """
 
         </div>
 
-        <!-- الشريط السفلي -->
+        <!-- الشريط السفلي (الترتيب المطابق للصورة: الرئيسية، الأدوات، الأعمال) -->
         <nav class="nav-bar">
             <button id="btn-works" onclick="switchScreen('works')" class="nav-item">
                 <span>الأعمال</span>
@@ -223,8 +250,8 @@ html_code = """
                 <span>🛠</span>
             </button>
             <button id="btn-home" onclick="switchScreen('home')" class="nav-item active">
-                <span>إدارة التطبيق</span>
-                <span><</span>
+                <span>الرئيسية</span>
+                <span>🏠</span>
             </button>
         </nav>
 
@@ -256,4 +283,4 @@ html_code = """
 </html>
 """
 
-st.components.v1.html(html_code, height=730, scrolling=False)
+st.components.v1.html(html_code, height=750, scrolling=False)
