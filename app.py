@@ -52,7 +52,8 @@ html_code = """
             height: 100vh;
             position: relative;
             overflow-y: auto;
-            padding-bottom: 90px;
+            /* زيادة المسافة لضمان عدم اختفاء أي محتوى خلف الشريط السفلي */
+            padding-bottom: 95px;
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         
@@ -96,10 +97,10 @@ html_code = """
         .screen { display: none; width: 100%; flex-direction: column; flex-grow: 1; }
         .screen.active { display: flex; }
         
-        /* شريط التنقل السفلي */
+        /* شريط التنقل السفلي (تم رفع مسافته عن الحافة ليكون واضح غير مخفي) */
         .nav-bar {
             position: fixed;
-            bottom: 12px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             width: 92%;
@@ -107,10 +108,10 @@ html_code = """
             background: rgba(18, 21, 30, 0.95);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 9999px;
             display: flex;
-            padding: 4px;
+            padding: 5px;
             z-index: 999;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
@@ -195,8 +196,8 @@ html_code = """
                     </div>
                 </div>
 
-                <!-- قسم إلهام بلوت كرافت (مُثبت في الأسفل تماماً قرب شريط الأدوات) -->
-                <div style="padding: 10px 16px; margin-top: auto;">
+                <!-- قسم إلهام بلوت كرافت (مرتب بمسافة آمنة فوق الشريط السفلي) -->
+                <div style="padding: 10px 16px 15px 16px; margin-top: auto;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                         <h3 style="font-size: 13px; font-weight: 800; color: #ffffff;">إلهام بلوت كرافت</h3>
                         <span style="font-size: 10px; color: #9ca3af; font-weight: bold;">عرض الكل <</span>
@@ -293,4 +294,4 @@ html_code = """
 </html>
 """
 
-st.components.v1.html(html_code, height=730, scrolling=False)
+st.components.v1.html(html_code, height=750, scrolling=False)
