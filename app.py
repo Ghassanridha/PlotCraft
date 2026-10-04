@@ -41,8 +41,8 @@ html_code = """
 
     <main class="w-full max-w-[420px] min-h-screen bg-[#05070a] relative shadow-2xl border border-white/10 flex flex-col justify-between pb-28 overflow-hidden">
         
-        <!-- ================= الشاشة الأولى: الصفحة الرئيسية ================= -->
-        <div id="home-screen" class="screen flex-col">
+        <!-- ================= الشاشة الأولى: الصفحة الرئيسية (الافتراضية) ================= -->
+        <div id="home-screen" class="screen active flex-col">
             <div class="hero-bg bg-cover bg-center p-5 pb-8 relative rounded-b-[35px]">
                 <div class="flex items-center justify-between mb-8">
                     <span class="font-black text-sm tracking-wide">بلوت كرافت</span>
@@ -104,7 +104,7 @@ html_code = """
 
             <div class="flex flex-col gap-4">
                 
-                <!-- 1. تأثيرات الفيديو (تم تحديثها لتكون صورة ثقب دودي فضائي حقيقي بسماء سوداء ونجوم وتدرج فضي بنسبة 70%) -->
+                <!-- 1. تأثيرات الفيديو (ثقب دودي بسماء سوداء ونجوم وتدرج فضي بنسبة 70%) -->
                 <div class="h-[135px] rounded-2xl bg-cover bg-center relative p-4 flex flex-col justify-between border border-white/25 shadow-2xl cursor-pointer" style="background-image: linear-gradient(to left, rgba(20,22,28,0.70) 40%, rgba(5,7,10,0.70) 100%), url('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=600&q=80')">
                     <div class="flex justify-end items-start z-10">
                         <span class="w-6 h-6 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white text-xs border border-white/20">‹</span>
@@ -156,21 +156,21 @@ html_code = """
             </div>
         </div>
 
-        <!-- ================= شريط التنقل السفلي الفعّال ================= -->
+        <!-- ================= شريط التنقل السفلي بترتيب صحيح ================= -->
         <nav class="absolute bottom-4 left-4 right-4 glass-nav rounded-full px-4 py-2 flex items-center justify-between z-30 shadow-2xl">
-            <button id="btn-home" onclick="switchScreen('home')" class="text-gray-400 hover:text-white text-xs font-medium flex items-center gap-1 px-3 py-2 rounded-full transition">
-                <span>🏠</span>
-                <span>الرئيسية</span>
+            <button onclick="alert('المزيد قريباً')" class="text-gray-400 hover:text-white text-xs font-medium p-2">✨</button>
+            <button id="btn-works" onclick="switchScreen('works')" class="text-gray-400 hover:text-white text-xs font-medium flex items-center gap-1 px-3 py-2 rounded-full transition">
+                <span>💼</span>
+                <span>الأعمال</span>
             </button>
             <button id="btn-tools" onclick="switchScreen('tools')" class="text-gray-400 hover:text-white text-xs font-medium flex items-center gap-1 px-3 py-2 rounded-full transition">
                 <span>🛠</span>
                 <span>الأدوات</span>
             </button>
-            <button id="btn-works" onclick="switchScreen('works')" class="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white/20 text-white text-xs font-bold shadow-inner transition">
-                <span>💼</span>
-                <span>الأعمال</span>
+            <button id="btn-home" onclick="switchScreen('home')" class="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white/20 text-white text-xs font-bold shadow-inner transition">
+                <span>🏠</span>
+                <span>الرئيسية</span>
             </button>
-            <button onclick="alert('المزيد قريباً')" class="text-gray-400 hover:text-white text-xs font-medium p-2">✨</button>
         </nav>
 
     </main>
