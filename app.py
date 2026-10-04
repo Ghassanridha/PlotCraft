@@ -1,223 +1,127 @@
 import streamlit as st
 
-# إعدادات الصفحة لتكون بعرض كامل وتناسب الهواتف/الشاشات الداكنة
 st.set_page_config(
-    page_title="بلوت كرافت",
-    page_icon="🎬",
+    page_title="منصة أرباح الفيديوهات",
+    page_icon="💰",
     layout="centered",
-    initial_sidebar_state="collapsed",
+    initial_sidebar_state="collapsed"
 )
 
-# تنسيقات CSS مخصصة لمحاكاة التصميم الداكن (Dark Mode) والأزرار والبطاقات
-st.markdown(
-    """
+html_code = """
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة الأرباح</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
-    /* خلفية التطبيق العامة */
-    .stApp {
-        background-color: #0b0f19;
-        color: #ffffff;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
-    
-    /* إخفاء عناصر ستريملايت الافتراضية للترويسة */
-    header {visibility: hidden;}
-    .reportview-container .main footer {visibility: hidden;}
-    
-    /* شريط الترقية العلوي */
-    .top-badge {
-        display: inline-block;
-        background-color: rgba(255, 255, 255, 0.1);
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 12px;
-        color: #e2e8f0;
-        margin-bottom: 15px;
-    }
-    
-    /* ترحيب المخرج */
-    .welcome-title {
-        font-size: 22px;
-        font-weight: bold;
-        text-align: right;
-        color: #ffffff;
-        margin-bottom: 5px;
-    }
-    .welcome-subtitle {
-        font-size: 18px;
-        text-align: right;
-        color: #94a3b8;
-        margin-bottom: 20px;
-    }
-    
-    /* بطاقات الخيارات السريعة */
-    .feature-card {
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 16px;
-        padding: 15px;
-        text-align: right;
-        margin-bottom: 10px;
-        position: relative;
-    }
-    .pro-badge {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        background-color: rgba(255, 255, 255, 0.15);
-        padding: 2px 8px;
-        border-radius: 6px;
-        font-size: 10px;
-        color: #cbd5e1;
-    }
-    .card-title {
-        font-size: 16px;
-        font-weight: bold;
-        color: #ffffff;
-        margin-top: 5px;
-    }
-    .card-desc {
-        font-size: 12px;
-        color: #94a3b8;
-    }
-    
-    /* عناوين الأقسام */
-    .section-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 25px;
-        margin-bottom: 15px;
-        direction: rtl;
-    }
-    .section-title {
-        font-size: 18px;
-        font-weight: bold;
-        color: #ffffff;
-    }
-    .section-more {
-        font-size: 13px;
-        color: #94a3b8;
-        cursor: pointer;
-    }
-    
-    /* بطاقات الأفلام (الإلهام) */
-    .movie-card {
-        background-color: #1e293b;
-        border-radius: 12px;
-        overflow: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        text-align: right;
-    }
-    .movie-title {
-        padding: 10px;
-        font-size: 13px;
-        font-weight: bold;
-        color: #ffffff;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+        body { font-family: 'Tajawal', sans-serif; background-color: #07090e; }
+        .glass-box {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-nav {
+            background: rgba(15, 18, 28, 0.85);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
     </style>
-    """,
-    unsafe_allow_html=True,
-)
+</head>
+<body class="text-white flex justify-center items-center p-0 m-0 min-h-screen">
 
-# زر الترقية العلوي
-st.markdown('<div style="text-align: right;"><span class="top-badge">👑 ترقية</span></div>', unsafe_allow_html=True)
+    <main class="w-full max-w-[420px] min-h-screen bg-[#090b10] relative shadow-2xl border border-white/10 flex flex-col justify-between p-5 pb-24">
+        
+        <!-- الهيدر الشخصي والأرباح -->
+        <div>
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-300 flex items-center justify-center shadow-lg shadow-amber-500/20 text-black font-black text-lg">
+                        غ
+                    </div>
+                    <div>
+                        <h1 class="text-sm font-bold text-gray-400">مرحباً بك،</h1>
+                        <h2 class="text-base font-black text-white">غسان رضا</h2>
+                    </div>
+                </div>
+                <button class="px-3 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-bold flex items-center gap-1">
+                    <span>🟢 متصل</span>
+                </button>
+            </div>
 
-# رسالة الترحيب
-st.markdown('<div class="welcome-title">مساء الخير، أيها المخرج</div>', unsafe_allow_html=True)
-st.markdown('<div class="welcome-subtitle">أي قصة سنصنع اليوم؟</div>', unsafe_allow_html=True)
+            <!-- بطاقة الأرباح الكبرى -->
+            <div class="glass-box rounded-3xl p-5 mb-5 relative overflow-hidden">
+                <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl"></div>
+                <div class="flex justify-between items-start mb-2">
+                    <span class="text-xs font-medium text-gray-400">إجمالي الأرباح القابلة للسحب</span>
+                    <span class="text-[10px] bg-white/10 px-2 py-0.5 rounded-md text-emerald-400 font-bold">+24% هذا الأسبوع</span>
+                </div>
+                <div class="text-3xl font-black text-white mb-4 tracking-wider">
+                    $1,480.<span class="text-emerald-400 text-xl">50</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2 pt-3 border-t border-white/10">
+                    <div>
+                        <span class="text-[10px] text-gray-400 block">مشاهدات اليوم</span>
+                        <span class="text-sm font-bold text-white">48.2 ألف</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-gray-400 block">معدل الألف مشاهدة (RPM)</span>
+                        <span class="text-sm font-bold text-amber-400">$4.20</span>
+                    </div>
+                </div>
+            </div>
 
-# بطاقات الخيارات الرئيسية (سريع / خطوة بخطوة)
-col1, col2 = st.columns(2)
+            <!-- رفع فيديو جديد -->
+            <div class="glass-box rounded-2xl p-4 mb-5 border-dashed border-2 border-indigo-500/30 text-center cursor-pointer hover:border-indigo-500 transition">
+                <div class="text-2xl mb-1">📤</div>
+                <h3 class="text-sm font-bold text-white">رفع فيديو قصير جديد (Reels)</h3>
+                <p class="text-[11px] text-gray-400 mt-0.5">ابدأ بنشر محتواك لتحقيق الأرباح فوراً</p>
+            </div>
 
-with col1:
-    st.markdown(
-        """
-        <div class="feature-card">
-            <span class="pro-badge">Pro only</span>
-            <div style="font-size: 20px;">⚡</div>
-            <div class="card-title">سريع</div>
-            <div class="card-desc">إدخال واحد، فيميو كامل</div>
+            <!-- الفيديوهات النشطة حالياً -->
+            <h3 class="text-sm font-extrabold text-white mb-3 tracking-wide">أحدث فيديوهاتك المنشورة</h3>
+            
+            <div class="space-y-3">
+                <!-- فيديو 1 -->
+                <div class="glass-box rounded-2xl p-3 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-14 rounded-xl bg-gray-800 bg-cover bg-center border border-white/10" style="background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=200&q=80')"></div>
+                        <div>
+                            <h4 class="text-xs font-bold text-white">تحليل مباراة الكلاسيكو القادمة</h4>
+                            <span class="text-[10px] text-gray-400">12.4 ألف مشاهدة • قبل ساعتين</span>
+                        </div>
+                    </div>
+                    <span class="text-xs font-black text-emerald-400">+$18.50</span>
+                </div>
+
+                <!-- فيديو 2 -->
+                <div class="glass-box rounded-2xl p-3 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-14 rounded-xl bg-gray-800 bg-cover bg-center border border-white/10" style="background-image: url('https://images.unsplash.com/photo-1514533450685-4493e01d1fdc?auto=format&fit=crop&w=200&q=80')"></div>
+                        <div>
+                            <h4 class="text-xs font-bold text-white">أسرار عملة Solana والـ Memecoins</h4>
+                            <span class="text-[10px] text-gray-400">35.1 ألف مشاهدة • أمس</span>
+                        </div>
+                    </div>
+                    <span class="text-xs font-black text-emerald-400">+$45.20</span>
+                </div>
+            </div>
         </div>
-        """,
-        unsafe_allow_html=True,
-    )
 
-with col2:
-    st.markdown(
-        """
-        <div class="feature-card" style="margin-top: 0px;">
-            <div style="font-size: 20px;">💬</div>
-            <div class="card-title">خطوة بخطوة</div>
-            <div class="card-desc">راجع كل خطوة بدقة</div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+        <!-- شريط التنقل السفلي -->
+        <nav class="absolute bottom-3 left-4 right-4 glass-nav rounded-full px-4 py-2.5 flex items-center justify-between z-30 shadow-2xl">
+            <button class="text-gray-400 hover:text-white text-xs font-medium">الإعدادات</button>
+            <button class="text-gray-400 hover:text-white text-xs font-medium">المحفظة</button>
+            <button class="text-gray-400 hover:text-white text-xs font-medium">الأبحاث</button>
+            <button class="px-4 py-1.5 rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-xs font-bold shadow-md">الرئيسية</button>
+        </nav>
 
-# قسم إلهام بلوت كرافت
-st.markdown(
-    """
-    <div class="section-header">
-        <span class="section-title">إلهام بلوت كرافت</span>
-        <span class="section-more">عرض الكل ></span>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
+    </main>
 
-# عرض عينات من الأفلام/القصص الملهمة
-m_col1, m_col2 = st.columns(2)
+</body>
+</html>
+"""
 
-with m_col1:
-    st.markdown(
-        """
-        <div class="movie-card">
-            <div style="background: #334155; height: 160px; display: flex; align-items: center; justify-content: center; color: #64748b; font-size: 12px;">The Wrong Door</div>
-            <div class="movie-title">THE WRONG DOOR</div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-with m_col2:
-    st.markdown(
-        """
-        <div class="movie-card">
-            <div style="background: #334155; height: 160px; display: flex; align-items: center; justify-content: center; color: #64748b; font-size: 12px;">Secret Billionaire</div>
-            <div class="movie-title">THE DELIVERYMAN'S SECRET</div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-# مسافة فاصلة قبل شريط التنقل السفلي
-st.markdown("<br><br>", unsafe_allow_html=True)
-
-# شريط التنقل السفلي (Bottom Navigation Bar)
-st.markdown(
-    """
-    <div style="
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background-color: #0f172a;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 10px 20px;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        direction: rtl;
-        z-index: 999;
-    ">
-        <div style="text-align: center; color: #94a3b8; font-size: 12px;">🎥 مكتبتي</div>
-        <div style="text-align: center; color: #94a3b8; font-size: 12px;">💼 الأعمال</div>
-        <div style="text-align: center; color: #94a3b8; font-size: 12px;">🛠️ الأدوات</div>
-        <div style="text-align: center; color: #ffffff; font-size: 12px; font-weight: bold;">🏠 الصفحة الرئيسية</div>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
+st.components.v1.html(html_code, height=800, scrolling=True)
