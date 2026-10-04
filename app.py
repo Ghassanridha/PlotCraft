@@ -5,11 +5,7 @@ import os
 # إعداد الصفحة
 st.set_page_config(page_title="PlotCraft - مولد الفيديوهات", layout="centered")
 
-# إدخال مفتاح الـ API الخاص بـ fal.ai
-DEFAULT_FAL_KEY = "fal_sk_d8e30b437fdc44c891740a201522be4d:d78802704ad38b28b6b7f1bcef6ef4c"
-os.environ["FAL_KEY"] = DEFAULT_FAL_KEY
-
-# --- زر Pro Version مع نافذة منبثقة (Dialog) للاشتراكات ---
+# --- نافذة منبثقة (Dialog) للاشتراكات عند ضغط زر Pro ---
 @st.dialog("💎 خطط الاشتراك والترقية (Pro Version)")
 def show_pricing_dialog():
     st.write("اختر الباقة المناسبة لك للتمتع بكافة مميزات الذكاء الاصطناعي:")
@@ -22,18 +18,6 @@ def show_pricing_dialog():
         st.rerun()
 
 # تصميم زر Pro البرتقالي أعلى اليسار
-st.markdown("""
-    <style>
-    .stButton button[kind="secondary"] {
-        background: linear-gradient(45deg, #FF4B4B, #FF8F00);
-        color: white;
-        border-radius: 20px;
-        font-weight: bold;
-        border: none;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
 col_title, col_btn = st.columns([2, 1])
 with col_btn:
     if st.button("⭐ Pro Version", use_container_width=True):
@@ -45,7 +29,16 @@ with col_title:
 st.write("حول قصصك وصور الشخصيات إلى مقاطع فيديو سينمائية احترافية!")
 st.markdown("---")
 
-# --- 1. خيارات الدقة بشكل أفقي (جنب لجنب) ---
+# --- إدخال مفتاح الـ API ---
+user_fal_key = st.text_input("مفتاح API الخاص بـ fal.ai:", type="password", value="")
+if user_fal_key.strip():
+    os.environ["FAL_KEY"] = user_fal_key.strip()
+else:
+    os.environ["FAL_KEY"] = "fal_sk_d8e30b437fdc44c891740a201522be4d:d78802704ad38b28b6b7f1bcef6ef4c"
+
+st.markdown("---")
+
+# --- 1. خيارات الدقة بشكل أفقي ---
 st.markdown("### ⚙️ دقة الفيديو")
 resolution_option = st.radio(
     "اختر الدقة",
@@ -56,7 +49,7 @@ resolution_option = st.radio(
 
 st.markdown("")
 
-# --- 2. خيارات مدة الفيديو بشكل أفقي (جنب لجنب) ---
+# --- 2. خيارات مدة الفيديو بشكل أفقي ---
 st.markdown("### ⏱️ مدة الفيديو")
 duration_option = st.radio(
     "اختر المدة",
@@ -108,7 +101,7 @@ if st.button("توليد الفيديو الحقيقي 🚀", use_container_widt
                     st.success("تم توليد الفيديو بنجاح! 🎉")
                     st.video(video_url)
                 else:
-                    st.error("حدث خطأ أثناء استخراج رابط الفيديو، يرجى المحاولة مرة أخرى.")
+                    st.error("حدث خطأ أثناء استخراج رابط الفيديو، يرجى التأكد من مفتاح الـ API.")
                     
             except Exception as e:
-                st.error(f"حدث خطأ أثناء الاتصال بخدمة التوليد: {e}")
+                st.error(f"خطأ في الاتصال: {e}")
