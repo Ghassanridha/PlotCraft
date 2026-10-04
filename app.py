@@ -17,7 +17,7 @@ html_code = """
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Tajawal', sans-serif; background-color: #05070a; }
+        body { font-family: 'Tajawal', sans-serif; background-color: #05070a; overflow-x: hidden; }
         .glass-box {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
             backdrop-filter: blur(25px);
@@ -28,10 +28,32 @@ html_code = """
             backdrop-filter: blur(30px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        /* خلفية الهيرو الجديدة كلياً: ثقب دودي فلكي مع سماء سوداء وتدرج فضي دقيق */
-        .hero-bg {
-            background-image: linear-gradient(to bottom, rgba(5, 7, 10, 0.3), rgba(5, 7, 10, 0.95)), url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80');
+        
+        /* تصميم الثقب الدودي الفضائي: يبدأ من منطقة الترقية ويمتد للأسفل بلون أسود وفضي منحني */
+        .wormhole-bg {
+            background: radial-gradient(circle at 20% 15%, rgba(0, 0, 0, 0.95) 0%, rgba(192, 192, 192, 0.25) 35%, rgba(5, 7, 10, 0.98) 70%),
+                        linear-gradient(135deg, #05070a 0%, #121620 50%, #05070a 100%);
+            position: relative;
         }
+        /* حلقات الثقب الدودي الدوارة الفضية والسوداء */
+        .wormhole-ring {
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 2px dashed rgba(220, 224, 230, 0.35);
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.9), 0 0 40px rgba(180, 190, 200, 0.2);
+            pointer-events: none;
+            animation: rotateWormhole 20s linear infinite;
+        }
+        @keyframes rotateWormhole {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.05); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
         .screen { display: none; }
         .screen.active { display: flex; flex-direction: column; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -44,18 +66,22 @@ html_code = """
         
         <!-- ================= الشاشة الأولى: الصفحة الرئيسية ================= -->
         <div id="home-screen" class="screen active flex-col">
-            <div class="hero-bg bg-cover bg-center p-5 pb-8 relative rounded-b-[35px]">
-                <div class="flex items-center justify-between mb-8">
+            <div class="wormhole-bg p-5 pb-8 relative rounded-b-[35px] overflow-hidden">
+                <!-- تأثير الثقب الدودي المجسم -->
+                <div class="wormhole-ring"></div>
+                <div class="absolute top-10 right-10 w-40 h-40 bg-gradient-to-br from-gray-300/20 to-black rounded-full blur-2xl pointer-events-none"></div>
+
+                <div class="flex items-center justify-between mb-8 relative z-10">
                     <span class="font-black text-sm tracking-wide">بلوت كرافت</span>
-                    <span class="px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-[11px] font-bold text-white border border-white/15 cursor-pointer">ترقية ✨</span>
+                    <span class="px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-[11px] font-bold text-white border border-white/15 cursor-pointer shadow-lg shadow-gray-500/10">ترقية ✨</span>
                 </div>
 
-                <div class="mb-6">
+                <div class="mb-6 relative z-10">
                     <h1 class="text-xl font-black text-white leading-relaxed">مساء الخير، أيها المخرج</h1>
                     <h2 class="text-xl font-black text-white">أي قصة سنصنع اليوم؟</h2>
                 </div>
 
-                <div class="grid grid-cols-2 gap-3">
+                <div class="grid grid-cols-2 gap-3 relative z-10">
                     <div class="glass-box rounded-2xl p-3.5 relative cursor-pointer hover:border-indigo-500/50 transition">
                         <span class="absolute top-2 left-2 text-[9px] bg-black/40 px-2 py-0.5 rounded-full text-indigo-300 font-bold border border-white/10">Pro only</span>
                         <div class="text-lg mb-1">⚡</div>
