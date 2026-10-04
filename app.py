@@ -41,11 +41,9 @@ html_code = """
         <div class="hero-bg bg-cover bg-center p-5 pb-8 relative rounded-b-[35px]">
             <!-- شريط علوي -->
             <div class="flex items-center justify-between mb-8">
-                <!-- الاسم ودائرة فارغة بدلاً من الإيموجي في اليمين -->
-                <div class="flex items-center gap-2">
-                    <span class="font-black text-sm tracking-wide">بلوت كرافت</span>
-                    <div class="w-7 h-7 rounded-full bg-indigo-600/60 border border-white/20"></div>
-                </div>
+                <!-- الاسم فقط في اليمين بدون أي دوائر أو إيموجي -->
+                <span class="font-black text-sm tracking-wide">بلوت كرافت</span>
+                
                 <!-- زر الترقية في اليسار -->
                 <span class="px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-[11px] font-bold text-white border border-white/15 cursor-pointer">ترقية ✨</span>
             </div>
