@@ -74,7 +74,7 @@ uploaded_file = st.file_uploader(
 
 st.markdown("---")
 
-# دمج الإعدادات في الصفحة الرئيسية (بدل القائمة الجانبية)
+# إعدادات الإنتاج
 st.markdown(
     "<h4 style='text-align: right; color: #e2e8f0;'>⚙️ إعدادات الإنتاج</h4>",
     unsafe_allow_html=True,
@@ -83,15 +83,25 @@ st.markdown(
 col1, col2 = st.columns(2)
 
 with col1:
-    resolution = st.selectbox(
-        "دقة الفيديو", ["720p (سريع)", "1080p (عالي الدقة)", "4K (احترافي)"]
-    )
+  resolution = st.selectbox(
+      "دقة الفيديو", ["720p (سريع)", "1080p (عالي الدقة)", "4K (احترافي)"]
+  )
 
 with col2:
-    aspect_ratio = st.selectbox("نسبة العرض", ["16:9 (يوتيوب)", "9:16 (تيك توك/ريلز)"])
+  aspect_ratio = st.selectbox("نسبة العرض", ["16:9 (يوتيوب)", "9:16 (تيك توك/ريلز)"])
 
-# شريط المدة الزمنية
-duration = st.slider("اختر مدة الفيديو (بالثانيات):", 10, 300, 30)
+# اختيار المدة المحددة (10 ثواني، 21 ثانية، أو 5 دقائق) بدون ذكر أرقام قديمة
+duration_option = st.selectbox(
+    "حدد مدة الفيديو:", ["10 ثواني", "21 ثانية", "5 دقائق"]
+)
+
+# تحويل الاختيار إلى قيمة ثواني برمجياً خلف الكواليس
+if duration_option == "10 ثواني":
+  duration = 10
+elif duration_option == "21 ثانية":
+  duration = 21
+else:
+  duration = 300  # 5 دقائق
 
 st.markdown("---")
 
@@ -100,7 +110,6 @@ if st.button("🚀 بدء التوليد التجريبي الشامل"):
   if not prompt.strip():
     st.warning("يرجى كتابة فكرة أو سيناريو الفيديو أولاً!")
   else:
-    # محاكاة خطوات العمل بوضوح
     status_text = st.empty()
     progress_bar = st.progress(0)
 
@@ -117,29 +126,26 @@ if st.button("🚀 بدء التوليد التجريبي الشامل"):
       time.sleep(0.8)
 
     st.success("✨ تم توليد الفيديو التجريبي بنجاح!")
-
-    # عرض محاكاة للفيديو الناتج
     st.video("https://www.w3schools.com/html/mov_bbb.mp4")
 
-    # حفظ في سجل الجلسة
     if "history" not in st.session_state:
       st.session_state.history = []
     st.session_state.history.append(
         {
             "prompt": prompt,
-            "duration": duration,
+            "duration": duration_option,
             "resolution": resolution,
             "time": time.strftime("%H:%M:%S"),
         }
     )
 
-# عرض سجل الجلسات السابقة (إذا وُجدت)
+# عرض سجل الجلسات السابقة
 if "history" in st.session_state and st.session_state.history:
   with st.expander("📂 سجل الفيديوهات المنتجة في هذه الجلسة"):
     for idx, item in enumerate(reversed(st.session_state.history)):
       st.markdown(
           f"""**{idx+1}.** الفكرة: `{item['prompt'][:50]}...` <br>
-                ⏱️ المدة: {item['duration']} ثانية | 🖥️ الدقة: {item['resolution']} | ⏰ الوقت: {item['time']}""",
+                ⏱️ المدة: {item['duration']} | 🖥️ الدقة: {item['resolution']} | ⏰ الوقت: {item['time']}""",
           unsafe_allow_html=True,
       )
       st.markdown("---")
