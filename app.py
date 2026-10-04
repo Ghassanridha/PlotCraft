@@ -49,13 +49,14 @@ html_code = """
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         
-        /* قسم الهيدر العلوي المطابق تماماً للصورة */
+        /* الهيدر العلوي بارتفاع 70px وقياسات دقيقة */
         .hero-section {
             background: linear-gradient(180deg, rgba(11,13,18,0.2) 0%, rgba(11,13,18,0.95) 85%, #0b0d12 100%),
                         url('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=800&q=80');
             background-size: cover;
             background-position: center;
-            padding: 24px 16px 16px 16px;
+            padding: 16px;
+            min-height: 70px;
             border-bottom-left-radius: 24px;
             border-bottom-right-radius: 24px;
         }
@@ -127,8 +128,8 @@ html_code = """
             <!-- الشاشة الرئيسية -->
             <div id="home-screen" class="screen active">
                 <div class="hero-section">
-                    <!-- الصف العلوي: زر الترقية يمين، والعنوان وايقونة يسار -->
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <!-- الصف العلوي: زر الترقية يمين، والعنوان يسار -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                         <span style="background: rgba(255,255,255,0.1); padding: 5px 14px; border-radius: 20px; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 4px; border: 1px solid rgba(255,255,255,0.15);">ترقية ✨</span>
                         
                         <div style="font-weight: 900; font-size: 16px; letter-spacing: 0.5px; color: #ffffff;">
@@ -137,27 +138,27 @@ html_code = """
                     </div>
 
                     <!-- الترحيب -->
-                    <div style="margin-bottom: 20px; text-align: right;">
-                        <h1 style="font-size: 15px; font-weight: 600; line-height: 1.5; color: #cbd5e1; margin-bottom: 4px;">مساء الخير، أيها المخرج</h1>
-                        <h2 style="font-size: 17px; font-weight: 900; color: #ffffff;">أي قصة سنصنع اليوم؟</h2>
+                    <div style="margin-bottom: 18px; text-align: right;">
+                        <h1 style="font-size: 14px; font-weight: 600; line-height: 1.4; color: #cbd5e1; margin-bottom: 2px;">مساء الخير، أيها المخرج</h1>
+                        <h2 style="font-size: 16px; font-weight: 900; color: #ffffff;">أي قصة سنصنع اليوم؟</h2>
                     </div>
 
-                    <!-- مربعات الخيارات السريعة (الترتيب الصحيح مثل الصورة: خطوة بخطوة يمين، سريع يسار) -->
+                    <!-- مربعات الخيارات السريعة -->
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                         
                         <!-- مربع خطوة بخطوة -->
                         <div class="glass-box">
-                            <div style="font-size: 18px; margin-bottom: 6px; text-align: right;">💬</div>
-                            <h3 style="font-size: 13px; font-weight: bold; margin-bottom: 2px;">خطوة بخطوة</h3>
-                            <p style="font-size: 10px; color: #94a3b8; line-height: 1.3;">راجع كل خطوة</p>
+                            <div style="font-size: 16px; margin-bottom: 4px; text-align: right;">💬</div>
+                            <h3 style="font-size: 12px; font-weight: bold; margin-bottom: 2px;">خطوة بخطوة</h3>
+                            <p style="font-size: 9px; color: #94a3b8; line-height: 1.2;">راجع كل خطوة</p>
                         </div>
 
                         <!-- مربع سريع -->
                         <div class="glass-box">
-                            <span style="position: absolute; top: 8px; left: 10px; font-size: 8px; background: rgba(0,0,0,0.5); padding: 2px 7px; border-radius: 10px; color: #cbd5e1; font-weight: bold; border: 1px solid rgba(255,255,255,0.1);">Pro</span>
-                            <div style="font-size: 18px; margin-bottom: 6px; text-align: right;">⚡</div>
-                            <h3 style="font-size: 13px; font-weight: bold; margin-bottom: 2px;">سريع</h3>
-                            <p style="font-size: 10px; color: #94a3b8; line-height: 1.3;">إدخال واحد، فيديو كامل</p>
+                            <span style="position: absolute; top: 8px; left: 10px; font-size: 7px; background: rgba(0,0,0,0.5); padding: 2px 6px; border-radius: 10px; color: #cbd5e1; font-weight: bold; border: 1px solid rgba(255,255,255,0.1);">Pro</span>
+                            <div style="font-size: 16px; margin-bottom: 4px; text-align: right;">⚡</div>
+                            <h3 style="font-size: 12px; font-weight: bold; margin-bottom: 2px;">سريع</h3>
+                            <p style="font-size: 9px; color: #94a3b8; line-height: 1.2;">إدخال واحد، فيديو كامل</p>
                         </div>
 
                     </div>
@@ -172,13 +173,13 @@ html_code = """
 
                     <div style="display: flex; gap: 12px; overflow-x: auto; padding-bottom: 6px;" class="no-scrollbar">
                         
-                        <!-- البطاقة الأولى (THE DELIVERYMAN) -->
+                        <!-- البطاقة الأولى -->
                         <div style="min-width: 140px; height: 200px; border-radius: 16px; background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=300&q=80'); background-size: cover; background-position: center; position: relative; padding: 12px; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid rgba(255,255,255,0.15);">
                             <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.1)); border-radius: 16px;"></div>
                             <span style="position: relative; z-index: 10; font-size: 9px; font-weight: 900; text-align: center; letter-spacing: 0.5px; color: #ffffff;">THE DELIVERYMAN</span>
                         </div>
 
-                        <!-- البطاقة الثانية (THE WRONG DOOR) -->
+                        <!-- البطاقة الثانية -->
                         <div style="min-width: 140px; height: 200px; border-radius: 16px; background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=300&q=80'); background-size: cover; background-position: center; position: relative; padding: 12px; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid rgba(255,255,255,0.15);">
                             <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.1)); border-radius: 16px;"></div>
                             <span style="position: relative; z-index: 10; font-size: 9px; font-weight: 900; text-align: center; letter-spacing: 0.5px; color: #ffffff;">THE WRONG DOOR</span>
@@ -211,7 +212,7 @@ html_code = """
 
         </div>
 
-        <!-- الشريط السفلي (الترتيب: إدارة التطبيق، الأدوات، الأعمال) -->
+        <!-- الشريط السفلي -->
         <nav class="nav-bar">
             <button id="btn-works" onclick="switchScreen('works')" class="nav-item">
                 <span>الأعمال</span>
