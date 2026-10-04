@@ -28,24 +28,83 @@ html_code = """
             backdrop-filter: blur(30px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
+        .hero-bg {
+            background-image: linear-gradient(to bottom, rgba(5, 7, 10, 0.2), rgba(5, 7, 10, 0.95)), url('https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80');
+        }
         .screen { display: none; }
         .screen.active { display: flex; flex-direction: column; }
+        /* إخفاء شريط التمرير */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="text-white flex justify-center items-center p-0 m-0 min-h-screen">
 
     <main class="w-full max-w-[420px] min-h-screen bg-[#05070a] relative shadow-2xl border border-white/10 flex flex-col justify-between pb-28 overflow-hidden">
         
-        <!-- ================= شاشة الأدوات (مطابقة تماماً للصورة الأخيرة) ================= -->
-        <div id="tools-screen" class="screen active flex-col p-5">
+        <!-- ================= الشاشة الأولى: الصفحة الرئيسية ================= -->
+        <div id="home-screen" class="screen flex-col">
+            <div class="hero-bg bg-cover bg-center p-5 pb-8 relative rounded-b-[35px]">
+                <div class="flex items-center justify-between mb-8">
+                    <span class="font-black text-sm tracking-wide">بلوت كرافت</span>
+                    <span class="px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-[11px] font-bold text-white border border-white/15 cursor-pointer">ترقية ✨</span>
+                </div>
+
+                <div class="mb-6">
+                    <h1 class="text-xl font-black text-white leading-relaxed">مساء الخير، أيها المخرج</h1>
+                    <h2 class="text-xl font-black text-white">أي قصة سنصنع اليوم؟</h2>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="glass-box rounded-2xl p-3.5 relative cursor-pointer hover:border-indigo-500/50 transition">
+                        <span class="absolute top-2 left-2 text-[9px] bg-black/40 px-2 py-0.5 rounded-full text-indigo-300 font-bold border border-white/10">Pro only</span>
+                        <div class="text-lg mb-1">⚡</div>
+                        <h3 class="text-xs font-bold text-white">سريع</h3>
+                        <p class="text-[10px] text-gray-300 mt-0.5">إدخال واحد، فيديو كامل</p>
+                    </div>
+
+                    <div class="glass-box rounded-2xl p-3.5 relative cursor-pointer hover:border-indigo-500/50 transition">
+                        <div class="text-lg mb-1">💬</div>
+                        <h3 class="text-xs font-bold text-white">خطوة بخطوة</h3>
+                        <p class="text-[10px] text-gray-300 mt-0.5">راجع كل خطوة</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-5 mt-4">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-sm font-extrabold text-white">إلهام بلوت كرافت</h3>
+                    <span class="text-xs text-indigo-400 font-bold cursor-pointer">عرض الكل ></span>
+                </div>
+
+                <div class="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
+                    <div class="min-w-[130px] h-[190px] rounded-2xl bg-cover bg-center relative p-2.5 flex flex-col justify-end border border-white/10 shadow-lg" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=300&q=80')">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent rounded-2xl"></div>
+                        <span class="relative z-10 text-[10px] font-black text-white tracking-wider">THE WRONG DOOR</span>
+                    </div>
+
+                    <div class="min-w-[130px] h-[190px] rounded-2xl bg-cover bg-center relative p-2.5 flex flex-col justify-end border border-white/10 shadow-lg" style="background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=300&q=80')">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent rounded-2xl"></div>
+                        <span class="relative z-10 text-[9px] font-black text-white tracking-tight">THE DELIVERYMAN'S SECRET</span>
+                    </div>
+
+                    <div class="min-w-[130px] h-[190px] rounded-2xl bg-cover bg-center relative p-2.5 flex flex-col justify-end border border-white/10 shadow-lg" style="background-image: url('https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=300&q=80')">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent rounded-2xl"></div>
+                        <span class="relative z-10 text-[10px] font-black text-white tracking-wider">THE INVITATION</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= الشاشة الثانية: الأدوات ================= -->
+        <div id="tools-screen" class="screen flex-col p-5">
             <div class="flex items-center justify-between mb-5 mt-2">
                 <h1 class="text-lg font-black text-white">الأدوات</h1>
                 <span class="px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-[11px] font-bold text-white border border-white/15 cursor-pointer">ترقية ✨</span>
             </div>
 
             <div class="flex flex-col gap-4">
-                
-                <!-- 1. تأثيرات الفيديو (جهاز تحكم السوني الأبيض) -->
+                <!-- 1. تأثيرات الفيديو -->
                 <div class="h-[135px] rounded-2xl bg-cover bg-center relative p-4 flex flex-col justify-between border border-white/15 shadow-xl cursor-pointer" style="background-image: linear-gradient(to left, rgba(5,7,10,0.85) 40%, rgba(5,7,10,0.2) 100%), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80')">
                     <div class="flex justify-end items-start z-10">
                         <span class="w-6 h-6 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white text-xs border border-white/20">‹</span>
@@ -56,7 +115,7 @@ html_code = """
                     </div>
                 </div>
 
-                <!-- 2. توليد الفيديو (وجه رجل بدون يد - لقطة مقربة للوجه واللحية) -->
+                <!-- 2. توليد الفيديو -->
                 <div class="h-[135px] rounded-2xl bg-cover bg-center relative p-4 flex flex-col justify-between border border-white/15 shadow-xl cursor-pointer" style="background-image: linear-gradient(to left, rgba(5,7,10,0.85) 40%, rgba(5,7,10,0.2) 100%), url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&q=80')">
                     <div class="flex justify-end items-start z-10">
                         <span class="w-6 h-6 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white text-xs border border-white/20">‹</span>
@@ -67,7 +126,7 @@ html_code = """
                     </div>
                 </div>
 
-                <!-- 3. توليد الصور (وجه الفتاة بالإضاءة الزرقاء مع دائرة المعاينة والسهم في اليسار) -->
+                <!-- 3. توليد الصور -->
                 <div class="h-[135px] rounded-2xl bg-cover bg-center relative p-4 flex flex-col justify-between border border-white/15 shadow-xl cursor-pointer" style="background-image: linear-gradient(to right, rgba(5,7,10,0.85) 40%, rgba(5,7,10,0.2) 100%), url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80')">
                     <div class="flex justify-between items-start z-10">
                         <span class="w-6 h-6 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white text-xs border border-white/20">‹</span>
@@ -81,28 +140,114 @@ html_code = """
                         <p class="text-[11px] text-gray-300 mt-0.5">حول فكرة إلى صورة مكتملة</p>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- ================= الشاشة الثالثة: الأعمال (فيديوهاتي المصممة) ================= -->
+        <div id="works-screen" class="screen flex-col p-5">
+            <div class="flex items-center justify-between mb-5 mt-2">
+                <h1 class="text-lg font-black text-white">أعمالي وفيديوهاتي</h1>
+                <span class="px-3.5 py-1.5 rounded-full bg-indigo-600/30 backdrop-blur-md text-[11px] font-bold text-indigo-300 border border-indigo-500/30 cursor-pointer">+ مشروع جديد</span>
+            </div>
+
+            <div class="flex flex-col gap-3.5 overflow-y-auto max-h-[500px] no-scrollbar pb-4">
+                
+                <!-- فيديو مصمم 1 -->
+                <div class="glass-box rounded-2xl p-3 flex items-center gap-3.5 border border-white/10 relative">
+                    <div class="w-[90px] h-[65px] rounded-xl bg-cover bg-center relative flex items-center justify-center shadow-md flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=300&q=80')">
+                        <div class="w-7 h-7 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center text-white text-xs border border-white/20">▶</div>
+                        <span class="absolute bottom-1 right-1 bg-black/70 text-[9px] px-1.5 py-0.2 rounded text-gray-200">00:45</span>
+                    </div>
+                    <div class="flex-1 text-right">
+                        <h3 class="text-xs font-bold text-white mb-0.5">مشهد المعركة السينمائي</h3>
+                        <p class="text-[10px] text-gray-400 mb-1">تم التوليد بواسطة تأثيرات الفيديو</p>
+                        <span class="text-[9px] text-indigo-400 bg-indigo-950/50 px-2 py-0.5 rounded-full border border-indigo-500/30">مكتمل 🟢</span>
+                    </div>
+                </div>
+
+                <!-- فيديو مصمم 2 -->
+                <div class="glass-box rounded-2xl p-3 flex items-center gap-3.5 border border-white/10 relative">
+                    <div class="w-[90px] h-[65px] rounded-xl bg-cover bg-center relative flex items-center justify-center shadow-md flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80')">
+                        <div class="w-7 h-7 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center text-white text-xs border border-white/20">▶</div>
+                        <span class="absolute bottom-1 right-1 bg-black/70 text-[9px] px-1.5 py-0.2 rounded text-gray-200">01:20</span>
+                    </div>
+                    <div class="flex-1 text-right">
+                        <h3 class="text-xs font-bold text-white mb-0.5">قصة الرجل الغامض</h3>
+                        <p class="text-[10px] text-gray-400 mb-1">تم التوليد بواسطة توليد الفيديو</p>
+                        <span class="text-[9px] text-indigo-400 bg-indigo-950/50 px-2 py-0.5 rounded-full border border-indigo-500/30">مكتمل 🟢</span>
+                    </div>
+                </div>
+
+                <!-- فيديو مصمم 3 -->
+                <div class="glass-box rounded-2xl p-3 flex items-center gap-3.5 border border-white/10 relative">
+                    <div class="w-[90px] h-[65px] rounded-xl bg-cover bg-center relative flex items-center justify-center shadow-md flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80')">
+                        <div class="w-7 h-7 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center text-white text-xs border border-white/20">▶</div>
+                        <span class="absolute bottom-1 right-1 bg-black/70 text-[9px] px-1.5 py-0.2 rounded text-gray-200">00:30</span>
+                    </div>
+                    <div class="flex-1 text-right">
+                        <h3 class="text-xs font-bold text-white mb-0.5">بورتريه الضوء الأزرق</h3>
+                        <p class="text-[10px] text-gray-400 mb-1">تم التوليد بواسطة توليد الصور</p>
+                        <span class="text-[9px] text-amber-400 bg-amber-950/50 px-2 py-0.5 rounded-full border border-amber-500/30">قيد المعالجة 🟡</span>
+                    </div>
+                </div>
 
             </div>
         </div>
 
-        <!-- ================= شريط التنقل السفلي الثابت ================= -->
-        <nav class="absolute bottom-4 left-4 right-4 glass-nav rounded-full px-4 py-2.5 flex items-center justify-between z-30 shadow-2xl">
-            <button onclick="alert('الصفحة الرئيسية')" class="text-gray-400 hover:text-white text-xs font-medium flex items-center gap-1 px-2 py-2">
+        <!-- ================= شريط التنقل السفلي الفعّال ================= -->
+        <nav class="absolute bottom-4 left-4 right-4 glass-nav rounded-full px-4 py-2 flex items-center justify-between z-30 shadow-2xl">
+            <button id="btn-home" onclick="switchScreen('home')" class="text-gray-400 hover:text-white text-xs font-medium flex items-center gap-1 px-3 py-2 rounded-full transition">
                 <span>🏠</span>
-                <span>الصفحة الرئيسية</span>
+                <span>الرئيسية</span>
             </button>
-            <button class="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white/20 text-white text-xs font-bold shadow-inner">
+            <button id="btn-tools" onclick="switchScreen('tools')" class="text-gray-400 hover:text-white text-xs font-medium flex items-center gap-1 px-3 py-2 rounded-full transition">
                 <span>🛠</span>
                 <span>الأدوات</span>
             </button>
-            <button onclick="alert('الأعمال قريباً')" class="text-gray-400 hover:text-white text-xs font-medium flex items-center gap-1">
+            <button id="btn-works" onclick="switchScreen('works')" class="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white/20 text-white text-xs font-bold shadow-inner transition">
                 <span>💼</span>
                 <span>الأعمال</span>
             </button>
-            <button onclick="alert('المزيد قريباً')" class="text-gray-400 hover:text-white text-xs font-medium">✨</button>
+            <button onclick="alert('المزيد قريباً')" class="text-gray-400 hover:text-white text-xs font-medium p-2">✨</button>
         </nav>
 
     </main>
+
+    <script>
+        function switchScreen(screenName) {
+            const homeScreen = document.getElementById('home-screen');
+            const toolsScreen = document.getElementById('tools-screen');
+            const worksScreen = document.getElementById('works-screen');
+            
+            const btnHome = document.getElementById('btn-home');
+            const btnTools = document.getElementById('btn-tools');
+            const btnWorks = document.getElementById('btn-works');
+            
+            // إخفاء جميع الشاشات
+            homeScreen.classList.remove('active');
+            toolsScreen.classList.remove('active');
+            worksScreen.classList.remove('active');
+            
+            // إعادة ضبط كل الأزرار لشكل غير مفعل
+            const inactiveClass = "text-gray-400 hover:text-white text-xs font-medium flex items-center gap-1 px-3 py-2 rounded-full transition";
+            const activeClass = "flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white/20 text-white text-xs font-bold shadow-inner transition";
+            
+            btnHome.className = inactiveClass;
+            btnTools.className = inactiveClass;
+            btnWorks.className = inactiveClass;
+
+            if (screenName === 'home') {
+                homeScreen.classList.add('active');
+                btnHome.className = activeClass;
+            } else if (screenName === 'tools') {
+                toolsScreen.classList.add('active');
+                btnTools.className = activeClass;
+            } else if (screenName === 'works') {
+                worksScreen.classList.add('active');
+                btnWorks.className = activeClass;
+            }
+        }
+    </script>
 
 </body>
 </html>
