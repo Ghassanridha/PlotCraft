@@ -195,14 +195,14 @@ html_code = """
                     </div>
                 </div>
 
-                <!-- قسم إلهام بلوت كرافت مدفوع للأسفل ليكون قريباً جداً من شريط الأدوات السفلي -->
-                <div style="padding: 16px 16px 15px 16px; margin-top: auto;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <!-- قسم إلهام بلوت كرافت (العرض 125px والارتفاع 185px) -->
+                <div style="padding: 12px 16px 12px 16px; margin-top: auto;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                         <h3 style="font-size: 13px; font-weight: 800; color: #ffffff;">إلهام بلوت كرافت</h3>
                         <span style="font-size: 10px; color: #9ca3af; font-weight: bold;">عرض الكل <</span>
                     </div>
 
-                    <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px;" class="no-scrollbar">
+                    <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 2px;" class="no-scrollbar">
                         
                         <!-- الصورة الأولى -->
                         <div style="min-width: 125px; width: 125px; height: 185px; border-radius: 14px; background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=350&q=80'); background-size: cover; background-position: center; position: relative; padding: 10px; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid rgba(255,255,255,0.15); flex-shrink: 0;">
