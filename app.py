@@ -166,11 +166,11 @@ html_code = """
             </div>
         </div>
 
-        <!-- الشريط السفلي (الترتيب من اليمين: الرئيسية، الأدوات، الأعمال) -->
+        <!-- الشريط السفلي (الترتيب الصحيح من اليمين: الرئيسية، الأدوات، الأعمال) -->
         <nav class="fixed bottom-0 left-0 right-0 glass-nav px-4 py-2.5 flex items-center justify-center gap-2 z-50 shadow-2xl">
-            <button id="btn-works" onclick="switchScreen('works')" class="nav-btn">💼 الأعمال</button>
-            <button id="btn-tools" onclick="switchScreen('tools')" class="nav-btn">🛠 الأدوات</button>
             <button id="btn-home" onclick="switchScreen('home')" class="nav-btn active">🏠 الرئيسية</button>
+            <button id="btn-tools" onclick="switchScreen('tools')" class="nav-btn">🛠 الأدوات</button>
+            <button id="btn-works" onclick="switchScreen('works')" class="nav-btn">💼 الأعمال</button>
         </nav>
 
     </main>
