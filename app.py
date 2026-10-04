@@ -7,7 +7,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# إزالة الهوامش الجانبية والعلوية من صفحة ستريمليت ليتمدد الإطار بالعرض الكامل
+# إزالة الهوامش الجانبية العلوية لستريمليت
 st.markdown("""
     <style>
         .block-container {
@@ -66,7 +66,8 @@ html_code = """
 </head>
 <body class="text-white w-full">
 
-    <main class="w-full bg-[#05070a] relative flex flex-col justify-between overflow-y-auto overflow-x-hidden no-scrollbar pb-24 pt-1">
+    <!-- أضفنا مسافة علوية (pt-4) هنا لكي يبتعد المحتوى عن شريط الـ Streamlit العلوي ولا يتم قص الاسم -->
+    <main class="w-full bg-[#05070a] relative flex flex-col justify-between overflow-y-auto overflow-x-hidden no-scrollbar pb-24 pt-4">
         
         <div class="w-full px-3">
             <!-- الشاشة الرئيسية -->
@@ -182,5 +183,5 @@ html_code = """
 </html>
 """
 
-# تم ضبط الارتفاع على 680 والعرض على 100% ليملأ الشاشة
+# أبقينا الارتفاع 680 مع العرض 100%، وتم حل مشكلة القص العلوي عبر الـ Padding الداخلي
 st.components.v1.html(html_code, height=680, scrolling=True)
