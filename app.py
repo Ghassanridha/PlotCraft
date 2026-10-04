@@ -66,8 +66,8 @@ html_code = """
 </head>
 <body class="text-white w-full">
 
-    <!-- زيادة المسافة العلوية إلى pt-8 لدفع العنوان بالكامل للأسفل وبعيداً عن شريط الـ Streamlit -->
-    <main class="w-full bg-[#05070a] relative flex flex-col justify-between overflow-y-auto overflow-x-hidden no-scrollbar pb-24 pt-8">
+    <!-- زيادة مسافة الأمان العلوية إلى pt-12 لضمان عدم وصول شريط ستريمليت لأي جزء من العنوان -->
+    <main class="w-full bg-[#05070a] relative flex flex-col justify-between overflow-y-auto overflow-x-hidden no-scrollbar pb-24 pt-12">
         
         <div class="w-full px-3">
             <!-- الشاشة الرئيسية -->
