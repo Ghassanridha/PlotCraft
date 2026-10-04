@@ -182,5 +182,5 @@ html_code = """
 </html>
 """
 
-# العرض مضبوط على '100%' ليملاً شاشة الموبايل بالكامل بالعرض، والارتفاع 480 كما طلبته
-st.components.v1.html(html_code, height=480, scrolling=True)
+# تم ضبط الارتفاع على 680 والعرض على 100% ليملأ الشاشة
+st.components.v1.html(html_code, height=680, scrolling=True)
