@@ -39,17 +39,13 @@ html_code = """
             margin: 0; 
             padding: 0;
             width: 100vw;
+            min-height: 100vh;
             overflow-x: hidden;
         }
         .glass-box {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
             backdrop-filter: blur(25px);
             border: 1px solid rgba(255, 255, 255, 0.12);
-        }
-        .glass-nav {
-            background: rgba(18, 22, 33, 0.95);
-            backdrop-filter: blur(35px);
-            border-top: 1px solid rgba(255, 255, 255, 0.12);
         }
         .hero-bg {
             background-image: 
@@ -58,83 +54,106 @@ html_code = """
             background-size: cover;
             background-position: center;
         }
-        .screen { display: none; width: 100%; }
-        .screen.active { display: flex; flex-direction: column; }
+        .screen { display: none; width: 100%; flex: 1; flex-direction: column; justify-content: flex-start; }
+        .screen.active { display: flex; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* تنسيق الأزرار داخل مربعات وحالة التحديد الأبيض على أسود */
+        /* تصميم الحاوية الرئيسية للتوزيع العمودي المتناسق */
+        .main-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            justify-content: space-between;
+            padding-bottom: 85px; /* مساحة للشريط السفلي */
+        }
+
+        /* تصميم الأزرار السفلية */
+        .nav-container {
+            display: flex;
+            background: rgba(15, 18, 28, 0.95);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 9999px;
+            padding: 4px;
+            width: 92%;
+            max-width: 400px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
         .nav-btn {
+            flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            padding: 8px 14px;
-            border-radius: 12px;
+            gap: 5px;
+            padding: 10px 8px;
+            border-radius: 9999px;
             font-size: 11px;
             font-weight: 500;
             color: #9ca3af;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.2s ease;
+            background: transparent;
+            border: none;
+            transition: all 0.25s ease;
+            white-space: nowrap;
         }
         .nav-btn.active {
             background: #ffffff;
             color: #05070a;
             font-weight: 700;
-            border: 1px solid #ffffff;
-            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.25);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
         }
     </style>
 </head>
 <body class="text-white w-full">
 
-    <main class="w-full bg-[#05070a] relative flex flex-col justify-between overflow-y-auto overflow-x-hidden no-scrollbar pb-24 pt-12">
+    <main class="main-wrapper">
         
-        <div class="w-full px-3">
+        <div class="w-full">
             <!-- الشاشة الرئيسية -->
-            <div id="home-screen" class="screen active flex-col">
-                <div class="hero-bg px-4 py-3.5 relative rounded-b-[25px] overflow-hidden shadow-xl">
+            <div id="home-screen" class="screen active">
+                <div class="hero-bg px-4 py-4 relative rounded-b-[25px] overflow-hidden shadow-xl">
                     
                     <div class="flex items-center justify-between mb-3 relative z-10">
                         <span class="font-black text-xs tracking-wide">بلوت كرافت</span>
                         <span class="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-[10px] font-bold text-white border border-white/15">ترقية ✨</span>
                     </div>
 
-                    <div class="mb-3 relative z-10">
+                    <div class="mb-3.5 relative z-10">
                         <h1 class="text-sm font-black text-white leading-tight">مساء الخير، أيها المخرج</h1>
                         <h2 class="text-sm font-black text-white">أي قصة سنصنع اليوم؟</h2>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-2 relative z-10">
-                        <div class="glass-box rounded-xl p-2.5 relative">
+                    <div class="grid grid-cols-2 gap-2.5 relative z-10">
+                        <div class="glass-box rounded-xl p-3 relative">
                             <span class="absolute top-1.5 left-1.5 text-[8px] bg-black/40 px-1.5 py-0.5 rounded-full text-indigo-300 font-bold">Pro</span>
-                            <div class="text-sm mb-0.5">⚡</div>
+                            <div class="text-sm mb-1">⚡</div>
                             <h3 class="text-[11px] font-bold text-white">سريع</h3>
                             <p class="text-[9px] text-gray-300">إدخال واحد، فيديو كامل</p>
                         </div>
 
-                        <div class="glass-box rounded-xl p-2.5 relative">
-                            <div class="text-sm mb-0.5">💬</div>
+                        <div class="glass-box rounded-xl p-3 relative">
+                            <div class="text-sm mb-1">💬</div>
                             <h3 class="text-[11px] font-bold text-white">خطوة بخطوة</h3>
                             <p class="text-[9px] text-gray-300">راجع كل خطوة</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-3">
-                    <div class="flex items-center justify-between mb-2">
+                <!-- قسم القصص بمسافة مرتبطة وطبيعية تحت قسم الترحيب مباشرة -->
+                <div class="mt-4 px-3">
+                    <div class="flex items-center justify-between mb-2.5">
                         <h3 class="text-xs font-extrabold text-white">إلهام بلوت كرافت</h3>
                         <span class="text-[10px] text-indigo-400 font-bold">عرض الكل ></span>
                     </div>
 
                     <div class="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
-                        <div class="min-w-[120px] h-[160px] rounded-xl bg-cover bg-center relative p-2 flex flex-col justify-end border border-white/10" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=300&q=80')">
+                        <div class="min-w-[130px] h-[170px] rounded-xl bg-cover bg-center relative p-2.5 flex flex-col justify-end border border-white/10 shadow-lg" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=300&q=80')">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent rounded-xl"></div>
                             <span class="relative z-10 text-[9px] font-black text-white">THE WRONG DOOR</span>
                         </div>
 
-                        <div class="min-w-[120px] h-[160px] rounded-xl bg-cover bg-center relative p-2 flex flex-col justify-end border border-white/10" style="background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=300&q=80')">
+                        <div class="min-w-[130px] h-[170px] rounded-xl bg-cover bg-center relative p-2.5 flex flex-col justify-end border border-white/10 shadow-lg" style="background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=300&q=80')">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent rounded-xl"></div>
                             <span class="relative z-10 text-[9px] font-black text-white">THE DELIVERYMAN</span>
                         </div>
@@ -143,7 +162,7 @@ html_code = """
             </div>
 
             <!-- شاشة الأدوات -->
-            <div id="tools-screen" class="screen flex-col py-2">
+            <div id="tools-screen" class="screen px-3 py-3">
                 <div class="flex items-center justify-between mb-3">
                     <h1 class="text-xs font-black text-white">الأدوات</h1>
                     <span class="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-[10px] font-bold text-white">ترقية ✨</span>
@@ -156,7 +175,7 @@ html_code = """
             </div>
 
             <!-- شاشة الأعمال -->
-            <div id="works-screen" class="screen flex-col py-2">
+            <div id="works-screen" class="screen px-3 py-3">
                 <div class="flex items-center justify-end mb-3">
                     <span class="px-3 py-1 rounded-full bg-indigo-600/30 text-[10px] font-bold text-indigo-300">+ مشروع جديد</span>
                 </div>
@@ -166,11 +185,13 @@ html_code = """
             </div>
         </div>
 
-        <!-- الشريط السفلي (الترتيب الصحيح من اليمين: الرئيسية، الأدوات، الأعمال) -->
-        <nav class="fixed bottom-0 left-0 right-0 glass-nav px-4 py-2.5 flex items-center justify-center gap-2 z-50 shadow-2xl">
-            <button id="btn-home" onclick="switchScreen('home')" class="nav-btn active">🏠 الرئيسية</button>
-            <button id="btn-tools" onclick="switchScreen('tools')" class="nav-btn">🛠 الأدوات</button>
-            <button id="btn-works" onclick="switchScreen('works')" class="nav-btn">💼 الأعمال</button>
+        <!-- شريط التنقل السفلي الثابت -->
+        <nav class="fixed bottom-3 left-0 right-0 z-50 px-4">
+            <div class="nav-container">
+                <button id="btn-home" onclick="switchScreen('home')" class="nav-btn active">🏠 الرئيسية</button>
+                <button id="btn-tools" onclick="switchScreen('tools')" class="nav-btn">🛠 الأدوات</button>
+                <button id="btn-works" onclick="switchScreen('works')" class="nav-btn">💼 الأعمال</button>
+            </div>
         </nav>
 
     </main>
