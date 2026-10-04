@@ -36,23 +36,25 @@ html_code = """
             background-color: #05070a; 
             color: #ffffff;
             width: 100vw;
-            min-height: 100vh;
-            overflow-x: hidden;
+            height: 100vh;
+            overflow: hidden;
         }
         .main-container {
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
-            justify-content: space-between;
-            padding-bottom: 85px;
+            height: 100vh;
+            position: relative;
+            overflow-y: auto;
+            /* مساحة كافية بالأسفل حتى ما يختفي أي شي ورا النافبار */
+            padding-bottom: 90px;
         }
         .hero-section {
             background: linear-gradient(135deg, rgba(20, 25, 40, 0.9), rgba(5, 7, 10, 0.95)),
                         url('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=800&q=80');
             background-size: cover;
             background-position: center;
-            /* تثبيت الـ padding العلوي على 45px لضمان ظهور الاسم بوضوح تام وتجنب أي قص */
-            padding: 45px 16px 14px 16px;
+            /* تثبيت المسافة العلوية بدقة حتى يبقى الاسم بمكانه المرتب */
+            padding: 50px 16px 12px 16px;
             border-bottom-left-radius: 24px;
             border-bottom-right-radius: 24px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
@@ -119,26 +121,26 @@ html_code = """
             <!-- الشاشة الرئيسية -->
             <div id="home-screen" class="screen active">
                 <div class="hero-section">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                         <span style="font-weight: 900; font-size: 14px;">بلوت كرافت</span>
                         <span style="background: rgba(255,255,255,0.1); padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; border: 1px solid rgba(255,255,255,0.15);">ترقية ✨</span>
                     </div>
 
-                    <div style="margin-bottom: 12px;">
-                        <h1 style="font-size: 14px; font-weight: 900; line-height: 1.4; margin-bottom: 2px;">مساء الخير، أيها المخرج</h1>
+                    <div style="margin-bottom: 10px;">
+                        <h1 style="font-size: 14px; font-weight: 900; line-height: 1.3; margin-bottom: 2px;">مساء الخير، أيها المخرج</h1>
                         <h2 style="font-size: 14px; font-weight: 900;">أي قصة سنصنع اليوم؟</h2>
                     </div>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
                         <div class="glass-box">
                             <span style="position: absolute; top: 6px; left: 8px; font-size: 8px; background: rgba(0,0,0,0.5); padding: 2px 6px; border-radius: 10px; color: #a5b4fc; font-weight: bold;">Pro</span>
-                            <div style="font-size: 16px; margin-bottom: 4px;">⚡</div>
+                            <div style="font-size: 15px; margin-bottom: 3px;">⚡</div>
                             <h3 style="font-size: 12px; font-weight: bold; margin-bottom: 2px;">سريع</h3>
                             <p style="font-size: 10px; color: #cbd5e1;">إدخال واحد، فيديو كامل</p>
                         </div>
 
                         <div class="glass-box">
-                            <div style="font-size: 16px; margin-bottom: 4px;">💬</div>
+                            <div style="font-size: 15px; margin-bottom: 3px;">💬</div>
                             <h3 style="font-size: 12px; font-weight: bold; margin-bottom: 2px;">خطوة بخطوة</h3>
                             <p style="font-size: 10px; color: #cbd5e1;">راجع كل خطوة</p>
                         </div>
@@ -147,18 +149,18 @@ html_code = """
 
                 <!-- قسم القصص -->
                 <div style="padding: 12px 16px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
                         <h3 style="font-size: 13px; font-weight: 800;">إلهام بلوت كرافت</h3>
                         <span style="font-size: 11px; color: #818cf8; font-weight: bold;">عرض الكل ></span>
                     </div>
 
                     <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px;" class="no-scrollbar">
-                        <div style="min-width: 125px; height: 160px; border-radius: 12px; background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=300&q=80'); background-size: cover; background-position: center; position: relative; padding: 10px; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid rgba(255,255,255,0.1);">
+                        <div style="min-width: 125px; height: 155px; border-radius: 12px; background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=300&q=80'); background-size: cover; background-position: center; position: relative; padding: 10px; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid rgba(255,255,255,0.1);">
                             <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); border-radius: 12px;"></div>
                             <span style="position: relative; z-index: 10; font-size: 10px; font-weight: 900;">THE WRONG DOOR</span>
                         </div>
 
-                        <div style="min-width: 125px; height: 160px; border-radius: 12px; background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=300&q=80'); background-size: cover; background-position: center; position: relative; padding: 10px; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid rgba(255,255,255,0.1);">
+                        <div style="min-width: 125px; height: 155px; border-radius: 12px; background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=300&q=80'); background-size: cover; background-position: center; position: relative; padding: 10px; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid rgba(255,255,255,0.1);">
                             <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); border-radius: 12px;"></div>
                             <span style="position: relative; z-index: 10; font-size: 10px; font-weight: 900;">THE DELIVERYMAN</span>
                         </div>
@@ -168,7 +170,7 @@ html_code = """
 
             <!-- شاشة الأدوات -->
             <div id="tools-screen" class="screen" style="padding: 16px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                     <h1 style="font-size: 14px; font-weight: 900;">الأدوات</h1>
                     <span style="background: rgba(255,255,255,0.1); padding: 5px 14px; border-radius: 20px; font-size: 11px; font-weight: bold;">ترقية ✨</span>
                 </div>
@@ -179,10 +181,10 @@ html_code = """
 
             <!-- شاشة الأعمال -->
             <div id="works-screen" class="screen" style="padding: 16px;">
-                <div style="display: flex; justify-content: flex-end; margin-bottom: 14px;">
+                <div style="display: flex; justify-content: flex-end; margin-bottom: 12px;">
                     <span style="background: rgba(99, 102, 241, 0.2); color: #818cf8; padding: 6px 16px; border-radius: 20px; font-size: 11px; font-weight: bold;">+ مشروع جديد</span>
                 </div>
-                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 220px;">
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 180px;">
                     <p style="font-size: 12px; color: #9ca3af;">لا توجد أعمال بعد</p>
                 </div>
             </div>
@@ -224,4 +226,4 @@ html_code = """
 </html>
 """
 
-st.components.v1.html(html_code, height=750, scrolling=True)
+st.components.v1.html(html_code, height=730, scrolling=False)
