@@ -92,18 +92,18 @@ if st.button("توليد الفيديو الحقيقي 🚀", use_container_widt
     if not prompt_text.strip():
         st.warning("يرجى كتابة وصف المشهد أولاً.")
     elif not current_key:
-        st.error("⚠️ يرجى إدخال مفتاح fal.ai في الحقل الموجود أعلى الصفحة أولاً.")
+        st.error("⚠️️ يرجى إدخال مفتاح fal.ai في الحقل الموجود أعلى الصفحة أولاً.")
     else:
+        # اعتماد المفتاح بشكل مباشر في بيئة العمل لكي تقرأه المكتبة تلقائياً
+        os.environ["FAL_KEY"] = current_key
+        
         with st.spinner(f"جاري معالجة الفيديو بدقة {resolution_option} ولمدة {duration_option} عبر fal.ai... يرجى الانتظار"):
             try:
-                # إرسال الطلب مع تمرير المفتاح صراحةً
+                # إرسال الطلب بالطريقة القياسية الصحيحة للمكتبة
                 handler = fal_client.submit(
                     "fal-ai/minimax-video",
                     arguments={
                         "prompt": prompt_text,
-                    },
-                    client_config={
-                        "credentials": current_key
                     }
                 )
                 
