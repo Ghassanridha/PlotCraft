@@ -103,7 +103,9 @@ html_code = """
             </div>
 
             <div class="flex flex-col gap-4">
-                <div class="h-[135px] rounded-2xl bg-cover bg-center relative p-4 flex flex-col justify-between border border-white/15 shadow-xl cursor-pointer" style="background-image: linear-gradient(to left, rgba(5,7,10,0.85) 40%, rgba(5,7,10,0.2) 100%), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80')">
+                
+                <!-- 1. تأثيرات الفيديو (تم تحديث الصورة حصرياً لتمثل ثقباً دودياً فضائياً بسماء سوداء ونجوم وتدرج فضي بنسبة 70%) -->
+                <div class="h-[135px] rounded-2xl bg-cover bg-center relative p-4 flex flex-col justify-between border border-white/25 shadow-2xl cursor-pointer" style="background-image: linear-gradient(to left, rgba(20,22,28,0.70) 40%, rgba(5,7,10,0.70) 100%), url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=600&q=80')">
                     <div class="flex justify-end items-start z-10">
                         <span class="w-6 h-6 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white text-xs border border-white/20">‹</span>
                     </div>
@@ -113,6 +115,7 @@ html_code = """
                     </div>
                 </div>
 
+                <!-- 2. توليد الفيديو -->
                 <div class="h-[135px] rounded-2xl bg-cover bg-center relative p-4 flex flex-col justify-between border border-white/15 shadow-xl cursor-pointer" style="background-image: linear-gradient(to left, rgba(5,7,10,0.85) 40%, rgba(5,7,10,0.2) 100%), url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&q=80')">
                     <div class="flex justify-end items-start z-10">
                         <span class="w-6 h-6 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white text-xs border border-white/20">‹</span>
@@ -123,6 +126,7 @@ html_code = """
                     </div>
                 </div>
 
+                <!-- 3. توليد الصور -->
                 <div class="h-[135px] rounded-2xl bg-cover bg-center relative p-4 flex flex-col justify-between border border-white/15 shadow-xl cursor-pointer" style="background-image: linear-gradient(to right, rgba(5,7,10,0.85) 40%, rgba(5,7,10,0.2) 100%), url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80')">
                     <div class="flex justify-between items-start z-10">
                         <span class="w-6 h-6 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white text-xs border border-white/20">‹</span>
@@ -139,13 +143,12 @@ html_code = """
             </div>
         </div>
 
-        <!-- ================= الشاشة الثالثة: الأعمال (قائمة فارغة نظيفة بدون عنوان وبدون فيديوهات) ================= -->
+        <!-- ================= الشاشة الثالثة: الأعمال (فارغة نظيفة) ================= -->
         <div id="works-screen" class="screen flex-col p-5">
             <div class="flex items-center justify-end mb-6 mt-2">
                 <span class="px-3.5 py-1.5 rounded-full bg-indigo-600/30 backdrop-blur-md text-[11px] font-bold text-indigo-300 border border-indigo-500/30 cursor-pointer">+ مشروع جديد</span>
             </div>
 
-            <!-- قائمة فارغة بالكامل مع رسالة توجيهية جميلة -->
             <div class="flex flex-col items-center justify-center h-[350px] text-center px-4">
                 <div class="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-2xl mb-3">🎬</div>
                 <h3 class="text-sm font-bold text-white mb-1">لا توجد أعمال بعد</h3>
