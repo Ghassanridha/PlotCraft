@@ -6,7 +6,7 @@ st.set_page_config(
     page_title="PlotCraft - مولد الفيديوهات", page_icon="🎬", layout="centered"
 )
 
-# تصميم وتنسيق CSS مخصص لواجهة داكنة وتصميم بطاقات الاشتراك الاحترافية
+# تصميم وتنسيق CSS مخصص لواجهة داكنة وتصميم احترافي نقي
 st.markdown(
     """
     <style>
@@ -54,14 +54,13 @@ top_col1, top_col2 = st.columns([3, 1])
 
 with top_col1:
   st.markdown(
-      "<h3 style='margin:0; color: #f8fafc; text-align: right;'>PlotCraft"
-      " 🎬</h3>",
+      "<h3 style='margin:0; color: #f8fafc; text-align: right;'>PlotCraft</h3>",
       unsafe_allow_html=True,
   )
 
 with top_col2:
-  # قائمة منبثقة للترقية بتصميم يشبه التطبيقات الاحترافية
-  with st.popover("💎 ترقية PRO"):
+  # قائمة منبثقة للترقية بتصميم نظيف واحترافي بدون أي إيموجيات
+  with st.popover("ترقية PRO"):
     st.markdown(
         "<h3 style='text-align: center; color: #ffffff; margin-bottom:0;'>DRMA"
         " PRO</h3>",
@@ -75,20 +74,18 @@ with top_col2:
 
     st.markdown("---")
 
-    # خيار الاشتراك الأسبوعي
-    if st.button("📦 $9.99  |  PlotCraft Weekly\nأسبوع | 500 رصيد للتوليد"):
+    # خيارات الاشتراكات بنصوص وأرقام فقط بشكل نظيف تماماً
+    if st.button("9.99 دولار | أسبوع | 500 رصيد للتوليد"):
       st.balloons()
-      st.success("🎉 تم اختيار الخطة الأسبوعية بنجاح!")
+      st.success("تم اختيار الخطة الأسبوعية بنجاح")
 
-    # خيار الاشتراك الشهري (مميز كالأكثر طلباً)
-    if st.button("⭐ $29.99  |  PlotCraft Monthly (الأكثر طلباً)\nشهر | 1800 رصيد"):
+    if st.button("29.99 دولار | شهر | 1800 رصيد (الأكثر طلباً)"):
       st.balloons()
-      st.success("🎉 تم اختيار الخطة الشهرية بنجاح!")
+      st.success("تم اختيار الخطة الشهرية بنجاح")
 
-    # خيار الاشتراك السنوي
-    if st.button("👑 $69.99  |  PlotCraft Annual\nسنة | 5000 رصيد ومميزات كاملة"):
+    if st.button("69.99 دولار | سنة | 5000 رصيد ومميزات كاملة"):
       st.balloons()
-      st.success("🎉 تم اختيار الخطة السنوية بنجاح!")
+      st.success("تم اختيار الخطة السنوية بنجاح")
 
     st.markdown(
         "<p style='text-align: center; font-size: 10px; color: #64748b; "
@@ -125,7 +122,7 @@ st.markdown("---")
 
 # إعدادات الإنتاج
 st.markdown(
-    "<h4 style='text-align: right; color: #e2e8f0;'>⚙️ إعدادات الإنتاج</h4>",
+    "<h4 style='text-align: right; color: #e2e8f0;'>إعدادات الإنتاج</h4>",
     unsafe_allow_html=True,
 )
 
@@ -155,9 +152,9 @@ else:
 st.markdown("---")
 
 # زر التوليد الرئيسي
-if st.button("✨ بدء التوليد التجريبي الشامل"):
+if st.button("بدء التوليد التجريبي الشامل"):
   if not prompt.strip():
-    st.warning("يرجى كتابة فكرة أو سيناريو الفيديو أولاً!")
+    st.warning("يرجى كتابة فكرة أو سيناريو الفيديو أولاً")
   else:
     status_text = st.empty()
     progress_bar = st.progress(0)
@@ -174,7 +171,7 @@ if st.button("✨ بدء التوليد التجريبي الشامل"):
       progress_bar.progress(progress)
       time.sleep(0.8)
 
-    st.success("✨ تم توليد الفيديو التجريبي بنجاح!")
+    st.success("تم توليد الفيديو التجريبي بنجاح")
     st.video("https://www.w3schools.com/html/mov_bbb.mp4")
 
     if "history" not in st.session_state:
@@ -190,11 +187,11 @@ if st.button("✨ بدء التوليد التجريبي الشامل"):
 
 # عرض سجل الجلسات السابقة
 if "history" in st.session_state and st.session_state.history:
-  with st.expander("📂 سجل الفيديوهات المنتجة في هذه الجلسة"):
+  with st.expander("سجل الفيديوهات المنتجة في هذه الجلسة"):
     for idx, item in enumerate(reversed(st.session_state.history)):
       st.markdown(
           f"""**{idx+1}.** الفكرة: `{item['prompt'][:50]}...` <br>
-                ⏱️ المدة: {item['duration']} | 🖥️ الدقة: {item['resolution']} | ⏰ الوقت: {item['time']}""",
+                المدة: {item['duration']} | الدقة: {item['resolution']} | الوقت: {item['time']}""",
           unsafe_allow_html=True,
       )
       st.markdown("---")
