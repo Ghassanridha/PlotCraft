@@ -1,4 +1,4 @@
-طimport streamlit as st
+import streamlit as st
 
 st.set_page_config(
     page_title="بلوت كرافت",
@@ -26,7 +26,7 @@ html_code = """
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بلوت كرافت</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
@@ -35,7 +35,7 @@ html_code = """
             font-family: 'Tajawal', sans-serif; 
             background-color: #05070a; 
             color: #ffffff;
-            width: 100vw;
+            width: 100%;
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -51,8 +51,7 @@ html_code = """
                         url('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=800&q=80');
             background-size: cover;
             background-position: center;
-            /* تم زيادة المسافة العلوية (Padding Top) بوضوح لضمان ظهور الاسم والزر بشكل كامل ومريح */
-            padding: 42px 16px 22px 16px;
+            padding: 45px 16px 20px 16px;
             border-bottom-left-radius: 28px;
             border-bottom-right-radius: 28px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
@@ -189,7 +188,7 @@ html_code = """
 
         </div>
 
-        <!-- الشريط السفلي (الترتيب: الرئيسية يمين، الأدوات وسط، الأعمال يسار) -->
+        <!-- الشريط السفلي -->
         <nav class="nav-bar">
             <button id="btn-home" onclick="switchScreen('home')" class="nav-item active">🏠 الرئيسية</button>
             <button id="btn-tools" onclick="switchScreen('tools')" class="nav-item">🛠 الأدوات</button>
@@ -224,4 +223,4 @@ html_code = """
 </html>
 """
 
-st.components.v1.html(html_code, height=680, scrolling=True)
+st.components.v1.html(html_code, height=750, scrolling=True)
