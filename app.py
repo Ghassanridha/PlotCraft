@@ -62,11 +62,33 @@ html_code = """
         .screen.active { display: flex; flex-direction: column; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* تنسيق أزرار التنقل بشكل مربعات وحالات التفاعل */
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            color: #9ca3af;
+            background: transparent;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .nav-btn.active {
+            background: #ffffff;
+            color: #05070a;
+            font-weight: 700;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+        }
     </style>
 </head>
 <body class="text-white w-full">
 
-    <!-- زيادة مسافة الأمان العلوية إلى pt-12 لضمان عدم وصول شريط ستريمليت لأي جزء من العنوان -->
     <main class="w-full bg-[#05070a] relative flex flex-col justify-between overflow-y-auto overflow-x-hidden no-scrollbar pb-24 pt-12">
         
         <div class="w-full px-3">
@@ -144,12 +166,14 @@ html_code = """
             </div>
         </div>
 
-        <!-- الشريط السفلي -->
-        <nav class="fixed bottom-0 left-0 right-0 glass-nav px-3 py-2.5 flex items-center justify-between z-50 shadow-2xl">
+        <!-- الشريط السفلي (الترتيب من اليمين: الرئيسية، الأدوات، الأعمال، ثم زر الإضافات) -->
+        <nav class="fixed bottom-0 left-0 right-0 glass-nav px-3 py-2 flex items-center justify-between z-50 shadow-2xl">
             <button onclick="alert('المزيد قريباً')" class="text-gray-400 text-xs p-2">✨</button>
-            <button id="btn-works" onclick="switchScreen('works')" class="text-gray-400 text-xs font-medium px-3 py-1 rounded-full">💼 الأعمال</button>
-            <button id="btn-tools" onclick="switchScreen('tools')" class="text-gray-400 text-xs font-medium px-3 py-1 rounded-full">🛠 الأدوات</button>
-            <button id="btn-home" onclick="switchScreen('home')" class="px-3 py-1 rounded-full bg-white/20 text-white text-xs font-bold">🏠 الرئيسية</button>
+            <div class="flex items-center gap-1">
+                <button id="btn-works" onclick="switchScreen('works')" class="nav-btn">💼 الأعمال</button>
+                <button id="btn-tools" onclick="switchScreen('tools')" class="nav-btn">🛠 الأدوات</button>
+                <button id="btn-home" onclick="switchScreen('home')" class="nav-btn active">🏠 الرئيسية</button>
+            </div>
         </nav>
 
     </main>
@@ -160,22 +184,19 @@ html_code = """
             document.getElementById('tools-screen').classList.remove('active');
             document.getElementById('works-screen').classList.remove('active');
             
-            const defCls = "text-gray-400 text-xs font-medium px-3 py-1 rounded-full";
-            const actCls = "px-3 py-1 rounded-full bg-white/20 text-white text-xs font-bold";
-            
-            document.getElementById('btn-home').className = defCls;
-            document.getElementById('btn-tools').className = defCls;
-            document.getElementById('btn-works').className = defCls;
+            document.getElementById('btn-home').classList.remove('active');
+            document.getElementById('btn-tools').classList.remove('active');
+            document.getElementById('btn-works').classList.remove('active');
 
             if (screenName === 'home') {
                 document.getElementById('home-screen').classList.add('active');
-                document.getElementById('btn-home').className = actCls;
+                document.getElementById('btn-home').classList.add('active');
             } else if (screenName === 'tools') {
                 document.getElementById('tools-screen').classList.add('active');
-                document.getElementById('btn-tools').className = actCls;
+                document.getElementById('btn-tools').classList.add('active');
             } else if (screenName === 'works') {
                 document.getElementById('works-screen').classList.add('active');
-                document.getElementById('btn-works').className = actCls;
+                document.getElementById('btn-works').classList.add('active');
             }
         }
     </script>
