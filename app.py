@@ -29,29 +29,14 @@ html_code = """
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        /* تصميم الثقب الدودي الفضائي: يبدأ من منطقة الترقية ويمتد للأسفل بلون أسود وفضي منحني */
-        .wormhole-bg {
-            background: radial-gradient(circle at 20% 15%, rgba(0, 0, 0, 0.95) 0%, rgba(192, 192, 192, 0.25) 35%, rgba(5, 7, 10, 0.98) 70%),
-                        linear-gradient(135deg, #05070a 0%, #121620 50%, #05070a 100%);
+        /* الثقب الدودي الاحترافي: مركز أسود فخم مع تدرجات فضية من جهة الترقية وتمتد للأسفل */
+        .wormhole-hero-bg {
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(0, 0, 0, 0.95) 0%, rgba(192, 200, 215, 0.25) 35%, rgba(5, 7, 10, 0.9) 70%),
+                url('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
             position: relative;
-        }
-        /* حلقات الثقب الدودي الدوارة الفضية والسوداء */
-        .wormhole-ring {
-            position: absolute;
-            top: -50px;
-            left: -50px;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            border: 2px dashed rgba(220, 224, 230, 0.35);
-            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.9), 0 0 40px rgba(180, 190, 200, 0.2);
-            pointer-events: none;
-            animation: rotateWormhole 20s linear infinite;
-        }
-        @keyframes rotateWormhole {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.05); }
-            100% { transform: rotate(360deg) scale(1); }
         }
 
         .screen { display: none; }
@@ -66,11 +51,8 @@ html_code = """
         
         <!-- ================= الشاشة الأولى: الصفحة الرئيسية ================= -->
         <div id="home-screen" class="screen active flex-col">
-            <div class="wormhole-bg p-5 pb-8 relative rounded-b-[35px] overflow-hidden">
-                <!-- تأثير الثقب الدودي المجسم -->
-                <div class="wormhole-ring"></div>
-                <div class="absolute top-10 right-10 w-40 h-40 bg-gradient-to-br from-gray-300/20 to-black rounded-full blur-2xl pointer-events-none"></div>
-
+            <div class="wormhole-hero-bg p-5 pb-8 relative rounded-b-[35px] overflow-hidden">
+                
                 <div class="flex items-center justify-between mb-8 relative z-10">
                     <span class="font-black text-sm tracking-wide">بلوت كرافت</span>
                     <span class="px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-[11px] font-bold text-white border border-white/15 cursor-pointer shadow-lg shadow-gray-500/10">ترقية ✨</span>
