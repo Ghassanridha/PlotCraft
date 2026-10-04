@@ -94,43 +94,34 @@ html_code = """
         .screen { display: none; width: 100%; flex-direction: column; }
         .screen.active { display: flex; }
         
-        /* شريط التنقل السفلي المدمج (يتحرك مع المحتوى وبمسافة راقية) */
-        .nav-bar {
-            width: 92%;
-            max-width: 400px;
-            margin: 16px auto 24px auto;
-            background: rgba(18, 21, 30, 0.95);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 9999px;
+        /* شريط الأزرار الجديد تحت قسم إلهام بلوت كرافت */
+        .custom-nav-tabs {
             display: flex;
-            padding: 5px;
-            flex-shrink: 0;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.8);
+            gap: 8px;
+            padding: 14px 16px;
+            width: 100%;
         }
-        .nav-item {
+        .tab-btn {
             flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            padding: 8px 4px;
-            border-radius: 9999px;
+            padding: 10px 6px;
+            text-align: center;
+            font-family: 'Tajawal', sans-serif;
             font-size: 11px;
             font-weight: 500;
             color: #9ca3af;
-            background: transparent;
-            border: none;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
             cursor: pointer;
-            transition: all 0.25s ease;
-            white-space: nowrap;
+            transition: all 0.2s ease;
         }
-        .nav-item.active {
-            background: rgba(255, 255, 255, 0.15);
+        /* شكل الزر عند الضغط (أبيض غامق على أسود) */
+        .tab-btn.active {
+            background: #000000;
             color: #ffffff;
-            font-weight: 700;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-weight: 900;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
         }
     </style>
 </head>
@@ -242,23 +233,14 @@ html_code = """
                 </div>
             </div>
 
-        </div>
+            <!-- أزرار التنقل الجديدة (تحت قسم الإلهام تماماً وبدون إيموجيات) -->
+            <div class="custom-nav-tabs">
+                <button id="btn-home" onclick="switchScreen('home')" class="tab-btn active">الصفحة الرئيسية</button>
+                <button id="btn-tools" onclick="switchScreen('tools')" class="tab-btn">الأدوات</button>
+                <button id="btn-works" onclick="switchScreen('works')" class="tab-btn">الاعمال</button>
+            </div>
 
-        <!-- شريط التنقل السفلي المدمج كجزء من عناصر الصفحة -->
-        <nav class="nav-bar">
-            <button id="btn-home" onclick="switchScreen('home')" class="nav-item active">
-                <span>الرئيسية</span>
-                <span>🏠</span>
-            </button>
-            <button id="btn-tools" onclick="switchScreen('tools')" class="nav-item">
-                <span>الأدوات</span>
-                <span>🛠</span>
-            </button>
-            <button id="btn-works" onclick="switchScreen('works')" class="nav-item">
-                <span>الأعمال</span>
-                <span>💼</span>
-            </button>
-        </nav>
+        </div>
 
     </div>
 
