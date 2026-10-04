@@ -2,79 +2,81 @@ import streamlit as st
 import fal_client
 import os
 
-# إعداد الصفحة وتصميم الواجهة
+# إعداد الصفحة
 st.set_page_config(page_title="PlotCraft - مولد الفيديوهات", layout="centered")
-
-# تصميم شارة الـ Pro في أعلى اليسار
-st.markdown("""
-    <style>
-    .pro-badge {
-        background: linear-gradient(45deg, #FF4B4B, #FF8F00);
-        color: white;
-        padding: 5px 15px;
-        border-radius: 20px;
-        font-weight: bold;
-        font-size: 14px;
-        float: left;
-        margin-bottom: 15px;
-    }
-    .card {
-        background-color: #1e1e1e;
-        padding: 15px;
-        border-radius: 10px;
-        border: 1px solid #333;
-        margin-bottom: 15px;
-    }
-    </style>
-    <div class="pro-badge">⭐ Pro Version</div>
-""", unsafe_allow_html=True)
-
-st.title("PlotCraft - مولد الفيديوهات بالذكاء الاصطناعي")
-st.write("حول قصصك وصور الشخصيات إلى مقاطع فيديو سينمائية احترافية!")
 
 # إدخال مفتاح الـ API الخاص بـ fal.ai
 DEFAULT_FAL_KEY = "fal_sk_d8e30b437fdc44c891740a201522be4d:d78802704ad38b28b6b7f1bcef6ef4c"
 os.environ["FAL_KEY"] = DEFAULT_FAL_KEY
 
+# --- زر Pro Version مع نافذة منبثقة (Dialog) للاشتراكات ---
+@st.dialog("💎 خطط الاشتراك والترقية (Pro Version)")
+def show_pricing_dialog():
+    st.write("اختر الباقة المناسبة لك للتمتع بكافة مميزات الذكاء الاصطناعي:")
+    st.markdown("---")
+    st.markdown("📅 **اشتراك أسبوعي:** `9.99 $` / أسبوعياً")
+    st.markdown("🗓️ **اشتراك شهري:** `24.99 $` / شهرياً")
+    st.markdown("🌟 **اشتراك سنوي:** `69.99 $` / سنوياً")
+    st.markdown("---")
+    if st.button("إغلاق النافذة", use_container_width=True):
+        st.rerun()
+
+# تصميم زر Pro البرتقالي أعلى اليسار
+st.markdown("""
+    <style>
+    .stButton button[kind="secondary"] {
+        background: linear-gradient(45deg, #FF4B4B, #FF8F00);
+        color: white;
+        border-radius: 20px;
+        font-weight: bold;
+        border: none;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+col_title, col_btn = st.columns([2, 1])
+with col_btn:
+    if st.button("⭐ Pro Version", use_container_width=True):
+        show_pricing_dialog()
+
+with col_title:
+    st.markdown("### PlotCraft")
+
+st.write("حول قصصك وصور الشخصيات إلى مقاطع فيديو سينمائية احترافية!")
 st.markdown("---")
 
-# --- 1. قسم باقات الترقية والاشتراكات في الواجهة الرئيسية ---
-st.markdown("### 💎 خطط الاشتراك والترقية (Pro)")
-col1, col2, col3 = st.columns(3)
-with col1:
-    st.markdown("**أسبوعي**\n$9.99")
-with col2:
-    st.markdown("**شهري**\n$24.99")
-with col3:
-    st.markdown("**سنوي**\n$69.99")
+# --- 1. خيارات الدقة بشكل أفقي (جنب لجنب) ---
+st.markdown("### ⚙️ دقة الفيديو")
+resolution_option = st.radio(
+    "اختر الدقة",
+    ["720p HD", "1080p Full HD", "4K Ultra"],
+    horizontal=True,
+    label_visibility="collapsed"
+)
+
+st.markdown("")
+
+# --- 2. خيارات مدة الفيديو بشكل أفقي (جنب لجنب) ---
+st.markdown("### ⏱️ مدة الفيديو")
+duration_option = st.radio(
+    "اختر المدة",
+    ["10 ثواني", "21 ثانية", "5 دقائق"],
+    horizontal=True,
+    label_visibility="collapsed"
+)
 
 st.markdown("---")
 
-# --- 2. إعدادات الفيديو المتقدمة في الواجهة الرئيسية ---
-st.markdown("### ⚙️ إعدادات الفيديو المتقدمة")
-col_res, col_dur = st.columns(2)
-
-with col_res:
-    resolution_option = st.selectbox(
-        "اختر دقة الفيديو",
-        ["720p HD", "1080p Full HD", "4K Ultra"]
-    )
-
-with col_dur:
-    duration_option = st.selectbox(
-        "مدة الفيديو",
-        ["10 ثواني", "21 ثانية", "5 دقائق"]
-    )
-
-# --- 3. أيقونة إضافة صورة الشخصية في الواجهة الرئيسية ---
-st.markdown("### 👤 شخصية القصة (مطابقة الوجه)")
+# --- 3. أيقونة إضافة صورة الشخصية ---
+st.markdown("### 👤 صورة الشخصية (مطابقة الوجه)")
 uploaded_character_image = st.file_uploader(
-    "أضف صورة الشخصية لتوليد فيديو مطابق لها (اختياري)", 
-    type=["jpg", "png", "jpeg"]
+    "أضف صورة الشخصية (اختياري)", 
+    type=["jpg", "png", "jpeg"],
+    label_visibility="collapsed"
 )
 
 if uploaded_character_image is not None:
-    st.image(uploaded_character_image, caption="صورة الشخصية المضافة", width=150)
+    st.image(uploaded_character_image, caption="صورة الشخصية المضافة", width=120)
     st.success("تم إرفاق صورة الشخصية بنجاح!")
 
 st.markdown("---")
