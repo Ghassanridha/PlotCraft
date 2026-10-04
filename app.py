@@ -29,14 +29,8 @@ with col_title:
 st.write("حول قصصك وصور الشخصيات إلى مقاطع فيديو سينمائية احترافية!")
 st.markdown("---")
 
-# --- إدخال مفتاح الـ API ---
-user_fal_key = st.text_input("مفتاح API الخاص بـ fal.ai:", type="password", value="")
-if user_fal_key.strip():
-    os.environ["FAL_KEY"] = user_fal_key.strip()
-else:
-    os.environ["FAL_KEY"] = "fal_sk_d8e30b437fdc44c891740a201522be4d:d78802704ad38b28b6b7f1bcef6ef4c"
-
-st.markdown("---")
+# --- تعيين مفتاح الـ API الصحيح تلقائياً ---
+os.environ["FAL_KEY"] = "fal_sk_d8e30b437fdc44c891740a201522be4d:d78802704ad38b28b6b7f1bcef6ef4c"
 
 # --- 1. خيارات الدقة بشكل أفقي ---
 st.markdown("### ⚙️ دقة الفيديو")
@@ -101,7 +95,7 @@ if st.button("توليد الفيديو الحقيقي 🚀", use_container_widt
                     st.success("تم توليد الفيديو بنجاح! 🎉")
                     st.video(video_url)
                 else:
-                    st.error("حدث خطأ أثناء استخراج رابط الفيديو، يرجى التأكد من مفتاح الـ API.")
+                    st.error("حدث خطأ أثناء استخراج رابط الفيديو، يرجى المحاولة مرة أخرى.")
                     
             except Exception as e:
                 st.error(f"خطأ في الاتصال: {e}")
