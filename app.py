@@ -45,7 +45,7 @@ html_code = """
             height: 100vh;
             position: relative;
             overflow-y: auto;
-            padding-bottom: 95px;
+            padding-bottom: 110px;
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         
@@ -88,10 +88,10 @@ html_code = """
         .screen { display: none; width: 100%; flex-direction: column; }
         .screen.active { display: flex; }
         
-        /* شريط التنقل السفلي */
+        /* شريط التنقل السفلي (تم رفع ليفوك بمقدار مناسب) */
         .nav-bar {
             position: fixed;
-            bottom: 12px;
+            bottom: 25px;
             left: 50%;
             transform: translateX(-50%);
             width: 92%;
@@ -173,19 +173,19 @@ html_code = """
                     <!-- مربعات الخيارات السريعة -->
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                         
-                        <!-- مربع سريع -->
+                        <!-- مربع خطوة بخطوة (يمين) -->
+                        <div class="glass-box">
+                            <div style="font-size: 16px; margin-bottom: 4px; text-align: right;">💬</div>
+                            <h3 style="font-size: 12px; font-weight: bold; margin-bottom: 2px;">خطوة بخطوة</h3>
+                            <p style="font-size: 9px; color: #94a3b8; line-height: 1.2;">راجع كل خطوة</p>
+                        </div>
+
+                        <!-- مربع سريع (يسار) -->
                         <div class="glass-box">
                             <span style="position: absolute; top: 8px; left: 10px; font-size: 7px; background: rgba(0,0,0,0.5); padding: 2px 6px; border-radius: 10px; color: #cbd5e1; font-weight: bold; border: 1px solid rgba(255,255,255,0.1);">Pro</span>
                             <div style="font-size: 16px; margin-bottom: 4px; text-align: right;">⚡</div>
                             <h3 style="font-size: 12px; font-weight: bold; margin-bottom: 2px;">سريع</h3>
                             <p style="font-size: 9px; color: #94a3b8; line-height: 1.2;">إدخال واحد، فيديو كامل</p>
-                        </div>
-
-                        <!-- مربع خطوة بخطوة -->
-                        <div class="glass-box">
-                            <div style="font-size: 16px; margin-bottom: 4px; text-align: right;">💬</div>
-                            <h3 style="font-size: 12px; font-weight: bold; margin-bottom: 2px;">خطوة بخطوة</h3>
-                            <p style="font-size: 9px; color: #94a3b8; line-height: 1.2;">راجع كل خطوة</p>
                         </div>
 
                     </div>
@@ -239,7 +239,7 @@ html_code = """
 
         </div>
 
-        <!-- الشريط السفلي (الترتيب: الرئيسية، ثم الأدوات، ثم الأعمال من اليمين لليسار) -->
+        <!-- الشريط السفلي (الترتيب: الرئيسية، ثم الأدوات، ثم الأعمال من اليمين لليسار مع الرفع للأعلى) -->
         <nav class="nav-bar">
             <button id="btn-home" onclick="switchScreen('home')" class="nav-item active">
                 <span>الرئيسية</span>
