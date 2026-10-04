@@ -104,8 +104,8 @@ html_code = """
 
             <div class="flex flex-col gap-4">
                 
-                <!-- 1. تأثيرات الفيديو (تم تحديث الصورة حصرياً لتمثل ثقباً دودياً فضائياً بسماء سوداء ونجوم وتدرج فضي بنسبة 70%) -->
-                <div class="h-[135px] rounded-2xl bg-cover bg-center relative p-4 flex flex-col justify-between border border-white/25 shadow-2xl cursor-pointer" style="background-image: linear-gradient(to left, rgba(20,22,28,0.70) 40%, rgba(5,7,10,0.70) 100%), url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=600&q=80')">
+                <!-- 1. تأثيرات الفيديو (تم تحديثها لتكون صورة ثقب دودي فضائي حقيقي بسماء سوداء ونجوم وتدرج فضي بنسبة 70%) -->
+                <div class="h-[135px] rounded-2xl bg-cover bg-center relative p-4 flex flex-col justify-between border border-white/25 shadow-2xl cursor-pointer" style="background-image: linear-gradient(to left, rgba(20,22,28,0.70) 40%, rgba(5,7,10,0.70) 100%), url('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=600&q=80')">
                     <div class="flex justify-end items-start z-10">
                         <span class="w-6 h-6 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white text-xs border border-white/20">‹</span>
                     </div>
