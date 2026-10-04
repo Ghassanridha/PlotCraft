@@ -28,8 +28,9 @@ html_code = """
             backdrop-filter: blur(30px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
+        /* خلفية الهيرو الجديدة كلياً: ثقب دودي فلكي مع سماء سوداء وتدرج فضي دقيق */
         .hero-bg {
-            background-image: linear-gradient(to bottom, rgba(5, 7, 10, 0.2), rgba(5, 7, 10, 0.95)), url('https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80');
+            background-image: linear-gradient(to bottom, rgba(5, 7, 10, 0.3), rgba(5, 7, 10, 0.95)), url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80');
         }
         .screen { display: none; }
         .screen.active { display: flex; flex-direction: column; }
@@ -41,7 +42,7 @@ html_code = """
 
     <main class="w-full max-w-[420px] min-h-screen bg-[#05070a] relative shadow-2xl border border-white/10 flex flex-col justify-between pb-28 overflow-hidden">
         
-        <!-- ================= الشاشة الأولى: الصفحة الرئيسية (الافتراضية) ================= -->
+        <!-- ================= الشاشة الأولى: الصفحة الرئيسية ================= -->
         <div id="home-screen" class="screen active flex-col">
             <div class="hero-bg bg-cover bg-center p-5 pb-8 relative rounded-b-[35px]">
                 <div class="flex items-center justify-between mb-8">
@@ -103,9 +104,7 @@ html_code = """
             </div>
 
             <div class="flex flex-col gap-4">
-                
-                <!-- 1. تأثيرات الفيديو (ثقب دودي بسماء سوداء ونجوم وتدرج فضي بنسبة 70%) -->
-                <div class="h-[135px] rounded-2xl bg-cover bg-center relative p-4 flex flex-col justify-between border border-white/25 shadow-2xl cursor-pointer" style="background-image: linear-gradient(to left, rgba(20,22,28,0.70) 40%, rgba(5,7,10,0.70) 100%), url('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=600&q=80')">
+                <div class="h-[135px] rounded-2xl bg-cover bg-center relative p-4 flex flex-col justify-between border border-white/25 shadow-2xl cursor-pointer" style="background-image: linear-gradient(to left, rgba(20,22,28,0.70) 40%, rgba(5,7,10,0.70) 100%), url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=600&q=80')">
                     <div class="flex justify-end items-start z-10">
                         <span class="w-6 h-6 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white text-xs border border-white/20">‹</span>
                     </div>
@@ -115,7 +114,6 @@ html_code = """
                     </div>
                 </div>
 
-                <!-- 2. توليد الفيديو -->
                 <div class="h-[135px] rounded-2xl bg-cover bg-center relative p-4 flex flex-col justify-between border border-white/15 shadow-xl cursor-pointer" style="background-image: linear-gradient(to left, rgba(5,7,10,0.85) 40%, rgba(5,7,10,0.2) 100%), url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&q=80')">
                     <div class="flex justify-end items-start z-10">
                         <span class="w-6 h-6 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white text-xs border border-white/20">‹</span>
@@ -126,7 +124,6 @@ html_code = """
                     </div>
                 </div>
 
-                <!-- 3. توليد الصور -->
                 <div class="h-[135px] rounded-2xl bg-cover bg-center relative p-4 flex flex-col justify-between border border-white/15 shadow-xl cursor-pointer" style="background-image: linear-gradient(to right, rgba(5,7,10,0.85) 40%, rgba(5,7,10,0.2) 100%), url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80')">
                     <div class="flex justify-between items-start z-10">
                         <span class="w-6 h-6 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white text-xs border border-white/20">‹</span>
@@ -143,7 +140,7 @@ html_code = """
             </div>
         </div>
 
-        <!-- ================= الشاشة الثالثة: الأعمال (فارغة نظيفة) ================= -->
+        <!-- ================= الشاشة الثالثة: الأعمال ================= -->
         <div id="works-screen" class="screen flex-col p-5">
             <div class="flex items-center justify-end mb-6 mt-2">
                 <span class="px-3.5 py-1.5 rounded-full bg-indigo-600/30 backdrop-blur-md text-[11px] font-bold text-indigo-300 border border-indigo-500/30 cursor-pointer">+ مشروع جديد</span>
@@ -156,7 +153,7 @@ html_code = """
             </div>
         </div>
 
-        <!-- ================= شريط التنقل السفلي بترتيب صحيح ================= -->
+        <!-- ================= شريط التنقل السفلي ================= -->
         <nav class="absolute bottom-4 left-4 right-4 glass-nav rounded-full px-4 py-2 flex items-center justify-between z-30 shadow-2xl">
             <button onclick="alert('المزيد قريباً')" class="text-gray-400 hover:text-white text-xs font-medium p-2">✨</button>
             <button id="btn-works" onclick="switchScreen('works')" class="text-gray-400 hover:text-white text-xs font-medium flex items-center gap-1 px-3 py-2 rounded-full transition">
