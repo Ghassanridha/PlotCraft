@@ -33,7 +33,6 @@ html_code = """
         }
         .screen { display: none; }
         .screen.active { display: flex; flex-direction: column; }
-        /* إخفاء شريط التمرير */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
@@ -104,7 +103,6 @@ html_code = """
             </div>
 
             <div class="flex flex-col gap-4">
-                <!-- 1. تأثيرات الفيديو -->
                 <div class="h-[135px] rounded-2xl bg-cover bg-center relative p-4 flex flex-col justify-between border border-white/15 shadow-xl cursor-pointer" style="background-image: linear-gradient(to left, rgba(5,7,10,0.85) 40%, rgba(5,7,10,0.2) 100%), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80')">
                     <div class="flex justify-end items-start z-10">
                         <span class="w-6 h-6 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white text-xs border border-white/20">‹</span>
@@ -115,7 +113,6 @@ html_code = """
                     </div>
                 </div>
 
-                <!-- 2. توليد الفيديو -->
                 <div class="h-[135px] rounded-2xl bg-cover bg-center relative p-4 flex flex-col justify-between border border-white/15 shadow-xl cursor-pointer" style="background-image: linear-gradient(to left, rgba(5,7,10,0.85) 40%, rgba(5,7,10,0.2) 100%), url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&q=80')">
                     <div class="flex justify-end items-start z-10">
                         <span class="w-6 h-6 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white text-xs border border-white/20">‹</span>
@@ -126,7 +123,6 @@ html_code = """
                     </div>
                 </div>
 
-                <!-- 3. توليد الصور -->
                 <div class="h-[135px] rounded-2xl bg-cover bg-center relative p-4 flex flex-col justify-between border border-white/15 shadow-xl cursor-pointer" style="background-image: linear-gradient(to right, rgba(5,7,10,0.85) 40%, rgba(5,7,10,0.2) 100%), url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80')">
                     <div class="flex justify-between items-start z-10">
                         <span class="w-6 h-6 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white text-xs border border-white/20">‹</span>
@@ -143,54 +139,17 @@ html_code = """
             </div>
         </div>
 
-        <!-- ================= الشاشة الثالثة: الأعمال (فيديوهاتي المصممة) ================= -->
+        <!-- ================= الشاشة الثالثة: الأعمال (قائمة فارغة نظيفة بدون عنوان وبدون فيديوهات) ================= -->
         <div id="works-screen" class="screen flex-col p-5">
-            <div class="flex items-center justify-between mb-5 mt-2">
-                <h1 class="text-lg font-black text-white">أعمالي وفيديوهاتي</h1>
+            <div class="flex items-center justify-end mb-6 mt-2">
                 <span class="px-3.5 py-1.5 rounded-full bg-indigo-600/30 backdrop-blur-md text-[11px] font-bold text-indigo-300 border border-indigo-500/30 cursor-pointer">+ مشروع جديد</span>
             </div>
 
-            <div class="flex flex-col gap-3.5 overflow-y-auto max-h-[500px] no-scrollbar pb-4">
-                
-                <!-- فيديو مصمم 1 -->
-                <div class="glass-box rounded-2xl p-3 flex items-center gap-3.5 border border-white/10 relative">
-                    <div class="w-[90px] h-[65px] rounded-xl bg-cover bg-center relative flex items-center justify-center shadow-md flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=300&q=80')">
-                        <div class="w-7 h-7 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center text-white text-xs border border-white/20">▶</div>
-                        <span class="absolute bottom-1 right-1 bg-black/70 text-[9px] px-1.5 py-0.2 rounded text-gray-200">00:45</span>
-                    </div>
-                    <div class="flex-1 text-right">
-                        <h3 class="text-xs font-bold text-white mb-0.5">مشهد المعركة السينمائي</h3>
-                        <p class="text-[10px] text-gray-400 mb-1">تم التوليد بواسطة تأثيرات الفيديو</p>
-                        <span class="text-[9px] text-indigo-400 bg-indigo-950/50 px-2 py-0.5 rounded-full border border-indigo-500/30">مكتمل 🟢</span>
-                    </div>
-                </div>
-
-                <!-- فيديو مصمم 2 -->
-                <div class="glass-box rounded-2xl p-3 flex items-center gap-3.5 border border-white/10 relative">
-                    <div class="w-[90px] h-[65px] rounded-xl bg-cover bg-center relative flex items-center justify-center shadow-md flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80')">
-                        <div class="w-7 h-7 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center text-white text-xs border border-white/20">▶</div>
-                        <span class="absolute bottom-1 right-1 bg-black/70 text-[9px] px-1.5 py-0.2 rounded text-gray-200">01:20</span>
-                    </div>
-                    <div class="flex-1 text-right">
-                        <h3 class="text-xs font-bold text-white mb-0.5">قصة الرجل الغامض</h3>
-                        <p class="text-[10px] text-gray-400 mb-1">تم التوليد بواسطة توليد الفيديو</p>
-                        <span class="text-[9px] text-indigo-400 bg-indigo-950/50 px-2 py-0.5 rounded-full border border-indigo-500/30">مكتمل 🟢</span>
-                    </div>
-                </div>
-
-                <!-- فيديو مصمم 3 -->
-                <div class="glass-box rounded-2xl p-3 flex items-center gap-3.5 border border-white/10 relative">
-                    <div class="w-[90px] h-[65px] rounded-xl bg-cover bg-center relative flex items-center justify-center shadow-md flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80')">
-                        <div class="w-7 h-7 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center text-white text-xs border border-white/20">▶</div>
-                        <span class="absolute bottom-1 right-1 bg-black/70 text-[9px] px-1.5 py-0.2 rounded text-gray-200">00:30</span>
-                    </div>
-                    <div class="flex-1 text-right">
-                        <h3 class="text-xs font-bold text-white mb-0.5">بورتريه الضوء الأزرق</h3>
-                        <p class="text-[10px] text-gray-400 mb-1">تم التوليد بواسطة توليد الصور</p>
-                        <span class="text-[9px] text-amber-400 bg-amber-950/50 px-2 py-0.5 rounded-full border border-amber-500/30">قيد المعالجة 🟡</span>
-                    </div>
-                </div>
-
+            <!-- قائمة فارغة بالكامل مع رسالة توجيهية جميلة -->
+            <div class="flex flex-col items-center justify-center h-[350px] text-center px-4">
+                <div class="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-2xl mb-3">🎬</div>
+                <h3 class="text-sm font-bold text-white mb-1">لا توجد أعمال بعد</h3>
+                <p class="text-[11px] text-gray-400">ابدأ بإنشاء مشروعك السينمائي الأول وسيظهر هنا</p>
             </div>
         </div>
 
@@ -223,12 +182,10 @@ html_code = """
             const btnTools = document.getElementById('btn-tools');
             const btnWorks = document.getElementById('btn-works');
             
-            // إخفاء جميع الشاشات
             homeScreen.classList.remove('active');
             toolsScreen.classList.remove('active');
             worksScreen.classList.remove('active');
             
-            // إعادة ضبط كل الأزرار لشكل غير مفعل
             const inactiveClass = "text-gray-400 hover:text-white text-xs font-medium flex items-center gap-1 px-3 py-2 rounded-full transition";
             const activeClass = "flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white/20 text-white text-xs font-bold shadow-inner transition";
             
