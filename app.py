@@ -6,7 +6,7 @@ st.set_page_config(
     page_title="PlotCraft - مولد الفيديوهات", page_icon="🎬", layout="centered"
 )
 
-# تصميم وتنسيق CSS مخصص لواجهة داكنة عصرية
+# تصميم وتنسيق CSS مخصص لواجهة داكنة عصرية ونظام الزاوية العلوية
 st.markdown(
     """
     <style>
@@ -22,7 +22,7 @@ st.markdown(
         border-radius: 12px;
         border: 1px solid #2d3748;
     }
-    /* تنسيق الأزرار */
+    /* تنسيق الأزرار الرئيسية */
     .stButton button {
         background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
         color: white;
@@ -49,11 +49,51 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# واجهة ترحيبية بتصميم عاصري
+# --- شريط علوي يحتوي على زر الترقية في اليسار ---
+top_col1, top_col2 = st.columns([3, 1])
+
+with top_col1:
+  st.markdown(
+      "<h3 style='margin:0; color: #f8fafc; text-align: right;'>PlotCraft"
+      " 🎬</h3>",
+      unsafe_allow_html=True,
+  )
+
+with top_col2:
+  # استخدام popover (قائمة منبثقة تفتح عند الضغط على زر الترقية في اليسار)
+  with st.popover("💎 ترقية"):
+    st.markdown(
+        "<h4 style='text-align: center; color: #3b82f6; margin-bottom: 5px;'>إصدار"
+        " PRO الاحترافي</h4>",
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        "<p style='text-align: center; font-size: 13px; color: #94a3b8;'>احصل"
+        " على فيديوهات غير محدودة ودقة عالية.</p>",
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        "<div"
+        " style='background-color: rgba(59, 130, 246, 0.1); padding: 10px;"
+        " border-radius: 10px; text-align: center; margin: 10px 0; border: 1px"
+        " solid #3b82f6;'><span style='font-size: 20px; font-weight: bold;"
+        " color: #60a5fa;'>$9.99</span> <span style='font-size: 12px;"
+        " color: #cbd5e1;'>/ شهرياً</span></div>",
+        unsafe_allow_html=True,
+    )
+
+    if st.button("تفعيل الاشتراك الآن"):
+      st.balloons()
+      st.success("🎉 تم الانتقال لبوابة الدفع الآمنة!")
+
+st.markdown("---")
+
+# واجهة ترحيبية بتصميم عصري
 st.markdown(
     """
     <div class="header-box">
-        <h3 style="margin:0; color: #f8fafc;">🎬 طاب مساؤك، أيها المخرج</h3>
+        <h3 style="margin:0; color: #f8fafc;">طاب مساؤك، أيها المخرج</h3>
         <p style="margin:5px 0 0 0; color: #94a3b8; font-size: 14px;">أي قصة سنصنع اليوم؟</p>
     </div>
 """,
@@ -90,7 +130,7 @@ with col1:
 with col2:
   aspect_ratio = st.selectbox("نسبة العرض", ["16:9 (يوتيوب)", "9:16 (تيك توك/ريلز)"])
 
-# اختيار المدة المحددة (10 ثواني، 21 ثانية، أو 5 دقائق) بدون ذكر أرقام قديمة
+# اختيار المدة المحددة (10 ثواني، 21 ثانية، أو 5 دقائق)
 duration_option = st.selectbox(
     "حدد مدة الفيديو:", ["10 ثواني", "21 ثانية", "5 دقائق"]
 )
@@ -106,7 +146,7 @@ else:
 st.markdown("---")
 
 # زر التوليد الرئيسي
-if st.button("🚀 بدء التوليد التجريبي الشامل"):
+if st.button("✨ بدء التوليد التجريبي الشامل"):
   if not prompt.strip():
     st.warning("يرجى كتابة فكرة أو سيناريو الفيديو أولاً!")
   else:
