@@ -63,27 +63,27 @@ html_code = """
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* تنسيق أزرار التنقل بشكل مربعات وحالات التفاعل */
+        /* تنسيق الأزرار داخل مربعات وحالة التحديد الأبيض على أسود */
         .nav-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 4px;
-            padding: 8px 12px;
+            gap: 6px;
+            padding: 8px 14px;
             border-radius: 12px;
             font-size: 11px;
             font-weight: 500;
             color: #9ca3af;
-            background: transparent;
-            border: 1px solid transparent;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             transition: all 0.2s ease;
         }
         .nav-btn.active {
             background: #ffffff;
             color: #05070a;
             font-weight: 700;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+            border: 1px solid #ffffff;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.25);
         }
     </style>
 </head>
@@ -166,14 +166,11 @@ html_code = """
             </div>
         </div>
 
-        <!-- الشريط السفلي (الترتيب من اليمين: الرئيسية، الأدوات، الأعمال، ثم زر الإضافات) -->
-        <nav class="fixed bottom-0 left-0 right-0 glass-nav px-3 py-2 flex items-center justify-between z-50 shadow-2xl">
-            <button onclick="alert('المزيد قريباً')" class="text-gray-400 text-xs p-2">✨</button>
-            <div class="flex items-center gap-1">
-                <button id="btn-works" onclick="switchScreen('works')" class="nav-btn">💼 الأعمال</button>
-                <button id="btn-tools" onclick="switchScreen('tools')" class="nav-btn">🛠 الأدوات</button>
-                <button id="btn-home" onclick="switchScreen('home')" class="nav-btn active">🏠 الرئيسية</button>
-            </div>
+        <!-- الشريط السفلي (الترتيب من اليمين: الرئيسية، الأدوات، الأعمال) -->
+        <nav class="fixed bottom-0 left-0 right-0 glass-nav px-4 py-2.5 flex items-center justify-center gap-2 z-50 shadow-2xl">
+            <button id="btn-works" onclick="switchScreen('works')" class="nav-btn">💼 الأعمال</button>
+            <button id="btn-tools" onclick="switchScreen('tools')" class="nav-btn">🛠 الأدوات</button>
+            <button id="btn-home" onclick="switchScreen('home')" class="nav-btn active">🏠 الرئيسية</button>
         </nav>
 
     </main>
