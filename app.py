@@ -2,7 +2,7 @@ import os
 import streamlit as st
 import fal_client
 
-# إعداد الصفحة
+# إعداد الصفحة وتوسيعها
 st.set_page_config(
     page_title="PlotCraft - سينما الذكاء الاصطناعي",
     page_icon="🎬",
@@ -10,10 +10,9 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# تخصيص التصميم والواجهة السينمائية المطابقة للصورة تماماً عبر CSS
+# تصميم CSS الخارق لفرض الشكل السينمائي والترتيب الصحيح بدقة مطابقة للصورة
 st.markdown("""
     <style>
-    /* إخفاء عناصر ستريمليت الافتراضية */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
@@ -24,23 +23,36 @@ st.markdown("""
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
     
-    /* شريط العنوان العلوي: الاسم يمين وترقية يسار */
-    .top-header {
+    /* الهيدر العلوي: الاسم يمين وترقية Pro يسار */
+    .header-container {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 5px 0 15px 0;
+        padding: 10px 5px 15px 5px;
+        width: 100%;
     }
     
-    .brand-title {
-        font-size: 1.6rem;
+    .brand-name {
+        font-size: 1.5rem;
         font-weight: 800;
-        letter-spacing: 0.5px;
         color: #ffffff;
-        text-align: right;
+        letter-spacing: 0.5px;
     }
     
-    /* غلاف البانر السينمائي */
+    .pro-badge-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        backdrop-filter: blur(10px);
+        text-decoration: none;
+    }
+    
+    /* البانر السينمائي الخلفي */
     .hero-banner {
         position: relative;
         width: 100%;
@@ -64,33 +76,75 @@ st.markdown("""
         text-align: right;
     }
     
-    /* تنسيق قسم إلهام الدراما */
+    /* حاوية البطاقات المتجاورة أفقياً */
+    .cards-row {
+        display: flex;
+        gap: 12px;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    
+    /* تصميم البطاقة المربعة الاحترافية */
+    .feature-card {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 16px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 110px;
+        backdrop-filter: blur(10px);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: right;
+    }
+    
+    .feature-card:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.25);
+    }
+    
+    .card-title-lg {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #ffffff;
+    }
+    
+    .card-subtitle-sm {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.6);
+        margin-top: 4px;
+    }
+    
     .section-title {
         font-size: 1.1rem;
         font-weight: 600;
         color: #e5e7eb;
-        margin: 20px 0 10px 0;
+        margin: 15px 0 10px 0;
         text-align: right;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# إدارة حالة التنقل بين الصفحات داخل التطبيق
+# إدارة حالة التنقل بين الصفحات
 if 'page' not in st.session_state:
     st.session_state.page = 'home'
 
 # ----------------------------------------------------
-# الهيدر العلوي: PlotCraft في اليمين و ترقية Pro في اليسار
+# الهيدر العلوي: PlotCraft يمين، و ترقية Pro يسار
 # ----------------------------------------------------
-col_logo, col_pro = st.columns([1, 1])
-with col_logo:
-    st.markdown('<div class="brand-title">PlotCraft</div>', unsafe_allow_html=True)
-with col_pro:
-    col_btn_align = st.columns([1, 1])
-    with col_btn_align[1]:
-        if st.button("ترقية Pro", key="btn_pro_top", use_container_width=True):
-            st.session_state.page = 'pro'
-            st.rerun()
+col1, col2 = st.columns([1, 1])
+with col1:
+    st.markdown('<div class="brand-name">PlotCraft</div>', unsafe_allow_html=True)
+with col2:
+    # استخدام حاوية لضبط محاذاة زر الترقية لليسار تماماً
+    st.markdown('<div style="text-align: left;">', unsafe_allow_html=True)
+    if st.button("ترقية Pro", key="btn_pro_header"):
+        st.session_state.page = 'pro'
+        st.rerun()
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # ----------------------------------------------------
 # 1. الصفحة الرئيسية (Home)
@@ -103,26 +157,39 @@ if st.session_state.page == 'home':
         </div>
     """, unsafe_allow_html=True)
 
-    # البطاقات المربعة المتجاورة تماماً كالصورة (يمين: خطوة بخطوة، يسار: سريع)
-    c_right, c_left = st.columns(2)
+    # البطاقات المربعة المتجاورة تماماً (يمين: خطوة بخطوة، يسار: سريع)
+    # نقوم بعمل زرين شفّافين فوق عناصر الـ HTML لضمان عمل التفاعل البرمجي بدقة
+    col_r, col_l = st.columns(2)
     
-    with c_right:
-        if st.button("خطوة بخطوة\nراجع كل خطوة", key="step_card", use_container_width=True):
+    with col_r:
+        st.markdown("""
+            <div class="feature-card">
+                <div class="card-title-lg">خطوة بخطوة</div>
+                <div class="card-subtitle-sm">راجع كل خطوة</div>
+            </div>
+        """, unsafe_allow_html=True)
+        if st.button("اختيار خطوة بخطوة", key="btn_step_action", use_container_width=True):
             st.session_state.page = 'generator'
             st.rerun()
             
-    with c_left:
-        if st.button("سريع\nإدخال واحد، فيديو كامل", key="quick_card", use_container_width=True):
+    with col_l:
+        st.markdown("""
+            <div class="feature-card">
+                <div class="card-title-lg">سريع</div>
+                <div class="card-subtitle-sm">إدخال واحد، فيديو كامل</div>
+            </div>
+        """, unsafe_allow_html=True)
+        if st.button("اختيار سريع", key="btn_quick_action", use_container_width=True):
             st.session_state.page = 'generator'
             st.rerun()
 
     st.markdown('<div class="section-title">إلهام الدراما</div>', unsafe_allow_html=True)
     
     # بوسترات الأفلام الاستعراضية
-    p1, p2 = st.columns(2)
-    with p1:
+    poster1, poster2 = st.columns(2)
+    with poster1:
         st.image("https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=500&auto=format&fit=crop", caption="THE WRONG DOOR", use_container_width=True)
-    with p2:
+    with poster2:
         st.image("https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=500&auto=format&fit=crop", caption="SECRET BILLIONAIRE", use_container_width=True)
 
 # ----------------------------------------------------
@@ -137,10 +204,10 @@ elif st.session_state.page == 'generator':
 
     prompt = st.text_area("أدخل وصف المشهد السينمائي:", placeholder="Cinematic cyber city...")
     
-    op1, op2 = st.columns(2)
-    with op1:
+    opt1, opt2 = st.columns(2)
+    with opt1:
         resolution = st.selectbox("الدقة", ["720p", "1080p", "4K"])
-    with op2:
+    with opt2:
         duration = st.selectbox("المدة", ["5 ثواني", "10 ثواني"])
 
     if st.button("بدء الإنتاج السينمائي", use_container_width=True):
