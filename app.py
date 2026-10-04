@@ -6,7 +6,7 @@ st.set_page_config(
     page_title="PlotCraft - مولد الفيديوهات", page_icon="🎬", layout="centered"
 )
 
-# تصميم وتنسيق CSS مخصص لواجهة داكنة عصرية
+# تصميم وتنسيق CSS مخصص لواجهة داكنة وتصميم بطاقات الاشتراك الاحترافية
 st.markdown(
     """
     <style>
@@ -60,33 +60,41 @@ with top_col1:
   )
 
 with top_col2:
-  # قائمة منبثقة تفتح عند الضغط على زر الترقية في اليسار
-  with st.popover("💎 ترقية"):
+  # قائمة منبثقة للترقية بتصميم يشبه التطبيقات الاحترافية
+  with st.popover("💎 ترقية PRO"):
     st.markdown(
-        "<h4 style='text-align: center; color: #3b82f6; margin-bottom: 5px;'>اختر"
-        " خطة الاشتراك</h4>",
+        "<h3 style='text-align: center; color: #ffffff; margin-bottom:0;'>DRMA"
+        " PRO</h3>",
         unsafe_allow_html=True,
     )
     st.markdown(
-        "<p style='text-align: center; font-size: 12px; color: #94a3b8;'>احصل"
-        " على مميزات PRO الاحترافية فوراً.</p>",
+        "<p style='text-align: center; font-size: 12px; color: #94a3b8;"
+        " margin-top:2px;'>حول أفكارك إلى دراما احترافية</p>",
         unsafe_allow_html=True,
     )
 
     st.markdown("---")
 
-    # عرض الخطط كأزرار مباشرة بدون قائمة منسدلة
-    if st.button("📅 الاشتراك الأسبوعي - $9.99"):
+    # خيار الاشتراك الأسبوعي
+    if st.button("📦 $9.99  |  PlotCraft Weekly\nأسبوع | 500 رصيد للتوليد"):
       st.balloons()
-      st.success("🎉 تم اختيار الاشتراك الأسبوعي، جارٍ التوجيه للدفع!")
+      st.success("🎉 تم اختيار الخطة الأسبوعية بنجاح!")
 
-    if st.button("📆 الاشتراك الشهري - $29.99"):
+    # خيار الاشتراك الشهري (مميز كالأكثر طلباً)
+    if st.button("⭐ $29.99  |  PlotCraft Monthly (الأكثر طلباً)\nشهر | 1800 رصيد"):
       st.balloons()
-      st.success("🎉 تم اختيار الاشتراك الشهري، جارٍ التوجيه للدفع!")
+      st.success("🎉 تم اختيار الخطة الشهرية بنجاح!")
 
-    if st.button("🗓️ الاشتراك السنوي - $69.99"):
+    # خيار الاشتراك السنوي
+    if st.button("👑 $69.99  |  PlotCraft Annual\nسنة | 5000 رصيد ومميزات كاملة"):
       st.balloons()
-      st.success("🎉 تم اختيار الاشتراك السنوي، جارٍ التوجيه للدفع!")
+      st.success("🎉 تم اختيار الخطة السنوية بنجاح!")
+
+    st.markdown(
+        "<p style='text-align: center; font-size: 10px; color: #64748b; "
+        "margin-top: 10px;'>تجديد تلقائي، يمكن الإلغاء في أي وقت</p>",
+        unsafe_allow_html=True,
+    )
 
 st.markdown("---")
 
@@ -131,7 +139,7 @@ with col1:
 with col2:
   aspect_ratio = st.selectbox("نسبة العرض", ["16:9 (يوتيوب)", "9:16 (تيك توك/ريلز)"])
 
-# اختيار المدة المحددة (10 ثواني، 21 ثانية، أو 5 دقائق)
+# اختيار المدة المحددة (10 ثواني، 21 ثانية، أو 5 دقائق) بدون رقم 300
 duration_option = st.selectbox(
     "حدد مدة الفيديو:", ["10 ثواني", "21 ثانية", "5 دقائق"]
 )
