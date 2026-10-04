@@ -3,52 +3,39 @@ import time
 
 # إعدادات صفحة التطبيق
 st.set_page_config(
-    page_title="PlotCraft - AI Video Generation",
+    page_title="PlotCraft - مولد الفيديوهات",
     page_icon="🎬",
-    layout="centered",
-    initial_sidebar_state="expanded"
+    layout="centered"
 )
 
-# تصميم الواجهة الرئيسية
-st.title("🎬 PlotCraft")
-st.markdown("### مولد الفيديوهات بالذكاء الاصطناعي على الجوال")
-st.write("أهلاً بك يا غسان! أنشئ مقاطع الفيديو والأفلام القصيرة بكل سهولة باستخدام الذكاء الاصطناعي.")
+# عنوان التطبيق
+st.title("🎬 PlotCraft - منصة توليد الفيديوهات التجريبية")
+st.write("أدخل فكرة السيناريو أو النص المطلوب، ويمكنك إرفاق صورة توضيحية لدمجها مع العمل التجريبي.")
 
-# قسم إدخال الوصف النصي
-st.markdown("---")
-st.subheader("1. اكتب فكرة الفيديو أو السيناريو")
-prompt_text = st.text_area(
-    "صف المشهد أو القصة التي تريد تحويلها إلى فيديو:",
-    placeholder="مثال: رائد فضاء يسير على سطح المريخ عند غروب الشمس، سينمائي، بجودة عالية...",
-    height=120
+# 1. خانة كتابة النص أو السيناريو
+script_text = st.text_area(
+    "أدخل فكرة أو سيناريو الفيديو هنا:",
+    placeholder="اكتب وصفاً تفصيلياً للفيديو الذي تريد تصميمه..."
 )
 
-# خيارات إضافية للتوليد
-col1, col2 = st.columns(2)
-with col1:
-    art_style = st.selectbox(
-        "اختر النمط الفني:",
-        ["سينمائي (Cinematic)", "أنيميشن (Animation)", "واقعي (Photorealistic)", "خيال علمي (Sci-Fi)"]
-    )
+# 2. خانة رفع الصورة
+uploaded_file = st.file_uploader(
+    "ارفع صورة توضيحية أو مرجعية (اختياري):",
+    type=["png", "jpg", "jpeg"]
+)
 
-with col2:
-    video_duration = st.slider("مدة الفيديو (بالثواني):", min_value=3, max_value=15, value=5)
+# عرض الصورة المرفوعة إذا وجِدت للتأكد منها
+if uploaded_file is not None:
+    st.image(uploaded_file, caption="الصورة المرفوعة للمشروع", use_container_width=True)
 
-# زر توليد الفيديو
-st.markdown("---")
-if st.button("🚀 ابدأ توليد الفيديو", use_container_width=True):
-    if prompt_text.strip() == "":
-        st.warning("⚠️ الرجاء كتابة وصف المشهد أولاً قبل البدء.")
+# 3. زر البدء بالتوليد التجريبي
+if st.button("🚀 بدء التوليد التجريبي"):
+    if not script_text and not uploaded_file:
+        st.warning("⚠️ يرجى كتابة نص أو رفع صورة على الأقل لنستطيع البدء!")
     else:
-        with st.spinner("⏳ جاري معالجة الوصف وتوليد الفيديو بالذكاء الاصطناعي... يرجى الانتظار"):
+        # محاكاة عملية معالجة الفيديو
+        with st.spinner("جاري معالجة النص والصورة وإعداد النموذج التجريبي..."):
             time.sleep(3)
-            
-        st.success("✨ تم إنشاء الفيديو بنجاح!")
-        st.info("💡 ملاحظة: هذا إصدار تجريبي للتطبيق على منصة Streamlit Cloud.")
-
-# شريط جانبي معلوماتي
-with st.sidebar:
-    st.header("حول التطبيق")
-    st.info("تطبيق PlotCraft يعمل بسلاسة وسرعة على السحابة مجاناً بدون الحاجة لبطاقة ائتمان.")
-    st.markdown("---")
-    st.write("صُمم ونُشر بواسطة: غسان")
+        
+        st.success("✅ تم الانتهاء من توليد الفيديو التجريبي بنجاح!")
+        st.info("💡 ملاحظة: هذا إصدار تجريبي ومجاني (Prototype)، سيتم ربط النماذج الحقيقية لاحقاً.")
