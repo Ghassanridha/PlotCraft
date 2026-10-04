@@ -36,7 +36,7 @@ html_code = """
 
     <main class="w-full max-w-[420px] min-h-screen bg-[#05070a] relative shadow-2xl border border-white/10 flex flex-col justify-between pb-28 overflow-hidden">
         
-        <!-- ================= شاشة الأدوات (مطابقة لصورتك بنسبة 100% بدون أي اجتهاد) ================= -->
+        <!-- ================= شاشة الأدوات (مطابقة تماماً للصورة الأخيرة) ================= -->
         <div id="tools-screen" class="screen active flex-col p-5">
             <div class="flex items-center justify-between mb-5 mt-2">
                 <h1 class="text-lg font-black text-white">الأدوات</h1>
@@ -45,40 +45,40 @@ html_code = """
 
             <div class="flex flex-col gap-4">
                 
-                <!-- 1. تأثيرات الفيديو (انفجار المدينة الحربي تماماً كالصورة) -->
-                <div class="h-[145px] rounded-2xl bg-cover bg-center relative p-4 flex flex-col justify-between border border-white/15 shadow-xl cursor-pointer" style="background-image: linear-gradient(to top, rgba(5,7,10,0.9) 15%, rgba(5,7,10,0.1) 75%), url('https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80')">
-                    <div class="flex justify-start items-start z-10">
-                        <span class="w-6 h-6 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white text-xs border border-white/20">‹</span>
+                <!-- 1. تأثيرات الفيديو (جهاز تحكم السوني الأبيض) -->
+                <div class="h-[135px] rounded-2xl bg-cover bg-center relative p-4 flex flex-col justify-between border border-white/15 shadow-xl cursor-pointer" style="background-image: linear-gradient(to left, rgba(5,7,10,0.85) 40%, rgba(5,7,10,0.2) 100%), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80')">
+                    <div class="flex justify-end items-start z-10">
+                        <span class="w-6 h-6 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white text-xs border border-white/20">‹</span>
                     </div>
                     <div class="z-10 text-right">
                         <h3 class="text-sm font-black text-white">تأثيرات الفيديو</h3>
-                        <p class="text-[11px] text-gray-200 mt-0.5">أضف لمسة سينمائية</p>
+                        <p class="text-[11px] text-gray-300 mt-0.5">أضف لمسة سينمائية</p>
                     </div>
                 </div>
 
-                <!-- 2. توليد الفيديو (شخص يمد يده للأمام تماماً كالصورة) -->
-                <div class="h-[145px] rounded-2xl bg-cover bg-center relative p-4 flex flex-col justify-between border border-white/15 shadow-xl cursor-pointer" style="background-image: linear-gradient(to top, rgba(5,7,10,0.9) 15%, rgba(5,7,10,0.1) 75%), url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80')">
-                    <div class="flex justify-start items-start z-10">
-                        <span class="w-6 h-6 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white text-xs border border-white/20">‹</span>
+                <!-- 2. توليد الفيديو (وجه رجل بدون يد - لقطة مقربة للوجه واللحية) -->
+                <div class="h-[135px] rounded-2xl bg-cover bg-center relative p-4 flex flex-col justify-between border border-white/15 shadow-xl cursor-pointer" style="background-image: linear-gradient(to left, rgba(5,7,10,0.85) 40%, rgba(5,7,10,0.2) 100%), url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&q=80')">
+                    <div class="flex justify-end items-start z-10">
+                        <span class="w-6 h-6 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white text-xs border border-white/20">‹</span>
                     </div>
                     <div class="z-10 text-right">
                         <h3 class="text-sm font-black text-white">توليد الفيديو</h3>
-                        <p class="text-[11px] text-gray-200 mt-0.5">حول توجيهها إلى فيديو خاص بك</p>
+                        <p class="text-[11px] text-gray-300 mt-0.5">حول توجيهها إلى فيديو خاص بك</p>
                     </div>
                 </div>
 
-                <!-- 3. توليد الصور (الفتاة مع دائرة المعاينة والسهم تماماً كالصورة) -->
-                <div class="h-[145px] rounded-2xl bg-cover bg-center relative p-4 flex flex-col justify-between border border-white/15 shadow-xl cursor-pointer" style="background-image: linear-gradient(to top, rgba(5,7,10,0.9) 15%, rgba(5,7,10,0.1) 75%), url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80')">
+                <!-- 3. توليد الصور (وجه الفتاة بالإضاءة الزرقاء مع دائرة المعاينة والسهم في اليسار) -->
+                <div class="h-[135px] rounded-2xl bg-cover bg-center relative p-4 flex flex-col justify-between border border-white/15 shadow-xl cursor-pointer" style="background-image: linear-gradient(to right, rgba(5,7,10,0.85) 40%, rgba(5,7,10,0.2) 100%), url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80')">
                     <div class="flex justify-between items-start z-10">
+                        <span class="w-6 h-6 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white text-xs border border-white/20">‹</span>
                         <div class="flex items-center gap-1.5 bg-black/50 backdrop-blur-md px-2 py-1 rounded-full border border-white/20">
                             <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" class="w-6 h-6 rounded-full object-cover">
                             <span class="text-[10px] text-white font-bold">✨</span>
                         </div>
-                        <span class="w-6 h-6 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white text-xs border border-white/20">‹</span>
                     </div>
                     <div class="z-10 text-right">
                         <h3 class="text-sm font-black text-white">توليد الصور</h3>
-                        <p class="text-[11px] text-gray-200 mt-0.5">حول فكرة إلى صورة مكتملة</p>
+                        <p class="text-[11px] text-gray-300 mt-0.5">حول فكرة إلى صورة مكتملة</p>
                     </div>
                 </div>
 
