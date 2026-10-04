@@ -60,32 +60,32 @@ with top_col1:
   )
 
 with top_col2:
-  # استخدام popover (قائمة منبثقة تفتح عند الضغط على زر الترقية في اليسار)
+  # قائمة منبثقة تفتح عند الضغط على زر الترقية في اليسار
   with st.popover("💎 ترقية"):
     st.markdown(
-        "<h4 style='text-align: center; color: #3b82f6; margin-bottom: 5px;'>إصدار"
-        " PRO الاحترافي</h4>",
+        "<h4 style='text-align: center; color: #3b82f6; margin-bottom: 5px;'>اختر"
+        " خطة الاشتراك</h4>",
         unsafe_allow_html=True,
     )
     st.markdown(
-        "<p style='text-align: center; font-size: 13px; color: #94a3b8;'>احصل"
-        " على فيديوهات غير محدودة ودقة عالية.</p>",
+        "<p style='text-align: center; font-size: 12px; color: #94a3b8;'>احصل"
+        " على مميزات PRO الاحترافية غير المحدودة.</p>",
         unsafe_allow_html=True,
     )
 
-    st.markdown(
-        "<div"
-        " style='background-color: rgba(59, 130, 246, 0.1); padding: 10px;"
-        " border-radius: 10px; text-align: center; margin: 10px 0; border: 1px"
-        " solid #3b82f6;'><span style='font-size: 20px; font-weight: bold;"
-        " color: #60a5fa;'>$9.99</span> <span style='font-size: 12px;"
-        " color: #cbd5e1;'>/ شهرياً</span></div>",
-        unsafe_allow_html=True,
+    # اختيار خطة الاشتراك
+    sub_plan = st.selectbox(
+        "الخطط المتاحة:",
+        [
+            "الاشتراك الأسبوعي - $9.99",
+            "الاشتراك الشهري - $29.99",
+            "الاشتراك السنوي - $69.99",
+        ],
     )
 
-    if st.button("تفعيل الاشتراك الآن"):
+    if st.button("تفعيل الخطة المحددة"):
       st.balloons()
-      st.success("🎉 تم الانتقال لبوابة الدفع الآمنة!")
+      st.success(f"🎉 تم اختيار ({sub_plan})، جارٍ التوجيه للدفع الآمن!")
 
 st.markdown("---")
 
