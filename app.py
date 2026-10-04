@@ -7,7 +7,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# إخفاء الهوامش الزائدة في ستريمليت لملء الشاشة بشكل احترافي
+# إخفاء هوامش ستريمليت لملء الشاشة بشكل احترافي
 st.markdown("""
     <style>
         .block-container {
@@ -71,10 +71,10 @@ html_code = """
 </head>
 <body class="text-white flex justify-center items-center w-full min-h-screen">
 
-    <!-- الحاوية الرئيسية بملء الشاشة تماماً -->
-    <main class="w-full max-w-[420px] h-screen bg-[#05070a] relative flex flex-col justify-between overflow-y-auto overflow-x-hidden no-scrollbar pb-24">
+    <!-- الحاوية الرئيسية بوزن مثالي يمنع القص ويترك مساحة مريحة -->
+    <main class="w-full max-w-[420px] min-h-[760px] bg-[#05070a] relative flex flex-col justify-between overflow-y-auto overflow-x-hidden no-scrollbar pb-24 pt-1">
         
-        <div>
+        <div class="w-full">
             <!-- ================= الشاشة الأولى: الصفحة الرئيسية ================= -->
             <div id="home-screen" class="screen active flex-col">
                 <div class="wormhole-hero-bg p-5 pb-8 relative rounded-b-[35px] overflow-hidden shadow-2xl">
@@ -228,7 +228,6 @@ html_code = """
             btnTools.className = inactiveClass;
             btnWorks.className = inactiveClass;
 
-            // إعادة تمرير الصفحة للأعلى عند تغيير الشاشة لضمان الثبات
             document.querySelector('main').scrollTop = 0;
 
             if (screenName === 'home') {
@@ -248,5 +247,5 @@ html_code = """
 </html>
 """
 
-# تحديد ارتفاع دقيق ومناسب لشاشات الهواتف لضمان عدم وجود مساحات سوداء فارغة أو حركة غير مقصودة
-st.components.v1.html(html_code, height=720, scrolling=False)
+# ارتفاع الإطار أصبح 780 ليظهر كل الجزء العلوي بوضوح تام دون أي اقتطاع
+st.components.v1.html(html_code, height=780, scrolling=False)
