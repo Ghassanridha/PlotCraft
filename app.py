@@ -52,8 +52,6 @@ html_code = """
             height: 100vh;
             position: relative;
             overflow-y: auto;
-            /* زيادة المسافة لضمان عدم اختفاء أي محتوى خلف الشريط السفلي */
-            padding-bottom: 95px;
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         
@@ -97,14 +95,11 @@ html_code = """
         .screen { display: none; width: 100%; flex-direction: column; flex-grow: 1; }
         .screen.active { display: flex; }
         
-        /* شريط التنقل السفلي (تم رفع مسافته عن الحافة ليكون واضح غير مخفي) */
+        /* شريط التنقل السفلي (أصبح جزءاً من التخطيط الانسيابي لضمان عدم اختفائه أو تداخله) */
         .nav-bar {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
             width: 92%;
             max-width: 400px;
+            margin: 14px auto 16px auto;
             background: rgba(18, 21, 30, 0.95);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
@@ -112,7 +107,7 @@ html_code = """
             border-radius: 9999px;
             display: flex;
             padding: 5px;
-            z-index: 999;
+            flex-shrink: 0;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
         .nav-item {
@@ -159,112 +154,114 @@ html_code = """
             </div>
         </div>
 
-        <div style="width: 100%; display: flex; flex-direction: column; flex-grow: 1;">
+        <div style="width: 100%; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between;">
             
-            <!-- الشاشة الرئيسية -->
-            <div id="home-screen" class="screen active" style="justify-content: space-between;">
-                <div>
-                    <div class="hero-section">
-                        <!-- الصف العلوي: الاسم يمين، والترقية يسار -->
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                            <div style="font-weight: 900; font-size: 14px; letter-spacing: 0.5px; color: #ffffff;">
-                                بلوت كرافت
+            <div>
+                <!-- الشاشة الرئيسية -->
+                <div id="home-screen" class="screen active">
+                    <div>
+                        <div class="hero-section">
+                            <!-- الصف العلوي: الاسم يمين، والترقية يسار -->
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                <div style="font-weight: 900; font-size: 14px; letter-spacing: 0.5px; color: #ffffff;">
+                                    بلوت كرافت
+                                </div>
+                                <span style="background: rgba(255,255,255,0.1); padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: bold; border: 1px solid rgba(255,255,255,0.15);">ترقية ✨</span>
                             </div>
-                            <span style="background: rgba(255,255,255,0.1); padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: bold; border: 1px solid rgba(255,255,255,0.15);">ترقية ✨</span>
+
+                            <!-- الترحيب -->
+                            <div style="margin-bottom: 10px; text-align: right;">
+                                <h1 style="font-size: 12px; font-weight: 600; line-height: 1.3; color: #cbd5e1; margin-bottom: 2px;">مساء الخير، أيها المخرج</h1>
+                                <h2 style="font-size: 14px; font-weight: 900; color: #ffffff;">أي قصة سنصنع اليوم؟</h2>
+                            </div>
+
+                            <!-- مربعات الخيارات السريعة -->
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                                <div class="glass-box">
+                                    <div style="font-size: 14px; margin-bottom: 2px; text-align: right;">💬</div>
+                                    <h3 style="font-size: 11px; font-weight: bold; margin-bottom: 1px;">خطوة بخطوة</h3>
+                                    <p style="font-size: 8px; color: #94a3b8;">راجع كل خطوة</p>
+                                </div>
+                                <div class="glass-box">
+                                    <span style="position: absolute; top: 6px; left: 8px; font-size: 6px; background: rgba(0,0,0,0.5); padding: 2px 5px; border-radius: 8px; color: #cbd5e1; font-weight: bold; border: 1px solid rgba(255,255,255,0.1);">Pro</span>
+                                    <div style="font-size: 14px; margin-bottom: 2px; text-align: right;">⚡</div>
+                                    <h3 style="font-size: 11px; font-weight: bold; margin-bottom: 1px;">سريع</h3>
+                                    <p style="font-size: 8px; color: #94a3b8;">إدخال واحد، فيديو كامل</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- قسم إلهام بلوت كرافت -->
+                    <div style="padding: 12px 16px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <h3 style="font-size: 13px; font-weight: 800; color: #ffffff;">إلهام بلوت كرافت</h3>
+                            <span style="font-size: 10px; color: #9ca3af; font-weight: bold;">عرض الكل <</span>
                         </div>
 
-                        <!-- الترحيب -->
-                        <div style="margin-bottom: 10px; text-align: right;">
-                            <h1 style="font-size: 12px; font-weight: 600; line-height: 1.3; color: #cbd5e1; margin-bottom: 2px;">مساء الخير، أيها المخرج</h1>
-                            <h2 style="font-size: 14px; font-weight: 900; color: #ffffff;">أي قصة سنصنع اليوم؟</h2>
-                        </div>
+                        <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px;" class="no-scrollbar">
+                            
+                            <!-- البطاقة الأولى (العرض: 160px، الارتفاع: 230px) -->
+                            <div style="min-width: 160px; width: 160px; height: 230px; border-radius: 16px; background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=350&q=80'); background-size: cover; background-position: center; position: relative; padding: 12px; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid rgba(255,255,255,0.15); flex-shrink: 0;">
+                                <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.1)); border-radius: 16px;"></div>
+                                <span style="position: relative; z-index: 10; font-size: 10px; font-weight: 900; text-align: center; color: #ffffff;">THE DELIVERYMAN</span>
+                            </div>
 
-                        <!-- مربعات الخيارات السريعة -->
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                            <div class="glass-box">
-                                <div style="font-size: 14px; margin-bottom: 2px; text-align: right;">💬</div>
-                                <h3 style="font-size: 11px; font-weight: bold; margin-bottom: 1px;">خطوة بخطوة</h3>
-                                <p style="font-size: 8px; color: #94a3b8;">راجع كل خطوة</p>
+                            <!-- البطاقة الثانية (العرض: 160px، الارتفاع: 230px) -->
+                            <div style="min-width: 160px; width: 160px; height: 230px; border-radius: 16px; background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=350&q=80'); background-size: cover; background-position: center; position: relative; padding: 12px; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid rgba(255,255,255,0.15); flex-shrink: 0;">
+                                <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.1)); border-radius: 16px;"></div>
+                                <span style="position: relative; z-index: 10; font-size: 10px; font-weight: 900; text-align: center; color: #ffffff;">THE WRONG DOOR</span>
                             </div>
-                            <div class="glass-box">
-                                <span style="position: absolute; top: 6px; left: 8px; font-size: 6px; background: rgba(0,0,0,0.5); padding: 2px 5px; border-radius: 8px; color: #cbd5e1; font-weight: bold; border: 1px solid rgba(255,255,255,0.1);">Pro</span>
-                                <div style="font-size: 14px; margin-bottom: 2px; text-align: right;">⚡</div>
-                                <h3 style="font-size: 11px; font-weight: bold; margin-bottom: 1px;">سريع</h3>
-                                <p style="font-size: 8px; color: #94a3b8;">إدخال واحد، فيديو كامل</p>
+
+                            <!-- البطاقة الثالثة (العرض: 160px، الارتفاع: 230px) -->
+                            <div style="min-width: 160px; width: 160px; height: 230px; border-radius: 16px; background-image: url('https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=350&q=80'); background-size: cover; background-position: center; position: relative; padding: 12px; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid rgba(255,255,255,0.15); flex-shrink: 0;">
+                                <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.1)); border-radius: 16px;"></div>
+                                <span style="position: relative; z-index: 10; font-size: 10px; font-weight: 900; text-align: center; color: #ffffff;">CYBERPUNK CITY</span>
                             </div>
+
                         </div>
                     </div>
                 </div>
 
-                <!-- قسم إلهام بلوت كرافت (مرتب بمسافة آمنة فوق الشريط السفلي) -->
-                <div style="padding: 10px 16px 15px 16px; margin-top: auto;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                        <h3 style="font-size: 13px; font-weight: 800; color: #ffffff;">إلهام بلوت كرافت</h3>
-                        <span style="font-size: 10px; color: #9ca3af; font-weight: bold;">عرض الكل <</span>
+                <!-- شاشة الأدوات -->
+                <div id="tools-screen" class="screen" style="padding: 16px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                        <h1 style="font-size: 15px; font-weight: 900;">الأدوات</h1>
+                        <span style="background: rgba(255,255,255,0.1); padding: 5px 14px; border-radius: 20px; font-size: 11px; font-weight: bold;">ترقية ✨</span>
                     </div>
+                    <div style="background: rgba(255,255,255,0.05); padding: 18px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.1);">
+                        <h3 style="font-size: 13px; font-weight: 900;">ميزات الأدوات المتقدمة</h3>
+                    </div>
+                </div>
 
-                    <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px;" class="no-scrollbar">
-                        
-                        <!-- البطاقة الأولى (العرض: 160px، الارتفاع: 230px) -->
-                        <div style="min-width: 160px; width: 160px; height: 230px; border-radius: 16px; background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=350&q=80'); background-size: cover; background-position: center; position: relative; padding: 12px; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid rgba(255,255,255,0.15); flex-shrink: 0;">
-                            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.1)); border-radius: 16px;"></div>
-                            <span style="position: relative; z-index: 10; font-size: 10px; font-weight: 900; text-align: center; color: #ffffff;">THE DELIVERYMAN</span>
-                        </div>
-
-                        <!-- البطاقة الثانية (العرض: 160px، الارتفاع: 230px) -->
-                        <div style="min-width: 160px; width: 160px; height: 230px; border-radius: 16px; background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=350&q=80'); background-size: cover; background-position: center; position: relative; padding: 12px; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid rgba(255,255,255,0.15); flex-shrink: 0;">
-                            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.1)); border-radius: 16px;"></div>
-                            <span style="position: relative; z-index: 10; font-size: 10px; font-weight: 900; text-align: center; color: #ffffff;">THE WRONG DOOR</span>
-                        </div>
-
-                        <!-- البطاقة الثالثة (العرض: 160px، الارتفاع: 230px) -->
-                        <div style="min-width: 160px; width: 160px; height: 230px; border-radius: 16px; background-image: url('https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=350&q=80'); background-size: cover; background-position: center; position: relative; padding: 12px; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid rgba(255,255,255,0.15); flex-shrink: 0;">
-                            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.1)); border-radius: 16px;"></div>
-                            <span style="position: relative; z-index: 10; font-size: 10px; font-weight: 900; text-align: center; color: #ffffff;">CYBERPUNK CITY</span>
-                        </div>
-
+                <!-- شاشة الأعمال -->
+                <div id="works-screen" class="screen" style="padding: 16px;">
+                    <div style="display: flex; justify-content: flex-end; margin-bottom: 14px;">
+                        <span style="background: rgba(99, 102, 241, 0.2); color: #818cf8; padding: 6px 16px; border-radius: 20px; font-size: 11px; font-weight: bold;">+ مشروع جديد</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 220px;">
+                        <p style="font-size: 12px; color: #9ca3af;">لا توجد أعمال محفوظة</p>
                     </div>
                 </div>
             </div>
 
-            <!-- شاشة الأدوات -->
-            <div id="tools-screen" class="screen" style="padding: 16px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-                    <h1 style="font-size: 15px; font-weight: 900;">الأدوات</h1>
-                    <span style="background: rgba(255,255,255,0.1); padding: 5px 14px; border-radius: 20px; font-size: 11px; font-weight: bold;">ترقية ✨</span>
-                </div>
-                <div style="background: rgba(255,255,255,0.05); padding: 18px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.1);">
-                    <h3 style="font-size: 13px; font-weight: 900;">ميزات الأدوات المتقدمة</h3>
-                </div>
-            </div>
-
-            <!-- شاشة الأعمال -->
-            <div id="works-screen" class="screen" style="padding: 16px;">
-                <div style="display: flex; justify-content: flex-end; margin-bottom: 14px;">
-                    <span style="background: rgba(99, 102, 241, 0.2); color: #818cf8; padding: 6px 16px; border-radius: 20px; font-size: 11px; font-weight: bold;">+ مشروع جديد</span>
-                </div>
-                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 220px;">
-                    <p style="font-size: 12px; color: #9ca3af;">لا توجد أعمال محفوظة</p>
-                </div>
-            </div>
+            <!-- الشريط السفلي (ثابت ومرتب تحت المحتوى مباشرة) -->
+            <nav class="nav-bar">
+                <button id="btn-home" onclick="switchScreen('home')" class="nav-item active">
+                    <span>الرئيسية</span>
+                    <span>🏠</span>
+                </button>
+                <button id="btn-tools" onclick="switchScreen('tools')" class="nav-item">
+                    <span>الأدوات</span>
+                    <span>🛠</span>
+                </button>
+                <button id="btn-works" onclick="switchScreen('works')" class="nav-item">
+                    <span>الأعمال</span>
+                    <span>💼</span>
+                </button>
+            </nav>
 
         </div>
-
-        <!-- الشريط السفلي -->
-        <nav class="nav-bar">
-            <button id="btn-home" onclick="switchScreen('home')" class="nav-item active">
-                <span>الرئيسية</span>
-                <span>🏠</span>
-            </button>
-            <button id="btn-tools" onclick="switchScreen('tools')" class="nav-item">
-                <span>الأدوات</span>
-                <span>🛠</span>
-            </button>
-            <button id="btn-works" onclick="switchScreen('works')" class="nav-item">
-                <span>الأعمال</span>
-                <span>💼</span>
-            </button>
-        </nav>
 
     </div>
 
@@ -294,4 +291,4 @@ html_code = """
 </html>
 """
 
-st.components.v1.html(html_code, height=750, scrolling=False)
+st.components.v1.html(html_code, height=780, scrolling=False)
