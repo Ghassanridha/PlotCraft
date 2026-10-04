@@ -52,7 +52,7 @@ html_code = """
             height: 100vh;
             position: relative;
             overflow-y: auto;
-            padding-bottom: 110px;
+            padding-bottom: 120px;
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         
@@ -191,9 +191,9 @@ html_code = """
                     </div>
                 </div>
 
-                <!-- قسم إلهام بلوت كرافت (3 صور كبيرة بجانب بعض بشكل مرتب) -->
-                <div style="padding: 14px 16px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <!-- قسم إلهام بلوت كرافت (منزل للأسفل قرب شريط الأدوات) -->
+                <div style="padding: 20px 16px 30px 16px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                         <h3 style="font-size: 13px; font-weight: 800; color: #ffffff;">إلهام بلوت كرافت</h3>
                         <span style="font-size: 10px; color: #9ca3af; font-weight: bold;">عرض الكل <</span>
                     </div>
