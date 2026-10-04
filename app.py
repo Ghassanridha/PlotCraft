@@ -59,11 +59,10 @@ with top_col1:
   )
 
 with top_col2:
-  # قائمة منبثقة للترقية بتصميم نظيف واحترافي بدون أي إيموجيات
-  with st.popover("ترقية PRO"):
+  # قائمة منبثقة للترقية بالأيقونة الجديدة المطلوبة (👑) وبدون إيموجيات مزعجة
+  with st.popover("ترقية 👑"):
     st.markdown(
-        "<h3 style='text-align: center; color: #ffffff; margin-bottom:0;'>DRMA"
-        " PRO</h3>",
+        "<h3 style='text-align: center; color: #ffffff; margin-bottom:0;'>PlotCraft</h3>",
         unsafe_allow_html=True,
     )
     st.markdown(
@@ -136,18 +135,17 @@ with col1:
 with col2:
   aspect_ratio = st.selectbox("نسبة العرض", ["16:9 (يوتيوب)", "9:16 (تيك توك/ريلز)"])
 
-# اختيار المدة المحددة (10 ثواني، 21 ثانية، أو 5 دقائق) بدون رقم 300
+# اختيار المدة المحددة
 duration_option = st.selectbox(
     "حدد مدة الفيديو:", ["10 ثواني", "21 ثانية", "5 دقائق"]
 )
 
-# تحويل الاختيار إلى قيمة ثواني برمجياً خلف الكواليس
 if duration_option == "10 ثواني":
   duration = 10
 elif duration_option == "21 ثانية":
   duration = 21
 else:
-  duration = 300  # 5 دقائق
+  duration = 300
 
 st.markdown("---")
 
