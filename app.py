@@ -29,13 +29,13 @@ with col_title:
 st.write("حول قصصك وصور الشخصيات إلى مقاطع فيديو سينمائية احترافية!")
 st.markdown("---")
 
-# --- حقل إدخال مفتاح الـ API المرئي والمباشر ---
+# --- حقل إدخال مفتاح الـ API مع المفتاح الجديد مسبق الإعداد ---
 st.markdown("### 🔑 مفتاح المصادقة (API Key)")
 user_api_key = st.text_input(
     "أدخل مفتاح fal.ai الخاص بك هنا:",
     type="password",
-    value="",
-    placeholder="الصق مفتاحك الذي يبدأ بـ fal_sk_ هنا..."
+    value="Fal_sk_e6f74cbe2bae49f6abe64c199f03a6ab:77ce379e98cd7c3721b86133908cc223",
+    placeholder="الصق مفتاحك هنا..."
 )
 
 if user_api_key.strip():
@@ -92,7 +92,7 @@ if st.button("توليد الفيديو الحقيقي 🚀", use_container_widt
     if not prompt_text.strip():
         st.warning("يرجى كتابة وصف المشهد أولاً.")
     elif not current_key:
-        st.error("⚠️ يرجى إدخال مفتاح fal.ai في الحقل الموجود أعلى الصفحة أولاً لكي تتم عملية التوليد.")
+        st.error("⚠️ يرجى إدخال مفتاح fal.ai في الحقل الموجود أعلى الصفحة أولاً.")
     else:
         with st.spinner(f"جاري معالجة الفيديو بدقة {resolution_option} ولمدة {duration_option} عبر fal.ai... يرجى الانتظار"):
             try:
@@ -114,7 +114,7 @@ if st.button("توليد الفيديو الحقيقي 🚀", use_container_widt
                     st.success("تم توليد الفيديو بنجاح! 🎉")
                     st.video(video_url)
                 else:
-                    st.error("حدث خطأ أثناء استخراج رابط الفيديو، تأكد من صحة المفتاح ورصيد حسابك.")
+                    st.error("حدث خطأ أثناء استخراج رابط الفيديو، تأكد من رصيد حسابك في fal.ai.")
                     
             except Exception as e:
                 st.error(f"خطأ في الاتصال بالسيرفر: {e}")
