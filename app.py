@@ -3,11 +3,11 @@ import streamlit as st
 st.set_page_config(
     page_title="بلوت كرافت",
     page_icon="🎬",
-    layout="centered",
+    layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# إخفاء هوامش ستريمليت بالكامل لملء الشاشة باحترافية
+# إزالة الهوامش بالكامل ليتمدد التصميم بمرونة تامة على شاشة الموبايل
 st.markdown("""
     <style>
         .block-container {
@@ -69,15 +69,15 @@ html_code = """
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="text-white flex justify-center items-center w-full min-h-screen">
+<body class="text-white w-full min-h-screen flex justify-center">
 
-    <!-- الحاوية الرئيسية مصممة خصيصاً لتناسب الشاشة بدون أي اقتطاع علوي -->
-    <main class="w-full max-w-[420px] min-h-[820px] bg-[#05070a] relative flex flex-col justify-between overflow-y-auto overflow-x-hidden no-scrollbar pb-28 pt-0">
+    <!-- حاوية تتمدد بمرونة تامة لعرض الشاشة بالكامل بدون قص علوي -->
+    <main class="w-full max-w-full bg-[#05070a] relative flex flex-col justify-between overflow-y-auto overflow-x-hidden no-scrollbar pb-28 pt-2">
         
         <div class="w-full">
             <!-- ================= الشاشة الأولى: الصفحة الرئيسية ================= -->
             <div id="home-screen" class="screen active flex-col">
-                <div class="wormhole-hero-bg px-5 pt-3 pb-7 relative rounded-b-[35px] overflow-hidden shadow-2xl">
+                <div class="wormhole-hero-bg px-5 pt-4 pb-7 relative rounded-b-[35px] overflow-hidden shadow-2xl">
                     
                     <div class="flex items-center justify-between mb-4 relative z-10">
                         <span class="font-black text-sm tracking-wide">بلوت كرافت</span>
@@ -189,7 +189,7 @@ html_code = """
         </div>
 
         <!-- ================= شريط التنقل السفلي الثابت ================= -->
-        <nav class="fixed bottom-3 left-3 right-3 max-w-[396px] mx-auto glass-nav rounded-full px-4 py-2 flex items-center justify-between z-50 shadow-2xl">
+        <nav class="fixed bottom-3 left-3 right-3 max-w-md mx-auto glass-nav rounded-full px-4 py-2 flex items-center justify-between z-50 shadow-2xl">
             <button onclick="alert('المزيد قريباً')" class="text-gray-400 hover:text-white text-xs font-medium p-2">✨</button>
             <button id="btn-works" onclick="switchScreen('works')" class="text-gray-400 hover:text-white text-xs font-medium flex items-center gap-1 px-3 py-1.5 rounded-full transition">
                 <span>💼</span>
@@ -228,7 +228,7 @@ html_code = """
             btnTools.className = inactiveClass;
             btnWorks.className = inactiveClass;
 
-            document.querySelector('main').scrollTop = 0;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
 
             if (screenName === 'home') {
                 homeScreen.classList.add('active');
@@ -247,5 +247,5 @@ html_code = """
 </html>
 """
 
-# رفعنا الارتفاع إلى 840 ليتناسب بدقة مع مساحة العرض الكاملة لشاشة جهازك ويظهر زر الترحيب والترقية بالكامل
-st.components.v1.html(html_code, height=840, scrolling=False)
+# ضبطنا الارتفاع على 700 مع تمديد العرض بالكامل (`layout="wide"`) لتظهر الواجهة من البداية بدون قص نهائي
+st.components.v1.html(html_code, height=700, scrolling=True)
