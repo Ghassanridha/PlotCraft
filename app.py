@@ -3,9 +3,9 @@ import fal_client
 import os
 
 # إعداد الصفحة وتصميم الواجهة
-st.set_page_title_config(page_title="PlotCraft - مولد الفيديوهات", layout="centered")
+st.set_page_config(page_title="PlotCraft - مولد الفيديوهات", layout="centered")
 
-# CSS لتنسيق شارة الـ Pro في أعلى الجانب الأيسر أو اليمين بشكل أنيق
+# CSS لتنسيق شارة الـ Pro في أعلى الجانب الأيسر بشكل أنيق
 st.markdown("""
     <style>
     .pro-badge {
@@ -25,11 +25,11 @@ st.markdown("""
 st.title("PlotCraft - مولد الفيديوهات بالذكاء الاصطناعي")
 st.write("حول قصصك وصور الشخصيات إلى مقاطع فيديو سينمائية احترافية!")
 
-# إدخال مفتاح الـ API الخاص بـ fal.ai (مدمج تلقائياً أو يدوي)
+# إدخال مفتاح الـ API الخاص بـ fal.ai
 DEFAULT_FAL_KEY = "fal_sk_d8e30b437fdc44c891740a201522be4d:d78802704ad38b28b6b7f1bcef6ef4c"
 os.environ["FAL_KEY"] = DEFAULT_FAL_KEY
 
-# --- الإعدادات الاختيارية في الواجهة ---
+# --- الإعدادات الاختيارية في الشريط الجانبي ---
 st.sidebar.header("⚙️ إعدادات الفيديو المتقدمة")
 
 # 1. دقة الفيديو
@@ -38,7 +38,7 @@ resolution_option = st.sidebar.selectbox(
     ["720p HD", "1080p Full HD", "4K Ultra"]
 )
 
-# 2. مدة الفيديو (أرقام وليس شريط سحب)
+# 2. مدة الفيديو (أرقام مربعة وليست شريط سحب)
 duration_option = st.sidebar.selectbox(
     "مدة الفيديو (بالثواني أو الدقائق)",
     ["10 ثواني", "21 ثانية", "5 دقائق"]
@@ -78,9 +78,8 @@ if st.button("توليد الفيديو الحقيقي"):
     else:
         with st.spinner(f"جاري معالجة الفيديو بدقة {resolution_option} ولمدة {duration_option} عبر fal.ai... يرجى الانتظار"):
             try:
-                # استخدام نموذج fal.ai لتوليد الفيديو (Minimax / Luma / Kling حسب المتاح)
                 handler = fal_client.submit(
-                    "fal-ai/minimax-video",  # نموذج توليد فيديو سريع وقوي
+                    "fal-ai/minimax-video",
                     arguments={
                         "prompt": prompt_text,
                     },
@@ -96,4 +95,4 @@ if st.button("توليد الفيديو الحقيقي"):
                     st.error("حدث خطأ أثناء استخراج رابط الفيديو، يرجى المحاولة مرة أخرى.")
                     
             except Exception as e:
-                st.error(fحدث خطأ أثناء الاتصال بخدمة التوليد: {e})
+                st.error(f"حدث خطأ أثناء الاتصال بخدمة التوليد: {e}")
