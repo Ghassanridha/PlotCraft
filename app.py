@@ -1,4 +1,3 @@
-
 import streamlit as st
 
 st.set_page_config(
@@ -8,12 +7,17 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
+# إزالة الهوامش الجانبية والعلوية من صفحة ستريمليت ليتمدد الإطار بالعرض الكامل
 st.markdown("""
     <style>
         .block-container {
             padding: 0rem !important;
             max-width: 100% !important;
             overflow: hidden;
+        }
+        iframe {
+            width: 100% !important;
+            max-width: 100% !important;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -34,6 +38,7 @@ html_code = """
             background-color: #05070a; 
             margin: 0; 
             padding: 0;
+            width: 100vw;
             overflow-x: hidden;
         }
         .glass-box {
@@ -63,10 +68,10 @@ html_code = """
 
     <main class="w-full bg-[#05070a] relative flex flex-col justify-between overflow-y-auto overflow-x-hidden no-scrollbar pb-24 pt-1">
         
-        <div class="w-full">
+        <div class="w-full px-3">
             <!-- الشاشة الرئيسية -->
             <div id="home-screen" class="screen active flex-col">
-                <div class="hero-bg px-4 py-3 relative rounded-b-[25px] overflow-hidden shadow-xl">
+                <div class="hero-bg px-4 py-3.5 relative rounded-b-[25px] overflow-hidden shadow-xl">
                     
                     <div class="flex items-center justify-between mb-3 relative z-10">
                         <span class="font-black text-xs tracking-wide">بلوت كرافت</span>
@@ -94,7 +99,7 @@ html_code = """
                     </div>
                 </div>
 
-                <div class="px-4 mt-3">
+                <div class="mt-3">
                     <div class="flex items-center justify-between mb-2">
                         <h3 class="text-xs font-extrabold text-white">إلهام بلوت كرافت</h3>
                         <span class="text-[10px] text-indigo-400 font-bold">عرض الكل ></span>
@@ -115,7 +120,7 @@ html_code = """
             </div>
 
             <!-- شاشة الأدوات -->
-            <div id="tools-screen" class="screen flex-col p-4">
+            <div id="tools-screen" class="screen flex-col py-2">
                 <div class="flex items-center justify-between mb-3">
                     <h1 class="text-xs font-black text-white">الأدوات</h1>
                     <span class="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-[10px] font-bold text-white">ترقية ✨</span>
@@ -128,7 +133,7 @@ html_code = """
             </div>
 
             <!-- شاشة الأعمال -->
-            <div id="works-screen" class="screen flex-col p-4">
+            <div id="works-screen" class="screen flex-col py-2">
                 <div class="flex items-center justify-end mb-3">
                     <span class="px-3 py-1 rounded-full bg-indigo-600/30 text-[10px] font-bold text-indigo-300">+ مشروع جديد</span>
                 </div>
@@ -139,7 +144,7 @@ html_code = """
         </div>
 
         <!-- الشريط السفلي -->
-        <nav class="fixed bottom-0 left-0 right-0 glass-nav px-4 py-2.5 flex items-center justify-between z-50 shadow-2xl">
+        <nav class="fixed bottom-0 left-0 right-0 glass-nav px-3 py-2.5 flex items-center justify-between z-50 shadow-2xl">
             <button onclick="alert('المزيد قريباً')" class="text-gray-400 text-xs p-2">✨</button>
             <button id="btn-works" onclick="switchScreen('works')" class="text-gray-400 text-xs font-medium px-3 py-1 rounded-full">💼 الأعمال</button>
             <button id="btn-tools" onclick="switchScreen('tools')" class="text-gray-400 text-xs font-medium px-3 py-1 rounded-full">🛠 الأدوات</button>
@@ -177,5 +182,5 @@ html_code = """
 </html>
 """
 
-# تم ضبط الارتفاع بدقة على 370 بناءً على طلبك ليتناسب مع شاشة الموبايل تماماً بدون قص
-st.components.v1.html(html_code, height=370, scrolling=True)
+# العرض مضبوط على '100%' ليملاً شاشة الموبايل بالكامل بالعرض، والارتفاع 480 كما طلبته
+st.components.v1.html(html_code, height=480, scrolling=True)
