@@ -1,10 +1,9 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
-# إعداد الصفحة وتوسيع العرض لتجنب قيود الشاشة الافتراضية
+# إعداد الصفحة
 st.set_page_config(page_title="بلوت كرافت", layout="wide", initial_sidebar_state="collapsed")
 
-# إخفاء عناصر ستريمليت الافتراضية بالكامل للحصول على مظهر تطبيق جوال نقي
 st.markdown("""
     <style>
     #MainMenu {visibility: hidden;}
@@ -14,7 +13,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# كود الواجهة المصمم خصيصاً لتطابق الصورة بالحرف وبدون أي إيموجيات زائدة
 app_html = """
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -61,7 +59,7 @@ app_html = """
             display: none;
         }
         
-        /* الهيدر العلوي */
+        /* الهيدر العلوي - مطابق للصورة تماماً (ترقية يمين، اسم التطبيق يسار) */
         .top-header {
             display: flex;
             justify-content: space-between;
@@ -74,7 +72,7 @@ app_html = """
             color: #ffffff;
             font-size: 11px;
             font-weight: 600;
-            padding: 5px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             border: 1px solid #2d3142;
             display: flex;
@@ -91,9 +89,14 @@ app_html = """
         }
         
         .brand-icon {
-            width: 22px;
-            height: 22px;
-            object-fit: contain;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1.5px solid #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
         }
         
         /* قسم البطل (Hero Section) */
@@ -129,10 +132,11 @@ app_html = """
             line-height: 1.3;
         }
         
-        /* البطاقتان في قسم البطل */
+        /* البطاقات داخل قسم البطل (سريع يمين، خطوة بخطوة يسار) */
         .cards-row {
             display: flex;
             gap: 12px;
+            flex-direction: row-reverse;
         }
         
         .card-item {
@@ -148,7 +152,7 @@ app_html = """
         .pro-tag {
             position: absolute;
             top: 10px;
-            left: 10px;
+            right: 10px;
             background: rgba(255, 255, 255, 0.12);
             font-size: 9px;
             font-weight: 600;
@@ -161,6 +165,7 @@ app_html = """
             font-size: 18px;
             margin-bottom: 8px;
             display: block;
+            text-align: right;
         }
         
         .card-heading {
@@ -178,7 +183,7 @@ app_html = """
             line-height: 1.25;
         }
         
-        /* قسم إلهام بلوت كرافت */
+        /* قسم إلهام بلوت كرافت (العنوان يمين، عرض الكل يسار) */
         .section-header {
             display: flex;
             justify-content: space-between;
@@ -205,6 +210,7 @@ app_html = """
             overflow-x: auto;
             padding: 0 16px 15px 16px;
             scrollbar-width: none;
+            flex-direction: row-reverse;
         }
         
         .movies-container::-webkit-scrollbar {
@@ -290,17 +296,14 @@ app_html = """
 
     <div class="mobile-screen">
         
-        <!-- الهيدر العلوي -->
+        <!-- الهيدر العلوي مطابقة تامة للصورة -->
         <div class="top-header">
             <div class="upgrade-btn">
                 <span>✦</span> ترقية
             </div>
             <div class="app-brand">
-                بلوت كرافت 
-                <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon>
-                </svg>
+                <span>بلوت كرافت</span>
+                <div class="brand-icon">▶</div>
             </div>
         </div>
 
@@ -312,7 +315,7 @@ app_html = """
             </div>
             
             <div class="cards-row">
-                <!-- بطاقة سريع -->
+                <!-- بطاقة سريع (يمين) -->
                 <div class="card-item">
                     <div class="pro-tag">Pro only</div>
                     <div class="card-icon">⚡</div>
@@ -320,7 +323,7 @@ app_html = """
                     <div class="card-subtext">إدخال واحد، فيديو كامل</div>
                 </div>
                 
-                <!-- بطاقة خطوة بخطوة -->
+                <!-- بطاقة خطوة بخطوة (يسار) -->
                 <div class="card-item">
                     <div class="card-icon">💬</div>
                     <div class="card-heading">خطوة بخطوة</div>
@@ -329,25 +332,25 @@ app_html = """
             </div>
         </div>
 
-        <!-- عنوان القائمة الأفقي -->
+        <!-- عنوان القائمة الأفقي (إلهام يمين، عرض الكل يسار) -->
         <div class="section-header">
-            <div class="section-action">عرض الكل &gt;</div>
             <div class="section-name">إلهام بلوت كرافت</div>
+            <div class="section-action">عرض الكل &gt;</div>
         </div>
 
         <!-- قائمة الأفلام -->
         <div class="movies-container">
             <div class="movie-card">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop">
-                <div class="movie-title-box">INVITATION</div>
+                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=400&auto=format&fit=crop">
+                <div class="movie-title-box">SECRET BILLIONAIRE</div>
             </div>
             <div class="movie-card">
                 <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop">
                 <div class="movie-title-box">THE WRONG DOOR</div>
             </div>
             <div class="movie-card">
-                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=400&auto=format&fit=crop">
-                <div class="movie-title-box">THE DELIVERYMAN'S SECRET BILLIONAIRE</div>
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop">
+                <div class="movie-title-box">INVITATION</div>
             </div>
         </div>
 
@@ -366,5 +369,4 @@ app_html = """
 </html>
 """
 
-# عرض التصميم كواجهة تفاعلية حقيقية وليست كرموز نصية
 components.html(app_html, height=860, scrolling=False)
