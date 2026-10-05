@@ -82,14 +82,17 @@ app_html = """
             gap: 5px;
         }
         
-        /* قسم البطل */
+        /* قسم البطل مع تغطية كاملة للخلفية بدون حواف سوداء في الأعلى */
         .hero-box {
             position: relative;
             margin: 6px 16px;
             border-radius: 22px;
             overflow: hidden;
             padding: 20px 18px;
-            background-color: #0b0c10;
+            background-image: linear-gradient(to bottom, rgba(11, 12, 16, 0.25), rgba(11, 12, 16, 0.95)), 
+                              url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1200&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center top;
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
         
@@ -112,7 +115,7 @@ app_html = """
             line-height: 1.3;
         }
         
-        /* البطاقتان */
+        /* البطاقتان (خطوة بخطوة يمين، سريع يسار) */
         .cards-row {
             display: flex;
             gap: 10px;
@@ -129,18 +132,12 @@ app_html = """
             text-align: right;
         }
         
-        /* بطاقة خطوة بخطوة (يمين) */
         .card-item.right-card {
             order: 1;
         }
         
-        /* بطاقة سريع (يسار) - الحجم طبيعي تماماً مع تكبير ارتفاع الصورة الخلفية للأعلى */
         .card-item.left-card {
             order: 2;
-            background-image: linear-gradient(to bottom, rgba(11, 12, 16, 0.2), rgba(11, 12, 16, 0.9)), 
-                              url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=900&auto=format&fit=crop');
-            background-size: 180% 180%;
-            background-position: center 20%;
         }
         
         .pro-tag {
@@ -285,7 +282,7 @@ app_html = """
             </div>
         </div>
 
-        <!-- قسم البطل -->
+        <!-- قسم البطل مع الخلفية المغطية للقسم بالكامل بدون حواف سوداء -->
         <div class="hero-box">
             <div class="hero-text">
                 <div class="hero-subtitle">مساء الخير، أيها المخرج</div>
@@ -300,7 +297,7 @@ app_html = """
                     <div class="card-subtext">راجع كل خطوة</div>
                 </div>
                 
-                <!-- بطاقة سريع (يسار) بحجمها الطبيعي وأدواتها وثباتها، مع تكبير الصورة الخلفية للأعلى فقط -->
+                <!-- بطاقة سريع (يسار) -->
                 <div class="card-item left-card">
                     <div class="pro-tag">Pro only</div>
                     <div class="card-icon">🪄</div>
