@@ -16,7 +16,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# كود HTML و CSS مع الأيقونة الجديدة المطابقة للصورة تماماً في الزر المنفصل
+# كود HTML و CSS مع الصورة الجديدة في البطاقة الأولى
 html_code = """
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -206,9 +206,10 @@ html_code = """
             padding: 14px;
         }
 
+        /* البطاقة الأولى بالصورة الجديدة المطلوبة */
         .movie-card.m1 {
             background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), 
-                        url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=300&auto=format&fit=crop') center/cover;
+                        url('https://i.ibb.co/3ykC6Ww/47482.jpg') center/cover;
         }
 
         .movie-card.m2 {
@@ -223,9 +224,10 @@ html_code = """
 
         .movie-title {
             color: #ffffff;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
             text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            line-height: 1.2;
         }
 
         /* حاوية الشريط السفلي بالكامل */
@@ -241,7 +243,7 @@ html_code = """
             margin-top: auto;
         }
 
-        /* 1. المستطيل الكبير يضم النصوص الثلاثة الصافية من اليمين لليسار */
+        /* 1. المستطيل الكبير للنصوص الثلاثة الصافية */
         .nav-group-box {
             flex: 1;
             background: rgba(20, 25, 40, 0.85);
@@ -270,7 +272,7 @@ html_code = """
             font-weight: 600;
         }
 
-        /* 2. الزر المنفصل الرابع في أقصى اليسار مع الأيقونة والنجمة الزرقاء تماماً مثل الصورة */
+        /* 2. الزر الرابع المنفصل بأقصى اليسار يضم أيقونة الفيلم والنجمة الزرقاء */
         .nav-single-box {
             width: 52px;
             height: 52px;
@@ -285,7 +287,6 @@ html_code = """
             cursor: pointer;
         }
 
-        /* أيقونة شريط الفيديو الرمادية */
         .custom-movie-icon {
             width: 24px;
             height: 24px;
@@ -295,7 +296,6 @@ html_code = """
             background-size: contain;
         }
 
-        /* النجمة الزرقاء المضيئة فوق الأيقونة تماماً كما في صورتك */
         .custom-sparkle {
             position: absolute;
             top: 6px;
@@ -351,8 +351,9 @@ html_code = """
             </div>
 
             <div class="movies-carousel">
+                <!-- البطاقة الأولى المحدثة بالصورة والاسم الجديد -->
                 <div class="movie-card m1">
-                    <div class="movie-title">THE WRONG DOOR</div>
+                    <div class="movie-title">THE DELIVERYMAN'S SECRET BILLIONAIRE</div>
                 </div>
                 <div class="movie-card m2">
                     <div class="movie-title">SECRET BILLIONAIRE</div>
@@ -363,16 +364,14 @@ html_code = """
             </div>
         </div>
 
-        <!-- الشريط السفلي مع الأيقونة المطابقة للصورة تماماً -->
+        <!-- الشريط السفلي -->
         <div class="bottom-nav-container">
-            <!-- 1. المستطيل الكبير للنصوص الثلاثة الصافية -->
             <div class="nav-group-box">
                 <div class="nav-item-text active">الصفحة الرئيسية</div>
                 <div class="nav-item-text">الأدوات</div>
                 <div class="nav-item-text">الأعمال</div>
             </div>
 
-            <!-- 2. الزر الرابع المنفصل بأقصى اليسار يضم أيقونة الفيلم والنجمة الزرقاء -->
             <div class="nav-single-box">
                 <span class="custom-sparkle"></span>
                 <span class="custom-movie-icon"></span>
