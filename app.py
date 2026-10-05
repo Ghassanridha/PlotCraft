@@ -16,7 +16,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# كود HTML و CSS مع شريط التنقل السفلي المطابق تماماً للصورة
+# كود HTML و CSS مع شريط التنقل السفلي المطابق تماماً للصورة بدون أيقونات جانبية للنصوص
 html_code = """
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -51,7 +51,7 @@ html_code = """
             overflow-x: hidden;
         }
 
-        /* صندوق الخلفية العلوي الموحد (Hero Box) مطابق للصورة الأصلية تماماً */
+        /* صندوق الخلفية العلوي الموحد (Hero Box) */
         .hero-box {
             position: relative;
             width: 100%;
@@ -241,46 +241,44 @@ html_code = """
             margin-top: auto;
         }
 
-        /* 1. المستطيل الكبير الذي يضم الثلاثة أزرار معاً */
+        /* 1. المستطيل الكبير الذي يضم 3 أزرار معاً (بدون أيقونات جانبية، النصوص فقط) */
         .nav-group-box {
             flex: 1;
             background: rgba(20, 25, 40, 0.85);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
+            border-radius: 22px;
             padding: 6px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        /* الأزرار داخل المستطيل الكبير */
-        .nav-item-inner {
-            display: flex;
-            align-items: center;
-            gap: 6px;
+        /* أزرار النصوص داخل المستطيل */
+        .nav-item-text {
             color: #94a3b8;
             font-size: 13px;
             padding: 10px 14px;
-            border-radius: 18px;
+            border-radius: 16px;
             cursor: pointer;
+            text-align: center;
         }
 
-        /* الزر النشط داخل المستطيل (الصفحة الرئيسية) */
-        .nav-item-inner.active {
+        /* الزر النشط (الصفحة الرئيسية) */
+        .nav-item-text.active {
             background: rgba(255, 255, 255, 0.15);
             color: #ffffff;
             font-weight: 600;
         }
 
-        /* 2. المربع الرابع المنفصل تماماً عنهم في أقصى اليسار */
+        /* 2. المربع الرابع المنفصل في أقصى اليسار (يحتوي على الأيقونة فقط) */
         .nav-single-box {
-            width: 52px;
-            height: 52px;
+            width: 48px;
+            height: 48px;
             background: rgba(20, 25, 40, 0.85);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
+            border-radius: 16px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -288,41 +286,14 @@ html_code = """
             cursor: pointer;
         }
 
-        /* رسم الأيقونات بدقة متناهية مطابقة للصورة */
-        .icon-home {
-            width: 16px;
-            height: 16px;
-            display: inline-block;
-            background: currentColor;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>') no-repeat center;
-            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>') no-repeat center;
-        }
-
-        .icon-tools {
-            width: 16px;
-            height: 16px;
-            display: inline-block;
-            background: currentColor;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>') no-repeat center;
-            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>') no-repeat center;
-        }
-
-        .icon-works {
-            width: 16px;
-            height: 16px;
-            display: inline-block;
-            background: currentColor;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>') no-repeat center;
-            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>') no-repeat center;
-        }
-
-        .icon-extra {
+        /* أيقونة الزر الأخير المنفصل في أقصى اليسار */
+        .icon-menu {
             width: 18px;
             height: 18px;
             display: inline-block;
             background: currentColor;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>') no-repeat center;
-            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>') no-repeat center;
+            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>') no-repeat center;
+            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>') no-repeat center;
         }
     </style>
 </head>
@@ -380,30 +351,21 @@ html_code = """
             </div>
         </div>
 
-        <!-- الشريط السفلي المطابق تماماً للصورة: مستطيل كبير للثلاثة أزرار ومربع منفصل رابع -->
+        <!-- الشريط السفلي مطابق تماماً للصورة: مستطيل يضم النصوص الثلاثة، ومربع منفصل بأقصى اليسار للأيقونة -->
         <div class="bottom-nav-container">
-            <!-- 1. المستطيل الكبير الذي يضم 3 أزرار معاً -->
+            <!-- 1. المستطيل الكبير الذي يضم 3 أزرار نصوص (من اليمين لليسار) -->
             <div class="nav-group-box">
-                <!-- أقصى اليمين: الصفحة الرئيسية (نشطة) -->
-                <div class="nav-item-inner active">
-                    <span>الصفحة الرئيسية</span>
-                    <span class="icon-home"></span>
-                </div>
+                <!-- أقصى اليمين: الصفحة الرئيسية (نشطة ومظللة) -->
+                <div class="nav-item-text active">الصفحة الرئيسية</div>
                 <!-- في المنتصف: الأدوات -->
-                <div class="nav-item-inner">
-                    <span>الأدوات</span>
-                    <span class="icon-tools"></span>
-                </div>
+                <div class="nav-item-text">الأدوات</div>
                 <!-- يسار المستطيل: الأعمال -->
-                <div class="nav-item-inner">
-                    <span>الأعمال</span>
-                    <span class="icon-works"></span>
-                </div>
+                <div class="nav-item-text">الأعمال</div>
             </div>
 
-            <!-- 2. المربع الرابع المنفصل في أقصى اليسار -->
+            <!-- 2. المربع الرابع المنفصل في أقصى اليسار (يحتوي على الأيقونة فقط) -->
             <div class="nav-single-box">
-                <span class="icon-extra"></span>
+                <span class="icon-menu"></span>
             </div>
         </div>
     </div>
