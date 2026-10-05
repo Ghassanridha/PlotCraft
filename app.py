@@ -109,7 +109,7 @@ html_code = """
             font-size: 11px;
             font-weight: 500;
             color: #9ca3af;
-            background: #0b0d12;
+            background: #000000;
             border: 1px solid #ffffff;
             border-radius: 8px;
             cursor: pointer;
@@ -119,18 +119,18 @@ html_code = """
             transition: all 0.2s ease;
         }
         .tab-btn.active {
-            background: #000000;
+            background: #1a1d26;
             color: #ffffff;
             font-weight: 900;
             border: 1px solid #ffffff;
             box-shadow: 0 0 10px rgba(255,255,255,0.25);
         }
 
-        /* الزر الرابع (زر الصورة الدائري داخل مربعه المنفصل وبجانب البقيه) */
+        /* الزر الرابع (زر الصورة داخل مربعه المستقل بجانب البقية) */
         .custom-icon-tab {
             width: 44px;
             height: 42px;
-            background: #0b0d12;
+            background: #000000;
             border: 1px solid #ffffff;
             border-radius: 8px;
             display: flex;
@@ -141,7 +141,7 @@ html_code = """
             flex-shrink: 0;
         }
         .custom-icon-tab.active {
-            background: #000000;
+            background: #1a1d26;
             border: 1px solid #ffffff;
             box-shadow: 0 0 10px rgba(255,255,255,0.25);
         }
@@ -240,21 +240,16 @@ html_code = """
                 </div>
             </div>
 
-            <!-- شاشة الزر المخصص المطابق للصور المرسلة -->
+            <!-- شاشة الزر المخصص -->
             <div id="custom-screen" class="screen" style="padding: 20px;">
                 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 350px;">
                     <div style="background: #12141c; border: 2px solid #ffffff; border-radius: 20px; padding: 30px; width: 100%; max-width: 300px; text-align: center; box-shadow: 0 8px 30px rgba(0,0,0,0.9); display: flex; flex-direction: column; align-items: center; gap: 16px;">
                         
-                        <!-- الزر الدائري الداخلي مطابق للصورة تماماً -->
                         <div style="position: relative; width: 75px; height: 75px; background: #181b24; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.15);">
-                            
-                            <!-- أيقونة الفيلم والشرائط -->
                             <div style="width: 36px; height: 36px; background: #9ca3af; border-radius: 6px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
                                 <div style="width: 0; height: 0; border-top: 6px solid transparent; border-bottom: 6px solid transparent; border-right: 10px solid #0b0d12; transform: translateX(2px);"></div>
                                 <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 8px; background: repeating-linear-gradient(to bottom, #9ca3af, #9ca3af 2px, #4b5563 2px, #4b5563 4px);"></div>
                             </div>
-
-                            <!-- النجمة الزرقاء البراقة في أعلى اليسار كما في الصورة -->
                             <svg width="22" height="22" viewBox="0 0 24 24" fill="#3b82f6" xmlns="http://www.w3.org/2000/svg" style="position: absolute; top: 2px; left: 6px; filter: drop-shadow(0 0 4px rgba(59,130,246,0.8));">
                                 <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
                             </svg>
@@ -268,21 +263,18 @@ html_code = """
 
         </div>
 
-        <!-- شريط التنقل السفلي يضم الأزرار الثلاثة الأولى مع الزر الرابع المستقل بجانبهم -->
+        <!-- شريط التنقل السفلي -->
         <div class="custom-nav-tabs">
             <button id="btn-home" onclick="switchScreen('home')" class="tab-btn active">الصفحة الرئيسية</button>
             <button id="btn-tools" onclick="switchScreen('tools')" class="tab-btn">الأدوات</button>
             <button id="btn-works" onclick="switchScreen('works')" class="tab-btn">الاعمال</button>
             
-            <!-- الزر الرابع المستقل بذاته (بجانب البقيه ومفصول عنها في مربعه الخاص) -->
             <button id="btn-custom" onclick="switchScreen('custom')" class="custom-icon-tab" title="الزر المخصص">
                 <div style="position: relative; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;">
-                    <!-- أيقونة مصغرة مطابقة -->
                     <div style="width: 20px; height: 20px; background: #9ca3af; border-radius: 4px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
                         <div style="width: 0; height: 0; border-top: 3px solid transparent; border-bottom: 3px solid transparent; border-right: 6px solid #0b0d12; transform: translateX(1px);"></div>
                         <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 5px; background: repeating-linear-gradient(to bottom, #9ca3af, #9ca3af 2px, #4b5563 2px, #4b5563 4px);"></div>
                     </div>
-                    <!-- النجمة الزرقاء مصغرة -->
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="#3b82f6" xmlns="http://www.w3.org/2000/svg" style="position: absolute; top: -6px; left: -4px;">
                         <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
                     </svg>
