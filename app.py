@@ -1,320 +1,370 @@
 import streamlit as st
+import streamlit.components.v1 as components
 
-# إعداد الصفحة
-st.set_page_config(page_title="بلوت كرافت", page_icon="🎬", layout="centered")
+# إعداد الصفحة وتوسيع العرض لتجنب قيود الشاشة الافتراضية
+st.set_page_config(page_title="بلوت كرافت", layout="wide", initial_sidebar_state="collapsed")
 
-# تنسيق التصميم بالكامل مطابق للصورة الأصلية
+# إخفاء عناصر ستريمليت الافتراضية بالكامل للحصول على مظهر تطبيق جوال نقي
 st.markdown("""
     <style>
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
-    
-    .stApp {
-        background-color: #0b0c10;
-        color: #ffffff;
-        font-family: 'Cairo', sans-serif;
-    }
-    
-    /* حاوية الجوال العامة */
-    .mobile-container {
-        max-width: 410px;
-        margin: 0 auto;
-        background-color: #0b0c10;
-        min-height: 850px;
-        position: relative;
-        padding-bottom: 100px;
-    }
-    
-    /* شريط العنوان العلوي */
-    .top-bar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px 20px;
-    }
-    
-    .upgrade-btn {
-        background-color: rgba(255, 255, 255, 0.1);
-        color: #ffffff;
-        font-size: 12px;
-        padding: 5px 12px;
-        border-radius: 20px;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-    
-    .app-title {
-        font-size: 16px;
-        font-weight: bold;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    
-    /* قسم التحية والخلفية */
-    .hero-section {
-        position: relative;
-        border-radius: 24px;
-        overflow: hidden;
-        margin: 10px 16px;
-        padding: 24px 20px;
-        background-image: linear-gradient(to bottom, rgba(11, 12, 16, 0.3), rgba(11, 12, 16, 0.95)), 
-                          url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop');
-        background-size: cover;
-        background-position: center;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .hero-text-container {
-        text-align: right;
-        margin-bottom: 25px;
-    }
-    
-    .hero-subtitle {
-        color: #cfd0d5;
-        font-size: 15px;
-        margin-bottom: 5px;
-    }
-    
-    .hero-title {
-        color: #ffffff;
-        font-size: 22px;
-        font-weight: bold;
-    }
-    
-    /* البطوتان الصغيرتان في المنتصف */
-    .options-row {
-        display: flex;
-        gap: 12px;
-    }
-    
-    .option-card {
-        flex: 1;
-        background: rgba(20, 22, 30, 0.75);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 16px;
-        padding: 14px;
-        position: relative;
-    }
-    
-    .pro-badge {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        background: rgba(255, 255, 255, 0.15);
-        font-size: 9px;
-        padding: 2px 6px;
-        border-radius: 6px;
-        color: #ddd;
-    }
-    
-    .option-title {
-        font-size: 15px;
-        font-weight: bold;
-        margin-bottom: 4px;
-        text-align: right;
-    }
-    
-    .option-desc {
-        font-size: 11px;
-        color: #aaaaaa;
-        text-align: right;
-        line-height: 1.3;
-    }
-    
-    /* قسم إلهام بلوت كرافت */
-    .section-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 20px;
-        margin-top: 10px;
-    }
-    
-    .section-title {
-        font-size: 17px;
-        font-weight: bold;
-    }
-    
-    .section-more {
-        font-size: 13px;
-        color: #888888;
-        cursor: pointer;
-    }
-    
-    /* قائمة الأفلام الأفقية */
-    .movies-scroll {
-        display: flex;
-        gap: 12px;
-        overflow-x: auto;
-        padding: 0 16px;
-        scrollbar-width: none;
-    }
-    
-    .movies-scroll::-webkit-scrollbar {
-        display: none;
-    }
-    
-    .movie-card {
-        min-width: 130px;
-        height: 200px;
-        border-radius: 14px;
-        overflow: hidden;
-        position: relative;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        flex-shrink: 0;
-    }
-    
-    .movie-card img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    
-    .movie-title-overlay {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding: 10px;
-        background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-        font-size: 11px;
-        font-weight: bold;
-        text-align: center;
-        color: white;
-    }
-    
-    /* شريط التنقل السفلي */
-    .bottom-nav-container {
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 90%;
-        max-width: 380px;
-        display: flex;
-        gap: 10px;
-        z-index: 999;
-    }
-    
-    .nav-pill {
-        flex: 1;
-        background-color: rgba(22, 23, 29, 0.95);
-        backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 40px;
-        padding: 6px 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-    }
-    
-    .nav-item {
-        flex: 1;
-        text-align: center;
-        color: #888888;
-        font-size: 11px;
-        font-weight: 600;
-        padding: 8px 4px;
-    }
-    
-    .nav-item-active {
-        flex: 1;
-        text-align: center;
-        background-color: #ffffff;
-        color: #121318;
-        font-size: 11px;
-        font-weight: bold;
-        padding: 8px 6px;
-        border-radius: 30px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-    
-    .extra-nav-btn {
-        width: 50px;
-        background-color: rgba(22, 23, 29, 0.95);
-        backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 25px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-        color: #ccc;
-    }
+    .block-container {padding: 0 !important; margin: 0 !important;}
     </style>
+""", unsafe_allow_html=True)
 
-    <div class="mobile-container">
-        <!-- شريط علوي -->
-        <div class="top-bar">
+# كود الواجهة المصمم خصيصاً لتطابق الصورة بالحرف وبدون أي إيموجيات زائدة
+app_html = """
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlotCraft</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        body {
+            background-color: #0b0c10;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .mobile-screen {
+            width: 100%;
+            max-width: 400px;
+            height: 840px;
+            background-color: #0b0c10;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            border-radius: 30px;
+            border: 1px solid #1f222e;
+        }
+        
+        .mobile-screen::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* الهيدر العلوي */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px 10px 20px;
+        }
+        
+        .upgrade-btn {
+            background-color: #1a1c24;
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid #2d3142;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .app-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+        
+        .brand-icon {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+        }
+        
+        /* قسم البطل (Hero Section) */
+        .hero-box {
+            position: relative;
+            margin: 10px 16px;
+            border-radius: 24px;
+            overflow: hidden;
+            padding: 24px 20px;
+            background-image: linear-gradient(to bottom, rgba(11, 12, 16, 0.4), rgba(11, 12, 16, 0.96)), 
+                              url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .hero-text {
+            text-align: right;
+            margin-bottom: 22px;
+        }
+        
+        .hero-subtitle {
+            color: #d1d2d8;
+            font-size: 14px;
+            font-weight: 400;
+            margin-bottom: 4px;
+        }
+        
+        .hero-title {
+            color: #ffffff;
+            font-size: 21px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        /* البطاقتان في قسم البطل */
+        .cards-row {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .card-item {
+            flex: 1;
+            background: rgba(18, 20, 28, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 14px;
+            position: relative;
+        }
+        
+        .pro-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.12);
+            font-size: 9px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 6px;
+            color: #cccccc;
+        }
+        
+        .card-icon {
+            font-size: 18px;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .card-heading {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 3px;
+            text-align: right;
+        }
+        
+        .card-subtext {
+            font-size: 10.5px;
+            color: #9e9fa6;
+            text-align: right;
+            line-height: 1.25;
+        }
+        
+        /* قسم إلهام بلوت كرافت */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px 10px 20px;
+        }
+        
+        .section-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        
+        .section-action {
+            font-size: 12.5px;
+            color: #888990;
+            font-weight: 600;
+        }
+        
+        /* الأفلام الأفقية */
+        .movies-container {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 0 16px 15px 16px;
+            scrollbar-width: none;
+        }
+        
+        .movies-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .movie-card {
+            min-width: 125px;
+            height: 195px;
+            border-radius: 14px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            flex-shrink: 0;
+            background-color: #151720;
+        }
+        
+        .movie-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .movie-title-box {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 10px 8px;
+            background: linear-gradient(to top, rgba(0,0,0,0.92) 15%, transparent 100%);
+            font-size: 10px;
+            font-weight: 700;
+            text-align: center;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+        
+        /* القائمة السفلية */
+        .bottom-nav-wrapper {
+            position: sticky;
+            bottom: 16px;
+            left: 0;
+            right: 0;
+            padding: 0 16px;
+            margin-top: auto;
+            z-index: 100;
+        }
+        
+        .nav-inner {
+            background-color: #151720;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 40px;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+        }
+        
+        .nav-button {
+            flex: 1;
+            text-align: center;
+            color: #888990;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 8px 4px;
+        }
+        
+        .nav-button-active {
+            flex: 1;
+            text-align: center;
+            background-color: #ffffff;
+            color: #121318;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 8px 6px;
+            border-radius: 30px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-screen">
+        
+        <!-- الهيدر العلوي -->
+        <div class="top-header">
             <div class="upgrade-btn">
-                <span>✨</span> ترقية
+                <span>✦</span> ترقية
             </div>
-            <div class="app-title">
-                بلوت كرافت <span>🎬</span>
+            <div class="app-brand">
+                بلوت كرافت 
+                <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon>
+                </svg>
             </div>
         </div>
 
-        <!-- قسم التحية والبطاقات -->
-        <div class="hero-section">
-            <div class="hero-text-container">
+        <!-- قسم البطل -->
+        <div class="hero-box">
+            <div class="hero-text">
                 <div class="hero-subtitle">مساء الخير، أيها المخرج</div>
                 <div class="hero-title">أي قصة سنصنع اليوم؟</div>
             </div>
             
-            <div class="options-row">
+            <div class="cards-row">
                 <!-- بطاقة سريع -->
-                <div class="option-card">
-                    <div class="pro-badge">Pro only</div>
-                    <div style="margin-bottom: 8px; color: #a270ff;">🪄</div>
-                    <div class="option-title">سريع</div>
-                    <div class="option-desc">إدخال واحد، فيديو كامل</div>
+                <div class="card-item">
+                    <div class="pro-tag">Pro only</div>
+                    <div class="card-icon">⚡</div>
+                    <div class="card-heading">سريع</div>
+                    <div class="card-subtext">إدخال واحد، فيديو كامل</div>
                 </div>
                 
                 <!-- بطاقة خطوة بخطوة -->
-                <div class="option-card">
-                    <div style="margin-bottom: 8px; color: #5090ff;">💬</div>
-                    <div class="option-title">خطوة بخطوة</div>
-                    <div class="option-desc">راجع كل خطوة</div>
+                <div class="card-item">
+                    <div class="card-icon">💬</div>
+                    <div class="card-heading">خطوة بخطوة</div>
+                    <div class="card-subtext">راجع كل خطوة</div>
                 </div>
             </div>
         </div>
 
         <!-- عنوان القائمة الأفقي -->
         <div class="section-header">
-            <div class="section-more">عرض الكل ></div>
-            <div class="section-title">إلهام بلوت كرافت</div>
+            <div class="section-action">عرض الكل &gt;</div>
+            <div class="section-name">إلهام بلوت كرافت</div>
         </div>
 
-        <!-- قائمة الأفلام والقصص -->
-        <div class="movies-scroll">
+        <!-- قائمة الأفلام -->
+        <div class="movies-container">
             <div class="movie-card">
                 <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop">
-                <div class="movie-title-overlay">INVITATION</div>
+                <div class="movie-title-box">INVITATION</div>
             </div>
             <div class="movie-card">
                 <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop">
-                <div class="movie-title-overlay">THE WRONG DOOR</div>
+                <div class="movie-title-box">THE WRONG DOOR</div>
             </div>
             <div class="movie-card">
                 <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=400&auto=format&fit=crop">
-                <div class="movie-title-overlay">SECRET BILLIONAIRE</div>
+                <div class="movie-title-box">THE DELIVERYMAN'S SECRET BILLIONAIRE</div>
             </div>
         </div>
 
-        <!-- شريط التنقل السفلي -->
-        <div class="bottom-nav-container">
-            <div class="extra-nav-btn">✨</div>
-            <div class="nav-pill">
-                <div class="nav-item">الصفحة الرئيسية</div>
-                <div class="nav-item">الأعمال</div>
-                <div class="nav-item-active">الأدوات</div>
+        <!-- الشريط السفلي -->
+        <div class="bottom-nav-wrapper">
+            <div class="nav-inner">
+                <div class="nav-button">الصفحة الرئيسية</div>
+                <div class="nav-button">الأعمال</div>
+                <div class="nav-button-active">الأدوات</div>
             </div>
         </div>
+
     </div>
-""", unsafe_allow_html=True)
+
+</body>
+</html>
+"""
+
+# عرض التصميم كواجهة تفاعلية حقيقية وليست كرموز نصية
+components.html(app_html, height=860, scrolling=False)
