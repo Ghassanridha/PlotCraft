@@ -411,29 +411,78 @@ html_code = """
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
         }
 
-        /* واجهة صفحة الاشتراكات */
+        /* واجهة صفحة الاشتراكات مع الخلفية المتحركة للبركان والطاقة */
         #subscriptionScreen { background: #0b0f19; overflow-y: auto; position: relative; }
-        .animated-bg-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; opacity: 0.35; pointer-events: none; }
-        .explosion-glow { position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(59,130,246,0.6) 0%, rgba(139,92,246,0.2) 50%, transparent 70%); border-radius: 50%; animation: pulseExplosion 4s infinite alternate ease-in-out; }
-        .glow-1 { top: -50px; right: -50px; }
-        .glow-2 { bottom: 100px; left: -80px; animation-delay: 2s; background: radial-gradient(circle, rgba(236,72,153,0.5) 0%, rgba(59,130,246,0.2) 50%, transparent 70%); }
-        @keyframes pulseExplosion { 0% { transform: scale(1) translate(0, 0); opacity: 0.3; } 50% { transform: scale(1.4) translate(20px, 30px); opacity: 0.7; } 100% { transform: scale(1.1) translate(-10px, 15px); opacity: 0.4; } }
+        
+        .sub-hero-banner {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
 
-        .page-header, .content-body { position: relative; z-index: 2; }
-        .page-header { display: flex; align-items: center; justify-content: space-between; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(11, 15, 25, 0.75); backdrop-filter: blur(10px); }
-        .back-btn { background: rgba(255,255,255,0.1); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .page-title-text { color: #ffffff; font-size: 18px; font-weight: 700; }
-        .content-body { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+        .volcano-bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            opacity: 0.6;
+        }
+
+        .volcano-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(11,15,25,0.3) 0%, rgba(11,15,25,0.9) 90%, #0b0f19 100%);
+            z-index: 2;
+        }
+
+        .sub-banner-content {
+            position: relative;
+            z-index: 3;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .page-header-sub {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .back-btn { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .page-title-text { color: #ffffff; font-size: 18px; font-weight: 700; text-shadow: 0 2px 6px rgba(0,0,0,0.8); }
+
+        .sub-banner-text {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .content-body { padding: 20px; display: flex; flex-direction: column; gap: 16px; position: relative; z-index: 2; margin-top: -10px; }
         .plans-list { display: flex; flex-direction: column; gap: 12px; }
         .plan-card { background: rgba(20, 25, 40, 0.85); backdrop-filter: blur(12px); border: 1.5px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 16px; cursor: pointer; transition: 0.2s; position: relative; }
-        .plan-card.selected { border-color: #3b82f6; background: rgba(30, 41, 75, 0.95); box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
+        .plan-card.selected { border-color: #ff5722; background: rgba(40, 25, 30, 0.95); box-shadow: 0 0 20px rgba(255, 87, 34, 0.4); }
         .plan-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
         .plan-name { color: #ffffff; font-size: 15px; font-weight: 700; }
         .plan-price { background: rgba(255, 255, 255, 0.12); padding: 4px 10px; border-radius: 10px; color: #ffffff; font-size: 12px; font-weight: 600; }
         .plan-desc { color: #94a3b8; font-size: 12px; }
         .new-tag { position: absolute; top: 12px; left: 12px; background: #3b82f6; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
-        .best-value-tag { position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg, #f59e0b, #ec4899); color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
-        .action-main-btn { width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 20px; border: none; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); margin-top: 10px; }
+        .best-value-tag { position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg, #ff5722, #ff9800); color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
+        .action-main-btn { width: 100%; background: linear-gradient(135deg, #ff5722 0%, #ff9800 100%); color: #ffffff; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 20px; border: none; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(255, 87, 34, 0.4); margin-top: 10px; }
         
         .payment-form-box { display: flex; flex-direction: column; gap: 14px; }
         .form-group { display: flex; flex-direction: column; gap: 6px; }
@@ -549,7 +598,7 @@ html_code = """
 
     <!-- واجهة تفاصيل "خطوة بخطوة" -->
     <div id="stepByStepScreen" class="screen-view">
-        <div class="page-header">
+        <div class="page-header" style="display:flex; align-items:center; justify-content:space-between; padding:20px; border-bottom:1px solid rgba(255,255,255,0.08); background:rgba(11, 15, 25, 0.75);">
             <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
             <div class="page-title-text">خطوة بخطوة</div>
             <div style="width: 36px;"></div>
@@ -601,25 +650,29 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة صفحة الاشتراكات -->
+    <!-- واجهة صفحة الاشتراكات مع الخلفية المتحركة (بركان/طاقة) في الأعلى -->
     <div id="subscriptionScreen" class="screen-view">
-        <div class="animated-bg-container">
-            <div class="explosion-glow glow-1"></div>
-            <div class="explosion-glow glow-2"></div>
-        </div>
-
-        <div class="page-header">
-            <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
-            <div class="page-title-text">ترقية الحساب</div>
-            <div style="width: 36px;"></div>
+        <div class="sub-hero-banner">
+            <!-- فيديو خلفية متحركة (بركان / انفجار ناري وطاقة) -->
+            <video autoplay muted loop playsinline class="volcano-bg-video">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-with-lights-31955-large.mp4" type="video/mp4">
+            </video>
+            <div class="volcano-overlay"></div>
+            
+            <div class="sub-banner-content">
+                <div class="page-header-sub">
+                    <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
+                    <div class="page-title-text">ترقية الحساب</div>
+                    <div style="width: 36px;"></div>
+                </div>
+                <div class="sub-banner-text">
+                    <div style="color: #ffffff; font-size: 18px; font-weight: 700; margin-bottom: 4px; text-shadow: 0 2px 8px rgba(0,0,0,0.8);">حول أفكارك إلى PlotCraft</div>
+                    <div style="color: #cbd5e1; font-size: 12px; text-shadow: 0 2px 6px rgba(0,0,0,0.8);">أنشئ كل لقطة وعدلها وأكملها بسرعة.</div>
+                </div>
+            </div>
         </div>
 
         <div class="content-body">
-            <div style="text-align: center; margin-bottom: 5px;">
-                <div style="color: #ffffff; font-size: 18px; font-weight: 700; margin-bottom: 4px;">حول أفكارك إلى PlotCraft</div>
-                <div style="color: #94a3b8; font-size: 12px;">أنشئ كل لقطة وعدلها وأكملها بسرعة.</div>
-            </div>
-
             <div class="plans-list">
                 <!-- الاشتراك الأسبوعي -->
                 <div class="plan-card selected" onclick="selectPlan(this)">
@@ -657,7 +710,7 @@ html_code = """
 
     <!-- واجهة تفاصيل الدفع البنكي -->
     <div id="paymentScreen" class="screen-view">
-        <div class="page-header">
+        <div class="page-header" style="display:flex; align-items:center; justify-content:space-between; padding:20px; border-bottom:1px solid rgba(255,255,255,0.08); background:rgba(11, 15, 25, 0.75);">
             <button class="back-btn" onclick="switchScreen('subscriptionScreen')">←</button>
             <div class="page-title-text">تفاصيل الدفع البنكي</div>
             <div style="width: 36px;"></div>
@@ -730,6 +783,7 @@ html_code = """
         }
 
         function checkMaxImages(input) {
+            .
             if (input.files.length > 2) {
                 alert('عذراً، الحد الأقصى المسموح به هو صورتان فقط للشخصيات!');
                 input.value = '';
