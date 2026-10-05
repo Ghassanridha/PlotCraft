@@ -222,7 +222,6 @@ html_code = """
             transform: scale(0.96);
         }
 
-        /* الغلاف المحدث بدقة: رجل بمعطف أسود مع فتاة بجاكيت أسود وشعر أشقر */
         .movie-card.emily-cover { 
             background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(11,15,25,0.92) 100%), 
                         url('https://images.unsplash.com/photo-1509967419530-da38b4704bc6?q=80&w=300&auto=format&fit=crop') center/cover; 
@@ -465,7 +464,6 @@ html_code = """
             </div>
 
             <div class="movies-carousel">
-                <!-- الغلاف المحدث بدقة: رجل بمعطف أسود مع فتاة بجاكيت أسود وشعر أشقر -->
                 <div class="movie-card emily-cover" onclick="openStoryModal()">
                     <div class="movie-title">EMILY & ALEXANDER'S SECRET</div>
                 </div>
@@ -589,7 +587,7 @@ A dark crime romance story about secrets, forgotten memories, dangerous power, a
         </div>
     </div>
 
-    <!-- واجهة صفحة الاشتراكات -->
+    <!-- واجهة صفحة الاشتراكات (محدثة: الاشتراك السنوي 69.99 دولار و 5000 نقطة) -->
     <div id="subscriptionScreen" class="screen-view">
         <div class="page-header">
             <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
@@ -606,18 +604,18 @@ A dark crime romance story about secrets, forgotten memories, dangerous power, a
             <div class="plans-list">
                 <div class="plan-card" onclick="selectPlan(this)">
                     <div class="plan-top">
-                        <div class="plan-name">بلوت كرافت برو ويكلي</div>
-                        <div class="plan-price">9.99 دولار أمريكي / أسبوع</div>
-                    </div>
-                    <div class="plan-desc">500 نقطة / أسبوعياً، جرب بلوت كرافت</div>
-                </div>
-
-                <div class="plan-card selected" onclick="selectPlan(this)">
-                    <div class="plan-top">
                         <div class="plan-name">بلوت كرافت برو الشهرية</div>
                         <div class="plan-price">29.99 دولار أمريكي / شهر</div>
                     </div>
                     <div class="plan-desc">1800 نقطة / شهرياً، مثالي للمبدعين</div>
+                </div>
+
+                <div class="plan-card selected" onclick="selectPlan(this)">
+                    <div class="plan-top">
+                        <div class="plan-name">بلوت كرافت برو السنوية</div>
+                        <div class="plan-price">69.99 دولار أمريكي / سنة</div>
+                    </div>
+                    <div class="plan-desc">5000 نقطة / سنوياً، التوفير الأكبر للمحترفين</div>
                 </div>
             </div>
 
