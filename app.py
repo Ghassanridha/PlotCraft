@@ -238,7 +238,7 @@ html_code = """
             line-height: 1.2;
         }
 
-        /* شاشة "خطوة بخطوة" الجديدة والمطابقة تماماً لطلبك */
+        /* شاشة "خطوة بخطوة" */
         .step-container {
             padding: 20px;
             display: flex;
@@ -361,7 +361,6 @@ html_code = """
             transform: scale(0.95);
         }
 
-        /* حاوية رفع الصور المخفية/الظاهرة */
         .upload-section-hidden {
             display: none;
             background: #111827;
@@ -376,7 +375,6 @@ html_code = """
             display: block;
         }
 
-        /* حقل النص اللانهائي للقصة */
         .story-textarea-hidden {
             display: none;
             width: 100%;
@@ -413,7 +411,7 @@ html_code = """
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
         }
 
-        /* واجهة صفحة الاشتراكات ودفع الأتعاب */
+        /* واجهة صفحة الاشتراكات */
         #subscriptionScreen { background: #0b0f19; overflow: hidden; position: relative; }
         .animated-bg-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; opacity: 0.35; pointer-events: none; }
         .explosion-glow { position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(59,130,246,0.6) 0%, rgba(139,92,246,0.2) 50%, transparent 70%); border-radius: 50%; animation: pulseExplosion 4s infinite alternate ease-in-out; }
@@ -434,7 +432,6 @@ html_code = """
         .plan-price { background: rgba(255, 255, 255, 0.12); padding: 4px 10px; border-radius: 10px; color: #ffffff; font-size: 12px; font-weight: 600; }
         .plan-desc { color: #94a3b8; font-size: 12px; }
         .new-tag { position: absolute; top: 12px; left: 12px; background: #3b82f6; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
-        .renewal-text { text-align: center; color: #94a3b8; font-size: 11px; margin-top: 4px; }
         .action-main-btn { width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 20px; border: none; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); margin-top: 10px; }
         
         .payment-form-box { display: flex; flex-direction: column; gap: 14px; }
@@ -443,7 +440,7 @@ html_code = """
         .form-input { width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 12px 14px; color: #ffffff; font-size: 14px; outline: none; text-align: right; }
         .form-row { display: flex; gap: 10px; }
 
-        /* شريط التنقل السفلي المدمج */
+        /* شريط التنقل السفلي */
         .plotcraft-nav-bar {
             position: fixed;
             bottom: 0;
@@ -513,7 +510,6 @@ html_code = """
             </div>
 
             <div class="cards-row">
-                <!-- بطاقة خطوة بخطوة - تنتقل لواجهة الخطوات المخصصة -->
                 <div class="interactive-card" onclick="switchScreen('stepByStepScreen')">
                     <div class="card-header-row">
                         <div class="card-title-group-left">
@@ -524,7 +520,6 @@ html_code = """
                     <div class="card-subtitle">راجع كل خطوة</div>
                 </div>
 
-                <!-- بطاقة "سريع" -->
                 <div class="interactive-card" onclick="switchScreen('subscriptionScreen')">
                     <div class="card-header-row">
                         <div class="card-title-group-left">
@@ -551,7 +546,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة تفاصيل "خطوة بخطوة" الجديدة كلياً حسب طلبك -->
+    <!-- واجهة تفاصيل "خطوة بخطوة" -->
     <div id="stepByStepScreen" class="screen-view">
         <div class="page-header">
             <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
@@ -560,7 +555,6 @@ html_code = """
         </div>
 
         <div class="step-container">
-            <!-- مساعد AI بلوت كرافت مع الشعار الدائري المميز -->
             <div class="ai-assistant-card">
                 <div class="ai-header-row">
                     <div class="ai-title">مساعد AI بلوت كرافت</div>
@@ -569,7 +563,6 @@ html_code = """
                 <div class="ai-desc">عزيزي المخرج، استمتع بإنشاء وتخصيص تفاصيل فيلمك خطوة بخطوة بدقة احترافية عالية.</div>
             </div>
 
-            <!-- صندوق إعداد القصة مع العداد (0/2) -->
             <div class="story-setup-box">
                 <div class="setup-header-row">
                     <div class="setup-main-title">إعداد القصة</div>
@@ -577,7 +570,6 @@ html_code = """
                 </div>
                 <div class="setup-subtitle">أضف الشخصيات والحكاية أولاً، ثم أكمل الخطوات:</div>
 
-                <!-- خيار الشخصيات مع زر الإضافة -->
                 <div class="setup-row-item">
                     <div class="item-info">
                         <h4>الشخصيات</h4>
@@ -586,13 +578,11 @@ html_code = """
                     <button class="action-add-btn" onclick="toggleUpload()">إضافة</button>
                 </div>
 
-                <!-- خانة رفع الصور للشخصيات (تظهر عند الضغط على إضافة) -->
                 <div id="charUploadSection" class="upload-section-hidden">
                     <p style="margin-bottom: 6px; font-weight: bold;">قم بإرفاق صورتين كحد أقصى للشخصيات:</p>
                     <input type="file" id="charFiles" accept="image/*" multiple onchange="checkMaxImages(this)" style="color: #cbd5e1; font-size: 11px;">
                 </div>
 
-                <!-- خيار الحكاية مع زر الإضافة -->
                 <div class="setup-row-item">
                     <div class="item-info">
                         <h4>الحكاية</h4>
@@ -601,18 +591,16 @@ html_code = """
                     <button class="action-add-btn" onclick="toggleStoryInput()">إضافة</button>
                 </div>
 
-                <!-- خانة النص اللانهائي للقصة (تظهر عند الضغط على إضافة) -->
                 <textarea id="storyTextarea" class="story-textarea-hidden" placeholder="اكتب تفاصيل القصة هنا (يدعم العربية والإنجليزية بلا حدود للطول)..."></textarea>
             </div>
 
-            <!-- زر التالي في الجانب السفلي -->
             <div class="bottom-next-row">
                 <button class="side-next-btn" onclick="alert('تم حفظ الخطوات بنجاح والانتقال للمرحلة التالية!')">التالي</button>
             </div>
         </div>
     </div>
 
-    <!-- واجهة صفحة الاشتراكات -->
+    <!-- واجهة صفحة الاشتراكات (مع إضافة الخيار الشهري والأسبوعي معاً) -->
     <div id="subscriptionScreen" class="screen-view">
         <div class="animated-bg-container">
             <div class="explosion-glow glow-1"></div>
@@ -632,6 +620,7 @@ html_code = """
             </div>
 
             <div class="plans-list">
+                <!-- خيار الاشتراك الأسبوعي -->
                 <div class="plan-card selected" onclick="selectPlan(this)">
                     <div class="plan-top">
                         <div class="plan-name">بلوت كرافت برو ويكلي</div>
@@ -639,6 +628,8 @@ html_code = """
                     </div>
                     <div class="plan-desc">500 ساعة معتمدة / أسبوعياً، جرب بلوت كرافت</div>
                 </div>
+
+                <!-- خيار الاشتراك الشهري الذي تم استرجاعه -->
                 <div class="plan-card" onclick="selectPlan(this)">
                     <div class="new-tag">جديد</div>
                     <div class="plan-top">
@@ -686,7 +677,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- شريط التنقل السفلي الثابت -->
+    <!-- شريط التنقل السفلي -->
     <div class="plotcraft-nav-bar">
         <div class="plotcraft-nav-pill">
             <a href="#" class="plotcraft-nav-item active" onclick="switchScreen('homeScreen')">
