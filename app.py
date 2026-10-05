@@ -61,6 +61,8 @@ app_html = """
             justify-content: space-between;
             align-items: center;
             padding: 0 18px;
+            z-index: 5;
+            position: relative;
         }
         
         .app-brand {
@@ -82,23 +84,23 @@ app_html = """
             gap: 5px;
         }
         
-        /* قسم البطل مع تكبير الخلفية لتغطي المساحة بالكامل بدون فراغات سوداء */
+        /* قسم البطل مع تكبير ورفع الخلفية لتملأ المساحة بالكامل بدون فراغات */
         .hero-box {
             position: relative;
             margin: 6px 16px;
             border-radius: 22px;
             overflow: hidden;
-            padding: 20px 18px;
-            background-image: linear-gradient(to bottom, rgba(11, 12, 16, 0.2), rgba(11, 12, 16, 0.92)), 
-                              url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1400&auto=format&fit=crop');
-            background-size: 210% 210%;
-            background-position: center 25%;
+            padding: 35px 18px 20px 18px;
+            background-image: linear-gradient(to bottom, rgba(11, 12, 16, 0.1), rgba(11, 12, 16, 0.95)), 
+                              url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200&auto=format&fit=crop');
+            background-size: 160% 160%;
+            background-position: center 15%;
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
         
         .hero-text {
             text-align: right;
-            margin-bottom: 16px;
+            margin-bottom: 25px;
         }
         
         .hero-subtitle {
@@ -115,7 +117,7 @@ app_html = """
             line-height: 1.3;
         }
         
-        /* البطاقتان (خطوة بخطوة يمين، سريع يسار) */
+        /* البطاقتان (خطوة بخطوة يمين، سريع يسار) بدون أي تغيير بالأماكن */
         .cards-row {
             display: flex;
             gap: 10px;
@@ -282,7 +284,7 @@ app_html = """
             </div>
         </div>
 
-        <!-- قسم البطل مع الخلفية المكبرة والملء الكامل -->
+        <!-- قسم البطل بالخلفية المكبرة والملء الكامل للأعلى -->
         <div class="hero-box">
             <div class="hero-text">
                 <div class="hero-subtitle">مساء الخير، أيها المخرج</div>
