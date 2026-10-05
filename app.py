@@ -1,61 +1,54 @@
 import streamlit as st
 
-# كود شريط الأزرار السفلي فقط
 st.markdown("""
     <style>
+    /* حاوية القائمة السفلية الموحدة */
     .nav-container {
         position: fixed;
-        bottom: 30px;
+        bottom: 25px;
         left: 50%;
         transform: translateX(-50%);
         width: 90%;
-        max-width: 380px;
+        max-width: 370px;
         background-color: #16171d;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 40px;
-        padding: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 50px;
+        padding: 5px;
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        z-index: 999;
+        justify-content: space-between;
         box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+        z-index: 99999;
+        box-sizing: border-box;
     }
     
+    /* الأزرار العادية داخل القالب */
     .nav-btn {
         flex: 1;
         text-align: center;
-        color: #888;
-        font-size: 12px;
+        color: #888888;
+        font-size: 11px;
         font-weight: 600;
-        padding: 8px;
+        padding: 8px 4px;
         cursor: pointer;
         user-select: none;
-        transition: transform 0.1s ease;
+        white-space: nowrap;
     }
     
-    .nav-btn:active {
-        transform: scale(0.92);
-        opacity: 0.8;
-    }
-    
+    /* زر الأدوات النشط (أبيض مع نص أسود داكن) داخل نفس القالب */
     .nav-btn-active {
         flex: 1;
         text-align: center;
         background-color: #ffffff;
         color: #121318;
-        font-size: 12px;
+        font-size: 11px;
         font-weight: bold;
-        padding: 8px 12px;
-        border-radius: 30px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        padding: 8px 6px;
+        border-radius: 40px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         cursor: pointer;
         user-select: none;
-        transition: transform 0.1s ease;
-    }
-    
-    .nav-btn-active:active {
-        transform: scale(0.92);
-        background-color: #e0e0e0;
+        white-space: nowrap;
     }
     </style>
 
