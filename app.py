@@ -4,7 +4,6 @@ import streamlit.components.v1 as components
 # إعداد صفحة ستريمليت لإزالة الهوامش واستغلال الشاشة بالكامل
 st.set_page_config(page_title="PlotCraft UI", layout="wide", initial_sidebar_state="collapsed")
 
-# إزالة هوامش وتداخلات صفحة ستريمليت الافتراضية للجوال
 st.markdown("""
     <style>
         .block-container {
@@ -38,7 +37,6 @@ html_code = """
             overflow-x: hidden;
         }
 
-        /* الشاشات المختلفة */
         .screen-view {
             display: none;
             width: 100%;
@@ -92,7 +90,6 @@ html_code = """
             gap: 6px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             cursor: pointer;
-            transition: 0.2s;
         }
 
         .welcome-section {
@@ -126,12 +123,6 @@ html_code = """
             flex-direction: column;
             justify-content: center;
             cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .interactive-card:active {
-            transform: scale(0.97);
-            background: rgba(30, 40, 65, 0.85);
         }
 
         .card-header-row {
@@ -150,14 +141,13 @@ html_code = """
         .card-subtitle {
             color: #94a3b8;
             font-size: 12px;
-            font-weight: 400;
         }
 
         .exact-bot-icon {
             width: 22px;
             height: 22px;
             background: #dbeafe;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
+            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1 z"/></svg>') no-repeat center;
             -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
             background-size: contain;
         }
@@ -232,11 +222,11 @@ html_code = """
             transform: scale(0.96);
         }
 
-        /* الغلاف الجديد الخاص بقصة إيميلي وألكسندر */
+        /* الغلاف الجديد: رجل بمعطف أسود مع بنت بجاكيت أسود وشعر أشقر */
         .movie-card.emily-cover { 
-            background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(11,15,25,0.95) 100%), 
-                        url('https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=300&auto=format&fit=crop') center/cover; 
-            border: 1.5px solid rgba(59, 130, 246, 0.4);
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(11,15,25,0.92) 100%), 
+                        url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop') center/cover; 
+            border: 1.5px solid rgba(59, 130, 246, 0.5);
         }
         .movie-card.m2 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=300&auto=format&fit=crop') center/cover; }
         .movie-card.m3 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=300&auto=format&fit=crop') center/cover; }
@@ -249,7 +239,7 @@ html_code = """
             line-height: 1.2;
         }
 
-        /* النافذة المنبثقة (Modal) لعرض القصة */
+        /* نافذة عرض القصة المنبثقة (Modal) */
         .story-modal-overlay {
             display: none;
             position: fixed;
@@ -280,12 +270,6 @@ html_code = """
             flex-direction: column;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            animation: modalPop 0.3s ease;
-        }
-
-        @keyframes modalPop {
-            0% { transform: scale(0.9); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
         }
 
         .story-modal-header {
@@ -314,7 +298,6 @@ html_code = """
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
         }
 
         .story-modal-body {
@@ -324,7 +307,7 @@ html_code = """
             font-size: 13px;
             line-height: 1.8;
             text-align: left;
-            direction: ltr; /* لأن القصة بالإنجليزية */
+            direction: ltr;
             white-space: pre-line;
         }
 
@@ -346,214 +329,42 @@ html_code = """
             font-weight: 700;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-            transition: 0.2s;
         }
 
-        .copy-story-btn:active {
-            transform: scale(0.96);
-        }
+        /* الشاشات الأخرى للتنقل */
+        .step-container { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+        .ai-assistant-card { background: #141824; border: 1px solid #1e293b; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+        .ai-header-row { display: flex; justify-content: space-between; align-items: center; }
+        .ai-title { color: #ff2a85; font-size: 14px; font-weight: 700; }
+        .ai-badge-circle { width: 32px; height: 32px; background: linear-gradient(135deg, #ff2a85, #7928ca); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 11px; }
+        .ai-desc { color: #94a3b8; font-size: 12px; }
+        .story-setup-box { background: #141824; border: 1px solid #1e293b; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+        .setup-header-row { display: flex; justify-content: space-between; align-items: center; }
+        .setup-main-title { color: #ffffff; font-size: 15px; font-weight: 700; }
+        .counter-badge { background-color: #1e293b; color: #94a3b8; padding: 3px 10px; border-radius: 10px; font-size: 11px; }
+        .setup-row-item { background: #1a2234; border-radius: 12px; padding: 12px; display: flex; justify-content: space-between; align-items: center; }
+        .item-info h4 { color: #ffffff; font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+        .item-info p { color: #94a3b8; font-size: 11px; }
+        .action-add-btn { background: rgba(59, 130, 246, 0.15); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3); padding: 6px 14px; border-radius: 8px; font-size: 12px; cursor: pointer; }
+        .upload-section-hidden, .story-textarea-hidden { display: none; background: #111827; border: 1px solid #374151; border-radius: 10px; padding: 12px; color: #ffffff; font-size: 13px; }
+        .upload-section-hidden.show, .story-textarea-hidden.show { display: block; }
+        .story-textarea-hidden { width: 100%; min-height: 100px; outline: none; resize: vertical; text-align: right; }
+        .bottom-next-row { display: flex; justify-content: flex-end; margin-top: 10px; }
+        .side-next-btn { background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; font-size: 14px; font-weight: 700; padding: 10px 24px; border-radius: 12px; border: none; cursor: pointer; }
 
-        /* شاشة "خطوة بخطوة" والشاشات الأخرى */
-        .step-container {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .ai-assistant-card {
-            background: #141824;
-            border: 1px solid #1e293b;
-            border-radius: 16px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .ai-header-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .ai-title {
-            color: #ff2a85;
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-        .ai-badge-circle {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, #ff2a85, #7928ca);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 11px;
-            box-shadow: 0 2px 8px rgba(255,42,133,0.4);
-        }
-
-        .ai-desc {
-            color: #94a3b8;
-            font-size: 12px;
-            line-height: 1.5;
-        }
-
-        .story-setup-box {
-            background: #141824;
-            border: 1px solid #1e293b;
-            border-radius: 16px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .setup-header-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .setup-main-title {
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: 700;
-        }
-
-        .counter-badge {
-            background-color: #1e293b;
-            color: #94a3b8;
-            padding: 3px 10px;
-            border-radius: 10px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        .setup-subtitle {
-            color: #64748b;
-            font-size: 11px;
-        }
-
-        .setup-row-item {
-            background: #1a2234;
-            border-radius: 12px;
-            padding: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .item-info h4 {
-            color: #ffffff;
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 2px;
-        }
-
-        .item-info p {
-            color: #94a3b8;
-            font-size: 11px;
-        }
-
-        .action-add-btn {
-            background: rgba(59, 130, 246, 0.15);
-            color: #3b82f6;
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .action-add-btn:active {
-            transform: scale(0.95);
-        }
-
-        .upload-section-hidden {
-            display: none;
-            background: #111827;
-            border: 1px dashed #374151;
-            border-radius: 10px;
-            padding: 12px;
-            text-align: center;
-            color: #94a3b8;
-            font-size: 12px;
-        }
-        .upload-section-hidden.show {
-            display: block;
-        }
-
-        .story-textarea-hidden {
-            display: none;
-            width: 100%;
-            background: #111827;
-            border: 1px solid #374151;
-            border-radius: 10px;
-            padding: 12px;
-            color: #ffffff;
-            font-size: 13px;
-            outline: none;
-            resize: vertical;
-            min-height: 100px;
-            text-align: right;
-        }
-        .story-textarea-hidden.show {
-            display: block;
-        }
-
-        .bottom-next-row {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 10px;
-        }
-
-        .side-next-btn {
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            color: #ffffff;
-            font-size: 14px;
-            font-weight: 700;
-            padding: 10px 24px;
-            border-radius: 12px;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-        }
-
-        /* واجهة صفحة الاشتراكات والدفع */
         #subscriptionScreen { background: #0b0f19; overflow: hidden; position: relative; }
-        .animated-bg-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; opacity: 0.35; pointer-events: none; }
-        .explosion-glow { position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(59,130,246,0.6) 0%, rgba(139,92,246,0.2) 50%, transparent 70%); border-radius: 50%; animation: pulseExplosion 4s infinite alternate ease-in-out; }
-        .glow-1 { top: -50px; right: -50px; }
-        .glow-2 { bottom: 100px; left: -80px; animation-delay: 2s; background: radial-gradient(circle, rgba(236,72,153,0.5) 0%, rgba(59,130,246,0.2) 50%, transparent 70%); }
-        @keyframes pulseExplosion { 0% { transform: scale(1) translate(0, 0); opacity: 0.3; } 50% { transform: scale(1.4) translate(20px, 30px); opacity: 0.7; } 100% { transform: scale(1.1) translate(-10px, 15px); opacity: 0.4; } }
-
-        .page-header, .content-body { position: relative; z-index: 2; }
-        .page-header { display: flex; align-items: center; justify-content: space-between; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(11, 15, 25, 0.75); backdrop-filter: blur(10px); }
+        .page-header { display: flex; align-items: center; justify-content: space-between; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(11, 15, 25, 0.75); }
         .back-btn { background: rgba(255,255,255,0.1); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .page-title-text { color: #ffffff; font-size: 18px; font-weight: 700; }
         .content-body { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
         .plans-list { display: flex; flex-direction: column; gap: 12px; }
-        .plan-card { background: rgba(20, 25, 40, 0.85); backdrop-filter: blur(12px); border: 1.5px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 16px; cursor: pointer; transition: 0.2s; position: relative; }
-        .plan-card.selected { border-color: #3b82f6; background: rgba(30, 41, 75, 0.95); box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
+        .plan-card { background: rgba(20, 25, 40, 0.85); border: 1.5px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 16px; cursor: pointer; position: relative; }
+        .plan-card.selected { border-color: #3b82f6; background: rgba(30, 41, 75, 0.95); }
         .plan-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
         .plan-name { color: #ffffff; font-size: 15px; font-weight: 700; }
-        .plan-price { background: rgba(255, 255, 255, 0.12); padding: 4px 10px; border-radius: 10px; color: #ffffff; font-size: 12px; font-weight: 600; }
+        .plan-price { background: rgba(255, 255, 255, 0.12); padding: 4px 10px; border-radius: 10px; color: #ffffff; font-size: 12px; }
         .plan-desc { color: #94a3b8; font-size: 12px; }
-        .new-tag { position: absolute; top: 12px; left: 12px; background: #3b82f6; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
-        .action-main-btn { width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 20px; border: none; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); margin-top: 10px; }
-        
-        .payment-form-box { display: flex; flex-direction: column; gap: 14px; }
-        .form-group { display: flex; flex-direction: column; gap: 6px; }
-        .form-label { color: #cbd5e1; font-size: 13px; font-weight: 600; }
-        .form-input { width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 12px 14px; color: #ffffff; font-size: 14px; outline: none; text-align: right; }
-        .form-row { display: flex; gap: 10px; }
+        .action-main-btn { width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 20px; border: none; cursor: pointer; margin-top: 10px; }
 
         /* شريط التنقل السفلي */
         .plotcraft-nav-bar {
@@ -654,7 +465,7 @@ html_code = """
             </div>
 
             <div class="movies-carousel">
-                <!-- الغلاف المخصص لقصة إيميلي وألكسندر -->
+                <!-- الغلاف المحدث: رجل بمعطف أسود مع فتاة بجاكيت أسود وشعر أشقر -->
                 <div class="movie-card emily-cover" onclick="openStoryModal()">
                     <div class="movie-title">EMILY & ALEXANDER'S SECRET</div>
                 </div>
@@ -769,7 +580,7 @@ A dark crime romance story about secrets, forgotten memories, dangerous power, a
                     <button class="action-add-btn" onclick="toggleStoryInput()">إضافة</button>
                 </div>
 
-                <textarea id="storyTextarea" class="story-textarea-hidden" placeholder="اكتب تفاصيل القصة هنا (يدعم العربية والإنجليزية بلا حدود للطول)..."></textarea>
+                <textarea id="storyTextarea" class="story-textarea-hidden" placeholder="اكتب تفاصيل القصة هنا..."></textarea>
             </div>
 
             <div class="bottom-next-row">
@@ -780,11 +591,6 @@ A dark crime romance story about secrets, forgotten memories, dangerous power, a
 
     <!-- واجهة صفحة الاشتراكات -->
     <div id="subscriptionScreen" class="screen-view">
-        <div class="animated-bg-container">
-            <div class="explosion-glow glow-1"></div>
-            <div class="explosion-glow glow-2"></div>
-        </div>
-
         <div class="page-header">
             <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
             <div class="page-title-text">ترقية الحساب</div>
@@ -807,57 +613,15 @@ A dark crime romance story about secrets, forgotten memories, dangerous power, a
                 </div>
 
                 <div class="plan-card selected" onclick="selectPlan(this)">
-                    <div class="new-tag">جديد</div>
                     <div class="plan-top">
                         <div class="plan-name">بلوت كرافت برو الشهرية</div>
                         <div class="plan-price">29.99 دولار أمريكي / شهر</div>
                     </div>
-                    <div class="plan-desc">1800 نقطة / شهرياً، مثالي للمبدعين والمشاريع الكبيرة</div>
-                </div>
-
-                <div class="plan-card" onclick="selectPlan(this)">
-                    <div class="plan-top">
-                        <div class="plan-name">بلوت كرافت برو السنوية</div>
-                        <div class="plan-price">69.99 دولار أمريكي / سنة</div>
-                    </div>
-                    <div class="plan-desc">5000 نقطة / سنوياً، القيمة الأفضل للمحترفين</div>
+                    <div class="plan-desc">1800 نقطة / شهرياً، مثالي للمبدعين</div>
                 </div>
             </div>
 
-            <button class="action-main-btn" onclick="switchScreen('paymentScreen')">اشتراك</button>
-        </div>
-    </div>
-
-    <!-- واجهة تفاصيل الدفع البنكي -->
-    <div id="paymentScreen" class="screen-view">
-        <div class="page-header">
-            <button class="back-btn" onclick="switchScreen('subscriptionScreen')">←</button>
-            <div class="page-title-text">تفاصيل الدفع البنكي</div>
-            <div style="width: 36px;"></div>
-        </div>
-
-        <div class="content-body">
-            <div class="payment-form-box">
-                <div class="form-group">
-                    <label class="form-label">اسم البطاقة البنكية</label>
-                    <input type="text" class="form-input" placeholder="الاسم كما يظهر على البطاقة">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">رقم البطاقة البنكية</label>
-                    <input type="text" class="form-input" placeholder="**** **** **** ****" maxlength="19">
-                </div>
-                <div class="form-row">
-                    <div class="form-group" style="flex: 1;">
-                        <label class="form-label">تاريخ الانتهاء</label>
-                        <input type="text" class="form-input" placeholder="MM/YY" maxlength="5">
-                    </div>
-                    <div class="form-group" style="flex: 1;">
-                        <label class="form-label">رمز البطاقة (CVV)</label>
-                        <input type="password" class="form-input" placeholder="***" maxlength="4">
-                    </div>
-                </div>
-                <button class="action-main-btn" onclick="confirmPayment()" style="margin-top: 15px;">تأكيد وإتمام الاشتراك</button>
-            </div>
+            <button class="action-main-btn" onclick="alert('تم اختيار الاشتراك بنجاح!')">اشتراك</button>
         </div>
     </div>
 
@@ -929,11 +693,6 @@ A dark crime romance story about secrets, forgotten memories, dangerous power, a
         function toggleStoryInput() {
             var box = document.getElementById('storyTextarea');
             box.classList.toggle('show');
-        }
-
-        function confirmPayment() {
-            alert('تم تأكيد اشتراكك في بلوت كرافت بنجاح!');
-            switchScreen('homeScreen');
         }
     </script>
 </body>
