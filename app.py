@@ -55,22 +55,26 @@ app_html = """
             padding-bottom: 12px;
         }
         
-        /* قسم البطل والهيدر ليملا الأعلى بالكامل بدون أي فراغات سوداء */
+        /* قسم البطل والخلفية */
         .hero-box {
             position: relative;
             width: 100%;
             margin: 0;
             border-radius: 0 0 28px 28px;
             overflow: hidden;
-            padding: 60px 18px 24px 18px;
-            background-image: linear-gradient(to bottom, rgba(11, 12, 16, 0.1), rgba(11, 12, 16, 0.96)), 
+            padding: 60px 18px 20px 18px;
+            background-image: linear-gradient(to bottom, rgba(11, 12, 16, 0.05), rgba(11, 12, 16, 0.98)), 
                               url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200&auto=format&fit=crop');
             background-size: cover;
             background-position: center top;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 290px;
         }
         
-        /* الهيدر العلوي داخل الخلفية ليظهر بالأعلى تماماً */
+        /* الهيدر العلوي */
         .top-header {
             position: absolute;
             top: 14px;
@@ -103,7 +107,7 @@ app_html = """
         
         .hero-text {
             text-align: right;
-            margin-bottom: 20px;
+            margin-top: 15px;
         }
         
         .hero-subtitle {
@@ -120,15 +124,16 @@ app_html = """
             line-height: 1.3;
         }
         
-        /* البطاقتان (خطوة بخطوة يمين، سريع يسار) بدون أي تغيير بالأماكن */
+        /* البطاقتان تم نزولهما للأسفل باتجاه قسم الإلهام */
         .cards-row {
             display: flex;
             gap: 10px;
+            margin-top: 25px;
         }
         
         .card-item {
             flex: 1;
-            background: rgba(18, 20, 28, 0.75);
+            background: rgba(18, 20, 28, 0.85);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 14px;
@@ -182,7 +187,7 @@ app_html = """
             justify-content: space-between;
             align-items: center;
             padding: 0 18px;
-            margin-top: 8px;
+            margin-top: 4px;
         }
         
         .section-name {
@@ -280,7 +285,7 @@ app_html = """
 
     <div class="mobile-screen">
         
-        <!-- قسم البطل والهيدر مدمجان لملء أعلى الشاشة بالكامل بدون حواف سوداء -->
+        <!-- قسم البطل -->
         <div class="hero-box">
             <!-- الهيدر العلوي -->
             <div class="top-header">
@@ -295,6 +300,7 @@ app_html = """
                 <div class="hero-title">أي قصة سنصنع اليوم؟</div>
             </div>
             
+            <!-- البطاقتان نازلتان للأسفل بقرب قسم الإلهام -->
             <div class="cards-row">
                 <!-- بطاقة خطوة بخطوة (يمين) -->
                 <div class="card-item right-card">
