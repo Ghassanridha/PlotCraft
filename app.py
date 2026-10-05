@@ -224,9 +224,20 @@ html_code = """
             flex-direction: column;
             justify-content: flex-end;
             padding: 14px;
+            cursor: pointer;
+            transition: 0.2s;
         }
 
-        .movie-card.m1 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=300&auto=format&fit=crop') center/cover; }
+        .movie-card:active {
+            transform: scale(0.96);
+        }
+
+        /* الغلاف الجديد الخاص بقصة إيميلي وألكسندر */
+        .movie-card.emily-cover { 
+            background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(11,15,25,0.95) 100%), 
+                        url('https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=300&auto=format&fit=crop') center/cover; 
+            border: 1.5px solid rgba(59, 130, 246, 0.4);
+        }
         .movie-card.m2 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=300&auto=format&fit=crop') center/cover; }
         .movie-card.m3 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=300&auto=format&fit=crop') center/cover; }
 
@@ -238,7 +249,111 @@ html_code = """
             line-height: 1.2;
         }
 
-        /* شاشة "خطوة بخطوة" */
+        /* النافذة المنبثقة (Modal) لعرض القصة */
+        .story-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 9999999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .story-modal-overlay.active {
+            display: flex;
+        }
+
+        .story-modal-content {
+            background: #141824;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            animation: modalPop 0.3s ease;
+        }
+
+        @keyframes modalPop {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .story-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: #1a2234;
+        }
+
+        .story-modal-title {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .story-modal-close {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .story-modal-body {
+            padding: 20px;
+            overflow-y: auto;
+            color: #cbd5e1;
+            font-size: 13px;
+            line-height: 1.8;
+            text-align: left;
+            direction: ltr; /* لأن القصة بالإنجليزية */
+            white-space: pre-line;
+        }
+
+        .story-modal-footer {
+            padding: 14px 20px;
+            background: #1a2234;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .copy-story-btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+            transition: 0.2s;
+        }
+
+        .copy-story-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* شاشة "خطوة بخطوة" والشاشات الأخرى */
         .step-container {
             padding: 20px;
             display: flex;
@@ -411,7 +526,7 @@ html_code = """
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
         }
 
-        /* واجهة صفحة الاشتراكات */
+        /* واجهة صفحة الاشتراكات والدفع */
         #subscriptionScreen { background: #0b0f19; overflow: hidden; position: relative; }
         .animated-bg-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; opacity: 0.35; pointer-events: none; }
         .explosion-glow { position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(59,130,246,0.6) 0%, rgba(139,92,246,0.2) 50%, transparent 70%); border-radius: 50%; animation: pulseExplosion 4s infinite alternate ease-in-out; }
@@ -539,9 +654,72 @@ html_code = """
             </div>
 
             <div class="movies-carousel">
-                <div class="movie-card m1"><div class="movie-title">THE DELIVERYMAN'S SECRET BILLIONAIRE</div></div>
+                <!-- الغلاف المخصص لقصة إيميلي وألكسندر -->
+                <div class="movie-card emily-cover" onclick="openStoryModal()">
+                    <div class="movie-title">EMILY & ALEXANDER'S SECRET</div>
+                </div>
                 <div class="movie-card m2"><div class="movie-title">SECRET BILLIONAIRE</div></div>
                 <div class="movie-card m3"><div class="movie-title">CYBER CITY</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة عرض القصة المنبثقة (Modal) -->
+    <div id="storyModal" class="story-modal-overlay">
+        <div class="story-modal-content">
+            <div class="story-modal-header">
+                <div class="story-modal-title">Emily & Alexander's Secret</div>
+                <button class="story-modal-close" onclick="closeStoryModal()">✕</button>
+            </div>
+            <div id="storyTextContent" class="story-modal-body">Emily Carter never expected that opening one wrong door would change her entire life.
+
+At 27 years old, Emily lived a quiet and ordinary life. She worked hard, stayed away from trouble, and never imagined herself becoming part of the dangerous world hidden beneath the surface of the city.
+
+Everything changed when she received a mysterious message telling her to go to an underground storage room.
+
+She thought she was searching for answers about her missing past.
+
+Instead, she walked directly into the center of a secret criminal meeting.
+
+Deep beneath the city, a powerful organization was negotiating a dangerous deal inside an abandoned industrial warehouse. The room was filled with powerful businessmen, armed security, and a mysterious leader who controlled everything from the shadows.
+
+That leader was Alexander, a feared mafia boss known for his cold personality and ruthless decisions.
+
+When Emily opened the door, the entire room became silent.
+
+Everyone turned toward her.
+
+The people inside expected an intruder.
+
+Alexander expected a stranger.
+
+But the moment he saw the necklace around Emily's neck, everything changed.
+
+The necklace was something he had been searching for over twenty years.
+
+A memory he thought was lost forever.
+
+Emily had no idea why the powerful mafia boss suddenly looked at her with shock instead of anger.
+
+She only knew one thing:
+
+She had entered a world where one wrong move could cost her life.
+
+Surrounded by dangerous people, Emily tries to understand why Alexander is protecting her instead of eliminating her.
+
+Alexander himself struggles with the truth.
+
+The woman standing before him may be connected to the greatest regret of his life.
+
+As hidden memories begin to surface, old photographs reveal forgotten secrets, and enemies close in from every direction, Alexander must choose between protecting his empire and protecting the woman who may hold the key to his past.
+
+Emily entered the wrong room.
+
+But that mistake may have revealed the only person who was ever meant to find her.
+
+A dark crime romance story about secrets, forgotten memories, dangerous power, and a connection that survived twenty years of silence.</div>
+            <div class="story-modal-footer">
+                <button class="copy-story-btn" onclick="copyStoryText()">نسخ القصة بالكامل</button>
             </div>
         </div>
     </div>
@@ -620,7 +798,6 @@ html_code = """
             </div>
 
             <div class="plans-list">
-                <!-- خيار الاشتراك الأسبوعي -->
                 <div class="plan-card" onclick="selectPlan(this)">
                     <div class="plan-top">
                         <div class="plan-name">بلوت كرافت برو ويكلي</div>
@@ -629,7 +806,6 @@ html_code = """
                     <div class="plan-desc">500 نقطة / أسبوعياً، جرب بلوت كرافت</div>
                 </div>
 
-                <!-- خيار الاشتراك الشهري -->
                 <div class="plan-card selected" onclick="selectPlan(this)">
                     <div class="new-tag">جديد</div>
                     <div class="plan-top">
@@ -639,7 +815,6 @@ html_code = """
                     <div class="plan-desc">1800 نقطة / شهرياً، مثالي للمبدعين والمشاريع الكبيرة</div>
                 </div>
 
-                <!-- خيار الاشتراك السنوي الجديد -->
                 <div class="plan-card" onclick="selectPlan(this)">
                     <div class="plan-top">
                         <div class="plan-name">بلوت كرافت برو السنوية</div>
@@ -714,6 +889,23 @@ html_code = """
             screens.forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
             window.scrollTo(0, 0);
+        }
+
+        function openStoryModal() {
+            document.getElementById('storyModal').classList.add('active');
+        }
+
+        function closeStoryModal() {
+            document.getElementById('storyModal').classList.remove('active');
+        }
+
+        function copyStoryText() {
+            var text = document.getElementById('storyTextContent').innerText;
+            navigator.clipboard.writeText(text).then(function() {
+                alert('تم نسخ القصة بنجاح!');
+            }, function(err) {
+                alert('فشل نسخ النص، حاول مرة أخرى.');
+            });
         }
 
         function selectPlan(element) {
