@@ -1,1035 +1,300 @@
 import streamlit as st
-import streamlit.components.v1 as components
 
-# إعداد صفحة ستريمليت لإزالة الهوامش واستغلال الشاشة بالكامل
-st.set_page_config(page_title="PlotCraft UI", layout="wide", initial_sidebar_state="collapsed")
+# إعداد الصفحة وتنسيقها لتشبه واجهة التطبيق المظلمة (Dark Mode)
+st.set_page_config(
+    page_title="PlotCraft UI - Streamlit",
+    page_icon="🎬",
+    layout="centered",
+    initial_sidebar_state="collapsed"
+)
 
+# تخصيص التصميم عبر CSS ليكون مطابقاً تماماً لواجهة Google Play الأصلية
 st.markdown("""
-    <style>
-        .block-container {
-            padding: 0 !important;
-            margin: 0 !important;
-            max-width: 100% !important;
-        }
-        header {visibility: hidden;}
-    </style>
+<style>
+    .stApp {
+        background-color: #121212;
+        color: #ffffff;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .main-container {
+        max-width: 420px;
+        margin: 0 auto;
+        padding: 10px;
+    }
+    .top-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px solid #2b2b2b;
+        margin-bottom: 15px;
+    }
+    .card-box {
+        background-color: #1e1e1e;
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 12px;
+        border: 1px solid #2c2c2c;
+    }
+    .row-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px solid #252525;
+        cursor: pointer;
+    }
+    .row-item:hover {
+        background-color: #1a1a1a;
+    }
+    .sub-text {
+        color: #9aa0a6;
+        font-size: 13px;
+    }
+    .title-text {
+        color: #ffffff;
+        font-size: 15px;
+        font-weight: 500;
+    }
+    .stButton>button {
+        width: 100%;
+        background-color: #8ab4f8;
+        color: #202124;
+        border-radius: 24px;
+        font-weight: bold;
+        border: none;
+        padding: 12px;
+    }
+    .stButton>button:hover {
+        background-color: #aecbfa;
+    }
+</style>
 """, unsafe_allow_html=True)
 
-html_code = """
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PlotCraft UI</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
+# تهيئة حالة الجلسة (Session State) للتنقل بين الواجهات وحفظ الإعدادات
+if 'view' not in st.session_state:
+    st.session_state.view = 'main'  # الخيارات: 'main', 'payment_methods', 'redeem', 'paypal', 'card', 'buy_google', 'request_pay'
 
-        body, html {
-            width: 100%;
-            height: 100%;
-            background-color: #0b0f19;
-            overflow-x: hidden;
-        }
+if 'use_google_balance' not in st.session_state:
+    st.session_state.use_google_balance = True
 
-        .screen-view {
-            display: none;
-            width: 100%;
-            min-height: 100vh;
-            background-color: #0b0f19;
-            flex-direction: column;
-            padding-bottom: 90px;
-        }
+if 'selected_payment' not in st.session_state:
+    st.session_state.selected_payment = "Mastercard-0709"
 
-        .screen-view.active {
-            display: flex;
-        }
-
-        .hero-box {
-            position: relative;
-            width: 100%;
-            min-height: 52vh;
-            background: linear-gradient(180deg, rgba(11,15,25,0.2) 0%, rgba(11,15,25,0.8) 75%, #0b0f19 100%),
-                        url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1080&auto=format&fit=crop') center/cover no-repeat;
-            border-bottom-left-radius: 35px;
-            border-bottom-right-radius: 35px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 24px 20px 20px 20px;
-        }
-
-        .top-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-
-        .brand-title {
-            color: #ffffff;
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        .upgrade-badge {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            padding: 8px 16px;
-            border-radius: 25px;
-            color: #ffffff;
-            font-size: 14px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            cursor: pointer;
-        }
-
-        .welcome-section {
-            text-align: right;
-            margin-top: 15px;
-        }
-
-        .welcome-section h1 {
-            color: #ffffff;
-            font-size: 22px;
-            font-weight: 700;
-            line-height: 1.4;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-        }
-
-        .cards-row {
-            display: flex;
-            gap: 12px;
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .interactive-card {
-            flex: 1;
-            background: rgba(20, 25, 40, 0.65);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 18px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            cursor: pointer;
-        }
-
-        .card-header-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-        }
-
-        .card-title {
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: 700;
-        }
-
-        .card-subtitle {
-            color: #94a3b8;
-            font-size: 12px;
-        }
-
-        .exact-bot-icon {
-            width: 22px;
-            height: 22px;
-            background: #dbeafe;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
-            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
-            background-size: contain;
-        }
-
-        .card-title-group-left {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-
-        .magic-wand-icon {
-            width: 22px;
-            height: 22px;
-            background: #dbeafe;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.5 5.6c-.3-.3-.8-.3-1.1 0-.3.3-.3.8 0 1.1 1.2 1.2 1.9 2.8 1.9 4.5 0 1.7-.7 3.3-1.9 4.5-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 1.5-1.5 2.3-3.5 2.3-5.6s-.8-4.1-2.3-5.6zm4.3-2.3c-.3-.3-.8-.3-1.1 0-.3.3-.3.8 0 1.1 2.2 2.2 3.4 5.1 3.4 8.2s-1.2 6-3.4 8.2c-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 2.6-2.6 4-6 4-9.3s-1.4-6.7-4-9.3zm4.4-2.3c-.3-.3-.8-.3-1.1 0-.3.3-.3.8 0 1.1 3.1 3.1 4.9 7.3 4.9 11.6s-1.8 8.5-4.9 11.6c-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 3.5-3.5 5.4-8.1 5.4-12.7s-1.9-9.2-5.4-12.7zm-7.6 15.6l-8.5 8.5c-.4.4-.4 1 0 1.4s1 .4 1.4 0l8.5-8.5c.4-.4.4-1 0-1.4s-1-.4-1.4 0zm11.4-11.4l-3.5 3.5c-.4.4-.4 1 0 1.4s1 .4 1.4 0l3.5-3.5c.4-.4.4-1 0-1.4s-1-.4-1.4 0zm-15 3.5l-3.5 3.5c-.4.4-.4 1 0 1.4s1 .4 1.4 0l3.5-3.5c.4-.4.4-1 0-1.4s-1-.4-1.4 0z"/></svg>') no-repeat center;
-            background-size: contain;
-        }
-
-        .inspiration-section {
-            padding: 24px 20px;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .section-title {
-            color: #ffffff;
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        .view-all {
-            color: #94a3b8;
-            font-size: 13px;
-        }
-
-        .movies-carousel {
-            display: flex;
-            flex-direction: row-reverse;
-            gap: 14px;
-            overflow-x: auto;
-            padding-bottom: 10px;
-            scrollbar-width: none;
-        }
-
-        .movies-carousel::-webkit-scrollbar {
-            display: none;
-        }
-
-        .movie-card {
-            min-width: 130px;
-            height: 190px;
-            border-radius: 16px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.05);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 14px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .movie-card:active {
-            transform: scale(0.96);
-        }
-
-        .movie-card.emily-cover { 
-            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(11,15,25,0.92) 100%), 
-                        url('https://images.unsplash.com/photo-1509967419530-da38b4704bc6?q=80&w=300&auto=format&fit=crop') center/cover; 
-            border: 1.5px solid rgba(59, 130, 246, 0.5);
-        }
-        .movie-card.m2 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=300&auto=format&fit=crop') center/cover; }
-        .movie-card.m3 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=300&auto=format&fit=crop') center/cover; }
-
-        .movie-title {
-            color: #ffffff;
-            font-size: 10px;
-            font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-            line-height: 1.2;
-        }
-
-        /* نافذة عرض القصة المنبثقة (Modal) */
-        .story-modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(11, 15, 25, 0.85);
-            backdrop-filter: blur(8px);
-            z-index: 9999999;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .story-modal-overlay.active {
-            display: flex;
-        }
-
-        .story-modal-content {
-            background: #141824;
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 20px;
-            width: 100%;
-            max-width: 500px;
-            max-height: 85vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-        }
-
-        .story-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            background: #1a2234;
-        }
-
-        .story-modal-title {
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: 700;
-        }
-
-        .story-modal-close {
-            background: rgba(255,255,255,0.1);
-            border: none;
-            color: #fff;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .story-modal-body {
-            padding: 20px;
-            overflow-y: auto;
-            color: #cbd5e1;
-            font-size: 13px;
-            line-height: 1.8;
-            text-align: left;
-            direction: ltr;
-            white-space: pre-line;
-        }
-
-        .story-modal-footer {
-            padding: 14px 20px;
-            background: #1a2234;
-            border-top: 1px solid rgba(255,255,255,0.08);
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        .copy-story-btn {
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            color: #ffffff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-        }
-
-        /* الشاشات الأخرى للتنقل */
-        .step-container { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
-        .ai-assistant-card { background: #141824; border: 1px solid #1e293b; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
-        .ai-header-row { display: flex; justify-content: space-between; align-items: center; }
-        .ai-title { color: #ff2a85; font-size: 14px; font-weight: 700; }
-        .ai-badge-circle { width: 32px; height: 32px; background: linear-gradient(135deg, #ff2a85, #7928ca); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 11px; }
-        .ai-desc { color: #94a3b8; font-size: 12px; }
-        .story-setup-box { background: #141824; border: 1px solid #1e293b; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
-        .setup-header-row { display: flex; justify-content: space-between; align-items: center; }
-        .setup-main-title { color: #ffffff; font-size: 15px; font-weight: 700; }
-        .counter-badge { background-color: #1e293b; color: #94a3b8; padding: 3px 10px; border-radius: 10px; font-size: 11px; }
-        .setup-row-item { background: #1a2234; border-radius: 12px; padding: 12px; display: flex; justify-content: space-between; align-items: center; }
-        .item-info h4 { color: #ffffff; font-size: 13px; font-weight: 700; margin-bottom: 2px; }
-        .item-info p { color: #94a3b8; font-size: 11px; }
-        .action-add-btn { background: rgba(59, 130, 246, 0.15); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3); padding: 6px 14px; border-radius: 8px; font-size: 12px; cursor: pointer; }
-        .upload-section-hidden, .story-textarea-hidden { display: none; background: #111827; border: 1px solid #374151; border-radius: 10px; padding: 12px; color: #ffffff; font-size: 13px; }
-        .upload-section-hidden.show, .story-textarea-hidden.show { display: block; }
-        .story-textarea-hidden { width: 100%; min-height: 100px; outline: none; resize: vertical; text-align: right; }
-        .bottom-next-row { display: flex; justify-content: flex-end; margin-top: 10px; }
-        .side-next-btn { background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; font-size: 14px; font-weight: 700; padding: 10px 24px; border-radius: 12px; border: none; cursor: pointer; }
-
-        #subscriptionScreen { background: #0b0f19; overflow: hidden; position: relative; }
-        .page-header { display: flex; align-items: center; justify-content: space-between; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(11, 15, 25, 0.75); }
-        .back-btn { background: rgba(255,255,255,0.1); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .page-title-text { color: #ffffff; font-size: 18px; font-weight: 700; }
-        .content-body { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
-        .plans-list { display: flex; flex-direction: column; gap: 12px; }
-        .plan-card { background: rgba(20, 25, 40, 0.85); border: 1.5px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 16px; cursor: pointer; position: relative; }
-        .plan-card.selected { border-color: #3b82f6; background: rgba(30, 41, 75, 0.95); }
-        .plan-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-        .plan-name { color: #ffffff; font-size: 15px; font-weight: 700; }
-        .plan-price { background: rgba(255, 255, 255, 0.12); padding: 4px 10px; border-radius: 10px; color: #ffffff; font-size: 12px; }
-        .plan-desc { color: #94a3b8; font-size: 12px; }
-        .action-main-btn { width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 20px; border: none; cursor: pointer; margin-top: 10px; }
-
-        /* نافذة Google Play */
-        .gplay-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 99999999;
-            align-items: flex-end;
-        }
-        .gplay-overlay.active {
-            display: flex;
-        }
-        .gplay-sheet {
-            background: #121316;
-            width: 100%;
-            border-top-left-radius: 28px;
-            border-top-right-radius: 28px;
-            padding: 16px 20px 28px 20px;
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
-            border-top: 1px solid rgba(255,255,255,0.08);
-        }
-        .gplay-top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .gplay-close {
-            background: none;
-            border: none;
-            color: #e8eaed;
-            font-size: 20px;
-            cursor: pointer;
-        }
-        .gplay-store-title {
-            color: #e8eaed;
-            font-size: 15px;
-            font-weight: 500;
-        }
-        .gplay-app-header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            gap: 8px;
-            margin-top: 4px;
-            margin-bottom: 6px;
-        }
-        .gplay-app-icon {
-            width: 48px;
-            height: 48px;
-            background: #202124;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .gplay-app-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .gplay-app-details h3 {
-            font-size: 16px;
-            font-weight: 700;
-            color: #e8eaed;
-            margin-bottom: 2px;
-        }
-        .gplay-app-details p {
-            font-size: 12px;
-            color: #9aa0a6;
-        }
-        .gplay-price-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 15px;
-            font-weight: 600;
-            color: #e8eaed;
-            margin-top: 4px;
-        }
-        .gplay-tax-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 13px;
-            color: #9aa0a6;
-            padding-bottom: 14px;
-            border-bottom: 1px solid #2d3139;
-        }
-        .gplay-notes {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            font-size: 12px;
-            color: #9aa0a6;
-            line-height: 1.5;
-            padding-bottom: 14px;
-            border-bottom: 1px solid #2d3139;
-        }
-        .gplay-points-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 13px;
-            color: #e8eaed;
-            padding: 4px 0;
-        }
-        .gplay-points-diamond {
-            display: flex;
-            gap: 3px;
-            align-items: center;
-        }
-        .gplay-payment-box {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 6px 0;
-            cursor: pointer;
-        }
-        .gplay-payment-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-align: right;
-            direction: rtl;
-        }
-        .gplay-subscribe-btn {
-            width: 100%;
-            background: #8ab4f8;
-            color: #202124;
-            font-size: 15px;
-            font-weight: 700;
-            padding: 14px;
-            border-radius: 28px;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-            margin-top: 8px;
-        }
-
-        /* قائمة اختيار طريقة الدفع الفرعية */
-        .payment-selector-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 999999999;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .payment-selector-modal.active {
-            display: flex;
-        }
-        .payment-selector-content {
-            background: #1f2228;
-            border-radius: 16px;
-            width: 100%;
-            max-width: 380px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            border: 1px solid #3c4043;
-        }
-        .payment-option-item {
-            background: #282c34;
-            padding: 14px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            color: #ffffff;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        /* شريط التنقل السفلي */
-        .plotcraft-nav-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: #0b0f19;
-            padding: 10px 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            z-index: 999999;
-            box-sizing: border-box;
-            direction: rtl;
-            box-shadow: 0 -4px 15px rgba(0,0,0,0.6);
-        }
-        .plotcraft-nav-pill {
-            background-color: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 35px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 8px 15px;
-            flex-grow: 1;
-            max-width: 380px;
-        }
-        .plotcraft-nav-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #8b949e;
-            font-size: 13px;
-            text-decoration: none;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-        .plotcraft-nav-item.active { color: #ffffff; font-weight: bold; }
-        .plotcraft-nav-square {
-            background-color: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 16px;
-            width: 48px;
-            height: 48px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-shrink: 0;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- الواجهة الرئيسية -->
-    <div id="homeScreen" class="screen-view active">
-        <div class="hero-box">
-            <div class="top-header">
-                <div class="brand-title">بلوت كرافت</div>
-                <div class="upgrade-badge" onclick="switchScreen('subscriptionScreen')">
-                    <span>⭐</span> ترقية
+# حاوية التطبيق الرئيسية
+with st.container():
+    
+    # ----------------------------------------------------
+    # الواجهة الأولى: شاشة الاشتراك الرئيسية (PlotCraft Pro Weekly)
+    # ----------------------------------------------------
+    if st.session_state.view == 'main':
+        col_close, col_title = st.columns([1, 10])
+        with col_close:
+            if st.button("✕", key="close_main"):
+                pass
+        with col_title:
+            st.markdown("<p style='text-align: right; color: #9aa0a6; margin: 0; font-size: 14px;'>Google Play</p>", unsafe_allow_html=True)
+        
+        st.markdown("<br>", unsafe_allow_html=True)
+        
+        # أيقونة التطبيق وتفاصيله
+        col_icon, col_details = st.columns([1, 4])
+        with col_icon:
+            st.markdown("""
+                <div style="background-color: #333333; width: 45px; height: 45px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px; color: #fff; border: 1px solid #555;">
+                    PLOT
                 </div>
-            </div>
-
-            <div class="welcome-section">
-                <h1>مساء الخير، أيها المخرج<br>أي قصة سنصنع اليوم؟</h1>
-            </div>
-
-            <div class="cards-row">
-                <div class="interactive-card" onclick="switchScreen('stepByStepScreen')">
-                    <div class="card-header-row">
-                        <div class="card-title-group-left">
-                            <div class="card-title">خطوة بخطوة</div>
-                            <span class="exact-bot-icon"></span>
-                        </div>
-                    </div>
-                    <div class="card-subtitle">راجع كل خطوة</div>
-                </div>
-
-                <div class="interactive-card" onclick="switchScreen('subscriptionScreen')">
-                    <div class="card-header-row">
-                        <div class="card-title-group-left">
-                            <div class="card-title">سريع</div>
-                            <span class="magic-wand-icon"></span>
-                        </div>
-                    </div>
-                    <div class="card-subtitle">إدخال واحد، فيديو كامل</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="inspiration-section">
-            <div class="section-header">
-                <div class="section-title">إلهام بلوت كرافت</div>
-                <div class="view-all">عرض الكل ></div>
-            </div>
-
-            <div class="movies-carousel">
-                <div class="movie-card emily-cover" onclick="openStoryModal()">
-                    <div class="movie-title">EMILY & ALEXANDER'S SECRET</div>
-                </div>
-                <div class="movie-card m2"><div class="movie-title">SECRET BILLIONAIRE</div></div>
-                <div class="movie-card m3"><div class="movie-title">CYBER CITY</div></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- نافذة عرض القصة المنبثقة (Modal) -->
-    <div id="storyModal" class="story-modal-overlay">
-        <div class="story-modal-content">
-            <div class="story-modal-header">
-                <div class="story-modal-title">Emily & Alexander's Secret</div>
-                <button class="story-modal-close" onclick="closeStoryModal()">✕</button>
-            </div>
-            <div id="storyTextContent" class="story-modal-body">Emily Carter never expected that opening one wrong door would change her entire life.
-
-At 27 years old, Emily lived a quiet and ordinary life. She worked hard, stayed away from trouble, and never imagined herself becoming part of the dangerous world hidden beneath the surface of the city.
-
-Everything changed when she received a mysterious message telling her to go to an underground storage room.
-
-She thought she was searching for answers about her missing past.
-
-Instead, she walked directly into the center of a secret criminal meeting.
-
-Deep beneath the city, a powerful organization was negotiating a dangerous deal inside an abandoned industrial warehouse. The room was filled with powerful businessmen, armed security, and a mysterious leader who controlled everything from the shadows.
-
-That leader was Alexander, a feared mafia boss known for his cold personality and ruthless decisions.
-
-When Emily opened the door, the entire room became silent.
-
-Everyone turned toward her.
-
-The people inside expected an intruder.
-
-Alexander expected a stranger.
-
-But the moment he saw the necklace around Emily's neck, everything changed.
-
-The necklace was something he had been searching for over twenty years.
-
-A memory he thought was lost forever.
-
-Emily had no idea why the powerful mafia boss suddenly looked at her with shock instead of anger.
-
-She only knew one thing:
-
-She had entered a world where one wrong move could cost her life.
-
-Surrounded by dangerous people, Emily tries to understand why Alexander is protecting her instead of eliminating her.
-
-Alexander himself struggles with the truth.
-
-The woman standing before him may be connected to the greatest regret of his life.
-
-As hidden memories begin to surface, old photographs reveal forgotten secrets, and enemies close in from every direction, Alexander must choose between protecting his empire and protecting the woman who may hold the key to his past.
-
-Emily entered the wrong room.
-
-But that mistake may have revealed the only person who was ever meant to find her.
-
-A dark crime romance story about secrets, forgotten memories, dangerous power, and a connection that survived twenty years of silence.</div>
-            <div class="story-modal-footer">
-                <button class="copy-story-btn" onclick="copyStoryText()">نسخ القصة بالكامل</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- واجهة تفاصيل "خطوة بخطوة" -->
-    <div id="stepByStepScreen" class="screen-view">
-        <div class="page-header">
-            <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
-            <div class="page-title-text">خطوة بخطوة</div>
-            <div style="width: 36px;"></div>
-        </div>
-
-        <div class="step-container">
-            <div class="ai-assistant-card">
-                <div class="ai-header-row">
-                    <div class="ai-title">مساعد AI بلوت كرافت</div>
-                    <div class="ai-badge-circle">AI+</div>
-                </div>
-                <div class="ai-desc">عزيزي المخرج، استمتع بإنشاء وتخصيص تفاصيل فيلمك خطوة بخطوة بدقة احترافية عالية.</div>
-            </div>
-
-            <div class="story-setup-box">
-                <div class="setup-header-row">
-                    <div class="setup-main-title">إعداد القصة</div>
-                    <div class="counter-badge">0/2</div>
-                </div>
-                <div class="setup-subtitle">أضف الشخصيات والحكاية أولاً، ثم أكمل الخطوات:</div>
-
-                <div class="setup-row-item">
-                    <div class="item-info">
-                        <h4>الشخصيات</h4>
-                        <p>أضف صورتين كحد أقصى لشخصيات القصة</p>
-                    </div>
-                    <button class="action-add-btn" onclick="toggleUpload()">إضافة</button>
-                </div>
-
-                <div id="charUploadSection" class="upload-section-hidden">
-                    <p style="margin-bottom: 6px; font-weight: bold;">قم بإرفاق صورتين كحد أقصى للشخصيات:</p>
-                    <input type="file" id="charFiles" accept="image/*" multiple onchange="checkMaxImages(this)" style="color: #cbd5e1; font-size: 11px;">
-                </div>
-
-                <div class="setup-row-item">
-                    <div class="item-info">
-                        <h4>الحكاية</h4>
-                        <p>اكتب أو صف حبكة قصتك هنا</p>
-                    </div>
-                    <button class="action-add-btn" onclick="toggleStoryInput()">إضافة</button>
-                </div>
-
-                <textarea id="storyTextarea" class="story-textarea-hidden" placeholder="اكتب تفاصيل القصة هنا..."></textarea>
-            </div>
-
-            <div class="bottom-next-row">
-                <button class="side-next-btn" onclick="alert('تم حفظ الخطوات بنجاح والانتقال للمرحلة التالية!')">التالي</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- واجهة صفحة الاشتراكات -->
-    <div id="subscriptionScreen" class="screen-view">
-        <div class="page-header">
-            <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
-            <div class="page-title-text">ترقية الحساب</div>
-            <div style="width: 36px;"></div>
-        </div>
-
-        <div class="content-body">
-            <div style="text-align: center; margin-bottom: 5px;">
-                <div style="color: #ffffff; font-size: 18px; font-weight: 700; margin-bottom: 4px;">حول أفكارك إلى بلوت كرافت</div>
-                <div style="color: #94a3b8; font-size: 12px;">أنشئ كل لقطة وعدلها وأكملها بسرعة.</div>
-            </div>
-
-            <div class="plans-list">
-                <div class="plan-card selected" onclick="selectPlan(this, 'weekly', '9.99 دولار أمريكي / أسبوع', 'US$/week 9.99', 'بلوت كرافت برو الأسبوعية')">
-                    <div class="plan-top">
-                        <div class="plan-name">بلوت كرافت برو الأسبوعية</div>
-                        <div class="plan-price">9.99 دولار أمريكي / أسبوع</div>
-                    </div>
-                    <div class="plan-desc">400 نقطة / أسبوعياً، لتجربة سريعة</div>
-                </div>
-
-                <div class="plan-card" onclick="selectPlan(this, 'monthly', '29.99 دولار أمريكي / شهر', 'US$/month 29.99', 'بلوت كرافت برو الشهرية')">
-                    <div class="plan-top">
-                        <div class="plan-name">بلوت كرافت برو الشهرية</div>
-                        <div class="plan-price">29.99 دولار أمريكي / شهر</div>
-                    </div>
-                    <div class="plan-desc">1800 نقطة / شهرياً، مثالي للمبدعين</div>
-                </div>
-
-                <div class="plan-card" onclick="selectPlan(this, 'yearly', '69.99 دولار أمريكي / سنة', 'US$/year 69.99', 'بلوت كرافت برو السنوية')">
-                    <div class="plan-top">
-                        <div class="plan-name">بلوت كرافت برو السنوية</div>
-                        <div class="plan-price">69.99 دولار أمريكي / سنة</div>
-                    </div>
-                    <div class="plan-desc">5000 نقطة / سنوياً، التوفير الأكبر للمحترفين</div>
-                </div>
-            </div>
-
-            <button class="action-main-btn" onclick="openGPlaySheet()">اشتراك</button>
-        </div>
-    </div>
-
-    <!-- نافذة Google Play -->
-    <div id="gplayOverlay" class="gplay-overlay">
-        <div class="gplay-sheet">
-            <div class="gplay-top-bar">
-                <button class="gplay-close" onclick="closeGPlaySheet()">✕</button>
-                <span class="gplay-store-title">Google Play</span>
-            </div>
-
-            <div class="gplay-app-header">
-                <div class="gplay-app-icon">
-                    <div style="background:#282c34; width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:10px; font-weight:bold;">PLOT</div>
-                </div>
-                <div class="gplay-app-details">
-                    <h3 id="gplayPlanName">PlotCraft Pro Weekly</h3>
-                    <p>PlotCraft: AI Short Drama Maker</p>
-                </div>
-            </div>
-
-            <div class="gplay-price-row">
-                <span>بدءًا من اليوم</span>
-                <span id="gplayPriceText">US$/week 9.99</span>
-            </div>
-            <div class="gplay-tax-row">
-                <span>إضافة الضريبة ⓘ</span>
-                <span>بالإضافة إلى الضريبة</span>
-            </div>
-
-            <div class="gplay-notes">
-                <div>• يمكنك الإلغاء في أي وقت في صفحة "الاشتراكات" على Google Play</div>
-                <div>• سيُستخدم رصيدك في Google Play لتحصيل الرسوم اليوم. وأي رسوم متبقية ستُحصل من طريقة الدفع الموضحة أدناه.</div>
-                <div>• ستُحصل رسوم عمليات التجديد من طريقة الدفع الأساسية</div>
-            </div>
-
-            <div class="gplay-points-row">
-                <span class="gplay-points-diamond">
-                    <span style="color:#ea4335">■</span><span style="color:#fbbc04">■</span><span style="color:#34a853">■</span><span style="color:#4285f4">■</span>
-                </span>
-                <span>كسب ١١ نقطة إضافية</span>
-            </div>
-
-            <div class="gplay-payment-box" onclick="openPaymentSelector()">
-                <span style="color: #9aa0a6; font-size: 14px;">❮</span>
-                <div class="gplay-payment-info">
-                    <div style="text-align: left;">
-                        <div id="paymentTitleText" style="font-size: 14px; font-weight: 600; color: #e8eaed;">Mastercard-0709</div>
-                        <div id="paymentSubText" style="font-size: 11px; color: #9aa0a6;">Google Play رصيد: $US 0.16</div>
-                    </div>
-                    <div style="display: flex; align-items: center;">
-                        <div style="width: 22px; height: 22px; background: #eb001b; border-radius: 50%; opacity: 0.9;"></div>
-                        <div style="width: 22px; height: 22px; background: #f79e1b; border-radius: 50%; margin-right: -10px; opacity: 0.85;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div style="font-size: 11px; color: #9aa0a6; line-height: 1.5; text-align: right;">
-                عند النقر على "اشتراك"، فإن هذا يعني موافقتك على تجديد اشتراكك تلقائيا إلى أن يتم إلغاؤه. سنعلمك في حال تغير السعر، وذلك استنادا لما هو موضح في <span style="color: #8ab4f8; text-decoration: underline;">"بنود خدمة Google Play"</span>.<br>
-                <span style="color: #8ab4f8; text-decoration: underline;">"يمكنك التعرف على كيفية إلغاء الاشتراك"</span>. <span style="color: #8ab4f8; text-decoration: underline;">المزيد</span>
-            </div>
-
-            <button class="gplay-subscribe-btn" onclick="confirmGooglePlaySubscription()">اشتراك</button>
-        </div>
-    </div>
-
-    <!-- نافذة منبثقة لاختيار طريقة الدفع الفرعية -->
-    <div id="paymentSelectorModal" class="payment-selector-modal">
-        <div class="payment-selector-content">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
-                <h3 style="font-size: 16px; color: #fff;">اختر طريقة الدفع</h3>
-                <button onclick="closePaymentSelector()" style="background:none; border:none; color:#fff; font-size:18px; cursor:pointer;">✕</button>
-            </div>
+            """, unsafe_allow_html=True)
+        with col_details:
+            st.markdown("**PlotCraft Pro Weekly**<br><span class='sub-text'>PlotCraft: AI Short Drama Maker</span>", unsafe_allow_html=True)
+        
+        st.markdown("---")
+        
+        col_p1, col_p2 = st.columns(2)
+        with col_p1:
+            st.markdown("**US$/week 9.99**<br><span class='sub-text'>بالإضافة إلى الضريبة</span>", unsafe_allow_html=True)
+        with col_p2:
+            st.markdown("<div style='text-align: right;'>بدءاً من اليوم<br><span class='sub-text'>إضافة الضريبة ⓘ</span></div>", unsafe_allow_html=True)
             
-            <div class="payment-option-item" onclick="selectPaymentMethod('mastercard')">
-                <span>✓</span>
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <span>Mastercard - 0709</span>
-                    <span style="background: #ea4335; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px;">MC</span>
-                </div>
-            </div>
-
-            <div class="payment-option-item" onclick="selectPaymentMethod('gplay')">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <span>رصيد Google Play ($US 0.16)</span>
-                    <span style="background: #4285f4; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px;">GP</span>
-                </div>
-            </div>
+        st.markdown("---")
+        
+        st.markdown("""
+        <div class='sub-text' style='line-height: 1.6;'>
+        • يمكنك الإلغاء في أي وقت في صفحة "الاشتراكات" على Google Play<br>
+        • سيستخدم رصيدك في Google Play لتحصيل الرسوم اليوم. وأي رسوم متبقية ستحصل من طريقة الدفع الموضحة أدناه.<br>
+        • ستحصل رسوم عمليات التجديد من طريقة الدفع الأساسية
         </div>
-    </div>
-
-    <!-- شريط التنقل السفلي -->
-    <div class="plotcraft-nav-bar">
-        <div class="plotcraft-nav-pill">
-            <a href="#" class="plotcraft-nav-item active" onclick="switchScreen('homeScreen')">
-                <span>الرئيسية</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-            </a>
-            <a href="#" class="plotcraft-nav-item">
-                <span>الأدوات</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
-            </a>
-            <a href="#" class="plotcraft-nav-item">
-                <span>الأعمال</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path></svg>
-            </a>
-        </div>
-
-        <div class="plotcraft-nav-square">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg>
-        </div>
-    </div>
-
-    <script>
-        // تخزين الخطة المختارة حالياً
-        var currentSelectedPlan = {
-            name: "PlotCraft Pro Weekly",
-            price: "US$/week 9.99"
-        };
-
-        function switchScreen(screenId) {
-            var screens = document.querySelectorAll('.screen-view');
-            screens.forEach(s => s.classList.remove('active'));
-            document.getElementById(screenId).classList.add('active');
-            window.scrollTo(0, 0);
-        }
-
-        function openStoryModal() {
-            document.getElementById('storyModal').classList.add('active');
-        }
-
-        function closeStoryModal() {
-            document.getElementById('storyModal').classList.remove('active');
-        }
-
-        function copyStoryText() {
-            var text = document.getElementById('storyTextContent').innerText;
-            navigator.clipboard.writeText(text).then(function() {
-                alert('تم نسخ القصة بنجاح!');
-            });
-        }
-
-        function selectPlan(element, type, priceText, gplayPrice, planTitle) {
-            var cards = document.querySelectorAll('.plan-card');
-            cards.forEach(c => c.classList.remove('selected'));
-            element.classList.add('selected');
+        """, unsafe_allow_html=True)
+        
+        st.markdown("---")
+        
+        # خانة النقاط
+        col_r1, col_r2 = st.columns([4, 1])
+        with col_r1:
+            st.markdown("<span style='font-size: 14px;'>كسب ١١ نقطة إضافية</span>", unsafe_allow_html=True)
+        with col_r2:
+            st.markdown("🟡🟩🟦🟥", unsafe_allow_html=True)
             
-            // تحديث بيانات السعر والخطة لـ Google Play
-            currentSelectedPlan.name = planTitle;
-            currentSelectedPlan.price = gplayPrice;
-        }
+        st.markdown("---")
+        
+        # صندوق وسيلة الدفع (عند النقر عليه يفتح شاشة طرق الدفع)
+        payment_box = st.container()
+        with payment_box:
+            col_m1, col_m2, col_m3 = st.columns([1, 6, 1])
+            with col_m1:
+                st.markdown("💳")
+            with col_m2:
+                st.markdown(f"**{st.session_state.selected_payment}**<br><span class='sub-text'>رصيد Google Play: US$ 0.16</span>", unsafe_allow_html=True)
+            with col_m3:
+                if st.button("➔", key="go_to_payment"):
+                    st.session_state.view = 'payment_methods'
+                    st.rerun()
+                    
+        st.markdown("<br>", unsafe_allow_html=True)
+        
+        st.markdown("""
+        <div class='sub-text' style='font-size: 11px; text-align: center;'>
+        عند النقر على "اشتراك"، فإن هذا يعني موافقتك على تجديد اشتراكك تلقائياً إلى أن يتم إلغاؤه. سنعلمك في حال تغير السعر، وذلك استناداً لما هو موضح في "بنود خدمة Google Play". <a href='#' style='color: #8ab4f8;'>التعرف على كيفية إلغاء الاشتراك</a>. المزيد
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("<br>", unsafe_allow_html=True)
+        if st.button("اشتراك"):
+            st.success("تم إرسال طلب الاشتراك بنجاح عبر بلوت كرافت (PlotCraft)!")
 
-        function openGPlaySheet() {
-            // تحديث نافذة Google Play بالأسعار والمعلومات الخاصة بالخطة المختارة
-            document.getElementById('gplayPlanName').innerText = currentSelectedPlan.name;
-            document.getElementById('gplayPriceText').innerText = currentSelectedPlan.price;
-            document.getElementById('gplayOverlay').classList.add('active');
-        }
-
-        function closeGPlaySheet() {
-            document.getElementById('gplayOverlay').classList.remove('active');
-        }
-
-        function openPaymentSelector() {
-            document.getElementById('paymentSelectorModal').classList.add('active');
-        }
-
-        function closePaymentSelector() {
-            document.getElementById('paymentSelectorModal').classList.remove('active');
-        }
-
-        function selectPaymentMethod(method) {
-            var titleEl = document.getElementById('paymentTitleText');
-            var subEl = document.getElementById('paymentSubText');
+    # ----------------------------------------------------
+    # الواجهة الثانية: شاشة طرق الدفع الكاملة (طرق الدفع)
+    # ----------------------------------------------------
+    elif st.session_state.view == 'payment_methods':
+        col_back, col_title = st.columns([1, 10])
+        with col_back:
+            if st.button("←", key="back_to_main"):
+                st.session_state.view = 'main'
+                st.rerun()
+        with col_title:
+            st.markdown("<h3 style='text-align: right; margin: 0; font-size: 18px;'>طرق الدفع</h3>", unsafe_allow_html=True)
             
-            if (method === 'mastercard') {
-                titleEl.innerText = "Mastercard-0709";
-                subEl.innerText = "Google Play رصيد: $US 0.16";
-            } else {
-                titleEl.innerText = "رصيد Google Play";
-                subEl.innerText = "المتاح: $US 0.16";
-            }
-            closePaymentSelector();
-        }
+        st.markdown("<p style='text-align: right; color: #9aa0a6; font-size: 13px;'>ahhanaa70@gmail.com</p>", unsafe_allow_html=True)
+        st.markdown("---")
+        
+        # اختيار طريقة الدفع الرئيسية
+        col_chk, col_name, col_logo = st.columns([1, 6, 2])
+        with col_chk:
+            st.markdown("✅")
+        with col_name:
+            st.markdown("**Mastercard-0709**")
+        with col_logo:
+            st.markdown("💳")
+            
+        st.markdown("---")
+        
+        # مفتاح تفعيل/تعطيل رصيد جوجل بلاي
+        col_sw_lbl, col_sw = st.columns([4, 1])
+        with col_sw_lbl:
+            st.markdown("**US$ 0,16: Google Play رصيد**")
+        with col_sw:
+            use_balance = st.toggle("", value=st.session_state.use_google_balance, key="toggle_bal")
+            st.session_state.use_google_balance = use_balance
+            
+        st.markdown("---")
+        st.markdown("<p class='sub-text' style='text-align: right;'>إضافة طريقة دفع إلى حسابك على Google</p>", unsafe_allow_html=True)
+        
+        # خيار استخدام الرمز
+        if st.button("🎫  استخدام الرمز", key="btn_redeem"):
+            st.session_state.view = 'redeem'
+            st.rerun()
+            
+        # خيار إضافة PayPal
+        if st.button("🅿️  إضافة PayPal", key="btn_paypal"):
+            st.session_state.view = 'paypal'
+            st.rerun()
+            
+        # خيار إضافة بطاقة
+        if st.button("💳  إضافة بطاقة   |   VISA  MC  DISCOVER  + أخرى", key="btn_card"):
+            st.session_state.view = 'card'
+            st.rerun()
+            
+        # خيار شراء رصيد Google Play
+        if st.button("▶️  شراء رصيد Google Play", key="btn_buy_google"):
+            st.session_state.view = 'buy_google'
+            st.rerun()
+            
+        # خيار طلب الدفع من مستخدم آخر
+        if st.button("👥  طلب الدفع من مستخدم آخر\n<span style='font-size:11px; color:#9aa0a6;'>غير متوفرة لشراء الاشتراكات</span>", key="btn_request"):
+            st.session_state.view = 'request_pay'
+            st.rerun()
 
-        function confirmGooglePlaySubscription() {
-            alert('تم تأكيد الاشتراك بنجاح عبر Google Play!');
-            closeGPlaySheet();
-            switchScreen('homeScreen');
-        }
+    # ----------------------------------------------------
+    # الواجهة الفرعية 1: استخدام الرمز (Redeem Code)
+    # ----------------------------------------------------
+    elif st.session_state.view == 'redeem':
+        if st.button("← رجوع", key="back_from_redeem"):
+            st.session_state.view = 'payment_methods'
+            st.rerun()
+        st.markdown("### استخدام رمز الاسترداد")
+        code_input = st.text_input("أدخل الرمز الخاص بك هنا:")
+        if st.button("تحقق واسترداد"):
+            if code_input:
+                st.success("تم تطبيق الرمز بنجاح على حسابك في بلوت كرافت!")
+            else:
+                st.warning("الرجاء إدخال الرمز أولاً.")
 
-        function toggleUpload() {
-            var box = document.getElementById('charUploadSection');
-            box.classList.toggle('show');
-        }
+    # ----------------------------------------------------
+    # الواجهة الفرعية 2: إضافة حساب PayPal
+    # ----------------------------------------------------
+    elif st.session_state.view == 'paypal':
+        if st.button("← رجوع", key="back_from_paypal"):
+            st.session_state.view = 'payment_methods'
+            st.rerun()
+        st.markdown("### ربط حساب PayPal")
+        pp_email = st.text_input("البريد الإلكتروني لحساب PayPal:")
+        if st.button("ربط الحساب"):
+            if pp_email:
+                st.success("تم ربط حساب PayPal بنجاح!")
+            else:
+                st.warning("الرجاء إدخال البريد الإلكتروني.")
 
-        function checkMaxImages(input) {
-            if (input.files.length > 2) {
-                alert('عذراً، الحد الأقصى المسموح به هو صورتان فقط للشخصيات!');
-                input.value = '';
-            }
-        }
+    # ----------------------------------------------------
+    # الواجهة الفرعية 3: إضافة بطاقة بنكية
+    # ----------------------------------------------------
+    elif st.session_state.view == 'card':
+        if st.button("← رجوع", key="back_from_card"):
+            st.session_state.view = 'payment_methods'
+            st.rerun()
+        st.markdown("### إضافة بطاقة بنكية جديدة")
+        card_num = st.text_input("رقم البطاقة (Card Number)")
+        col_c1, col_c2 = st.columns(2)
+        with col_c1:
+            st.text_input("تاريخ الانتهاء (MM/YY)")
+        with col_c2:
+            st.text_input("رمز الأمان (CVC)")
+        if st.button("حفظ البطاقة"):
+            st.success("تمت إضافة البطاقة البنكية بنجاح!")
 
-        function toggleStoryInput() {
-            var box = document.getElementById('storyTextarea');
-            box.classList.toggle('show');
-        }
-    </script>
-</body>
-</html>
-"""
+    # ----------------------------------------------------
+    # الواجهة الفرعية 4: شراء رصيد Google Play
+    # ----------------------------------------------------
+    elif st.session_state.view == 'buy_google':
+        if st.button("← رجوع", key="back_from_buy"):
+            st.session_state.view = 'payment_methods'
+            st.rerun()
+        st.markdown("### شراء رصيد Google Play")
+        amount = st.selectbox("اختر القيمة المراد شراؤها:", ["$5.00", "$10.00", "$25.00", "$50.00", "$100.00"])
+        if st.button("إتمام عملية الشراء"):
+            st.success(f"تمت عملية شراء رصيد بقيمة {amount} بنجاح!")
 
-components.html(html_code, height=750, scrolling=True)
+    # ----------------------------------------------------
+    # الواجهة الفرعية 5: طلب الدفع من مستخدم آخر
+    # ----------------------------------------------------
+    elif st.session_state.view == 'request_pay':
+        if st.button("← رجوع", key="back_from_req"):
+            st.session_state.view = 'payment_methods'
+            st.rerun()
+        st.markdown("### طلب الدفع من مستخدم آخر")
+        st.info("هذه الميزة غير متوفرة لشراء الاشتراكات حالياً.")
+        target_email = st.text_input("البريد الإلكتروني للشخص المراد إرسال الطلب إليه:")
+        if st.button("إرسال الطلب"):
+            if target_email:
+                st.success("تم إرسال طلب الدفع بنجاح!")
+            else:
+                st.warning("الرجاء إدخال البريد الإلكتروني.")
