@@ -182,11 +182,9 @@ html_code = """
                     </div>
                 </div>
 
-                <!-- 2. باقي الأقسام (مربعات الخيارات وقسم الإلهام) نزلت لتحت -->
-                <div style="padding: 14px 16px;">
-                    
-                    <!-- مربعات الخيارات السريعة -->
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
+                <!-- 2. مربعات الخيارات السريعة -->
+                <div style="padding: 14px 16px 10px 16px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                         <div class="glass-box">
                             <div style="font-size: 14px; margin-bottom: 4px; text-align: right;">💬</div>
                             <h3 style="font-size: 11px; font-weight: bold; margin-bottom: 2px;">خطوة بخطوة</h3>
@@ -199,9 +197,11 @@ html_code = """
                             <p style="font-size: 8px; color: #94a3b8;">إدخال واحد، فيديو كامل</p>
                         </div>
                     </div>
+                </div>
 
-                    <!-- قسم إلهام بلوت كرافت -->
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <!-- 3. قسم إلهام بلوت كرافت (تم نزوله للأسفل جداً مع مسافة علوية كبيرة) -->
+                <div style="padding: 40px 16px 20px 16px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                         <h3 style="font-size: 13px; font-weight: 800; color: #ffffff;">إلهام بلوت كرافت</h3>
                         <span style="font-size: 10px; color: #9ca3af; font-weight: bold; cursor: pointer;">عرض الكل <</span>
                     </div>
