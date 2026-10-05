@@ -1,4 +1,3 @@
-
 import streamlit as st
 import streamlit.components.v1 as components
 
@@ -366,6 +365,41 @@ html_code = """
         .plan-desc { color: #94a3b8; font-size: 12px; }
         .action-main-btn { width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 20px; border: none; cursor: pointer; margin-top: 10px; }
 
+        /* حقول إدخال بيانات الدفع البنكية */
+        .payment-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 5px;
+        }
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .form-label {
+            color: #cbd5e1;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .form-input {
+            background: #141824;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 12px 14px;
+            color: #ffffff;
+            font-size: 14px;
+            outline: none;
+            direction: ltr;
+            text-align: right;
+        }
+        .form-input::placeholder {
+            color: #475569;
+        }
+        .form-input:focus {
+            border-color: #3b82f6;
+        }
+
         /* شريط التنقل السفلي */
         .plotcraft-nav-bar {
             position: fixed;
@@ -588,7 +622,7 @@ A dark crime romance story about secrets, forgotten memories, dangerous power, a
         </div>
     </div>
 
-    <!-- واجهة صفحة الاشتراكات (متضمنة الأسبوعي، الشهري، والسنوي بـ 69.99 دولار و 5000 نقطة) -->
+    <!-- واجهة صفحة الاشتراكات -->
     <div id="subscriptionScreen" class="screen-view">
         <div class="page-header">
             <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
@@ -628,7 +662,42 @@ A dark crime romance story about secrets, forgotten memories, dangerous power, a
                 </div>
             </div>
 
-            <button class="action-main-btn" onclick="alert('تم اختيار الاشتراك بنجاح!')">اشتراك</button>
+            <button class="action-main-btn" onclick="proceedToPayment()">اشتراك</button>
+        </div>
+    </div>
+
+    <!-- واجهة إتمام الدفع (البطاقة البنكية) -->
+    <div id="paymentScreen" class="screen-view">
+        <div class="page-header">
+            <button class="back-btn" onclick="switchScreen('subscriptionScreen')">✕</button>
+            <div class="page-title-text">إتمام الدفع الآمن</div>
+            <div style="width: 36px;"></div>
+        </div>
+
+        <div class="content-body">
+            <div style="text-align: center; margin-bottom: 10px;">
+                <div style="color: #ffffff; font-size: 16px; font-weight: 700;">أدخل معلومات البطاقة البنكية</div>
+                <div style="color: #94a3b8; font-size: 12px; margin-top: 4px;">العملية مشفرة وآمنة بالكامل</div>
+            </div>
+
+            <div class="payment-form-group">
+                <div class="form-field">
+                    <label class="form-label">الاسم على البطاقة البنكية</label>
+                    <input type="text" id="cardName" class="form-input" placeholder="Name on Card">
+                </div>
+
+                <div class="form-field">
+                    <label class="form-label">رقم البطاقة البنكية</label>
+                    <input type="text" id="cardNumber" class="form-input" placeholder="0000 0000 0000 0000" maxlength="19">
+                </div>
+
+                <div class="form-field">
+                    <label class="form-label">رمز البطاقة البنكية (CVV)</label>
+                    <input type="password" id="cardCvv" class="form-input" placeholder="123" maxlength="4">
+                </div>
+            </div>
+
+            <button class="action-main-btn" onclick="submitPayment()" style="margin-top: 20px;">تأكيد ودفع الاشتراك</button>
         </div>
     </div>
 
@@ -683,6 +752,25 @@ A dark crime romance story about secrets, forgotten memories, dangerous power, a
             var cards = document.querySelectorAll('.plan-card');
             cards.forEach(c => c.classList.remove('selected'));
             element.classList.add('selected');
+        }
+
+        function proceedToPayment() {
+            // الانتقال لشاشة إدخال تفاصيل الدفع عند الضغط على اشتراك
+            switchScreen('paymentScreen');
+        }
+
+        function submitPayment() {
+            var name = document.getElementById('cardName').value;
+            var number = document.getElementById('cardNumber').value;
+            var cvv = document.getElementById('cardCvv').value;
+
+            if(!name || !number || !cvv) {
+                alert('يرجى ملء جميع حقول البطاقة البنكية بشكل صحيح!');
+                return;
+            }
+
+            alert('تمت معالجة الدفع بنجاح! شكراً لاشتراكك في بلوت كرافت.');
+            switchScreen('homeScreen');
         }
 
         function toggleUpload() {
