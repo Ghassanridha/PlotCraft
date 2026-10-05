@@ -52,17 +52,34 @@ app_html = """
             box-shadow: 0 0 30px rgba(0,0,0,0.8);
             border-radius: 30px;
             border: 1px solid #1f222e;
-            padding: 12px 0;
+            padding-bottom: 12px;
         }
         
-        /* الهيدر العلوي */
+        /* قسم البطل والهيدر ليملا الأعلى بالكامل بدون أي فراغات سوداء */
+        .hero-box {
+            position: relative;
+            width: 100%;
+            margin: 0;
+            border-radius: 0 0 28px 28px;
+            overflow: hidden;
+            padding: 60px 18px 24px 18px;
+            background-image: linear-gradient(to bottom, rgba(11, 12, 16, 0.1), rgba(11, 12, 16, 0.96)), 
+                              url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center top;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        /* الهيدر العلوي داخل الخلفية ليظهر بالأعلى تماماً */
         .top-header {
+            position: absolute;
+            top: 14px;
+            left: 18px;
+            right: 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 18px;
-            z-index: 5;
-            position: relative;
+            z-index: 10;
         }
         
         .app-brand {
@@ -84,23 +101,9 @@ app_html = """
             gap: 5px;
         }
         
-        /* قسم البطل مع تكبير ورفع الخلفية لتملأ المساحة بالكامل بدون فراغات */
-        .hero-box {
-            position: relative;
-            margin: 6px 16px;
-            border-radius: 22px;
-            overflow: hidden;
-            padding: 35px 18px 20px 18px;
-            background-image: linear-gradient(to bottom, rgba(11, 12, 16, 0.1), rgba(11, 12, 16, 0.95)), 
-                              url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200&auto=format&fit=crop');
-            background-size: 160% 160%;
-            background-position: center 15%;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        
         .hero-text {
             text-align: right;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         
         .hero-subtitle {
@@ -179,6 +182,7 @@ app_html = """
             justify-content: space-between;
             align-items: center;
             padding: 0 18px;
+            margin-top: 8px;
         }
         
         .section-name {
@@ -276,16 +280,16 @@ app_html = """
 
     <div class="mobile-screen">
         
-        <!-- الهيدر العلوي -->
-        <div class="top-header">
-            <div class="app-brand">بلوت كرافت</div>
-            <div class="upgrade-btn">
-                <span>✦</span> ترقية
-            </div>
-        </div>
-
-        <!-- قسم البطل بالخلفية المكبرة والملء الكامل للأعلى -->
+        <!-- قسم البطل والهيدر مدمجان لملء أعلى الشاشة بالكامل بدون حواف سوداء -->
         <div class="hero-box">
+            <!-- الهيدر العلوي -->
+            <div class="top-header">
+                <div class="app-brand">بلوت كرافت</div>
+                <div class="upgrade-btn">
+                    <span>✦</span> ترقية
+                </div>
+            </div>
+
             <div class="hero-text">
                 <div class="hero-subtitle">مساء الخير، أيها المخرج</div>
                 <div class="hero-title">أي قصة سنصنع اليوم؟</div>
