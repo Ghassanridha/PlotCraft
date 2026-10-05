@@ -1,353 +1,340 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
-st.set_page_config(page_title="بلوت كرافت", layout="wide", initial_sidebar_state="collapsed")
+# إعداد صفحة ستريمليت لملء الشاشة
+st.set_page_config(page_title="PlotCraft UI", layout="centered", initial_sidebar_state="collapsed")
 
-st.markdown("""
-    <style>
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
-    .block-container {padding: 0 !important; margin: 0 !important;}
-    </style>
-""", unsafe_allow_html=True)
-
-app_html = """
+# كود HTML و CSS المصمم خصيصاً ليطابق أبعاد 1080 × 2340 بدقة تامة
+html_code = """
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PlotCraft</title>
+    <title>PlotCraft UI</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
-        
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Cairo', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
-        
+
         body {
-            background-color: #0b0c10;
-            color: #ffffff;
+            background-color: #0b0f19;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             overflow: hidden;
         }
-        
+
+        /* حاوية الهاتف بأبعاد 1080px عرض و 2340px ارتفاع */
         .mobile-screen {
-            width: 100%;
-            max-width: 390px;
-            height: 810px;
-            background-color: #0b0c10;
+            width: 1080px;
+            height: 2340px;
+            background-color: #0b0f19;
             position: relative;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
-            border-radius: 30px;
-            border: 1px solid #1f222e;
-            padding-bottom: 12px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
         }
-        
-        /* صندوق الخلفية العلوي (يحتوي الترحيب فقط الآن) */
+
+        /* صندوق الخلفية العلوي الموحد (Hero Box) */
         .hero-box {
             position: relative;
             width: 100%;
-            margin: 0;
-            border-radius: 0 0 28px 28px;
-            overflow: hidden;
-            padding: 60px 18px 25px 18px;
-            background-image: linear-gradient(to bottom, rgba(11, 12, 16, 0.05), rgba(11, 12, 16, 0.98)), 
-                              url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center top;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            height: 1100px;
+            background: linear-gradient(180deg, rgba(11,15,25,0.4) 0%, rgba(11,15,25,0.8) 70%, #0b0f19 100%),
+                        url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1080&auto=format&fit=crop') center/cover no-repeat;
+            border-bottom-left-radius: 60px;
+            border-bottom-right-radius: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 70px 50px 60px 50px;
         }
-        
+
+        /* الشريط العلوي */
         .top-header {
-            position: absolute;
-            top: 14px;
-            left: 18px;
-            right: 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 10;
+            width: 100%;
         }
-        
-        .app-brand {
-            font-size: 16px;
-            font-weight: 700;
+
+        .upgrade-badge {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 16px 32px;
+            border-radius: 40px;
             color: #ffffff;
-        }
-        
-        .upgrade-btn {
-            background-color: rgba(255, 255, 255, 0.08);
-            color: #ffffff;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 5px 12px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            font-size: 28px;
+            font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
-        .hero-text {
-            text-align: right;
-        }
-        
-        .hero-subtitle {
-            color: #cfd0d5;
-            font-size: 13.5px;
-            font-weight: 400;
-            margin-bottom: 2px;
-        }
-        
-        .hero-title {
+
+        .brand-title {
             color: #ffffff;
-            font-size: 20px;
+            font-size: 42px;
+            font-weight: 700;
+        }
+
+        /* الترحيب */
+        .welcome-section {
+            text-align: right;
+            margin-top: 100px;
+        }
+
+        .welcome-section h1 {
+            color: #ffffff;
+            font-size: 64px;
             font-weight: 700;
             line-height: 1.3;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.5);
         }
-        
-        /* حاوية البطاقتين بعد إخراجها للخارج لتصبح بالأسفل قرب الإلهام */
-        .cards-container-outside {
-            padding: 0 16px;
-            margin-top: -12px;
-            z-index: 5;
-        }
-        
+
+        /* صف البطاقتين داخل صندوق الخلفية في الأسفل تماماً */
         .cards-row {
             display: flex;
-            gap: 10px;
+            gap: 30px;
+            width: 100%;
+            margin-top: auto;
         }
-        
-        .card-item {
+
+        .interactive-card {
             flex: 1;
-            background: rgba(18, 20, 28, 0.92);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 14px;
-            padding: 12px;
-            position: relative;
-            text-align: right;
+            background: rgba(20, 25, 40, 0.65);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 35px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
-        
-        .card-item.right-card {
-            order: 1;
+
+        .interactive-card:hover {
+            background: rgba(30, 38, 60, 0.8);
+            border-color: rgba(255, 255, 255, 0.3);
         }
-        
-        .card-item.left-card {
-            order: 2;
+
+        .card-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
         }
-        
-        .pro-tag {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            background: rgba(255, 255, 255, 0.12);
-            font-size: 8.5px;
-            font-weight: 600;
-            padding: 2px 5px;
-            border-radius: 5px;
-            color: #cccccc;
-        }
-        
-        .card-icon {
-            font-size: 16px;
-            margin-bottom: 6px;
-            display: inline-block;
-        }
-        
-        .card-heading {
-            font-size: 13.5px;
-            font-weight: 700;
+
+        .card-title {
             color: #ffffff;
-            margin-bottom: 2px;
+            font-size: 38px;
+            font-weight: 700;
         }
-        
-        .card-subtext {
-            font-size: 10px;
-            color: #9e9fa6;
-            line-height: 1.2;
+
+        .card-subtitle {
+            color: #94a3b8;
+            font-size: 26px;
+            font-weight: 400;
         }
-        
+
+        .pro-badge-small {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 16px;
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        /* قسم الإلهام والأفلام */
+        .inspiration-section {
+            padding: 60px 50px;
+            flex: 1;
+        }
+
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 18px;
+            margin-bottom: 40px;
         }
-        
-        .section-name {
-            font-size: 15px;
-            font-weight: 700;
+
+        .section-title {
             color: #ffffff;
+            font-size: 44px;
+            font-weight: 700;
         }
-        
-        .section-action {
-            font-size: 12px;
-            color: #888990;
-            font-weight: 600;
+
+        .view-all {
+            color: #94a3b8;
+            font-size: 30px;
+            cursor: pointer;
         }
-        
-        .movies-container {
+
+        .movies-carousel {
             display: flex;
-            gap: 10px;
-            padding: 0 16px;
-            direction: rtl;
-            justify-content: space-between;
+            gap: 30px;
+            overflow-x: auto;
+            padding-bottom: 20px;
         }
-        
+
         .movie-card {
-            width: 31%;
-            height: 175px;
-            border-radius: 12px;
+            min-width: 310px;
+            height: 460px;
+            background: #1a2236;
+            border-radius: 30px;
             overflow: hidden;
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background-color: #151720;
-            flex-shrink: 0;
-        }
-        
-        .movie-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .movie-title-box {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 8px 4px;
-            background: linear-gradient(to top, rgba(0,0,0,0.95) 15%, transparent 100%);
-            font-size: 9px;
-            font-weight: 700;
-            text-align: center;
-            color: #ffffff;
-            letter-spacing: 0.3px;
-        }
-        
-        .bottom-nav-wrapper {
-            padding: 0 16px;
-            width: 100%;
-        }
-        
-        .nav-inner {
-            background-color: #151720;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 40px;
-            padding: 5px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.05);
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
         }
-        
-        .nav-button {
-            flex: 1;
-            text-align: center;
-            color: #888990;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 7px 4px;
+
+        .movie-card.m1 {
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%), 
+                        url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=400&auto=format&fit=crop') center/cover;
         }
-        
-        .nav-button-active {
-            flex: 1;
-            text-align: center;
-            background-color: #ffffff;
-            color: #121318;
-            font-size: 11px;
+
+        .movie-card.m2 {
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%), 
+                        url('https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=400&auto=format&fit=crop') center/cover;
+        }
+
+        .movie-card.m3 {
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%), 
+                        url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=400&auto=format&fit=crop') center/cover;
+        }
+
+        .movie-title {
+            color: #ffffff;
+            font-size: 28px;
             font-weight: 700;
-            padding: 7px 6px;
-            border-radius: 30px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+        }
+
+        /* شريط التنقل السفلي الثابت */
+        .bottom-nav {
+            position: sticky;
+            bottom: 0;
+            width: 100%;
+            background: rgba(15, 22, 36, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 35px 50px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            color: #64748b;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .nav-item.active {
+            color: #ffffff;
+        }
+
+        .nav-icon {
+            font-size: 36px;
         }
     </style>
 </head>
 <body>
 
     <div class="mobile-screen">
-        
-        <!-- قسم الخلفية العلوي (يحتوي النَص والترقية فقط) -->
+        <!-- صندوق الخلفية العلوي الموحد -->
         <div class="hero-box">
             <div class="top-header">
-                <div class="app-brand">بلوت كرافت</div>
-                <div class="upgrade-btn">
-                    <span>✦</span> ترقية
+                <div class="upgrade-badge">
+                    <span>⭐</span> ترقية
                 </div>
+                <div class="brand-title">بلوت كرافت</div>
             </div>
 
-            <div class="hero-text">
-                <div class="hero-subtitle">مساء الخير، أيها المخرج</div>
-                <div class="hero-title">أي قصة سنصنع اليوم؟</div>
+            <div class="welcome-section">
+                <h1>مساء الخير، أيها المخرج<br>أي قصة سنصنع اليوم؟</h1>
             </div>
-        </div>
 
-        <!-- البطاقتان نازلتان بالأسفل خارج صندوق الخلفية وفوق قسم الإلهام -->
-        <div class="cards-container-outside">
+            <!-- البطاقتان في أسفل صندوق الخلفية تماماً -->
             <div class="cards-row">
-                <div class="card-item right-card">
-                    <div class="card-icon">💬</div>
-                    <div class="card-heading">خطوة بخطوة</div>
-                    <div class="card-subtext">راجع كل خطوة</div>
+                <div class="interactive-card">
+                    <div class="card-header-row">
+                        <div class="card-title">سريع</div>
+                        <div class="pro-badge-small">Pro only</div>
+                    </div>
+                    <div class="card-subtitle">إدخال واحد، فيديو كامل</div>
                 </div>
-                
-                <div class="card-item left-card">
-                    <div class="pro-tag">Pro only</div>
-                    <div class="card-icon">🪄</div>
-                    <div class="card-heading">سريع</div>
-                    <div class="card-subtext">إدخال واحد، فيديو كامل</div>
+
+                <div class="interactive-card">
+                    <div class="card-header-row">
+                        <div class="card-title">خطوة بخطوة</div>
+                    </div>
+                    <div class="card-subtitle">راجع كل خطوة</div>
                 </div>
             </div>
         </div>
 
-        <!-- عنوان قسم الإلهام -->
-        <div class="section-header">
-            <div class="section-name">إلهام بلوت كرافت</div>
-            <div class="section-action">عرض الكل &gt;</div>
-        </div>
+        <!-- قسم إلهام بلوت كرافت -->
+        <div class="inspiration-section">
+            <div class="section-header">
+                <div class="section-title">إلهام بلوت كرافت</div>
+                <div class="view-all">عرض الكل ></div>
+            </div>
 
-        <!-- قائمة الأفلام -->
-        <div class="movies-container">
-            <div class="movie-card">
-                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=400&auto=format&fit=crop">
-                <div class="movie-title-box">SECRET BILLIONAIRE</div>
-            </div>
-            <div class="movie-card">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop">
-                <div class="movie-title-box">THE WRONG DOOR</div>
-            </div>
-            <div class="movie-card">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop">
-                <div class="movie-title-box">INVITATION</div>
-            </div>
-        </div>
-
-        <!-- الشريط السفلي الثابت -->
-        <div class="bottom-nav-wrapper">
-            <div class="nav-inner">
-                <div class="nav-button">الصفحة الرئيسية</div>
-                <div class="nav-button">الأعمال</div>
-                <div class="nav-button-active">الأدوات</div>
+            <div class="movies-carousel">
+                <div class="movie-card m1">
+                    <div class="movie-title">THE WRONG DOOR</div>
+                </div>
+                <div class="movie-card m2">
+                    <div class="movie-title">SECRET BILLIONAIRE</div>
+                </div>
+                <div class="movie-card m3">
+                    <div class="movie-title">CYBER CITY</div>
+                </div>
             </div>
         </div>
 
+        <!-- شريط التنقل السفلي -->
+        <div class="bottom-nav">
+            <div class="nav-item">
+                <div class="nav-icon">🎬</div>
+                <span>استوديو</span>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">📁</div>
+                <span>الأعمال</span>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">⚙️</div>
+                <span>الأدوات</span>
+            </div>
+            <div class="nav-item active">
+                <div class="nav-icon">🏠</div>
+                <span>الصفحة الرئيسية</span>
+            </div>
+        </div>
     </div>
 
 </body>
 </html>
 """
 
-components.html(app_html, height=830, scrolling=False)
+# عرض المكون داخل تطبيق Streamlit بالأبعاد المطلوبة 1080x2340
+components.html(html_code, height=900, scrolling=True)
