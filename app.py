@@ -16,7 +16,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# كود HTML و CSS مع الصورة الجديدة في البطاقة الأولى
+# كود HTML و CSS مع إضافة الأيقونة بجانب بطاقة "خطوة بخطوة"
 html_code = """
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -39,7 +39,6 @@ html_code = """
             overflow: hidden;
         }
 
-        /* حاوية الهاتف تملأ شاشة الجوال بالكامل */
         .mobile-screen {
             width: 100vw;
             height: 100vh;
@@ -51,7 +50,6 @@ html_code = """
             overflow-x: hidden;
         }
 
-        /* صندوق الخلفية العلوي الموحد (Hero Box) */
         .hero-box {
             position: relative;
             width: 100%;
@@ -66,7 +64,6 @@ html_code = """
             padding: 24px 20px 20px 20px;
         }
 
-        /* الشريط العلوي */
         .top-header {
             display: flex;
             justify-content: space-between;
@@ -94,7 +91,6 @@ html_code = """
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* الترحيب */
         .welcome-section {
             text-align: right;
             margin-top: 15px;
@@ -108,7 +104,6 @@ html_code = """
             text-shadow: 0 2px 8px rgba(0,0,0,0.6);
         }
 
-        /* صف البطاقتين */
         .cards-row {
             display: flex;
             gap: 12px;
@@ -135,10 +130,26 @@ html_code = """
             margin-bottom: 6px;
         }
 
+        .card-title-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
         .card-title {
             color: #ffffff;
             font-size: 16px;
             font-weight: 700;
+        }
+
+        /* تصميم أيقونة الروبوت الجديدة داخل بطاقة خطوة بخطوة */
+        .step-bot-icon {
+            width: 22px;
+            height: 22px;
+            background: #cbd5e1;
+            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 9V7c0-1.1-.9-2-2-2h-3c0-1.7-1.3-3-3-3S9 3.3 9 5H6c-1.1 0-2 .9-2 2v2c-1.7 0-3 1.3-3 3s1.3 3 3 3v2c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-2c1.7 0 3-1.3 3-3s-1.3-3-3-3zm-11 5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm6 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>') no-repeat center;
+            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 9V7c0-1.1-.9-2-2-2h-3c0-1.7-1.3-3-3-3S9 3.3 9 5H6c-1.1 0-2 .9-2 2v2c-1.7 0-3 1.3-3 3s1.3 3 3 3v2c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-2c1.7 0 3-1.3 3-3s-1.3-3-3-3zm-11 5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm6 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>') no-repeat center;
+            background-size: contain;
         }
 
         .card-subtitle {
@@ -156,7 +167,6 @@ html_code = """
             font-weight: 600;
         }
 
-        /* قسم الإلهام والأفلام */
         .inspiration-section {
             padding: 24px 20px;
         }
@@ -181,6 +191,7 @@ html_code = """
 
         .movies-carousel {
             display: flex;
+            flex-direction: row-reverse;
             gap: 14px;
             overflow-x: auto;
             padding-bottom: 10px;
@@ -206,10 +217,9 @@ html_code = """
             padding: 14px;
         }
 
-        /* البطاقة الأولى بالصورة الجديدة المطلوبة */
         .movie-card.m1 {
             background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), 
-                        url('https://i.ibb.co/3ykC6Ww/47482.jpg') center/cover;
+                        url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=300&auto=format&fit=crop') center/cover;
         }
 
         .movie-card.m2 {
@@ -230,7 +240,6 @@ html_code = """
             line-height: 1.2;
         }
 
-        /* حاوية الشريط السفلي بالكامل */
         .bottom-nav-container {
             position: sticky;
             bottom: 0;
@@ -243,7 +252,6 @@ html_code = """
             margin-top: auto;
         }
 
-        /* 1. المستطيل الكبير للنصوص الثلاثة الصافية */
         .nav-group-box {
             flex: 1;
             background: rgba(20, 25, 40, 0.85);
@@ -272,7 +280,6 @@ html_code = """
             font-weight: 600;
         }
 
-        /* 2. الزر الرابع المنفصل بأقصى اليسار يضم أيقونة الفيلم والنجمة الزرقاء */
         .nav-single-box {
             width: 52px;
             height: 52px;
@@ -312,7 +319,6 @@ html_code = """
 <body>
 
     <div class="mobile-screen">
-        <!-- صندوق الخلفية العلوي الموحد -->
         <div class="hero-box">
             <div class="top-header">
                 <div class="brand-title">بلوت كرافت</div>
@@ -326,9 +332,13 @@ html_code = """
             </div>
 
             <div class="cards-row">
+                <!-- بطقة خطوة بخطوة مع الأيقونة الجديدة بجانب العنوان -->
                 <div class="interactive-card">
                     <div class="card-header-row">
-                        <div class="card-title">خطوة بخطوة</div>
+                        <div class="card-title-group">
+                            <span class="step-bot-icon"></span>
+                            <div class="card-title">خطوة بخطوة</div>
+                        </div>
                     </div>
                     <div class="card-subtitle">راجع كل خطوة</div>
                 </div>
@@ -343,7 +353,6 @@ html_code = """
             </div>
         </div>
 
-        <!-- قسم إلهام بلوت كرافت -->
         <div class="inspiration-section">
             <div class="section-header">
                 <div class="section-title">إلهام بلوت كرافت</div>
@@ -351,7 +360,6 @@ html_code = """
             </div>
 
             <div class="movies-carousel">
-                <!-- البطاقة الأولى المحدثة بالصورة والاسم الجديد -->
                 <div class="movie-card m1">
                     <div class="movie-title">THE DELIVERYMAN'S SECRET BILLIONAIRE</div>
                 </div>
@@ -364,7 +372,6 @@ html_code = """
             </div>
         </div>
 
-        <!-- الشريط السفلي -->
         <div class="bottom-nav-container">
             <div class="nav-group-box">
                 <div class="nav-item-text active">الصفحة الرئيسية</div>
