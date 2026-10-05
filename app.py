@@ -222,10 +222,10 @@ html_code = """
             transform: scale(0.96);
         }
 
-        /* الغلاف الجديد: رجل بمعطف أسود مع بنت بجاكيت أسود وشعر أشقر */
+        /* الغلاف المحدث بدقة: رجل بمعطف أسود مع فتاة بجاكيت أسود وشعر أشقر */
         .movie-card.emily-cover { 
             background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(11,15,25,0.92) 100%), 
-                        url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop') center/cover; 
+                        url('https://images.unsplash.com/photo-1509967419530-da38b4704bc6?q=80&w=300&auto=format&fit=crop') center/cover; 
             border: 1.5px solid rgba(59, 130, 246, 0.5);
         }
         .movie-card.m2 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=300&auto=format&fit=crop') center/cover; }
@@ -465,7 +465,7 @@ html_code = """
             </div>
 
             <div class="movies-carousel">
-                <!-- الغلاف المحدث: رجل بمعطف أسود مع فتاة بجاكيت أسود وشعر أشقر -->
+                <!-- الغلاف المحدث بدقة: رجل بمعطف أسود مع فتاة بجاكيت أسود وشعر أشقر -->
                 <div class="movie-card emily-cover" onclick="openStoryModal()">
                     <div class="movie-title">EMILY & ALEXANDER'S SECRET</div>
                 </div>
