@@ -629,7 +629,7 @@ html_code = """
                     <div class="plan-desc">500 نقطة / أسبوعياً، جرب بلوت كرافت</div>
                 </div>
 
-                <!-- خيار الاشتراك الشهري مع النقاط مرتبة -->
+                <!-- خيار الاشتراك الشهري -->
                 <div class="plan-card selected" onclick="selectPlan(this)">
                     <div class="new-tag">جديد</div>
                     <div class="plan-top">
@@ -637,6 +637,15 @@ html_code = """
                         <div class="plan-price">29.99 دولار أمريكي / شهر</div>
                     </div>
                     <div class="plan-desc">1800 نقطة / شهرياً، مثالي للمبدعين والمشاريع الكبيرة</div>
+                </div>
+
+                <!-- خيار الاشتراك السنوي المضاف مرة أخرى -->
+                <div class="plan-card" onclick="selectPlan(this)">
+                    <div class="plan-top">
+                        <div class="plan-name">بلوت كرافت برو السنوية</div>
+                        <div class="plan-price">199.99 دولار أمريكي / سنة</div>
+                    </div>
+                    <div class="plan-desc">25000 نقطة / سنوياً، القيمة الأفضل للمحترفين</div>
                 </div>
             </div>
 
