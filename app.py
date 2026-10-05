@@ -538,4 +538,3 @@ html_code = """
             border-radius: 16px;
             width: 100%;
             max-width: 380px;
-        
