@@ -55,7 +55,7 @@ app_html = """
             padding: 12px 0;
         }
         
-        /* الهيدر العلوي: بلوت كرافت يمين، ترقية يسار (بدون أيقونات بجانب بلوت كرافت) */
+        /* الهيدر العلوي */
         .top-header {
             display: flex;
             justify-content: space-between;
@@ -115,7 +115,7 @@ app_html = """
             line-height: 1.3;
         }
         
-        /* البطاقتان */
+        /* البطاقتان: خطوة بخطوة يمين، سريع يسار */
         .cards-row {
             display: flex;
             gap: 10px;
@@ -133,11 +133,11 @@ app_html = """
         }
         
         .card-item.right-card {
-            order: 1;
+            order: 1; /* خطوة بخطوة في اليمين */
         }
         
         .card-item.left-card {
-            order: 2;
+            order: 2; /* سريع في اليسار */
         }
         
         .pro-tag {
@@ -274,7 +274,7 @@ app_html = """
 
     <div class="mobile-screen">
         
-        <!-- الهيدر العلوي المتبادل -->
+        <!-- الهيدر العلوي -->
         <div class="top-header">
             <div class="app-brand">بلوت كرافت</div>
             <div class="upgrade-btn">
@@ -290,19 +290,19 @@ app_html = """
             </div>
             
             <div class="cards-row">
-                <!-- بطاقة سريع (يمين) -->
+                <!-- بطاقة خطوة بخطوة (يمين)[span_1](start_span)[span_1](end_span) -->
                 <div class="card-item right-card">
+                    <div class="card-icon">💬</div>
+                    <div class="card-heading">خطوة بخطوة</div>
+                    <div class="card-subtext">راجع كل خطوة</div>
+                </div>
+                
+                <!-- بطاقة سريع (يسار)[span_2](start_span)[span_2](end_span) -->
+                <div class="card-item left-card">
                     <div class="pro-tag">Pro only</div>
                     <div class="card-icon">🪄</div>
                     <div class="card-heading">سريع</div>
                     <div class="card-subtext">إدخال واحد، فيديو كامل</div>
-                </div>
-                
-                <!-- بطاقة خطوة بخطوة (يسار) -->
-                <div class="card-item left-card">
-                    <div class="card-icon">💬</div>
-                    <div class="card-heading">خطوة بخطوة</div>
-                    <div class="card-subtext">راجع كل خطوة</div>
                 </div>
             </div>
         </div>
