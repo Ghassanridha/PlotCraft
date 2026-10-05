@@ -1,7 +1,7 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
-# إعداد صفحة ستريمليت لإزالة الهوامش واستغلال الشاشة بالكامل
+# إعداد صفحة ستريمليت
 st.set_page_config(page_title="PlotCraft UI", layout="wide", initial_sidebar_state="collapsed")
 
 st.markdown("""
@@ -20,8 +20,8 @@ html_code = """
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PlotCraft UI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlotCraft</title>
     <style>
         * {
             box-sizing: border-box;
@@ -29,138 +29,171 @@ html_code = """
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
-
         body, html {
             width: 100%;
             height: 100%;
             background-color: #0b0f19;
+            color: #ffffff;
             overflow-x: hidden;
         }
-
-        .screen-view {
+        .screen {
             display: none;
             width: 100%;
             min-height: 100vh;
-            background-color: #0b0f19;
-            flex-direction: column;
-            padding-bottom: 90px;
+            padding: 20px;
+            padding-bottom: 50px;
         }
-
-        .screen-view.active {
-            display: flex;
+        .screen.active {
+            display: block;
         }
-
-        .hero-box {
-            position: relative;
-            width: 100%;
-            min-height: 52vh;
-            background: linear-gradient(180deg, rgba(11,15,25,0.2) 0%, rgba(11,15,25,0.8) 75%, #0b0f19 100%),
-                        url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1080&auto=format&fit=crop') center/cover no-repeat;
-            border-bottom-left-radius: 35px;
-            border-bottom-right-radius: 35px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 24px 20px 20px 20px;
-        }
-
-        .top-header {
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
+            margin-bottom: 20px;
         }
-
-        .brand-title {
-            color: #ffffff;
+        .title {
             font-size: 20px;
-            font-weight: 700;
+            font-weight: bold;
         }
-
-        .upgrade-badge {
+        .btn-upgrade {
             background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            padding: 8px 16px;
-            border-radius: 25px;
-            color: #ffffff;
-            font-size: 14px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
             cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.2);
         }
-
-        .welcome-section {
-            text-align: right;
-            margin-top: 15px;
-        }
-
-        .welcome-section h1 {
-            color: #ffffff;
-            font-size: 22px;
-            font-weight: 700;
-            line-height: 1.4;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-        }
-
-        .cards-row {
+        .plans-container {
             display: flex;
+            flex-direction: column;
             gap: 12px;
-            width: 100%;
             margin-top: 20px;
         }
-
-        .interactive-card {
-            flex: 1;
-            background: rgba(20, 25, 40, 0.65);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 18px;
+        .plan-card {
+            background: #141824;
+            border: 1.5px solid #2a344d;
+            border-radius: 16px;
             padding: 16px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
             cursor: pointer;
+            transition: 0.2s;
         }
-
-        .card-header-row {
+        .plan-card.selected {
+            border-color: #3b82f6;
+            background: #1c2538;
+        }
+        .plan-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 6px;
         }
-
-        .card-title {
-            color: #ffffff;
+        .plan-name {
             font-size: 16px;
-            font-weight: 700;
+            font-weight: bold;
         }
-
-        .card-subtitle {
+        .plan-price {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .plan-desc {
             color: #94a3b8;
             font-size: 12px;
         }
-
-        .exact-bot-icon {
-            width: 22px;
-            height: 22px;
-            background: #dbeafe;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
-            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1 z"/></svg>') no-repeat center;
-            background-size: contain;
+        .back-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 15px;
         }
-
-        .card-title-group-left {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .main-btn {
             width: 100%;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الشاشة الرئيسية -->
+    <div id="homeScreen" class="screen active">
+        <div class="header">
+            <div class="title">بلوت كرافت (PlotCraft)</div>
+            <div class="btn-upgrade" onclick="showScreen('subScreen')">⭐ ترقية</div>
+        </div>
+        <p style="color: #94a3b8; font-size: 14px; margin-bottom: 20px;">مرحباً بك، اختر الاشتراك المناسب لك.</p>
+        
+        <div onclick="showScreen('subScreen')" style="background: #141824; padding: 20px; border-radius: 16px; border: 1px solid #2a344d; cursor: pointer; text-align: center;">
+            <h3>عرض باقات الاشتراك 🚀</h3>
+            <p style="color: #94a3b8; font-size: 12px; margin-top: 5px;">اضغط هنا للانتقال لصفحة الاشتراكات</p>
+        </div>
+    </div>
+
+    <!-- شاشة الاشتراكات -->
+    <div id="subScreen" class="screen">
+        <button class="back-btn" onclick="showScreen('homeScreen')">← عودة</button>
+        <div class="header" style="margin-bottom: 10px;">
+            <div class="title">اختر خطة الاشتراك</div>
+        </div>
+        
+        <div class="plans-container">
+            <!-- الاشتراك الأسبوعي المطلوب -->
+            <div class="plan-card selected" onclick="selectPlan(this)">
+                <div class="plan-header">
+                    <div class="plan-name">الاشتراك الأسبوعي</div>
+                    <div class="plan-price">$9.99</div>
+                </div>
+                <div class="plan-desc">500 نقطة أسبوعياً</div>
+            </div>
+
+            <!-- الاشتراك الشهري -->
+            <div class="plan-card" onclick="selectPlan(this)">
+                <div class="plan-header">
+                    <div class="plan-name">الاشتراك الشهري</div>
+                    <div class="plan-price">$19.99</div>
+                </div>
+                <div class="plan-desc">2500 نقطة شهرياً</div>
+            </div>
+
+            <!-- الاشتراك السنوي -->
+            <div class="plan-card" onclick="selectPlan(this)">
+                <div class="plan-header">
+                    <div class="plan-name">الاشتراك السنوي</div>
+                    <div class="plan-price">$99.99</div>
+                </div>
+                <div class="plan-desc">نقاط غير محدودة سنوياً</div>
+            </div>
+        </div>
+
+        <button class="main-btn">تأكيد الاشتراك</button>
+    </div>
+
+    <script>
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
         }
 
-        .magic-wand-icon {
-            width: 22px;
-            height: 22px;
-            background: #dbeafe;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.5 5.6c-.3-.3-.8-.3-1.1 0-.3.3-.3.8 0 1.1 1.2 1.2 1.9 2.8 1.9 4.5 0 1.7-.7 3.3-1.9 4.5-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 1.5-1.5 2.3-3.5 2.3-5.6s-.8-4.1-2.3-5.6zm4.3-2.3c-.3-.3-.8-.3-1.1 0-.3.3-.3.8 0 1.1 2.2 2.2 3.4 5.1 3.4 8.2s-1.2 6-3.4 8.2c-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 2.6-2.6 4-6 4-9.3s-1.4-6.
+        function selectPlan(element) {
+            document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+    </script>
+</body>
+</html>
+"""
+
+components.html(html_code, height=600, scrolling=True)
