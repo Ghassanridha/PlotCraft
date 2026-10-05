@@ -238,7 +238,7 @@ html_code = """
             line-height: 1.2;
         }
 
-        /* شاشة "خطوة بخطوة" */
+        /* شاشة تفاصيل "خطوة بخطوة" */
         .step-container {
             padding: 20px;
             display: flex;
@@ -551,14 +551,14 @@ html_code = """
     <div id="stepByStepScreen" class="screen-view">
         <div class="page-header">
             <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
-            <div class="page-title-text">خطوة بخطوة</div>
+            <div class="page-title-text">PlotCraft</div>
             <div style="width: 36px;"></div>
         </div>
 
         <div class="step-container">
             <div class="ai-assistant-card">
                 <div class="ai-header-row">
-                    <div class="ai-title">PlotCraft</div>
+                    <div class="ai-title">مساعد AI بلوت كرافت</div>
                     <div class="ai-badge-circle">AI+</div>
                 </div>
                 <div class="ai-desc">عزيزي المخرج، استمتع بإنشاء وتخصيص تفاصيل فيلمك خطوة بخطوة بدقة احترافية عالية.</div>
