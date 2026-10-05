@@ -89,10 +89,7 @@ app_html = """
             border-radius: 22px;
             overflow: hidden;
             padding: 20px 18px;
-            background-image: linear-gradient(to bottom, rgba(11, 12, 16, 0.35), rgba(11, 12, 16, 0.96)), 
-                              url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
+            background-color: #0b0c10;
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
         
@@ -115,7 +112,7 @@ app_html = """
             line-height: 1.3;
         }
         
-        /* البطاقتان: خطوة بخطوة يمين، سريع يسار */
+        /* البطاقتان */
         .cards-row {
             display: flex;
             gap: 10px;
@@ -132,12 +129,18 @@ app_html = """
             text-align: right;
         }
         
+        /* بطاقة خطوة بخطوة (يمين) */
         .card-item.right-card {
-            order: 1; /* خطوة بخطوة في اليمين */
+            order: 1;
         }
         
+        /* بطاقة سريع (يسار) - الحجم طبيعي تماماً مع تكبير ارتفاع الصورة الخلفية للأعلى */
         .card-item.left-card {
-            order: 2; /* سريع في اليسار */
+            order: 2;
+            background-image: linear-gradient(to bottom, rgba(11, 12, 16, 0.2), rgba(11, 12, 16, 0.9)), 
+                              url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=900&auto=format&fit=crop');
+            background-size: 180% 180%;
+            background-position: center 20%;
         }
         
         .pro-tag {
@@ -290,14 +293,14 @@ app_html = """
             </div>
             
             <div class="cards-row">
-                <!-- بطاقة خطوة بخطوة (يمين)[span_1](start_span)[span_1](end_span) -->
+                <!-- بطاقة خطوة بخطوة (يمين) -->
                 <div class="card-item right-card">
                     <div class="card-icon">💬</div>
                     <div class="card-heading">خطوة بخطوة</div>
                     <div class="card-subtext">راجع كل خطوة</div>
                 </div>
                 
-                <!-- بطاقة سريع (يسار)[span_2](start_span)[span_2](end_span) -->
+                <!-- بطاقة سريع (يسار) بحجمها الطبيعي وأدواتها وثباتها، مع تكبير الصورة الخلفية للأعلى فقط -->
                 <div class="card-item left-card">
                     <div class="pro-tag">Pro only</div>
                     <div class="card-icon">🪄</div>
