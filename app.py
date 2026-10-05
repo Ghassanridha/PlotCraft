@@ -1,7 +1,7 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
-# إعداد صفحة ستريمليت لإزالة الهوامش الجانبية واستغلال الشاشة بالكامل
+# إعداد صفحة ستريمليت لإزالة الهوامش واستغلال الشاشة بالكامل
 st.set_page_config(page_title="PlotCraft UI", layout="wide", initial_sidebar_state="collapsed")
 
 # إزالة هوامش وتداخلات صفحة ستريمليت الافتراضية للجوال
@@ -16,7 +16,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# كود HTML و CSS مصمم خصيصاً ليطابق شاشة الهاتف المحمول 1080 × 2340 بكامل المساحة
+# كود HTML و CSS بالتعديلات المطلوبة تماماً
 html_code = """
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -74,6 +74,14 @@ html_code = """
             width: 100%;
         }
 
+        /* اسم بلوت كرافت أصبح في مكان زر الترقية (جهة اليمين) */
+        .brand-title {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        /* زر الترقية أصبح في مكان الاسم القديم (جهة اليسار) */
         .upgrade-badge {
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
@@ -86,12 +94,6 @@ html_code = """
             align-items: center;
             gap: 6px;
             border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .brand-title {
-            color: #ffffff;
-            font-size: 20px;
-            font-weight: 700;
         }
 
         /* الترحيب */
@@ -267,31 +269,33 @@ html_code = """
         <!-- صندوق الخلفية العلوي الموحد -->
         <div class="hero-box">
             <div class="top-header">
+                <!-- اسم بلوت كرافت في اليمين -->
+                <div class="brand-title">بلوت كرافت</div>
+                <!-- زر الترقية في اليسار -->
                 <div class="upgrade-badge">
                     <span>⭐</span> ترقية
                 </div>
-                <div class="brand-title">بلوت كرافت</div>
             </div>
 
             <div class="welcome-section">
                 <h1>مساء الخير، أيها المخرج<br>أي قصة سنصنع اليوم؟</h1>
             </div>
 
-            <!-- البطاقتان في أسفل صندوق الخلفية تماماً -->
+            <!-- البطاقتان في أسفل صندوق الخلفية تماماً (خطوة بخطوة في اليمين، وسريع في اليسار) -->
             <div class="cards-row">
+                <div class="interactive-card">
+                    <div class="card-header-row">
+                        <div class="card-title">خطوة بخطوة</div>
+                    </div>
+                    <div class="card-subtitle">راجع كل خطوة</div>
+                </div>
+
                 <div class="interactive-card">
                     <div class="card-header-row">
                         <div class="card-title">سريع</div>
                         <div class="pro-badge-small">Pro only</div>
                     </div>
                     <div class="card-subtitle">إدخال واحد، فيديو كامل</div>
-                </div>
-
-                <div class="interactive-card">
-                    <div class="card-header-row">
-                        <div class="card-title">خطوة بخطوة</div>
-                    </div>
-                    <div class="card-subtitle">راجع كل خطوة</div>
                 </div>
             </div>
         </div>
