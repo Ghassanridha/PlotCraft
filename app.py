@@ -264,7 +264,207 @@ html_code = """
             line-height: 1.2;
         }
 
-        /* واجهة صفحة الاشتراكات مع الخلفية المتحركة/السينمائية */
+        /* --- تصميم واجهة دراما جديدة (خطوة بخطوة) --- */
+        #dramaScreen {
+            background-color: #0b0f19;
+            color: #ffffff;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .drama-header-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .ai-assistant-banner {
+            background: #141928;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .ai-banner-top {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ec4899;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .ai-avatar-icon {
+            width: 24px;
+            height: 24px;
+            background: #ec4899;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 12px;
+        }
+
+        .ai-banner-text {
+            color: #cbd5e1;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .story-setup-box {
+            background: #141928;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .setup-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .setup-main-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .counter-badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            color: #94a3b8;
+        }
+
+        .setup-subtitle {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 6px;
+        }
+
+        .input-card-box {
+            background: #1e2538;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .input-card-box:active {
+            background: #28324a;
+        }
+
+        .input-card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .input-card-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .input-card-desc {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+
+        .add-btn-style {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #ffffff;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        /* حاوية رفع الصور للشخصيات */
+        .image-upload-container {
+            display: none;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .image-upload-container.show {
+            display: grid;
+        }
+
+        .image-slot {
+            background: #111622;
+            border: 1.5px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            color: #94a3b8;
+            font-size: 11px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-slot input {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .next-action-container {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-top: 10px;
+        }
+
+        .next-main-btn {
+            width: 100%;
+            background: #272f45;
+            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 12px;
+            border-radius: 12px;
+            border: none;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .next-desc-note {
+            text-align: center;
+            font-size: 11px;
+            color: #64748b;
+        }
+
+        /* --- واجهة صفحة الاشتراكات --- */
         #subscriptionScreen {
             position: relative;
             background: #0b0f19;
@@ -538,8 +738,8 @@ html_code = """
             </div>
 
             <div class="cards-row">
-                <!-- بطاقة خطوة بخطوة في الجهة اليمنى -->
-                <div class="interactive-card">
+                <!-- بطاقة خطوة بخطوة - تربط بواجهة دراما جديدة الجديدة -->
+                <div class="interactive-card" onclick="switchScreen('dramaScreen')">
                     <div class="card-header-row">
                         <div class="card-title-group-left">
                             <div class="card-title">خطوة بخطوة</div>
@@ -549,7 +749,7 @@ html_code = """
                     <div class="card-subtitle">راجع كل خطوة</div>
                 </div>
 
-                <!-- بطاقة "سريع" في الجهة اليسرى (مربوطة بواجهة الاشتراكات والخلفية المتحركة) -->
+                <!-- بطاقة "سريع" -->
                 <div class="interactive-card" onclick="switchScreen('subscriptionScreen')">
                     <div class="card-header-row">
                         <div class="card-title-group-left">
@@ -582,7 +782,72 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة صفحة الاشتراكات مع الخلفية المتحركة والتأثيرات -->
+    <!-- واجهة دراما جديدة (خطوة بخطوة) المطلوبة -->
+    <div id="dramaScreen" class="screen-view">
+        <div class="page-header" style="background: transparent; border: none; padding: 10px 0;">
+            <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
+            <div class="drama-header-title" style="margin: 0;">دراما جديدة</div>
+            <div style="width: 36px;"></div>
+        </div>
+
+        <!-- مساعد AI بلوت كرافت -->
+        <div class="ai-assistant-banner">
+            <div class="ai-banner-top">
+                <div class="ai-avatar-icon">ni</div>
+                <span>مساعد AI بلوت كرافت</span>
+            </div>
+            <div class="ai-banner-text">
+                عزيزي المخرج، ما نوع القصة التي تريد إنشاءها؟ اكتب فكرتك ودع بلوت كرافت يحولها إلى واقع.
+            </div>
+        </div>
+
+        <!-- قسم إعداد القصة -->
+        <div class="story-setup-box">
+            <div class="setup-header-row">
+                <div class="setup-main-title">إعداد القصة</div>
+                <div class="counter-badge">0/2</div>
+            </div>
+            <div class="setup-subtitle">أضف الشخصيات والقصة أولاً، ثم اختر المدة والنسبة.</div>
+
+            <!-- الخيار الأول: الشخصيات -->
+            <div class="input-card-box" onclick="toggleCharacterUpload()">
+                <div class="input-card-info">
+                    <div class="input-card-title">الخيار الأول: الشخصيات</div>
+                    <div class="input-card-desc">أضف شخصيتين كحد أقصى</div>
+                </div>
+                <button class="add-btn-style">＋ إضافة</button>
+            </div>
+
+            <!-- حاوية إرفاق صورتين للشخصيات (تظهر عند الضغط) -->
+            <div id="charUploadContainer" class="image-upload-container">
+                <div class="image-slot">
+                    <span>+ الشخصية 1</span>
+                    <input type="file" accept="image/*">
+                </div>
+                <div class="image-slot">
+                    <span>+ الشخصية 2</span>
+                    <input type="file" accept="image/*">
+                </div>
+            </div>
+
+            <!-- الخيار الثاني: الحكاية -->
+            <div class="input-card-box" onclick="alert('انقر لكتابة قصتك')">
+                <div class="input-card-info">
+                    <div class="input-card-title">الخيار الثاني: الحكاية</div>
+                    <div class="input-card-desc">اضغط لكتابة قصتك</div>
+                </div>
+                <button class="add-btn-style">✏️ إضافة</button>
+            </div>
+        </div>
+
+        <!-- زر التالي / المتابعة في الأسفل -->
+        <div class="next-action-container">
+            <button class="next-main-btn" onclick="alert('جاري الانتقال للمتابعة...')">التالي</button>
+            <div class="next-desc-note">التالي تعني متابعة</div>
+        </div>
+    </div>
+
+    <!-- واجهة صفحة الاشتراكات -->
     <div id="subscriptionScreen" class="screen-view">
         <div class="animated-bg-container">
             <div class="explosion-glow glow-1"></div>
@@ -702,6 +967,11 @@ html_code = """
             window.scrollTo(0, 0);
         }
 
+        function toggleCharacterUpload() {
+            var uploadBox = document.getElementById('charUploadContainer');
+            uploadBox.classList.toggle('show');
+        }
+
         function selectPlan(element) {
             var cards = document.querySelectorAll('.plan-card');
             cards.forEach(c => c.classList.remove('selected'));
@@ -717,4 +987,4 @@ html_code = """
 </html>
 """
 
-components.html(html_code, height=750, scrolling=True)
+components.html(html_code, height=780, scrolling=True)
