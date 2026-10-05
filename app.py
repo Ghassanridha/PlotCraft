@@ -1,16 +1,28 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
-# إعداد صفحة ستريمليت لملء الشاشة
-st.set_page_config(page_title="PlotCraft UI", layout="centered", initial_sidebar_state="collapsed")
+# إعداد صفحة ستريمليت لإزالة الهوامش الجانبية واستغلال الشاشة بالكامل
+st.set_page_config(page_title="PlotCraft UI", layout="wide", initial_sidebar_state="collapsed")
 
-# كود HTML و CSS المصمم خصيصاً ليطابق أبعاد 1080 × 2340 بدقة تامة
+# إزالة هوامش وتداخلات صفحة ستريمليت الافتراضية للجوال
+st.markdown("""
+    <style>
+        .block-container {
+            padding: 0 !important;
+            margin: 0 !important;
+            max-width: 100% !important;
+        }
+        header {visibility: hidden;}
+    </style>
+""", unsafe_allow_html=True)
+
+# كود HTML و CSS مصمم خصيصاً ليطابق شاشة الهاتف المحمول 1080 × 2340 بكامل المساحة
 html_code = """
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PlotCraft UI</title>
     <style>
         * {
@@ -20,41 +32,38 @@ html_code = """
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
-        body {
+        body, html {
+            width: 100%;
+            height: 100%;
             background-color: #0b0f19;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             overflow: hidden;
         }
 
-        /* حاوية الهاتف بأبعاد 1080px عرض و 2340px ارتفاع */
+        /* حاوية الهاتف تملأ شاشة الجوال بالكامل بنسبة الأبعاد المطلوبة */
         .mobile-screen {
-            width: 1080px;
-            height: 2340px;
+            width: 100vw;
+            height: 100vh;
             background-color: #0b0f19;
             position: relative;
             display: flex;
             flex-direction: column;
             overflow-y: auto;
             overflow-x: hidden;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
         }
 
         /* صندوق الخلفية العلوي الموحد (Hero Box) */
         .hero-box {
             position: relative;
             width: 100%;
-            height: 1100px;
-            background: linear-gradient(180deg, rgba(11,15,25,0.4) 0%, rgba(11,15,25,0.8) 70%, #0b0f19 100%),
+            min-height: 52vh;
+            background: linear-gradient(180deg, rgba(11,15,25,0.2) 0%, rgba(11,15,25,0.8) 75%, #0b0f19 100%),
                         url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1080&auto=format&fit=crop') center/cover no-repeat;
-            border-bottom-left-radius: 60px;
-            border-bottom-right-radius: 60px;
+            border-bottom-left-radius: 35px;
+            border-bottom-right-radius: 35px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 70px 50px 60px 50px;
+            padding: 24px 20px 20px 20px;
         }
 
         /* الشريط العلوي */
@@ -68,159 +77,155 @@ html_code = """
         .upgrade-badge {
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
-            padding: 16px 32px;
-            border-radius: 40px;
+            padding: 8px 16px;
+            border-radius: 25px;
             color: #ffffff;
-            font-size: 28px;
+            font-size: 14px;
             font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 6px;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .brand-title {
             color: #ffffff;
-            font-size: 42px;
+            font-size: 20px;
             font-weight: 700;
         }
 
         /* الترحيب */
         .welcome-section {
             text-align: right;
-            margin-top: 100px;
+            margin-top: 15px;
         }
 
         .welcome-section h1 {
             color: #ffffff;
-            font-size: 64px;
+            font-size: 22px;
             font-weight: 700;
-            line-height: 1.3;
-            text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            line-height: 1.4;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
         }
 
         /* صف البطاقتين داخل صندوق الخلفية في الأسفل تماماً */
         .cards-row {
             display: flex;
-            gap: 30px;
+            gap: 12px;
             width: 100%;
-            margin-top: auto;
+            margin-top: 20px;
         }
 
         .interactive-card {
             flex: 1;
             background: rgba(20, 25, 40, 0.65);
-            backdrop-filter: blur(25px);
+            backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 35px;
-            padding: 40px;
+            border-radius: 18px;
+            padding: 16px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .interactive-card:hover {
-            background: rgba(30, 38, 60, 0.8);
-            border-color: rgba(255, 255, 255, 0.3);
         }
 
         .card-header-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 6px;
         }
 
         .card-title {
             color: #ffffff;
-            font-size: 38px;
+            font-size: 16px;
             font-weight: 700;
         }
 
         .card-subtitle {
             color: #94a3b8;
-            font-size: 26px;
+            font-size: 12px;
             font-weight: 400;
         }
 
         .pro-badge-small {
             background: rgba(255, 255, 255, 0.2);
-            padding: 6px 16px;
-            border-radius: 12px;
+            padding: 3px 8px;
+            border-radius: 8px;
             color: #ffffff;
-            font-size: 20px;
+            font-size: 10px;
             font-weight: 600;
         }
 
         /* قسم الإلهام والأفلام */
         .inspiration-section {
-            padding: 60px 50px;
-            flex: 1;
+            padding: 24px 20px;
         }
 
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 40px;
+            margin-bottom: 16px;
         }
 
         .section-title {
             color: #ffffff;
-            font-size: 44px;
+            font-size: 18px;
             font-weight: 700;
         }
 
         .view-all {
             color: #94a3b8;
-            font-size: 30px;
-            cursor: pointer;
+            font-size: 13px;
         }
 
         .movies-carousel {
             display: flex;
-            gap: 30px;
+            gap: 14px;
             overflow-x: auto;
-            padding-bottom: 20px;
+            padding-bottom: 10px;
+            scrollbar-width: none;
+        }
+
+        .movies-carousel::-webkit-scrollbar {
+            display: none;
         }
 
         .movie-card {
-            min-width: 310px;
-            height: 460px;
+            min-width: 130px;
+            height: 190px;
             background: #1a2236;
-            border-radius: 30px;
+            border-radius: 16px;
             overflow: hidden;
             position: relative;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             border: 1px solid rgba(255,255,255,0.05);
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 30px;
+            padding: 14px;
         }
 
         .movie-card.m1 {
-            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%), 
-                        url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=400&auto=format&fit=crop') center/cover;
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), 
+                        url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=300&auto=format&fit=crop') center/cover;
         }
 
         .movie-card.m2 {
-            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%), 
-                        url('https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=400&auto=format&fit=crop') center/cover;
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), 
+                        url('https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=300&auto=format&fit=crop') center/cover;
         }
 
         .movie-card.m3 {
-            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%), 
-                        url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=400&auto=format&fit=crop') center/cover;
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), 
+                        url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=300&auto=format&fit=crop') center/cover;
         }
 
         .movie-title {
             color: #ffffff;
-            font-size: 28px;
+            font-size: 12px;
             font-weight: 700;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
         /* شريط التنقل السفلي الثابت */
@@ -231,20 +236,20 @@ html_code = """
             background: rgba(15, 22, 36, 0.95);
             backdrop-filter: blur(20px);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 35px 50px;
+            padding: 14px 20px;
             display: flex;
             justify-content: space-around;
             align-items: center;
+            margin-top: auto;
         }
 
         .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 4px;
             color: #64748b;
-            font-size: 24px;
-            cursor: pointer;
+            font-size: 11px;
         }
 
         .nav-item.active {
@@ -252,7 +257,7 @@ html_code = """
         }
 
         .nav-icon {
-            font-size: 36px;
+            font-size: 20px;
         }
     </style>
 </head>
@@ -336,5 +341,5 @@ html_code = """
 </html>
 """
 
-# عرض المكون داخل تطبيق Streamlit بالأبعاد المطلوبة 1080x2340
-components.html(html_code, height=900, scrolling=True)
+# عرض المكون ليملأ شاشة الهاتف بالكامل دون أي فراغات
+components.html(html_code, height=750, scrolling=True)
