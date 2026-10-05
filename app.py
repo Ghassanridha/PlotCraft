@@ -16,7 +16,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-html_code = r"""
+html_code = """
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -48,6 +48,7 @@ html_code = r"""
             padding-bottom: 70px;
         }
 
+        /* الشاشات المختلفة */
         .screen-view {
             display: none;
             width: 100%;
@@ -100,6 +101,12 @@ html_code = r"""
             gap: 6px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .upgrade-badge:active {
+            transform: scale(0.95);
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .welcome-section {
@@ -133,6 +140,12 @@ html_code = r"""
             flex-direction: column;
             justify-content: center;
             cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .interactive-card:active {
+            transform: scale(0.97);
+            background: rgba(30, 40, 65, 0.85);
         }
 
         .card-header-row {
@@ -151,13 +164,16 @@ html_code = r"""
         .card-subtitle {
             color: #94a3b8;
             font-size: 12px;
+            font-weight: 400;
         }
 
-        .exact-bot-icon, .magic-wand-icon {
+        .exact-bot-icon {
             width: 22px;
             height: 22px;
             background: #dbeafe;
-            display: inline-block;
+            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
+            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
+            background-size: contain;
         }
 
         .card-title-group-left {
@@ -165,6 +181,15 @@ html_code = r"""
             justify-content: space-between;
             align-items: center;
             width: 100%;
+        }
+
+        .magic-wand-icon {
+            width: 22px;
+            height: 22px;
+            background: #dbeafe;
+            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.5 5.6c-.3-.3-.8-.3-1.1 0-.3.3-.3.8 0 1.1 1.2 1.2 1.9 2.8 1.9 4.5 0 1.7-.7 3.3-1.9 4.5-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 1.5-1.5 2.3-3.5 2.3-5.6s-.8-4.1-2.3-5.6zm4.3-2.3c-.3-.3-.8-.3-1.1 0-.3.3-.3.8 0 1.1 2.2 2.2 3.4 5.1 3.4 8.2s-1.2 6-3.4 8.2c-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 2.6-2.6 4-6 4-9.3s-1.4-6.7-4-9.3zm4.4-2.3c-.3-.3-.8-.3-1.1 0-.3.3-.3.8 0 1.1 3.1 3.1 4.9 7.3 4.9 11.6s-1.8 8.5-4.9 11.6c-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 3.5-3.5 5.4-8.1 5.4-12.7s-1.9-9.2-5.4-12.7zm-7.6 15.6l-8.5 8.5c-.4.4-.4 1 0 1.4s1 .4 1.4 0l8.5-8.5c.4-.4.4-1 0-1.4s-1-.4-1.4 0zm11.4-11.4l-3.5 3.5c-.4.4-.4 1 0 1.4s1 .4 1.4 0l3.5-3.5c.4-.4.4-1 0-1.4s-1-.4-1.4 0zm-15 3.5l-3.5 3.5c-.4.4-.4 1 0 1.4s1 .4 1.4 0l3.5-3.5c.4-.4.4-1 0-1.4s-1-.4-1.4 0z"/></svg>') no-repeat center;
+            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.5 5.6c-.3-.3-.8-.3-1.1 0-.3.3-.3.8 0 1.1 1.2 1.2 1.9 2.8 1.9 4.5 0 1.7-.7 3.3-1.9 4.5-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 1.5-1.5 2.3-3.5 2.3-5.6s-.8-4.1-2.3-5.6zm4.3-2.3c-.3-.3-.8-.3-1.1 0-.3.3-.3.8 0 1.1 2.2 2.2 3.4 5.1 3.4 8.2s-1.2 6-3.4 8.2c-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 2.6-2.6 4-6 4-9.3s-1.4-6.7-4-9.3zm4.4-2.3c-.3-.3-.8-.3-1.1 0-.3.3-.3.8 0 1.1 3.1 3.1 4.9 7.3 4.9 11.6s-1.8 8.5-4.9 11.6c-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 3.5-3.5 5.4-8.1 5.4-12.7s-1.9-9.2-5.4-12.7zm-7.6 15.6l-8.5 8.5c-.4.4-.4 1 0 1.4s1 .4 1.4 0l8.5-8.5c.4-.4.4-1 0-1.4s-1-.4-1.4 0zm11.4-11.4l-3.5 3.5c-.4.4-.4 1 0 1.4s1 .4 1.4 0l3.5-3.5c.4-.4.4-1 0-1.4s-1-.4-1.4 0zm-15 3.5l-3.5 3.5c-.4.4-.4 1 0 1.4s1 .4 1.4 0l3.5-3.5c.4-.4.4-1 0-1.4s-1-.4-1.4 0z"/></svg>') no-repeat center;
+            background-size: contain;
         }
 
         .inspiration-section {
@@ -198,198 +223,87 @@ html_code = r"""
             scrollbar-width: none;
         }
 
+        .movies-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
         .movie-card {
             min-width: 130px;
             height: 190px;
             border-radius: 16px;
             overflow: hidden;
             position: relative;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.05);
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
             padding: 14px;
         }
 
-        .movie-card.m1 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=300&auto=format&fit=crop') center/cover; }
-        .movie-card.m2 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=300&auto=format&fit=crop') center/cover; }
-        .movie-card.m3 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=300&auto=format&fit=crop') center/cover; }
+        .movie-card.m1 {
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), 
+                        url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=300&auto=format&fit=crop') center/cover;
+        }
+
+        .movie-card.m2 {
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), 
+                        url('https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=300&auto=format&fit=crop') center/cover;
+        }
+
+        .movie-card.m3 {
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), 
+                        url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=300&auto=format&fit=crop') center/cover;
+        }
 
         .movie-title {
             color: #ffffff;
             font-size: 10px;
             font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            line-height: 1.2;
         }
 
-        #dramaScreen {
-            background-color: #0b0f19;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            direction: rtl;
-        }
-
-        .drama-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        .drama-title {
-            color: #ffffff;
-            font-size: 18px;
-            font-weight: 700;
-            text-align: center;
-            flex-grow: 1;
-        }
-
-        .drama-back-btn {
-            background: transparent;
-            border: none;
-            color: #ffffff;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .ai-assistant-box {
-            background-color: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 16px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .ai-assistant-header {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 8px;
-        }
-
-        .ai-assistant-name {
-            color: #ec4899;
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-        .plotcraft-circle-logo {
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .ai-assistant-text {
-            color: #94a3b8;
-            font-size: 12px;
-            line-height: 1.5;
-            text-align: right;
-        }
-
-        .story-setup-card {
-            background-color: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 16px;
-            padding: 18px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .story-setup-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .story-setup-title {
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: 700;
-        }
-
-        .story-setup-counter {
-            background-color: #30363d;
-            color: #ffffff;
-            font-size: 11px;
-            padding: 3px 8px;
-            border-radius: 10px;
-        }
-
-        .story-setup-desc {
-            color: #94a3b8;
-            font-size: 11px;
-            text-align: right;
-            margin-top: -10px;
-        }
-
-        .option-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 12px 14px;
-            border-radius: 12px;
-        }
-
-        .option-info {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-            text-align: right;
-        }
-
-        .option-label {
-            color: #ffffff;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        .option-sub {
-            color: #94a3b8;
-            font-size: 11px;
-        }
-
-        .add-btn {
-            background-color: #30363d;
-            color: #ffffff;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 12px;
-            cursor: pointer;
-        }
-
-        .next-step-btn {
-            width: 100%;
-            background: #21262d;
-            color: #8b949e;
-            border: 1px solid #30363d;
-            padding: 14px;
-            border-radius: 14px;
-            font-size: 14px;
-            font-weight: 700;
-            text-align: center;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
+        /* واجهة صفحة الاشتراكات مع الخلفية المتحركة/السينمائية */
         #subscriptionScreen {
             position: relative;
             background: #0b0f19;
-            display: none;
-            flex-direction: column;
-            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .animated-bg-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        .explosion-glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(59,130,246,0.6) 0%, rgba(139,92,246,0.2) 50%, transparent 70%);
+            border-radius: 50%;
+            animation: pulseExplosion 4s infinite alternate ease-in-out;
+        }
+
+        .glow-1 { top: -50px; right: -50px; animation-delay: 0s; }
+        .glow-2 { bottom: 100px; left: -80px; animation-delay: 2s; background: radial-gradient(circle, rgba(236,72,153,0.5) 0%, rgba(59,130,246,0.2) 50%, transparent 70%); }
+
+        @keyframes pulseExplosion {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.3; }
+            50% { transform: scale(1.4) translate(20px, 30px); opacity: 0.7; }
+            100% { transform: scale(1.1) translate(-10px, 15px); opacity: 0.4; }
+        }
+
+        .page-header, .content-body {
+            position: relative;
+            z-index: 2;
         }
 
         .page-header {
@@ -399,6 +313,7 @@ html_code = r"""
             padding: 20px;
             border-bottom: 1px solid rgba(255,255,255,0.08);
             background: rgba(11, 15, 25, 0.75);
+            backdrop-filter: blur(10px);
         }
 
         .back-btn {
@@ -408,7 +323,11 @@ html_code = r"""
             width: 36px;
             height: 36px;
             border-radius: 50%;
+            font-size: 16px;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .page-title-text {
@@ -419,6 +338,132 @@ html_code = r"""
 
         .content-body {
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .plans-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .plan-card {
+            background: rgba(20, 25, 40, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1.5px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            padding: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+            position: relative;
+        }
+
+        .plan-card.selected {
+            border-color: #3b82f6;
+            background: rgba(30, 41, 75, 0.95);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .plan-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .plan-name {
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .plan-price {
+            background: rgba(255, 255, 255, 0.12);
+            padding: 4px 10px;
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .plan-desc {
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        .new-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #3b82f6;
+            color: #fff;
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .renewal-text {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .action-main-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 14px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            margin-top: 10px;
+        }
+
+        .payment-form-box {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-label {
+            color: #cbd5e1;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 12px 14px;
+            color: #ffffff;
+            font-size: 14px;
+            outline: none;
+            text-align: right;
+        }
+
+        .form-input:focus {
+            border-color: #3b82f6;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 10px;
         }
 
         .plotcraft-nav-bar {
@@ -435,8 +480,8 @@ html_code = r"""
             z-index: 999999;
             box-sizing: border-box;
             direction: rtl;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.6);
         }
-
         .plotcraft-nav-pill {
             background-color: #161b22;
             border: 1px solid #30363d;
@@ -448,16 +493,20 @@ html_code = r"""
             flex-grow: 1;
             max-width: 380px;
         }
-
         .plotcraft-nav-item {
             display: flex;
             align-items: center;
             gap: 6px;
             color: #8b949e;
             font-size: 13px;
+            text-decoration: none;
             cursor: pointer;
+            white-space: nowrap;
         }
-
+        .plotcraft-nav-item.active {
+            color: #ffffff;
+            font-weight: bold;
+        }
         .plotcraft-nav-square {
             background-color: #161b22;
             border: 1px solid #30363d;
@@ -467,25 +516,205 @@ html_code = r"""
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-shrink: 0;
             cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <div class="mobile-screen">
-        <div id="homeScreen" class="screen-view active">
-            <div class="hero-box">
-                <div class="top-header">
-                    <div class="brand-title">بلوت كرافت</div>
-                    <div class="upgrade-badge" onclick="switchScreen('subscriptionScreen')">
-                        <span>⭐</span> ترقية
+    <!-- الواجهة الرئيسية -->
+    <div id="homeScreen" class="screen-view active">
+        <div class="hero-box">
+            <div class="top-header">
+                <div class="brand-title">بلوت كرافت</div>
+                <div class="upgrade-badge" onclick="switchScreen('subscriptionScreen')">
+                    <span>⭐</span> ترقية
+                </div>
+            </div>
+
+            <div class="welcome-section">
+                <h1>مساء الخير، أيها المخرج<br>أي قصة سنصنع اليوم؟</h1>
+            </div>
+
+            <div class="cards-row">
+                <!-- بطاقة خطوة بخطوة في الجهة اليمنى -->
+                <div class="interactive-card">
+                    <div class="card-header-row">
+                        <div class="card-title-group-left">
+                            <div class="card-title">خطوة بخطوة</div>
+                            <span class="exact-bot-icon"></span>
+                        </div>
+                    </div>
+                    <div class="card-subtitle">راجع كل خطوة</div>
+                </div>
+
+                <!-- بطاقة "سريع" في الجهة اليسرى (مربوطة بواجهة الاشتراكات والخلفية المتحركة) -->
+                <div class="interactive-card" onclick="switchScreen('subscriptionScreen')">
+                    <div class="card-header-row">
+                        <div class="card-title-group-left">
+                            <div class="card-title">سريع</div>
+                            <span class="magic-wand-icon"></span>
+                        </div>
+                    </div>
+                    <div class="card-subtitle">إدخال واحد، فيديو كامل</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="inspiration-section">
+            <div class="section-header">
+                <div class="section-title">إلهام بلوت كرافت</div>
+                <div class="view-all">عرض الكل ></div>
+            </div>
+
+            <div class="movies-carousel">
+                <div class="movie-card m1">
+                    <div class="movie-title">THE DELIVERYMAN'S SECRET BILLIONAIRE</div>
+                </div>
+                <div class="movie-card m2">
+                    <div class="movie-title">SECRET BILLIONAIRE</div>
+                </div>
+                <div class="movie-card m3">
+                    <div class="movie-title">CYBER CITY</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- واجهة صفحة الاشتراكات مع الخلفية المتحركة والتأثيرات -->
+    <div id="subscriptionScreen" class="screen-view">
+        <div class="animated-bg-container">
+            <div class="explosion-glow glow-1"></div>
+            <div class="explosion-glow glow-2"></div>
+        </div>
+
+        <div class="page-header">
+            <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
+            <div class="page-title-text">ترقية الحساب</div>
+            <div style="width: 36px;"></div>
+        </div>
+
+        <div class="content-body">
+            <div style="text-align: center; margin-bottom: 5px;">
+                <div style="color: #ffffff; font-size: 18px; font-weight: 700; margin-bottom: 4px;">حول أفكارك إلى بلوت كرافت</div>
+                <div style="color: #94a3b8; font-size: 12px;">أنشئ كل لقطة وعدلها وأكملها بسرعة.</div>
+            </div>
+
+            <div class="plans-list">
+                <div class="plan-card selected" onclick="selectPlan(this)">
+                    <div class="plan-top">
+                        <div class="plan-name">بلوت كرافت برو ويكلي</div>
+                        <div class="plan-price">9.99 دولار أمريكي / أسبوع</div>
+                    </div>
+                    <div class="plan-desc">500 ساعة معتمدة / أسبوعياً، جرب بلوت كرافت</div>
+                </div>
+
+                <div class="plan-card" onclick="selectPlan(this)">
+                    <div class="new-tag">جديد</div>
+                    <div class="plan-top">
+                        <div class="plan-name">بلوت كرافت برو الشهرية</div>
+                        <div class="plan-price">29.99 دولار أمريكي / شهر</div>
+                    </div>
+                    <div class="plan-desc">1800 نقطة / شهرياً، مثالي للاستخدام المنتظم للمبدعين</div>
+                </div>
+
+                <div class="plan-card" onclick="selectPlan(this)">
+                    <div class="plan-top">
+                        <div class="plan-name">بلوت كرافت برو السنوية</div>
+                        <div class="plan-price">69.99 دولار أمريكي / سنة</div>
+                    </div>
+                    <div class="plan-desc">5000 رصيد / سنة، مثالي للمبدعين المحترفين</div>
+                </div>
+            </div>
+
+            <div class="renewal-text">تجديد تلقائي، ويمكن الإلغاء في أي وقت</div>
+
+            <button class="action-main-btn" onclick="switchScreen('paymentScreen')">اشتراك</button>
+        </div>
+    </div>
+
+    <!-- واجهة تفاصيل الدفع البنكي -->
+    <div id="paymentScreen" class="screen-view">
+        <div class="page-header">
+            <button class="back-btn" onclick="switchScreen('subscriptionScreen')">←</button>
+            <div class="page-title-text">تفاصيل الدفع البنكي</div>
+            <div style="width: 36px;"></div>
+        </div>
+
+        <div class="content-body">
+            <div class="payment-form-box">
+                <div class="form-group">
+                    <label class="form-label">اسم البطاقة البنكية</label>
+                    <input type="text" class="form-input" placeholder="الاسم كما يظهر على البطاقة">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">رقم البطاقة البنكية</label>
+                    <input type="text" class="form-input" placeholder="**** **** **** ****" maxlength="19">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group" style="flex: 1;">
+                        <label class="form-label">تاريخ الانتهاء</label>
+                        <input type="text" class="form-input" placeholder="MM/YY" maxlength="5">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label class="form-label">رمز البطاقة (CVV)</label>
+                        <input type="password" class="form-input" placeholder="***" maxlength="4">
                     </div>
                 </div>
 
-                <div class="welcome-section">
-                    <h1>مساء الخير، أيها المخرج<br>أي قصة سنصنع اليوم؟</h1>
-                </div>
+                <button class="action-main-btn" onclick="confirmPayment()" style="margin-top: 15px;">تأكيد وإتمام الاشتراك</button>
+            </div>
+        </div>
+    </div>
 
-                <div class="cards-row">
-                    <div class="interactive-card" onclick="switchScreen('dramaScreen
+    <!-- شريط التنقل السفلي المدمج -->
+    <div class="plotcraft-nav-bar">
+        <div class="plotcraft-nav-pill">
+            <a href="#" class="plotcraft-nav-item active">
+                <span>الرئيسية</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22" fill="none" stroke="#161b22" stroke-width="2"></polyline></svg>
+            </a>
+            
+            <a href="#" class="plotcraft-nav-item">
+                <span>الأدوات</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
+            </a>
+
+            <a href="#" class="plotcraft-nav-item">
+                <span>الأعمال</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            </a>
+        </div>
+
+        <div class="plotcraft-nav-square">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+        </div>
+    </div>
+
+    <script>
+        function switchScreen(screenId) {
+            var screens = document.querySelectorAll('.screen-view');
+            screens.forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function selectPlan(element) {
+            var cards = document.querySelectorAll('.plan-card');
+            cards.forEach(c => c.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function confirmPayment() {
+            alert('تم تأكيد اشتراكك في بلوت كرافت بنجاح!');
+            switchScreen('homeScreen');
+        }
+    </script>
+</body>
+</html>
+"""
+
+components.html(html_code, height=750, scrolling=True)
