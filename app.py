@@ -55,26 +55,21 @@ app_html = """
             padding-bottom: 12px;
         }
         
-        /* قسم البطل والخلفية */
+        /* صندوق الخلفية العلوي (يحتوي الترحيب فقط الآن) */
         .hero-box {
             position: relative;
             width: 100%;
             margin: 0;
             border-radius: 0 0 28px 28px;
             overflow: hidden;
-            padding: 60px 18px 20px 18px;
+            padding: 60px 18px 25px 18px;
             background-image: linear-gradient(to bottom, rgba(11, 12, 16, 0.05), rgba(11, 12, 16, 0.98)), 
                               url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200&auto=format&fit=crop');
             background-size: cover;
             background-position: center top;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 290px;
         }
         
-        /* الهيدر العلوي */
         .top-header {
             position: absolute;
             top: 14px;
@@ -107,7 +102,6 @@ app_html = """
         
         .hero-text {
             text-align: right;
-            margin-top: 15px;
         }
         
         .hero-subtitle {
@@ -124,16 +118,21 @@ app_html = """
             line-height: 1.3;
         }
         
-        /* البطاقتان تم نزولهما للأسفل باتجاه قسم الإلهام */
+        /* حاوية البطاقتين بعد إخراجها للخارج لتصبح بالأسفل قرب الإلهام */
+        .cards-container-outside {
+            padding: 0 16px;
+            margin-top: -12px;
+            z-index: 5;
+        }
+        
         .cards-row {
             display: flex;
             gap: 10px;
-            margin-top: 25px;
         }
         
         .card-item {
             flex: 1;
-            background: rgba(18, 20, 28, 0.85);
+            background: rgba(18, 20, 28, 0.92);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 14px;
@@ -181,13 +180,11 @@ app_html = """
             line-height: 1.2;
         }
         
-        /* عنوان قسم الإلهام */
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0 18px;
-            margin-top: 4px;
         }
         
         .section-name {
@@ -202,7 +199,6 @@ app_html = """
             font-weight: 600;
         }
         
-        /* قائمة الأفلام */
         .movies-container {
             display: flex;
             gap: 10px;
@@ -242,7 +238,6 @@ app_html = """
             letter-spacing: 0.3px;
         }
         
-        /* الشريط السفلي الثابت */
         .bottom-nav-wrapper {
             padding: 0 16px;
             width: 100%;
@@ -285,9 +280,8 @@ app_html = """
 
     <div class="mobile-screen">
         
-        <!-- قسم البطل -->
+        <!-- قسم الخلفية العلوي (يحتوي النَص والترقية فقط) -->
         <div class="hero-box">
-            <!-- الهيدر العلوي -->
             <div class="top-header">
                 <div class="app-brand">بلوت كرافت</div>
                 <div class="upgrade-btn">
@@ -299,17 +293,17 @@ app_html = """
                 <div class="hero-subtitle">مساء الخير، أيها المخرج</div>
                 <div class="hero-title">أي قصة سنصنع اليوم؟</div>
             </div>
-            
-            <!-- البطاقتان نازلتان للأسفل بقرب قسم الإلهام -->
+        </div>
+
+        <!-- البطاقتان نازلتان بالأسفل خارج صندوق الخلفية وفوق قسم الإلهام -->
+        <div class="cards-container-outside">
             <div class="cards-row">
-                <!-- بطاقة خطوة بخطوة (يمين) -->
                 <div class="card-item right-card">
                     <div class="card-icon">💬</div>
                     <div class="card-heading">خطوة بخطوة</div>
                     <div class="card-subtext">راجع كل خطوة</div>
                 </div>
                 
-                <!-- بطاقة سريع (يسار) -->
                 <div class="card-item left-card">
                     <div class="pro-tag">Pro only</div>
                     <div class="card-icon">🪄</div>
