@@ -16,7 +16,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# كود واجهة مستخدم PlotCraft مع ضبط أيقونة الروبوت في الجهة اليسرى لبطاقة خطوة بخطوة
 html_code = """
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -36,18 +35,30 @@ html_code = """
             width: 100%;
             height: 100%;
             background-color: #0b0f19;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
         .mobile-screen {
             width: 100vw;
-            height: 100vh;
+            min-height: 100vh;
             background-color: #0b0f19;
             position: relative;
             display: flex;
             flex-direction: column;
-            overflow-y: auto;
-            overflow-x: hidden;
+            padding-bottom: 70px;
+        }
+
+        /* الشاشات المختلفة */
+        .screen-view {
+            display: none;
+            width: 100%;
+            min-height: 100vh;
+            background-color: #0b0f19;
+            flex-direction: column;
+        }
+
+        .screen-view.active {
+            display: flex;
         }
 
         .hero-box {
@@ -89,6 +100,13 @@ html_code = """
             align-items: center;
             gap: 6px;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .upgrade-badge:active {
+            transform: scale(0.95);
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .welcome-section {
@@ -142,7 +160,6 @@ html_code = """
             font-weight: 400;
         }
 
-        /* تصميم أيقونة الروبوت بحيث تكون في الجهة اليسرى بجانب العنوان */
         .exact-bot-icon {
             width: 22px;
             height: 22px;
@@ -159,7 +176,6 @@ html_code = """
             width: 100%;
         }
 
-        /* تصميم شعار العصا السحرية والنجوم لبطاقة سريع (على اليسار أيضاً) */
         .magic-wand-icon {
             width: 22px;
             height: 22px;
@@ -207,7 +223,6 @@ html_code = """
         .movie-card {
             min-width: 130px;
             height: 190px;
-            background: #1a2236;
             border-radius: 16px;
             overflow: hidden;
             position: relative;
@@ -242,89 +257,174 @@ html_code = """
             line-height: 1.2;
         }
 
-        .bottom-nav-container {
-            position: sticky;
-            bottom: 0;
-            width: 100%;
-            background: #0b0f19;
-            padding: 10px 15px 15px 15px;
+        /* واجهة صفحة الاشتراكات الثابتة */
+        .page-header {
             display: flex;
-            gap: 10px;
             align-items: center;
-            margin-top: auto;
+            justify-content: space-between;
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
         }
 
-        .nav-group-box {
-            flex: 1;
-            background: rgba(20, 25, 40, 0.85);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 22px;
-            padding: 6px;
+        .back-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #fff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-title-text {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .content-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .plans-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .plan-card {
+            background: rgba(20, 25, 40, 0.9);
+            border: 1.5px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+            position: relative;
+        }
+
+        .plan-card.selected {
+            border-color: #3b82f6;
+            background: rgba(30, 41, 75, 0.95);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .plan-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 6px;
         }
 
-        .nav-item-text {
-            color: #94a3b8;
-            font-size: 13px;
-            padding: 10px 14px;
-            border-radius: 16px;
-            cursor: pointer;
-            text-align: center;
-            flex: 1;
-        }
-
-        .nav-item-text.active {
-            background: rgba(255, 255, 255, 0.15);
+        .plan-name {
             color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .plan-price {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 12px;
             font-weight: 600;
         }
 
-        .nav-single-box {
-            width: 52px;
-            height: 52px;
-            background: rgba(20, 25, 40, 0.85);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 18px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            cursor: pointer;
+        .plan-desc {
+            color: #94a3b8;
+            font-size: 12px;
         }
 
-        .custom-movie-icon {
-            width: 24px;
-            height: 24px;
-            background: #94a3b8;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 4H6c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-9 11V9l6 3-6 3z"/></svg>') no-repeat center;
-            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 4H6c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-9 11V9l6 3-6 3z"/></svg>') no-repeat center;
-            background-size: contain;
-        }
-
-        .custom-sparkle {
+        .new-tag {
             position: absolute;
-            top: 6px;
-            left: 6px;
-            width: 14px;
-            height: 14px;
+            top: 12px;
+            left: 12px;
             background: #3b82f6;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0l3.5 8.5L24 12l-8.5 3.5L12 24l-3.5-8.5L0 12l8.5-3.5z"/></svg>') no-repeat center;
-            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0l3.5 8.5L24 12l-8.5 3.5L12 24l-3.5-8.5L0 12l8.5-3.5z"/></svg>') no-repeat center;
-            background-size: contain;
+            color: #fff;
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .renewal-text {
+            text-align: center;
+            color: #64748b;
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .action-main-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 14px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            margin-top: 10px;
+        }
+
+        /* حقول تفاصيل الدفع البنكي */
+        .payment-form-box {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-label {
+            color: #cbd5e1;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 12px 14px;
+            color: #ffffff;
+            font-size: 14px;
+            outline: none;
+            text-align: right;
+        }
+
+        .form-input:focus {
+            border-color: #3b82f6;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 10px;
         }
     </style>
 </head>
 <body>
 
-    <div class="mobile-screen">
+    <!-- الواجهة الرئيسية -->
+    <div id="homeScreen" class="screen-view active">
         <div class="hero-box">
             <div class="top-header">
                 <div class="brand-title">بلوت كرافت</div>
-                <div class="upgrade-badge">
+                <div class="upgrade-badge" onclick="switchScreen('subscriptionScreen')">
                     <span>⭐</span> ترقية
                 </div>
             </div>
@@ -334,7 +434,6 @@ html_code = """
             </div>
 
             <div class="cards-row">
-                <!-- بطاقة خطوة بخطوة مع أيقونة الروبوت في الجهة اليسرى بجانب الكلمة -->
                 <div class="interactive-card">
                     <div class="card-header-row">
                         <div class="card-title-group-left">
@@ -345,7 +444,6 @@ html_code = """
                     <div class="card-subtitle">راجع كل خطوة</div>
                 </div>
 
-                <!-- بطاقة سريع مع الشعار في الجهة اليسرى -->
                 <div class="interactive-card">
                     <div class="card-header-row">
                         <div class="card-title-group-left">
@@ -376,21 +474,113 @@ html_code = """
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="bottom-nav-container">
-            <div class="nav-group-box">
-                <div class="nav-item-text active">الصفحة الرئيسية</div>
-                <div class="nav-item-text">الأدوات</div>
-                <div class="nav-item-text">الأعمال</div>
+    <!-- واجهة الاشتراكات والباقات الثابتة -->
+    <div id="subscriptionScreen" class="screen-view">
+        <div class="page-header">
+            <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
+            <div class="page-title-text">ترقية الحساب</div>
+            <div style="width: 36px;"></div>
+        </div>
+
+        <div class="content-body">
+            <div style="text-align: center; margin-bottom: 5px;">
+                <div style="color: #ffffff; font-size: 18px; font-weight: 700; margin-bottom: 4px;">حول أفكارك إلى بلوت كرافت</div>
+                <div style="color: #94a3b8; font-size: 12px;">أنشئ كل لقطة وعدلها وأكملها بسرعة.</div>
             </div>
 
-            <div class="nav-single-box">
-                <span class="custom-sparkle"></span>
-                <span class="custom-movie-icon"></span>
+            <div class="plans-list">
+                <!-- الباقة الأسبوعية -->
+                <div class="plan-card selected" onclick="selectPlan(this)">
+                    <div class="plan-top">
+                        <div class="plan-name">بلوت كرافت برو ويكلي</div>
+                        <div class="plan-price">9.99 دولار أمريكي / أسبوع</div>
+                    </div>
+                    <div class="plan-desc">500 ساعة معتمدة / أسبوعياً، جرب بلوت كرافت</div>
+                </div>
+
+                <!-- الباقة الشهرية -->
+                <div class="plan-card" onclick="selectPlan(this)">
+                    <div class="new-tag">جديد</div>
+                    <div class="plan-top">
+                        <div class="plan-name">بلوت كرافت برو الشهرية</div>
+                        <div class="plan-price">29.99 دولار أمريكي / شهر</div>
+                    </div>
+                    <div class="plan-desc">1800 نقطة / شهرياً، مثالي للاستخدام المنتظم للمبدعين</div>
+                </div>
+
+                <!-- الباقة السنوية -->
+                <div class="plan-card" onclick="selectPlan(this)">
+                    <div class="plan-top">
+                        <div class="plan-name">بلوت كرافت برو السنوية</div>
+                        <div class="plan-price">69.99 دولار أمريكي / سنة</div>
+                    </div>
+                    <div class="plan-desc">5000 رصيد / سنة، مثالي للمبدعين المحترفين</div>
+                </div>
+            </div>
+
+            <div class="renewal-text">تجديد تلقائي، ويمكن الإلغاء في أي وقت</div>
+
+            <button class="action-main-btn" onclick="switchScreen('paymentScreen')">اشتراك</button>
+        </div>
+    </div>
+
+    <!-- واجهة تفاصيل الدفع البنكي الثابتة -->
+    <div id="paymentScreen" class="screen-view">
+        <div class="page-header">
+            <button class="back-btn" onclick="switchScreen('subscriptionScreen')">←</button>
+            <div class="page-title-text">تفاصيل الدفع البنكي</div>
+            <div style="width: 36px;"></div>
+        </div>
+
+        <div class="content-body">
+            <div class="payment-form-box">
+                <div class="form-group">
+                    <label class="form-label">اسم البطاقة البنكية</label>
+                    <input type="text" class="form-input" placeholder="الاسم كما يظهر على البطاقة">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">رقم البطاقة البنكية</label>
+                    <input type="text" class="form-input" placeholder="**** **** **** ****" maxlength="19">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group" style="flex: 1;">
+                        <label class="form-label">تاريخ الانتهاء</label>
+                        <input type="text" class="form-input" placeholder="MM/YY" maxlength="5">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label class="form-label">رمز البطاقة (CVV)</label>
+                        <input type="password" class="form-input" placeholder="***" maxlength="4">
+                    </div>
+                </div>
+
+                <button class="action-main-btn" onclick="confirmPayment()" style="margin-top: 15px;">تأكيد وإتمام الاشتراك</button>
             </div>
         </div>
     </div>
 
+    <script>
+        function switchScreen(screenId) {
+            var screens = document.querySelectorAll('.screen-view');
+            screens.forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function selectPlan(element) {
+            var cards = document.querySelectorAll('.plan-card');
+            cards.forEach(c => c.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function confirmPayment() {
+            alert('تم تأكيد اشتراكك في بلوت كرافت بنجاح!');
+            switchScreen('homeScreen');
+        }
+    </script>
 </body>
 </html>
 """
