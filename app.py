@@ -1,7 +1,6 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
-# إعداد الصفحة
 st.set_page_config(page_title="بلوت كرافت", layout="wide", initial_sidebar_state="collapsed")
 
 st.markdown("""
@@ -59,7 +58,7 @@ app_html = """
             display: none;
         }
         
-        /* الهيدر العلوي - مطابق للصورة تماماً (ترقية يمين، اسم التطبيق يسار) */
+        /* الهيدر العلوي: ترقية يمين، اسم التطبيق والشعار يسار */
         .top-header {
             display: flex;
             justify-content: space-between;
@@ -68,13 +67,13 @@ app_html = """
         }
         
         .upgrade-btn {
-            background-color: #1a1c24;
+            background-color: rgba(255, 255, 255, 0.08);
             color: #ffffff;
             font-size: 11px;
             font-weight: 600;
-            padding: 6px 14px;
+            padding: 5px 12px;
             border-radius: 20px;
-            border: 1px solid #2d3142;
+            border: 1px solid rgba(255, 255, 255, 0.12);
             display: flex;
             align-items: center;
             gap: 5px;
@@ -88,25 +87,31 @@ app_html = """
             font-weight: 700;
         }
         
-        .brand-icon {
-            width: 20px;
-            height: 20px;
+        .brand-logo {
+            width: 22px;
+            height: 22px;
+            background: #222530;
             border-radius: 50%;
-            border: 1.5px solid #fff;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
-        /* قسم البطل (Hero Section) */
+        .brand-logo svg {
+            width: 12px;
+            height: 12px;
+            fill: #fff;
+        }
+        
+        /* قسم البطل */
         .hero-box {
             position: relative;
             margin: 10px 16px;
             border-radius: 24px;
             overflow: hidden;
             padding: 24px 20px;
-            background-image: linear-gradient(to bottom, rgba(11, 12, 16, 0.4), rgba(11, 12, 16, 0.96)), 
+            background-image: linear-gradient(to bottom, rgba(11, 12, 16, 0.35), rgba(11, 12, 16, 0.96)), 
                               url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
@@ -119,7 +124,7 @@ app_html = """
         }
         
         .hero-subtitle {
-            color: #d1d2d8;
+            color: #cfd0d5;
             font-size: 14px;
             font-weight: 400;
             margin-bottom: 4px;
@@ -132,11 +137,10 @@ app_html = """
             line-height: 1.3;
         }
         
-        /* البطاقات داخل قسم البطل (سريع يمين، خطوة بخطوة يسار) */
+        /* البطاقتان: سريع يمين، خطوة بخطوة يسار */
         .cards-row {
             display: flex;
             gap: 12px;
-            flex-direction: row-reverse;
         }
         
         .card-item {
@@ -147,12 +151,21 @@ app_html = """
             border-radius: 16px;
             padding: 14px;
             position: relative;
+            text-align: right;
+        }
+        
+        .card-item.right-card {
+            order: 1;
+        }
+        
+        .card-item.left-card {
+            order: 2;
         }
         
         .pro-tag {
             position: absolute;
             top: 10px;
-            right: 10px;
+            left: 10px;
             background: rgba(255, 255, 255, 0.12);
             font-size: 9px;
             font-weight: 600;
@@ -164,8 +177,7 @@ app_html = """
         .card-icon {
             font-size: 18px;
             margin-bottom: 8px;
-            display: block;
-            text-align: right;
+            display: inline-block;
         }
         
         .card-heading {
@@ -173,17 +185,15 @@ app_html = """
             font-weight: 700;
             color: #ffffff;
             margin-bottom: 3px;
-            text-align: right;
         }
         
         .card-subtext {
             font-size: 10.5px;
             color: #9e9fa6;
-            text-align: right;
             line-height: 1.25;
         }
         
-        /* قسم إلهام بلوت كرافت (العنوان يمين، عرض الكل يسار) */
+        /* عنوان قسم الإلهام: إلهام بلوت كرافت يمين، عرض الكل يسار */
         .section-header {
             display: flex;
             justify-content: space-between;
@@ -203,14 +213,14 @@ app_html = """
             font-weight: 600;
         }
         
-        /* الأفلام الأفقية */
+        /* قائمة الأفلام الأفقية */
         .movies-container {
             display: flex;
             gap: 12px;
             overflow-x: auto;
             padding: 0 16px 15px 16px;
             scrollbar-width: none;
-            flex-direction: row-reverse;
+            direction: rtl;
         }
         
         .movies-container::-webkit-scrollbar {
@@ -248,7 +258,7 @@ app_html = """
             letter-spacing: 0.5px;
         }
         
-        /* القائمة السفلية */
+        /* الشريط السفلي */
         .bottom-nav-wrapper {
             position: sticky;
             bottom: 16px;
@@ -296,14 +306,16 @@ app_html = """
 
     <div class="mobile-screen">
         
-        <!-- الهيدر العلوي مطابقة تامة للصورة -->
+        <!-- الهيدر العلوي -->
         <div class="top-header">
             <div class="upgrade-btn">
                 <span>✦</span> ترقية
             </div>
             <div class="app-brand">
                 <span>بلوت كرافت</span>
-                <div class="brand-icon">▶</div>
+                <div class="brand-logo">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
             </div>
         </div>
 
@@ -316,15 +328,15 @@ app_html = """
             
             <div class="cards-row">
                 <!-- بطاقة سريع (يمين) -->
-                <div class="card-item">
+                <div class="card-item right-card">
                     <div class="pro-tag">Pro only</div>
-                    <div class="card-icon">⚡</div>
+                    <div class="card-icon">🪄</div>
                     <div class="card-heading">سريع</div>
                     <div class="card-subtext">إدخال واحد، فيديو كامل</div>
                 </div>
                 
                 <!-- بطاقة خطوة بخطوة (يسار) -->
-                <div class="card-item">
+                <div class="card-item left-card">
                     <div class="card-icon">💬</div>
                     <div class="card-heading">خطوة بخطوة</div>
                     <div class="card-subtext">راجع كل خطوة</div>
@@ -332,7 +344,7 @@ app_html = """
             </div>
         </div>
 
-        <!-- عنوان القائمة الأفقي (إلهام يمين، عرض الكل يسار) -->
+        <!-- عنوان قسم الإلهام -->
         <div class="section-header">
             <div class="section-name">إلهام بلوت كرافت</div>
             <div class="section-action">عرض الكل &gt;</div>
@@ -342,7 +354,7 @@ app_html = """
         <div class="movies-container">
             <div class="movie-card">
                 <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=400&auto=format&fit=crop">
-                <div class="movie-title-box">SECRET BILLIONAIRE</div>
+                <div class="movie-title-box">THE DELIVERYMAN'S SECRET BILLIONAIRE</div>
             </div>
             <div class="movie-card">
                 <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop">
