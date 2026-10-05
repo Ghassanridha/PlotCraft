@@ -147,7 +147,7 @@ html_code = """
             width: 22px;
             height: 22px;
             background: #dbeafe;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1 z"/></svg>') no-repeat center;
+            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
             -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
             background-size: contain;
         }
@@ -587,7 +587,7 @@ A dark crime romance story about secrets, forgotten memories, dangerous power, a
         </div>
     </div>
 
-    <!-- واجهة صفحة الاشتراكات (محدثة: الاشتراك السنوي 69.99 دولار و 5000 نقطة) -->
+    <!-- واجهة صفحة الاشتراكات (متضمنة الأسبوعي، الشهري، والسنوي بـ 69.99 دولار و 5000 نقطة) -->
     <div id="subscriptionScreen" class="screen-view">
         <div class="page-header">
             <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
@@ -602,6 +602,14 @@ A dark crime romance story about secrets, forgotten memories, dangerous power, a
             </div>
 
             <div class="plans-list">
+                <div class="plan-card" onclick="selectPlan(this)">
+                    <div class="plan-top">
+                        <div class="plan-name">بلوت كرافت برو الأسبوعية</div>
+                        <div class="plan-price">9.99 دولار أمريكي / أسبوع</div>
+                    </div>
+                    <div class="plan-desc">400 نقطة / أسبوعياً، لتجربة سريعة</div>
+                </div>
+
                 <div class="plan-card" onclick="selectPlan(this)">
                     <div class="plan-top">
                         <div class="plan-name">بلوت كرافت برو الشهرية</div>
