@@ -365,39 +365,192 @@ html_code = """
         .plan-desc { color: #94a3b8; font-size: 12px; }
         .action-main-btn { width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 20px; border: none; cursor: pointer; margin-top: 10px; }
 
-        /* حقول إدخال بيانات الدفع البنكية */
-        .payment-form-group {
+        /* نافذة Google Play الدقيقة المطابقة للصورة */
+        .gplay-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 99999999;
+            align-items: flex-end;
+        }
+        .gplay-overlay.active {
+            display: flex;
+        }
+        .gplay-sheet {
+            background: #1f2228;
+            width: 100%;
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+            padding: 20px 20px 30px 20px;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .gplay-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .gplay-close {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .gplay-store-title {
+            color: #9aa0a6;
+            font-size: 14px;
+        }
+        .gplay-app-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #282c34;
+            padding: 12px 16px;
+            border-radius: 14px;
+        }
+        .gplay-app-details h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+        .gplay-app-details p {
+            font-size: 12px;
+            color: #9aa0a6;
+        }
+        .gplay-app-icon {
+            width: 44px;
+            height: 44px;
+            background: #3c4043;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #8ab4f8;
+            font-size: 14px;
+        }
+        .gplay-price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .gplay-tax-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #9aa0a6;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #3c4043;
+        }
+        .gplay-notes {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 12px;
+            color: #9aa0a6;
+            line-height: 1.5;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #3c4043;
+        }
+        .gplay-points-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #282c34;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+        }
+        .gplay-payment-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #282c34;
+            padding: 12px 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: 0.2s;
+        }
+        .gplay-payment-box:hover {
+            border-color: #8ab4f8;
+        }
+        .gplay-payment-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .gplay-subscribe-btn {
+            width: 100%;
+            background: #8ab4f8;
+            color: #202124;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 14px;
+            border-radius: 24px;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        /* قائمة اختيار طريقة الدفع الفرعية */
+        .payment-selector-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 999999999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .payment-selector-modal.active {
+            display: flex;
+        }
+        .payment-selector-content {
+            background: #1f2228;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 380px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             gap: 14px;
-            margin-top: 5px;
+            border: 1px solid #3c4043;
         }
-        .form-field {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .form-label {
-            color: #cbd5e1;
-            font-size: 13px;
-            font-weight: 600;
-        }
-        .form-input {
-            background: #141824;
-            border: 1px solid #30363d;
+        .payment-option-item {
+            background: #282c34;
+            padding: 14px;
             border-radius: 12px;
-            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
             color: #ffffff;
             font-size: 14px;
-            outline: none;
-            direction: ltr;
-            text-align: right;
+            font-weight: 600;
         }
-        .form-input::placeholder {
-            color: #475569;
-        }
-        .form-input:focus {
-            border-color: #3b82f6;
+        .payment-option-item:hover {
+            background: #353b45;
         }
 
         /* شريط التنقل السفلي */
@@ -662,42 +815,90 @@ A dark crime romance story about secrets, forgotten memories, dangerous power, a
                 </div>
             </div>
 
-            <button class="action-main-btn" onclick="proceedToPayment()">اشتراك</button>
+            <button class="action-main-btn" onclick="openGPlaySheet()">اشتراك</button>
         </div>
     </div>
 
-    <!-- واجهة إتمام الدفع (البطاقة البنكية) -->
-    <div id="paymentScreen" class="screen-view">
-        <div class="page-header">
-            <button class="back-btn" onclick="switchScreen('subscriptionScreen')">✕</button>
-            <div class="page-title-text">إتمام الدفع الآمن</div>
-            <div style="width: 36px;"></div>
+    <!-- قائمة Google Play المطابقة للصورة تماماً -->
+    <div id="gplayOverlay" class="gplay-overlay">
+        <div class="gplay-sheet">
+            <div class="gplay-top-bar">
+                <span class="gplay-store-title">Google Play</span>
+                <button class="gplay-close" onclick="closeGPlaySheet()">✕</button>
+            </div>
+
+            <div class="gplay-app-info">
+                <div class="gplay-app-details">
+                    <h3>PlotCraft Pro Weekly</h3>
+                    <p>PlotCraft: AI Short Drama Maker</p>
+                </div>
+                <div class="gplay-app-icon">PC</div>
+            </div>
+
+            <div class="gplay-price-row">
+                <span>US$/week 9.99</span>
+                <span style="font-size: 13px; font-weight: normal; color: #9aa0a6;">بدءًا من اليوم</span>
+            </div>
+            <div class="gplay-tax-row">
+                <span>الإضافة إلى الضريبة</span>
+                <span>إضافة الضريبة ⓘ</span>
+            </div>
+
+            <div class="gplay-notes">
+                <div>• يمكنك الإلغاء في أي وقت في صفحة "الاشتراكات" على Google Play</div>
+                <div>• سيُستخدم رصيدك في Google Play لتحصيل الرسوم اليوم. وأي رسوم متبقية ستُحصل من طريقة الدفع الموضحة أدناه.</div>
+                <div>• ستُحصل رسوم عمليات التجديد من طريقة الدفع الأساسية</div>
+            </div>
+
+            <div class="gplay-points-row">
+                <span>كسب ١١ نقطة إضافية</span>
+                <span style="display:flex; gap:3px;">
+                    <span style="color:#ea4335">■</span><span style="color:#fbbc04">■</span><span style="color:#34a853">■</span><span style="color:#4285f4">■</span>
+                </span>
+            </div>
+
+            <!-- طريقة الدفع مع إمكانية الضغط لتغييرها -->
+            <div class="gplay-payment-box" onclick="openPaymentSelector()">
+                <div class="gplay-payment-info" id="selectedPaymentDisplay">
+                    <span style="color: #fbbc04; font-weight: bold;">MC</span>
+                    <div>
+                        <div id="paymentTitleText" style="font-size: 14px; font-weight: 600;">Mastercard-0709</div>
+                        <div id="paymentSubText" style="font-size: 11px; color: #9aa0a6;">رصيد Google Play: $US 0.16</div>
+                    </div>
+                </div>
+                <span style="color: #9aa0a6; font-size: 16px;">❮</span>
+            </div>
+
+            <div style="font-size: 11px; color: #9aa0a6; line-height: 1.4;">
+                عند النقر على "اشتراك"، فإن هذا يعني موافقتك على تجديد اشتراكك تلقائيا إلى أن يتم إلغاؤه. سنعلمك في حال تغير السعر، وذلك استنادا لما هو موضح في <span style="color: #8ab4f8; text-decoration: underline;">"بنود خدمة Google Play"</span>. <span style="color: #8ab4f8; text-decoration: underline;">المزيد</span>
+            </div>
+
+            <button class="gplay-subscribe-btn" onclick="confirmGooglePlaySubscription()">اشتراك</button>
         </div>
+    </div>
 
-        <div class="content-body">
-            <div style="text-align: center; margin-bottom: 10px;">
-                <div style="color: #ffffff; font-size: 16px; font-weight: 700;">أدخل معلومات البطاقة البنكية</div>
-                <div style="color: #94a3b8; font-size: 12px; margin-top: 4px;">العملية مشفرة وآمنة بالكامل</div>
+    <!-- نافذة منبثقة لاختيار طريقة الدفع (Google Play Balance أو Mastercard) -->
+    <div id="paymentSelectorModal" class="payment-selector-modal">
+        <div class="payment-selector-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                <h3 style="font-size: 16px; color: #fff;">اختر طريقة الدفع</h3>
+                <button onclick="closePaymentSelector()" style="background:none; border:none; color:#fff; font-size:18px; cursor:pointer;">✕</button>
+            </div>
+            
+            <div class="payment-option-item" onclick="selectPaymentMethod('mastercard')">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="background: #ea4335; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px;">MC</span>
+                    <span>Mastercard - 0709</span>
+                </div>
+                <span>✓</span>
             </div>
 
-            <div class="payment-form-group">
-                <div class="form-field">
-                    <label class="form-label">الاسم على البطاقة البنكية</label>
-                    <input type="text" id="cardName" class="form-input" placeholder="Name on Card">
-                </div>
-
-                <div class="form-field">
-                    <label class="form-label">رقم البطاقة البنكية</label>
-                    <input type="text" id="cardNumber" class="form-input" placeholder="0000 0000 0000 0000" maxlength="19">
-                </div>
-
-                <div class="form-field">
-                    <label class="form-label">رمز البطاقة البنكية (CVV)</label>
-                    <input type="password" id="cardCvv" class="form-input" placeholder="123" maxlength="4">
+            <div class="payment-option-item" onclick="selectPaymentMethod('gplay')">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="background: #4285f4; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px;">GP</span>
+                    <span>رصيد Google Play ($US 0.16)</span>
                 </div>
             </div>
-
-            <button class="action-main-btn" onclick="submitPayment()" style="margin-top: 20px;">تأكيد ودفع الاشتراك</button>
         </div>
     </div>
 
@@ -754,22 +955,39 @@ A dark crime romance story about secrets, forgotten memories, dangerous power, a
             element.classList.add('selected');
         }
 
-        function proceedToPayment() {
-            // الانتقال لشاشة إدخال تفاصيل الدفع عند الضغط على اشتراك
-            switchScreen('paymentScreen');
+        function openGPlaySheet() {
+            document.getElementById('gplayOverlay').classList.add('active');
         }
 
-        function submitPayment() {
-            var name = document.getElementById('cardName').value;
-            var number = document.getElementById('cardNumber').value;
-            var cvv = document.getElementById('cardCvv').value;
+        function closeGPlaySheet() {
+            document.getElementById('gplayOverlay').classList.remove('active');
+        }
 
-            if(!name || !number || !cvv) {
-                alert('يرجى ملء جميع حقول البطاقة البنكية بشكل صحيح!');
-                return;
+        function openPaymentSelector() {
+            document.getElementById('paymentSelectorModal').classList.add('active');
+        }
+
+        function closePaymentSelector() {
+            document.getElementById('paymentSelectorModal').classList.remove('active');
+        }
+
+        function selectPaymentMethod(method) {
+            var titleEl = document.getElementById('paymentTitleText');
+            var subEl = document.getElementById('paymentSubText');
+            
+            if (method === 'mastercard') {
+                titleEl.innerText = "Mastercard-0709";
+                subEl.innerText = "رصيد Google Play: $US 0.16";
+            } else {
+                titleEl.innerText = "رصيد Google Play";
+                subEl.innerText = "المتاح: $US 0.16";
             }
+            closePaymentSelector();
+        }
 
-            alert('تمت معالجة الدفع بنجاح! شكراً لاشتراكك في بلوت كرافت.');
+        function confirmGooglePlaySubscription() {
+            alert('تم تأكيد الاشتراك بنجاح عبر Google Play! شكراً لاستخدامك بلوت كرافت.');
+            closeGPlaySheet();
             switchScreen('homeScreen');
         }
 
