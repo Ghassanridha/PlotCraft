@@ -16,7 +16,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# كود HTML و CSS مع شريط التنقل السفلي المطابق تماماً للصورة بدون أيقونات جانبية للنصوص
+# كود HTML و CSS مع الأيقونة الجديدة المطابقة للصورة تماماً في الزر المنفصل
 html_code = """
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -241,7 +241,7 @@ html_code = """
             margin-top: auto;
         }
 
-        /* 1. المستطيل الكبير الذي يضم 3 أزرار معاً (بدون أيقونات جانبية، النصوص فقط) */
+        /* 1. المستطيل الكبير يضم النصوص الثلاثة الصافية من اليمين لليسار */
         .nav-group-box {
             flex: 1;
             background: rgba(20, 25, 40, 0.85);
@@ -254,7 +254,6 @@ html_code = """
             align-items: center;
         }
 
-        /* أزرار النصوص داخل المستطيل */
         .nav-item-text {
             color: #94a3b8;
             font-size: 13px;
@@ -262,38 +261,51 @@ html_code = """
             border-radius: 16px;
             cursor: pointer;
             text-align: center;
+            flex: 1;
         }
 
-        /* الزر النشط (الصفحة الرئيسية) */
         .nav-item-text.active {
             background: rgba(255, 255, 255, 0.15);
             color: #ffffff;
             font-weight: 600;
         }
 
-        /* 2. المربع الرابع المنفصل في أقصى اليسار (يحتوي على الأيقونة فقط) */
+        /* 2. الزر المنفصل الرابع في أقصى اليسار مع الأيقونة والنجمة الزرقاء تماماً مثل الصورة */
         .nav-single-box {
-            width: 48px;
-            height: 48px;
+            width: 52px;
+            height: 52px;
             background: rgba(20, 25, 40, 0.85);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
+            border-radius: 18px;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #94a3b8;
+            position: relative;
             cursor: pointer;
         }
 
-        /* أيقونة الزر الأخير المنفصل في أقصى اليسار */
-        .icon-menu {
-            width: 18px;
-            height: 18px;
-            display: inline-block;
-            background: currentColor;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>') no-repeat center;
-            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>') no-repeat center;
+        /* أيقونة شريط الفيديو الرمادية */
+        .custom-movie-icon {
+            width: 24px;
+            height: 24px;
+            background: #94a3b8;
+            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 4H6c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-9 11V9l6 3-6 3z"/></svg>') no-repeat center;
+            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 4H6c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-9 11V9l6 3-6 3z"/></svg>') no-repeat center;
+            background-size: contain;
+        }
+
+        /* النجمة الزرقاء المضيئة فوق الأيقونة تماماً كما في صورتك */
+        .custom-sparkle {
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            width: 14px;
+            height: 14px;
+            background: #3b82f6;
+            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0l3.5 8.5L24 12l-8.5 3.5L12 24l-3.5-8.5L0 12l8.5-3.5z"/></svg>') no-repeat center;
+            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0l3.5 8.5L24 12l-8.5 3.5L12 24l-3.5-8.5L0 12l8.5-3.5z"/></svg>') no-repeat center;
+            background-size: contain;
         }
     </style>
 </head>
@@ -351,21 +363,19 @@ html_code = """
             </div>
         </div>
 
-        <!-- الشريط السفلي مطابق تماماً للصورة: مستطيل يضم النصوص الثلاثة، ومربع منفصل بأقصى اليسار للأيقونة -->
+        <!-- الشريط السفلي مع الأيقونة المطابقة للصورة تماماً -->
         <div class="bottom-nav-container">
-            <!-- 1. المستطيل الكبير الذي يضم 3 أزرار نصوص (من اليمين لليسار) -->
+            <!-- 1. المستطيل الكبير للنصوص الثلاثة الصافية -->
             <div class="nav-group-box">
-                <!-- أقصى اليمين: الصفحة الرئيسية (نشطة ومظللة) -->
                 <div class="nav-item-text active">الصفحة الرئيسية</div>
-                <!-- في المنتصف: الأدوات -->
                 <div class="nav-item-text">الأدوات</div>
-                <!-- يسار المستطيل: الأعمال -->
                 <div class="nav-item-text">الأعمال</div>
             </div>
 
-            <!-- 2. المربع الرابع المنفصل في أقصى اليسار (يحتوي على الأيقونة فقط) -->
+            <!-- 2. الزر الرابع المنفصل بأقصى اليسار يضم أيقونة الفيلم والنجمة الزرقاء -->
             <div class="nav-single-box">
-                <span class="icon-menu"></span>
+                <span class="custom-sparkle"></span>
+                <span class="custom-movie-icon"></span>
             </div>
         </div>
     </div>
