@@ -3,11 +3,11 @@ import streamlit as st
 st.set_page_config(
     page_title="بلوت كرافت",
     page_icon="🎬",
-    layout="wide",
+    layout="centered",
     initial_sidebar_state="collapsed"
 )
 
-# تخصيص التصميم وإزالة القوائم الجانبية وضبط التناسق العام
+# تخصيص التصميم بدقة مطابقة تماماً للصورة
 st.markdown("""
     <style>
         [data-testid="stSidebarNav"], [data-testid="collapsedControl"], section[data-testid="stSidebar"] {
@@ -17,92 +17,155 @@ st.markdown("""
             display: none !important;
         }
         .block-container {
-            padding-top: 1.5rem !important;
-            padding-bottom: 3rem !important;
-            max-width: 100% !important;
+            padding-top: 1rem !important;
+            padding-bottom: 120px !important;
+            max-width: 440px !important;
+            margin: auto !important;
         }
         
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
         html, body, [class*="css"] {
             font-family: 'Tajawal', sans-serif;
             direction: rtl;
-            background-color: #0b0d12;
+            background-color: #07090e;
             color: #ffffff;
+        }
+
+        /* شريط التنقل السفلي العائم بنفس التصميم والقياسات */
+        .fixed-bottom-nav {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            max-width: 410px;
+            background-color: rgba(18, 21, 28, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 40px;
+            padding: 6px 10px;
+            z-index: 99999;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #8c96a5;
+            font-size: 10px;
+            font-weight: 500;
+            text-decoration: none;
+            flex: 1;
+            padding: 6px 0;
+        }
+        
+        .nav-item.active {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.09);
+            border-radius: 30px;
+            font-weight: 700;
         }
     </style>
 """, unsafe_allow_html=True)
 
-# إدارة التنقل أو عرض الأقسام بترتيب صحيح
-if 'options_list' not in st.session_state:
-    st.session_state.options_list = [
-        "الخيار الأول (نمط بصري)",
-        "الخيار الثاني (جودة عالية)",
-        "الخيار الثالث (مؤثرات صوتية)"
-    ]
-
-# 1. المحتوى الرئيسي في الأعلى
-st.markdown("""
-    <div style="background: linear-gradient(180deg, rgba(11,13,18,0.3) 0%, rgba(11,13,18,0.95) 85%, #0b0d12 100%); padding: 18px 16px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 15px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <span style="font-weight: 900; font-size: 14px; color: #ffffff;">بلوت كرافت</span>
-            <span style="background: rgba(255,255,255,0.1); padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: bold; border: 1px solid rgba(255,255,255,0.15);">ترقية ✨</span>
+# --- 1. رأس الصفحة العلوي ---
+col_h1, col_h2 = st.columns([1, 1])
+with col_h1:
+    st.markdown("""
+        <div style="background: rgba(255,255,255,0.07); padding: 4px 10px; border-radius: 20px; display: inline-flex; align-items: center; gap: 4px; border: 1px solid rgba(255,255,255,0.08);">
+            <span style="font-size: 9px;">✨</span>
+            <span style="font-size: 10px; font-weight: bold;">ترقية</span>
         </div>
-        <h1 style="font-size: 12px; font-weight: 600; color: #cbd5e1; margin-bottom: 2px;">مساء الخير، أيها المخرج</h1>
-        <h2 style="font-size: 14px; font-weight: 900; color: #ffffff;">أي قصة سنصنع اليوم؟</h2>
+    """, unsafe_allow_html=True)
+with col_h2:
+    st.markdown("""
+        <div style="text-align: left; font-weight: 900; font-size: 14px; color: #ffffff; padding-top: 4px;">
+            بلوت كرافت 🎬
+        </div>
+    """, unsafe_allow_html=True)
+
+# --- 2. قسم الترحيب والخلفية ---
+st.markdown("""
+    <div style="background: linear-gradient(180deg, rgba(15, 23, 42, 0.5) 0%, rgba(7, 9, 14, 0.95) 100%), 
+                radial-gradient(circle at 25% 25%, rgba(56, 189, 248, 0.2) 0%, transparent 65%);
+                padding: 18px 14px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.08); margin-top: 8px; margin-bottom: 12px; text-align: right;">
+        <div style="font-size: 12px; color: #94a3b8; font-weight: 500; margin-bottom: 3px;">مساء الخير، أيها المخرج</div>
+        <div style="font-size: 15px; font-weight: 900; color: #ffffff;">أي قصة سنصنع اليوم؟</div>
     </div>
 """, unsafe_allow_html=True)
 
+# --- 3. بطاقات الخيارات الرئيسية (سريع / خطوة بخطوة) ---
 col1, col2 = st.columns(2)
+
 with col1:
     st.markdown("""
-        <div style="background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 14px; padding: 12px; text-align: right; margin-bottom: 15px;">
-            <h3 style="font-size: 11px; font-weight: bold; margin-bottom: 2px; color: #fff;">خطوة بخطوة</h3>
-            <p style="font-size: 8px; color: #94a3b8; margin:0;">راجع كل خطوة</p>
+        <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 12px; text-align: right; height: 88px; position: relative;">
+            <div style="position: absolute; top: 8px; left: 8px; background: rgba(255,255,255,0.08); padding: 1px 5px; border-radius: 4px; font-size: 7px; color: #94a3b8;">Pro only</div>
+            <div style="font-size: 12px; font-weight: bold; color: #fff; margin-bottom: 2px;">سريع</div>
+            <div style="font-size: 8px; color: #64748b;">إدخال واحد، فيميو كامل</div>
         </div>
     """, unsafe_allow_html=True)
+
 with col2:
     st.markdown("""
-        <div style="background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 14px; padding: 12px; text-align: right; margin-bottom: 15px;">
-            <h3 style="font-size: 11px; font-weight: bold; margin-bottom: 2px; color: #fff;">سريع</h3>
-            <p style="font-size: 8px; color: #94a3b8; margin:0;">إدخال واحد، فيديو كامل</p>
+        <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 12px; text-align: right; height: 88px;">
+            <div style="font-size: 12px; font-weight: bold; color: #fff; margin-bottom: 2px;">خطوة بخطوة</div>
+            <div style="font-size: 8px; color: #64748b;">راجع كل خطوة</div>
         </div>
     """, unsafe_allow_html=True)
 
-# فاصل أنيق
-st.markdown("<hr style='border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 20px 0;'>", unsafe_allow_html=True)
-
-# 2. قسم الأدوات والخيارات (تم وضعه تحت المحتوى تماماً كما طلبت)
-st.markdown("<h2 style='font-size: 15px; font-weight: 900; margin-bottom: 12px;'>الأدوات والخيارات النشطة</h2>", unsafe_allow_html=True)
-
+# --- 4. قسم إلهام بلوت كرافت ---
 st.markdown("""
-    <div style="background: rgba(255,255,255,0.04); padding: 16px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.08); margin-bottom: 15px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 18px; margin-bottom: 8px;">
+        <span style="font-size: 9px; color: #64748b; cursor: pointer;">عرض الكل ></span>
+        <span style="font-size: 13px; font-weight: 900; color: #ffffff;">إلهام بلوت كرافت</span>
+    </div>
 """, unsafe_allow_html=True)
 
-if st.session_state.options_list:
-    for opt in st.session_state.options_list:
-        st.markdown(f"""
-            <div style="background: rgba(255, 255, 255, 0.07); padding: 10px 14px; border-radius: 8px; margin-bottom: 8px; font-size: 12px; border: 1px solid rgba(255, 255, 255, 0.1);">
-                <span>{opt}</span>
-            </div>
-        """, unsafe_allow_html=True)
-else:
-    st.markdown("<p style='font-size: 11px; color: #9ca3af; text-align: center; padding: 10px;'>لا توجد خيارات متبقية</p>", unsafe_allow_html=True)
+# بطاقات القصص
+cols_cards = st.columns(3)
+with cols_cards[0]:
+    st.markdown("""
+        <div style="background: #12151c; border-radius: 10px; height: 150px; border: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; text-align: center; padding: 6px;">
+            <span style="font-size: 9px; font-weight: bold; color: #94a3b8;">THE SECRET BILLIONAIRE</span>
+        </div>
+    """, unsafe_allow_html=True)
 
-st.markdown("</div>", unsafe_allow_html=True)
+with cols_cards[1]:
+    st.markdown("""
+        <div style="background: #12151c; border-radius: 10px; height: 150px; border: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; text-align: center; padding: 6px;">
+            <span style="font-size: 9px; font-weight: bold; color: #ffffff;">THE WRONG DOOR</span>
+        </div>
+    """, unsafe_allow_html=True)
 
-if st.button("حذف جميع الخيارات", type="primary", use_container_width=True):
-    st.session_state.options_list = []
-    st.rerun()
+with cols_cards[2]:
+    st.markdown("""
+        <div style="background: #12151c; border-radius: 10px; height: 150px; border: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; text-align: center; padding: 6px;">
+            <span style="font-size: 9px; font-weight: bold; color: #94a3b8;">INVITATION</span>
+        </div>
+    """, unsafe_allow_html=True)
 
-# 3. أزرار التنقل الرئيسية في أسفل الصفحة بشكل مرتب وطبيعي
-st.markdown("<br>", unsafe_allow_html=True)
-nav_col1, nav_col2, nav_col3, nav_col4 = st.columns(4)
-
-with nav_col1:
-    st.button("الرئيسية", use_container_width=True)
-with nav_col2:
-    st.button("الأدوات", use_container_width=True)
-with nav_col3:
-    st.button("الاعمال", use_container_width=True)
-with nav_col4:
-    st.button("⭐", use_container_width=True)
+# --- 5. شريط التنقل السفلي المطابق للصورة تماماً ---
+st.markdown("""
+    <div class="fixed-bottom-nav">
+        <a href="#" class="nav-item">
+            <span>✨</span>
+            <span style="font-size: 9px; margin-top: 1px;">إدارة التطبيق</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span>🛠️</span>
+            <span style="font-size: 9px; margin-top: 1px;">الأدوات</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span>📁</span>
+            <span style="font-size: 9px; margin-top: 1px;">الأعمال</span>
+        </a>
+        <a href="#" class="nav-item active">
+            <span>🏠</span>
+            <span style="font-size: 9px; margin-top: 1px;">الصفحة الرئيسية</span>
+        </a>
+    </div>
+""", unsafe_allow_html=True)
