@@ -148,7 +148,7 @@ html_code = """
             height: 22px;
             background: #dbeafe;
             mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
-            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
+            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1 z"/></svg>') no-repeat center;
             background-size: contain;
         }
 
@@ -538,3 +538,424 @@ html_code = """
             border-radius: 16px;
             width: 100%;
             max-width: 380px;
+            padding: 20px;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .payment-option-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #282c34;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        /* شريط التنقل السفلي */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 75px;
+            background: rgba(15, 20, 32, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 10px;
+            z-index: 99999;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            color: #64748b;
+            font-size: 11px;
+            font-weight: 500;
+            cursor: pointer;
+            flex: 1;
+            transition: 0.2s;
+        }
+
+        .nav-item.active {
+            color: #3b82f6;
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            background-color: currentColor;
+            mask-size: contain;
+            -webkit-mask-size: contain;
+            mask-repeat: no-repeat;
+            -webkit-mask-repeat: no-repeat;
+            mask-position: center;
+            -webkit-mask-position: center;
+        }
+
+        .icon-home { mask-url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>'); -webkit-mask-url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>'); }
+        .icon-create { mask-url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>'); -webkit-mask-url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>'); }
+        .icon-library { mask-url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0-2-.9-2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>'); -webkit-mask-url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0-2-.9-2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>'); }
+        .icon-profile { mask-url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>'); -webkit-mask-url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>'); }
+
+    </style>
+</head>
+<body>
+
+    <!-- الشاشة الرئيسية (Home) -->
+    <div id="homeScreen" class="screen-view active">
+        <div class="hero-box">
+            <div class="top-header">
+                <div class="brand-title">PlotCraft</div>
+                <div class="upgrade-badge" onclick="switchScreen('subscriptionScreen')">
+                    <span>⚡ ترقية الباقة</span>
+                </div>
+            </div>
+            
+            <div class="welcome-section">
+                <h1>اصنع قصتك السينمائية<br>الاحترافية بالذكاء الاصطناعي</h1>
+            </div>
+
+            <div class="cards-row">
+                <div class="interactive-card" onclick="switchScreen('createScreen')">
+                    <div class="card-header-row">
+                        <div class="card-title">إنشاء فيلم</div>
+                        <div class="exact-bot-icon"></div>
+                    </div>
+                    <div class="card-subtitle">توليد تلقائي بالكامل</div>
+                </div>
+
+                <div class="interactive-card" onclick="switchScreen('createScreen')">
+                    <div class="card-header-row">
+                        <div class="card-title">مساعد السيناريو</div>
+                        <div class="magic-wand-icon"></div>
+                    </div>
+                    <div class="card-subtitle">تطوير الأفكار والحوارات</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="inspiration-section">
+            <div class="section-header">
+                <span class="section-title">إلهام الأفلام</span>
+                <span class="view-all">عرض الكل</span>
+            </div>
+
+            <div class="movies-carousel">
+                <div class="movie-card emily-cover" onclick="openStoryModal('Emily in Paris - Season 4', 'المشهد الافتتاحي:\nتبدأ الأحداث في مقهى فرنسي ساحر بمدينة باريس مع أجواء هادئة.\n\nالحوار:\nإميلي: «لم أكن أتوقع أن تكون الحياة هنا بهذا الجمال والتعقيد في نفس الوقت.»\nبيير: «باريس لا تعطي أسرارها لمن يطلبها بسرعة، يا إميلي.»\n\nالوصف البصري:\nكاميرا تتحرك بسلاسة لإظهار تفاصيل الشارع الفرنسي العريق مع انعكاس أضواء الصباح على النوافذ الزجاجية.')">
+                    <div class="movie-title">Emily in Paris</div>
+                </div>
+
+                <div class="movie-card m2" onclick="openStoryModal('Cyberpunk Odyssey', 'المشهد الافتتاحي:\nمدينة مستقبلية تضيئها ألوان النيون المطرية وصوت الطائرات المسيرة في الأفق.\n\nالحوار:\nزاك: «النظام يراقب كل خطوة نخطوها في هذه الشبكة.»\nنايا: «إذن سنقوم بإسقاط جدار الحماية من الداخل.»')">
+                    <div class="movie-title">Cyberpunk Odyssey</div>
+                </div>
+
+                <div class="movie-card m3" onclick="openStoryModal('The Lost Kingdom', 'المشهد الافتتاحي:\nأطلال مدينة قديمة وسط الغابات الاستوائية المعتمة.\n\nالحوار:\nالباحث: «المفتاح ليس هنا، بل في البرج القديم.»')">
+                    <div class="movie-title">The Lost Kingdom</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- شاشة إنشاء فيلم (Create) -->
+    <div id="createScreen" class="screen-view">
+        <div class="page-header">
+            <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
+            <div class="page-title-text">استوديو الإبداع</div>
+            <div style="width: 36px;"></div>
+        </div>
+        <div class="step-container">
+            <div class="ai-assistant-card">
+                <div class="ai-header-row">
+                    <div class="ai-title">مساعد الذكاء الاصطناعي الخارق</div>
+                    <div class="ai-badge-circle">AI</div>
+                </div>
+                <div class="ai-desc">اختر إعدادات فيلمك وسيقوم المساعد ببناء القصة وتوليد كافة التفاصيل بدقة سينمائية مذهلة.</div>
+            </div>
+
+            <div class="story-setup-box">
+                <div class="setup-header-row">
+                    <div class="setup-main-title">خيارات السيناريو</div>
+                    <div class="counter-badge">خطوة 1 من 3</div>
+                </div>
+
+                <div class="setup-row-item">
+                    <div class="item-info">
+                        <h4>رفع صور مرجعية</h4>
+                        <p>أضف صور الشخصيات أو الأماكن</p>
+                    </div>
+                    <button class="action-add-btn" onclick="toggleUploadBox()">إضافة</button>
+                </div>
+                <div id="uploadBox" class="upload-section-hidden">
+                    <input type="file" accept="image/*" style="width:100%; color:#94a3b8; font-size:12px;">
+                </div>
+
+                <div class="setup-row-item">
+                    <div class="item-info">
+                        <h4>نص القصة الأساسي</h4>
+                        <p>اكتب فكرة أو ملخص الفيلم</p>
+                    </div>
+                    <button class="action-add-btn" onclick="toggleStoryBox()">اكتب</button>
+                </div>
+                <textarea id="storyText" class="story-textarea-hidden" placeholder="اكتب تفاصيل القصة هنا..."></textarea>
+            </div>
+
+            <div class="bottom-next-row">
+                <button class="side-next-btn" onclick="alert('جاري البدء بتوليد القصة السينمائية...')">إنشاء السيناريو الآن</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- شاشة مكتبة الأفلام (Library) -->
+    <div id="libraryScreen" class="screen-view">
+        <div class="page-header">
+            <div style="width: 36px;"></div>
+            <div class="page-title-text">مكتبة الأعمال</div>
+            <div style="width: 36px;"></div>
+        </div>
+        <div class="step-container" style="text-align: center; color: #94a3b8; padding-top: 60px;">
+            <p style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 6px;">لا توجد أعمال محفوظة حالياً</p>
+            <p style="font-size: 12px;">ابدأ بإنشاء قصتك الأولى عبر استوديو الإبداع وسيتم حفظها هنا تلقائياً.</p>
+        </div>
+    </div>
+
+    <!-- شاشة الملف الشخصي (Profile) -->
+    <div id="profileScreen" class="screen-view">
+        <div class="page-header">
+            <div style="width: 36px;"></div>
+            <div class="page-title-text">الملف الشخصي</div>
+            <div style="width: 36px;"></div>
+        </div>
+        <div class="step-container">
+            <div class="ai-assistant-card" style="align-items: center; text-align: center; padding: 24px;">
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #3b82f6, #8b5cf6); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #fff; font-weight: 700; margin-bottom: 12px;">G</div>
+                <div style="color: #fff; font-size: 16px; font-weight: 700; margin-bottom: 4px;">Ghassan Jbbasi</div>
+                <div style="color: #94a3b8; font-size: 12px;">باقة المبدع المحترف</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- شاشة الاشتراكات والترقية -->
+    <div id="subscriptionScreen" class="screen-view">
+        <div class="page-header">
+            <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
+            <div class="page-title-text">ترقية الباقة</div>
+            <div style="width: 36px;"></div>
+        </div>
+
+        <div class="content-body">
+            <div class="plans-list">
+                <div class="plan-card selected" onclick="selectPlan(this)">
+                    <div class="plan-top">
+                        <div class="plan-name">باقة المبدع الفائق</div>
+                        <div class="plan-price">$9.99 / شهرياً</div>
+                    </div>
+                    <div class="plan-desc">توليد غير محدود للقصص، جودة سينمائية فائقة، أولوية قصوى في المعالجة.</div>
+                </div>
+            </div>
+
+            <button class="action-main-btn" onclick="openGPlaySheet()">اشتراك الآن عبر Google Play</button>
+        </div>
+    </div>
+
+    <!-- نافذة تفاصيل القصة المنبثقة -->
+    <div id="storyModal" class="story-modal-overlay">
+        <div class="story-modal-content">
+            <div class="story-modal-header">
+                <div id="modalTitle" class="story-modal-title">عنوان القصة</div>
+                <button class="story-modal-close" onclick="closeStoryModal()">✕</button>
+            </div>
+            <div id="modalBody" class="story-modal-body">
+                نص القصة والتفاصيل السينمائية...
+            </div>
+            <div class="story-modal-footer">
+                <button class="copy-story-btn" onclick="copyStoryText()">نسخ النص السينمائي</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة Google Play السفلية للدفع -->
+    <div id="gplayOverlay" class="gplay-overlay" onclick="closeGPlaySheet(event)">
+        <div class="gplay-sheet" onclick="event.stopPropagation()">
+            <div class="gplay-top-bar">
+                <span class="gplay-store-title">Google Play</span>
+                <button class="gplay-close" onclick="closeGPlaySheet()">✕</button>
+            </div>
+
+            <div class="gplay-app-header">
+                <div class="gplay-app-icon">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=100&auto=format&fit=crop" alt="App Icon">
+                </div>
+                <div class="gplay-app-details">
+                    <h3>PlotCraft - AI Story & Movie</h3>
+                    <p>PlotCraft Inc.</p>
+                </div>
+            </div>
+
+            <div class="gplay-price-row">
+                <span>باقة المبدع الفائق (اشتراك شهري)</span>
+                <span>$9.99</span>
+            </div>
+            <div class="gplay-tax-row">
+                <span>الضريبة متضمنة إن وجدت</span>
+                <span></span>
+            </div>
+
+            <div class="gplay-notes">
+                <div>• سيتم تجديد الاشتراك تلقائياً ما لم يتم إلغاؤه قبل 24 ساعة من نهاية الفترة الحالية.</div>
+            </div>
+
+            <div class="gplay-points-row">
+                <span>نقاط Google Play Points</span>
+                <div class="gplay-points-diamond">
+                    <span style="color:#34a853; font-weight:700;">+99 نقطة</span>
+                </div>
+            </div>
+
+            <div class="gplay-payment-box" onclick="openPaymentSelector()">
+                <div class="gplay-payment-info">
+                    <span style="font-size:18px;">💳</span>
+                    <div>
+                        <div style="font-size:14px; font-weight:600; color:#e8eaed;">بطاقة ائتمان / خصم مباشر</div>
+                        <div style="font-size:11px; color:#9aa0a6;">•••• 4589</div>
+                    </div>
+                </div>
+                <span style="color:#9aa0a6; font-size:14px;">‹</span>
+            </div>
+
+            <button class="gplay-subscribe-btn" onclick="confirmSubscription()">اشتراك بضغطة واحدة</button>
+        </div>
+    </div>
+
+    <!-- شاشة اختيار طريقة الدفع -->
+    <div id="paymentSelectorModal" class="payment-selector-modal" onclick="closePaymentSelector(event)">
+        <div class="payment-selector-content" onclick="event.stopPropagation()">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <h4 style="font-size:15px;">طرق الدفع</h4>
+                <button onclick="closePaymentSelector()" style="background:none; border:none; color:#fff; font-size:18px; cursor:pointer;">✕</button>
+            </div>
+            <div class="payment-option-item" onclick="selectPaymentMethod('Google Play Balance')">
+                <span>💰</span>
+                <div>
+                    <div style="font-size:13px; font-weight:600;">رصيد Google Play</div>
+                    <div style="font-size:11px; color:#9aa0a6;">المتوفر: $15.00</div>
+                </div>
+            </div>
+            <div class="payment-option-item" onclick="selectPaymentMethod('Credit Card')">
+                <span>💳</span>
+                <div>
+                    <div style="font-size:13px; font-weight:600;">بطاقة ائتمان / خصم مباشر</div>
+                    <div style="font-size:11px; color:#9aa0a6;">•••• 4589</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- شريط التنقل السفلي الثابت -->
+    <div class="bottom-nav">
+        <div class="nav-item active" id="navHome" onclick="switchScreen('homeScreen'); setActiveNav(this)">
+            <div class="nav-icon icon-home"></div>
+            <span>الرئيسية</span>
+        </div>
+        <div class="nav-item" id="navCreate" onclick="switchScreen('createScreen'); setActiveNav(this)">
+            <div class="nav-icon icon-create"></div>
+            <span>إنشاء</span>
+        </div>
+        <div class="nav-item" id="navLibrary" onclick="switchScreen('libraryScreen'); setActiveNav(this)">
+            <div class="nav-icon icon-library"></div>
+            <span>المكتبة</span>
+        </div>
+        <div class="nav-item" id="navProfile" onclick="switchScreen('profileScreen'); setActiveNav(this)">
+            <div class="nav-icon icon-profile"></div>
+            <span>حسابي</span>
+        </div>
+    </div>
+
+    <script>
+        function switchScreen(screenId) {
+            document.querySelectorAll('.screen-view').forEach(el => el.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function setActiveNav(element) {
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        function toggleUploadBox() {
+            const box = document.getElementById('uploadBox');
+            box.classList.toggle('show');
+        }
+
+        function toggleStoryBox() {
+            const box = document.getElementById('storyText');
+            box.classList.toggle('show');
+        }
+
+        function openStoryModal(title, text) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalBody').innerText = text;
+            document.getElementById('storyModal').classList.add('active');
+        }
+
+        function closeStoryModal() {
+            document.getElementById('storyModal').classList.remove('active');
+        }
+
+        function copyStoryText() {
+            const text = document.getElementById('modalBody').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('تم نسخ النص السينمائي بنجاح!');
+            });
+        }
+
+        function selectPlan(card) {
+            document.querySelectorAll('.plan-card').forEach(el => el.classList.remove('selected'));
+            card.classList.add('selected');
+        }
+
+        function openGPlaySheet() {
+            document.getElementById('gplayOverlay').classList.add('active');
+        }
+
+        function closeGPlaySheet(e) {
+            if (!e || e.target.id === 'gplayOverlay' || e.target.classList.contains('gplay-close')) {
+                document.getElementById('gplayOverlay').classList.remove('active');
+            }
+        }
+
+        function openPaymentSelector() {
+            document.getElementById('paymentSelectorModal').classList.add('active');
+        }
+
+        function closePaymentSelector(e) {
+            if (!e || e.target.id === 'paymentSelectorModal') {
+                document.getElementById('paymentSelectorModal').classList.remove('active');
+            }
+        }
+
+        function selectPaymentMethod(methodName) {
+            document.getElementById('paymentSelectorModal').classList.remove('active');
+            alert('تم اختيار طريقة الدفع: ' + methodName);
+        }
+
+        function confirmSubscription() {
+            document.getElementById('gplayOverlay').classList.remove('active');
+            alert('تهانينا! تم تفعيل اشتراكك بنجاح عبر متجر جوجل بلاي.');
+            switchScreen('homeScreen');
+        }
+    </script>
+</body>
+</html>
+"""
+
+components.html(html_code, height=850, scrolling=True)
