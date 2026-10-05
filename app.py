@@ -639,13 +639,13 @@ html_code = """
                     <div class="plan-desc">1800 نقطة / شهرياً، مثالي للمبدعين والمشاريع الكبيرة</div>
                 </div>
 
-                <!-- خيار الاشتراك السنوي المضاف مرة أخرى -->
+                <!-- خيار الاشتراك السنوي الجديد -->
                 <div class="plan-card" onclick="selectPlan(this)">
                     <div class="plan-top">
                         <div class="plan-name">بلوت كرافت برو السنوية</div>
-                        <div class="plan-price">199.99 دولار أمريكي / سنة</div>
+                        <div class="plan-price">69.99 دولار أمريكي / سنة</div>
                     </div>
-                    <div class="plan-desc">25000 نقطة / سنوياً، القيمة الأفضل للمحترفين</div>
+                    <div class="plan-desc">5000 نقطة / سنوياً، القيمة الأفضل للمحترفين</div>
                 </div>
             </div>
 
