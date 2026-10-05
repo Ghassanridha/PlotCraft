@@ -172,7 +172,7 @@ html_code = """
             height: 22px;
             background: #dbeafe;
             mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
-            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1 z"/></svg>') no-repeat center;
+            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
             background-size: contain;
         }
 
@@ -271,7 +271,6 @@ html_code = """
             overflow: hidden;
         }
 
-        /* حاوية الخلفية المتحركة (تأثيرات بصرية وانفجارات ضوئية سينمائية) */
         .animated-bg-container {
             position: absolute;
             top: 0;
@@ -302,7 +301,6 @@ html_code = """
             100% { transform: scale(1.1) translate(-10px, 15px); opacity: 0.4; }
         }
 
-        /* ضمان بقاء المحتوى والبطاقات فوق الخلفية المتحركة */
         .page-header, .content-body {
             position: relative;
             z-index: 2;
@@ -429,7 +427,6 @@ html_code = """
             margin-top: 10px;
         }
 
-        /* حقول تفاصيل الدفع البنكي */
         .payment-form-box {
             display: flex;
             flex-direction: column;
@@ -469,7 +466,6 @@ html_code = """
             gap: 10px;
         }
 
-        /* تنسيق شريط التنقل السفلي المدمج */
         .plotcraft-nav-bar {
             position: fixed;
             bottom: 0;
@@ -542,17 +538,7 @@ html_code = """
             </div>
 
             <div class="cards-row">
-                <!-- تم ربط بطاقة "سريع" لتفتح واجهة الاشتراكات -->
-                <div class="interactive-card" onclick="switchScreen('subscriptionScreen')">
-                    <div class="card-header-row">
-                        <div class="card-title-group-left">
-                            <div class="card-title">سريع</div>
-                            <span class="magic-wand-icon"></span>
-                        </div>
-                    </div>
-                    <div class="card-subtitle">إدخال واحد، فيديو كامل</div>
-                </div>
-
+                <!-- بطاقة خطوة بخطوة في الجهة اليمنى -->
                 <div class="interactive-card">
                     <div class="card-header-row">
                         <div class="card-title-group-left">
@@ -561,6 +547,17 @@ html_code = """
                         </div>
                     </div>
                     <div class="card-subtitle">راجع كل خطوة</div>
+                </div>
+
+                <!-- بطاقة "سريع" في الجهة اليسرى (مربوطة بواجهة الاشتراكات والخلفية المتحركة) -->
+                <div class="interactive-card" onclick="switchScreen('subscriptionScreen')">
+                    <div class="card-header-row">
+                        <div class="card-title-group-left">
+                            <div class="card-title">سريع</div>
+                            <span class="magic-wand-icon"></span>
+                        </div>
+                    </div>
+                    <div class="card-subtitle">إدخال واحد، فيديو كامل</div>
                 </div>
             </div>
         </div>
@@ -587,7 +584,6 @@ html_code = """
 
     <!-- واجهة صفحة الاشتراكات مع الخلفية المتحركة والتأثيرات -->
     <div id="subscriptionScreen" class="screen-view">
-        <!-- الخلفية المتحركة ذات التأثيرات الانفجارية/السينمائية -->
         <div class="animated-bg-container">
             <div class="explosion-glow glow-1"></div>
             <div class="explosion-glow glow-2"></div>
@@ -606,7 +602,6 @@ html_code = """
             </div>
 
             <div class="plans-list">
-                <!-- الباقة الأسبوعية -->
                 <div class="plan-card selected" onclick="selectPlan(this)">
                     <div class="plan-top">
                         <div class="plan-name">بلوت كرافت برو ويكلي</div>
@@ -615,7 +610,6 @@ html_code = """
                     <div class="plan-desc">500 ساعة معتمدة / أسبوعياً، جرب بلوت كرافت</div>
                 </div>
 
-                <!-- الباقة الشهرية -->
                 <div class="plan-card" onclick="selectPlan(this)">
                     <div class="new-tag">جديد</div>
                     <div class="plan-top">
@@ -625,7 +619,6 @@ html_code = """
                     <div class="plan-desc">1800 نقطة / شهرياً، مثالي للاستخدام المنتظم للمبدعين</div>
                 </div>
 
-                <!-- الباقة السنوية -->
                 <div class="plan-card" onclick="selectPlan(this)">
                     <div class="plan-top">
                         <div class="plan-name">بلوت كرافت برو السنوية</div>
@@ -641,7 +634,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة تفاصيل الدفع البنكي الثابتة -->
+    <!-- واجهة تفاصيل الدفع البنكي -->
     <div id="paymentScreen" class="screen-view">
         <div class="page-header">
             <button class="back-btn" onclick="switchScreen('subscriptionScreen')">←</button>
@@ -679,28 +672,23 @@ html_code = """
 
     <!-- شريط التنقل السفلي المدمج -->
     <div class="plotcraft-nav-bar">
-        <!-- الأزرار الثلاثة داخل المستطيل: الرئيسية (يمين)، الأدوات (وسط)، الأعمال (يسار) -->
         <div class="plotcraft-nav-pill">
-            <!-- 1. الرئيسية -->
             <a href="#" class="plotcraft-nav-item active">
                 <span>الرئيسية</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22" fill="none" stroke="#161b22" stroke-width="2"></polyline></svg>
             </a>
             
-            <!-- 2. الأدوات -->
             <a href="#" class="plotcraft-nav-item">
                 <span>الأدوات</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
             </a>
 
-            <!-- 3. الأعمال -->
             <a href="#" class="plotcraft-nav-item">
                 <span>الأعمال</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
             </a>
         </div>
 
-        <!-- الزر المربع المنفصل على اليسار مع أيقونة الفيديو والشارة المميزة -->
         <div class="plotcraft-nav-square">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg>
         </div>
