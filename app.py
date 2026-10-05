@@ -139,6 +139,13 @@ html_code = """
             display: flex;
             flex-direction: column;
             justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .interactive-card:active {
+            transform: scale(0.97);
+            background: rgba(30, 40, 65, 0.85);
         }
 
         .card-header-row {
@@ -257,13 +264,58 @@ html_code = """
             line-height: 1.2;
         }
 
-        /* واجهة صفحة الاشتراكات الثابتة */
+        /* واجهة صفحة الاشتراكات مع الخلفية المتحركة/السينمائية */
+        #subscriptionScreen {
+            position: relative;
+            background: #0b0f19;
+            overflow: hidden;
+        }
+
+        /* حاوية الخلفية المتحركة (تأثيرات بصرية وانفجارات ضوئية سينمائية) */
+        .animated-bg-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        .explosion-glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(59,130,246,0.6) 0%, rgba(139,92,246,0.2) 50%, transparent 70%);
+            border-radius: 50%;
+            animation: pulseExplosion 4s infinite alternate ease-in-out;
+        }
+
+        .glow-1 { top: -50px; right: -50px; animation-delay: 0s; }
+        .glow-2 { bottom: 100px; left: -80px; animation-delay: 2s; background: radial-gradient(circle, rgba(236,72,153,0.5) 0%, rgba(59,130,246,0.2) 50%, transparent 70%); }
+
+        @keyframes pulseExplosion {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.3; }
+            50% { transform: scale(1.4) translate(20px, 30px); opacity: 0.7; }
+            100% { transform: scale(1.1) translate(-10px, 15px); opacity: 0.4; }
+        }
+
+        /* ضمان بقاء المحتوى والبطاقات فوق الخلفية المتحركة */
+        .page-header, .content-body {
+            position: relative;
+            z-index: 2;
+        }
+
         .page-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 20px;
             border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: rgba(11, 15, 25, 0.75);
+            backdrop-filter: blur(10px);
         }
 
         .back-btn {
@@ -300,8 +352,9 @@ html_code = """
         }
 
         .plan-card {
-            background: rgba(20, 25, 40, 0.9);
-            border: 1.5px solid rgba(255, 255, 255, 0.1);
+            background: rgba(20, 25, 40, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1.5px solid rgba(255, 255, 255, 0.15);
             border-radius: 16px;
             padding: 16px;
             cursor: pointer;
@@ -312,7 +365,7 @@ html_code = """
         .plan-card.selected {
             border-color: #3b82f6;
             background: rgba(30, 41, 75, 0.95);
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
         }
 
         .plan-top {
@@ -329,7 +382,7 @@ html_code = """
         }
 
         .plan-price {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.12);
             padding: 4px 10px;
             border-radius: 10px;
             color: #ffffff;
@@ -356,7 +409,7 @@ html_code = """
 
         .renewal-text {
             text-align: center;
-            color: #64748b;
+            color: #94a3b8;
             font-size: 11px;
             margin-top: 4px;
         }
@@ -489,6 +542,17 @@ html_code = """
             </div>
 
             <div class="cards-row">
+                <!-- تم ربط بطاقة "سريع" لتفتح واجهة الاشتراكات -->
+                <div class="interactive-card" onclick="switchScreen('subscriptionScreen')">
+                    <div class="card-header-row">
+                        <div class="card-title-group-left">
+                            <div class="card-title">سريع</div>
+                            <span class="magic-wand-icon"></span>
+                        </div>
+                    </div>
+                    <div class="card-subtitle">إدخال واحد، فيديو كامل</div>
+                </div>
+
                 <div class="interactive-card">
                     <div class="card-header-row">
                         <div class="card-title-group-left">
@@ -497,16 +561,6 @@ html_code = """
                         </div>
                     </div>
                     <div class="card-subtitle">راجع كل خطوة</div>
-                </div>
-
-                <div class="interactive-card">
-                    <div class="card-header-row">
-                        <div class="card-title-group-left">
-                            <div class="card-title">سريع</div>
-                            <span class="magic-wand-icon"></span>
-                        </div>
-                    </div>
-                    <div class="card-subtitle">إدخال واحد، فيديو كامل</div>
                 </div>
             </div>
         </div>
@@ -531,8 +585,14 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة الاشتراكات والباقات الثابتة -->
+    <!-- واجهة صفحة الاشتراكات مع الخلفية المتحركة والتأثيرات -->
     <div id="subscriptionScreen" class="screen-view">
+        <!-- الخلفية المتحركة ذات التأثيرات الانفجارية/السينمائية -->
+        <div class="animated-bg-container">
+            <div class="explosion-glow glow-1"></div>
+            <div class="explosion-glow glow-2"></div>
+        </div>
+
         <div class="page-header">
             <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
             <div class="page-title-text">ترقية الحساب</div>
