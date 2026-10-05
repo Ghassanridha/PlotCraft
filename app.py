@@ -500,7 +500,7 @@ html_code = """
     <div id="homeScreen" class="screen-view active">
         <div class="hero-box">
             <div class="top-header">
-                <div class="brand-title">بلوت كرافت</div>
+                <div class="brand-title">PlotCraft</div>
                 <div class="upgrade-badge" onclick="switchScreen('subscriptionScreen')">
                     <span>⭐</span> ترقية
                 </div>
@@ -601,7 +601,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة صفحة الاشتراكات (محدثة بالاشتراك السنوي) -->
+    <!-- واجهة صفحة الاشتراكات -->
     <div id="subscriptionScreen" class="screen-view">
         <div class="animated-bg-container">
             <div class="explosion-glow glow-1"></div>
@@ -616,7 +616,7 @@ html_code = """
 
         <div class="content-body">
             <div style="text-align: center; margin-bottom: 5px;">
-                <div style="color: #ffffff; font-size: 18px; font-weight: 700; margin-bottom: 4px;">حول أفكارك إلى بلوت كرافت</div>
+                <div style="color: #ffffff; font-size: 18px; font-weight: 700; margin-bottom: 4px;">حول أفكارك إلى PlotCraft</div>
                 <div style="color: #94a3b8; font-size: 12px;">أنشئ كل لقطة وعدلها وأكملها بسرعة.</div>
             </div>
 
@@ -624,27 +624,27 @@ html_code = """
                 <!-- الاشتراك الأسبوعي -->
                 <div class="plan-card selected" onclick="selectPlan(this)">
                     <div class="plan-top">
-                        <div class="plan-name">بلوت كرافت برو ويكلي</div>
+                        <div class="plan-name">PlotCraft Pro Weekly</div>
                         <div class="plan-price">9.99 دولار أمريكي / أسبوع</div>
                     </div>
-                    <div class="plan-desc">500 ساعة معتمدة / أسبوعياً، جرب بلوت كرافت</div>
+                    <div class="plan-desc">500 ساعة معتمدة / أسبوعياً، جرب PlotCraft</div>
                 </div>
 
                 <!-- الاشتراك الشهري -->
                 <div class="plan-card" onclick="selectPlan(this)">
                     <div class="new-tag">جديد</div>
                     <div class="plan-top">
-                        <div class="plan-name">بلوت كرافت برو الشهرية</div>
+                        <div class="plan-name">PlotCraft Pro Monthly</div>
                         <div class="plan-price">29.99 دولار أمريكي / شهر</div>
                     </div>
                     <div class="plan-desc">1800 نقطة / شهرياً، مثالي للمبدعين</div>
                 </div>
 
-                <!-- الاشتراك السنوي الجديد -->
+                <!-- الاشتراك السنوي -->
                 <div class="plan-card" onclick="selectPlan(this)">
                     <div class="best-value-tag">الأفضل قيمة</div>
                     <div class="plan-top">
-                        <div class="plan-name">بلوت كرافت برو السنوية</div>
+                        <div class="plan-name">PlotCraft Pro Annual</div>
                         <div class="plan-price">69.99 دولار أمريكي / سنة</div>
                     </div>
                     <div class="plan-desc">5000 نقطة / سنوياً، إمكانيات غير محدودة للمخرجين المحترفين</div>
@@ -742,7 +742,7 @@ html_code = """
         }
 
         function confirmPayment() {
-            alert('تم تأكيد اشتراكك في بلوت كرافت بنجاح!');
+            alert('تم تأكيد اشتراكك في PlotCraft بنجاح!');
             switchScreen('homeScreen');
         }
     </script>
