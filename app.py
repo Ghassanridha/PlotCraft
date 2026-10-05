@@ -158,7 +158,7 @@ html_code = """
             height: 22px;
             background: #dbeafe;
             mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
-            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1 z"/></svg>') no-repeat center;
+            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
             background-size: contain;
         }
 
@@ -600,7 +600,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة صفحة الاشتراكات (مع إضافة الخيار الشهري والأسبوعي معاً) -->
+    <!-- واجهة صفحة الاشتراكات -->
     <div id="subscriptionScreen" class="screen-view">
         <div class="animated-bg-container">
             <div class="explosion-glow glow-1"></div>
@@ -621,22 +621,22 @@ html_code = """
 
             <div class="plans-list">
                 <!-- خيار الاشتراك الأسبوعي -->
-                <div class="plan-card selected" onclick="selectPlan(this)">
+                <div class="plan-card" onclick="selectPlan(this)">
                     <div class="plan-top">
                         <div class="plan-name">بلوت كرافت برو ويكلي</div>
                         <div class="plan-price">9.99 دولار أمريكي / أسبوع</div>
                     </div>
-                    <div class="plan-desc">500 ساعة معتمدة / أسبوعياً، جرب بلوت كرافت</div>
+                    <div class="plan-desc">500 نقطة / أسبوعياً، جرب بلوت كرافت</div>
                 </div>
 
-                <!-- خيار الاشتراك الشهري الذي تم استرجاعه -->
-                <div class="plan-card" onclick="selectPlan(this)">
+                <!-- خيار الاشتراك الشهري مع النقاط مرتبة -->
+                <div class="plan-card selected" onclick="selectPlan(this)">
                     <div class="new-tag">جديد</div>
                     <div class="plan-top">
                         <div class="plan-name">بلوت كرافت برو الشهرية</div>
                         <div class="plan-price">29.99 دولار أمريكي / شهر</div>
                     </div>
-                    <div class="plan-desc">1800 نقطة / شهرياً، مثالي للمبدعين</div>
+                    <div class="plan-desc">1800 نقطة / شهرياً، مثالي للمبدعين والمشاريع الكبيرة</div>
                 </div>
             </div>
 
