@@ -33,24 +33,18 @@ html_code = """
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { 
+        body, html { 
             font-family: 'Tajawal', sans-serif; 
             background-color: #0b0d12; 
             color: #ffffff;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
+            width: 100%;
+            height: 100%;
         }
         .main-container {
             display: flex;
             flex-direction: column;
-            height: 100vh;
-            position: relative;
-        }
-        .content-scrollable {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding-bottom: 80px;
+            width: 100%;
+            min-height: 100vh;
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         
@@ -63,50 +57,31 @@ html_code = """
             font-size: 11px;
             color: #9ca3af;
             border-bottom: 1px solid rgba(255,255,255,0.08);
-            flex-shrink: 0;
         }
         
-        .hero-section {
-            background: linear-gradient(180deg, rgba(11,13,18,0.3) 0%, rgba(11,13,18,0.95) 85%, #0b0d12 100%),
-                        url('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=800&q=80');
-            background-size: cover;
-            background-position: center;
-            padding: 14px 16px;
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
-            flex-shrink: 0;
-        }
-        
-        .screen { display: none; width: 100%; flex-direction: column; }
-        .screen.active { display: flex; }
-        
-        /* شريط التنقل السفلي الثابت الواضح */
         .custom-nav-tabs {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
             display: flex;
             align-items: center;
             gap: 8px;
             padding: 12px 14px;
-            background: #0b0d12;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            z-index: 1000;
+            background: #12141c;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 999;
         }
         
-        /* الأزرار الثلاثة الأولى: أسود غامق، حواف مستطيل أبيض، بدون إيموجي */
         .tab-btn {
             flex: 1;
-            height: 44px;
+            height: 42px;
             text-align: center;
             font-family: 'Tajawal', sans-serif;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 500;
             color: #9ca3af;
             background: #000000;
             border: 1.5px solid #ffffff;
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -121,13 +96,12 @@ html_code = """
             box-shadow: 0 0 12px rgba(255,255,255,0.3);
         }
 
-        /* الزر الرابع المنفصل (زر الأيقونة والنجمة المطابق للصورة تماماً) */
         .custom-icon-tab {
-            width: 48px;
-            height: 44px;
+            width: 45px;
+            height: 42px;
             background: #000000;
             border: 1.5px solid #ffffff;
-            border-radius: 10px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -139,6 +113,50 @@ html_code = """
             background: #161922;
             border: 1.5px solid #ffffff;
             box-shadow: 0 0 12px rgba(255,255,255,0.3);
+        }
+
+        .hero-section {
+            background: linear-gradient(180deg, rgba(11,13,18,0.3) 0%, rgba(11,13,18,0.95) 85%, #0b0d12 100%),
+                        url('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 14px 16px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+        
+        .screen { display: none; width: 100%; flex-direction: column; }
+        .screen.active { display: flex; }
+
+        /* تنسيق زر الحذف */
+        .delete-all-btn {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 13px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+            margin-top: 15px;
+        }
+        .delete-all-btn:hover {
+            background-color: #b91c1c;
+        }
+
+        .option-item {
+            background: rgba(255, 255, 255, 0.07);
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
@@ -154,13 +172,32 @@ html_code = """
             <div style="display: flex; align-items: center; gap: 12px; font-size: 13px;">
                 <span>Share</span>
                 <span>⭐</span>
-                <span>✏️</span>
+                <span>✏</span>
                 <span>🐱</span>
                 <span>⋮</span>
             </div>
         </div>
 
-        <div class="content-scrollable no-scrollbar">
+        <!-- شريط التنقل العلوي -->
+        <div class="custom-nav-tabs">
+            <button id="btn-home" onclick="switchScreen('home')" class="tab-btn active">الصفحة الرئيسية</button>
+            <button id="btn-tools" onclick="switchScreen('tools')" class="tab-btn">الأدوات</button>
+            <button id="btn-works" onclick="switchScreen('works')" class="tab-btn">الاعمال</button>
+            
+            <button id="btn-custom" onclick="switchScreen('custom')" class="custom-icon-tab" title="الزر المخصص">
+                <div style="position: relative; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;">
+                    <div style="width: 18px; height: 18px; background: #9ca3af; border-radius: 4px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+                        <div style="width: 0; height: 0; border-top: 3px solid transparent; border-bottom: 3px solid transparent; border-right: 6px solid #0b0d12; transform: translateX(1px);"></div>
+                        <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 4px; background: repeating-linear-gradient(to bottom, #9ca3af, #9ca3af 2px, #4b5563 2px, #4b5563 4px);"></div>
+                    </div>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="#3b82f6" xmlns="http://www.w3.org/2000/svg" style="position: absolute; top: -5px; left: -4px;">
+                        <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
+                    </svg>
+                </div>
+            </button>
+        </div>
+
+        <div>
             
             <!-- الشاشة الرئيسية -->
             <div id="home-screen" class="screen active">
@@ -184,17 +221,17 @@ html_code = """
                             <h3 style="font-size: 11px; font-weight: bold; margin-bottom: 2px;">خطوة بخطوة</h3>
                             <p style="font-size: 8px; color: #94a3b8;">راجع كل خطوة</p>
                         </div>
-                        <div style="background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 14px; padding: 12px; text-align: right; position: relative;">
+                        <div style="background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 14px; padding: 12px; text-align: right;">
                             <h3 style="font-size: 11px; font-weight: bold; margin-bottom: 2px;">سريع</h3>
                             <p style="font-size: 8px; color: #94a3b8;">إدخال واحد، فيديو كامل</p>
                         </div>
                     </div>
                 </div>
 
-                <div style="padding: 40px 16px 20px 16px;">
+                <div style="padding: 20px 16px 40px 16px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                         <h3 style="font-size: 13px; font-weight: 800; color: #ffffff;">إلهام بلوت كرافت</h3>
-                        <span style="font-size: 10px; color: #9ca3af; font-weight: bold; cursor: pointer;">عرض الكل <</span>
+                        <span style="font-size: 10px; color: #9ca3af; font-weight: bold;">عرض الكل <</span>
                     </div>
 
                     <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px;" class="no-scrollbar">
@@ -206,30 +243,31 @@ html_code = """
                             <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.1)); border-radius: 16px;"></div>
                             <span style="position: relative; z-index: 10; font-size: 10px; font-weight: 900; text-align: center; color: #ffffff;">THE WRONG DOOR</span>
                         </div>
-                        <div style="min-width: 160px; width: 160px; height: 230px; border-radius: 16px; background-image: url('https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=350&q=80'); background-size: cover; background-position: center; position: relative; padding: 12px; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid rgba(255,255,255,0.15); flex-shrink: 0;">
-                            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.1)); border-radius: 16px;"></div>
-                            <span style="position: relative; z-index: 10; font-size: 10px; font-weight: 900; text-align: center; color: #ffffff;">CYBERPUNK CITY</span>
-                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- شاشة الأدوات -->
-            <div id="tools-screen" class="screen" style="padding: 16px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-                    <h1 style="font-size: 15px; font-weight: 900;">الأدوات</h1>
-                    <span style="background: rgba(255,255,255,0.1); padding: 5px 14px; border-radius: 20px; font-size: 11px; font-weight: bold;">ترقية ✨</span>
-                </div>
+            <!-- شاشة الأدوات (تحتوي على قائمة الخيارات وزر الحذف) -->
+            <div id="tools-screen" class="screen" style="padding: 20px;">
+                <h1 style="font-size: 15px; font-weight: 900; margin-bottom: 14px;">الأدوات وإدارة الخيارات</h1>
                 <div style="background: rgba(255,255,255,0.05); padding: 18px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.1);">
-                    <h3 style="font-size: 13px; font-weight: 900;">ميزات الأدوات المتقدمة</h3>
+                    <h3 style="font-size: 13px; font-weight: 900; margin-bottom: 12px;">قائمة الخيارات النشطة</h3>
+                    
+                    <!-- حاوية الخيارات -->
+                    <div id="options-container">
+                        <div class="option-item"><span>الخيار الأول (نمط بصري)</span></div>
+                        <div class="option-item"><span>الخيار الثاني (جودة عالية)</span></div>
+                        <div class="option-item"><span>الخيار الثالث (مؤثرات صوتية)</span></div>
+                    </div>
+
+                    <!-- زر حذف جميع الخيارات -->
+                    <button class="delete-all-btn" onclick="deleteAllOptions()">حذف جميع الخيارات</button>
                 </div>
             </div>
 
             <!-- شاشة الأعمال -->
-            <div id="works-screen" class="screen" style="padding: 16px;">
-                <div style="display: flex; justify-content: flex-end; margin-bottom: 14px;">
-                    <span style="background: rgba(99, 102, 241, 0.2); color: #818cf8; padding: 6px 16px; border-radius: 20px; font-size: 11px; font-weight: bold; cursor: pointer;">+ مشروع جديد</span>
-                </div>
+            <div id="works-screen" class="screen" style="padding: 20px;">
+                <h1 style="font-size: 15px; font-weight: 900; margin-bottom: 14px;">الاعمال</h1>
                 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 220px;">
                     <p style="font-size: 12px; color: #9ca3af;">لا توجد أعمال محفوظة</p>
                 </div>
@@ -237,44 +275,14 @@ html_code = """
 
             <!-- شاشة الزر المخصص -->
             <div id="custom-screen" class="screen" style="padding: 20px;">
-                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 350px;">
-                    <div style="background: #12141c; border: 2px solid #ffffff; border-radius: 20px; padding: 30px; width: 100%; max-width: 300px; text-align: center; box-shadow: 0 8px 30px rgba(0,0,0,0.9); display: flex; flex-direction: column; align-items: center; gap: 16px;">
-                        
-                        <div style="position: relative; width: 75px; height: 75px; background: #181b24; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.15);">
-                            <div style="width: 36px; height: 36px; background: #9ca3af; border-radius: 6px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
-                                <div style="width: 0; height: 0; border-top: 6px solid transparent; border-bottom: 6px solid transparent; border-right: 10px solid #0b0d12; transform: translateX(2px);"></div>
-                                <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 8px; background: repeating-linear-gradient(to bottom, #9ca3af, #9ca3af 2px, #4b5563 2px, #4b5563 4px);"></div>
-                            </div>
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#3b82f6" xmlns="http://www.w3.org/2000/svg" style="position: absolute; top: 2px; left: 6px; filter: drop-shadow(0 0 4px rgba(59,130,246,0.8));">
-                                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
-                            </svg>
-                        </div>
-
-                        <h3 style="font-size: 14px; font-weight: 900; color: #ffffff;">القسم المخصص للإنشاء</h3>
-                        <p style="font-size: 10px; color: #9ca3af; line-height: 1.4;">هذا الزر مستقل بذاته تماماً بجانب الأقسام وبنفس الخصائص والتصميم الدقيق.</p>
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 300px;">
+                    <div style="background: #12141c; border: 2px solid #ffffff; border-radius: 20px; padding: 25px; width: 100%; max-width: 280px; text-align: center; box-shadow: 0 8px 30px rgba(0,0,0,0.9);">
+                        <h3 style="font-size: 14px; font-weight: 900; color: #ffffff; margin-bottom: 8px;">القسم المخصص</h3>
+                        <p style="font-size: 10px; color: #9ca3af;">هذا الزر مستقل بذاته تماماً.</p>
                     </div>
                 </div>
             </div>
 
-        </div>
-
-        <!-- شريط التنقل السفلي الظاهر والواضح -->
-        <div class="custom-nav-tabs">
-            <button id="btn-home" onclick="switchScreen('home')" class="tab-btn active">الصفحة الرئيسية</button>
-            <button id="btn-tools" onclick="switchScreen('tools')" class="tab-btn">الأدوات</button>
-            <button id="btn-works" onclick="switchScreen('works')" class="tab-btn">الاعمال</button>
-            
-            <button id="btn-custom" onclick="switchScreen('custom')" class="custom-icon-tab" title="الزر المخصص">
-                <div style="position: relative; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;">
-                    <div style="width: 20px; height: 20px; background: #9ca3af; border-radius: 4px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
-                        <div style="width: 0; height: 0; border-top: 3px solid transparent; border-bottom: 3px solid transparent; border-right: 6px solid #0b0d12; transform: translateX(1px);"></div>
-                        <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 5px; background: repeating-linear-gradient(to bottom, #9ca3af, #9ca3af 2px, #4b5563 2px, #4b5563 4px);"></div>
-                    </div>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#3b82f6" xmlns="http://www.w3.org/2000/svg" style="position: absolute; top: -6px; left: -4px;">
-                        <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
-                    </svg>
-                </div>
-            </button>
         </div>
 
     </div>
@@ -305,9 +313,15 @@ html_code = """
                 document.getElementById('btn-custom').classList.add('active');
             }
         }
+
+        // الدالة المسؤولة عن حذف جميع الخيارات
+        function deleteAllOptions() {
+            const container = document.getElementById('options-container');
+            container.innerHTML = '<p style="font-size: 11px; color: #9ca3af; text-align: center; padding: 10px;">لا توجد خيارات متبقية</p>';
+        }
     </script>
 </body>
 </html>
 """
 
-st.components.v1.html(html_code, height=820, scrolling=False)
+st.components.v1.html(html_code, height=850, scrolling=True)
