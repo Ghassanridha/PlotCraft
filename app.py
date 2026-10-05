@@ -45,6 +45,7 @@ html_code = """
             flex-direction: column;
             width: 100%;
             min-height: 100vh;
+            padding-bottom: 75px; /* مساحة فارغة أسفل الشاشة حتى لا يغطي المحتوى الشريط السفلي */
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         
@@ -59,15 +60,18 @@ html_code = """
             border-bottom: 1px solid rgba(255,255,255,0.08);
         }
         
+        /* شريط التنقل السفلي الثابت */
         .custom-nav-tabs {
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 12px 14px;
+            padding: 10px 14px;
             background: #12141c;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-            position: sticky;
-            top: 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
             z-index: 999;
         }
         
@@ -120,15 +124,15 @@ html_code = """
                         url('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=800&q=80');
             background-size: cover;
             background-position: center;
-            padding: 14px 16px;
+            padding: 18px 16px;
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         
         .screen { display: none; width: 100%; flex-direction: column; }
         .screen.active { display: flex; }
 
-        /* تنسيق زر الحذف */
         .delete-all-btn {
             background-color: #dc2626;
             color: white;
@@ -176,25 +180,6 @@ html_code = """
                 <span>🐱</span>
                 <span>⋮</span>
             </div>
-        </div>
-
-        <!-- شريط التنقل العلوي -->
-        <div class="custom-nav-tabs">
-            <button id="btn-home" onclick="switchScreen('home')" class="tab-btn active">الصفحة الرئيسية</button>
-            <button id="btn-tools" onclick="switchScreen('tools')" class="tab-btn">الأدوات</button>
-            <button id="btn-works" onclick="switchScreen('works')" class="tab-btn">الاعمال</button>
-            
-            <button id="btn-custom" onclick="switchScreen('custom')" class="custom-icon-tab" title="الزر المخصص">
-                <div style="position: relative; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;">
-                    <div style="width: 18px; height: 18px; background: #9ca3af; border-radius: 4px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
-                        <div style="width: 0; height: 0; border-top: 3px solid transparent; border-bottom: 3px solid transparent; border-right: 6px solid #0b0d12; transform: translateX(1px);"></div>
-                        <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 4px; background: repeating-linear-gradient(to bottom, #9ca3af, #9ca3af 2px, #4b5563 2px, #4b5563 4px);"></div>
-                    </div>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="#3b82f6" xmlns="http://www.w3.org/2000/svg" style="position: absolute; top: -5px; left: -4px;">
-                        <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
-                    </svg>
-                </div>
-            </button>
         </div>
 
         <div>
@@ -253,14 +238,12 @@ html_code = """
                 <div style="background: rgba(255,255,255,0.05); padding: 18px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.1);">
                     <h3 style="font-size: 13px; font-weight: 900; margin-bottom: 12px;">قائمة الخيارات النشطة</h3>
                     
-                    <!-- حاوية الخيارات -->
                     <div id="options-container">
                         <div class="option-item"><span>الخيار الأول (نمط بصري)</span></div>
                         <div class="option-item"><span>الخيار الثاني (جودة عالية)</span></div>
                         <div class="option-item"><span>الخيار الثالث (مؤثرات صوتية)</span></div>
                     </div>
 
-                    <!-- زر حذف جميع الخيارات -->
                     <button class="delete-all-btn" onclick="deleteAllOptions()">حذف جميع الخيارات</button>
                 </div>
             </div>
@@ -285,6 +268,25 @@ html_code = """
 
         </div>
 
+    </div>
+
+    <!-- شريط الأزرار في الأسفل تماماً -->
+    <div class="custom-nav-tabs">
+        <button id="btn-home" onclick="switchScreen('home')" class="tab-btn active">الصفحة الرئيسية</button>
+        <button id="btn-tools" onclick="switchScreen('tools')" class="tab-btn">الأدوات</button>
+        <button id="btn-works" onclick="switchScreen('works')" class="tab-btn">الاعمال</button>
+        
+        <button id="btn-custom" onclick="switchScreen('custom')" class="custom-icon-tab" title="الزر المخصص">
+            <div style="position: relative; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;">
+                <div style="width: 18px; height: 18px; background: #9ca3af; border-radius: 4px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+                    <div style="width: 0; height: 0; border-top: 3px solid transparent; border-bottom: 3px solid transparent; border-right: 6px solid #0b0d12; transform: translateX(1px);"></div>
+                    <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 4px; background: repeating-linear-gradient(to bottom, #9ca3af, #9ca3af 2px, #4b5563 2px, #4b5563 4px);"></div>
+                </div>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#3b82f6" xmlns="http://www.w3.org/2000/svg" style="position: absolute; top: -5px; left: -4px;">
+                    <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
+                </svg>
+            </div>
+        </button>
     </div>
 
     <script>
@@ -314,7 +316,6 @@ html_code = """
             }
         }
 
-        // الدالة المسؤولة عن حذف جميع الخيارات
         function deleteAllOptions() {
             const container = document.getElementById('options-container');
             container.innerHTML = '<p style="font-size: 11px; color: #9ca3af; text-align: center; padding: 10px;">لا توجد خيارات متبقية</p>';
