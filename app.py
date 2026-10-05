@@ -20,10 +20,6 @@ st.markdown("""
             max-width: 100% !important;
             overflow: hidden;
         }
-        iframe {
-            width: 100% !important;
-            max-width: 100% !important;
-        }
     </style>
 """, unsafe_allow_html=True)
 
@@ -54,7 +50,7 @@ html_code = """
         .content-scrollable {
             flex-grow: 1;
             overflow-y: auto;
-            padding-bottom: 75px;
+            padding-bottom: 80px;
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         
@@ -84,7 +80,7 @@ html_code = """
         .screen { display: none; width: 100%; flex-direction: column; }
         .screen.active { display: flex; }
         
-        /* شريط التنقل السفلي */
+        /* شريط التنقل السفلي الثابت الواضح */
         .custom-nav-tabs {
             position: absolute;
             bottom: 0;
@@ -92,26 +88,25 @@ html_code = """
             right: 0;
             display: flex;
             align-items: center;
-            gap: 6px;
-            padding: 8px 10px;
-            background: rgba(11, 13, 18, 0.98);
-            backdrop-filter: blur(12px);
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            z-index: 100;
+            gap: 8px;
+            padding: 12px 14px;
+            background: #0b0d12;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            z-index: 1000;
         }
         
-        /* الأزرار الثلاثة الأولى: مستطيل بحواف بيضاء وخلفية أسود غامق وبدون إيموجي */
+        /* الأزرار الثلاثة الأولى: أسود غامق، حواف مستطيل أبيض، بدون إيموجي */
         .tab-btn {
             flex: 1;
-            height: 42px;
+            height: 44px;
             text-align: center;
             font-family: 'Tajawal', sans-serif;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 500;
             color: #9ca3af;
             background: #000000;
-            border: 1px solid #ffffff;
-            border-radius: 8px;
+            border: 1.5px solid #ffffff;
+            border-radius: 10px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -119,20 +114,20 @@ html_code = """
             transition: all 0.2s ease;
         }
         .tab-btn.active {
-            background: #1a1d26;
+            background: #161922;
             color: #ffffff;
             font-weight: 900;
-            border: 1px solid #ffffff;
-            box-shadow: 0 0 10px rgba(255,255,255,0.25);
+            border: 1.5px solid #ffffff;
+            box-shadow: 0 0 12px rgba(255,255,255,0.3);
         }
 
-        /* الزر الرابع (زر الصورة داخل مربعه المستقل بجانب البقية) */
+        /* الزر الرابع المنفصل (زر الأيقونة والنجمة المطابق للصورة تماماً) */
         .custom-icon-tab {
-            width: 44px;
-            height: 42px;
+            width: 48px;
+            height: 44px;
             background: #000000;
-            border: 1px solid #ffffff;
-            border-radius: 8px;
+            border: 1.5px solid #ffffff;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -141,9 +136,9 @@ html_code = """
             flex-shrink: 0;
         }
         .custom-icon-tab.active {
-            background: #1a1d26;
-            border: 1px solid #ffffff;
-            box-shadow: 0 0 10px rgba(255,255,255,0.25);
+            background: #161922;
+            border: 1.5px solid #ffffff;
+            box-shadow: 0 0 12px rgba(255,255,255,0.3);
         }
     </style>
 </head>
@@ -256,14 +251,14 @@ html_code = """
                         </div>
 
                         <h3 style="font-size: 14px; font-weight: 900; color: #ffffff;">القسم المخصص للإنشاء</h3>
-                        <p style="font-size: 10px; color: #9ca3af; line-height: 1.4;">هذا المربع مستقل بذاته تماماً بجانب الأقسام وبنفس الخصائص والتصميم الدقيق.</p>
+                        <p style="font-size: 10px; color: #9ca3af; line-height: 1.4;">هذا الزر مستقل بذاته تماماً بجانب الأقسام وبنفس الخصائص والتصميم الدقيق.</p>
                     </div>
                 </div>
             </div>
 
         </div>
 
-        <!-- شريط التنقل السفلي -->
+        <!-- شريط التنقل السفلي الظاهر والواضح -->
         <div class="custom-nav-tabs">
             <button id="btn-home" onclick="switchScreen('home')" class="tab-btn active">الصفحة الرئيسية</button>
             <button id="btn-tools" onclick="switchScreen('tools')" class="tab-btn">الأدوات</button>
@@ -315,4 +310,4 @@ html_code = """
 </html>
 """
 
-st.components.v1.html(html_code, height=800, scrolling=False)
+st.components.v1.html(html_code, height=820, scrolling=False)
