@@ -16,7 +16,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-html_code = """
+html_code = r"""
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -48,7 +48,6 @@ html_code = """
             padding-bottom: 70px;
         }
 
-        /* الشاشات المختلفة */
         .screen-view {
             display: none;
             width: 100%;
@@ -101,12 +100,6 @@ html_code = """
             gap: 6px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .upgrade-badge:active {
-            transform: scale(0.95);
-            background: rgba(255, 255, 255, 0.3);
         }
 
         .welcome-section {
@@ -140,12 +133,6 @@ html_code = """
             flex-direction: column;
             justify-content: center;
             cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .interactive-card:active {
-            transform: scale(0.97);
-            background: rgba(30, 40, 65, 0.85);
         }
 
         .card-header-row {
@@ -164,16 +151,13 @@ html_code = """
         .card-subtitle {
             color: #94a3b8;
             font-size: 12px;
-            font-weight: 400;
         }
 
-        .exact-bot-icon {
+        .exact-bot-icon, .magic-wand-icon {
             width: 22px;
             height: 22px;
             background: #dbeafe;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
-            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
-            background-size: contain;
+            display: inline-block;
         }
 
         .card-title-group-left {
@@ -183,8 +167,325 @@ html_code = """
             width: 100%;
         }
 
-        .magic-wand-icon {
-            width: 22px;
-            height: 22px;
-            background: #dbeafe;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.5 5.6c-.3-.3-.8-.3-1.1 0-.3.3-.3.8 0 1.1 1.2 1.2 1.9 2.8 1.9 4.5 0 1.7-.7 3.3-1.9 4.5-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 1.5-1.5 2.3-3.5 2.3-5.6s-.8-4.1-2.3-5.6zm4.3-2.3c-.3-.3-.8-.3-1.1 0-.3.3-.3.8 0 1.1 2.2 2.2 3.4 5.1 3.4 8.2s-1.2 6-3.4 8.2c-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 2.6-2.6 4-6 4-9.3s-1.4-6.7-4-9.3zm4.4-2.3c-.3-.3-.8-.3-1.1 0-.3.3-.3.8 0 1.1 3.1 3.1 4.9 7.3 4.9 11.6s-1.8 8.5-4.9 11.6c-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 3.5-3.5 5.4-8.1 5.4-12.7s-1.9-9.2-5.4
+        .inspiration-section {
+            padding: 24px 20px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .view-all {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .movies-carousel {
+            display: flex;
+            flex-direction: row-reverse;
+            gap: 14px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            scrollbar-width: none;
+        }
+
+        .movie-card {
+            min-width: 130px;
+            height: 190px;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 14px;
+        }
+
+        .movie-card.m1 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=300&auto=format&fit=crop') center/cover; }
+        .movie-card.m2 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=300&auto=format&fit=crop') center/cover; }
+        .movie-card.m3 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=300&auto=format&fit=crop') center/cover; }
+
+        .movie-title {
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        #dramaScreen {
+            background-color: #0b0f19;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            direction: rtl;
+        }
+
+        .drama-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .drama-title {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .drama-back-btn {
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .ai-assistant-box {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .ai-assistant-header {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .ai-assistant-name {
+            color: #ec4899;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .plotcraft-circle-logo {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .ai-assistant-text {
+            color: #94a3b8;
+            font-size: 12px;
+            line-height: 1.5;
+            text-align: right;
+        }
+
+        .story-setup-card {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 16px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .story-setup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .story-setup-title {
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .story-setup-counter {
+            background-color: #30363d;
+            color: #ffffff;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 10px;
+        }
+
+        .story-setup-desc {
+            color: #94a3b8;
+            font-size: 11px;
+            text-align: right;
+            margin-top: -10px;
+        }
+
+        .option-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 12px 14px;
+            border-radius: 12px;
+        }
+
+        .option-info {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            text-align: right;
+        }
+
+        .option-label {
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .option-sub {
+            color: #94a3b8;
+            font-size: 11px;
+        }
+
+        .add-btn {
+            background-color: #30363d;
+            color: #ffffff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .next-step-btn {
+            width: 100%;
+            background: #21262d;
+            color: #8b949e;
+            border: 1px solid #30363d;
+            padding: 14px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        #subscriptionScreen {
+            position: relative;
+            background: #0b0f19;
+            display: none;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: rgba(11, 15, 25, 0.75);
+        }
+
+        .back-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #fff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .page-title-text {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .content-body {
+            padding: 20px;
+        }
+
+        .plotcraft-nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #0b0f19;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            z-index: 999999;
+            box-sizing: border-box;
+            direction: rtl;
+        }
+
+        .plotcraft-nav-pill {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 35px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 8px 15px;
+            flex-grow: 1;
+            max-width: 380px;
+        }
+
+        .plotcraft-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #8b949e;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .plotcraft-nav-square {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 16px;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-screen">
+        <div id="homeScreen" class="screen-view active">
+            <div class="hero-box">
+                <div class="top-header">
+                    <div class="brand-title">بلوت كرافت</div>
+                    <div class="upgrade-badge" onclick="switchScreen('subscriptionScreen')">
+                        <span>⭐</span> ترقية
+                    </div>
+                </div>
+
+                <div class="welcome-section">
+                    <h1>مساء الخير، أيها المخرج<br>أي قصة سنصنع اليوم؟</h1>
+                </div>
+
+                <div class="cards-row">
+                    <div class="interactive-card" onclick="switchScreen('dramaScreen
