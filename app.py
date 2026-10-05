@@ -16,7 +16,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# كود HTML و CSS مع إضافة الأيقونة بجانب بطاقة "خطوة بخطوة"
+# كود واجهة مستخدم PlotCraft مع الأيقونة الصحيحة في الجهة اليسرى
 html_code = """
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -132,8 +132,9 @@ html_code = """
 
         .card-title-group {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 8px;
+            width: 100%;
         }
 
         .card-title {
@@ -142,13 +143,13 @@ html_code = """
             font-weight: 700;
         }
 
-        /* تصميم أيقونة الروبوت الجديدة داخل بطاقة خطوة بخطوة */
-        .step-bot-icon {
-            width: 22px;
-            height: 22px;
-            background: #cbd5e1;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 9V7c0-1.1-.9-2-2-2h-3c0-1.7-1.3-3-3-3S9 3.3 9 5H6c-1.1 0-2 .9-2 2v2c-1.7 0-3 1.3-3 3s1.3 3 3 3v2c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-2c1.7 0 3-1.3 3-3s-1.3-3-3-3zm-11 5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm6 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>') no-repeat center;
-            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 9V7c0-1.1-.9-2-2-2h-3c0-1.7-1.3-3-3-3S9 3.3 9 5H6c-1.1 0-2 .9-2 2v2c-1.7 0-3 1.3-3 3s1.3 3 3 3v2c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-2c1.7 0 3-1.3 3-3s-1.3-3-3-3zm-11 5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm6 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>') no-repeat center;
+        /* تصميم أيقونة الروبوت المطابقة تماماً لصورتك والموجودة في الجهة اليسرى */
+        .exact-bot-icon {
+            width: 24px;
+            height: 24px;
+            background: #dbeafe;
+            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
+            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1 z"/></svg>') no-repeat center;
             background-size: contain;
         }
 
@@ -332,12 +333,12 @@ html_code = """
             </div>
 
             <div class="cards-row">
-                <!-- بطقة خطوة بخطوة مع الأيقونة الجديدة بجانب العنوان -->
+                <!-- بطاقة خطوة بخطوة مع الأيقونة في الجهة اليسرى تماماً -->
                 <div class="interactive-card">
                     <div class="card-header-row">
                         <div class="card-title-group">
-                            <span class="step-bot-icon"></span>
                             <div class="card-title">خطوة بخطوة</div>
+                            <span class="exact-bot-icon"></span>
                         </div>
                     </div>
                     <div class="card-subtitle">راجع كل خطوة</div>
