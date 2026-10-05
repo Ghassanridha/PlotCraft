@@ -1,190 +1,149 @@
 import streamlit as st
-import streamlit.components.v1 as components
 
-# إعداد صفحة ستريمليت لإزالة الهوامش واستغلال الشاشة بالكامل
-st.set_page_config(page_title="PlotCraft UI", layout="wide", initial_sidebar_state="collapsed")
-
-# إزالة هوامش وتداخلات صفحة ستريمليت الافتراضية للجوال
-st.markdown("""
+# إعداد الصفحة وتجنب أي تداخل في التصميم
+st.markdown(
+    """
     <style>
-        .block-container {
-            padding: 0 !important;
-            margin: 0 !important;
-            max-width: 100% !important;
-        }
-        header {visibility: hidden;}
+    .stApp {
+        background-color: #0e0f13;
+        color: #ffffff;
+    }
+    /* تصميم البطاقات الرئيسية */
+    .main-card {
+        background-color: #1a1b22;
+        border-radius: 16px;
+        padding: 20px;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    /* صندوق الترحيب العلوي الخاص بالمساعد */
+    .ai-banner {
+        background-color: #1a1b22;
+        border-radius: 12px;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .ai-text {
+        font-size: 14px;
+        color: #e0e0e0;
+        text-align: right;
+        direction: rtl;
+    }
+    .ai-title {
+        color: #ff4b8b;
+        font-weight: bold;
+        font-size: 15px;
+        margin-bottom: 5px;
+    }
+    /* الشعار الدائري */
+    .ai-avatar {
+        width: 45px;
+        height: 45px;
+        background: linear-gradient(135deg, #ff4b8b 0%, #a855f7 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: white;
+        font-size: 14px;
+        box-shadow: 0 4px 10px rgba(255, 75, 139, 0.3);
+    }
+    /* الأقسام داخل القائمة الجديدة */
+    .section-box {
+        background-color: #1a1b22;
+        border-radius: 12px;
+        padding: 15px;
+        margin-top: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+    }
     </style>
-""", unsafe_allow_html=True)
+""",
+    unsafe_allow_html=True,
+)
 
-html_code = """
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PlotCraft UI</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
+# إدارة حالة التنقل بين الواجهة الرئيسية وقائمة خطوة بخطوة
+if "step_by_step_active" not in st.session_state:
+    st.session_state.step_by_step_active = False
 
-        body, html {
-            width: 100%;
-            height: 100%;
-            background-color: #0b0f19;
-            overflow-x: hidden;
-        }
+# الواجهة الرئيسية لتطبيق بلوت كرافت
+if not st.session_state.step_by_step_active:
+    st.markdown(
+        "<h3 style='text-align: right; direction: rtl;'>بلوت كرافت</h3>",
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        "<h4 style='text-align: right; direction: rtl; color: #aaa;'>مساء الخير، أيها المخرج<br>أي قصة سنصنع اليوم؟</h4>",
+        unsafe_allow_html=True,
+    )
 
-        .mobile-screen {
-            width: 100vw;
-            min-height: 100vh;
-            background-color: #0b0f19;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            padding-bottom: 70px;
-        }
+    col1, col2 = st.columns(2)
 
-        /* الشاشات المختلفة */
-        .screen-view {
-            display: none;
-            width: 100%;
-            min-height: 100vh;
-            background-color: #0b0f19;
-            flex-direction: column;
-        }
+    with col1:
+        if st.button("🚀 سريع\n\nإدخال واحد، فيديو كامل", use_container_width=True):
+            pass
 
-        .screen-view.active {
-            display: flex;
-        }
+    with col2:
+        # عند الضغط على زر خطوة بخطوة يتم تفعيل الانتقال للقائمة الجديدة المطابقة للصورة الثانية
+        if st.button(
+            "🎛️ خطوة بخطوة\n\nراجع كل خطوة", use_container_width=True
+        ):
+            st.session_state.step_by_step_active = True
+            st.rerun()
 
-        .hero-box {
-            position: relative;
-            width: 100%;
-            min-height: 52vh;
-            background: linear-gradient(180deg, rgba(11,15,25,0.2) 0%, rgba(11,15,25,0.8) 75%, #0b0f19 100%),
-                        url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1080&auto=format&fit=crop') center/cover no-repeat;
-            border-bottom-left-radius: 35px;
-            border-bottom-right-radius: 35px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 24px 20px 20px 20px;
-        }
+# القائمة الجديدة المطابقة لتفاصيل الصورة الثانية عند الضغط على خطوة بخطوة
+else:
+    # زر العودة للخلف
+    if st.button("❮ العودة"):
+        st.session_state.step_by_step_active = False
+        st.rerun()
 
-        .top-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
+    st.markdown(
+        "<h4 style='text-align: center; direction: rtl;'>دراما جديدة</h4>",
+        unsafe_allow_html=True,
+    )
 
-        .brand-title {
-            color: #ffffff;
-            font-size: 20px;
-            font-weight: 700;
-        }
+    # صندوق الترحيب مع شعار دائري واسم مساعد AI بلوت كرافت
+    st.markdown(
+        """
+        <div class="ai-banner">
+            <div class="ai-avatar">AI+</div>
+            <div class="ai-text">
+                <div class="ai-title">مساعدة AI بلوت كرافت</div>
+                عزيزي المخرج، ما نوع القصة التي تريد إنشاؤها؟ اكتب فكرتك ودع مساعد AI يحولها إلى واقع.
+            </div>
+        </div>
+    """,
+        unsafe_allow_html=True,
+    )
 
-        .upgrade-badge {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            padding: 8px 16px;
-            border-radius: 25px;
-            color: #ffffff;
-            font-size: 14px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            cursor: pointer;
-            transition: 0.2s;
-        }
+    # هيكل إعداد القصة والخيارات المطابقة تماماً
+    st.markdown(
+        """
+        <div class="section-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; direction: rtl;">
+                <span style="font-weight: bold; font-size: 15px;">إعداد القصة</span>
+                <span style="background-color: #2a2b36; color: #aaa; padding: 2px 8px; border-radius: 10px; font-size: 12px;">0/2</span>
+            </div>
+            <div style="color: #888; font-size: 12px; margin-bottom: 15px; direction: rtl;">أضف الشخصيات والقصة أولاً، ثم اختر المدة والنسبة.</div>
+            
+            <div style="background-color: #23242d; padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; direction: rtl;">
+                <span>الشخصيات (أضف شخصيتين كحد أقصى)</span>
+                <button style="background-color: #333442; color: white; border: none; padding: 5px 12px; border-radius: 6px; cursor: pointer;">⬆ إضافة</button>
+            </div>
 
-        .upgrade-badge:active {
-            transform: scale(0.95);
-            background: rgba(255, 255, 255, 0.3);
-        }
+            <div style="background-color: #23242d; padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; direction: rtl;">
+                <span>الحكاية (اضغط لكتابة قصتك)</span>
+                <button style="background-color: #333442; color: white; border: none; padding: 5px 12px; border-radius: 6px; cursor: pointer;">✍ إضافة</button>
+            </div>
+        </div>
+    """,
+        unsafe_allow_html=True,
+    )
 
-        .welcome-section {
-            text-align: right;
-            margin-top: 15px;
-        }
-
-        .welcome-section h1 {
-            color: #ffffff;
-            font-size: 22px;
-            font-weight: 700;
-            line-height: 1.4;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-        }
-
-        .cards-row {
-            display: flex;
-            gap: 12px;
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .interactive-card {
-            flex: 1;
-            background: rgba(20, 25, 40, 0.65);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 18px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .interactive-card:active {
-            transform: scale(0.97);
-            background: rgba(30, 40, 65, 0.85);
-        }
-
-        .card-header-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-        }
-
-        .card-title {
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: 700;
-        }
-
-        .card-subtitle {
-            color: #94a3b8;
-            font-size: 12px;
-            font-weight: 400;
-        }
-
-        .exact-bot-icon {
-            width: 22px;
-            height: 22px;
-            background: #dbeafe;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
-            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
-            background-size: contain;
-        }
-
-        .card-title-group-left {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-
-        .magic-wand-icon {
-            width: 22px;
-            height: 22px;
-            background: #dbeafe;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.5 5.6c-.3-.3-.8-.3-1.1 0-.3.3-.3.8 0 1.1 1.2 1.2 1.9 2.8 1.9 4.5 0 1.7-.7 3.3-1.9 4.5-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 1.5-1.5 2.3-3.
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.button("التالي", use_container_width=True, disabled=True)
