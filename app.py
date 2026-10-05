@@ -35,35 +35,38 @@ app_html = """
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
+            overflow: hidden;
         }
         
         .mobile-screen {
             width: 100%;
-            max-width: 400px;
-            height: 840px;
+            max-width: 390px;
+            height: 810px;
             background-color: #0b0c10;
             position: relative;
-            overflow-y: auto;
-            overflow-x: hidden;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             box-shadow: 0 0 30px rgba(0,0,0,0.8);
             border-radius: 30px;
             border: 1px solid #1f222e;
+            padding: 12px 0;
         }
         
-        .mobile-screen::-webkit-scrollbar {
-            display: none;
-        }
-        
-        /* الهيدر العلوي: ترقية يمين، اسم التطبيق والشعار يسار */
+        /* الهيدر العلوي: بلوت كرافت يمين، ترقية يسار (بدون أيقونات بجانب بلوت كرافت) */
         .top-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 20px 10px 20px;
+            padding: 0 18px;
+        }
+        
+        .app-brand {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
         }
         
         .upgrade-btn {
@@ -79,38 +82,13 @@ app_html = """
             gap: 5px;
         }
         
-        .app-brand {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 16px;
-            font-weight: 700;
-        }
-        
-        .brand-logo {
-            width: 22px;
-            height: 22px;
-            background: #222530;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .brand-logo svg {
-            width: 12px;
-            height: 12px;
-            fill: #fff;
-        }
-        
         /* قسم البطل */
         .hero-box {
             position: relative;
-            margin: 10px 16px;
-            border-radius: 24px;
+            margin: 6px 16px;
+            border-radius: 22px;
             overflow: hidden;
-            padding: 24px 20px;
+            padding: 20px 18px;
             background-image: linear-gradient(to bottom, rgba(11, 12, 16, 0.35), rgba(11, 12, 16, 0.96)), 
                               url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop');
             background-size: cover;
@@ -120,27 +98,27 @@ app_html = """
         
         .hero-text {
             text-align: right;
-            margin-bottom: 22px;
+            margin-bottom: 16px;
         }
         
         .hero-subtitle {
             color: #cfd0d5;
-            font-size: 14px;
+            font-size: 13.5px;
             font-weight: 400;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
         
         .hero-title {
             color: #ffffff;
-            font-size: 21px;
+            font-size: 20px;
             font-weight: 700;
             line-height: 1.3;
         }
         
-        /* البطاقتان: سريع يمين، خطوة بخطوة يسار */
+        /* البطاقتان */
         .cards-row {
             display: flex;
-            gap: 12px;
+            gap: 10px;
         }
         
         .card-item {
@@ -148,8 +126,8 @@ app_html = """
             background: rgba(18, 20, 28, 0.75);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 14px;
+            border-radius: 14px;
+            padding: 12px;
             position: relative;
             text-align: right;
         }
@@ -164,78 +142,73 @@ app_html = """
         
         .pro-tag {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 8px;
+            left: 8px;
             background: rgba(255, 255, 255, 0.12);
-            font-size: 9px;
+            font-size: 8.5px;
             font-weight: 600;
-            padding: 2px 6px;
-            border-radius: 6px;
+            padding: 2px 5px;
+            border-radius: 5px;
             color: #cccccc;
         }
         
         .card-icon {
-            font-size: 18px;
-            margin-bottom: 8px;
+            font-size: 16px;
+            margin-bottom: 6px;
             display: inline-block;
         }
         
         .card-heading {
-            font-size: 14px;
+            font-size: 13.5px;
             font-weight: 700;
             color: #ffffff;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
         
         .card-subtext {
-            font-size: 10.5px;
+            font-size: 10px;
             color: #9e9fa6;
-            line-height: 1.25;
+            line-height: 1.2;
         }
         
-        /* عنوان قسم الإلهام: إلهام بلوت كرافت يمين، عرض الكل يسار */
+        /* عنوان قسم الإلهام */
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 20px 10px 20px;
+            padding: 0 18px;
         }
         
         .section-name {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             color: #ffffff;
         }
         
         .section-action {
-            font-size: 12.5px;
+            font-size: 12px;
             color: #888990;
             font-weight: 600;
         }
         
-        /* قائمة الأفلام الأفقية */
+        /* قائمة الأفلام */
         .movies-container {
             display: flex;
-            gap: 12px;
-            overflow-x: auto;
-            padding: 0 16px 15px 16px;
-            scrollbar-width: none;
+            gap: 10px;
+            padding: 0 16px;
             direction: rtl;
-        }
-        
-        .movies-container::-webkit-scrollbar {
-            display: none;
+            justify-content: space-between;
         }
         
         .movie-card {
-            min-width: 125px;
-            height: 195px;
-            border-radius: 14px;
+            width: 31%;
+            height: 175px;
+            border-radius: 12px;
             overflow: hidden;
             position: relative;
             border: 1px solid rgba(255, 255, 255, 0.08);
-            flex-shrink: 0;
             background-color: #151720;
+            flex-shrink: 0;
         }
         
         .movie-card img {
@@ -249,24 +222,19 @@ app_html = """
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 10px 8px;
-            background: linear-gradient(to top, rgba(0,0,0,0.92) 15%, transparent 100%);
-            font-size: 10px;
+            padding: 8px 4px;
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 15%, transparent 100%);
+            font-size: 9px;
             font-weight: 700;
             text-align: center;
             color: #ffffff;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
         }
         
-        /* الشريط السفلي */
+        /* الشريط السفلي الثابت */
         .bottom-nav-wrapper {
-            position: sticky;
-            bottom: 16px;
-            left: 0;
-            right: 0;
             padding: 0 16px;
-            margin-top: auto;
-            z-index: 100;
+            width: 100%;
         }
         
         .nav-inner {
@@ -286,7 +254,7 @@ app_html = """
             color: #888990;
             font-size: 11px;
             font-weight: 600;
-            padding: 8px 4px;
+            padding: 7px 4px;
         }
         
         .nav-button-active {
@@ -296,7 +264,7 @@ app_html = """
             color: #121318;
             font-size: 11px;
             font-weight: 700;
-            padding: 8px 6px;
+            padding: 7px 6px;
             border-radius: 30px;
             box-shadow: 0 3px 10px rgba(0,0,0,0.3);
         }
@@ -306,16 +274,11 @@ app_html = """
 
     <div class="mobile-screen">
         
-        <!-- الهيدر العلوي -->
+        <!-- الهيدر العلوي المتبادل -->
         <div class="top-header">
+            <div class="app-brand">بلوت كرافت</div>
             <div class="upgrade-btn">
                 <span>✦</span> ترقية
-            </div>
-            <div class="app-brand">
-                <span>بلوت كرافت</span>
-                <div class="brand-logo">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                </div>
             </div>
         </div>
 
@@ -354,7 +317,7 @@ app_html = """
         <div class="movies-container">
             <div class="movie-card">
                 <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=400&auto=format&fit=crop">
-                <div class="movie-title-box">THE DELIVERYMAN'S SECRET BILLIONAIRE</div>
+                <div class="movie-title-box">SECRET BILLIONAIRE</div>
             </div>
             <div class="movie-card">
                 <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop">
@@ -366,7 +329,7 @@ app_html = """
             </div>
         </div>
 
-        <!-- الشريط السفلي -->
+        <!-- الشريط السفلي الثابت -->
         <div class="bottom-nav-wrapper">
             <div class="nav-inner">
                 <div class="nav-button">الصفحة الرئيسية</div>
@@ -381,4 +344,4 @@ app_html = """
 </html>
 """
 
-components.html(app_html, height=860, scrolling=False)
+components.html(app_html, height=830, scrolling=False)
