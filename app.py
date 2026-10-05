@@ -585,8 +585,7 @@ html_code = """
 </html>
 """
 
-components.html(html_code, height=750, scrolling=True)
-st.markdown(
+components.html(html_code, height=750, scrolling=True)st.markdown(
     """
     <style>
     .plotcraft-nav-bar {
