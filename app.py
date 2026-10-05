@@ -16,6 +16,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+# الجزء الأول: الهيكل الأساسي للأنماط (CSS) وشاشة الرئيسية
 html_part1 = """
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -182,6 +183,44 @@ html_part1 = """
             font-weight: 700;
             line-height: 1.2;
         }
+        .back-btn { 
+            background: rgba(255,255,255,0.15); 
+            border: none; 
+            color: #fff; 
+            width: 36px; 
+            height: 36px; 
+            border-radius: 50%; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        .page-title-text { 
+            color: #ffffff; 
+            font-size: 18px; 
+            font-weight: 700; 
+        }
+        .content-body { 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 16px; 
+            position: relative; 
+            z-index: 2; 
+        }
+        .action-main-btn { 
+            width: 100%; 
+            background: linear-gradient(135deg, #ff5722 0%, #ff9800 100%); 
+            color: #ffffff; 
+            font-size: 15px; 
+            font-weight: 700; 
+            padding: 14px; 
+            border-radius: 20px; 
+            border: none; 
+            cursor: pointer; 
+            text-align: center; 
+            margin-top: 10px; 
+        }
     </style>
 </head>
 <body>
@@ -229,21 +268,64 @@ html_part1 = """
     </div>
 """
 
+# الجزء الثاني: شاشة "خطوة بخطوة" مع رفع الصور والحكاية بالكامل
 html_part2 = """
     <div id="stepByStepScreen" class="screen-view">
         <div class="page-header" style="display:flex; align-items:center; justify-content:space-between; padding:20px; border-bottom:1px solid rgba(255,255,255,0.08); background:rgba(11, 15, 25, 0.75);">
             <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
-            <div class="page-title-text" style="color:#fff; font-weight:700;">خطوة بخطوة</div>
+            <div class="page-title-text">خطوة بخطوة</div>
             <div style="width: 36px;"></div>
         </div>
-        <div class="step-container" style="padding: 20px; display: flex; flex-direction: column; gap: 16px;">
-            <div style="background: #141824; border: 1px solid #1e293b; border-radius: 16px; padding: 16px;">
-                <div style="color: #ff2a85; font-size: 14px; font-weight: 700; margin-bottom: 8px;">مساعد AI بلوت كرافت</div>
-                <div style="color: #94a3b8; font-size: 12px; line-height: 1.5;">عزيزي المخرج، استمتع بإنشاء وتخصيص تفاصيل فيلمك خطوة بخطوة.</div>
+
+        <div style="padding: 20px; display: flex; flex-direction: column; gap: 16px;">
+            <div style="background: #141824; border: 1px solid #1e293b; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="color: #ff2a85; font-size: 14px; font-weight: 700;">مساعد AI بلوت كرافت</div>
+                    <div style="width: 32px; height: 32px; background: linear-gradient(135deg, #ff2a85, #7928ca); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 11px;">AI+</div>
+                </div>
+                <div style="color: #94a3b8; font-size: 12px; line-height: 1.5;">عزيزي المخرج، استمتع بإنشاء وتخصيص تفاصيل فيلمك خطوة بخطوة بدقة احترافية عالية.</div>
+            </div>
+
+            <div style="background: #141824; border: 1px solid #1e293b; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 12px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="color: #ffffff; font-size: 15px; font-weight: 700;">إعداد القصة</div>
+                    <div style="background-color: #1e293b; color: #94a3b8; padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 600;">0/2</div>
+                </div>
+                <div style="color: #64748b; font-size: 11px;">أضف الشخصيات والحكاية أولاً، ثم أكمل الخطوات:</div>
+
+                <div style="background: #1a2234; border-radius: 12px; padding: 12px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h4 style="color: #ffffff; font-size: 13px; font-weight: 700; margin-bottom: 2px;">الشخصيات</h4>
+                        <p style="color: #94a3b8; font-size: 11px;">أضف صورتين كحد أقصى لشخصيات القصة</p>
+                    </div>
+                    <button onclick="toggleUpload()" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3); padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer;">إضافة</button>
+                </div>
+
+                <div id="charUploadSection" style="display: none; background: #111827; border: 1px dashed #374151; border-radius: 10px; padding: 12px; text-align: center; color: #94a3b8; font-size: 12px;">
+                    <p style="margin-bottom: 6px; font-weight: bold; color:#fff;">قم بإرفاق صورتين كحد أقصى للشخصيات:</p>
+                    <input type="file" id="charFiles" accept="image/*" multiple onchange="checkMaxImages(this)" style="color: #cbd5e1; font-size: 11px;">
+                </div>
+
+                <div style="background: #1a2234; border-radius: 12px; padding: 12px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h4 style="color: #ffffff; font-size: 13px; font-weight: 700; margin-bottom: 2px;">الحكاية</h4>
+                        <p style="color: #94a3b8; font-size: 11px;">اكتب أو صف حبكة قصتك هنا</p>
+                    </div>
+                    <button onclick="toggleStoryInput()" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3); padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer;">إضافة</button>
+                </div>
+
+                <textarea id="storyTextarea" style="display: none; width: 100%; background: #111827; border: 1px solid #374151; border-radius: 10px; padding: 12px; color: #ffffff; font-size: 13px; outline: none; resize: vertical; min-height: 100px; text-align: right;" placeholder="اكتب تفاصيل القصة هنا..."></textarea>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+                <button onclick="alert('تم حفظ الخطوات بنجاح!')" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; font-size: 14px; font-weight: 700; padding: 10px 24px; border-radius: 12px; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);">التالي</button>
             </div>
         </div>
     </div>
+"""
 
+# الجزء الثالث: شاشة الاشتراكات مع الفيديو المتحرك (بركان/طاقة) وخطط الاشتراك الكاملة
+html_part3 = """
     <div id="subscriptionScreen" class="screen-view">
         <div style="position: relative; width: 100%; height: 220px; overflow: hidden; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; display: flex; flex-direction: column; justify-content: space-between;">
             <video autoplay muted loop playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 0.65;">
@@ -253,45 +335,93 @@ html_part2 = """
             
             <div style="position: relative; z-index: 3; padding: 16px 20px; display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
                 <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-                    <button onclick="switchScreen('homeScreen')" style="background: rgba(255,255,255,0.15); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">✕</button>
-                    <div style="color: #ffffff; font-size: 18px; font-weight: 700;">ترقية الحساب</div>
+                    <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
+                    <div class="page-title-text">ترقية الحساب</div>
                     <div style="width: 36px;"></div>
                 </div>
                 <div style="text-align: center; margin-bottom: 10px;">
-                    <div style="color: #ffffff; font-size: 18px; font-weight: 700; margin-bottom: 4px;">حول أفكارك إلى PlotCraft</div>
-                    <div style="color: #cbd5e1; font-size: 12px;">أنشئ كل لقطة وعدلها وأكملها بسرعة.</div>
+                    <div style="color: #ffffff; font-size: 18px; font-weight: 700; margin-bottom: 4px; text-shadow: 0 2px 8px rgba(0,0,0,0.8);">حول أفكارك إلى PlotCraft</div>
+                    <div style="color: #cbd5e1; font-size: 12px; text-shadow: 0 2px 6px rgba(0,0,0,0.8);">أنشئ كل لقطة وعدلها وأكملها بسرعة.</div>
                 </div>
             </div>
         </div>
 
-        <div style="padding: 20px; display: flex; flex-direction: column; gap: 16px; position: relative; z-index: 2;">
+        <div class="content-body">
             <div style="display: flex; flex-direction: column; gap: 12px;">
-                <div onclick="selectPlan(this)" style="background: rgba(20, 25, 40, 0.85); border: 1.5px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 16px; cursor: pointer;">
+                <!-- الاشتراك الأسبوعي -->
+                <div class="plan-card selected" onclick="selectPlan(this)" style="background: rgba(20, 25, 40, 0.85); border: 1.5px solid #ff5722; border-radius: 16px; padding: 16px; cursor: pointer; position: relative;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
                         <div style="color: #ffffff; font-size: 15px; font-weight: 700;">PlotCraft Pro Weekly</div>
-                        <div style="background: rgba(255, 255, 255, 0.12); padding: 4px 10px; border-radius: 10px; color: #ffffff; font-size: 12px;">9.99 دولار / أسبوع</div>
+                        <div style="background: rgba(255, 255, 255, 0.12); padding: 4px 10px; border-radius: 10px; color: #ffffff; font-size: 12px; font-weight: 600;">9.99 دولار / أسبوع</div>
                     </div>
-                    <div style="color: #94a3b8; font-size: 12px;">500 ساعة معتمدة / أسبوعياً</div>
+                    <div style="color: #94a3b8; font-size: 12px;">500 ساعة معتمدة / أسبوعياً، جرب PlotCraft</div>
                 </div>
-                
-                <div onclick="selectPlan(this)" style="background: rgba(20, 25, 40, 0.85); border: 1.5px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 16px; cursor: pointer; position: relative;">
-                    <div style="position: absolute; top: 12px; left: 12px; background: #3b82f6; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px;">جديد</div>
+
+                <!-- الاشتراك الشهري -->
+                <div class="plan-card" onclick="selectPlan(this)" style="background: rgba(20, 25, 40, 0.85); border: 1.5px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 16px; cursor: pointer; position: relative;">
+                    <div style="position: absolute; top: 12px; left: 12px; background: #3b82f6; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600;">جديد</div>
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
                         <div style="color: #ffffff; font-size: 15px; font-weight: 700;">PlotCraft Pro Monthly</div>
-                        <div style="background: rgba(255, 255, 255, 0.12); padding: 4px 10px; border-radius: 10px; color: #ffffff; font-size: 12px;">29.99 دولار / شهر</div>
+                        <div style="background: rgba(255, 255, 255, 0.12); padding: 4px 10px; border-radius: 10px; color: #ffffff; font-size: 12px; font-weight: 600;">29.99 دولار / شهر</div>
                     </div>
-                    <div style="color: #94a3b8; font-size: 12px;">1800 نقطة / شهرياً</div>
+                    <div style="color: #94a3b8; font-size: 12px;">1800 نقطة / شهرياً، مثالي للمبدعين</div>
+                </div>
+
+                <!-- الاشتراك السنوي -->
+                <div class="plan-card" onclick="selectPlan(this)" style="background: rgba(20, 25, 40, 0.85); border: 1.5px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 16px; cursor: pointer; position: relative;">
+                    <div style="position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg, #ff5722, #ff9800); color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600;">الأفضل قيمة</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <div style="color: #ffffff; font-size: 15px; font-weight: 700;">PlotCraft Pro Annual</div>
+                        <div style="background: rgba(255, 255, 255, 0.12); padding: 4px 10px; border-radius: 10px; color: #ffffff; font-size: 12px; font-weight: 600;">69.99 دولار / سنة</div>
+                    </div>
+                    <div style="color: #94a3b8; font-size: 12px;">5000 نقطة / سنوياً، إمكانيات غير محدودة</div>
                 </div>
             </div>
 
-            <button onclick="alert('تم اختيار الاشتراك بنجاح!')" style="width: 100%; background: linear-gradient(135deg, #ff5722 0%, #ff9800 100%); color: #ffffff; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 20px; border: none; cursor: pointer; text-align: center; margin-top: 10px;">اشتراك</button>
+            <button class="action-main-btn" onclick="switchScreen('paymentScreen')">اشتراك</button>
+        </div>
+    </div>
+"""
+
+# الجزء الرابع: واجهة تفاصيل الدفع البنكي، شريط التنقل السفلي، والوظائف التفاعلية (JS)
+html_part4 = """
+    <div id="paymentScreen" class="screen-view">
+        <div class="page-header" style="display:flex; align-items:center; justify-content:space-between; padding:20px; border-bottom:1px solid rgba(255,255,255,0.08); background:rgba(11, 15, 25, 0.75);">
+            <button class="back-btn" onclick="switchScreen('subscriptionScreen')">←</button>
+            <div class="page-title-text">تفاصيل الدفع البنكي</div>
+            <div style="width: 36px;"></div>
+        </div>
+
+        <div class="content-body">
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+                    <label style="color: #cbd5e1; font-size: 13px; font-weight: 600;">اسم البطاقة البنكية</label>
+                    <input type="text" style="width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 12px 14px; color: #ffffff; font-size: 14px; outline: none; text-align: right;" placeholder="الاسم كما يظهر على البطاقة">
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+                    <label style="color: #cbd5e1; font-size: 13px; font-weight: 600;">رقم البطاقة البنكية</label>
+                    <input type="text" style="width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 12px 14px; color: #ffffff; font-size: 14px; outline: none; text-align: right;" placeholder="**** **** **** ****" maxlength="19">
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
+                        <label style="color: #cbd5e1; font-size: 13px; font-weight: 600;">تاريخ الانتهاء</label>
+                        <input type="text" style="width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 12px 14px; color: #ffffff; font-size: 14px; outline: none; text-align: right;" placeholder="MM/YY" maxlength="5">
+                    </div>
+                    <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
+                        <label style="color: #cbd5e1; font-size: 13px; font-weight: 600;">رمز البطاقة (CVV)</label>
+                        <input type="password" style="width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 12px 14px; color: #ffffff; font-size: 14px; outline: none; text-align: right;" placeholder="***" maxlength="4">
+                    </div>
+                </div>
+                <button class="action-main-btn" onclick="confirmPayment()" style="margin-top: 15px;">تأكيد وإتمام الاشتراك</button>
+            </div>
         </div>
     </div>
 
-    <div style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: #0b0f19; padding: 10px 15px; display: flex; justify-content: center; align-items: center; z-index: 999999; direction: rtl;">
+    <!-- شريط التنقل السفلي الثابت -->
+    <div style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: #0b0f19; padding: 10px 15px; display: flex; justify-content: center; align-items: center; gap: 12px; z-index: 999999; box-sizing: border-box; direction: rtl; box-shadow: 0 -4px 15px rgba(0,0,0,0.6);">
         <div style="background-color: #161b22; border: 1px solid #30363d; border-radius: 35px; display: flex; justify-content: space-around; align-items: center; padding: 8px 15px; flex-grow: 1; max-width: 380px;">
-            <a href="#" onclick="switchScreen('homeScreen')" style="color: #ffffff; font-size: 13px; text-decoration: none; font-weight: bold;">الرئيسية</a>
-            <a href="#" onclick="switchScreen('subscriptionScreen')" style="color: #8b949e; font-size: 13px; text-decoration: none;">الترقية</a>
+            <a href="#" onclick="switchScreen('homeScreen')" style="display: flex; align-items: center; gap: 6px; color: #ffffff; font-size: 13px; text-decoration: none; font-weight: bold;">الرئيسية</a>
+            <a href="#" onclick="switchScreen('subscriptionScreen')" style="display: flex; align-items: center; gap: 6px; color: #8b949e; font-size: 13px; text-decoration: none;">الترقية</a>
         </div>
     </div>
 
@@ -302,16 +432,41 @@ html_part2 = """
             document.getElementById(screenId).classList.add('active');
             window.scrollTo(0, 0);
         }
+
         function selectPlan(element) {
-            var cards = document.querySelectorAll('[onclick="selectPlan(this)"]');
-            cards.forEach(c => c.style.borderColor = "rgba(255, 255, 255, 0.15)");
+            var cards = document.querySelectorAll('.plan-card');
+            cards.forEach(c => {
+                c.style.borderColor = "rgba(255, 255, 255, 0.15)";
+            });
             element.style.borderColor = "#ff5722";
+        }
+
+        function toggleUpload() {
+            var box = document.getElementById('charUploadSection');
+            box.style.display = (box.style.display === 'block') ? 'none' : 'block';
+        }
+
+        function checkMaxImages(input) {
+            if (input.files.length > 2) {
+                alert('عذراً، الحد الأقصى المسموح به هو صورتان فقط للشخصيات!');
+                input.value = '';
+            }
+        }
+
+        function toggleStoryInput() {
+            var box = document.getElementById('storyTextarea');
+            box.style.display = (box.style.display === 'block') ? 'none' : 'block';
+        }
+
+        function confirmPayment() {
+            alert('تم تأكيد اشتراكك في PlotCraft بنجاح!');
+            switchScreen('homeScreen');
         }
     </script>
 </body>
 </html>
 """
 
-# دمج الأجزاء وعرضها داخل تطبيق ستريمليت بشكل آمن تماماً
-full_html = html_part1 + html_part2
+# دمج الأجزاء كاملة وعرضها داخل تطبيق ستريمليت
+full_html = html_part1 + html_part2 + html_part3 + html_part4
 components.html(full_html, height=750, scrolling=True)
