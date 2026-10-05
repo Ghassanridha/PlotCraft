@@ -365,7 +365,7 @@ html_code = """
         .plan-desc { color: #94a3b8; font-size: 12px; }
         .action-main-btn { width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 20px; border: none; cursor: pointer; margin-top: 10px; }
 
-        /* نافذة Google Play الدقيقة المطابقة للصورة */
+        /* نافذة Google Play */
         .gplay-overlay {
             display: none;
             position: fixed;
@@ -381,19 +381,19 @@ html_code = """
             display: flex;
         }
         .gplay-sheet {
-            background: #1f2228;
+            background: #121316;
             width: 100%;
-            border-top-left-radius: 24px;
-            border-top-right-radius: 24px;
-            padding: 20px 20px 30px 20px;
+            border-top-left-radius: 28px;
+            border-top-right-radius: 28px;
+            padding: 16px 20px 28px 20px;
             color: #ffffff;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 14px;
             max-height: 90vh;
             overflow-y: auto;
             box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid rgba(255,255,255,0.08);
         }
         .gplay-top-bar {
             display: flex;
@@ -403,43 +403,49 @@ html_code = """
         .gplay-close {
             background: none;
             border: none;
-            color: #ffffff;
+            color: #e8eaed;
             font-size: 20px;
             cursor: pointer;
         }
         .gplay-store-title {
-            color: #9aa0a6;
-            font-size: 14px;
+            color: #e8eaed;
+            font-size: 15px;
+            font-weight: 500;
         }
-        .gplay-app-info {
+        .gplay-app-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 8px;
+            margin-top: 4px;
+            margin-bottom: 6px;
+        }
+        .gplay-app-icon {
+            width: 48px;
+            height: 48px;
+            background: #202124;
+            border-radius: 12px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            background: #282c34;
-            padding: 12px 16px;
-            border-radius: 14px;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .gplay-app-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         .gplay-app-details h3 {
             font-size: 16px;
             font-weight: 700;
-            color: #ffffff;
+            color: #e8eaed;
             margin-bottom: 2px;
         }
         .gplay-app-details p {
             font-size: 12px;
             color: #9aa0a6;
-        }
-        .gplay-app-icon {
-            width: 44px;
-            height: 44px;
-            background: #3c4043;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #8ab4f8;
-            font-size: 14px;
         }
         .gplay-price-row {
             display: flex;
@@ -447,6 +453,8 @@ html_code = """
             align-items: center;
             font-size: 15px;
             font-weight: 600;
+            color: #e8eaed;
+            margin-top: 4px;
         }
         .gplay-tax-row {
             display: flex;
@@ -454,46 +462,45 @@ html_code = """
             align-items: center;
             font-size: 13px;
             color: #9aa0a6;
-            padding-bottom: 12px;
-            border-bottom: 1px solid #3c4043;
+            padding-bottom: 14px;
+            border-bottom: 1px solid #2d3139;
         }
         .gplay-notes {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
             font-size: 12px;
             color: #9aa0a6;
             line-height: 1.5;
-            padding-bottom: 12px;
-            border-bottom: 1px solid #3c4043;
+            padding-bottom: 14px;
+            border-bottom: 1px solid #2d3139;
         }
         .gplay-points-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #282c34;
-            padding: 10px 14px;
-            border-radius: 10px;
             font-size: 13px;
+            color: #e8eaed;
+            padding: 4px 0;
+        }
+        .gplay-points-diamond {
+            display: flex;
+            gap: 3px;
+            align-items: center;
         }
         .gplay-payment-box {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #282c34;
-            padding: 12px 14px;
-            border-radius: 12px;
+            padding: 6px 0;
             cursor: pointer;
-            border: 1px solid transparent;
-            transition: 0.2s;
-        }
-        .gplay-payment-box:hover {
-            border-color: #8ab4f8;
         }
         .gplay-payment-info {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            text-align: right;
+            direction: rtl;
         }
         .gplay-subscribe-btn {
             width: 100%;
@@ -502,11 +509,11 @@ html_code = """
             font-size: 15px;
             font-weight: 700;
             padding: 14px;
-            border-radius: 24px;
+            border-radius: 28px;
             border: none;
             cursor: pointer;
             text-align: center;
-            margin-top: 5px;
+            margin-top: 8px;
         }
 
         /* قائمة اختيار طريقة الدفع الفرعية */
@@ -548,9 +555,6 @@ html_code = """
             color: #ffffff;
             font-size: 14px;
             font-weight: 600;
-        }
-        .payment-option-item:hover {
-            background: #353b45;
         }
 
         /* شريط التنقل السفلي */
@@ -790,7 +794,7 @@ A dark crime romance story about secrets, forgotten memories, dangerous power, a
             </div>
 
             <div class="plans-list">
-                <div class="plan-card" onclick="selectPlan(this)">
+                <div class="plan-card selected" onclick="selectPlan(this, 'weekly', '9.99 دولار أمريكي / أسبوع', 'US$/week 9.99', 'بلوت كرافت برو الأسبوعية')">
                     <div class="plan-top">
                         <div class="plan-name">بلوت كرافت برو الأسبوعية</div>
                         <div class="plan-price">9.99 دولار أمريكي / أسبوع</div>
@@ -798,7 +802,7 @@ A dark crime romance story about secrets, forgotten memories, dangerous power, a
                     <div class="plan-desc">400 نقطة / أسبوعياً، لتجربة سريعة</div>
                 </div>
 
-                <div class="plan-card" onclick="selectPlan(this)">
+                <div class="plan-card" onclick="selectPlan(this, 'monthly', '29.99 دولار أمريكي / شهر', 'US$/month 29.99', 'بلوت كرافت برو الشهرية')">
                     <div class="plan-top">
                         <div class="plan-name">بلوت كرافت برو الشهرية</div>
                         <div class="plan-price">29.99 دولار أمريكي / شهر</div>
@@ -806,7 +810,7 @@ A dark crime romance story about secrets, forgotten memories, dangerous power, a
                     <div class="plan-desc">1800 نقطة / شهرياً، مثالي للمبدعين</div>
                 </div>
 
-                <div class="plan-card selected" onclick="selectPlan(this)">
+                <div class="plan-card" onclick="selectPlan(this, 'yearly', '69.99 دولار أمريكي / سنة', 'US$/year 69.99', 'بلوت كرافت برو السنوية')">
                     <div class="plan-top">
                         <div class="plan-name">بلوت كرافت برو السنوية</div>
                         <div class="plan-price">69.99 دولار أمريكي / سنة</div>
@@ -819,29 +823,31 @@ A dark crime romance story about secrets, forgotten memories, dangerous power, a
         </div>
     </div>
 
-    <!-- قائمة Google Play المطابقة للصورة تماماً -->
+    <!-- نافذة Google Play -->
     <div id="gplayOverlay" class="gplay-overlay">
         <div class="gplay-sheet">
             <div class="gplay-top-bar">
-                <span class="gplay-store-title">Google Play</span>
                 <button class="gplay-close" onclick="closeGPlaySheet()">✕</button>
+                <span class="gplay-store-title">Google Play</span>
             </div>
 
-            <div class="gplay-app-info">
+            <div class="gplay-app-header">
+                <div class="gplay-app-icon">
+                    <div style="background:#282c34; width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:10px; font-weight:bold;">PLOT</div>
+                </div>
                 <div class="gplay-app-details">
-                    <h3>PlotCraft Pro Weekly</h3>
+                    <h3 id="gplayPlanName">PlotCraft Pro Weekly</h3>
                     <p>PlotCraft: AI Short Drama Maker</p>
                 </div>
-                <div class="gplay-app-icon">PC</div>
             </div>
 
             <div class="gplay-price-row">
-                <span>US$/week 9.99</span>
-                <span style="font-size: 13px; font-weight: normal; color: #9aa0a6;">بدءًا من اليوم</span>
+                <span>بدءًا من اليوم</span>
+                <span id="gplayPriceText">US$/week 9.99</span>
             </div>
             <div class="gplay-tax-row">
-                <span>الإضافة إلى الضريبة</span>
                 <span>إضافة الضريبة ⓘ</span>
+                <span>بالإضافة إلى الضريبة</span>
             </div>
 
             <div class="gplay-notes">
@@ -851,33 +857,36 @@ A dark crime romance story about secrets, forgotten memories, dangerous power, a
             </div>
 
             <div class="gplay-points-row">
-                <span>كسب ١١ نقطة إضافية</span>
-                <span style="display:flex; gap:3px;">
+                <span class="gplay-points-diamond">
                     <span style="color:#ea4335">■</span><span style="color:#fbbc04">■</span><span style="color:#34a853">■</span><span style="color:#4285f4">■</span>
                 </span>
+                <span>كسب ١١ نقطة إضافية</span>
             </div>
 
-            <!-- طريقة الدفع مع إمكانية الضغط لتغييرها -->
             <div class="gplay-payment-box" onclick="openPaymentSelector()">
-                <div class="gplay-payment-info" id="selectedPaymentDisplay">
-                    <span style="color: #fbbc04; font-weight: bold;">MC</span>
-                    <div>
-                        <div id="paymentTitleText" style="font-size: 14px; font-weight: 600;">Mastercard-0709</div>
-                        <div id="paymentSubText" style="font-size: 11px; color: #9aa0a6;">رصيد Google Play: $US 0.16</div>
+                <span style="color: #9aa0a6; font-size: 14px;">❮</span>
+                <div class="gplay-payment-info">
+                    <div style="text-align: left;">
+                        <div id="paymentTitleText" style="font-size: 14px; font-weight: 600; color: #e8eaed;">Mastercard-0709</div>
+                        <div id="paymentSubText" style="font-size: 11px; color: #9aa0a6;">Google Play رصيد: $US 0.16</div>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 22px; height: 22px; background: #eb001b; border-radius: 50%; opacity: 0.9;"></div>
+                        <div style="width: 22px; height: 22px; background: #f79e1b; border-radius: 50%; margin-right: -10px; opacity: 0.85;"></div>
                     </div>
                 </div>
-                <span style="color: #9aa0a6; font-size: 16px;">❮</span>
             </div>
 
-            <div style="font-size: 11px; color: #9aa0a6; line-height: 1.4;">
-                عند النقر على "اشتراك"، فإن هذا يعني موافقتك على تجديد اشتراكك تلقائيا إلى أن يتم إلغاؤه. سنعلمك في حال تغير السعر، وذلك استنادا لما هو موضح في <span style="color: #8ab4f8; text-decoration: underline;">"بنود خدمة Google Play"</span>. <span style="color: #8ab4f8; text-decoration: underline;">المزيد</span>
+            <div style="font-size: 11px; color: #9aa0a6; line-height: 1.5; text-align: right;">
+                عند النقر على "اشتراك"، فإن هذا يعني موافقتك على تجديد اشتراكك تلقائيا إلى أن يتم إلغاؤه. سنعلمك في حال تغير السعر، وذلك استنادا لما هو موضح في <span style="color: #8ab4f8; text-decoration: underline;">"بنود خدمة Google Play"</span>.<br>
+                <span style="color: #8ab4f8; text-decoration: underline;">"يمكنك التعرف على كيفية إلغاء الاشتراك"</span>. <span style="color: #8ab4f8; text-decoration: underline;">المزيد</span>
             </div>
 
             <button class="gplay-subscribe-btn" onclick="confirmGooglePlaySubscription()">اشتراك</button>
         </div>
     </div>
 
-    <!-- نافذة منبثقة لاختيار طريقة الدفع (Google Play Balance أو Mastercard) -->
+    <!-- نافذة منبثقة لاختيار طريقة الدفع الفرعية -->
     <div id="paymentSelectorModal" class="payment-selector-modal">
         <div class="payment-selector-content">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
@@ -886,17 +895,17 @@ A dark crime romance story about secrets, forgotten memories, dangerous power, a
             </div>
             
             <div class="payment-option-item" onclick="selectPaymentMethod('mastercard')">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <span style="background: #ea4335; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px;">MC</span>
-                    <span>Mastercard - 0709</span>
-                </div>
                 <span>✓</span>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span>Mastercard - 0709</span>
+                    <span style="background: #ea4335; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px;">MC</span>
+                </div>
             </div>
 
             <div class="payment-option-item" onclick="selectPaymentMethod('gplay')">
                 <div style="display: flex; align-items: center; gap: 10px;">
-                    <span style="background: #4285f4; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px;">GP</span>
                     <span>رصيد Google Play ($US 0.16)</span>
+                    <span style="background: #4285f4; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px;">GP</span>
                 </div>
             </div>
         </div>
@@ -925,6 +934,12 @@ A dark crime romance story about secrets, forgotten memories, dangerous power, a
     </div>
 
     <script>
+        // تخزين الخطة المختارة حالياً
+        var currentSelectedPlan = {
+            name: "PlotCraft Pro Weekly",
+            price: "US$/week 9.99"
+        };
+
         function switchScreen(screenId) {
             var screens = document.querySelectorAll('.screen-view');
             screens.forEach(s => s.classList.remove('active'));
@@ -944,18 +959,23 @@ A dark crime romance story about secrets, forgotten memories, dangerous power, a
             var text = document.getElementById('storyTextContent').innerText;
             navigator.clipboard.writeText(text).then(function() {
                 alert('تم نسخ القصة بنجاح!');
-            }, function(err) {
-                alert('فشل نسخ النص، حاول مرة أخرى.');
             });
         }
 
-        function selectPlan(element) {
+        function selectPlan(element, type, priceText, gplayPrice, planTitle) {
             var cards = document.querySelectorAll('.plan-card');
             cards.forEach(c => c.classList.remove('selected'));
             element.classList.add('selected');
+            
+            // تحديث بيانات السعر والخطة لـ Google Play
+            currentSelectedPlan.name = planTitle;
+            currentSelectedPlan.price = gplayPrice;
         }
 
         function openGPlaySheet() {
+            // تحديث نافذة Google Play بالأسعار والمعلومات الخاصة بالخطة المختارة
+            document.getElementById('gplayPlanName').innerText = currentSelectedPlan.name;
+            document.getElementById('gplayPriceText').innerText = currentSelectedPlan.price;
             document.getElementById('gplayOverlay').classList.add('active');
         }
 
@@ -977,7 +997,7 @@ A dark crime romance story about secrets, forgotten memories, dangerous power, a
             
             if (method === 'mastercard') {
                 titleEl.innerText = "Mastercard-0709";
-                subEl.innerText = "رصيد Google Play: $US 0.16";
+                subEl.innerText = "Google Play رصيد: $US 0.16";
             } else {
                 titleEl.innerText = "رصيد Google Play";
                 subEl.innerText = "المتاح: $US 0.16";
@@ -986,7 +1006,7 @@ A dark crime romance story about secrets, forgotten memories, dangerous power, a
         }
 
         function confirmGooglePlaySubscription() {
-            alert('تم تأكيد الاشتراك بنجاح عبر Google Play! شكراً لاستخدامك بلوت كرافت.');
+            alert('تم تأكيد الاشتراك بنجاح عبر Google Play!');
             closeGPlaySheet();
             switchScreen('homeScreen');
         }
