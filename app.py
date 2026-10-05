@@ -16,7 +16,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-html_code = """
+html_part1 = """
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -30,15 +30,12 @@ html_code = """
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
-
         body, html {
             width: 100%;
             height: 100%;
             background-color: #0b0f19;
             overflow-x: hidden;
         }
-
-        /* الشاشات المختلفة */
         .screen-view {
             display: none;
             width: 100%;
@@ -47,11 +44,9 @@ html_code = """
             flex-direction: column;
             padding-bottom: 90px;
         }
-
         .screen-view.active {
             display: flex;
         }
-
         .hero-box {
             position: relative;
             width: 100%;
@@ -65,20 +60,17 @@ html_code = """
             justify-content: space-between;
             padding: 24px 20px 20px 20px;
         }
-
         .top-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             width: 100%;
         }
-
         .brand-title {
             color: #ffffff;
             font-size: 20px;
             font-weight: 700;
         }
-
         .upgrade-badge {
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
@@ -92,14 +84,11 @@ html_code = """
             gap: 6px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             cursor: pointer;
-            transition: 0.2s;
         }
-
         .welcome-section {
             text-align: right;
             margin-top: 15px;
         }
-
         .welcome-section h1 {
             color: #ffffff;
             font-size: 22px;
@@ -107,14 +96,12 @@ html_code = """
             line-height: 1.4;
             text-shadow: 0 2px 8px rgba(0,0,0,0.6);
         }
-
         .cards-row {
             display: flex;
             gap: 12px;
             width: 100%;
             margin-top: 20px;
         }
-
         .interactive-card {
             flex: 1;
             background: rgba(20, 25, 40, 0.65);
@@ -126,79 +113,46 @@ html_code = """
             flex-direction: column;
             justify-content: center;
             cursor: pointer;
-            transition: 0.2s;
         }
-
-        .interactive-card:active {
-            transform: scale(0.97);
-            background: rgba(30, 40, 65, 0.85);
-        }
-
         .card-header-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 6px;
         }
-
         .card-title {
             color: #ffffff;
             font-size: 16px;
             font-weight: 700;
         }
-
         .card-subtitle {
             color: #94a3b8;
             font-size: 12px;
-            font-weight: 400;
         }
-
-        .exact-bot-icon {
-            width: 22px;
-            height: 22px;
-            background: #dbeafe;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
-            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1 z"/></svg>') no-repeat center;
-            background-size: contain;
-        }
-
         .card-title-group-left {
             display: flex;
             justify-content: space-between;
             align-items: center;
             width: 100%;
         }
-
-        .magic-wand-icon {
-            width: 22px;
-            height: 22px;
-            background: #dbeafe;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.5 5.6c-.3-.3-.8-.3-1.1 0-.3.3-.3.8 0 1.1 1.2 1.2 1.9 2.8 1.9 4.5 0 1.7-.7 3.3-1.9 4.5-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 1.5-1.5 2.3-3.5 2.3-5.6s-.8-4.1-2.3-5.6zm4.3-2.3c-.3-.3-.8-.3-1.1 0-.3.3-.3.8 0 1.1 2.2 2.2 3.4 5.1 3.4 8.2s-1.2 6-3.4 8.2c-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 2.6-2.6 4-6 4-9.3s-1.4-6.7-4-9.3zm4.4-2.3c-.3-.3-.8-.3-1.1 0-.3.3-.3.8 0 1.1 3.1 3.1 4.9 7.3 4.9 11.6s-1.8 8.5-4.9 11.6c-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 3.5-3.5 5.4-8.1 5.4-12.7s-1.9-9.2-5.4-12.7zm-7.6 15.6l-8.5 8.5c-.4.4-.4 1 0 1.4s1 .4 1.4 0l8.5-8.5c.4-.4.4-1 0-1.4s-1-.4-1.4 0zm11.4-11.4l-3.5 3.5c-.4.4-.4 1 0 1.4s1 .4 1.4 0l3.5-3.5c.4-.4.4-1 0-1.4s-1-.4-1.4 0zm-15 3.5l-3.5 3.5c-.4.4-.4 1 0 1.4s1 .4 1.4 0l3.5-3.5c.4-.4.4-1 0-1.4s-1-.4-1.4 0z"/></svg>') no-repeat center;
-            background-size: contain;
-        }
-
         .inspiration-section {
             padding: 24px 20px;
         }
-
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 16px;
         }
-
         .section-title {
             color: #ffffff;
             font-size: 18px;
             font-weight: 700;
         }
-
         .view-all {
             color: #94a3b8;
             font-size: 13px;
         }
-
         .movies-carousel {
             display: flex;
             flex-direction: row-reverse;
@@ -207,236 +161,157 @@ html_code = """
             padding-bottom: 10px;
             scrollbar-width: none;
         }
-
-        .movies-carousel::-webkit-scrollbar {
-            display: none;
-        }
-
         .movie-card {
             min-width: 130px;
             height: 190px;
             border-radius: 16px;
             overflow: hidden;
             position: relative;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.05);
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
             padding: 14px;
+            border: 1px solid rgba(255,255,255,0.05);
         }
-
         .movie-card.m1 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=300&auto=format&fit=crop') center/cover; }
         .movie-card.m2 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=300&auto=format&fit=crop') center/cover; }
         .movie-card.m3 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=300&auto=format&fit=crop') center/cover; }
-
         .movie-title {
             color: #ffffff;
             font-size: 10px;
             font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
             line-height: 1.2;
         }
+    </style>
+</head>
+<body>
+    <div id="homeScreen" class="screen-view active">
+        <div class="hero-box">
+            <div class="top-header">
+                <div class="brand-title">PlotCraft</div>
+                <div class="upgrade-badge" onclick="switchScreen('subscriptionScreen')">
+                    <span>⭐</span> ترقية
+                </div>
+            </div>
+            <div class="welcome-section">
+                <h1>مساء الخير، أيها المخرج<br>أي قصة سنصنع اليوم؟</h1>
+            </div>
+            <div class="cards-row">
+                <div class="interactive-card" onclick="switchScreen('stepByStepScreen')">
+                    <div class="card-header-row">
+                        <div class="card-title-group-left">
+                            <div class="card-title">خطوة بخطوة</div>
+                        </div>
+                    </div>
+                    <div class="card-subtitle">راجع كل خطوة</div>
+                </div>
+                <div class="interactive-card" onclick="switchScreen('subscriptionScreen')">
+                    <div class="card-header-row">
+                        <div class="card-title-group-left">
+                            <div class="card-title">سريع</div>
+                        </div>
+                    </div>
+                    <div class="card-subtitle">إدخال واحد، فيديو كامل</div>
+                </div>
+            </div>
+        </div>
+        <div class="inspiration-section">
+            <div class="section-header">
+                <div class="section-title">إلهام بلوت كرافت</div>
+                <div class="view-all">عرض الكل ></div>
+            </div>
+            <div class="movies-carousel">
+                <div class="movie-card m1"><div class="movie-title">THE DELIVERYMAN'S SECRET BILLIONAIRE</div></div>
+                <div class="movie-card m2"><div class="movie-title">SECRET BILLIONAIRE</div></div>
+                <div class="movie-card m3"><div class="movie-title">CYBER CITY</div></div>
+            </div>
+        </div>
+    </div>
+"""
 
-        /* شاشة "خطوة بخطوة" */
-        .step-container {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
+html_part2 = """
+    <div id="stepByStepScreen" class="screen-view">
+        <div class="page-header" style="display:flex; align-items:center; justify-content:space-between; padding:20px; border-bottom:1px solid rgba(255,255,255,0.08); background:rgba(11, 15, 25, 0.75);">
+            <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
+            <div class="page-title-text" style="color:#fff; font-weight:700;">خطوة بخطوة</div>
+            <div style="width: 36px;"></div>
+        </div>
+        <div class="step-container" style="padding: 20px; display: flex; flex-direction: column; gap: 16px;">
+            <div style="background: #141824; border: 1px solid #1e293b; border-radius: 16px; padding: 16px;">
+                <div style="color: #ff2a85; font-size: 14px; font-weight: 700; margin-bottom: 8px;">مساعد AI بلوت كرافت</div>
+                <div style="color: #94a3b8; font-size: 12px; line-height: 1.5;">عزيزي المخرج، استمتع بإنشاء وتخصيص تفاصيل فيلمك خطوة بخطوة.</div>
+            </div>
+        </div>
+    </div>
 
-        .ai-assistant-card {
-            background: #141824;
-            border: 1px solid #1e293b;
-            border-radius: 16px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+    <div id="subscriptionScreen" class="screen-view">
+        <div style="position: relative; width: 100%; height: 220px; overflow: hidden; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; display: flex; flex-direction: column; justify-content: space-between;">
+            <video autoplay muted loop playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 0.65;">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-with-lights-31955-large.mp4" type="video/mp4">
+            </video>
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(11,15,25,0.2) 0%, rgba(11,15,25,0.85) 90%, #0b0f19 100%); z-index: 2;"></div>
+            
+            <div style="position: relative; z-index: 3; padding: 16px 20px; display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+                <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                    <button onclick="switchScreen('homeScreen')" style="background: rgba(255,255,255,0.15); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">✕</button>
+                    <div style="color: #ffffff; font-size: 18px; font-weight: 700;">ترقية الحساب</div>
+                    <div style="width: 36px;"></div>
+                </div>
+                <div style="text-align: center; margin-bottom: 10px;">
+                    <div style="color: #ffffff; font-size: 18px; font-weight: 700; margin-bottom: 4px;">حول أفكارك إلى PlotCraft</div>
+                    <div style="color: #cbd5e1; font-size: 12px;">أنشئ كل لقطة وعدلها وأكملها بسرعة.</div>
+                </div>
+            </div>
+        </div>
 
-        .ai-header-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        <div style="padding: 20px; display: flex; flex-direction: column; gap: 16px; position: relative; z-index: 2;">
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <div onclick="selectPlan(this)" style="background: rgba(20, 25, 40, 0.85); border: 1.5px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 16px; cursor: pointer;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <div style="color: #ffffff; font-size: 15px; font-weight: 700;">PlotCraft Pro Weekly</div>
+                        <div style="background: rgba(255, 255, 255, 0.12); padding: 4px 10px; border-radius: 10px; color: #ffffff; font-size: 12px;">9.99 دولار / أسبوع</div>
+                    </div>
+                    <div style="color: #94a3b8; font-size: 12px;">500 ساعة معتمدة / أسبوعياً</div>
+                </div>
+                
+                <div onclick="selectPlan(this)" style="background: rgba(20, 25, 40, 0.85); border: 1.5px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 16px; cursor: pointer; position: relative;">
+                    <div style="position: absolute; top: 12px; left: 12px; background: #3b82f6; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px;">جديد</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <div style="color: #ffffff; font-size: 15px; font-weight: 700;">PlotCraft Pro Monthly</div>
+                        <div style="background: rgba(255, 255, 255, 0.12); padding: 4px 10px; border-radius: 10px; color: #ffffff; font-size: 12px;">29.99 دولار / شهر</div>
+                    </div>
+                    <div style="color: #94a3b8; font-size: 12px;">1800 نقطة / شهرياً</div>
+                </div>
+            </div>
 
-        .ai-title {
-            color: #ff2a85;
-            font-size: 14px;
-            font-weight: 700;
-        }
+            <button onclick="alert('تم اختيار الاشتراك بنجاح!')" style="width: 100%; background: linear-gradient(135deg, #ff5722 0%, #ff9800 100%); color: #ffffff; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 20px; border: none; cursor: pointer; text-align: center; margin-top: 10px;">اشتراك</button>
+        </div>
+    </div>
 
-        .ai-badge-circle {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, #ff2a85, #7928ca);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 11px;
-            box-shadow: 0 2px 8px rgba(255,42,133,0.4);
-        }
+    <div style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: #0b0f19; padding: 10px 15px; display: flex; justify-content: center; align-items: center; z-index: 999999; direction: rtl;">
+        <div style="background-color: #161b22; border: 1px solid #30363d; border-radius: 35px; display: flex; justify-content: space-around; align-items: center; padding: 8px 15px; flex-grow: 1; max-width: 380px;">
+            <a href="#" onclick="switchScreen('homeScreen')" style="color: #ffffff; font-size: 13px; text-decoration: none; font-weight: bold;">الرئيسية</a>
+            <a href="#" onclick="switchScreen('subscriptionScreen')" style="color: #8b949e; font-size: 13px; text-decoration: none;">الترقية</a>
+        </div>
+    </div>
 
-        .ai-desc {
-            color: #94a3b8;
-            font-size: 12px;
-            line-height: 1.5;
+    <script>
+        function switchScreen(screenId) {
+            var screens = document.querySelectorAll('.screen-view');
+            screens.forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+            window.scrollTo(0, 0);
         }
+        function selectPlan(element) {
+            var cards = document.querySelectorAll('[onclick="selectPlan(this)"]');
+            cards.forEach(c => c.style.borderColor = "rgba(255, 255, 255, 0.15)");
+            element.style.borderColor = "#ff5722";
+        }
+    </script>
+</body>
+</html>
+"""
 
-        .story-setup-box {
-            background: #141824;
-            border: 1px solid #1e293b;
-            border-radius: 16px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .setup-header-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .setup-main-title {
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: 700;
-        }
-
-        .counter-badge {
-            background-color: #1e293b;
-            color: #94a3b8;
-            padding: 3px 10px;
-            border-radius: 10px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        .setup-subtitle {
-            color: #64748b;
-            font-size: 11px;
-        }
-
-        .setup-row-item {
-            background: #1a2234;
-            border-radius: 12px;
-            padding: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .item-info h4 {
-            color: #ffffff;
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 2px;
-        }
-
-        .item-info p {
-            color: #94a3b8;
-            font-size: 11px;
-        }
-
-        .action-add-btn {
-            background: rgba(59, 130, 246, 0.15);
-            color: #3b82f6;
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .upload-section-hidden {
-            display: none;
-            background: #111827;
-            border: 1px dashed #374151;
-            border-radius: 10px;
-            padding: 12px;
-            text-align: center;
-            color: #94a3b8;
-            font-size: 12px;
-        }
-        .upload-section-hidden.show {
-            display: block;
-        }
-
-        .story-textarea-hidden {
-            display: none;
-            width: 100%;
-            background: #111827;
-            border: 1px solid #374151;
-            border-radius: 10px;
-            padding: 12px;
-            color: #ffffff;
-            font-size: 13px;
-            outline: none;
-            resize: vertical;
-            min-height: 100px;
-            text-align: right;
-        }
-        .story-textarea-hidden.show {
-            display: block;
-        }
-
-        .bottom-next-row {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 10px;
-        }
-
-        .side-next-btn {
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            color: #ffffff;
-            font-size: 14px;
-            font-weight: 700;
-            padding: 10px 24px;
-            border-radius: 12px;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-        }
-
-        /* شاشة الاشتراكات مع الخلفية المتحركة */
-        #subscriptionScreen { background: #0b0f19; overflow-y: auto; }
-        
-        .sub-hero-banner {
-            position: relative;
-            width: 100%;
-            height: 220px;
-            overflow: hidden;
-            border-bottom-left-radius: 30px;
-            border-bottom-right-radius: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .volcano-bg-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 1;
-            opacity: 0.65;
-        }
-
-        .volcano-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, rgba(11,15,25,0.2) 0%, rgba(11,15,25,
+# دمج الأجزاء وعرضها داخل تطبيق ستريمليت بشكل آمن تماماً
+full_html = html_part1 + html_part2
+components.html(full_html, height=750, scrolling=True)
