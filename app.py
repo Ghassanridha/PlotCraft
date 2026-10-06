@@ -127,6 +127,7 @@ html_code = """
             justify-content: center;
             cursor: pointer;
             transition: 0.2s;
+            position: relative;
         }
 
         .interactive-card:active {
@@ -176,6 +177,30 @@ html_code = """
             justify-content: space-between;
             align-items: center;
             width: 100%;
+        }
+
+        .pro-badge-top {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(236, 72, 153, 0.2);
+            border: 1px solid rgba(236, 72, 153, 0.4);
+            padding: 3px 8px;
+            border-radius: 10px;
+            color: #f472b6;
+            font-size: 10px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            width: fit-content;
+        }
+
+        .pro-lock-icon {
+            width: 10px;
+            height: 10px;
+            background: #f472b6;
+            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>') no-repeat center;
+            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>') no-repeat center;
+            background-size: contain;
         }
 
         .inspiration-section {
@@ -512,7 +537,7 @@ html_code = """
             backdrop-filter: blur(5px);
         }
 
-        /* --- واجهة تأثيرات الفيديو (صور حديثة، واقعية، وفريدة كلياً) --- */
+        /* --- واجهة تأثيرات الفيديو --- */
         #videoEffectsScreen { background: #0b0f19; overflow-y: auto; padding-bottom: 80px; }
         .fx-header {
             display: flex;
@@ -604,7 +629,6 @@ html_code = """
             text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
-        /* شاشات عرض الكل (8 عناصر فريدة كلياً لكل قسم) */
         #coolMeAllScreen, #imageEffectsAllScreen { background: #0b0f19; overflow-y: auto; padding-bottom: 80px; }
         .grid-container-8 {
             padding: 16px;
@@ -625,9 +649,8 @@ html_code = """
             overflow: hidden;
             cursor: pointer;
         }
-        /* ---------------------------------------------------- */
 
-        /* واجهة تفاصيل "توليد الفيديو" المحدثة */
+        /* --- واجهة تفاصيل "توليد الفيديو" --- */
         #videoGenScreen {
             background: #0b0f19;
             overflow-y: auto;
@@ -964,6 +987,10 @@ html_code = """
                 </div>
 
                 <div class="interactive-card" onclick="switchScreen('subscriptionScreen', event)">
+                    <div class="pro-badge-top">
+                        <span>Pro only</span>
+                        <span class="pro-lock-icon"></span>
+                    </div>
                     <div class="card-header-row">
                         <div class="card-title-group-left">
                             <div class="card-title">سريع</div>
@@ -1025,7 +1052,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة تأثيرات الفيديو (صور واقعية وحديثة وفريدة كلياً 8 عناصر لكل قسم) -->
+    <!-- واجهة تأثيرات الفيديو -->
     <div id="videoEffectsScreen" class="screen-view">
         <div class="fx-header">
             <button class="fx-back-btn" onclick="switchScreen('toolsScreen', event)">‹</button>
@@ -1034,7 +1061,6 @@ html_code = """
         </div>
 
         <div class="fx-body">
-            <!-- قسم Cool Me (8 صور فريدة ومختلفة تماماً) -->
             <div class="fx-section-group">
                 <div class="fx-sec-header">
                     <div class="fx-sec-title">Cool Me</div>
@@ -1052,7 +1078,6 @@ html_code = """
                 </div>
             </div>
 
-            <!-- قسم Image Effects (8 صور فريدة ومختلفة تماماً) -->
             <div class="fx-section-group">
                 <div class="fx-sec-header">
                     <div class="fx-sec-title">Image Effects</div>
@@ -1072,7 +1097,6 @@ html_code = """
         </div>
     </div>
 
-    <!-- شاشة عرض الكل لـ Cool Me (8 صور فريدة ومختلفة تماماً) -->
     <div id="coolMeAllScreen" class="screen-view">
         <div class="fx-header">
             <button class="fx-back-btn" onclick="switchScreen('videoEffectsScreen', event)">‹</button>
@@ -1091,7 +1115,6 @@ html_code = """
         </div>
     </div>
 
-    <!-- شاشة عرض الكل لـ Image Effects (8 صور فريدة ومختلفة تماماً) -->
     <div id="imageEffectsAllScreen" class="screen-view">
         <div class="fx-header">
             <button class="fx-back-btn" onclick="switchScreen('videoEffectsScreen', event)">‹</button>
@@ -1110,7 +1133,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة تفاصيل "توليد الفيديو" المحدثة -->
+    <!-- واجهة تفاصيل "توليد الفيديو" -->
     <div id="videoGenScreen" class="screen-view">
         <div class="vid-gen-header">
             <button class="vid-gen-back-btn" onclick="switchScreen('toolsScreen', event)">‹</button>
