@@ -38,7 +38,6 @@ html_code = """
             overflow-x: hidden;
         }
 
-        /* الشاشات المختلفة */
         .screen-view {
             display: none;
             width: 100%;
@@ -238,6 +237,269 @@ html_code = """
             line-height: 1.2;
         }
 
+        /* تنسيق شاشة الأدوات (بناءً على الصورة المطابقة تماماً) */
+        #toolsScreen {
+            background-color: #0b0f19;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            overflow-y: auto;
+        }
+
+        .tools-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .tools-page-title {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .tool-banner-card {
+            position: relative;
+            width: 100%;
+            height: 160px;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 16px;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.2s;
+        }
+
+        .tool-banner-card:active {
+            transform: scale(0.98);
+        }
+
+        .tool-banner-1 {
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 20%, rgba(11,15,25,0.95) 100%),
+                        url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600&auto=format&fit=crop') center/cover;
+        }
+
+        .tool-banner-2 {
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 20%, rgba(11,15,25,0.95) 100%),
+                        url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=600&auto=format&fit=crop') center/cover;
+        }
+
+        .tool-banner-3 {
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 20%, rgba(11,15,25,0.95) 100%),
+                        url('https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=600&auto=format&fit=crop') center/cover;
+        }
+
+        .tool-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            text-align: right;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tool-title {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .tool-desc {
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        .tool-arrow {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: bold;
+            opacity: 0.8;
+        }
+
+        /* شاشة تفاصيل تأثيرات الفيديو وإرفاق الصور */
+        #videoEffectDetailScreen {
+            background-color: #0b0f19;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            overflow-y: auto;
+        }
+
+        .page-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .back-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #fff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .effect-preview-box {
+            width: 100%;
+            height: 180px;
+            background: #141824;
+            border: 2px dashed #30363d;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .effect-preview-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .effect-preview-placeholder {
+            color: #8b949e;
+            font-size: 13px;
+        }
+
+        .upload-section-title {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-align: right;
+        }
+
+        .upload-options-row {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .upload-option-btn {
+            flex: 1;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 14px;
+            padding: 14px;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .upload-option-btn:active {
+            background: #21262d;
+            transform: scale(0.97);
+        }
+
+        /* قائمة اختيار الصور الخاصة بالتأثيرات */
+        .effects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-height: 220px;
+            overflow-y: auto;
+            padding: 4px;
+        }
+
+        .effect-thumb {
+            height: 90px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+            transition: 0.2s;
+        }
+
+        .effect-thumb.selected {
+            border-color: #3b82f6;
+            box-shadow: 0 0 10px rgba(59,130,246,0.5);
+        }
+
+        .effect-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* واجهة الكاميرا البديلة أو المعرض */
+        .camera-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            z-index: 9999999;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 20px;
+        }
+        .camera-overlay.active {
+            display: flex;
+        }
+        .camera-view-finder {
+            width: 100%;
+            flex-grow: 1;
+            background: #111;
+            border-radius: 20px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 14px;
+            border: 1px solid #333;
+            overflow: hidden;
+            position: relative;
+        }
+        .capture-btn {
+            width: 70px;
+            height: 70px;
+            background: #ffffff;
+            border-radius: 50%;
+            border: 4px solid #3b82f6;
+            cursor: pointer;
+        }
+        .close-cam {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
         /* شاشة تفاصيل "خطوة بخطوة" */
         .step-container {
             padding: 20px;
@@ -357,10 +619,6 @@ html_code = """
             transition: 0.2s;
         }
 
-        .action-add-btn:active {
-            transform: scale(0.95);
-        }
-
         .upload-section-hidden {
             display: none;
             background: #111827;
@@ -411,7 +669,7 @@ html_code = """
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
         }
 
-        /* واجهة صفحة الاشتراكات */
+        /* واجهة صفحة الاشتراكات والدفع */
         #subscriptionScreen { background: #0b0f19; overflow-y: auto; position: relative; }
         .animated-bg-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; opacity: 0.35; pointer-events: none; }
         .explosion-glow { position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(59,130,246,0.6) 0%, rgba(139,92,246,0.2) 50%, transparent 70%); border-radius: 50%; animation: pulseExplosion 4s infinite alternate ease-in-out; }
@@ -421,7 +679,6 @@ html_code = """
 
         .page-header, .content-body { position: relative; z-index: 2; }
         .page-header { display: flex; align-items: center; justify-content: space-between; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(11, 15, 25, 0.75); backdrop-filter: blur(10px); }
-        .back-btn { background: rgba(255,255,255,0.1); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .page-title-text { color: #ffffff; font-size: 18px; font-weight: 700; }
         .content-body { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
         .plans-list { display: flex; flex-direction: column; gap: 12px; }
@@ -547,6 +804,101 @@ html_code = """
         </div>
     </div>
 
+    <!-- 1. شاشة الأدوات (بناءً على الصورة المطابقة) -->
+    <div id="toolsScreen" class="screen-view">
+        <div class="tools-top-bar">
+            <div class="tools-page-title">الأدوات</div>
+            <div class="upgrade-badge" onclick="switchScreen('subscriptionScreen')">
+                <span>⭐</span> ترقية
+            </div>
+        </div>
+
+        <!-- 1. تأثيرات الفيديو -->
+        <div class="tool-banner-card tool-banner-1" onclick="switchScreen('videoEffectDetailScreen')">
+            <div class="tool-content">
+                <div class="tool-title">تأثيرات الفيديو</div>
+                <div class="tool-desc">أضف لمسة سينمائية</div>
+            </div>
+            <div class="tool-arrow">></div>
+        </div>
+
+        <!-- 2. توليد الفيديو -->
+        <div class="tool-banner-card tool-banner-2" onclick="alert('خاصية توليد الفيديو')">
+            <div class="tool-content">
+                <div class="tool-title">توليد الفيديو</div>
+                <div class="tool-desc">حول توجيهك إلى فيديو خاص بك</div>
+            </div>
+            <div class="tool-arrow">></div>
+        </div>
+
+        <!-- 3. توليد الصور -->
+        <div class="tool-banner-card tool-banner-3" onclick="alert('خاصية توليد الصور')">
+            <div class="tool-content">
+                <div class="tool-title">توليد الصور</div>
+                <div class="tool-desc">حول فكرة إلى صورة مكتملة</div>
+            </div>
+            <div class="tool-arrow">></div>
+        </div>
+    </div>
+
+    <!-- 2. شاشة تفاصيل تأثيرات الفيديو وإرفاق الصور -->
+    <div id="videoEffectDetailScreen" class="screen-view">
+        <div class="page-header-row">
+            <button class="back-btn" onclick="switchScreen('toolsScreen')">✕</button>
+            <div class="page-title-text">تأثيرات الفيديو</div>
+            <div style="width: 36px;"></div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 16px; padding-bottom: 20px;">
+            <!-- الصورة المختارة تظهر فوق -->
+            <div class="effect-preview-box" id="mainPreviewBox">
+                <div class="effect-preview-placeholder">اختر تأثير فيديو من الأسفل لعرضه هنا</div>
+            </div>
+
+            <!-- قائمة اختيار الصور المصغرة للتأثيرات -->
+            <div class="upload-section-title">اختر التأثير السينمائي:</div>
+            <div class="effects-grid">
+                <div class="effect-thumb selected" onclick="selectEffect(this, 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=400&auto=format&fit=crop')">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=400&auto=format&fit=crop" alt="effect">
+                </div>
+                <div class="effect-thumb" onclick="selectEffect(this, 'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=400&auto=format&fit=crop')">
+                    <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=400&auto=format&fit=crop" alt="effect">
+                </div>
+                <div class="effect-thumb" onclick="selectEffect(this, 'https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=400&auto=format&fit=crop')">
+                    <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=400&auto=format&fit=crop" alt="effect">
+                </div>
+            </div>
+
+            <!-- خانة إرفاق صورة -->
+            <div class="upload-section-title" style="margin-top: 10px;">خانة إرفاق صورة:</div>
+            
+            <!-- أزرار الألبوم والكاميرا (اليمين: الألبوم، اليسار: الكاميرا) -->
+            <div class="upload-options-row">
+                <label class="upload-option-btn" for="albumFileInput">
+                    📁 من الألبوم
+                </label>
+                <input type="file" id="albumFileInput" accept="image/*" style="display: none;" onchange="handleAlbumSelect(this)">
+
+                <div class="upload-option-btn" onclick="openCamera()">
+                    📸 من الكاميرا
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- واجهة الكاميرا الحية -->
+    <div class="camera-overlay" id="cameraOverlay">
+        <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+            <span style="color: white; font-weight: bold;">التقاط صورة</span>
+            <button class="close-cam" onclick="closeCamera()">إغلاق</button>
+        </div>
+        <div class="camera-view-finder">
+            <video id="cameraVideo" autoplay playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
+            <span id="camPlaceholderText" style="position: absolute;">جارٍ تشغيل الكاميرا...</span>
+        </div>
+        <button class="capture-btn" onclick="capturePhoto()"></button>
+    </div>
+
     <!-- واجهة تفاصيل "خطوة بخطوة" -->
     <div id="stepByStepScreen" class="screen-view">
         <div class="page-header">
@@ -621,7 +973,6 @@ html_code = """
             </div>
 
             <div class="plans-list">
-                <!-- الاشتراك الأسبوعي -->
                 <div class="plan-card selected" onclick="selectPlan(this)">
                     <div class="plan-top">
                         <div class="plan-name">PlotCraft Pro Weekly</div>
@@ -630,7 +981,6 @@ html_code = """
                     <div class="plan-desc">500 نقطة / أسبوعياً، جرب PlotCraft</div>
                 </div>
 
-                <!-- الاشتراك الشهري -->
                 <div class="plan-card" onclick="selectPlan(this)">
                     <div class="new-tag">جديد</div>
                     <div class="plan-top">
@@ -640,7 +990,6 @@ html_code = """
                     <div class="plan-desc">1800 نقطة / شهرياً، مثالي للمبدعين</div>
                 </div>
 
-                <!-- الاشتراك السنوي -->
                 <div class="plan-card" onclick="selectPlan(this)">
                     <div class="best-value-tag">الأفضل قيمة</div>
                     <div class="plan-top">
@@ -691,21 +1040,21 @@ html_code = """
     <!-- شريط التنقل السفلي الثابت -->
     <div class="plotcraft-nav-bar">
         <div class="plotcraft-nav-pill">
-            <a href="#" class="plotcraft-nav-item active" onclick="switchScreen('homeScreen')">
+            <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="switchScreen('homeScreen'); setActiveNav(this);">
                 <span>الرئيسية</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
             </a>
-            <a href="#" class="plotcraft-nav-item">
+            <a href="#" class="plotcraft-nav-item" id="navTools" onclick="switchScreen('toolsScreen'); setActiveNav(this);">
                 <span>الأدوات</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
             </a>
-            <a href="#" class="plotcraft-nav-item">
+            <a href="#" class="plotcraft-nav-item" id="navWorks" onclick="alert('قسم الأعمال قريباً');">
                 <span>الأعمال</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path></svg>
             </a>
         </div>
 
-        <div class="plotcraft-nav-square">
+        <div class="plotcraft-nav-square" onclick="switchScreen('homeScreen')">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg>
         </div>
     </div>
@@ -716,6 +1065,11 @@ html_code = """
             screens.forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
             window.scrollTo(0, 0);
+        }
+
+        function setActiveNav(element) {
+            document.querySelectorAll('.plotcraft-nav-item').forEach(i => i.classList.remove('active'));
+            element.classList.add('active');
         }
 
         function selectPlan(element) {
@@ -744,6 +1098,72 @@ html_code = """
         function confirmPayment() {
             alert('تم تأكيد اشتراكك في PlotCraft بنجاح!');
             switchScreen('homeScreen');
+        }
+
+        /* تفاعل تأثيرات الفيديو واختيار الصور والكاميرا */
+        function selectEffect(thumbElement, imgUrl) {
+            document.querySelectorAll('.effect-thumb').forEach(t => t.classList.remove('selected'));
+            thumbElement.classList.add('selected');
+
+            var previewBox = document.getElementById('mainPreviewBox');
+            previewBox.innerHTML = '<img src="' + imgUrl + '" alt="Selected Effect">';
+        }
+
+        function handleAlbumSelect(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var previewBox = document.getElementById('mainPreviewBox');
+                    previewBox.innerHTML = '<img src="' + e.target.result + '" alt="Album Image">';
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        let mediaStream = null;
+
+        function openCamera() {
+            const overlay = document.getElementById('cameraOverlay');
+            overlay.classList.add('active');
+            const videoElem = document.getElementById('cameraVideo');
+            const placeholder = document.getElementById('camPlaceholderText');
+
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false })
+            .then(stream => {
+                mediaStream = stream;
+                videoElem.srcObject = stream;
+                placeholder.style.display = 'none';
+            })
+            .catch(err => {
+                placeholder.innerText = 'تعذر تشغيل الكاميرا (تأكد من إذن المتصفح)';
+            });
+        }
+
+        function closeCamera() {
+            const overlay = document.getElementById('cameraOverlay');
+            overlay.classList.remove('active');
+            if (mediaStream) {
+                mediaStream.getTracks().forEach(track => track.stop());
+            }
+        }
+
+        function capturePhoto() {
+            const videoElem = document.getElementById('cameraVideo');
+            const previewBox = document.getElementById('mainPreviewBox');
+            
+            if (videoElem.srcObject) {
+                const canvas = document.createElement('canvas');
+                canvas.width = videoElem.videoWidth || 640;
+                canvas.height = videoElem.videoHeight || 480;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(videoElem, 0, 0, canvas.width, canvas.height);
+                
+                const dataUrl = canvas.toDataURL('image/png');
+                previewBox.innerHTML = '<img src="' + dataUrl + '" alt="Captured Photo">';
+                closeCamera();
+            } else {
+                alert('الكاميرا غير جاهزة بعد!');
+            }
         }
     </script>
 </body>
