@@ -179,7 +179,6 @@ html_code = """
             width: 100%;
         }
 
-        /* تعديل لون Pro only والشعار إلى اللون الأبيض */
         .pro-badge-top {
             display: flex;
             align-items: center;
@@ -264,6 +263,92 @@ html_code = """
             font-weight: 700;
             text-shadow: 0 2px 4px rgba(0,0,0,0.8);
             line-height: 1.2;
+        }
+
+        /* --- واجهة الأعمال المستخرجة من الصورة --- */
+        #worksScreen {
+            background-color: #0b0f19;
+            display: none;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px;
+            align-items: center;
+        }
+        #worksScreen.active {
+            display: flex;
+        }
+
+        .works-tabs-container {
+            display: flex;
+            background: #141824;
+            border-radius: 30px;
+            padding: 4px;
+            width: 100%;
+            max-width: 360px;
+            margin-bottom: 80px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .works-tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 13px;
+            font-weight: 600;
+            color: #94a3b8;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .works-tab.active {
+            background: #252b3b;
+            color: #ffffff;
+        }
+
+        .works-empty-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .works-box-icon {
+            width: 90px;
+            height: 90px;
+            margin-bottom: 24px;
+            opacity: 0.8;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2364748b" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>') no-repeat center;
+            background-size: contain;
+        }
+
+        .works-empty-text-sub {
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 35px;
+        }
+
+        .works-create-btn {
+            width: 100%;
+            max-width: 360px;
+            background: #ffffff;
+            color: #0b0f19;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 16px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(255,255,255,0.15);
+            transition: 0.2s;
+        }
+        .works-create-btn:active {
+            transform: scale(0.98);
+            background: #e2e8f0;
         }
 
         /* شاشة تفاصيل "خطوة بخطوة" */
@@ -987,7 +1072,6 @@ html_code = """
                     <div class="card-subtitle">راجع كل خطوة</div>
                 </div>
 
-                <!-- بطاقة "سريع" مع التحكم التلقائي بالاشتراك والقفل -->
                 <div class="interactive-card" id="speedCard" onclick="handleSpeedCardClick(event)">
                     <div class="pro-badge-top" id="proBadgeContainer">
                         <span id="proBadgeText">Pro only</span>
@@ -1026,7 +1110,6 @@ html_code = """
         </div>
 
         <div class="tools-body">
-            <!-- بطاقة تأثيرات الفيديو -->
             <div class="tool-card-item tool-card-1" onclick="switchScreen('videoEffectsScreen', event)">
                 <div class="tool-arrow-icon">‹</div>
                 <div class="tool-info-box">
@@ -1035,7 +1118,6 @@ html_code = """
                 </div>
             </div>
 
-            <!-- بطاقة توليد الفيديو المحدثة -->
             <div class="tool-card-item tool-card-2" onclick="switchScreen('videoGenScreen', event)">
                 <div class="tool-arrow-icon">‹</div>
                 <div class="tool-info-box">
@@ -1051,6 +1133,19 @@ html_code = """
                     <div class="tool-sub-desc">حول فكرة إلى صورة مكتملة</div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- واجهة "الأعمال" الجديدة المطابقة للصورة مع التعديلات المطلوبة -->
+    <div id="worksScreen" class="screen-view">
+        <div class="works-tabs-container">
+            <div class="works-tab active">مكتبة الوسائط</div>
+            <div class="works-tab">المشاريع</div>
+        </div>
+        <div class="works-empty-content">
+            <div class="works-box-icon"></div>
+            <div class="works-empty-text-sub">ستظهر هنا مشاريع القصة الخاصة بك.</div>
+            <button class="works-create-btn" onclick="switchScreen('stepByStepScreen', event)">إنشاء قصة</button>
         </div>
     </div>
 
@@ -1305,7 +1400,8 @@ html_code = """
                 <span>الأدوات</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
             </a>
-            <a href="#" class="plotcraft-nav-item" id="navWorks" onclick="switchScreen('homeScreen', event); setActiveNav('navWorks')">
+            <!-- زر الأعمال الذي يفتح واجهة الأعمال الجديدة -->
+            <a href="#" class="plotcraft-nav-item" id="navWorks" onclick="switchScreen('worksScreen', event); setActiveNav('navWorks')">
                 <span>الأعمال</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path></svg>
             </a>
@@ -1317,7 +1413,6 @@ html_code = """
     </div>
 
     <script>
-        // التحقق من حالة الاشتراك عند تحميل الصفحة لتحديث حالة القفل
         document.addEventListener("DOMContentLoaded", function() {
             checkSubscriptionStatus();
         });
@@ -1367,18 +1462,15 @@ html_code = """
             box.classList.toggle('show');
         }
 
-        // دالة للتعامل مع النقر على بطقّة "سريع" (إذا لم يكن مشتركاً يذهب للاشتراك، وإذا كان مشتركاً يفتح الميزة)
         function handleSpeedCardClick(event) {
             var isSubscribed = localStorage.getItem('plotcraft_subscribed') === 'true';
             if (isSubscribed) {
                 alert('أهلاً بك! تم فتح ميزة "سريع" بنجاح.');
-                // يمكنك هنا استبدال التنبيه بالانتقال لشاشة ميزة سريع الفعلية
             } else {
                 switchScreen('subscriptionScreen', event);
             }
         }
 
-        // تأكيد الاشتراك وتخزين حالته لفتح القفل تلقائياً
         function confirmSubscription() {
             localStorage.setItem('plotcraft_subscribed', 'true');
             alert('تم تأكيد اشتراكك بنجاح! تم فتح ميزة "سريع" تلقائياً.');
@@ -1386,7 +1478,6 @@ html_code = """
             switchScreen('homeScreen');
         }
 
-        // تحديث واجهة بطاقة "سريع" بناءً على حالة الاشتراك
         function checkSubscriptionStatus() {
             var isSubscribed = localStorage.getItem('plotcraft_subscribed') === 'true';
             var badgeContainer = document.getElementById('proBadgeContainer');
