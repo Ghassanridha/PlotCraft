@@ -251,6 +251,11 @@ html_code = """
             flex-direction: column;
             justify-content: flex-end;
             padding: 14px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .movie-card:active {
+            transform: scale(0.96);
         }
 
         .movie-card.m1 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=300&auto=format&fit=crop') center/cover; }
@@ -933,9 +938,9 @@ html_code = """
             </div>
 
             <div class="movies-carousel">
-                <div class="movie-card m1"><div class="movie-title">THE DELIVERYMAN'S SECRET BILLIONAIRE</div></div>
-                <div class="movie-card m2"><div class="movie-title">SECRET BILLIONAIRE</div></div>
-                <div class="movie-card m3"><div class="movie-title">CYBER CITY</div></div>
+                <div class="movie-card m1" onclick="alert('يتم إضافة القصص قريباً')"><div class="movie-title">THE DELIVERYMAN'S SECRET BILLIONAIRE</div></div>
+                <div class="movie-card m2" onclick="alert('يتم إضافة القصص قريباً')"><div class="movie-title">SECRET BILLIONAIRE</div></div>
+                <div class="movie-card m3" onclick="alert('يتم إضافة القصص قريباً')"><div class="movie-title">CYBER CITY</div></div>
             </div>
         </div>
     </div>
