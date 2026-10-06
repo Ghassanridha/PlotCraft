@@ -157,7 +157,7 @@ html_code = """
             width: 22px;
             height: 22px;
             background: #dbeafe;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
+            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1 z"/></svg>') no-repeat center;
             -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1 z"/></svg>') no-repeat center;
             background-size: contain;
         }
@@ -434,12 +434,6 @@ html_code = """
         .new-tag { position: absolute; top: 12px; left: 12px; background: #3b82f6; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
         .best-value-tag { position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg, #f59e0b, #ec4899); color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
         .action-main-btn { width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 20px; border: none; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); margin-top: 10px; }
-        
-        .payment-form-box { display: flex; flex-direction: column; gap: 14px; }
-        .form-group { display: flex; flex-direction: column; gap: 6px; }
-        .form-label { color: #cbd5e1; font-size: 13px; font-weight: 600; }
-        .form-input { width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 12px 14px; color: #ffffff; font-size: 14px; outline: none; text-align: right; }
-        .form-row { display: flex; gap: 10px; }
 
         /* شريط التنقل السفلي المدمج */
         .plotcraft-nav-bar {
@@ -652,40 +646,7 @@ html_code = """
                 </div>
             </div>
 
-            <button class="action-main-btn" onclick="switchScreen('paymentScreen')">اشتراك</button>
-        </div>
-    </div>
-
-    <!-- واجهة تفاصيل الدفع البنكي -->
-    <div id="paymentScreen" class="screen-view">
-        <div class="page-header">
-            <button class="back-btn" onclick="switchScreen('subscriptionScreen')">←</button>
-            <div class="page-title-text">تفاصيل الدفع البنكي</div>
-            <div style="width: 36px;"></div>
-        </div>
-
-        <div class="content-body">
-            <div class="payment-form-box">
-                <div class="form-group">
-                    <label class="form-label">اسم البطاقة البنكية</label>
-                    <input type="text" class="form-input" placeholder="الاسم كما يظهر على البطاقة">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">رقم البطاقة البنكية</label>
-                    <input type="text" class="form-input" placeholder="**** **** **** ****" maxlength="19">
-                </div>
-                <div class="form-row">
-                    <div class="form-group" style="flex: 1;">
-                        <label class="form-label">تاريخ الانتهاء</label>
-                        <input type="text" class="form-input" placeholder="MM/YY" maxlength="5">
-                    </div>
-                    <div class="form-group" style="flex: 1;">
-                        <label class="form-label">رمز البطاقة (CVV)</label>
-                        <input type="password" class="form-input" placeholder="***" maxlength="4">
-                    </div>
-                </div>
-                <button class="action-main-btn" onclick="confirmPayment()" style="margin-top: 15px;">تأكيد وإتمام الاشتراك</button>
-            </div>
+            <button class="action-main-btn" onclick="confirmSubscription()">اشتراك</button>
         </div>
     </div>
 
@@ -742,8 +703,8 @@ html_code = """
             box.classList.toggle('show');
         }
 
-        function confirmPayment() {
-            alert('تم تأكيد اشتراكك في PlotCraft بنجاح!');
+        function confirmSubscription() {
+            alert('تم تأكيد طلب الاشتراك! سيتم الآن فتح نظام الدفع الرسمي الخاص بمتجر التطبيقات.');
             switchScreen('homeScreen');
         }
     </script>
