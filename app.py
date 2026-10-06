@@ -1035,7 +1035,7 @@ html_code = """
         }
         .plotcraft-nav-item.active { color: #ffffff; font-weight: bold; }
         
-        /* الزر الرابع المنفصل الذي يحتوي على الشعار الجديد مطابق للصورة */
+        /* الزر الرابع المنفصل مع الشعار المطابق للصورة تماماً */
         .plotcraft-nav-square {
             background-color: #161b22;
             border: 1px solid #30363d;
@@ -1414,15 +1414,17 @@ html_code = """
 
         <!-- الزر الرابع المنفصل مع الشعار المطابق للصورة تماماً -->
         <div class="plotcraft-nav-square" onclick="switchScreen('homeScreen', event)" title="إنشاء سريع">
-            <svg width="24" height="24" viewBox="0 0 24 24">
-                <!-- أيقونة الفيلم الرمادية -->
-                <path d="M19 4H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-7 12H7v-2h5v2zm0-4H7v-2h5v2zm0-4H7V6h5v2zm7 8h-5v-2h5v2zm0-4h-5v-2h5v2zm0-4h-5V6h5v2z" fill="#94a3b8"/>
-                <!-- شريط جانبي مخطط (Film Strip) -->
-                <path d="M19 6h-2v12h2V6z" fill="#64748b"/>
-                <!-- زر التشغيل الداخلي -->
-                <polygon points="10,9.5 15,12 10,14.5" fill="#0b0f19"/>
-                <!-- النجمة الزرقاء المضيئة (AI Sparkle) -->
-                <path d="M5 4L5.85 6.15L8 7L5.85 7.85L5 10L4.15 7.85L2 7L4.15 6.15L5 4Z" fill="#3b82f6"/>
+            <svg width="26" height="26" viewBox="0 0 24 24">
+                <!-- أيقونة الفيديو الرمادية الأساسية مع زوايا دائرية -->
+                <rect x="3" y="6" width="14" height="12" rx="3" fill="#94a3b8"/>
+                <!-- شريط الفيلم الجانبي (المخطط بخطوط مائلة) -->
+                <path d="M14 6h3c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2h-3V6z" fill="#64748b"/>
+                <line x1="16" y1="8" x2="18" y2="10" stroke="#141824" stroke-width="1.5"/>
+                <line x1="16" y1="12" x2="18" y2="14" stroke="#141824" stroke-width="1.5"/>
+                <!-- زر التشغيل الداخلي (Play) -->
+                <polygon points="8,10 12,12 8,14" fill="#0b0f19"/>
+                <!-- النجمة الزرقاء المضيئة (AI Sparkle) في أعلى اليسار -->
+                <path d="M8 3C8 4.65 6.65 6 5 6C6.65 6 8 7.35 8 9C8 7.35 9.35 6 11 6C9.35 6 8 4.65 8 3Z" fill="#3b82f6"/>
             </svg>
         </div>
     </div>
