@@ -586,7 +586,7 @@ html_code = """
         <div class="hero-box">
             <div class="top-header">
                 <div class="brand-title">PlotCraft</div>
-                <div class="upgrade-badge" onclick="switchScreen('subscriptionScreen')">
+                <div class="upgrade-badge" onclick="switchScreen('subscriptionScreen', event)">
                     <span>⭐</span> ترقية
                 </div>
             </div>
@@ -596,7 +596,7 @@ html_code = """
             </div>
 
             <div class="cards-row">
-                <div class="interactive-card" onclick="switchScreen('stepByStepScreen')">
+                <div class="interactive-card" onclick="switchScreen('stepByStepScreen', event)">
                     <div class="card-header-row">
                         <div class="card-title-group-left">
                             <div class="card-title">خطوة بخطوة</div>
@@ -606,7 +606,7 @@ html_code = """
                     <div class="card-subtitle">راجع كل خطوة</div>
                 </div>
 
-                <div class="interactive-card" onclick="switchScreen('subscriptionScreen')">
+                <div class="interactive-card" onclick="switchScreen('subscriptionScreen', event)">
                     <div class="card-header-row">
                         <div class="card-title-group-left">
                             <div class="card-title">سريع</div>
@@ -636,7 +636,7 @@ html_code = """
     <div id="toolsScreen" class="screen-view">
         <div class="tools-header">
             <div class="tools-header-title">الأدوات</div>
-            <div class="tools-upgrade-btn" onclick="switchScreen('subscriptionScreen')">ترقية</div>
+            <div class="tools-upgrade-btn" onclick="switchScreen('subscriptionScreen', event)">ترقية</div>
         </div>
 
         <div class="tools-body">
@@ -672,7 +672,7 @@ html_code = """
     <!-- واجهة تفاصيل "خطوة بخطوة" -->
     <div id="stepByStepScreen" class="screen-view">
         <div class="page-header">
-            <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
+            <button class="back-btn" onclick="switchScreen('homeScreen', event)">✕</button>
             <div class="page-title-text">PlotCraft</div>
             <div style="width: 36px;"></div>
         </div>
@@ -731,7 +731,7 @@ html_code = """
         </div>
 
         <div class="page-header">
-            <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
+            <button class="back-btn" onclick="switchScreen('homeScreen', event)">✕</button>
             <div class="page-title-text">ترقية الحساب</div>
             <div style="width: 36px;"></div>
         </div>
@@ -780,28 +780,31 @@ html_code = """
     <!-- شريط التنقل السفلي الثابت -->
     <div class="plotcraft-nav-bar">
         <div class="plotcraft-nav-pill">
-            <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="switchScreen('homeScreen'); setActiveNav('navHome')">
+            <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="switchScreen('homeScreen', event); setActiveNav('navHome')">
                 <span>الرئيسية</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
             </a>
-            <!-- تم تصحيح زر الأدوات هنا لفتح toolsScreen مباشرة -->
-            <a href="#" class="plotcraft-nav-item" id="navTools" onclick="switchScreen('toolsScreen'); setActiveNav('navTools')">
+            <!-- تم إضافة منع السلوك الافتراضي هنا لضمان عدم حدوث تلمض أو إعادة توجيه -->
+            <a href="#" class="plotcraft-nav-item" id="navTools" onclick="switchScreen('toolsScreen', event); setActiveNav('navTools')">
                 <span>الأدوات</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
             </a>
-            <a href="#" class="plotcraft-nav-item" id="navWorks" onclick="switchScreen('homeScreen'); setActiveNav('navWorks')">
+            <a href="#" class="plotcraft-nav-item" id="navWorks" onclick="switchScreen('homeScreen', event); setActiveNav('navWorks')">
                 <span>الأعمال</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path></svg>
             </a>
         </div>
 
-        <div class="plotcraft-nav-square" onclick="switchScreen('homeScreen')">
+        <div class="plotcraft-nav-square" onclick="switchScreen('homeScreen', event)">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg>
         </div>
     </div>
 
     <script>
-        function switchScreen(screenId) {
+        function switchScreen(screenId, event) {
+            if (event) {
+                event.preventDefault(); // يمنع تلمض الشاشة وإعادة التحميل الافتراضية للرابط
+            }
             var screens = document.querySelectorAll('.screen-view');
             screens.forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
