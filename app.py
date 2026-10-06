@@ -332,13 +332,13 @@ html_code = """
 
         .works-create-btn {
             width: 100%;
-            max-width: 360px;
+            max-width: 220px;
             background: #ffffff;
             color: #0b0f19;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
-            padding: 16px;
-            border-radius: 25px;
+            padding: 10px 16px;
+            border-radius: 14px;
             border: none;
             cursor: pointer;
             text-align: center;
@@ -1138,8 +1138,8 @@ html_code = """
     <!-- واجهة "الأعمال" الجديدة المطابقة للصورة مع التعديلات المطلوبة -->
     <div id="worksScreen" class="screen-view">
         <div class="works-tabs-container">
-            <div class="works-tab active">مكتبة الوسائط</div>
-            <div class="works-tab">المشاريع</div>
+            <div class="works-tab active">المشاريع</div>
+            <div class="works-tab">مكتبة الوسائط</div>
         </div>
         <div class="works-empty-content">
             <div class="works-box-icon"></div>
@@ -1495,5 +1495,4 @@ html_code = """
 </html>
 """
 
-# تم تعديل الارتفاع إلى 680 بناءً على طلبك
 components.html(html_code, height=680, scrolling=True)
