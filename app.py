@@ -169,14 +169,6 @@ html_code = """
             width: 100%;
         }
 
-        .magic-wand-icon {
-            width: 22px;
-            height: 22px;
-            background: #dbeafe;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.5 5.6c-.3-.3-.8-.3-1.1 0-.3.3-.3.8 0 1.1 1.2 1.2 1.9 2.8 1.9 4.5 0 1.7-.7 3.3-1.9 4.5-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 1.5-1.5 2.3-3.5 2.3-5.6s-.8-4.1-2.3-5.6zm4.3-2.3c-.3-.3-.8-.3-1.1 0-.3.3-.3.8 0 1.1 2.2 2.2 3.4 5.1 3.4 8.2s-1.2 6-3.4 8.2c-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 2.6-2.6 4-6 4-9.3s-1.4-6.7-4-9.3zm4.4-2.3c-.3-.3-.8-.3-1.1 0-.3.3-.3.8 0 1.1 3.1 3.1 4.9 7.3 4.9 11.6s-1.8 8.5-4.9 11.6c-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 3.5-3.5 5.4-8.1 5.4-12.7s-1.9-9.2-5.4-12.7zm-7.6 15.6l-8.5 8.5c-.4.4-.4 1 0 1.4s1 .4 1.4 0l8.5-8.5c.4-.4.4-1 0-1.4s-1-.4-1.4 0zm11.4-11.4l-3.5 3.5c-.4.4-.4 1 0 1.4s1 .4 1.4 0l3.5-3.5c.4-.4.4-1 0-1.4s-1-.4-1.4 0zm-15 3.5l-3.5 3.5c-.4.4-.4 1 0 1.4s1 .4 1.4 0l3.5-3.5c.4-.4.4-1 0-1.4s-1-.4-1.4 0z"/></svg>') no-repeat center;
-            background-size: contain;
-        }
-
         .inspiration-section {
             padding: 24px 20px;
         }
@@ -411,7 +403,7 @@ html_code = """
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
         }
 
-        /* واجهة صفحة الأدوات الجديدة (الترقية يمين، والأدوات يسار حسب الطلب) */
+        /* واجهة صفحة الأدوات الجديدة (كلمة الأدوات يمين، وزر الترقية يسار) */
         #toolsScreen { background: #0b0f19; overflow-y: auto; }
         .tools-header {
             display: flex;
@@ -640,11 +632,11 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة صفحة "الأدوات" (الترقية أصبحت على اليمين، والكلمة "الأدوات" على اليسار) -->
+    <!-- واجهة صفحة "الأدوات" (تم تعديل الهيدر: كلمة الأدوات يمين، وزر الترقية يسار) -->
     <div id="toolsScreen" class="screen-view">
         <div class="tools-header">
-            <div class="tools-upgrade-btn" onclick="switchScreen('subscriptionScreen')">ترقية</div>
             <div class="tools-header-title">الأدوات</div>
+            <div class="tools-upgrade-btn" onclick="switchScreen('subscriptionScreen')">ترقية</div>
         </div>
 
         <div class="tools-body">
@@ -810,7 +802,7 @@ html_code = """
     <script>
         function switchScreen(screenId) {
             var screens = document.querySelectorAll('.screen-view');
-            screens.forEach(s => s.classList.remove('active'));
+            screens.exports?.forEach ? null : screens.forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
             window.scrollTo(0, 0);
         }
@@ -832,7 +824,7 @@ html_code = """
             box.classList.toggle('show');
         }
 
-        function checkMaxNames(input) {
+        function checkMaxImages(input) {
             if (input.files.length > 2) {
                 alert('عذراً، الحد الأقصى المسموح به هو صورتان فقط للشخصيات!');
                 input.value = '';
