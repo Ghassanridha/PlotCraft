@@ -1,4 +1,4 @@
-import streamlit as st
+Import streamlit as st
 import streamlit.components.v1 as components
 
 # إعداد صفحة ستريمليت لإزالة الهوامش واستغلال الشاشة بالكامل
@@ -751,6 +751,13 @@ html_code = """
         .img-gen-submit-btn:active {
             transform: scale(0.98);
         }
+
+        /* --- تصميم شاشة تفاصيل "توليد الفيديو" (مطابقة تماماً لتوليد الصور) --- */
+        #videoGenScreen {
+            background: #0b0f19;
+            overflow-y: auto;
+            padding: 0 0 100px 0;
+        }
         /* ---------------------------------------------------- */
 
         /* واجهة صفحة الاشتراكات */
@@ -899,7 +906,7 @@ html_code = """
                 </div>
             </div>
 
-            <div class="tool-card-item tool-card-2" onclick="alert('تم اختيار: توليد الفيديو')">
+            <div class="tool-card-item tool-card-2" onclick="switchScreen('videoGenScreen', event)">
                 <div class="tool-arrow-icon">‹</div>
                 <div class="tool-info-box">
                     <div class="tool-main-title">توليد الفيديو</div>
@@ -973,6 +980,65 @@ html_code = """
         <!-- زر الإنشاء في الأسفل -->
         <div class="img-gen-bottom-bar">
             <button class="img-gen-submit-btn" onclick="alert('جاري بدء عملية توليد الصورة...')">إنشاء</button>
+        </div>
+    </div>
+
+    <!-- واجهة تفاصيل "توليد الفيديو" (مطابقة تماماً لتوليد الصور) -->
+    <div id="videoGenScreen" class="screen-view">
+        <div class="img-gen-header">
+            <button class="img-gen-back-btn" onclick="switchScreen('toolsScreen', event)">‹</button>
+            <div class="img-gen-title">توليد الفيديو</div>
+            <div class="img-gen-upgrade" onclick="switchScreen('subscriptionScreen', event)">⭐ ترقية</div>
+        </div>
+
+        <div class="img-gen-body">
+            <!-- صندوق التوجيه (Prompt) -->
+            <div class="img-gen-card">
+                <div class="img-gen-card-header">التوجيه</div>
+                <textarea class="img-prompt-textarea" placeholder="صف الفيديو: الشخصيات، المزاج، المكان، وأسلوب اللقطة..."></textarea>
+                <div class="img-prompt-footer">
+                    <span class="img-char-count">0/5000</span>
+                    <div class="img-prompt-actions">
+                        <button class="img-action-icon-btn" title="مسح">🗑️</button>
+                        <button class="img-action-icon-btn" title="تحسين بالذكاء الاصطناعي">✨</button>
+                        <button class="img-action-icon-btn" title="عشوائي">🔀</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- إضافة فيديو أو صورة مرجعية والشخصيات الجديدة المتنوعة -->
+            <div class="img-gen-card">
+                <div class="img-gen-card-header">إضافة فيديو أو صورة مرجعية</div>
+                <div class="upload-box-center" onclick="alert('فتح استوديو الوسائط للرفع')">
+                    <div class="upload-icon-circle">↑</div>
+                    <div class="upload-text">رفع ملف</div>
+                </div>
+                <div class="cast-row">
+                    <div class="cast-add-box" onclick="alert('إضافة دور جديد')">
+                        <span>+</span>
+                        <span class="cast-add-text">الدور</span>
+                    </div>
+                    <!-- صور شخصيات منوعة وجديدة كلياً -->
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&auto=format&fit=crop" class="cast-thumb">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150&auto=format&fit=crop" class="cast-thumb">
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=150&auto=format&fit=crop" class="cast-thumb">
+                    <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=150&auto=format&fit=crop" class="cast-thumb">
+                </div>
+            </div>
+
+            <!-- نسبة العرض إلى الارتفاع (16:9 على اليسار و 9:16 على اليمين) -->
+            <div class="img-gen-card">
+                <div class="img-gen-card-header">نسبة العرض إلى الارتفاع</div>
+                <div class="ratio-options-row">
+                    <div class="ratio-btn" onclick="selectRatio(this)">16:9 ◼</div>
+                    <div class="ratio-btn active" onclick="selectRatio(this)">9:16 📱</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- زر الإنشاء في الأسفل -->
+        <div class="img-gen-bottom-bar">
+            <button class="img-gen-submit-btn" onclick="alert('جاري بدء عملية توليد الفيديو...')">إنشاء الفيديو</button>
         </div>
     </div>
 
