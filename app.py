@@ -411,7 +411,7 @@ html_code = """
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
         }
 
-        /* واجهة صفحة الأدوات الجديدة (الترقية يمين، والأدوات يسار حسب الطلب) */
+        /* واجهة صفحة الأدوات الجديدة بالكامل (مطابقة للصورة المرفقة) */
         #toolsScreen { background: #0b0f19; overflow-y: auto; }
         .tools-header {
             display: flex;
@@ -640,7 +640,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة صفحة "الأدوات" (الترقية أصبحت على اليمين، والكلمة "الأدوات" على اليسار) -->
+    <!-- واجهة صفحة "الأدوات" الجديدة المطابقة للصورة -->
     <div id="toolsScreen" class="screen-view">
         <div class="tools-header">
             <div class="tools-upgrade-btn" onclick="switchScreen('subscriptionScreen')">ترقية</div>
