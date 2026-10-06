@@ -270,6 +270,54 @@ html_code = """
             line-height: 1.2;
         }
 
+        /* نافذة منبثقة مخصصة باللغة العربية */
+        .custom-alert-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 999999;
+            align-items: center;
+            justify-content: center;
+        }
+        .custom-alert-overlay.show {
+            display: flex;
+        }
+        .custom-alert-box {
+            background: #141824;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 20px;
+            padding: 24px 20px;
+            width: 85%;
+            max-width: 280px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+        .custom-alert-msg {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1.5;
+        }
+        .custom-alert-btn {
+            background: #3b82f6;
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            padding: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .custom-alert-btn:active {
+            background: #2563eb;
+            transform: scale(0.98);
+        }
+
         /* --- واجهة الأعمال --- */
         #worksScreen {
             background-color: #0b0f19;
@@ -938,10 +986,18 @@ html_code = """
             </div>
 
             <div class="movies-carousel">
-                <div class="movie-card m1" onclick="alert('يتم إضافة القصص قريباً')"><div class="movie-title">THE DELIVERYMAN'S SECRET BILLIONAIRE</div></div>
-                <div class="movie-card m2" onclick="alert('يتم إضافة القصص قريباً')"><div class="movie-title">SECRET BILLIONAIRE</div></div>
-                <div class="movie-card m3" onclick="alert('يتم إضافة القصص قريباً')"><div class="movie-title">CYBER CITY</div></div>
+                <div class="movie-card m1" onclick="showCustomAlert()"><div class="movie-title">THE DELIVERYMAN'S SECRET BILLIONAIRE</div></div>
+                <div class="movie-card m2" onclick="showCustomAlert()"><div class="movie-title">SECRET BILLIONAIRE</div></div>
+                <div class="movie-card m3" onclick="showCustomAlert()"><div class="movie-title">CYBER CITY</div></div>
             </div>
+        </div>
+    </div>
+
+    <!-- نافذة منبثقة مخصصة باللغة العربية حصراً -->
+    <div class="custom-alert-overlay" id="customAlertOverlay">
+        <div class="custom-alert-box">
+            <div class="custom-alert-msg">يتم إضافة القصص قريباً</div>
+            <button class="custom-alert-btn" onclick="closeCustomAlert()">حسناً</button>
         </div>
     </div>
 
@@ -1268,6 +1324,14 @@ html_code = """
             var cards = document.querySelectorAll('.plan-card');
             cards.forEach(c => c.classList.remove('selected'));
             element.classList.add('selected');
+        }
+
+        function showCustomAlert() {
+            document.getElementById('customAlertOverlay').classList.add('show');
+        }
+
+        function closeCustomAlert() {
+            document.getElementById('customAlertOverlay').classList.remove('show');
         }
 
         function showSourceModal() {
