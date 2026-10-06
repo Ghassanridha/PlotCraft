@@ -854,4 +854,3 @@ html_code = """
 """
 
 components.html(html_code, height=750, scrolling=True)
-هذا الكود وسوي بي التعديل فقط اللي قلته فوق سوي
