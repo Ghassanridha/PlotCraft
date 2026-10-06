@@ -511,13 +511,13 @@ html_code = """
             backdrop-filter: blur(5px);
         }
 
-        /* --- تصميم شاشة تفاصيل "توليد الصور" المحدثة --- */
-        #imageGenScreen {
+        /* --- تصميم شاشة تفاصيل "توليد الفيديو" المحدثة (تحتوي عناصر توليد الصور) --- */
+        #videoGenScreen {
             background: #0b0f19;
             overflow-y: auto;
             padding: 0 0 100px 0;
         }
-        .img-gen-header {
+        .vid-gen-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -529,7 +529,7 @@ html_code = """
             top: 0;
             z-index: 10;
         }
-        .img-gen-back-btn {
+        .vid-gen-back-btn {
             background: none;
             border: none;
             color: #fff;
@@ -541,12 +541,12 @@ html_code = """
             align-items: center;
             justify-content: center;
         }
-        .img-gen-title {
+        .vid-gen-title {
             color: #ffffff;
             font-size: 18px;
             font-weight: 700;
         }
-        .img-gen-upgrade {
+        .vid-gen-upgrade {
             background: rgba(255, 255, 255, 0.12);
             border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 6px 14px;
@@ -556,13 +556,13 @@ html_code = """
             font-weight: 500;
             cursor: pointer;
         }
-        .img-gen-body {
+        .vid-gen-body {
             padding: 16px;
             display: flex;
             flex-direction: column;
             gap: 16px;
         }
-        .img-gen-card {
+        .vid-gen-card {
             background: #141824;
             border: 1px solid rgba(255,255,255,0.08);
             border-radius: 20px;
@@ -571,13 +571,13 @@ html_code = """
             flex-direction: column;
             gap: 12px;
         }
-        .img-gen-card-header {
+        .vid-gen-card-header {
             color: #ffffff;
             font-size: 15px;
             font-weight: 700;
             text-align: right;
         }
-        .img-prompt-textarea {
+        .vid-prompt-textarea {
             width: 100%;
             background: transparent;
             border: none;
@@ -589,25 +589,25 @@ html_code = """
             text-align: right;
             line-height: 1.5;
         }
-        .img-prompt-textarea::placeholder {
+        .vid-prompt-textarea::placeholder {
             color: #64748b;
         }
-        .img-prompt-footer {
+        .vid-prompt-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-top: 1px solid rgba(255,255,255,0.05);
             padding-top: 10px;
         }
-        .img-char-count {
+        .vid-char-count {
             color: #64748b;
             font-size: 12px;
         }
-        .img-prompt-actions {
+        .vid-prompt-actions {
             display: flex;
             gap: 8px;
         }
-        .img-action-icon-btn {
+        .vid-action-icon-btn {
             background: #1e2538;
             border: none;
             color: #94a3b8;
@@ -620,13 +620,13 @@ html_code = """
             cursor: pointer;
             transition: 0.2s;
         }
-        .img-action-icon-btn:active {
+        .vid-action-icon-btn:active {
             transform: scale(0.95);
             background: #2a344e;
             color: #fff;
         }
         
-        /* قسم رفع صورة مرجعية والشخصيات الجديدة المتنوعة */
+        /* قسم رفع صورة مرجعية والشخصيات داخل بطاقة توليد الفيديو */
         .upload-box-center {
             background: #1a2030;
             border: 1px dashed rgba(255,255,255,0.15);
@@ -697,7 +697,7 @@ html_code = """
             font-size: 10px;
         }
 
-        /* نسبة العرض إلى الارتفاع (16:9 على اليسار و 9:16 على اليمين) */
+        /* نسبة العرض إلى الارتفاع */
         .ratio-options-row {
             display: flex;
             gap: 10px;
@@ -726,15 +726,15 @@ html_code = """
             box-shadow: 0 0 10px rgba(59,130,246,0.3);
         }
 
-        /* زر الإنشاء السفلي الثابت داخل الشاشة */
-        .img-gen-bottom-bar {
+        /* زر الإنشاء السفلي الثابت لشاشة توليد الفيديو */
+        .vid-gen-bottom-bar {
             position: fixed;
             bottom: 20px;
             left: 20px;
             right: 20px;
             z-index: 20;
         }
-        .img-gen-submit-btn {
+        .vid-gen-submit-btn {
             width: 100%;
             background: linear-gradient(135deg, #3b82f6 0%, #ec4899 100%);
             color: #ffffff;
@@ -748,7 +748,7 @@ html_code = """
             box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
             transition: 0.2s;
         }
-        .img-gen-submit-btn:active {
+        .vid-gen-submit-btn:active {
             transform: scale(0.98);
         }
         /* ---------------------------------------------------- */
@@ -899,7 +899,8 @@ html_code = """
                 </div>
             </div>
 
-            <div class="tool-card-item tool-card-2" onclick="alert('تم اختيار: توليد الفيديو')">
+            <!-- بطاقة توليد الفيديو المحدثة لتشمل عناصر توليد الصور -->
+            <div class="tool-card-item tool-card-2" onclick="switchScreen('videoGenScreen', event)">
                 <div class="tool-arrow-icon">‹</div>
                 <div class="tool-info-box">
                     <div class="tool-main-title">توليد الفيديو</div>
@@ -907,7 +908,7 @@ html_code = """
                 </div>
             </div>
 
-            <div class="tool-card-item tool-card-3" onclick="switchScreen('imageGenScreen', event)">
+            <div class="tool-card-item tool-card-3" onclick="alert('تم اختيار: توليد الصور')">
                 <div class="tool-arrow-icon">‹</div>
                 <div class="tool-info-box">
                     <div class="tool-main-title">توليد الصور</div>
@@ -917,32 +918,32 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة تفاصيل "توليد الصور" المحدثة -->
-    <div id="imageGenScreen" class="screen-view">
-        <div class="img-gen-header">
-            <button class="img-gen-back-btn" onclick="switchScreen('toolsScreen', event)">‹</button>
-            <div class="img-gen-title">توليد الصور</div>
-            <div class="img-gen-upgrade" onclick="switchScreen('subscriptionScreen', event)">⭐ ترقية</div>
+    <!-- واجهة تفاصيل "توليد الفيديو" المحدثة (تتضمن التوجيه، الصورة المرجعية، ونسبة العرض للارتفاع) -->
+    <div id="videoGenScreen" class="screen-view">
+        <div class="vid-gen-header">
+            <button class="vid-gen-back-btn" onclick="switchScreen('toolsScreen', event)">‹</button>
+            <div class="vid-gen-title">توليد الفيديو</div>
+            <div class="vid-gen-upgrade" onclick="switchScreen('subscriptionScreen', event)">⭐ ترقية</div>
         </div>
 
-        <div class="img-gen-body">
+        <div class="vid-gen-body">
             <!-- صندوق التوجيه (Prompt) -->
-            <div class="img-gen-card">
-                <div class="img-gen-card-header">التوجيه</div>
-                <textarea class="img-prompt-textarea" placeholder="صف المشهد: الشخصيات، المزاج، المكان، وأسلوب اللقطة..."></textarea>
-                <div class="img-prompt-footer">
-                    <span class="img-char-count">0/5000</span>
-                    <div class="img-prompt-actions">
-                        <button class="img-action-icon-btn" title="مسح">🗑️</button>
-                        <button class="img-action-icon-btn" title="تحسين بالذكاء الاصطناعي">✨</button>
-                        <button class="img-action-icon-btn" title="عشوائي">🔀</button>
+            <div class="vid-gen-card">
+                <div class="vid-gen-card-header">التوجيه</div>
+                <textarea class="vid-prompt-textarea" placeholder="صف المشهد للفيديو: الشخصيات، المزاج، المكان، وأسلوب اللقطة..."></textarea>
+                <div class="vid-prompt-footer">
+                    <span class="vid-char-count">0/5000</span>
+                    <div class="vid-prompt-actions">
+                        <button class="vid-action-icon-btn" title="مسح">🗑️</button>
+                        <button class="vid-action-icon-btn" title="تحسين بالذكاء الاصطناعي">✨</button>
+                        <button class="vid-action-icon-btn" title="عشوائي">🔀</button>
                     </div>
                 </div>
             </div>
 
             <!-- إضافة صورة مرجعية والشخصيات الجديدة المتنوعة -->
-            <div class="img-gen-card">
-                <div class="img-gen-card-header">إضافة صورة مرجعية</div>
+            <div class="vid-gen-card">
+                <div class="vid-gen-card-header">إضافة صورة مرجعية</div>
                 <div class="upload-box-center" onclick="alert('فتح استوديو الصور للرفع')">
                     <div class="upload-icon-circle">↑</div>
                     <div class="upload-text">رفع صورة</div>
@@ -960,9 +961,9 @@ html_code = """
                 </div>
             </div>
 
-            <!-- نسبة العرض إلى الارتفاع (16:9 على اليسار و 9:16 على اليمين) -->
-            <div class="img-gen-card">
-                <div class="img-gen-card-header">نسبة العرض إلى الارتفاع</div>
+            <!-- نسبة العرض إلى الارتفاع -->
+            <div class="vid-gen-card">
+                <div class="vid-gen-card-header">نسبة العرض إلى الارتفاع</div>
                 <div class="ratio-options-row">
                     <div class="ratio-btn" onclick="selectRatio(this)">16:9 ◼</div>
                     <div class="ratio-btn active" onclick="selectRatio(this)">9:16 📱</div>
@@ -971,8 +972,8 @@ html_code = """
         </div>
 
         <!-- زر الإنشاء في الأسفل -->
-        <div class="img-gen-bottom-bar">
-            <button class="img-gen-submit-btn" onclick="alert('جاري بدء عملية توليد الصورة...')">إنشاء</button>
+        <div class="vid-gen-bottom-bar">
+            <button class="vid-gen-submit-btn" onclick="alert('جاري بدء عملية توليد الفيديو...')">إنشاء</button>
         </div>
     </div>
 
