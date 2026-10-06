@@ -411,7 +411,7 @@ html_code = """
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
         }
 
-        /* واجهة صفحة الاشتراكات (افتتاحية الآن) */
+        /* واجهة صفحة الاشتراكات */
         #subscriptionScreen { background: #0b0f19; overflow-y: auto; position: relative; }
         .animated-bg-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; opacity: 0.35; pointer-events: none; }
         .explosion-glow { position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(59,130,246,0.6) 0%, rgba(139,92,246,0.2) 50%, transparent 70%); border-radius: 50%; animation: pulseExplosion 4s infinite alternate ease-in-out; }
@@ -497,7 +497,7 @@ html_code = """
 <body>
 
     <!-- الواجهة الرئيسية -->
-    <div id="homeScreen" class="screen-view">
+    <div id="homeScreen" class="screen-view active">
         <div class="hero-box">
             <div class="top-header">
                 <div class="brand-title">PlotCraft</div>
@@ -601,15 +601,14 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة صفحة الاشتراكات (تظهر أولاً عند فتح الموقع) -->
-    <div id="subscriptionScreen" class="screen-view active">
+    <!-- واجهة صفحة الاشتراكات -->
+    <div id="subscriptionScreen" class="screen-view">
         <div class="animated-bg-container">
             <div class="explosion-glow glow-1"></div>
             <div class="explosion-glow glow-2"></div>
         </div>
 
         <div class="page-header">
-            <!-- زر الـ (X) للإغلاق والانتقال فوراً للواجهة الرئيسية -->
             <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
             <div class="page-title-text">ترقية الحساب</div>
             <div style="width: 36px;"></div>
