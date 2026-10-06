@@ -238,7 +238,7 @@ html_code = """
             line-height: 1.2;
         }
 
-        /* شاشة تفاصيل "خطوة بخطوة" */
+        /* شاشة "خطوة بخطوة" */
         .step-container {
             padding: 20px;
             display: flex;
@@ -551,7 +551,7 @@ html_code = """
     <div id="stepByStepScreen" class="screen-view">
         <div class="page-header">
             <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
-            <div class="page-title-text">PlotCraft</div>
+            <div class="page-title-text">خطوة بخطوة</div>
             <div style="width: 36px;"></div>
         </div>
 
