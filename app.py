@@ -527,222 +527,6 @@ html_code = """
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
         }
 
-        /* --- واجهة إضافة شخصية الجديدة (المطابقة للصورة) --- */
-        #addCharacterScreen {
-            background-color: #0b0f19;
-            display: none;
-            flex-direction: column;
-            min-height: 100vh;
-            padding: 20px;
-            position: relative;
-        }
-        #addCharacterScreen.active {
-            display: flex;
-        }
-        .add-char-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            margin-bottom: 20px;
-        }
-        .add-char-title {
-            color: #ffffff;
-            font-size: 18px;
-            font-weight: 700;
-        }
-        .add-char-back {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .char-main-card {
-            background: #141824;
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 20px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-        .char-section-label {
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: 700;
-            text-align: right;
-        }
-        .char-big-upload-box {
-            background: #1a2030;
-            border: 1px dashed rgba(255,255,255,0.2);
-            border-radius: 16px;
-            height: 160px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-        .char-big-upload-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        .remove-big-img {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(0,0,0,0.7);
-            color: #fff;
-            border: none;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-        }
-        .char-thumbs-row {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding-bottom: 4px;
-            direction: rtl;
-            scrollbar-width: none;
-        }
-        .char-thumbs-row::-webkit-scrollbar { display: none; }
-        
-        .char-thumb-item {
-            width: 55px;
-            height: 55px;
-            border-radius: 12px;
-            object-fit: cover;
-            border: 1.5px solid rgba(255,255,255,0.15);
-            flex-shrink: 0;
-            cursor: pointer;
-            position: relative;
-        }
-        .thumb-wrapper {
-            position: relative;
-            flex-shrink: 0;
-        }
-        .thumb-remove-badge {
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            background: #ef4444;
-            color: #fff;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            font-size: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border: 1px solid #fff;
-        }
-        .char-add-role-box {
-            width: 55px;
-            height: 55px;
-            border-radius: 12px;
-            background: #1a2030;
-            border: 1.5px dashed rgba(255,255,255,0.3);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #94a3b8;
-            font-size: 18px;
-            cursor: pointer;
-            flex-shrink: 0;
-            gap: 2px;
-        }
-        .char-add-role-text { font-size: 10px; }
-
-        .char-name-input {
-            width: 100%;
-            background: #1a2030;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 14px;
-            padding: 14px;
-            color: #ffffff;
-            font-size: 14px;
-            outline: none;
-            text-align: right;
-        }
-        .char-name-input::placeholder { color: #64748b; }
-
-        .char-submit-btn-wrapper {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            z-index: 20;
-        }
-        .char-submit-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #3b82f6 0%, #ec4899 100%);
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: 700;
-            padding: 16px;
-            border-radius: 24px;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
-        }
-
-        /* قائمة اختيار المصدر (كاميرا أو ألبوم) */
-        .source-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 999;
-            align-items: center;
-            justify-content: center;
-        }
-        .source-modal.show { display: flex; }
-        .source-modal-content {
-            background: #141824;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 20px;
-            padding: 20px;
-            width: 90%;
-            max-width: 300px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            text-align: center;
-        }
-        .source-btn {
-            background: #1e2538;
-            color: #fff;
-            border: none;
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .source-btn:active { background: #2a344e; }
-
         /* واجهة صفحة الأدوات */
         #toolsScreen { background: #0b0f19; overflow-y: auto; }
         .tools-header {
@@ -754,34 +538,658 @@ html_code = """
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255,255,255,0.08);
         }
-        .tools-header-title { color: #ffffff; font-size: 20px; font-weight: 700; }
-        .tools-upgrade-btn { background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.2); padding: 6px 14px; border-radius: 20px; color: #ffffff; font-size: 13px; font-weight: 500; cursor: pointer; }
-        .tools-body { padding: 16px; display: flex; flex-direction: column; gap: 16px; }
-        .tool-card-item { position: relative; width: 100%; height: 180px; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; box-shadow: 0 6px 20px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
-        .tool-card-1 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop') center/cover no-repeat; }
-        .tool-card-2 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop') center/cover no-repeat; }
-        .tool-card-3 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop') center/cover no-repeat; }
-        .tool-info-box { position: relative; z-index: 2; }
-        .tool-main-title { color: #ffffff; font-size: 17px; font-weight: 700; margin-bottom: 4px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
-        .tool-sub-desc { color: #cbd5e1; font-size: 12px; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
-        .tool-arrow-icon { position: absolute; top: 16px; right: 16px; color: #ffffff; font-size: 16px; font-weight: bold; background: rgba(0,0,0,0.4); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        .tools-header-title {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .tools-upgrade-btn {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 6px 14px;
+            border-radius: 20px;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .tools-upgrade-btn:active {
+            transform: scale(0.95);
+        }
+        .tools-body {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .tool-card-item {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 18px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .tool-card-item:active {
+            transform: scale(0.98);
+        }
+        .tool-card-1 {
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%),
+                        url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop') center/cover no-repeat;
+        }
+        .tool-card-2 {
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%),
+                        url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop') center/cover no-repeat;
+        }
+        .tool-card-3 {
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%),
+                        url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop') center/cover no-repeat;
+        }
+        .tool-info-box {
+            position: relative;
+            z-index: 2;
+        }
+        .tool-main-title {
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+        .tool-sub-desc {
+            color: #cbd5e1;
+            font-size: 12px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+        }
+        .tool-arrow-icon {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+            background: rgba(0,0,0,0.4);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        /* --- واجهة تأثيرات الفيديو --- */
+        #videoEffectsScreen { background: #0b0f19; overflow-y: auto; padding-bottom: 80px; }
+        .fx-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .fx-back-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 22px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .fx-title {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .fx-body {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .fx-section-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .fx-sec-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .fx-sec-title {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+        }
+        .fx-view-all {
+            color: #3b82f6;
+            font-size: 13px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .fx-grid-horizontal {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+            scrollbar-width: none;
+        }
+        .fx-grid-horizontal::-webkit-scrollbar { display: none; }
+        
+        .fx-card-item {
+            min-width: 110px;
+            height: 150px;
+            background: #141824;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 10px;
+            position: relative;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: 0.2s;
+        }
+        .fx-card-item:active { transform: scale(0.96); }
+        .fx-card-label {
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        #coolMeAllScreen, #imageEffectsAllScreen { background: #0b0f19; overflow-y: auto; padding-bottom: 80px; }
+        .grid-container-8 {
+            padding: 16px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+        .grid-item-card {
+            background: #141824;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 12px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        /* --- واجهة تفاصيل "توليد الفيديو" --- */
+        #videoGenScreen {
+            background: #0b0f19;
+            overflow-y: auto;
+            padding: 0 0 100px 0;
+        }
+        .vid-gen-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .vid-gen-back-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 22px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .vid-gen-title {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .vid-gen-upgrade {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 6px 14px;
+            border-radius: 20px;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .vid-gen-body {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .vid-gen-card {
+            background: #141824;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .vid-gen-card-header {
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+            text-align: right;
+        }
+        .vid-prompt-textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 14px;
+            outline: none;
+            resize: none;
+            min-height: 110px;
+            text-align: right;
+            line-height: 1.5;
+        }
+        .vid-prompt-textarea::placeholder {
+            color: #64748b;
+        }
+        .vid-prompt-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 10px;
+        }
+        .vid-char-count {
+            color: #64748b;
+            font-size: 12px;
+        }
+        .vid-prompt-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .vid-action-icon-btn {
+            background: #1e2538;
+            border: none;
+            color: #94a3b8;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .vid-action-icon-btn:active {
+            transform: scale(0.95);
+            background: #2a344e;
+            color: #fff;
+        }
+        
+        .upload-box-center {
+            background: #1a2030;
+            border: 1px dashed rgba(255,255,255,0.15);
+            border-radius: 14px;
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+        .upload-box-center:active {
+            background: #222a3f;
+        }
+        .upload-icon-circle {
+            width: 32px;
+            height: 32px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #cbd5e1;
+            font-size: 16px;
+        }
+        .upload-text {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+        .cast-row {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            scrollbar-width: none;
+            direction: rtl;
+        }
+        .cast-row::-webkit-scrollbar { display: none; }
+        .cast-thumb {
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1.5px solid rgba(255,255,255,0.15);
+            flex-shrink: 0;
+        }
+        .cast-add-box {
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            background: #1a2030;
+            border: 1.5px dashed rgba(255,255,255,0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 18px;
+            cursor: pointer;
+            flex-shrink: 0;
+            gap: 2px;
+        }
+        .cast-add-text { font-size: 10px; }
+
+        .ratio-options-row {
+            display: flex;
+            gap: 10px;
+            flex-direction: row-reverse;
+        }
+        .ratio-btn {
+            flex: 1;
+            background: #1a2030;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 12px;
+            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .ratio-btn.active {
+            background: #25304e;
+            border-color: #3b82f6;
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(59,130,246,0.3);
+        }
+
+        .vid-gen-bottom-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            z-index: 20;
+        }
+        .vid-gen-submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #3b82f6 0%, #ec4899 100%);
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 16px;
+            border-radius: 24px;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+            transition: 0.2s;
+        }
+        .vid-gen-submit-btn:active { transform: scale(0.98); }
+
+        /* واجهة صفحة الاشتراكات */
+        #subscriptionScreen { background: #0b0f19; overflow-y: auto; position: relative; }
+        .animated-bg-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; opacity: 0.35; pointer-events: none; }
+        .explosion-glow { position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(59,130,246,0.6) 0%, rgba(139,92,246,0.2) 50%, transparent 70%); border-radius: 50%; animation: pulseExplosion 4s infinite alternate ease-in-out; }
+        .glow-1 { top: -50px; right: -50px; }
+        .glow-2 { bottom: 100px; left: -80px; animation-delay: 2s; background: radial-gradient(circle, rgba(236,72,153,0.5) 0%, rgba(59,130,246,0.2) 50%, transparent 70%); }
+        @keyframes pulseExplosion { 0% { transform: scale(1) translate(0, 0); opacity: 0.3; } 50% { transform: scale(1.4) translate(20px, 30px); opacity: 0.7; } 100% { transform: scale(1.1) translate(-10px, 15px); opacity: 0.4; } }
+
+        .page-header, .content-body { position: relative; z-index: 2; }
+        .page-header { display: flex; align-items: center; justify-content: space-between; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(11, 15, 25, 0.75); backdrop-filter: blur(10px); }
+        .back-btn { background: rgba(255,255,255,0.1); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .page-title-text { color: #ffffff; font-size: 18px; font-weight: 700; }
+        .content-body { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+        .plans-list { display: flex; flex-direction: column; gap: 12px; }
+        .plan-card { background: rgba(20, 25, 40, 0.85); backdrop-filter: blur(12px); border: 1.5px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 16px; cursor: pointer; transition: 0.2s; position: relative; }
+        .plan-card.selected { border-color: #3b82f6; background: rgba(30, 41, 75, 0.95); box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
+        .plan-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+        .plan-name { color: #ffffff; font-size: 15px; font-weight: 700; }
+        .plan-price { background: rgba(255, 255, 255, 0.12); padding: 4px 10px; border-radius: 10px; color: #ffffff; font-size: 12px; font-weight: 600; }
+        .plan-desc { color: #94a3b8; font-size: 12px; }
+        .new-tag { position: absolute; top: 12px; left: 12px; background: #3b82f6; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
+        .best-value-tag { position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg, #f59e0b, #ec4899); color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
+        .action-main-btn { width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 20px; border: none; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); margin-top: 10px; }
+
+        /* شاشة الزر الرابع المنفصل */
+        #sparkleDialogScreen {
+            background-color: #0b0f19;
+            display: none;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-y: auto;
+        }
+        #sparkleDialogScreen.active {
+            display: flex;
+        }
+        .sparkle-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 30px;
+            z-index: 2;
+        }
+        .sparkle-upgrade-badge {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 6px 16px;
+            border-radius: 20px;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+        }
+        .sparkle-close-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 20px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .sparkle-center-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            z-index: 2;
+            margin-top: 20px;
+            gap: 20px;
+        }
+        .sparkle-icon-svg {
+            width: 65px;
+            height: 65px;
+            fill: #93c5fd;
+            filter: drop-shadow(0 0 12px rgba(147, 197, 253, 0.5));
+        }
+        .sparkle-greeting-text {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1.5;
+        }
+        .sparkle-rect-cards-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            max-width: 420px;
+            margin-top: 15px;
+        }
+        .sparkle-rect-card {
+            background: rgba(20, 25, 40, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .sparkle-rect-card:active {
+            background: rgba(30, 40, 65, 0.9);
+            transform: scale(0.98);
+        }
+        .sparkle-rect-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .sparkle-rect-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .sparkle-card-icon-box {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 15px;
+        }
+        .sparkle-card-titles {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+            gap: 2px;
+        }
+        .sparkle-card-main-title {
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .sparkle-card-sub-title {
+            color: #94a3b8;
+            font-size: 12px;
+        }
+        .sparkle-pro-lock-box {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #94a3b8;
+            font-size: 12px;
+            margin-top: 4px;
+        }
 
         /* شريط التنقل السفلي الثابت */
         .plotcraft-nav-bar {
             position: fixed;
-            bottom: 0; left: 0; width: 100%;
+            bottom: 0;
+            left: 0;
+            width: 100%;
             background-color: #0b0f19;
             padding: 10px 15px;
-            display: flex; justify-content: center; align-items: center; gap: 12px;
-            z-index: 999999; box-sizing: border-box; direction: rtl;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            z-index: 999999;
+            box-sizing: border-box;
+            direction: rtl;
             box-shadow: 0 -4px 15px rgba(0,0,0,0.6);
             transition: transform 0.3s ease;
         }
-        .plotcraft-nav-bar.hidden { transform: translateY(120%); }
-        .plotcraft-nav-pill { background-color: #161b22; border: 1px solid #30363d; border-radius: 35px; display: flex; justify-content: space-around; align-items: center; padding: 8px 15px; flex-grow: 1; max-width: 380px; }
-        .plotcraft-nav-item { display: flex; align-items: center; gap: 6px; color: #8b949e; font-size: 13px; text-decoration: none; cursor: pointer; white-space: nowrap; }
+        .plotcraft-nav-bar.hidden {
+            transform: translateY(120%);
+        }
+        .plotcraft-nav-pill {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 35px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 8px 15px;
+            flex-grow: 1;
+            max-width: 380px;
+        }
+        .plotcraft-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #8b949e;
+            font-size: 13px;
+            text-decoration: none;
+            cursor: pointer;
+            white-space: nowrap;
+        }
         .plotcraft-nav-item.active { color: #ffffff; font-weight: bold; }
-        .plotcraft-nav-square { background-color: #161b22; border: 1px solid #30363d; border-radius: 16px; width: 48px; height: 48px; display: flex; justify-content: center; align-items: center; flex-shrink: 0; cursor: pointer; position: relative; }
+        
+        .plotcraft-nav-square {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 16px;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            cursor: pointer;
+            position: relative;
+        }
     </style>
 </head>
 <body>
@@ -791,7 +1199,9 @@ html_code = """
         <div class="hero-box">
             <div class="top-header">
                 <div class="brand-title">PlotCraft</div>
-                <div class="upgrade-badge" onclick="switchScreen('subscriptionScreen', event)">ترقية</div>
+                <div class="upgrade-badge" onclick="switchScreen('subscriptionScreen', event)">
+                    ترقية
+                </div>
             </div>
 
             <div class="welcome-section">
@@ -839,25 +1249,58 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة الزر الرابع المنفصل -->
+    <!-- واجهة الزر الرابع المنفصل (تفتح أيضاً عند النقر على "إنشاء قصة" في الأعمال) -->
     <div id="sparkleDialogScreen" class="screen-view">
-        <div class="sparkle-top-bar" style="display:flex; justify-content:space-between; align-items:center; width:100%; margin-bottom:30px; z-index:2; padding: 20px;">
-            <button style="background:none; border:none; color:#fff; font-size:20px; cursor:pointer;" onclick="switchScreen('homeScreen', event)">✕</button>
+        <div class="sparkle-top-bar">
+            <!-- زر إغلاق (✕) على اليمين -->
+            <button class="sparkle-close-btn" onclick="switchScreen('homeScreen', event)">✕</button>
             <div class="brand-title">Plotcraft</div>
-            <div style="background: rgba(255,255,255,0.15); padding: 6px 16px; border-radius: 20px; color: #fff; font-size: 13px; cursor:pointer;" onclick="switchScreen('subscriptionScreen', event)">ترقية</div>
+            <!-- زر ترقية في اليسار -->
+            <div class="sparkle-upgrade-badge" onclick="switchScreen('subscriptionScreen', event)">ترقية</div>
         </div>
 
-        <div style="display:flex; flex-direction:column; align-items:center; text-align:center; padding: 0 20px; gap:20px;">
-            <svg width="65" height="65" viewBox="0 0 24 24" fill="#93c5fd"><path d="M12 2C12 7.5 16.5 12 22 12C16.5 12 12 16.5 12 22C12 16.5 7.5 12 2 12C7.5 12 12 7.5 12 2Z"/></svg>
-            <div style="color: #fff; font-size: 20px; font-weight: 700;">طاب مساؤك، أيها المخرج<br>أي قصة سنصنع اليوم؟</div>
-            <div style="display:flex; flex-direction:column; gap:12px; width:100%; max-width:420px;">
-                <div style="background: rgba(20,25,40,0.75); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 16px; display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="switchScreen('stepByStepScreen', event)">
-                    <div style="color:#fff; font-weight:700;">خطوة بخطوة</div>
-                    <div style="color:#94a3b8;">↗</div>
+        <div class="sparkle-center-content">
+            <svg class="sparkle-icon-svg" viewBox="0 0 24 24">
+                <path d="M12 2C12 7.5 16.5 12 22 12C16.5 12 12 16.5 12 22C12 16.5 7.5 12 2 12C7.5 12 12 7.5 12 2Z"/>
+                <circle cx="9" cy="10" r="1" fill="#0b0f19"/>
+                <circle cx="15" cy="10" r="1" fill="#0b0f19"/>
+                <path d="M9.5 14C10.2 14.8 11.1 15.2 12 15.2C12.9 15.2 13.8 14.8 14.5 14" stroke="#0b0f19" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+            </svg>
+
+            <div class="sparkle-greeting-text">طاب مساؤك، أيها المخرج<br>أي قصة سنصنع اليوم؟</div>
+
+            <div class="sparkle-rect-cards-container">
+                <!-- البطاقة الأولى: خطوة بخطوة (السهم في اليسار) -->
+                <div class="sparkle-rect-card" onclick="switchScreen('stepByStepScreen', event)">
+                    <div class="sparkle-rect-right">
+                        <div class="sparkle-card-titles" style="text-align: right;">
+                            <div class="sparkle-card-main-title">خطوة بخطوة</div>
+                            <div class="sparkle-card-sub-title">راجع كل خطوة</div>
+                        </div>
+                    </div>
+                    <div class="sparkle-rect-left">
+                        <div class="sparkle-card-icon-box">↗</div>
+                    </div>
                 </div>
-                <div style="background: rgba(20,25,40,0.75); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 16px; display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="handleSpeedCardClick(event)">
-                    <div style="color:#fff; font-weight:700;">سريع</div>
-                    <div style="color:#94a3b8;" id="sparkleLockSign">🔒</div>
+
+                <!-- البطاقة الثانية: سريع (القفل في اليسار) -->
+                <div class="sparkle-rect-card" onclick="handleSpeedCardClick(event)">
+                    <div style="display: flex; flex-direction: column; width: 100%; gap: 10px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                            <div class="sparkle-rect-right">
+                                <div class="sparkle-card-titles" style="text-align: right;">
+                                    <div class="sparkle-card-main-title">سريع</div>
+                                    <div class="sparkle-card-sub-title">إدخال واحد، فيديو كامل</div>
+                                </div>
+                            </div>
+                            <div class="sparkle-rect-left">
+                                <div class="sparkle-card-icon-box" id="speedLockIconBox">🔒</div>
+                            </div>
+                        </div>
+                        <div class="sparkle-pro-lock-box" id="sparkleProMsgBox">
+                            🔒 يمكن لأعضاء Pro استخدام الوضع السريع
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -869,14 +1312,30 @@ html_code = """
             <div class="tools-header-title">الأدوات</div>
             <div class="tools-upgrade-btn" onclick="switchScreen('subscriptionScreen', event)">ترقية</div>
         </div>
+
         <div class="tools-body">
             <div class="tool-card-item tool-card-1" onclick="switchScreen('videoEffectsScreen', event)">
                 <div class="tool-arrow-icon">‹</div>
-                <div class="tool-info-box"><div class="tool-main-title">تأثيرات الفيديو</div><div class="tool-sub-desc">أضف لمسة سينمائية</div></div>
+                <div class="tool-info-box">
+                    <div class="tool-main-title">تأثيرات الفيديو</div>
+                    <div class="tool-sub-desc">أضف لمسة سينمائية</div>
+                </div>
             </div>
+
             <div class="tool-card-item tool-card-2" onclick="switchScreen('videoGenScreen', event)">
                 <div class="tool-arrow-icon">‹</div>
-                <div class="tool-info-box"><div class="tool-main-title">توليد الفيديو</div><div class="tool-sub-desc">حول توجيهاً إلى فيديو خاص بك</div></div>
+                <div class="tool-info-box">
+                    <div class="tool-main-title">توليد الفيديو</div>
+                    <div class="tool-sub-desc">حول توجيهاً إلى فيديو خاص بك</div>
+                </div>
+            </div>
+
+            <div class="tool-card-item tool-card-3" onclick="alert('تم اختيار: توليد الصور')">
+                <div class="tool-arrow-icon">‹</div>
+                <div class="tool-info-box">
+                    <div class="tool-main-title">توليد الصور</div>
+                    <div class="tool-sub-desc">حول فكرة إلى صورة مكتملة</div>
+                </div>
             </div>
         </div>
     </div>
@@ -890,16 +1349,152 @@ html_code = """
         <div class="works-empty-content">
             <div class="works-box-icon"></div>
             <div class="works-empty-text-sub">ستظهر هنا مشاريع القصة الخاصة بك.</div>
+            <!-- عند الضغط على إنشاء قصة، سيتم فتح تصميم الشاشة المنفصلة مباشرة كما طلبت حصراً -->
             <button class="works-create-btn" onclick="openSparkleDialog(event)">إنشاء قصة</button>
+        </div>
+    </div>
+
+    <!-- واجهة تأثيرات الفيديو -->
+    <div id="videoEffectsScreen" class="screen-view">
+        <div class="fx-header">
+            <button class="fx-back-btn" onclick="switchScreen('toolsScreen', event)">‹</button>
+            <div class="fx-title">تأثيرات الفيديو</div>
+            <div style="width: 32px;"></div>
+        </div>
+
+        <div class="fx-body">
+            <div class="fx-section-group">
+                <div class="fx-sec-header">
+                    <div class="fx-sec-title">Cool Me</div>
+                    <div class="fx-view-all" onclick="switchScreen('coolMeAllScreen', event)">عرض الكل ></div>
+                </div>
+                <div class="fx-grid-horizontal">
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Cyber Neon</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Royal Gold</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Anime Fantasy</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Dark Noir</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Vintage Film</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Matrix Code</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Cyberpunk</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Future Glow</div></div>
+                </div>
+            </div>
+
+            <div class="fx-section-group">
+                <div class="fx-sec-header">
+                    <div class="fx-sec-title">Image Effects</div>
+                    <div class="fx-view-all" onclick="switchScreen('imageEffectsAllScreen', event)">عرض الكل ></div>
+                </div>
+                <div class="fx-grid-horizontal">
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Glitch FX</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Lens Flare</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Cinematic Blur</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">HDR Boost</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Color Grading</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Prism Light</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">VHS Retro</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1508739773434-c26b3d09e071?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Dreamy Glow</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="coolMeAllScreen" class="screen-view">
+        <div class="fx-header">
+            <button class="fx-back-btn" onclick="switchScreen('videoEffectsScreen', event)">‹</button>
+            <div class="fx-title">Cool Me - جميع التأثيرات</div>
+            <div style="width: 32px;"></div>
+        </div>
+        <div class="grid-container-8">
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Cyber Neon</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Royal Gold</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Anime Fantasy</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Dark Noir</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Vintage Film</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Matrix Code</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Cyberpunk</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Future Glow</div></div>
+        </div>
+    </div>
+
+    <div id="imageEffectsAllScreen" class="screen-view">
+        <div class="fx-header">
+            <button class="fx-back-btn" onclick="switchScreen('videoEffectsScreen', event)">‹</button>
+            <div class="fx-title">Image Effects - جميع التأثيرات</div>
+            <div style="width: 32px;"></div>
+        </div>
+        <div class="grid-container-8">
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Glitch FX</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Lens Flare</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Cinematic Blur</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">HDR Boost</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Color Grading</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Prism Light</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">VHS Retro</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1508739773434-c26b3d09e071?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Dreamy Glow</div></div>
+        </div>
+    </div>
+
+    <!-- واجهة تفاصيل "توليد الفيديو" -->
+    <div id="videoGenScreen" class="screen-view">
+        <div class="vid-gen-header">
+            <button class="vid-gen-back-btn" onclick="switchScreen('toolsScreen', event)">‹</button>
+            <div class="vid-gen-title">توليد الفيديو</div>
+            <div class="vid-gen-upgrade" onclick="switchScreen('subscriptionScreen', event)">ترقية</div>
+        </div>
+
+        <div class="vid-gen-body">
+            <div class="vid-gen-card">
+                <div class="vid-gen-card-header">التوجيه</div>
+                <textarea class="vid-prompt-textarea" placeholder="صف المشهد للفيديو: الشخصيات، المزاج، المكان، وأسلوب اللقطة..."></textarea>
+                <div class="vid-prompt-footer">
+                    <span class="vid-char-count">0/5000</span>
+                    <div class="vid-prompt-actions">
+                        <button class="vid-action-icon-btn" title="مسح">🗑️</button>
+                        <button class="vid-action-icon-btn" title="تحسين بالذكاء الاصطناعي">✨</button>
+                        <button class="vid-action-icon-btn" title="عشوائي">🔀</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vid-gen-card">
+                <div class="vid-gen-card-header">إضافة صورة مرجعية</div>
+                <div class="upload-box-center" onclick="alert('فتح استوديو الصور للرفع')">
+                    <div class="upload-icon-circle">↑</div>
+                    <div class="upload-text">رفع صورة</div>
+                </div>
+                <div class="cast-row">
+                    <div class="cast-add-box" onclick="alert('إضافة دور جديد')">
+                        <span>+</span>
+                        <span class="cast-add-text">الدور</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&auto=format&fit=crop" class="cast-thumb">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150&auto=format&fit=crop" class="cast-thumb">
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=150&auto=format&fit=crop" class="cast-thumb">
+                    <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=150&auto=format&fit=crop" class="cast-thumb">
+                </div>
+            </div>
+
+            <div class="vid-gen-card">
+                <div class="vid-gen-card-header">نسبة العرض إلى الارتفاع</div>
+                <div class="ratio-options-row">
+                    <div class="ratio-btn" onclick="selectRatio(this)">16:9 ◼</div>
+                    <div class="ratio-btn active" onclick="selectRatio(this)">9:16 📱</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="vid-gen-bottom-bar">
+            <button class="vid-gen-submit-btn" onclick="alert('جاري بدء عملية توليد الفيديو...')">إنشاء</button>
         </div>
     </div>
 
     <!-- واجهة تفاصيل "خطوة بخطوة" -->
     <div id="stepByStepScreen" class="screen-view">
-        <div class="page-header" style="display:flex; justify-content:space-between; align-items:center; padding:20px; border-bottom:1px solid rgba(255,255,255,0.08);">
-            <button style="background:rgba(255,255,255,0.1); border:none; color:#fff; width:36px; height:36px; border-radius:50%; cursor:pointer;" onclick="switchScreen('homeScreen', event)">✕</button>
-            <div class="page-title-text" style="color:#fff; font-weight:700;">PlotCraft</div>
-            <div style="width:36px;"></div>
+        <div class="page-header">
+            <button class="back-btn" onclick="switchScreen('homeScreen', event)">✕</button>
+            <div class="page-title-text">PlotCraft</div>
+            <div style="width: 36px;"></div>
         </div>
 
         <div class="step-container">
@@ -923,8 +1518,12 @@ html_code = """
                         <h4>الشخصيات</h4>
                         <p>أضف صورتين كحد أقصى لشخصيات القصة</p>
                     </div>
-                    <!-- عند الضغط على إضافة هنا، يفتح شاشة "إضافة شخصية" المطابقة للصورة -->
-                    <button class="action-add-btn" onclick="openAddCharacter(event)">إضافة</button>
+                    <button class="action-add-btn" onclick="toggleUpload()">إضافة</button>
+                </div>
+
+                <div id="charUploadSection" class="upload-section-hidden">
+                    <p style="margin-bottom: 6px; font-weight: bold;">قم بإرفاق صورتين كحد أقصى للشخصيات:</p>
+                    <input type="file" id="charFiles" accept="image/*" multiple onchange="checkMaxImages(this)" style="color: #cbd5e1; font-size: 11px;">
                 </div>
 
                 <div class="setup-row-item">
@@ -932,97 +1531,66 @@ html_code = """
                         <h4>الحكاية</h4>
                         <p>اكتب أو صف حبكة قصتك هنا</p>
                     </div>
-                    <button class="action-add-btn" onclick="alert('فتح إعداد الحكاية')">إضافة</button>
+                    <button class="action-add-btn" onclick="toggleStoryInput()">إضافة</button>
                 </div>
+
+                <textarea id="storyTextarea" class="story-textarea-hidden" placeholder="اكتب تفاصيل القصة هنا (يدعم العربية والإنجليزية بلا حدود للطول)..."></textarea>
             </div>
 
             <div class="bottom-next-row">
-                <button class="side-next-btn" onclick="alert('تم حفظ الخطوات بنجاح!')">التالي</button>
+                <button class="side-next-btn" onclick="alert('تم حفظ الخطوات بنجاح والانتقال للمرحلة التالية!')">التالي</button>
             </div>
         </div>
     </div>
-
-    <!-- واجهة "إضافة شخصية" الجديدة (المطابقة تماماً للصورة) -->
-    <div id="addCharacterScreen" class="screen-view">
-        <div class="add-char-header">
-            <button class="add-char-back" onclick="switchScreen('stepByStepScreen', event)">‹</button>
-            <div class="add-char-title">إضافة شخصية</div>
-            <div style="width: 20px;"></div>
-        </div>
-
-        <div style="padding: 0 16px 100px 16px;">
-            <div class="char-main-card">
-                <div class="char-section-label">الشخصية</div>
-                
-                <!-- المربع العلوي الكبير -->
-                <div class="char-big-upload-box" id="bigUploadBox" onclick="showSourceModal()">
-                    <div id="bigBoxInner" style="display:flex; flex-direction:column; align-items:center; gap:8px; color:#94a3b8; font-size:13px;">
-                        <div style="width:32px; height:32px; background:rgba(255,255,255,0.08); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#cbd5e1;">↑</div>
-                        <span>رفع صورة</span>
-                    </div>
-                </div>
-
-                <!-- السرة (الشريط السفلي للصور مع زر الإضافة الدور +) -->
-                <div class="char-thumbs-row" id="thumbsRow">
-                    <div class="char-add-role-box" onclick="showSourceModal()">
-                        <span>+</span>
-                        <span class="char-add-role-text">الدور</span>
-                    </div>
-                    <!-- صور جاهزة افتراضية -->
-                    <div class="thumb-wrapper">
-                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&auto=format&fit=crop" class="char-thumb-item" onclick="selectThumb(this)">
-                        <div class="thumb-remove-badge" onclick="removeThumb(this, event)">✕</div>
-                    </div>
-                    <div class="thumb-wrapper">
-                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150&auto=format&fit=crop" class="char-thumb-item" onclick="selectThumb(this)">
-                        <div class="thumb-remove-badge" onclick="removeThumb(this, event)">✕</div>
-                    </div>
-                    <div class="thumb-wrapper">
-                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=150&auto=format&fit=crop" class="char-thumb-item" onclick="selectThumb(this)">
-                        <div class="thumb-remove-badge" onclick="removeThumb(this, event)">✕</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="char-main-card">
-                <div class="char-section-label">اسم الشخصية</div>
-                <input type="text" class="char-name-input" placeholder="مثال: شخصية مرجعية">
-            </div>
-        </div>
-
-        <div class="char-submit-btn-wrapper">
-            <button class="char-submit-btn" onclick="alert('تم حفظ الشخصية بنجاح!'); switchScreen('stepByStepScreen', event);">إرسال</button>
-        </div>
-    </div>
-
-    <!-- نافذة منبثقة لاختيار المصدر (كاميرا أو ألبوم) -->
-    <div class="source-modal" id="sourceModal">
-        <div class="source-modal-content">
-            <div style="color:#fff; font-weight:700; margin-bottom:4px;">اختر مصدر الصورة</div>
-            <button class="source-btn" onclick="triggerFileInput('camera')">📷 التقاط كاميرا</button>
-            <button class="source-btn" onclick="triggerFileInput('album')">🖼️ ألبوم الصور داخل الجهاز</button>
-            <button style="background:none; border:none; color:#94a3b8; margin-top:8px; cursor:pointer;" onclick="closeSourceModal()">إلغاء</button>
-        </div>
-    </div>
-
-    <!-- عناصر رفع ملفات مخفية للكاميرا والألبوم -->
-    <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none;" onchange="handleFileSelected(event)">
-    <input type="file" id="albumInput" accept="image/*" style="display:none;" onchange="handleFileSelected(event)">
 
     <!-- واجهة صفحة الاشتراكات -->
     <div id="subscriptionScreen" class="screen-view">
-        <div class="page-header" style="display:flex; justify-content:space-between; align-items:center; padding:20px; border-bottom:1px solid rgba(255,255,255,0.08);">
-            <button style="background:rgba(255,255,255,0.1); border:none; color:#fff; width:36px; height:36px; border-radius:50%; cursor:pointer;" onclick="switchScreen('homeScreen', event)">✕</button>
-            <div class="page-title-text" style="color:#fff; font-weight:700;">ترقية الحساب</div>
-            <div style="width:36px;"></div>
+        <div class="animated-bg-container">
+            <div class="explosion-glow glow-1"></div>
+            <div class="explosion-glow glow-2"></div>
         </div>
-        <div style="padding:20px; display:flex; flex-direction:column; gap:16px;">
-            <div style="color:#fff; font-size:18px; font-weight:700; text-align:center;">اختر خطة الاشتراك المناسبة</div>
-            <div style="background:rgba(20,25,40,0.85); border:1.5px solid #3b82f6; border-radius:16px; padding:16px; cursor:pointer;" onclick="confirmSubscription()">
-                <div style="color:#fff; font-weight:700; font-size:15px; margin-bottom:4px;">PlotCraft Pro Weekly</div>
-                <div style="color:#94a3b8; font-size:12px;">9.99 دولار / أسبوع (500 نقطة)</div>
+
+        <div class="page-header">
+            <button class="back-btn" onclick="switchScreen('homeScreen', event)">✕</button>
+            <div class="page-title-text">ترقية الحساب</div>
+            <div style="width: 36px;"></div>
+        </div>
+
+        <div class="content-body">
+            <div style="text-align: center; margin-bottom: 5px;">
+                <div style="color: #ffffff; font-size: 18px; font-weight: 700; margin-bottom: 4px;">حول أفكارك إلى PlotCraft</div>
+                <div style="color: #94a3b8; font-size: 12px;">أنشئ كل لقطة وعدلها وأكملها بسرعة.</div>
             </div>
-            <button style="width:100%; background:linear-gradient(135deg,#3b82f6,#8b5cf6); color:#fff; font-weight:700; padding:14px; border-radius:20px; border:none; cursor:pointer;" onclick="confirmSubscription()">اشتراك فوراً</button>
+
+            <div class="plans-list">
+                <div class="plan-card selected" onclick="selectPlan(this)">
+                    <div class="plan-top">
+                        <div class="plan-name">PlotCraft Pro Weekly</div>
+                        <div class="plan-price">9.99 دولار أمريكي / أسبوع</div>
+                    </div>
+                    <div class="plan-desc">500 نقطة / أسبوعياً، جرب PlotCraft</div>
+                </div>
+
+                <div class="plan-card" onclick="selectPlan(this)">
+                    <div class="new-tag">جديد</div>
+                    <div class="plan-top">
+                        <div class="plan-name">PlotCraft Pro Monthly</div>
+                        <div class="plan-price">29.99 دولار أمريكي / شهر</div>
+                    </div>
+                    <div class="plan-desc">1800 نقطة / شهرياً، مثالي للمبدعين</div>
+                </div>
+
+                <div class="plan-card" onclick="selectPlan(this)">
+                    <div class="best-value-tag">الأفضل قيمة</div>
+                    <div class="plan-top">
+                        <div class="plan-name">PlotCraft Pro Annual</div>
+                        <div class="plan-price">69.99 دولار أمريكي / سنة</div>
+                    </div>
+                    <div class="plan-desc">5000 نقطة / سنوياً، إمكانيات غير محدودة للمخرجين المحترفين</div>
+                </div>
+            </div>
+
+            <button class="action-main-btn" onclick="confirmSubscription()">اشتراك</button>
         </div>
     </div>
 
@@ -1047,6 +1615,8 @@ html_code = """
             <svg width="26" height="26" viewBox="0 0 24 24">
                 <rect x="3" y="6" width="14" height="12" rx="3" fill="#94a3b8"/>
                 <path d="M14 6h3c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2h-3V6z" fill="#64748b"/>
+                <line x1="16" y1="8" x2="18" y2="10" stroke="#141824" stroke-width="1.5"/>
+                <line x1="16" y1="12" x2="18" y2="14" stroke="#141824" stroke-width="1.5"/>
                 <polygon points="8,10 12,12 8,14" fill="#0b0f19"/>
                 <path d="M8 3C8 4.65 6.65 6 5 6C6.65 6 8 7.35 8 9C8 7.35 9.35 6 11 6C9.35 6 8 4.65 8 3Z" fill="#3b82f6"/>
             </svg>
@@ -1054,28 +1624,31 @@ html_code = """
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            checkSubscriptionStatus();
+        });
+
         function switchScreen(screenId, event) {
-            if (event) event.preventDefault();
+            if (event) {
+                event.preventDefault();
+            }
             var screens = document.querySelectorAll('.screen-view');
             screens.forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
             
             var navBar = document.getElementById('mainNavBar');
-            if (screenId === 'sparkleDialogScreen' || screenId === 'addCharacterScreen') {
+            if (screenId === 'sparkleDialogScreen') {
                 navBar.classList.add('hidden');
             } else {
                 navBar.classList.remove('hidden');
             }
+            
             window.scrollTo(0, 0);
         }
 
         function openSparkleDialog(event) {
             switchScreen('sparkleDialogScreen', event);
             document.getElementById('mainNavBar').classList.add('hidden');
-        }
-
-        function openAddCharacter(event) {
-            switchScreen('addCharacterScreen', event);
         }
 
         function setActiveNav(navId) {
@@ -1090,85 +1663,69 @@ html_code = """
             element.classList.add('active');
         }
 
-        function showSourceModal() {
-            document.getElementById('sourceModal').classList.add('show');
+        function selectPlan(element) {
+            var cards = document.querySelectorAll('.plan-card');
+            cards.forEach(c => c.classList.remove('selected'));
+            element.classList.add('selected');
         }
 
-        function closeSourceModal() {
-            document.getElementById('sourceModal').classList.remove('show');
+        function selectRatio(element) {
+            var btns = document.querySelectorAll('.ratio-btn');
+            btns.forEach(b => b.classList.remove('active'));
+            element.classList.add('active');
         }
 
-        function triggerFileInput(type) {
-            closeSourceModal();
-            if (type === 'camera') {
-                document.getElementById('cameraInput').click();
-            } else {
-                document.getElementById('albumInput').click();
+        function toggleUpload() {
+            var box = document.getElementById('charUploadSection');
+            box.classList.toggle('show');
+        }
+
+        function checkMaxImages(input) {
+            if (input.files.length > 2) {
+                alert('عذراً، الحد الأقصى المسموح به هو صورتان فقط للشخصيات!');
+                input.value = '';
             }
         }
 
-        function handleFileSelected(event) {
-            var file = event.target.files[0];
-            if (file) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    var imgSrc = e.target.result;
-                    setBigBoxImage(imgSrc);
-                    addThumbToRow(imgSrc);
-                }
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function setBigBoxImage(src) {
-            var box = document.getElementById('bigUploadBox');
-            box.innerHTML = '<button class="remove-big-img" onclick="clearBigBox(event)">✕</button><img src="' + src + '">';
-        }
-
-        function clearBigBox(event) {
-            event.stopPropagation();
-            var box = document.getElementById('bigUploadBox');
-            box.innerHTML = '<div id="bigBoxInner" style="display:flex; flex-direction:column; align-items:center; gap:8px; color:#94a3b8; font-size:13px;"><div style="width:32px; height:32px; background:rgba(255,255,255,0.08); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#cbd5e1;">↑</div><span>رفع صورة</span></div>';
-        }
-
-        function addThumbToRow(src) {
-            var row = document.getElementById('thumbsRow');
-            var wrapper = document.createElement('div');
-            wrapper.className = 'thumb-wrapper';
-            wrapper.innerHTML = '<img src="' + src + '" class="char-thumb-item" onclick="selectThumb(this)"><div class="thumb-remove-badge" onclick="removeThumb(this, event)">✕</div>';
-            row.appendChild(wrapper);
-        }
-
-        function selectThumb(imgElement) {
-            setBigBoxImage(imgElement.src);
-        }
-
-        function removeThumb(badgeElement, event) {
-            event.stopPropagation();
-            var wrapper = badgeElement.parentElement;
-            var img = wrapper.querySelector('img');
-            var bigBox = document.getElementById('bigUploadBox');
-            var bigImg = bigBox.querySelector('img');
-            
-            if (bigImg && bigImg.src === img.src) {
-                clearBigBox(event);
-            }
-            wrapper.remove();
+        function toggleStoryInput() {
+            var box = document.getElementById('storyTextarea');
+            box.classList.toggle('show');
         }
 
         function handleSpeedCardClick(event) {
-            var isSub = localStorage.getItem('plotcraft_sub') === 'true';
-            if (isSub) {
-                alert('مفعل ومتاح للاستخدام الفوري.');
+            var isSubscribed = localStorage.getItem('plotcraft_subscribed') === 'true';
+            if (isSubscribed) {
+                alert('أهلاً بك! تم فتح ميزة "سريع" بنجاح.');
             } else {
                 switchScreen('subscriptionScreen', event);
             }
         }
 
         function confirmSubscription() {
-            localStorage.setItem('plotcraft_sub', 'true');
-            alert('تم الاشتراك بنجاح!');
+            localStorage.setItem('plotcraft_subscribed', 'true');
+            alert('تم تأكيد اشتراكك بنجاح! تم فتح ميزة "سريع" تلقائياً.');
+            checkSubscriptionStatus();
             switchScreen('homeScreen');
+        }
+
+        function checkSubscriptionStatus() {
+            var isSubscribed = localStorage.getItem('plotcraft_subscribed') === 'true';
+            var badgeContainer = document.getElementById('proBadgeContainer');
+            var subtitle = document.getElementById('speedCardSubtitle');
+            var sparkleBox = document.getElementById('sparkleProMsgBox');
+            var speedLockIconBox = document.getElementById('speedLockIconBox');
+
+            if (isSubscribed) {
+                if (badgeContainer) badgeContainer.style.display = 'none';
+                if (subtitle) subtitle.textContent = 'مفعل ومتاح للاستخدام الفوري';
+                if (sparkleBox) sparkleBox.style.display = 'none';
+                if (speedLockIconBox) speedLockIconBox.textContent = '⚡';
+            } else {
+                if (badgeContainer) badgeContainer.style.display = 'flex';
+                if (subtitle) subtitle.textContent = 'إدخال واحد، فيديو كامل';
+                if (sparkleBox) sparkleBox.style.display = 'flex';
+                if (speedLockIconBox) speedLockIconBox.textContent = '🔒';
+            }
         }
     </script>
 </body>
