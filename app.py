@@ -157,7 +157,7 @@ html_code = """
             height: 22px;
             background: #dbeafe;
             mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
-            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
+            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1 z"/></svg>') no-repeat center;
             background-size: contain;
         }
 
@@ -237,7 +237,7 @@ html_code = """
             line-height: 1.2;
         }
 
-        /* شاشة الأدوات (بناءً على الصورة المطابقة تماماً) */
+        /* شاشة الأدوات */
         #toolsScreen {
             background-color: #0b0f19;
             padding: 20px;
@@ -499,8 +499,16 @@ html_code = """
         }
 
         /* شاشة تفاصيل "خطوة بخطوة" */
-        .step-container {
+        #stepByStepScreen {
+            background-color: #0b0f19;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            overflow-y: auto;
+        }
+
+        .step-container {
             display: flex;
             flex-direction: column;
             gap: 16px;
@@ -675,8 +683,8 @@ html_code = """
         .glow-2 { bottom: 100px; left: -80px; animation-delay: 2s; background: radial-gradient(circle, rgba(236,72,153,0.5) 0%, rgba(59,130,246,0.2) 50%, transparent 70%); }
         @keyframes pulseExplosion { 0% { transform: scale(1) translate(0, 0); opacity: 0.3; } 50% { transform: scale(1.4) translate(20px, 30px); opacity: 0.7; } 100% { transform: scale(1.1) translate(-10px, 15px); opacity: 0.4; } }
 
-        .page-header, .content-body { position: relative; z-index: 2; }
-        .page-header { display: flex; align-items: center; justify-content: space-between; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(11, 15, 25, 0.75); backdrop-filter: blur(10px); }
+        .sub-page-header, .content-body { position: relative; z-index: 2; }
+        .sub-page-header { display: flex; align-items: center; justify-content: space-between; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(11, 15, 25, 0.75); backdrop-filter: blur(10px); }
         .page-title-text { color: #ffffff; font-size: 18px; font-weight: 700; }
         .content-body { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
         .plans-list { display: flex; flex-direction: column; gap: 12px; }
@@ -695,6 +703,8 @@ html_code = """
         .form-label { color: #cbd5e1; font-size: 13px; font-weight: 600; }
         .form-input { width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 12px 14px; color: #ffffff; font-size: 14px; outline: none; text-align: right; }
         .form-row { display: flex; gap: 10px; }
+
+        #paymentScreen { background: #0b0f19; overflow-y: auto; }
 
         /* شريط التنقل السفلي الثابت */
         .plotcraft-nav-bar {
@@ -751,7 +761,7 @@ html_code = """
 </head>
 <body>
 
-    <!-- الواجهة الرئيسية -->
+    <!-- 1. الشاشة الرئيسية -->
     <div id="homeScreen" class="screen-view active">
         <div class="hero-box">
             <div class="top-header">
@@ -802,52 +812,51 @@ html_code = """
         </div>
     </div>
 
-    <!-- شاشة الأدوات (بناءً على الصورة المطابقة) -->
+    <!-- 2. شاشة الأدوات -->
     <div id="toolsScreen" class="screen-view">
-        <div class="tools-top-bar">
+        <div class="tools-top-bar" style="padding: 20px 20px 0 20px;">
             <div class="tools-page-title">الأدوات</div>
             <div class="upgrade-badge" onclick="switchScreen('subscriptionScreen')">
                 <span>⭐</span> ترقية
             </div>
         </div>
 
-        <!-- 1. تأثيرات الفيديو -->
-        <div class="tool-banner-card tool-banner-1" onclick="switchScreen('videoEffectDetailScreen')">
-            <div class="tool-content">
-                <div class="tool-title">تأثيرات الفيديو</div>
-                <div class="tool-desc">أضف لمسة سينمائية</div>
+        <div style="padding: 20px; display: flex; flex-direction: column; gap: 16px;">
+            <div class="tool-banner-card tool-banner-1" onclick="switchScreen('videoEffectDetailScreen')">
+                <div class="tool-content">
+                    <div class="tool-title">تأثيرات الفيديو</div>
+                    <div class="tool-desc">أضف لمسة سينمائية</div>
+                </div>
+                <div class="tool-arrow">></div>
             </div>
-            <div class="tool-arrow">></div>
-        </div>
 
-        <!-- 2. توليد الفيديو -->
-        <div class="tool-banner-card tool-banner-2" onclick="alert('خاصية توليد الفيديو')">
-            <div class="tool-content">
-                <div class="tool-title">توليد الفيديو</div>
-                <div class="tool-desc">حول توجيهك إلى فيديو خاص بك</div>
+            <div class="tool-banner-card tool-banner-2" onclick="alert('خاصية توليد الفيديو')">
+                <div class="tool-content">
+                    <div class="tool-title">توليد الفيديو</div>
+                    <div class="tool-desc">حول توجيهك إلى فيديو خاص بك</div>
+                </div>
+                <div class="tool-arrow">></div>
             </div>
-            <div class="tool-arrow">></div>
-        </div>
 
-        <!-- 3. توليد الصور -->
-        <div class="tool-banner-card tool-banner-3" onclick="alert('خاصية توليد الصور')">
-            <div class="tool-content">
-                <div class="tool-title">توليد الصور</div>
-                <div class="tool-desc">حول فكرة إلى صورة مكتملة</div>
+            <div class="tool-banner-card tool-banner-3" onclick="alert('خاصية توليد الصور')">
+                <div class="tool-content">
+                    <div class="tool-title">توليد الصور</div>
+                    <div class="tool-desc">حول فكرة إلى صورة مكتملة</div>
+                </div>
+                <div class="tool-arrow">></div>
             </div>
-            <div class="tool-arrow">></div>
         </div>
     </div>
 
-    <!-- شاشة تفاصيل تأثيرات الفيديو وإرفاق الصور -->
+    <!-- 3. شاشة تفاصيل تأثيرات الفيديو وإرفاق الصور -->
     <div id="videoEffectDetailScreen" class="screen-view">
-        <div class="page-header-row">
+        <div class="page-header-row" style="padding: 20px;">
             <button class="back-btn" onclick="switchScreen('toolsScreen')">✕</button>
             <div class="page-title-text">تأثيرات الفيديو</div>
             <div style="width: 36px;"></div>
         </div>
 
-        <div style="display: flex; flex-direction: column; gap: 16px; padding-bottom: 20px;">
+        <div style="display: flex; flex-direction: column; gap: 16px; padding: 0 20px 20px 20px;">
             <div class="effect-preview-box" id="mainPreviewBox">
                 <div class="effect-preview-placeholder">اختر تأثير فيديو من الأسفل لعرضه هنا</div>
             </div>
@@ -893,15 +902,15 @@ html_code = """
         <button class="capture-btn" onclick="capturePhoto()"></button>
     </div>
 
-    <!-- شاشة تفاصيل "خطوة بخطوة" -->
+    <!-- 4. شاشة تفاصيل "خطوة بخطوة" -->
     <div id="stepByStepScreen" class="screen-view">
-        <div class="page-header">
-            <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
+        <div class="sub-page-header">
+            <button class="back-btn" onclick="switchScreen('homeScreen'); setActiveNav('navHome');">✕</button>
             <div class="page-title-text">PlotCraft</div>
             <div style="width: 36px;"></div>
         </div>
 
-        <div class="step-container">
+        <div class="content-body">
             <div class="ai-assistant-card">
                 <div class="ai-header-row">
                     <div class="ai-title">مساعد AI بلوت كرافت</div>
@@ -947,15 +956,15 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة صفحة الاشتراكات -->
+    <!-- 5. شاشة الاشتراكات -->
     <div id="subscriptionScreen" class="screen-view">
         <div class="animated-bg-container">
             <div class="explosion-glow glow-1"></div>
             <div class="explosion-glow glow-2"></div>
         </div>
 
-        <div class="page-header">
-            <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
+        <div class="sub-page-header">
+            <button class="back-btn" onclick="switchScreen('homeScreen'); setActiveNav('navHome');">✕</button>
             <div class="page-title-text">ترقية الحساب</div>
             <div style="width: 36px;"></div>
         </div>
@@ -998,9 +1007,9 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة تفاصيل الدفع البنكي -->
+    <!-- 6. شاشة الدفع -->
     <div id="paymentScreen" class="screen-view">
-        <div class="page-header">
+        <div class="sub-page-header">
             <button class="back-btn" onclick="switchScreen('subscriptionScreen')">←</button>
             <div class="page-title-text">تفاصيل الدفع البنكي</div>
             <div style="width: 36px;"></div>
