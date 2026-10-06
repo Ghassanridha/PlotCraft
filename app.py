@@ -403,7 +403,7 @@ html_code = """
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
         }
 
-        /* واجهة صفحة الأدوات الجديدة (كلمة الأدوات يمين، وزر الترقية يسار) */
+        /* واجهة صفحة الأدوات الجديدة */
         #toolsScreen { background: #0b0f19; overflow-y: auto; }
         .tools-header {
             display: flex;
@@ -632,7 +632,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة صفحة "الأدوات" (تم تعديل الهيدر: كلمة الأدوات يمين، وزر الترقية يسار) -->
+    <!-- واجهة صفحة "الأدوات" -->
     <div id="toolsScreen" class="screen-view">
         <div class="tools-header">
             <div class="tools-header-title">الأدوات</div>
@@ -784,6 +784,7 @@ html_code = """
                 <span>الرئيسية</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
             </a>
+            <!-- تم تصحيح زر الأدوات هنا لفتح toolsScreen مباشرة -->
             <a href="#" class="plotcraft-nav-item" id="navTools" onclick="switchScreen('toolsScreen'); setActiveNav('navTools')">
                 <span>الأدوات</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
@@ -802,7 +803,7 @@ html_code = """
     <script>
         function switchScreen(screenId) {
             var screens = document.querySelectorAll('.screen-view');
-            screens.exports?.forEach ? null : screens.forEach(s => s.classList.remove('active'));
+            screens.forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
             window.scrollTo(0, 0);
         }
