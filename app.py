@@ -511,7 +511,7 @@ html_code = """
             backdrop-filter: blur(5px);
         }
 
-        /* --- تصميم شاشة تفاصيل "توليد الصور" المتمم حصرياً بناءً على الصورة --- */
+        /* --- تصميم شاشة تفاصيل "توليد الصور" المحدثة --- */
         #imageGenScreen {
             background: #0b0f19;
             overflow-y: auto;
@@ -626,7 +626,7 @@ html_code = """
             color: #fff;
         }
         
-        /* قسم رفع صورة مرجعية والشخصيات */
+        /* قسم رفع صورة مرجعية والشخصيات الجديدة المتنوعة */
         .upload-box-center {
             background: #1a2030;
             border: 1px dashed rgba(255,255,255,0.15);
@@ -697,10 +697,11 @@ html_code = """
             font-size: 10px;
         }
 
-        /* نسبة العرض إلى الارتفاع */
+        /* نسبة العرض إلى الارتفاع (16:9 على اليسار و 9:16 على اليمين) */
         .ratio-options-row {
             display: flex;
             gap: 10px;
+            flex-direction: row-reverse;
         }
         .ratio-btn {
             flex: 1;
@@ -906,7 +907,6 @@ html_code = """
                 </div>
             </div>
 
-            <!-- تم ربط هذه البطاقة حصرياً بفتح شاشة توليد الصور المطابقة للصورة المرفقة -->
             <div class="tool-card-item tool-card-3" onclick="switchScreen('imageGenScreen', event)">
                 <div class="tool-arrow-icon">‹</div>
                 <div class="tool-info-box">
@@ -917,7 +917,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة تفاصيل "توليد الصور" المطابقة حصرياً للصورة المرفقة -->
+    <!-- واجهة تفاصيل "توليد الصور" المحدثة -->
     <div id="imageGenScreen" class="screen-view">
         <div class="img-gen-header">
             <button class="img-gen-back-btn" onclick="switchScreen('toolsScreen', event)">‹</button>
@@ -940,7 +940,7 @@ html_code = """
                 </div>
             </div>
 
-            <!-- إضافة صورة مرجعية والشخصيات -->
+            <!-- إضافة صورة مرجعية والشخصيات الجديدة المتنوعة -->
             <div class="img-gen-card">
                 <div class="img-gen-card-header">إضافة صورة مرجعية</div>
                 <div class="upload-box-center" onclick="alert('فتح استوديو الصور للرفع')">
@@ -952,19 +952,20 @@ html_code = """
                         <span>+</span>
                         <span class="cast-add-text">الدور</span>
                     </div>
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop" class="cast-thumb">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop" class="cast-thumb">
-                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=crop" class="cast-thumb">
-                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop" class="cast-thumb">
+                    <!-- صور شخصيات منوعة وجديدة كلياً -->
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&auto=format&fit=crop" class="cast-thumb">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150&auto=format&fit=crop" class="cast-thumb">
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=150&auto=format&fit=crop" class="cast-thumb">
+                    <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=150&auto=format&fit=crop" class="cast-thumb">
                 </div>
             </div>
 
-            <!-- نسبة العرض إلى الارتفاع -->
+            <!-- نسبة العرض إلى الارتفاع (16:9 على اليسار و 9:16 على اليمين) -->
             <div class="img-gen-card">
                 <div class="img-gen-card-header">نسبة العرض إلى الارتفاع</div>
                 <div class="ratio-options-row">
-                    <div class="ratio-btn active" onclick="selectRatio(this)">16:9 ◼</div>
-                    <div class="ratio-btn" onclick="selectRatio(this)">9:16 📱</div>
+                    <div class="ratio-btn" onclick="selectRatio(this)">16:9 ◼</div>
+                    <div class="ratio-btn active" onclick="selectRatio(this)">9:16 📱</div>
                 </div>
             </div>
         </div>
