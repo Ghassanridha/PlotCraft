@@ -759,7 +759,7 @@ html_code = """
         }
         .source-btn:active { background: #2a344e; }
 
-        /* واجهة صفحة الأدوات */
+        /* واجهة صفحة الأدوات - تعديل قياسات الصور لتظهر بالكامل دون قص */
         #toolsScreen { background: #0b0f19; overflow-y: auto; }
         .tools-header {
             display: flex;
@@ -773,10 +773,27 @@ html_code = """
         .tools-header-title { color: #ffffff; font-size: 20px; font-weight: 700; }
         .tools-upgrade-btn { background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.2); padding: 6px 14px; border-radius: 20px; color: #ffffff; font-size: 13px; font-weight: 500; cursor: pointer; }
         .tools-body { padding: 16px; display: flex; flex-direction: column; gap: 16px; }
-        .tool-card-item { position: relative; width: 100%; height: 180px; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; box-shadow: 0 6px 20px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
-        .tool-card-1 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop') center/cover no-repeat; }
-        .tool-card-2 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop') center/cover no-repeat; }
-        .tool-card-3 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop') center/cover no-repeat; }
+        
+        .tool-card-item { 
+            position: relative; 
+            width: 100%; 
+            height: 180px; 
+            border-radius: 20px; 
+            overflow: hidden; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: flex-end; 
+            padding: 18px; 
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            cursor: pointer; 
+        }
+        
+        /* تعديل ظهور صور الأدوات بالكامل (مركز الصورة دون قص الوجه أو التفاصيل) */
+        .tool-card-1 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop') center center/cover no-repeat; }
+        .tool-card-2 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop') center 30%/cover no-repeat; }
+        .tool-card-3 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop') center 25%/cover no-repeat; }
+
         .tool-info-box { position: relative; z-index: 2; }
         .tool-main-title { color: #ffffff; font-size: 17px; font-weight: 700; margin-bottom: 4px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
         .tool-sub-desc { color: #cbd5e1; font-size: 12px; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
