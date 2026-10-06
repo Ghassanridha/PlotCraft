@@ -89,7 +89,6 @@ html_code = """
             font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 6px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             cursor: pointer;
             transition: 0.2s;
@@ -1053,7 +1052,7 @@ html_code = """
             <div class="top-header">
                 <div class="brand-title">PlotCraft</div>
                 <div class="upgrade-badge" onclick="switchScreen('subscriptionScreen', event)">
-                    <span>⭐</span> ترقية
+                    ترقية
                 </div>
             </div>
 
@@ -1235,7 +1234,7 @@ html_code = """
         <div class="vid-gen-header">
             <button class="vid-gen-back-btn" onclick="switchScreen('toolsScreen', event)">‹</button>
             <div class="vid-gen-title">توليد الفيديو</div>
-            <div class="vid-gen-upgrade" onclick="switchScreen('subscriptionScreen', event)">⭐ ترقية</div>
+            <div class="vid-gen-upgrade" onclick="switchScreen('subscriptionScreen', event)">ترقية</div>
         </div>
 
         <div class="vid-gen-body">
