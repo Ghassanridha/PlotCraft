@@ -179,15 +179,16 @@ html_code = """
             width: 100%;
         }
 
+        /* تعديل لون Pro only والشعار إلى اللون الأبيض */
         .pro-badge-top {
             display: flex;
             align-items: center;
             gap: 4px;
-            background: rgba(236, 72, 153, 0.2);
-            border: 1px solid rgba(236, 72, 153, 0.4);
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             padding: 3px 8px;
             border-radius: 10px;
-            color: #f472b6;
+            color: #ffffff;
             font-size: 10px;
             font-weight: 700;
             margin-bottom: 8px;
@@ -197,7 +198,7 @@ html_code = """
         .pro-lock-icon {
             width: 10px;
             height: 10px;
-            background: #f472b6;
+            background: #ffffff;
             mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>') no-repeat center;
             -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>') no-repeat center;
             background-size: contain;
@@ -986,10 +987,11 @@ html_code = """
                     <div class="card-subtitle">راجع كل خطوة</div>
                 </div>
 
-                <div class="interactive-card" onclick="switchScreen('subscriptionScreen', event)">
-                    <div class="pro-badge-top">
-                        <span>Pro only</span>
-                        <span class="pro-lock-icon"></span>
+                <!-- بطاقة "سريع" مع التحكم التلقائي بالاشتراك والقفل -->
+                <div class="interactive-card" id="speedCard" onclick="handleSpeedCardClick(event)">
+                    <div class="pro-badge-top" id="proBadgeContainer">
+                        <span id="proBadgeText">Pro only</span>
+                        <span class="pro-lock-icon" id="proLockIcon"></span>
                     </div>
                     <div class="card-header-row">
                         <div class="card-title-group-left">
@@ -997,7 +999,7 @@ html_code = """
                             <span class="speed-custom-icon"></span>
                         </div>
                     </div>
-                    <div class="card-subtitle">إدخال واحد، فيديو كامل</div>
+                    <div class="card-subtitle" id="speedCardSubtitle">إدخال واحد، فيديو كامل</div>
                 </div>
             </div>
         </div>
@@ -1315,6 +1317,11 @@ html_code = """
     </div>
 
     <script>
+        // التحقق من حالة الاشتراك عند تحميل الصفحة لتحديث حالة القفل
+        document.addEventListener("DOMContentLoaded", function() {
+            checkSubscriptionStatus();
+        });
+
         function switchScreen(screenId, event) {
             if (event) {
                 event.preventDefault();
@@ -1360,9 +1367,38 @@ html_code = """
             box.classList.toggle('show');
         }
 
+        // دالة للتعامل مع النقر على بطقّة "سريع" (إذا لم يكن مشتركاً يذهب للاشتراك، وإذا كان مشتركاً يفتح الميزة)
+        function handleSpeedCardClick(event) {
+            var isSubscribed = localStorage.getItem('plotcraft_subscribed') === 'true';
+            if (isSubscribed) {
+                alert('أهلاً بك! تم فتح ميزة "سريع" بنجاح.');
+                // يمكنك هنا استبدال التنبيه بالانتقال لشاشة ميزة سريع الفعلية
+            } else {
+                switchScreen('subscriptionScreen', event);
+            }
+        }
+
+        // تأكيد الاشتراك وتخزين حالته لفتح القفل تلقائياً
         function confirmSubscription() {
-            alert('تم تأكيد طلب الاشتراك! سيتم الآن فتح نظام الدفع الرسمي الخاص متجر التطبيقات.');
+            localStorage.setItem('plotcraft_subscribed', 'true');
+            alert('تم تأكيد اشتراكك بنجاح! تم فتح ميزة "سريع" تلقائياً.');
+            checkSubscriptionStatus();
             switchScreen('homeScreen');
+        }
+
+        // تحديث واجهة بطاقة "سريع" بناءً على حالة الاشتراك
+        function checkSubscriptionStatus() {
+            var isSubscribed = localStorage.getItem('plotcraft_subscribed') === 'true';
+            var badgeContainer = document.getElementById('proBadgeContainer');
+            var subtitle = document.getElementById('speedCardSubtitle');
+
+            if (isSubscribed) {
+                if (badgeContainer) badgeContainer.style.display = 'none';
+                if (subtitle) subtitle.textContent = 'مفعل ومتاح للاستخدام الفوري';
+            } else {
+                if (badgeContainer) badgeContainer.style.display = 'flex';
+                if (subtitle) subtitle.textContent = 'إدخال واحد، فيديو كامل';
+            }
         }
     </script>
 </body>
