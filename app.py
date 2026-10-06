@@ -265,7 +265,7 @@ html_code = """
             line-height: 1.2;
         }
 
-        /* --- واجهة الأعمال (مع تعديل التبويبات وإزالة اللون الثابت المزعج) --- */
+        /* --- واجهة الأعمال --- */
         #worksScreen {
             background-color: #0b0f19;
             display: none;
@@ -303,7 +303,6 @@ html_code = """
             user-select: none;
         }
 
-        /* التبويب النشط: خلفية داكنة صافية مع نص أبيض واضح بدون آثار جانبية */
         .works-tab.active {
             background: #1e2538 !important;
             color: #ffffff !important;
@@ -1035,6 +1034,8 @@ html_code = """
             white-space: nowrap;
         }
         .plotcraft-nav-item.active { color: #ffffff; font-weight: bold; }
+        
+        /* الزر الرابع المنفصل الذي يحتوي على الشعار الجديد مطابق للصورة */
         .plotcraft-nav-square {
             background-color: #161b22;
             border: 1px solid #30363d;
@@ -1046,6 +1047,7 @@ html_code = """
             align-items: center;
             flex-shrink: 0;
             cursor: pointer;
+            position: relative;
         }
     </style>
 </head>
@@ -1140,7 +1142,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة "الأعمال" المحدثة بدون ألوان خلفية ثابتة -->
+    <!-- واجهة "الأعمال" -->
     <div id="worksScreen" class="screen-view">
         <div class="works-tabs-container">
             <div class="works-tab active" onclick="switchWorksTab(this)">المشاريع</div>
@@ -1404,15 +1406,24 @@ html_code = """
                 <span>الأدوات</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
             </a>
-            <!-- زر الأعمال الذي يفتح واجهة الأعمال الجديدة -->
             <a href="#" class="plotcraft-nav-item" id="navWorks" onclick="switchScreen('worksScreen', event); setActiveNav('navWorks')">
                 <span>الأعمال</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path></svg>
             </a>
         </div>
 
-        <div class="plotcraft-nav-square" onclick="switchScreen('homeScreen', event)">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+        <!-- الزر الرابع المنفصل مع الشعار المطابق للصورة تماماً -->
+        <div class="plotcraft-nav-square" onclick="switchScreen('homeScreen', event)" title="إنشاء سريع">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+                <!-- أيقونة الفيلم الرمادية -->
+                <path d="M19 4H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-7 12H7v-2h5v2zm0-4H7v-2h5v2zm0-4H7V6h5v2zm7 8h-5v-2h5v2zm0-4h-5v-2h5v2zm0-4h-5V6h5v2z" fill="#94a3b8"/>
+                <!-- شريط جانبي مخطط (Film Strip) -->
+                <path d="M19 6h-2v12h2V6z" fill="#64748b"/>
+                <!-- زر التشغيل الداخلي -->
+                <polygon points="10,9.5 15,12 10,14.5" fill="#0b0f19"/>
+                <!-- النجمة الزرقاء المضيئة (AI Sparkle) -->
+                <path d="M5 4L5.85 6.15L8 7L5.85 7.85L5 10L4.15 7.85L2 7L4.15 6.15L5 4Z" fill="#3b82f6"/>
+            </svg>
         </div>
     </div>
 
