@@ -851,17 +851,6 @@ html_code = """
             align-items: center;
             gap: 12px;
         }
-        .sparkle-card-icon-box {
-            width: 32px;
-            height: 32px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #94a3b8;
-            font-size: 15px;
-        }
         .sparkle-card-titles {
             display: flex;
             flex-direction: column;
@@ -876,19 +865,6 @@ html_code = """
         .sparkle-card-sub-title {
             color: #94a3b8;
             font-size: 12px;
-        }
-        .sparkle-pro-lock-box {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-            padding: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            color: #94a3b8;
-            font-size: 12px;
-            margin-top: 4px;
         }
 
         /* شريط التنقل السفلي الثابت */
@@ -931,7 +907,6 @@ html_code = """
                             <span class="exact-bot-icon"></span>
                         </div>
                     </div>
-                    <!-- تمت إعادة جملة "راجع كل خطوة" هنا بدقة -->
                     <div class="card-subtitle">راجع كل خطوة</div>
                 </div>
 
@@ -946,7 +921,6 @@ html_code = """
                             <span class="speed-custom-icon"></span>
                         </div>
                     </div>
-                    <!-- تمت إعادة جملة "إدخال واحد، فيديو كامل" هنا بدقة -->
                     <div class="card-subtitle" id="speedCardSubtitle">إدخال واحد، فيديو كامل</div>
                 </div>
             </div>
@@ -966,7 +940,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة الزر الرابع المنفصل (تفتح عند النقر على الزر السفلي أو إنشاء قصة) -->
+    <!-- واجهة الزر الرابع المنفصل مع القفل الأبيض وشارة Pro only مطابقة للصورة -->
     <div id="sparkleDialogScreen" class="screen-view">
         <div class="sparkle-top-bar">
             <button class="sparkle-close-btn" onclick="switchScreen('homeScreen', event)">✕</button>
@@ -985,6 +959,7 @@ html_code = """
             <div class="sparkle-greeting-text">طاب مساؤك، أيها المخرج<br>أي قصة سنصنع اليوم؟</div>
 
             <div class="sparkle-rect-cards-container">
+                <!-- بطاقة خطوة بخطوة -->
                 <div class="sparkle-rect-card" onclick="switchScreen('stepByStepScreen', event)">
                     <div class="sparkle-rect-right">
                         <div class="sparkle-card-titles" style="text-align: right;">
@@ -993,25 +968,22 @@ html_code = """
                         </div>
                     </div>
                     <div class="sparkle-rect-left">
-                        <div class="sparkle-card-icon-box">↗</div>
+                        <div style="background: rgba(255,255,255,0.08); width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #94a3b8;">↗</div>
                     </div>
                 </div>
 
+                <!-- بطاقة سريع مع شارة Pro only والقفل الأبيض بدلاً من الأقفال الصفراء -->
                 <div class="sparkle-rect-card" onclick="handleSpeedCardClick(event)">
-                    <div style="display: flex; flex-direction: column; width: 100%; gap: 10px;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                            <div class="sparkle-rect-right">
-                                <div class="sparkle-card-titles" style="text-align: right;">
-                                    <div class="sparkle-card-main-title">سريع</div>
-                                    <div class="sparkle-card-sub-title">إدخال واحد، فيديو كامل</div>
-                                </div>
-                            </div>
-                            <div class="sparkle-rect-left">
-                                <div class="sparkle-card-icon-box" id="speedLockIconBox">🔒</div>
-                            </div>
+                    <div class="sparkle-rect-right">
+                        <div class="sparkle-card-titles" style="text-align: right;">
+                            <div class="sparkle-card-main-title">سريع</div>
+                            <div class="sparkle-card-sub-title" id="sparkleSubText">إدخال واحد، فيديو كامل</div>
                         </div>
-                        <div class="sparkle-pro-lock-box" id="sparkleProMsgBox">
-                            🔒 يمكن لأعضاء Pro استخدام الوضع السريع
+                    </div>
+                    <div class="sparkle-rect-left">
+                        <div class="pro-badge-top" id="sparkleProBadge" style="margin-bottom:0;">
+                            <span>Pro only</span>
+                            <span class="pro-lock-icon"></span>
                         </div>
                     </div>
                 </div>
@@ -1019,7 +991,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة صفحة "الأدوات" (تحتوي على توليد الصور وتوليد الفيديو وتأثيرات الفيديو) -->
+    <!-- واجهة صفحة "الأدوات" -->
     <div id="toolsScreen" class="screen-view">
         <div class="tools-header">
             <div class="tools-header-title">الأدوات</div>
@@ -1034,7 +1006,6 @@ html_code = """
                 <div class="tool-arrow-icon">‹</div>
                 <div class="tool-info-box"><div class="tool-main-title">توليد الفيديو</div><div class="tool-sub-desc">حول توجيهاً إلى فيديو خاص بك</div></div>
             </div>
-            <!-- تمت إعادة بطاقة "توليد الصور" هنا بدقة -->
             <div class="tool-card-item tool-card-3" onclick="alert('توليد الصور')">
                 <div class="tool-arrow-icon">‹</div>
                 <div class="tool-info-box"><div class="tool-main-title">توليد الصور</div><div class="tool-sub-desc">حول فكرة إلى صورة مكتملة</div></div>
@@ -1102,7 +1073,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة "إضافة شخصية" (كاميرا يمين وألبوم يسار وضبط قياس الصورة) -->
+    <!-- واجهة "إضافة شخصية" -->
     <div id="addCharacterScreen" class="screen-view">
         <div class="add-char-header">
             <button class="add-char-back" onclick="switchScreen('stepByStepScreen', event)">‹</button>
@@ -1152,7 +1123,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- نافذة اختيار المصدر: كاميرا باليمين، ألبوم باليسار -->
+    <!-- نافذة اختيار المصدر: كاميرا يمين، ألبوم يسار -->
     <div class="source-modal" id="sourceModal">
         <div class="source-modal-content">
             <div style="color:#fff; font-weight:700; font-size:15px; margin-bottom:2px;">اختر مصدر الصورة</div>
@@ -1252,6 +1223,10 @@ html_code = """
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            checkSubscriptionStatus();
+        });
+
         function switchScreen(screenId, event) {
             if (event) event.preventDefault();
             var screens = document.querySelectorAll('.screen-view');
@@ -1372,7 +1347,28 @@ html_code = """
         function confirmSubscription() {
             localStorage.setItem('plotcraft_sub', 'true');
             alert('تم الاشتراك بنجاح!');
+            checkSubscriptionStatus();
             switchScreen('homeScreen');
+        }
+
+        function checkSubscriptionStatus() {
+            var isSub = localStorage.getItem('plotcraft_sub') === 'true';
+            var proBadgeHome = document.getElementById('proBadgeContainer');
+            var speedSubHome = document.getElementById('speedCardSubtitle');
+            var sparkleProBadge = document.getElementById('sparkleProBadge');
+            var sparkleSubText = document.getElementById('sparkleSubText');
+
+            if (isSub) {
+                if (proBadgeHome) proBadgeHome.style.display = 'none';
+                if (speedSubHome) speedSubHome.textContent = 'مفعل ومتاح للاستخدام الفوري';
+                if (sparkleProBadge) sparkleProBadge.style.display = 'none';
+                if (sparkleSubText) sparkleSubText.textContent = 'مفعل ومتاح للاستخدام الفوري';
+            } else {
+                if (proBadgeHome) proBadgeHome.style.display = 'flex';
+                if (speedSubHome) speedSubHome.textContent = 'إدخال واحد، فيديو كامل';
+                if (sparkleProBadge) sparkleProBadge.style.display = 'flex';
+                if (sparkleSubText) sparkleSubText.textContent = 'إدخال واحد، فيديو كامل';
+            }
         }
     </script>
 </body>
