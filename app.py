@@ -911,9 +911,9 @@ html_code = """
                 </div>
 
                 <div class="interactive-card" id="speedCard" onclick="handleSpeedCardClick(event)">
-                    <div class="pro-badge-top" id="proBadgeContainer">
-                        <span id="proBadgeText">Pro only</span>
-                        <span class="pro-lock-icon" id="proLockIcon"></span>
+                    <div class="pro-badge-top">
+                        <span>Pro only</span>
+                        <span class="pro-lock-icon"></span>
                     </div>
                     <div class="card-header-row">
                         <div class="card-title-group-left">
@@ -921,7 +921,7 @@ html_code = """
                             <span class="speed-custom-icon"></span>
                         </div>
                     </div>
-                    <div class="card-subtitle" id="speedCardSubtitle">إدخال واحد، فيديو كامل</div>
+                    <div class="card-subtitle">إدخال واحد، فيديو كامل</div>
                 </div>
             </div>
         </div>
@@ -940,7 +940,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة الزر الرابع المنفصل مع القفل الأبيض وشارة Pro only مطابقة للصورة -->
+    <!-- واجهة الزر الرابع المنفصل مع شارة Pro only والقفل الأبيض الثابت -->
     <div id="sparkleDialogScreen" class="screen-view">
         <div class="sparkle-top-bar">
             <button class="sparkle-close-btn" onclick="switchScreen('homeScreen', event)">✕</button>
@@ -972,16 +972,16 @@ html_code = """
                     </div>
                 </div>
 
-                <!-- بطاقة سريع مع شارة Pro only والقفل الأبيض بدلاً من الأقفال الصفراء -->
+                <!-- بطاقة سريع مع شارة Pro only والقفل الأبيض حصراً -->
                 <div class="sparkle-rect-card" onclick="handleSpeedCardClick(event)">
                     <div class="sparkle-rect-right">
                         <div class="sparkle-card-titles" style="text-align: right;">
                             <div class="sparkle-card-main-title">سريع</div>
-                            <div class="sparkle-card-sub-title" id="sparkleSubText">إدخال واحد، فيديو كامل</div>
+                            <div class="sparkle-card-sub-title">إدخال واحد، فيديو كامل</div>
                         </div>
                     </div>
                     <div class="sparkle-rect-left">
-                        <div class="pro-badge-top" id="sparkleProBadge" style="margin-bottom:0;">
+                        <div class="pro-badge-top" style="margin-bottom:0;">
                             <span>Pro only</span>
                             <span class="pro-lock-icon"></span>
                         </div>
@@ -1223,10 +1223,6 @@ html_code = """
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            checkSubscriptionStatus();
-        });
-
         function switchScreen(screenId, event) {
             if (event) event.preventDefault();
             var screens = document.querySelectorAll('.screen-view');
@@ -1336,39 +1332,12 @@ html_code = """
         }
 
         function handleSpeedCardClick(event) {
-            var isSub = localStorage.getItem('plotcraft_sub') === 'true';
-            if (isSub) {
-                alert('مفعل ومتاح للاستخدام الفوري.');
-            } else {
-                switchScreen('subscriptionScreen', event);
-            }
+            switchScreen('subscriptionScreen', event);
         }
 
         function confirmSubscription() {
-            localStorage.setItem('plotcraft_sub', 'true');
             alert('تم الاشتراك بنجاح!');
-            checkSubscriptionStatus();
             switchScreen('homeScreen');
-        }
-
-        function checkSubscriptionStatus() {
-            var isSub = localStorage.getItem('plotcraft_sub') === 'true';
-            var proBadgeHome = document.getElementById('proBadgeContainer');
-            var speedSubHome = document.getElementById('speedCardSubtitle');
-            var sparkleProBadge = document.getElementById('sparkleProBadge');
-            var sparkleSubText = document.getElementById('sparkleSubText');
-
-            if (isSub) {
-                if (proBadgeHome) proBadgeHome.style.display = 'none';
-                if (speedSubHome) speedSubHome.textContent = 'مفعل ومتاح للاستخدام الفوري';
-                if (sparkleProBadge) sparkleProBadge.style.display = 'none';
-                if (sparkleSubText) sparkleSubText.textContent = 'مفعل ومتاح للاستخدام الفوري';
-            } else {
-                if (proBadgeHome) proBadgeHome.style.display = 'flex';
-                if (speedSubHome) speedSubHome.textContent = 'إدخال واحد، فيديو كامل';
-                if (sparkleProBadge) sparkleProBadge.style.display = 'flex';
-                if (sparkleSubText) sparkleSubText.textContent = 'إدخال واحد، فيديو كامل';
-            }
         }
     </script>
 </body>
