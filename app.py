@@ -995,6 +995,143 @@ html_code = """
         .best-value-tag { position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg, #f59e0b, #ec4899); color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
         .action-main-btn { width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 20px; border: none; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); margin-top: 10px; }
 
+        /* شاشة الزر الرابع المنفصل (مطابقة للصورة بدقة) */
+        #sparkleDialogScreen {
+            background-color: #0b0f19;
+            display: none;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-y: auto;
+        }
+        #sparkleDialogScreen.active {
+            display: flex;
+        }
+        .sparkle-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 30px;
+            z-index: 2;
+        }
+        .sparkle-upgrade-badge {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 6px 16px;
+            border-radius: 20px;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+        }
+        .sparkle-close-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 20px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .sparkle-center-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            z-index: 2;
+            margin-top: 20px;
+            gap: 20px;
+        }
+        .sparkle-icon-svg {
+            width: 65px;
+            height: 65px;
+            fill: #93c5fd;
+            filter: drop-shadow(0 0 12px rgba(147, 197, 253, 0.5));
+        }
+        .sparkle-greeting-text {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1.5;
+        }
+        .sparkle-rect-cards-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            max-width: 420px;
+            margin-top: 15px;
+        }
+        .sparkle-rect-card {
+            background: rgba(20, 25, 40, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .sparkle-rect-card:active {
+            background: rgba(30, 40, 65, 0.9);
+            transform: scale(0.98);
+        }
+        .sparkle-rect-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .sparkle-card-icon-box {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 15px;
+        }
+        .sparkle-card-titles {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+            gap: 2px;
+        }
+        .sparkle-card-main-title {
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .sparkle-card-sub-title {
+            color: #94a3b8;
+            font-size: 12px;
+        }
+        .sparkle-card-left-badge {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+        .sparkle-pro-lock-box {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #94a3b8;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
         /* شريط التنقل السفلي المدمج */
         .plotcraft-nav-bar {
             position: fixed;
@@ -1035,7 +1172,7 @@ html_code = """
         }
         .plotcraft-nav-item.active { color: #ffffff; font-weight: bold; }
         
-        /* الزر الرابع المنفصل مع الشعار المطابق للصورة تماماً */
+        /* الزر الرابع المنفصل مع الشعار المطابق تماماً */
         .plotcraft-nav-square {
             background-color: #161b22;
             border: 1px solid #30363d;
@@ -1104,6 +1241,58 @@ html_code = """
                 <div class="movie-card m1"><div class="movie-title">THE DELIVERYMAN'S SECRET BILLIONAIRE</div></div>
                 <div class="movie-card m2"><div class="movie-title">SECRET BILLIONAIRE</div></div>
                 <div class="movie-card m3"><div class="movie-title">CYBER CITY</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- واجهة الزر الرابع المنفصل (مطابقة للصورة التي أرسلتها) -->
+    <div id="sparkleDialogScreen" class="screen-view">
+        <div class="sparkle-top-bar">
+            <div class="sparkle-upgrade-badge" onclick="switchScreen('subscriptionScreen', event)">ترقية</div>
+            <div class="brand-title">Plotcraft</div>
+            <button class="sparkle-close-btn" onclick="switchScreen('homeScreen', event)">✕</button>
+        </div>
+
+        <div class="sparkle-center-content">
+            <!-- أيقونة النجمة المبتسمة المضيئة المطابقة للصورة تماماً -->
+            <svg class="sparkle-icon-svg" viewBox="0 0 24 24">
+                <path d="M12 2C12 7.5 16.5 12 22 12C16.5 12 12 16.5 12 22C12 16.5 7.5 12 2 12C7.5 12 12 7.5 12 2Z"/>
+                <circle cx="9" cy="10" r="1" fill="#0b0f19"/>
+                <circle cx="15" cy="10" r="1" fill="#0b0f19"/>
+                <path d="M9.5 14C10.2 14.8 11.1 15.2 12 15.2C12.9 15.2 13.8 14.8 14.5 14" stroke="#0b0f19" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+            </svg>
+
+            <div class="sparkle-greeting-text">طاب مساؤك، أيها المخرج<br>أي قصة سنصنع اليوم؟</div>
+
+            <div class="sparkle-rect-cards-container">
+                <!-- البطاقة المستطيلة الأولى: خطوة بخطوة -->
+                <div class="sparkle-rect-card" onclick="switchScreen('stepByStepScreen', event)">
+                    <div class="sparkle-rect-right">
+                        <div class="sparkle-card-icon-box">↗</div>
+                        <div class="sparkle-card-titles">
+                            <div class="sparkle-card-main-title">خطوة بخطوة</div>
+                            <div class="sparkle-card-sub-title">راجع كل خطوة</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- البطاقة المستطيلة الثانية: سريع -->
+                <div class="sparkle-rect-card" onclick="handleSpeedCardClick(event)">
+                    <div style="display: flex; flex-direction: column; width: 100%; gap: 10px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                            <div class="sparkle-rect-right">
+                                <div class="sparkle-card-icon-box" id="speedLockIconBox">🔒</div>
+                                <div class="sparkle-card-titles">
+                                    <div class="sparkle-card-main-title">سريع</div>
+                                    <div class="sparkle-card-sub-title">إدخال واحد، فيديو كامل</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sparkle-pro-lock-box" id="sparkleProMsgBox">
+                            🔒 يمكن لأعضاء Pro استخدام الوضع السريع
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1412,18 +1601,14 @@ html_code = """
             </a>
         </div>
 
-        <!-- الزر الرابع المنفصل مع الشعار المطابق للصورة تماماً -->
-        <div class="plotcraft-nav-square" onclick="switchScreen('homeScreen', event)" title="إنشاء سريع">
+        <!-- الزر الرابع المنفصل الذي يفتح شاشة النجمة تماماً كالـ Dialog في الصورة -->
+        <div class="plotcraft-nav-square" onclick="switchScreen('sparkleDialogScreen', event)" title="إنشاء سريع">
             <svg width="26" height="26" viewBox="0 0 24 24">
-                <!-- أيقونة الفيديو الرمادية الأساسية مع زوايا دائرية -->
                 <rect x="3" y="6" width="14" height="12" rx="3" fill="#94a3b8"/>
-                <!-- شريط الفيلم الجانبي (المخطط بخطوط مائلة) -->
                 <path d="M14 6h3c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2h-3V6z" fill="#64748b"/>
                 <line x1="16" y1="8" x2="18" y2="10" stroke="#141824" stroke-width="1.5"/>
                 <line x1="16" y1="12" x2="18" y2="14" stroke="#141824" stroke-width="1.5"/>
-                <!-- زر التشغيل الداخلي (Play) -->
                 <polygon points="8,10 12,12 8,14" fill="#0b0f19"/>
-                <!-- النجمة الزرقاء المضيئة (AI Sparkle) في أعلى اليسار -->
                 <path d="M8 3C8 4.65 6.65 6 5 6C6.65 6 8 7.35 8 9C8 7.35 9.35 6 11 6C9.35 6 8 4.65 8 3Z" fill="#3b82f6"/>
             </svg>
         </div>
@@ -1505,13 +1690,19 @@ html_code = """
             var isSubscribed = localStorage.getItem('plotcraft_subscribed') === 'true';
             var badgeContainer = document.getElementById('proBadgeContainer');
             var subtitle = document.getElementById('speedCardSubtitle');
+            var sparkleBox = document.getElementById('sparkleProMsgBox');
+            var speedLockIconBox = document.getElementById('speedLockIconBox');
 
             if (isSubscribed) {
                 if (badgeContainer) badgeContainer.style.display = 'none';
                 if (subtitle) subtitle.textContent = 'مفعل ومتاح للاستخدام الفوري';
+                if (sparkleBox) sparkleBox.style.display = 'none';
+                if (speedLockIconBox) speedLockIconBox.textContent = '⚡';
             } else {
                 if (badgeContainer) badgeContainer.style.display = 'flex';
                 if (subtitle) subtitle.textContent = 'إدخال واحد، فيديو كامل';
+                if (sparkleBox) sparkleBox.style.display = 'flex';
+                if (speedLockIconBox) speedLockIconBox.textContent = '🔒';
             }
         }
     </script>
