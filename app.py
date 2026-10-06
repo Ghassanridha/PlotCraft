@@ -162,6 +162,16 @@ html_code = """
             background-size: contain;
         }
 
+        /* تخصيص أيقونة السرعة/الإشارة المطابقة للصورة الثانية وموضعتها على اليسار */
+        .speed-custom-icon {
+            width: 22px;
+            height: 22px;
+            background: #ffffff;
+            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 14l3-3m0 0l3 3m-3-3v8"/><path d="M12 6c3.3 0 6 2.7 6 6s-2.7 6-6 6"/><path d="M15 3c4.97 0 9 4.03 9 9s-4.03 9-9 9"/></svg>') no-repeat center;
+            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 14l3-3m0 0l3 3m-3-3v8"/><path d="M12 6c3.3 0 6 2.7 6 6s-2.7 6-6 6"/><path d="M15 3c4.97 0 9 4.03 9 9s-4.03 9-9 9"/></svg>') no-repeat center;
+            background-size: contain;
+        }
+
         .card-title-group-left {
             display: flex;
             justify-content: space-between;
@@ -608,9 +618,10 @@ html_code = """
 
                 <div class="interactive-card" onclick="switchScreen('subscriptionScreen', event)">
                     <div class="card-header-row">
+                        <!-- تم وضع الأيقونة الجديدة بجانب كلمة سريع وفي جهة اليسار هنا -->
                         <div class="card-title-group-left">
                             <div class="card-title">سريع</div>
-                            <span class="magic-wand-icon"></span>
+                            <span class="speed-custom-icon"></span>
                         </div>
                     </div>
                     <div class="card-subtitle">إدخال واحد، فيديو كامل</div>
@@ -640,7 +651,6 @@ html_code = """
         </div>
 
         <div class="tools-body">
-            <!-- التأثير الأول -->
             <div class="tool-card-item tool-card-1" onclick="alert('تم اختيار: تأثيرات الفيديو')">
                 <div class="tool-arrow-icon">‹</div>
                 <div class="tool-info-box">
@@ -649,7 +659,6 @@ html_code = """
                 </div>
             </div>
 
-            <!-- التأثير الثاني -->
             <div class="tool-card-item tool-card-2" onclick="alert('تم اختيار: توليد الفيديو')">
                 <div class="tool-arrow-icon">‹</div>
                 <div class="tool-info-box">
@@ -658,7 +667,6 @@ html_code = """
                 </div>
             </div>
 
-            <!-- التأثير الثالث -->
             <div class="tool-card-item tool-card-3" onclick="alert('تم اختيار: توليد الصور')">
                 <div class="tool-arrow-icon">‹</div>
                 <div class="tool-info-box">
@@ -743,7 +751,6 @@ html_code = """
             </div>
 
             <div class="plans-list">
-                <!-- الاشتراك الأسبوعي -->
                 <div class="plan-card selected" onclick="selectPlan(this)">
                     <div class="plan-top">
                         <div class="plan-name">PlotCraft Pro Weekly</div>
@@ -752,7 +759,6 @@ html_code = """
                     <div class="plan-desc">500 نقطة / أسبوعياً، جرب PlotCraft</div>
                 </div>
 
-                <!-- الاشتراك الشهري -->
                 <div class="plan-card" onclick="selectPlan(this)">
                     <div class="new-tag">جديد</div>
                     <div class="plan-top">
@@ -762,7 +768,6 @@ html_code = """
                     <div class="plan-desc">1800 نقطة / شهرياً، مثالي للمبدعين</div>
                 </div>
 
-                <!-- الاشتراك السنوي -->
                 <div class="plan-card" onclick="selectPlan(this)">
                     <div class="best-value-tag">الأفضل قيمة</div>
                     <div class="plan-top">
@@ -784,7 +789,6 @@ html_code = """
                 <span>الرئيسية</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
             </a>
-            <!-- تم إضافة منع السلوك الافتراضي هنا لضمان عدم حدوث تلمض أو إعادة توجيه -->
             <a href="#" class="plotcraft-nav-item" id="navTools" onclick="switchScreen('toolsScreen', event); setActiveNav('navTools')">
                 <span>الأدوات</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
@@ -803,7 +807,7 @@ html_code = """
     <script>
         function switchScreen(screenId, event) {
             if (event) {
-                event.preventDefault(); // يمنع تلمض الشاشة وإعادة التحميل الافتراضية للرابط
+                event.preventDefault();
             }
             var screens = document.querySelectorAll('.screen-view');
             screens.forEach(s => s.classList.remove('active'));
@@ -841,7 +845,7 @@ html_code = """
         }
 
         function confirmSubscription() {
-            alert('تم تأكيد طلب الاشتراك! سيتم الآن فتح نظام الدفع الرسمي الخاص بمتجر التطبيقات.');
+            alert('تم تأكيد طلب الاشتراك! سيتم الآن فتح نظام الدفع الرسمي الخاص متجر التطبيقات.');
             switchScreen('homeScreen');
         }
     </script>
