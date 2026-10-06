@@ -1,3 +1,4 @@
+
 import streamlit as st
 import streamlit.components.v1 as components
 
@@ -238,7 +239,7 @@ html_code = """
             line-height: 1.2;
         }
 
-        /* شاشة "خطوة بخطوة" */
+        /* شاشة "خطوة بخطوة" الجديدة والمطابقة تماماً لطلبك */
         .step-container {
             padding: 20px;
             display: flex;
@@ -361,6 +362,7 @@ html_code = """
             transform: scale(0.95);
         }
 
+        /* حاوية رفع الصور المخفية/الظاهرة */
         .upload-section-hidden {
             display: none;
             background: #111827;
@@ -375,6 +377,7 @@ html_code = """
             display: block;
         }
 
+        /* حقل النص اللانهائي للقصة */
         .story-textarea-hidden {
             display: none;
             width: 100%;
@@ -411,8 +414,8 @@ html_code = """
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
         }
 
-        /* واجهة صفحة الاشتراكات */
-        #subscriptionScreen { background: #0b0f19; overflow-y: auto; position: relative; }
+        /* واجهة صفحة الاشتراكات ودفع الأتعاب */
+        #subscriptionScreen { background: #0b0f19; overflow: hidden; position: relative; }
         .animated-bg-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; opacity: 0.35; pointer-events: none; }
         .explosion-glow { position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(59,130,246,0.6) 0%, rgba(139,92,246,0.2) 50%, transparent 70%); border-radius: 50%; animation: pulseExplosion 4s infinite alternate ease-in-out; }
         .glow-1 { top: -50px; right: -50px; }
@@ -432,7 +435,7 @@ html_code = """
         .plan-price { background: rgba(255, 255, 255, 0.12); padding: 4px 10px; border-radius: 10px; color: #ffffff; font-size: 12px; font-weight: 600; }
         .plan-desc { color: #94a3b8; font-size: 12px; }
         .new-tag { position: absolute; top: 12px; left: 12px; background: #3b82f6; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
-        .best-value-tag { position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg, #f59e0b, #ec4899); color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
+        .renewal-text { text-align: center; color: #94a3b8; font-size: 11px; margin-top: 4px; }
         .action-main-btn { width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 20px; border: none; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); margin-top: 10px; }
         
         .payment-form-box { display: flex; flex-direction: column; gap: 14px; }
@@ -511,6 +514,7 @@ html_code = """
             </div>
 
             <div class="cards-row">
+                <!-- بطاقة خطوة بخطوة - تنتقل لواجهة الخطوات المخصصة -->
                 <div class="interactive-card" onclick="switchScreen('stepByStepScreen')">
                     <div class="card-header-row">
                         <div class="card-title-group-left">
@@ -521,6 +525,7 @@ html_code = """
                     <div class="card-subtitle">راجع كل خطوة</div>
                 </div>
 
+                <!-- بطاقة "سريع" -->
                 <div class="interactive-card" onclick="switchScreen('subscriptionScreen')">
                     <div class="card-header-row">
                         <div class="card-title-group-left">
@@ -536,4 +541,212 @@ html_code = """
         <div class="inspiration-section">
             <div class="section-header">
                 <div class="section-title">إلهام بلوت كرافت</div>
-                <div clas
+                <div class="view-all">عرض الكل ></div>
+            </div>
+
+            <div class="movies-carousel">
+                <div class="movie-card m1"><div class="movie-title">THE DELIVERYMAN'S SECRET BILLIONAIRE</div></div>
+                <div class="movie-card m2"><div class="movie-title">SECRET BILLIONAIRE</div></div>
+                <div class="movie-card m3"><div class="movie-title">CYBER CITY</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- واجهة تفاصيل "خطوة بخطوة" الجديدة كلياً حسب طلبك -->
+    <div id="stepByStepScreen" class="screen-view">
+        <div class="page-header">
+            <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
+            <div class="page-title-text">خطوة بخطوة</div>
+            <div style="width: 36px;"></div>
+        </div>
+
+        <div class="step-container">
+            <!-- مساعد AI بلوت كرافت مع الشعار الدائري المميز -->
+            <div class="ai-assistant-card">
+                <div class="ai-header-row">
+                    <div class="ai-title">مساعد AI بلوت كرافت</div>
+                    <div class="ai-badge-circle">AI+</div>
+                </div>
+                <div class="ai-desc">عزيزي المخرج، استمتع بإنشاء وتخصيص تفاصيل فيلمك خطوة بخطوة بدقة احترافية عالية.</div>
+            </div>
+
+            <!-- صندوق إعداد القصة مع العداد (0/2) -->
+            <div class="story-setup-box">
+                <div class="setup-header-row">
+                    <div class="setup-main-title">إعداد القصة</div>
+                    <div class="counter-badge">0/2</div>
+                </div>
+                <div class="setup-subtitle">أضف الشخصيات والحكاية أولاً، ثم أكمل الخطوات:</div>
+
+                <!-- خيار الشخصيات مع زر الإضافة -->
+                <div class="setup-row-item">
+                    <div class="item-info">
+                        <h4>الشخصيات</h4>
+                        <p>أضف صورتين كحد أقصى لشخصيات القصة</p>
+                    </div>
+                    <button class="action-add-btn" onclick="toggleUpload()">إضافة</button>
+                </div>
+
+                <!-- خانة رفع الصور للشخصيات (تظهر عند الضغط على إضافة) -->
+                <div id="charUploadSection" class="upload-section-hidden">
+                    <p style="margin-bottom: 6px; font-weight: bold;">قم بإرفاق صورتين كحد أقصى للشخصيات:</p>
+                    <input type="file" id="charFiles" accept="image/*" multiple onchange="checkMaxImages(this)" style="color: #cbd5e1; font-size: 11px;">
+                </div>
+
+                <!-- خيار الحكاية مع زر الإضافة -->
+                <div class="setup-row-item">
+                    <div class="item-info">
+                        <h4>الحكاية</h4>
+                        <p>اكتب أو صف حبكة قصتك هنا</p>
+                    </div>
+                    <button class="action-add-btn" onclick="toggleStoryInput()">إضافة</button>
+                </div>
+
+                <!-- خانة النص اللانهائي للقصة (تظهر عند الضغط على إضافة) -->
+                <textarea id="storyTextarea" class="story-textarea-hidden" placeholder="اكتب تفاصيل القصة هنا (يدعم العربية والإنجليزية بلا حدود للطول)..."></textarea>
+            </div>
+
+            <!-- زر التالي في الجانب السفلي -->
+            <div class="bottom-next-row">
+                <button class="side-next-btn" onclick="alert('تم حفظ الخطوات بنجاح والانتقال للمرحلة التالية!')">التالي</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- واجهة صفحة الاشتراكات -->
+    <div id="subscriptionScreen" class="screen-view">
+        <div class="animated-bg-container">
+            <div class="explosion-glow glow-1"></div>
+            <div class="explosion-glow glow-2"></div>
+        </div>
+
+        <div class="page-header">
+            <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
+            <div class="page-title-text">ترقية الحساب</div>
+            <div style="width: 36px;"></div>
+        </div>
+
+        <div class="content-body">
+            <div style="text-align: center; margin-bottom: 5px;">
+                <div style="color: #ffffff; font-size: 18px; font-weight: 700; margin-bottom: 4px;">حول أفكارك إلى بلوت كرافت</div>
+                <div style="color: #94a3b8; font-size: 12px;">أنشئ كل لقطة وعدلها وأكملها بسرعة.</div>
+            </div>
+
+            <div class="plans-list">
+                <div class="plan-card selected" onclick="selectPlan(this)">
+                    <div class="plan-top">
+                        <div class="plan-name">بلوت كرافت برو ويكلي</div>
+                        <div class="plan-price">9.99 دولار أمريكي / أسبوع</div>
+                    </div>
+                    <div class="plan-desc">500 ساعة معتمدة / أسبوعياً، جرب بلوت كرافت</div>
+                </div>
+                <div class="plan-card" onclick="selectPlan(this)">
+                    <div class="new-tag">جديد</div>
+                    <div class="plan-top">
+                        <div class="plan-name">بلوت كرافت برو الشهرية</div>
+                        <div class="plan-price">29.99 دولار أمريكي / شهر</div>
+                    </div>
+                    <div class="plan-desc">1800 نقطة / شهرياً، مثالي للمبدعين</div>
+                </div>
+            </div>
+
+            <button class="action-main-btn" onclick="switchScreen('paymentScreen')">اشتراك</button>
+        </div>
+    </div>
+
+    <!-- واجهة تفاصيل الدفع البنكي -->
+    <div id="paymentScreen" class="screen-view">
+        <div class="page-header">
+            <button class="back-btn" onclick="switchScreen('subscriptionScreen')">←</button>
+            <div class="page-title-text">تفاصيل الدفع البنكي</div>
+            <div style="width: 36px;"></div>
+        </div>
+
+        <div class="content-body">
+            <div class="payment-form-box">
+                <div class="form-group">
+                    <label class="form-label">اسم البطاقة البنكية</label>
+                    <input type="text" class="form-input" placeholder="الاسم كما يظهر على البطاقة">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">رقم البطاقة البنكية</label>
+                    <input type="text" class="form-input" placeholder="**** **** **** ****" maxlength="19">
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="flex: 1;">
+                        <label class="form-label">تاريخ الانتهاء</label>
+                        <input type="text" class="form-input" placeholder="MM/YY" maxlength="5">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label class="form-label">رمز البطاقة (CVV)</label>
+                        <input type="password" class="form-input" placeholder="***" maxlength="4">
+                    </div>
+                </div>
+                <button class="action-main-btn" onclick="confirmPayment()" style="margin-top: 15px;">تأكيد وإتمام الاشتراك</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- شريط التنقل السفلي الثابت -->
+    <div class="plotcraft-nav-bar">
+        <div class="plotcraft-nav-pill">
+            <a href="#" class="plotcraft-nav-item active" onclick="switchScreen('homeScreen')">
+                <span>الرئيسية</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+            </a>
+            <a href="#" class="plotcraft-nav-item">
+                <span>الأدوات</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
+            </a>
+            <a href="#" class="plotcraft-nav-item">
+                <span>الأعمال</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path></svg>
+            </a>
+        </div>
+
+        <div class="plotcraft-nav-square">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+        </div>
+    </div>
+
+    <script>
+        function switchScreen(screenId) {
+            var screens = document.querySelectorAll('.screen-view');
+            screens.forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function selectPlan(element) {
+            var cards = document.querySelectorAll('.plan-card');
+            cards.forEach(c => c.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function toggleUpload() {
+            var box = document.getElementById('charUploadSection');
+            box.classList.toggle('show');
+        }
+
+        function checkMaxImages(input) {
+            if (input.files.length > 2) {
+                alert('عذراً، الحد الأقصى المسموح به هو صورتان فقط للشخصيات!');
+                input.value = '';
+            }
+        }
+
+        function toggleStoryInput() {
+            var box = document.getElementById('storyTextarea');
+            box.classList.toggle('show');
+        }
+
+        function confirmPayment() {
+            alert('تم تأكيد اشتراكك في بلوت كرافت بنجاح!');
+            switchScreen('homeScreen');
+        }
+    </script>
+</body>
+</html>
+"""
+
+components.html(html_code, height=750, scrolling=True)
