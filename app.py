@@ -477,7 +477,7 @@ html_code = """
             transform: scale(0.95);
         }
 
-        /* --- واجهة "إضافة شخصية" الجديدة (المطابقة تماماً للصورة) --- */
+        /* --- واجهة "إضافة شخصية" الجديدة --- */
         #addCharacterScreen {
             background-color: #0b0f19;
             display: none;
@@ -546,7 +546,7 @@ html_code = """
         .char-big-upload-box img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* تعديل لضمان ظهور الوجه بالكامل دون قص */
+            object-fit: contain;
             background-color: #000;
             position: absolute;
             top: 0;
@@ -662,7 +662,7 @@ html_code = """
             box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
         }
 
-        /* قائمة اختيار المصدر: كاميرا يمين، ألبوم يسار */
+        /* قائمة اختيار المصدر: كاميرا باليمين، ألبوم باليسار */
         .source-modal {
             display: none;
             position: fixed;
@@ -724,11 +724,34 @@ html_code = """
         .tool-card-item { position: relative; width: 100%; height: 180px; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; box-shadow: 0 6px 20px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
         .tool-card-1 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop') center/cover no-repeat; }
         .tool-card-2 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop') center/cover no-repeat; }
-        .tool-card-3 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop') center/cover no-repeat; }
         .tool-info-box { position: relative; z-index: 2; }
         .tool-main-title { color: #ffffff; font-size: 17px; font-weight: 700; margin-bottom: 4px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
         .tool-sub-desc { color: #cbd5e1; font-size: 12px; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
         .tool-arrow-icon { position: absolute; top: 16px; right: 16px; color: #ffffff; font-size: 16px; font-weight: bold; background: rgba(0,0,0,0.4); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+
+        /* واجهة صفحة الاشتراكات */
+        #subscriptionScreen { background: #0b0f19; overflow-y: auto; position: relative; }
+        .animated-bg-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; opacity: 0.35; pointer-events: none; }
+        .explosion-glow { position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(59,130,246,0.6) 0%, rgba(139,92,246,0.2) 50%, transparent 70%); border-radius: 50%; animation: pulseExplosion 4s infinite alternate ease-in-out; }
+        .glow-1 { top: -50px; right: -50px; }
+        .glow-2 { bottom: 100px; left: -80px; animation-delay: 2s; background: radial-gradient(circle, rgba(236,72,153,0.5) 0%, rgba(59,130,246,0.2) 50%, transparent 70%); }
+        @keyframes pulseExplosion { 0% { transform: scale(1) translate(0, 0); opacity: 0.3; } 50% { transform: scale(1.4) translate(20px, 30px); opacity: 0.7; } 100% { transform: scale(1.1) translate(-10px, 15px); opacity: 0.4; } }
+
+        .page-header-sub, .content-body-sub { position: relative; z-index: 2; }
+        .page-header-sub { display: flex; align-items: center; justify-content: space-between; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(11, 15, 25, 0.75); backdrop-filter: blur(10px); }
+        .back-btn-sub { background: rgba(255,255,255,0.1); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .page-title-sub { color: #ffffff; font-size: 18px; font-weight: 700; }
+        .content-body-sub { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+        .plans-list { display: flex; flex-direction: column; gap: 12px; }
+        .plan-card { background: rgba(20, 25, 40, 0.85); backdrop-filter: blur(12px); border: 1.5px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 16px; cursor: pointer; transition: 0.2s; position: relative; }
+        .plan-card.selected { border-color: #3b82f6; background: rgba(30, 41, 75, 0.95); box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
+        .plan-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+        .plan-name { color: #ffffff; font-size: 15px; font-weight: 700; }
+        .plan-price { background: rgba(255, 255, 255, 0.12); padding: 4px 10px; border-radius: 10px; color: #ffffff; font-size: 12px; font-weight: 600; }
+        .plan-desc { color: #94a3b8; font-size: 12px; }
+        .new-tag { position: absolute; top: 12px; left: 12px; background: #3b82f6; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
+        .best-value-tag { position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg, #f59e0b, #ec4899); color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
+        .action-main-btn { width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 20px; border: none; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); margin-top: 10px; }
 
         /* شريط التنقل السفلي الثابت */
         .plotcraft-nav-bar {
@@ -834,11 +857,11 @@ html_code = """
             <div class="tools-upgrade-btn" onclick="switchScreen('subscriptionScreen', event)">ترقية</div>
         </div>
         <div class="tools-body">
-            <div class="tool-card-item tool-card-1" onclick="switchScreen('videoEffectsScreen', event)">
+            <div class="tool-card-item tool-card-1" onclick="alert('تأثيرات الفيديو')">
                 <div class="tool-arrow-icon">‹</div>
                 <div class="tool-info-box"><div class="tool-main-title">تأثيرات الفيديو</div><div class="tool-sub-desc">أضف لمسة سينمائية</div></div>
             </div>
-            <div class="tool-card-item tool-card-2" onclick="switchScreen('videoGenScreen', event)">
+            <div class="tool-card-item tool-card-2" onclick="alert('توليد الفيديو')">
                 <div class="tool-arrow-icon">‹</div>
                 <div class="tool-info-box"><div class="tool-main-title">توليد الفيديو</div><div class="tool-sub-desc">حول توجيهاً إلى فيديو خاص بك</div></div>
             </div>
@@ -887,7 +910,6 @@ html_code = """
                         <h4>الشخصيات</h4>
                         <p>أضف صورتين كحد أقصى لشخصيات القصة</p>
                     </div>
-                    <!-- الانتقال لواجهة إضافة شخصية المطابقة للصورة -->
                     <button class="action-add-btn" onclick="openAddCharacter(event)">إضافة</button>
                 </div>
 
@@ -900,8 +922,8 @@ html_code = """
                 </div>
             </div>
 
-            <div class="bottom-next-row">
-                <button class="side-next-btn" onclick="alert('تم حفظ الخطوات بنجاح!')">التالي</button>
+            <div class="bottom-next-row" style="display:flex; justify-content:flex-end; margin-top:10px;">
+                <button style="background:linear-gradient(135deg,#3b82f6,#8b5cf6); color:#fff; font-weight:700; padding:10px 24px; border-radius:12px; border:none; cursor:pointer;" onclick="alert('تم حفظ الخطوات بنجاح!')">التالي</button>
             </div>
         </div>
     </div>
@@ -918,7 +940,7 @@ html_code = """
             <div class="char-main-card">
                 <div class="char-section-label">الشخصية</div>
                 
-                <!-- المربع العلوي الكبير -->
+                <!-- المربع العلوي الكبير مع ضبط القياس لعدم قص الوجه -->
                 <div class="char-big-upload-box" id="bigUploadBox" onclick="showSourceModal()">
                     <div id="bigBoxInner" style="display:flex; flex-direction:column; align-items:center; gap:8px; color:#94a3b8; font-size:13px;">
                         <div style="width:32px; height:32px; background:rgba(255,255,255,0.08); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#cbd5e1;">↑</div>
@@ -945,10 +967,6 @@ html_code = """
                         <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=150&auto=format&fit=crop" class="char-thumb-item" onclick="selectThumb(this)">
                         <div class="thumb-remove-badge" onclick="removeThumb(this, event)">✕</div>
                     </div>
-                    <div class="thumb-wrapper">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop" class="char-thumb-item" onclick="selectThumb(this)">
-                        <div class="thumb-remove-badge" onclick="removeThumb(this, event)">✕</div>
-                    </div>
                 </div>
             </div>
 
@@ -963,7 +981,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- نافذة منبثقة لاختيار المصدر: كاميرا باليمين وألبوم باليسار -->
+    <!-- نافذة منبثقة لاختيار المصدر: كاميرا باليمين، ألبوم باليسار -->
     <div class="source-modal" id="sourceModal">
         <div class="source-modal-content">
             <div style="color:#fff; font-weight:700; font-size:15px; margin-bottom:2px;">اختر مصدر الصورة</div>
@@ -987,20 +1005,54 @@ html_code = """
     <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none;" onchange="handleFileSelected(event)">
     <input type="file" id="albumInput" accept="image/*" style="display:none;" onchange="handleFileSelected(event)">
 
-    <!-- واجهة صفحة الاشتراكات -->
+    <!-- واجهة صفحة الاشتراكات الكاملة مع الخلفية والخطة الثلاثية -->
     <div id="subscriptionScreen" class="screen-view">
-        <div style="display:flex; justify-content:space-between; align-items:center; padding:20px; border-bottom:1px solid rgba(255,255,255,0.08);">
-            <button style="background:rgba(255,255,255,0.1); border:none; color:#fff; width:36px; height:36px; border-radius:50%; cursor:pointer;" onclick="switchScreen('homeScreen', event)">✕</button>
-            <div style="color:#fff; font-weight:700;">ترقية الحساب</div>
-            <div style="width:36px;"></div>
+        <div class="animated-bg-container">
+            <div class="explosion-glow glow-1"></div>
+            <div class="explosion-glow glow-2"></div>
         </div>
-        <div style="padding:20px; display:flex; flex-direction:column; gap:16px;">
-            <div style="color:#fff; font-size:18px; font-weight:700; text-align:center;">اختر خطة الاشتراك المناسبة</div>
-            <div style="background:rgba(20,25,40,0.85); border:1.5px solid #3b82f6; border-radius:16px; padding:16px; cursor:pointer;" onclick="confirmSubscription()">
-                <div style="color:#fff; font-weight:700; font-size:15px; margin-bottom:4px;">PlotCraft Pro Weekly</div>
-                <div style="color:#94a3b8; font-size:12px;">9.99 دولار / أسبوع (500 نقطة)</div>
+
+        <div class="page-header-sub">
+            <button class="back-btn-sub" onclick="switchScreen('homeScreen', event)">✕</button>
+            <div class="page-title-sub">ترقية الحساب</div>
+            <div style="width: 36px;"></div>
+        </div>
+
+        <div class="content-body-sub">
+            <div style="text-align: center; margin-bottom: 5px;">
+                <div style="color: #ffffff; font-size: 18px; font-weight: 700; margin-bottom: 4px;">حول أفكارك إلى PlotCraft</div>
+                <div style="color: #94a3b8; font-size: 12px;">أنشئ كل لقطة وعدلها وأكملها بسرعة.</div>
             </div>
-            <button style="width:100%; background:linear-gradient(135deg,#3b82f6,#8b5cf6); color:#fff; font-weight:700; padding:14px; border-radius:20px; border:none; cursor:pointer;" onclick="confirmSubscription()">اشتراك فوراً</button>
+
+            <div class="plans-list">
+                <div class="plan-card selected" onclick="selectPlan(this)">
+                    <div class="plan-top">
+                        <div class="plan-name">PlotCraft Pro Weekly</div>
+                        <div class="plan-price">9.99 دولار أمريكي / أسبوع</div>
+                    </div>
+                    <div class="plan-desc">500 نقطة / أسبوعياً، جرب PlotCraft</div>
+                </div>
+
+                <div class="plan-card" onclick="selectPlan(this)">
+                    <div class="new-tag">جديد</div>
+                    <div class="plan-top">
+                        <div class="plan-name">PlotCraft Pro Monthly</div>
+                        <div class="plan-price">29.99 دولار أمريكي / شهر</div>
+                    </div>
+                    <div class="plan-desc">1800 نقطة / شهرياً، مثالي للمبدعين</div>
+                </div>
+
+                <div class="plan-card" onclick="selectPlan(this)">
+                    <div class="best-value-tag">الأفضل قيمة</div>
+                    <div class="plan-top">
+                        <div class="plan-name">PlotCraft Pro Annual</div>
+                        <div class="plan-price">69.99 دولار أمريكي / سنة</div>
+                    </div>
+                    <div class="plan-desc">5000 نقطة / سنوياً، إمكانيات غير محدودة للمخرجين المحترفين</div>
+                </div>
+            </div>
+
+            <button class="action-main-btn" onclick="confirmSubscription()">اشتراك</button>
         </div>
     </div>
 
@@ -1066,6 +1118,12 @@ html_code = """
             var tabs = document.querySelectorAll('.works-tab');
             tabs.forEach(t => t.classList.remove('active'));
             element.classList.add('active');
+        }
+
+        function selectPlan(element) {
+            var cards = document.querySelectorAll('.plan-card');
+            cards.forEach(c => c.classList.remove('selected'));
+            element.classList.add('selected');
         }
 
         function showSourceModal() {
