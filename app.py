@@ -162,7 +162,6 @@ html_code = """
             background-size: contain;
         }
 
-        /* تخصيص أيقونة السرعة/الإشارة المطابقة للصورة الثانية وموضعتها على اليسار */
         .speed-custom-icon {
             width: 22px;
             height: 22px;
@@ -413,7 +412,7 @@ html_code = """
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
         }
 
-        /* واجهة صفحة الأدوات الجديدة */
+        /* واجهة صفحة الأدوات */
         #toolsScreen { background: #0b0f19; overflow-y: auto; }
         .tools-header {
             display: flex;
@@ -511,6 +510,247 @@ html_code = """
             justify-content: center;
             backdrop-filter: blur(5px);
         }
+
+        /* --- تصميم شاشة تفاصيل "توليد الصور" المتمم حصرياً بناءً على الصورة --- */
+        #imageGenScreen {
+            background: #0b0f19;
+            overflow-y: auto;
+            padding: 0 0 100px 0;
+        }
+        .img-gen-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .img-gen-back-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 22px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .img-gen-title {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .img-gen-upgrade {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 6px 14px;
+            border-radius: 20px;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .img-gen-body {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .img-gen-card {
+            background: #141824;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .img-gen-card-header {
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+            text-align: right;
+        }
+        .img-prompt-textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 14px;
+            outline: none;
+            resize: none;
+            min-height: 110px;
+            text-align: right;
+            line-height: 1.5;
+        }
+        .img-prompt-textarea::placeholder {
+            color: #64748b;
+        }
+        .img-prompt-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 10px;
+        }
+        .img-char-count {
+            color: #64748b;
+            font-size: 12px;
+        }
+        .img-prompt-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .img-action-icon-btn {
+            background: #1e2538;
+            border: none;
+            color: #94a3b8;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .img-action-icon-btn:active {
+            transform: scale(0.95);
+            background: #2a344e;
+            color: #fff;
+        }
+        
+        /* قسم رفع صورة مرجعية والشخصيات */
+        .upload-box-center {
+            background: #1a2030;
+            border: 1px dashed rgba(255,255,255,0.15);
+            border-radius: 14px;
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+        .upload-box-center:active {
+            background: #222a3f;
+        }
+        .upload-icon-circle {
+            width: 32px;
+            height: 32px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #cbd5e1;
+            font-size: 16px;
+        }
+        .upload-text {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+        .cast-row {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            scrollbar-width: none;
+            direction: rtl;
+        }
+        .cast-row::-webkit-scrollbar {
+            display: none;
+        }
+        .cast-thumb {
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1.5px solid rgba(255,255,255,0.15);
+            flex-shrink: 0;
+        }
+        .cast-add-box {
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            background: #1a2030;
+            border: 1.5px dashed rgba(255,255,255,0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 18px;
+            cursor: pointer;
+            flex-shrink: 0;
+            gap: 2px;
+        }
+        .cast-add-text {
+            font-size: 10px;
+        }
+
+        /* نسبة العرض إلى الارتفاع */
+        .ratio-options-row {
+            display: flex;
+            gap: 10px;
+        }
+        .ratio-btn {
+            flex: 1;
+            background: #1a2030;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 12px;
+            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .ratio-btn.active {
+            background: #25304e;
+            border-color: #3b82f6;
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(59,130,246,0.3);
+        }
+
+        /* زر الإنشاء السفلي الثابت داخل الشاشة */
+        .img-gen-bottom-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            z-index: 20;
+        }
+        .img-gen-submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #3b82f6 0%, #ec4899 100%);
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 16px;
+            border-radius: 24px;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+            transition: 0.2s;
+        }
+        .img-gen-submit-btn:active {
+            transform: scale(0.98);
+        }
+        /* ---------------------------------------------------- */
 
         /* واجهة صفحة الاشتراكات */
         #subscriptionScreen { background: #0b0f19; overflow-y: auto; position: relative; }
@@ -618,7 +858,6 @@ html_code = """
 
                 <div class="interactive-card" onclick="switchScreen('subscriptionScreen', event)">
                     <div class="card-header-row">
-                        <!-- تم وضع الأيقونة الجديدة بجانب كلمة سريع وفي جهة اليسار هنا -->
                         <div class="card-title-group-left">
                             <div class="card-title">سريع</div>
                             <span class="speed-custom-icon"></span>
@@ -667,13 +906,72 @@ html_code = """
                 </div>
             </div>
 
-            <div class="tool-card-item tool-card-3" onclick="alert('تم اختيار: توليد الصور')">
+            <!-- تم ربط هذه البطاقة حصرياً بفتح شاشة توليد الصور المطابقة للصورة المرفقة -->
+            <div class="tool-card-item tool-card-3" onclick="switchScreen('imageGenScreen', event)">
                 <div class="tool-arrow-icon">‹</div>
                 <div class="tool-info-box">
                     <div class="tool-main-title">توليد الصور</div>
                     <div class="tool-sub-desc">حول فكرة إلى صورة مكتملة</div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- واجهة تفاصيل "توليد الصور" المطابقة حصرياً للصورة المرفقة -->
+    <div id="imageGenScreen" class="screen-view">
+        <div class="img-gen-header">
+            <button class="img-gen-back-btn" onclick="switchScreen('toolsScreen', event)">‹</button>
+            <div class="img-gen-title">توليد الصور</div>
+            <div class="img-gen-upgrade" onclick="switchScreen('subscriptionScreen', event)">⭐ ترقية</div>
+        </div>
+
+        <div class="img-gen-body">
+            <!-- صندوق التوجيه (Prompt) -->
+            <div class="img-gen-card">
+                <div class="img-gen-card-header">التوجيه</div>
+                <textarea class="img-prompt-textarea" placeholder="صف المشهد: الشخصيات، المزاج، المكان، وأسلوب اللقطة..."></textarea>
+                <div class="img-prompt-footer">
+                    <span class="img-char-count">0/5000</span>
+                    <div class="img-prompt-actions">
+                        <button class="img-action-icon-btn" title="مسح">🗑️</button>
+                        <button class="img-action-icon-btn" title="تحسين بالذكاء الاصطناعي">✨</button>
+                        <button class="img-action-icon-btn" title="عشوائي">🔀</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- إضافة صورة مرجعية والشخصيات -->
+            <div class="img-gen-card">
+                <div class="img-gen-card-header">إضافة صورة مرجعية</div>
+                <div class="upload-box-center" onclick="alert('فتح استوديو الصور للرفع')">
+                    <div class="upload-icon-circle">↑</div>
+                    <div class="upload-text">رفع صورة</div>
+                </div>
+                <div class="cast-row">
+                    <div class="cast-add-box" onclick="alert('إضافة دور جديد')">
+                        <span>+</span>
+                        <span class="cast-add-text">الدور</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop" class="cast-thumb">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop" class="cast-thumb">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=crop" class="cast-thumb">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop" class="cast-thumb">
+                </div>
+            </div>
+
+            <!-- نسبة العرض إلى الارتفاع -->
+            <div class="img-gen-card">
+                <div class="img-gen-card-header">نسبة العرض إلى الارتفاع</div>
+                <div class="ratio-options-row">
+                    <div class="ratio-btn active" onclick="selectRatio(this)">16:9 ◼</div>
+                    <div class="ratio-btn" onclick="selectRatio(this)">9:16 📱</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- زر الإنشاء في الأسفل -->
+        <div class="img-gen-bottom-bar">
+            <button class="img-gen-submit-btn" onclick="alert('جاري بدء عملية توليد الصورة...')">إنشاء</button>
         </div>
     </div>
 
@@ -825,6 +1123,12 @@ html_code = """
             var cards = document.querySelectorAll('.plan-card');
             cards.forEach(c => c.classList.remove('selected'));
             element.classList.add('selected');
+        }
+
+        function selectRatio(element) {
+            var btns = document.querySelectorAll('.ratio-btn');
+            btns.forEach(b => b.classList.remove('active'));
+            element.classList.add('active');
         }
 
         function toggleUpload() {
