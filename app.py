@@ -411,7 +411,106 @@ html_code = """
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
         }
 
-        /* واجهة صفحة الاشتراكات (افتتاحية الآن) */
+        /* واجهة صفحة الأدوات الجديدة بالكامل (مطابقة للصورة المرفقة) */
+        #toolsScreen { background: #0b0f19; overflow-y: auto; }
+        .tools-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .tools-header-title {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .tools-upgrade-btn {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 6px 14px;
+            border-radius: 20px;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .tools-upgrade-btn:active {
+            transform: scale(0.95);
+        }
+        .tools-body {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .tool-card-item {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 18px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .tool-card-item:active {
+            transform: scale(0.98);
+        }
+        .tool-card-1 {
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%),
+                        url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop') center/cover no-repeat;
+        }
+        .tool-card-2 {
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%),
+                        url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop') center/cover no-repeat;
+        }
+        .tool-card-3 {
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%),
+                        url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop') center/cover no-repeat;
+        }
+        .tool-info-box {
+            position: relative;
+            z-index: 2;
+        }
+        .tool-main-title {
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+        .tool-sub-desc {
+            color: #cbd5e1;
+            font-size: 12px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+        }
+        .tool-arrow-icon {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+            background: rgba(0,0,0,0.4);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        /* واجهة صفحة الاشتراكات */
         #subscriptionScreen { background: #0b0f19; overflow-y: auto; position: relative; }
         .animated-bg-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; opacity: 0.35; pointer-events: none; }
         .explosion-glow { position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(59,130,246,0.6) 0%, rgba(139,92,246,0.2) 50%, transparent 70%); border-radius: 50%; animation: pulseExplosion 4s infinite alternate ease-in-out; }
@@ -491,7 +590,7 @@ html_code = """
 <body>
 
     <!-- الواجهة الرئيسية -->
-    <div id="homeScreen" class="screen-view">
+    <div id="homeScreen" class="screen-view active">
         <div class="hero-box">
             <div class="top-header">
                 <div class="brand-title">PlotCraft</div>
@@ -537,6 +636,43 @@ html_code = """
                 <div class="movie-card m1"><div class="movie-title">THE DELIVERYMAN'S SECRET BILLIONAIRE</div></div>
                 <div class="movie-card m2"><div class="movie-title">SECRET BILLIONAIRE</div></div>
                 <div class="movie-card m3"><div class="movie-title">CYBER CITY</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- واجهة صفحة "الأدوات" الجديدة المطابقة للصورة -->
+    <div id="toolsScreen" class="screen-view">
+        <div class="tools-header">
+            <div class="tools-upgrade-btn" onclick="switchScreen('subscriptionScreen')">ترقية</div>
+            <div class="tools-header-title">الأدوات</div>
+        </div>
+
+        <div class="tools-body">
+            <!-- التأثير الأول -->
+            <div class="tool-card-item tool-card-1" onclick="alert('تم اختيار: تأثيرات الفيديو')">
+                <div class="tool-arrow-icon">‹</div>
+                <div class="tool-info-box">
+                    <div class="tool-main-title">تأثيرات الفيديو</div>
+                    <div class="tool-sub-desc">أضف لمسة سينمائية</div>
+                </div>
+            </div>
+
+            <!-- التأثير الثاني -->
+            <div class="tool-card-item tool-card-2" onclick="alert('تم اختيار: توليد الفيديو')">
+                <div class="tool-arrow-icon">‹</div>
+                <div class="tool-info-box">
+                    <div class="tool-main-title">توليد الفيديو</div>
+                    <div class="tool-sub-desc">حول توجيهاً إلى فيديو خاص بك</div>
+                </div>
+            </div>
+
+            <!-- التأثير الثالث -->
+            <div class="tool-card-item tool-card-3" onclick="alert('تم اختيار: توليد الصور')">
+                <div class="tool-arrow-icon">‹</div>
+                <div class="tool-info-box">
+                    <div class="tool-main-title">توليد الصور</div>
+                    <div class="tool-sub-desc">حول فكرة إلى صورة مكتملة</div>
+                </div>
             </div>
         </div>
     </div>
@@ -595,15 +731,14 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة صفحة الاشتراكات (تظهر أولاً عند فتح الموقع) -->
-    <div id="subscriptionScreen" class="screen-view active">
+    <!-- واجهة صفحة الاشتراكات -->
+    <div id="subscriptionScreen" class="screen-view">
         <div class="animated-bg-container">
             <div class="explosion-glow glow-1"></div>
             <div class="explosion-glow glow-2"></div>
         </div>
 
         <div class="page-header">
-            <!-- زر الـ (X) للإغلاق والانتقال فوراً للواجهة الرئيسية -->
             <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
             <div class="page-title-text">ترقية الحساب</div>
             <div style="width: 36px;"></div>
@@ -653,21 +788,21 @@ html_code = """
     <!-- شريط التنقل السفلي الثابت -->
     <div class="plotcraft-nav-bar">
         <div class="plotcraft-nav-pill">
-            <a href="#" class="plotcraft-nav-item active" onclick="switchScreen('homeScreen')">
+            <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="switchScreen('homeScreen'); setActiveNav('navHome')">
                 <span>الرئيسية</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
             </a>
-            <a href="#" class="plotcraft-nav-item">
+            <a href="#" class="plotcraft-nav-item" id="navTools" onclick="switchScreen('toolsScreen'); setActiveNav('navTools')">
                 <span>الأدوات</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
             </a>
-            <a href="#" class="plotcraft-nav-item">
+            <a href="#" class="plotcraft-nav-item" id="navWorks" onclick="switchScreen('homeScreen'); setActiveNav('navWorks')">
                 <span>الأعمال</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path></svg>
             </a>
         </div>
 
-        <div class="plotcraft-nav-square">
+        <div class="plotcraft-nav-square" onclick="switchScreen('homeScreen')">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg>
         </div>
     </div>
@@ -678,6 +813,12 @@ html_code = """
             screens.forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
             window.scrollTo(0, 0);
+        }
+
+        function setActiveNav(navId) {
+            var items = document.querySelectorAll('.plotcraft-nav-item');
+            items.forEach(i => i.classList.remove('active'));
+            document.getElementById(navId).classList.add('active');
         }
 
         function selectPlan(element) {
@@ -691,7 +832,7 @@ html_code = """
             box.classList.toggle('show');
         }
 
-        function checkMaxImages(input) {
+        function checkMaxNames(input) {
             if (input.files.length > 2) {
                 alert('عذراً، الحد الأقصى المسموح به هو صورتان فقط للشخصيات!');
                 input.value = '';
