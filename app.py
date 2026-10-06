@@ -995,7 +995,7 @@ html_code = """
         .best-value-tag { position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg, #f59e0b, #ec4899); color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
         .action-main-btn { width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 20px; border: none; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); margin-top: 10px; }
 
-        /* شاشة الزر الرابع المنفصل (مطابقة للصورة بدقة) */
+        /* شاشة الزر الرابع المنفصل */
         #sparkleDialogScreen {
             background-color: #0b0f19;
             display: none;
@@ -1083,6 +1083,11 @@ html_code = """
             background: rgba(30, 40, 65, 0.9);
             transform: scale(0.98);
         }
+        .sparkle-rect-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
         .sparkle-rect-right {
             display: flex;
             align-items: center;
@@ -1114,10 +1119,6 @@ html_code = """
             color: #94a3b8;
             font-size: 12px;
         }
-        .sparkle-card-left-badge {
-            color: #94a3b8;
-            font-size: 13px;
-        }
         .sparkle-pro-lock-box {
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.15);
@@ -1132,7 +1133,7 @@ html_code = """
             margin-top: 4px;
         }
 
-        /* شريط التنقل السفلي المدمج */
+        /* شريط التنقل السفلي الثابت */
         .plotcraft-nav-bar {
             position: fixed;
             bottom: 0;
@@ -1148,6 +1149,10 @@ html_code = """
             box-sizing: border-box;
             direction: rtl;
             box-shadow: 0 -4px 15px rgba(0,0,0,0.6);
+            transition: transform 0.3s ease;
+        }
+        .plotcraft-nav-bar.hidden {
+            transform: translateY(120%);
         }
         .plotcraft-nav-pill {
             background-color: #161b22;
@@ -1172,7 +1177,6 @@ html_code = """
         }
         .plotcraft-nav-item.active { color: #ffffff; font-weight: bold; }
         
-        /* الزر الرابع المنفصل مع الشعار المطابق تماماً */
         .plotcraft-nav-square {
             background-color: #161b22;
             border: 1px solid #30363d;
@@ -1245,16 +1249,17 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة الزر الرابع المنفصل (مطابقة للصورة التي أرسلتها) -->
+    <!-- واجهة الزر الرابع المنفصل (محدثة مع الأيقونات في اليسار، وزر ترقية في اليسار) -->
     <div id="sparkleDialogScreen" class="screen-view">
         <div class="sparkle-top-bar">
-            <div class="sparkle-upgrade-badge" onclick="switchScreen('subscriptionScreen', event)">ترقية</div>
-            <div class="brand-title">Plotcraft</div>
+            <!-- زر إغلاق (✕) على اليمين -->
             <button class="sparkle-close-btn" onclick="switchScreen('homeScreen', event)">✕</button>
+            <div class="brand-title">Plotcraft</div>
+            <!-- زر ترقية في اليسار تماماً كما طلبت -->
+            <div class="sparkle-upgrade-badge" onclick="switchScreen('subscriptionScreen', event)">ترقية</div>
         </div>
 
         <div class="sparkle-center-content">
-            <!-- أيقونة النجمة المبتسمة المضيئة المطابقة للصورة تماماً -->
             <svg class="sparkle-icon-svg" viewBox="0 0 24 24">
                 <path d="M12 2C12 7.5 16.5 12 22 12C16.5 12 12 16.5 12 22C12 16.5 7.5 12 2 12C7.5 12 12 7.5 12 2Z"/>
                 <circle cx="9" cy="10" r="1" fill="#0b0f19"/>
@@ -1265,27 +1270,31 @@ html_code = """
             <div class="sparkle-greeting-text">طاب مساؤك، أيها المخرج<br>أي قصة سنصنع اليوم؟</div>
 
             <div class="sparkle-rect-cards-container">
-                <!-- البطاقة المستطيلة الأولى: خطوة بخطوة -->
+                <!-- البطاقة الأولى: خطوة بخطوة (السهم في اليسار) -->
                 <div class="sparkle-rect-card" onclick="switchScreen('stepByStepScreen', event)">
                     <div class="sparkle-rect-right">
-                        <div class="sparkle-card-icon-box">↗</div>
-                        <div class="sparkle-card-titles">
+                        <div class="sparkle-card-titles" style="text-align: right;">
                             <div class="sparkle-card-main-title">خطوة بخطوة</div>
                             <div class="sparkle-card-sub-title">راجع كل خطوة</div>
                         </div>
                     </div>
+                    <div class="sparkle-rect-left">
+                        <div class="sparkle-card-icon-box">↗</div>
+                    </div>
                 </div>
 
-                <!-- البطاقة المستطيلة الثانية: سريع -->
+                <!-- البطاقة الثانية: سريع (القفل في اليسار) -->
                 <div class="sparkle-rect-card" onclick="handleSpeedCardClick(event)">
                     <div style="display: flex; flex-direction: column; width: 100%; gap: 10px;">
                         <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                             <div class="sparkle-rect-right">
-                                <div class="sparkle-card-icon-box" id="speedLockIconBox">🔒</div>
-                                <div class="sparkle-card-titles">
+                                <div class="sparkle-card-titles" style="text-align: right;">
                                     <div class="sparkle-card-main-title">سريع</div>
                                     <div class="sparkle-card-sub-title">إدخال واحد، فيديو كامل</div>
                                 </div>
+                            </div>
+                            <div class="sparkle-rect-left">
+                                <div class="sparkle-card-icon-box" id="speedLockIconBox">🔒</div>
                             </div>
                         </div>
                         <div class="sparkle-pro-lock-box" id="sparkleProMsgBox">
@@ -1584,8 +1593,8 @@ html_code = """
         </div>
     </div>
 
-    <!-- شريط التنقل السفلي الثابت -->
-    <div class="plotcraft-nav-bar">
+    <!-- شريط التنقل السفلي الثابت (يختفي تماماً عند فتح شاشة النجمة المنفصلة) -->
+    <div class="plotcraft-nav-bar" id="mainNavBar">
         <div class="plotcraft-nav-pill">
             <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="switchScreen('homeScreen', event); setActiveNav('navHome')">
                 <span>الرئيسية</span>
@@ -1601,8 +1610,7 @@ html_code = """
             </a>
         </div>
 
-        <!-- الزر الرابع المنفصل الذي يفتح شاشة النجمة تماماً كالـ Dialog في الصورة -->
-        <div class="plotcraft-nav-square" onclick="switchScreen('sparkleDialogScreen', event)" title="إنشاء سريع">
+        <div class="plotcraft-nav-square" onclick="openSparkleDialog(event)" title="إنشاء سريع">
             <svg width="26" height="26" viewBox="0 0 24 24">
                 <rect x="3" y="6" width="14" height="12" rx="3" fill="#94a3b8"/>
                 <path d="M14 6h3c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2h-3V6z" fill="#64748b"/>
@@ -1626,7 +1634,22 @@ html_code = """
             var screens = document.querySelectorAll('.screen-view');
             screens.forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
+            
+            // إعادة إظهار الشريط السفلي عند الانتقال لأي صفحة عادية
+            var navBar = document.getElementById('mainNavBar');
+            if (screenId === 'sparkleDialogScreen') {
+                navBar.classList.add('hidden');
+            } else {
+                navBar.classList.remove('hidden');
+            }
+            
             window.scrollTo(0, 0);
+        }
+
+        function openSparkleDialog(event) {
+            switchScreen('sparkleDialogScreen', event);
+            // إخفاء الشريط السفلي بالكامل عند فتح القائمة المنفصلة
+            document.getElementById('mainNavBar').classList.add('hidden');
         }
 
         function setActiveNav(navId) {
