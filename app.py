@@ -157,18 +157,8 @@ html_code = """
             width: 22px;
             height: 22px;
             background: #dbeafe;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1 z"/></svg>') no-repeat center;
+            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>') no-repeat center;
             -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1 z"/></svg>') no-repeat center;
-            background-size: contain;
-        }
-
-        /* تخصيص أيقونة السرعة/الإشارة المطابقة للصورة الثانية وموضعتها على اليسار */
-        .speed-custom-icon {
-            width: 22px;
-            height: 22px;
-            background: #ffffff;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 14l3-3m0 0l3 3m-3-3v8"/><path d="M12 6c3.3 0 6 2.7 6 6s-2.7 6-6 6"/><path d="M15 3c4.97 0 9 4.03 9 9s-4.03 9-9 9"/></svg>') no-repeat center;
-            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 14l3-3m0 0l3 3m-3-3v8"/><path d="M12 6c3.3 0 6 2.7 6 6s-2.7 6-6 6"/><path d="M15 3c4.97 0 9 4.03 9 9s-4.03 9-9 9"/></svg>') no-repeat center;
             background-size: contain;
         }
 
@@ -177,6 +167,14 @@ html_code = """
             justify-content: space-between;
             align-items: center;
             width: 100%;
+        }
+
+        .magic-wand-icon {
+            width: 22px;
+            height: 22px;
+            background: #dbeafe;
+            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.5 5.6c-.3-.3-.8-.3-1.1 0-.3.3-.3.8 0 1.1 1.2 1.2 1.9 2.8 1.9 4.5 0 1.7-.7 3.3-1.9 4.5-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 1.5-1.5 2.3-3.5 2.3-5.6s-.8-4.1-2.3-5.6zm4.3-2.3c-.3-.3-.8-.3-1.1 0-.3.3-.3.8 0 1.1 2.2 2.2 3.4 5.1 3.4 8.2s-1.2 6-3.4 8.2c-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 2.6-2.6 4-6 4-9.3s-1.4-6.7-4-9.3zm4.4-2.3c-.3-.3-.8-.3-1.1 0-.3.3-.3.8 0 1.1 3.1 3.1 4.9 7.3 4.9 11.6s-1.8 8.5-4.9 11.6c-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 3.5-3.5 5.4-8.1 5.4-12.7s-1.9-9.2-5.4-12.7zm-7.6 15.6l-8.5 8.5c-.4.4-.4 1 0 1.4s1 .4 1.4 0l8.5-8.5c.4-.4.4-1 0-1.4s-1-.4-1.4 0zm11.4-11.4l-3.5 3.5c-.4.4-.4 1 0 1.4s1 .4 1.4 0l3.5-3.5c.4-.4.4-1 0-1.4s-1-.4-1.4 0zm-15 3.5l-3.5 3.5c-.4.4-.4 1 0 1.4s1 .4 1.4 0l3.5-3.5c.4-.4.4-1 0-1.4s-1-.4-1.4 0z"/></svg>') no-repeat center;
+            background-size: contain;
         }
 
         .inspiration-section {
@@ -413,106 +411,7 @@ html_code = """
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
         }
 
-        /* واجهة صفحة الأدوات الجديدة */
-        #toolsScreen { background: #0b0f19; overflow-y: auto; }
-        .tools-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px;
-            background: rgba(11, 15, 25, 0.85);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-        .tools-header-title {
-            color: #ffffff;
-            font-size: 20px;
-            font-weight: 700;
-        }
-        .tools-upgrade-btn {
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 6px 14px;
-            border-radius: 20px;
-            color: #ffffff;
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .tools-upgrade-btn:active {
-            transform: scale(0.95);
-        }
-        .tools-body {
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        .tool-card-item {
-            position: relative;
-            width: 100%;
-            height: 180px;
-            border-radius: 20px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 18px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.1);
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .tool-card-item:active {
-            transform: scale(0.98);
-        }
-        .tool-card-1 {
-            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%),
-                        url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop') center/cover no-repeat;
-        }
-        .tool-card-2 {
-            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%),
-                        url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop') center/cover no-repeat;
-        }
-        .tool-card-3 {
-            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%),
-                        url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop') center/cover no-repeat;
-        }
-        .tool-info-box {
-            position: relative;
-            z-index: 2;
-        }
-        .tool-main-title {
-            color: #ffffff;
-            font-size: 17px;
-            font-weight: 700;
-            margin-bottom: 4px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-        }
-        .tool-sub-desc {
-            color: #cbd5e1;
-            font-size: 12px;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
-        }
-        .tool-arrow-icon {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: bold;
-            background: rgba(0,0,0,0.4);
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(5px);
-        }
-
-        /* واجهة صفحة الاشتراكات */
+        /* واجهة صفحة الاشتراكات (افتتاحية الآن) */
         #subscriptionScreen { background: #0b0f19; overflow-y: auto; position: relative; }
         .animated-bg-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; opacity: 0.35; pointer-events: none; }
         .explosion-glow { position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(59,130,246,0.6) 0%, rgba(139,92,246,0.2) 50%, transparent 70%); border-radius: 50%; animation: pulseExplosion 4s infinite alternate ease-in-out; }
@@ -535,6 +434,12 @@ html_code = """
         .new-tag { position: absolute; top: 12px; left: 12px; background: #3b82f6; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
         .best-value-tag { position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg, #f59e0b, #ec4899); color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
         .action-main-btn { width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 20px; border: none; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); margin-top: 10px; }
+        
+        .payment-form-box { display: flex; flex-direction: column; gap: 14px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-label { color: #cbd5e1; font-size: 13px; font-weight: 600; }
+        .form-input { width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 12px 14px; color: #ffffff; font-size: 14px; outline: none; text-align: right; }
+        .form-row { display: flex; gap: 10px; }
 
         /* شريط التنقل السفلي المدمج */
         .plotcraft-nav-bar {
@@ -592,11 +497,11 @@ html_code = """
 <body>
 
     <!-- الواجهة الرئيسية -->
-    <div id="homeScreen" class="screen-view active">
+    <div id="homeScreen" class="screen-view">
         <div class="hero-box">
             <div class="top-header">
                 <div class="brand-title">PlotCraft</div>
-                <div class="upgrade-badge" onclick="switchScreen('subscriptionScreen', event)">
+                <div class="upgrade-badge" onclick="switchScreen('subscriptionScreen')">
                     <span>⭐</span> ترقية
                 </div>
             </div>
@@ -606,7 +511,7 @@ html_code = """
             </div>
 
             <div class="cards-row">
-                <div class="interactive-card" onclick="switchScreen('stepByStepScreen', event)">
+                <div class="interactive-card" onclick="switchScreen('stepByStepScreen')">
                     <div class="card-header-row">
                         <div class="card-title-group-left">
                             <div class="card-title">خطوة بخطوة</div>
@@ -616,12 +521,11 @@ html_code = """
                     <div class="card-subtitle">راجع كل خطوة</div>
                 </div>
 
-                <div class="interactive-card" onclick="switchScreen('subscriptionScreen', event)">
+                <div class="interactive-card" onclick="switchScreen('subscriptionScreen')">
                     <div class="card-header-row">
-                        <!-- تم وضع الأيقونة الجديدة بجانب كلمة سريع وفي جهة اليسار هنا -->
                         <div class="card-title-group-left">
                             <div class="card-title">سريع</div>
-                            <span class="speed-custom-icon"></span>
+                            <span class="magic-wand-icon"></span>
                         </div>
                     </div>
                     <div class="card-subtitle">إدخال واحد، فيديو كامل</div>
@@ -643,44 +547,10 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة صفحة "الأدوات" -->
-    <div id="toolsScreen" class="screen-view">
-        <div class="tools-header">
-            <div class="tools-header-title">الأدوات</div>
-            <div class="tools-upgrade-btn" onclick="switchScreen('subscriptionScreen', event)">ترقية</div>
-        </div>
-
-        <div class="tools-body">
-            <div class="tool-card-item tool-card-1" onclick="alert('تم اختيار: تأثيرات الفيديو')">
-                <div class="tool-arrow-icon">‹</div>
-                <div class="tool-info-box">
-                    <div class="tool-main-title">تأثيرات الفيديو</div>
-                    <div class="tool-sub-desc">أضف لمسة سينمائية</div>
-                </div>
-            </div>
-
-            <div class="tool-card-item tool-card-2" onclick="alert('تم اختيار: توليد الفيديو')">
-                <div class="tool-arrow-icon">‹</div>
-                <div class="tool-info-box">
-                    <div class="tool-main-title">توليد الفيديو</div>
-                    <div class="tool-sub-desc">حول توجيهاً إلى فيديو خاص بك</div>
-                </div>
-            </div>
-
-            <div class="tool-card-item tool-card-3" onclick="alert('تم اختيار: توليد الصور')">
-                <div class="tool-arrow-icon">‹</div>
-                <div class="tool-info-box">
-                    <div class="tool-main-title">توليد الصور</div>
-                    <div class="tool-sub-desc">حول فكرة إلى صورة مكتملة</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- واجهة تفاصيل "خطوة بخطوة" -->
     <div id="stepByStepScreen" class="screen-view">
         <div class="page-header">
-            <button class="back-btn" onclick="switchScreen('homeScreen', event)">✕</button>
+            <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
             <div class="page-title-text">PlotCraft</div>
             <div style="width: 36px;"></div>
         </div>
@@ -731,15 +601,16 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة صفحة الاشتراكات -->
-    <div id="subscriptionScreen" class="screen-view">
+    <!-- واجهة صفحة الاشتراكات (تظهر أولاً عند فتح الموقع) -->
+    <div id="subscriptionScreen" class="screen-view active">
         <div class="animated-bg-container">
             <div class="explosion-glow glow-1"></div>
             <div class="explosion-glow glow-2"></div>
         </div>
 
         <div class="page-header">
-            <button class="back-btn" onclick="switchScreen('homeScreen', event)">✕</button>
+            <!-- زر الـ (X) للإغلاق والانتقال فوراً للواجهة الرئيسية -->
+            <button class="back-btn" onclick="switchScreen('homeScreen')">✕</button>
             <div class="page-title-text">ترقية الحساب</div>
             <div style="width: 36px;"></div>
         </div>
@@ -751,6 +622,7 @@ html_code = """
             </div>
 
             <div class="plans-list">
+                <!-- الاشتراك الأسبوعي -->
                 <div class="plan-card selected" onclick="selectPlan(this)">
                     <div class="plan-top">
                         <div class="plan-name">PlotCraft Pro Weekly</div>
@@ -759,6 +631,7 @@ html_code = """
                     <div class="plan-desc">500 نقطة / أسبوعياً، جرب PlotCraft</div>
                 </div>
 
+                <!-- الاشتراك الشهري -->
                 <div class="plan-card" onclick="selectPlan(this)">
                     <div class="new-tag">جديد</div>
                     <div class="plan-top">
@@ -768,6 +641,7 @@ html_code = """
                     <div class="plan-desc">1800 نقطة / شهرياً، مثالي للمبدعين</div>
                 </div>
 
+                <!-- الاشتراك السنوي -->
                 <div class="plan-card" onclick="selectPlan(this)">
                     <div class="best-value-tag">الأفضل قيمة</div>
                     <div class="plan-top">
@@ -778,47 +652,71 @@ html_code = """
                 </div>
             </div>
 
-            <button class="action-main-btn" onclick="confirmSubscription()">اشتراك</button>
+            <button class="action-main-btn" onclick="switchScreen('paymentScreen')">اشتراك</button>
+        </div>
+    </div>
+
+    <!-- واجهة تفاصيل الدفع البنكي -->
+    <div id="paymentScreen" class="screen-view">
+        <div class="page-header">
+            <button class="back-btn" onclick="switchScreen('subscriptionScreen')">←</button>
+            <div class="page-title-text">تفاصيل الدفع البنكي</div>
+            <div style="width: 36px;"></div>
+        </div>
+
+        <div class="content-body">
+            <div class="payment-form-box">
+                <div class="form-group">
+                    <label class="form-label">اسم البطاقة البنكية</label>
+                    <input type="text" class="form-input" placeholder="الاسم كما يظهر على البطاقة">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">رقم البطاقة البنكية</label>
+                    <input type="text" class="form-input" placeholder="**** **** **** ****" maxlength="19">
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="flex: 1;">
+                        <label class="form-label">تاريخ الانتهاء</label>
+                        <input type="text" class="form-input" placeholder="MM/YY" maxlength="5">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label class="form-label">رمز البطاقة (CVV)</label>
+                        <input type="password" class="form-input" placeholder="***" maxlength="4">
+                    </div>
+                </div>
+                <button class="action-main-btn" onclick="confirmPayment()" style="margin-top: 15px;">تأكيد وإتمام الاشتراك</button>
+            </div>
         </div>
     </div>
 
     <!-- شريط التنقل السفلي الثابت -->
     <div class="plotcraft-nav-bar">
         <div class="plotcraft-nav-pill">
-            <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="switchScreen('homeScreen', event); setActiveNav('navHome')">
+            <a href="#" class="plotcraft-nav-item active" onclick="switchScreen('homeScreen')">
                 <span>الرئيسية</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
             </a>
-            <a href="#" class="plotcraft-nav-item" id="navTools" onclick="switchScreen('toolsScreen', event); setActiveNav('navTools')">
+            <a href="#" class="plotcraft-nav-item">
                 <span>الأدوات</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
             </a>
-            <a href="#" class="plotcraft-nav-item" id="navWorks" onclick="switchScreen('homeScreen', event); setActiveNav('navWorks')">
+            <a href="#" class="plotcraft-nav-item">
                 <span>الأعمال</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path></svg>
             </a>
         </div>
 
-        <div class="plotcraft-nav-square" onclick="switchScreen('homeScreen', event)">
+        <div class="plotcraft-nav-square">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg>
         </div>
     </div>
 
     <script>
-        function switchScreen(screenId, event) {
-            if (event) {
-                event.preventDefault();
-            }
+        function switchScreen(screenId) {
             var screens = document.querySelectorAll('.screen-view');
             screens.forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
             window.scrollTo(0, 0);
-        }
-
-        function setActiveNav(navId) {
-            var items = document.querySelectorAll('.plotcraft-nav-item');
-            items.forEach(i => i.classList.remove('active'));
-            document.getElementById(navId).classList.add('active');
         }
 
         function selectPlan(element) {
@@ -844,8 +742,8 @@ html_code = """
             box.classList.toggle('show');
         }
 
-        function confirmSubscription() {
-            alert('تم تأكيد طلب الاشتراك! سيتم الآن فتح نظام الدفع الرسمي الخاص متجر التطبيقات.');
+        function confirmPayment() {
+            alert('تم تأكيد اشتراكك في PlotCraft بنجاح!');
             switchScreen('homeScreen');
         }
     </script>
