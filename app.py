@@ -198,6 +198,7 @@ html_code = """
         .view-all {
             color: #94a3b8;
             font-size: 13px;
+            cursor: pointer;
         }
 
         .movies-carousel {
@@ -511,7 +512,122 @@ html_code = """
             backdrop-filter: blur(5px);
         }
 
-        /* --- تصميم شاشة تفاصيل "توليد الفيديو" المحدثة (تحتوي عناصر توليد الصور) --- */
+        /* --- واجهة تأثيرات الفيديو (القسم المضاف بناءً على طلبك) --- */
+        #videoEffectsScreen { background: #0b0f19; overflow-y: auto; padding-bottom: 80px; }
+        .fx-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .fx-back-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 22px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .fx-title {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .fx-body {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .fx-section-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .fx-sec-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .fx-sec-title {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+        }
+        .fx-view-all {
+            color: #3b82f6;
+            font-size: 13px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .fx-grid-horizontal {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+            scrollbar-width: none;
+        }
+        .fx-grid-horizontal::-webkit-scrollbar { display: none; }
+        
+        .fx-card-item {
+            min-width: 110px;
+            height: 150px;
+            background: #141824;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 10px;
+            position: relative;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: 0.2s;
+        }
+        .fx-card-item:active { transform: scale(0.96); }
+        .fx-card-label {
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        /* شاشات عرض الكل (8 عناصر لكل قسم) */
+        #coolMeAllScreen, #imageEffectsAllScreen { background: #0b0f19; overflow-y: auto; padding-bottom: 80px; }
+        .grid-container-8 {
+            padding: 16px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+        .grid-item-card {
+            background: #141824;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 12px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        /* ---------------------------------------------------- */
+
+        /* واجهة تفاصيل "توليد الفيديو" المحدثة */
         #videoGenScreen {
             background: #0b0f19;
             overflow-y: auto;
@@ -626,7 +742,6 @@ html_code = """
             color: #fff;
         }
         
-        /* قسم رفع صورة مرجعية والشخصيات داخل بطاقة توليد الفيديو */
         .upload-box-center {
             background: #1a2030;
             border: 1px dashed rgba(255,255,255,0.15);
@@ -666,9 +781,7 @@ html_code = """
             scrollbar-width: none;
             direction: rtl;
         }
-        .cast-row::-webkit-scrollbar {
-            display: none;
-        }
+        .cast-row::-webkit-scrollbar { display: none; }
         .cast-thumb {
             width: 55px;
             height: 55px;
@@ -693,11 +806,8 @@ html_code = """
             flex-shrink: 0;
             gap: 2px;
         }
-        .cast-add-text {
-            font-size: 10px;
-        }
+        .cast-add-text { font-size: 10px; }
 
-        /* نسبة العرض إلى الارتفاع */
         .ratio-options-row {
             display: flex;
             gap: 10px;
@@ -726,7 +836,6 @@ html_code = """
             box-shadow: 0 0 10px rgba(59,130,246,0.3);
         }
 
-        /* زر الإنشاء السفلي الثابت لشاشة توليد الفيديو */
         .vid-gen-bottom-bar {
             position: fixed;
             bottom: 20px;
@@ -748,10 +857,7 @@ html_code = """
             box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
             transition: 0.2s;
         }
-        .vid-gen-submit-btn:active {
-            transform: scale(0.98);
-        }
-        /* ---------------------------------------------------- */
+        .vid-gen-submit-btn:active { transform: scale(0.98); }
 
         /* واجهة صفحة الاشتراكات */
         #subscriptionScreen { background: #0b0f19; overflow-y: auto; position: relative; }
@@ -891,7 +997,8 @@ html_code = """
         </div>
 
         <div class="tools-body">
-            <div class="tool-card-item tool-card-1" onclick="alert('تم اختيار: تأثيرات الفيديو')">
+            <!-- بطاقة تأثيرات الفيديو (عند الضغط عليها تفتح واجهة التأثيرات الجديدة بالكامل) -->
+            <div class="tool-card-item tool-card-1" onclick="switchScreen('videoEffectsScreen', event)">
                 <div class="tool-arrow-icon">‹</div>
                 <div class="tool-info-box">
                     <div class="tool-main-title">تأثيرات الفيديو</div>
@@ -918,7 +1025,92 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة تفاصيل "توليد الفيديو" المحدثة (تتضمن التوجيه، الصورة المرجعية، ونسبة العرض للارتفاع) -->
+    <!-- واجهة تأثيرات الفيديو بداخل الأدوات (تتضمن قسمي Cool Me و Image Effects مع 8 عناصر لكل قسم) -->
+    <div id="videoEffectsScreen" class="screen-view">
+        <div class="fx-header">
+            <button class="fx-back-btn" onclick="switchScreen('toolsScreen', event)">‹</button>
+            <div class="fx-title">تأثيرات الفيديو</div>
+            <div style="width: 32px;"></div>
+        </div>
+
+        <div class="fx-body">
+            <!-- قسم Cool Me -->
+            <div class="fx-section-group">
+                <div class="fx-sec-header">
+                    <div class="fx-sec-title">Cool Me</div>
+                    <div class="fx-view-all" onclick="switchScreen('coolMeAllScreen', event)">عرض الكل ></div>
+                </div>
+                <div class="fx-grid-horizontal">
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Cyber Neon</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Royal Gold</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Anime Fantasy</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Dark Noir</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Vintage Film</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Matrix Code</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Cyberpunk</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Future Glow</div></div>
+                </div>
+            </div>
+
+            <!-- قسم Image Effects -->
+            <div class="fx-section-group">
+                <div class="fx-sec-header">
+                    <div class="fx-sec-title">Image Effects</div>
+                    <div class="fx-view-all" onclick="switchScreen('imageEffectsAllScreen', event)">عرض الكل ></div>
+                </div>
+                <div class="fx-grid-horizontal">
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Glitch FX</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Lens Flare</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Cinematic Blur</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">HDR Boost</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Color Grading</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Prism Light</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">VHS Retro</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Dreamy Glow</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- شاشة عرض الكل لـ Cool Me (تحتوي على 8 عناصر عمودية منفصلة) -->
+    <div id="coolMeAllScreen" class="screen-view">
+        <div class="fx-header">
+            <button class="fx-back-btn" onclick="switchScreen('videoEffectsScreen', event)">‹</button>
+            <div class="fx-title">Cool Me - جميع التأثيرات</div>
+            <div style="width: 32px;"></div>
+        </div>
+        <div class="grid-container-8">
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Cyber Neon</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Royal Gold</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Anime Fantasy</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Dark Noir</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Vintage Film</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Matrix Code</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Cyberpunk</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Future Glow</div></div>
+        </div>
+    </div>
+
+    <!-- شاشة عرض الكل لـ Image Effects (تحتوي على 8 عناصر عمودية منفصلة) -->
+    <div id="imageEffectsAllScreen" class="screen-view">
+        <div class="fx-header">
+            <button class="fx-back-btn" onclick="switchScreen('videoEffectsScreen', event)">‹</button>
+            <div class="fx-title">Image Effects - جميع التأثيرات</div>
+            <div style="width: 32px;"></div>
+        </div>
+        <div class="grid-container-8">
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Glitch FX</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Lens Flare</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Cinematic Blur</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">HDR Boost</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Color Grading</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Prism Light</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">VHS Retro</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Dreamy Glow</div></div>
+        </div>
+    </div>
+
+    <!-- واجهة تفاصيل "توليد الفيديو" المحدثة -->
     <div id="videoGenScreen" class="screen-view">
         <div class="vid-gen-header">
             <button class="vid-gen-back-btn" onclick="switchScreen('toolsScreen', event)">‹</button>
@@ -927,7 +1119,6 @@ html_code = """
         </div>
 
         <div class="vid-gen-body">
-            <!-- صندوق التوجيه (Prompt) -->
             <div class="vid-gen-card">
                 <div class="vid-gen-card-header">التوجيه</div>
                 <textarea class="vid-prompt-textarea" placeholder="صف المشهد للفيديو: الشخصيات، المزاج، المكان، وأسلوب اللقطة..."></textarea>
@@ -941,7 +1132,6 @@ html_code = """
                 </div>
             </div>
 
-            <!-- إضافة صورة مرجعية والشخصيات الجديدة المتنوعة -->
             <div class="vid-gen-card">
                 <div class="vid-gen-card-header">إضافة صورة مرجعية</div>
                 <div class="upload-box-center" onclick="alert('فتح استوديو الصور للرفع')">
@@ -953,7 +1143,6 @@ html_code = """
                         <span>+</span>
                         <span class="cast-add-text">الدور</span>
                     </div>
-                    <!-- صور شخصيات منوعة وجديدة كلياً -->
                     <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&auto=format&fit=crop" class="cast-thumb">
                     <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150&auto=format&fit=crop" class="cast-thumb">
                     <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=150&auto=format&fit=crop" class="cast-thumb">
@@ -961,7 +1150,6 @@ html_code = """
                 </div>
             </div>
 
-            <!-- نسبة العرض إلى الارتفاع -->
             <div class="vid-gen-card">
                 <div class="vid-gen-card-header">نسبة العرض إلى الارتفاع</div>
                 <div class="ratio-options-row">
@@ -971,7 +1159,6 @@ html_code = """
             </div>
         </div>
 
-        <!-- زر الإنشاء في الأسفل -->
         <div class="vid-gen-bottom-bar">
             <button class="vid-gen-submit-btn" onclick="alert('جاري بدء عملية توليد الفيديو...')">إنشاء</button>
         </div>
