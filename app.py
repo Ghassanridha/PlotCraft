@@ -512,7 +512,7 @@ html_code = """
             backdrop-filter: blur(5px);
         }
 
-        /* --- واجهة تأثيرات الفيديو (القسم المضاف بناءً على طلبك) --- */
+        /* --- واجهة تأثيرات الفيديو (صور حديثة، واقعية، وفريدة كلياً) --- */
         #videoEffectsScreen { background: #0b0f19; overflow-y: auto; padding-bottom: 80px; }
         .fx-header {
             display: flex;
@@ -604,7 +604,7 @@ html_code = """
             text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
-        /* شاشات عرض الكل (8 عناصر لكل قسم) */
+        /* شاشات عرض الكل (8 عناصر فريدة كلياً لكل قسم) */
         #coolMeAllScreen, #imageEffectsAllScreen { background: #0b0f19; overflow-y: auto; padding-bottom: 80px; }
         .grid-container-8 {
             padding: 16px;
@@ -997,7 +997,7 @@ html_code = """
         </div>
 
         <div class="tools-body">
-            <!-- بطاقة تأثيرات الفيديو (عند الضغط عليها تفتح واجهة التأثيرات الجديدة بالكامل) -->
+            <!-- بطاقة تأثيرات الفيديو -->
             <div class="tool-card-item tool-card-1" onclick="switchScreen('videoEffectsScreen', event)">
                 <div class="tool-arrow-icon">‹</div>
                 <div class="tool-info-box">
@@ -1006,7 +1006,7 @@ html_code = """
                 </div>
             </div>
 
-            <!-- بطاقة توليد الفيديو المحدثة لتشمل عناصر توليد الصور -->
+            <!-- بطاقة توليد الفيديو المحدثة -->
             <div class="tool-card-item tool-card-2" onclick="switchScreen('videoGenScreen', event)">
                 <div class="tool-arrow-icon">‹</div>
                 <div class="tool-info-box">
@@ -1025,7 +1025,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة تأثيرات الفيديو بداخل الأدوات (تتضمن قسمي Cool Me و Image Effects مع 8 عناصر لكل قسم) -->
+    <!-- واجهة تأثيرات الفيديو (صور واقعية وحديثة وفريدة كلياً 8 عناصر لكل قسم) -->
     <div id="videoEffectsScreen" class="screen-view">
         <div class="fx-header">
             <button class="fx-back-btn" onclick="switchScreen('toolsScreen', event)">‹</button>
@@ -1034,7 +1034,7 @@ html_code = """
         </div>
 
         <div class="fx-body">
-            <!-- قسم Cool Me -->
+            <!-- قسم Cool Me (8 صور فريدة ومختلفة تماماً) -->
             <div class="fx-section-group">
                 <div class="fx-sec-header">
                     <div class="fx-sec-title">Cool Me</div>
@@ -1052,27 +1052,27 @@ html_code = """
                 </div>
             </div>
 
-            <!-- قسم Image Effects -->
+            <!-- قسم Image Effects (8 صور فريدة ومختلفة تماماً) -->
             <div class="fx-section-group">
                 <div class="fx-sec-header">
                     <div class="fx-sec-title">Image Effects</div>
                     <div class="fx-view-all" onclick="switchScreen('imageEffectsAllScreen', event)">عرض الكل ></div>
                 </div>
                 <div class="fx-grid-horizontal">
-                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Glitch FX</div></div>
-                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Lens Flare</div></div>
-                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Cinematic Blur</div></div>
-                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">HDR Boost</div></div>
-                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Color Grading</div></div>
-                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Prism Light</div></div>
-                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">VHS Retro</div></div>
-                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Dreamy Glow</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Glitch FX</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Lens Flare</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Cinematic Blur</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">HDR Boost</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Color Grading</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Prism Light</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">VHS Retro</div></div>
+                    <div class="fx-card-item" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1508739773434-c26b3d09e071?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Dreamy Glow</div></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- شاشة عرض الكل لـ Cool Me (تحتوي على 8 عناصر عمودية منفصلة) -->
+    <!-- شاشة عرض الكل لـ Cool Me (8 صور فريدة ومختلفة تماماً) -->
     <div id="coolMeAllScreen" class="screen-view">
         <div class="fx-header">
             <button class="fx-back-btn" onclick="switchScreen('videoEffectsScreen', event)">‹</button>
@@ -1091,7 +1091,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- شاشة عرض الكل لـ Image Effects (تحتوي على 8 عناصر عمودية منفصلة) -->
+    <!-- شاشة عرض الكل لـ Image Effects (8 صور فريدة ومختلفة تماماً) -->
     <div id="imageEffectsAllScreen" class="screen-view">
         <div class="fx-header">
             <button class="fx-back-btn" onclick="switchScreen('videoEffectsScreen', event)">‹</button>
@@ -1099,14 +1099,14 @@ html_code = """
             <div style="width: 32px;"></div>
         </div>
         <div class="grid-container-8">
-            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Glitch FX</div></div>
-            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Lens Flare</div></div>
-            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Cinematic Blur</div></div>
-            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">HDR Boost</div></div>
-            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Color Grading</div></div>
-            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Prism Light</div></div>
-            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">VHS Retro</div></div>
-            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Dreamy Glow</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Glitch FX</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Lens Flare</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Cinematic Blur</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">HDR Boost</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Color Grading</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Prism Light</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">VHS Retro</div></div>
+            <div class="grid-item-card" style="background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1508739773434-c26b3d09e071?q=80&w=300&auto=format&fit=crop') center/cover;"><div class="fx-card-label">Dreamy Glow</div></div>
         </div>
     </div>
 
