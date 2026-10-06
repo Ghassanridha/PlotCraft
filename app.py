@@ -1249,13 +1249,13 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة الزر الرابع المنفصل (محدثة مع الأيقونات في اليسار، وزر ترقية في اليسار) -->
+    <!-- واجهة الزر الرابع المنفصل (تفتح أيضاً عند النقر على "إنشاء قصة" في الأعمال) -->
     <div id="sparkleDialogScreen" class="screen-view">
         <div class="sparkle-top-bar">
             <!-- زر إغلاق (✕) على اليمين -->
             <button class="sparkle-close-btn" onclick="switchScreen('homeScreen', event)">✕</button>
             <div class="brand-title">Plotcraft</div>
-            <!-- زر ترقية في اليسار تماماً كما طلبت -->
+            <!-- زر ترقية في اليسار -->
             <div class="sparkle-upgrade-badge" onclick="switchScreen('subscriptionScreen', event)">ترقية</div>
         </div>
 
@@ -1349,7 +1349,8 @@ html_code = """
         <div class="works-empty-content">
             <div class="works-box-icon"></div>
             <div class="works-empty-text-sub">ستظهر هنا مشاريع القصة الخاصة بك.</div>
-            <button class="works-create-btn" onclick="switchScreen('stepByStepScreen', event)">إنشاء قصة</button>
+            <!-- عند الضغط على إنشاء قصة، سيتم فتح تصميم الشاشة المنفصلة مباشرة كما طلبت حصراً -->
+            <button class="works-create-btn" onclick="openSparkleDialog(event)">إنشاء قصة</button>
         </div>
     </div>
 
@@ -1593,7 +1594,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- شريط التنقل السفلي الثابت (يختفي تماماً عند فتح شاشة النجمة المنفصلة) -->
+    <!-- شريط التنقل السفلي الثابت -->
     <div class="plotcraft-nav-bar" id="mainNavBar">
         <div class="plotcraft-nav-pill">
             <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="switchScreen('homeScreen', event); setActiveNav('navHome')">
@@ -1635,7 +1636,6 @@ html_code = """
             screens.forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
             
-            // إعادة إظهار الشريط السفلي عند الانتقال لأي صفحة عادية
             var navBar = document.getElementById('mainNavBar');
             if (screenId === 'sparkleDialogScreen') {
                 navBar.classList.add('hidden');
@@ -1648,7 +1648,6 @@ html_code = """
 
         function openSparkleDialog(event) {
             switchScreen('sparkleDialogScreen', event);
-            // إخفاء الشريط السفلي بالكامل عند فتح القائمة المنفصلة
             document.getElementById('mainNavBar').classList.add('hidden');
         }
 
