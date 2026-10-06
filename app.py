@@ -1495,5 +1495,5 @@ html_code = """
 </html>
 """
 
-# تم تعديل الارتفاع إلى 660 بناءً على طلبك
-components.html(html_code, height=660, scrolling=True)
+# تم تعديل الارتفاع إلى 670 بناءً على طلبك
+components.html(html_code, height=670, scrolling=True)
