@@ -29,6 +29,7 @@ html_code = """
             margin: 0;
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body, html {
@@ -264,7 +265,7 @@ html_code = """
             line-height: 1.2;
         }
 
-        /* --- واجهة الأعمال المستخرجة من الصورة --- */
+        /* --- واجهة الأعمال (مع تعديل التبويبات وإزالة اللون الثابت المزعج) --- */
         #worksScreen {
             background-color: #0b0f19;
             display: none;
@@ -295,14 +296,18 @@ html_code = """
             font-size: 13px;
             font-weight: 600;
             color: #94a3b8;
+            background: transparent;
             border-radius: 25px;
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.2s ease;
+            user-select: none;
         }
 
+        /* التبويب النشط: خلفية داكنة صافية مع نص أبيض واضح بدون آثار جانبية */
         .works-tab.active {
-            background: #252b3b;
-            color: #ffffff;
+            background: #1e2538 !important;
+            color: #ffffff !important;
+            font-weight: 700;
         }
 
         .works-empty-content {
@@ -1135,11 +1140,11 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة "الأعمال" الجديدة المطابقة للصورة مع التعديلات المطلوبة -->
+    <!-- واجهة "الأعمال" المحدثة بدون ألوان خلفية ثابتة -->
     <div id="worksScreen" class="screen-view">
         <div class="works-tabs-container">
-            <div class="works-tab active">المشاريع</div>
-            <div class="works-tab">مكتبة الوسائط</div>
+            <div class="works-tab active" onclick="switchWorksTab(this)">المشاريع</div>
+            <div class="works-tab" onclick="switchWorksTab(this)">مكتبة الوسائط</div>
         </div>
         <div class="works-empty-content">
             <div class="works-box-icon"></div>
@@ -1430,6 +1435,12 @@ html_code = """
             var items = document.querySelectorAll('.plotcraft-nav-item');
             items.forEach(i => i.classList.remove('active'));
             document.getElementById(navId).classList.add('active');
+        }
+
+        function switchWorksTab(element) {
+            var tabs = document.querySelectorAll('.works-tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
         }
 
         function selectPlan(element) {
