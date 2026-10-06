@@ -528,7 +528,6 @@ html_code = """
             text-align: right;
         }
         
-        /* المربع العلوي الكبير مع ضبط قياس الصورة تماماً لعدم قص الوجه */
         .char-big-upload-box {
             background: #1a2030;
             border: 1px dashed rgba(255,255,255,0.2);
@@ -662,7 +661,7 @@ html_code = """
             box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
         }
 
-        /* قائمة اختيار المصدر: كاميرا باليمين، ألبوم باليسار */
+        /* قائمة اختيار المصدر: كاميرا يمين، ألبوم يسار */
         .source-modal {
             display: none;
             position: fixed;
@@ -724,6 +723,7 @@ html_code = """
         .tool-card-item { position: relative; width: 100%; height: 180px; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; box-shadow: 0 6px 20px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
         .tool-card-1 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop') center/cover no-repeat; }
         .tool-card-2 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop') center/cover no-repeat; }
+        .tool-card-3 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop') center/cover no-repeat; }
         .tool-info-box { position: relative; z-index: 2; }
         .tool-main-title { color: #ffffff; font-size: 17px; font-weight: 700; margin-bottom: 4px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
         .tool-sub-desc { color: #cbd5e1; font-size: 12px; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
@@ -752,6 +752,144 @@ html_code = """
         .new-tag { position: absolute; top: 12px; left: 12px; background: #3b82f6; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
         .best-value-tag { position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg, #f59e0b, #ec4899); color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
         .action-main-btn { width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 20px; border: none; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); margin-top: 10px; }
+
+        /* شاشة الزر الرابع المنفصل */
+        #sparkleDialogScreen {
+            background-color: #0b0f19;
+            display: none;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-y: auto;
+        }
+        #sparkleDialogScreen.active {
+            display: flex;
+        }
+        .sparkle-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 30px;
+            z-index: 2;
+        }
+        .sparkle-upgrade-badge {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 6px 16px;
+            border-radius: 20px;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+        }
+        .sparkle-close-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 20px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .sparkle-center-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            z-index: 2;
+            margin-top: 20px;
+            gap: 20px;
+        }
+        .sparkle-icon-svg {
+            width: 65px;
+            height: 65px;
+            fill: #93c5fd;
+            filter: drop-shadow(0 0 12px rgba(147, 197, 253, 0.5));
+        }
+        .sparkle-greeting-text {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1.5;
+        }
+        .sparkle-rect-cards-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            max-width: 420px;
+            margin-top: 15px;
+        }
+        .sparkle-rect-card {
+            background: rgba(20, 25, 40, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .sparkle-rect-card:active {
+            background: rgba(30, 40, 65, 0.9);
+            transform: scale(0.98);
+        }
+        .sparkle-rect-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .sparkle-rect-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .sparkle-card-icon-box {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 15px;
+        }
+        .sparkle-card-titles {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+            gap: 2px;
+        }
+        .sparkle-card-main-title {
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .sparkle-card-sub-title {
+            color: #94a3b8;
+            font-size: 12px;
+        }
+        .sparkle-pro-lock-box {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #94a3b8;
+            font-size: 12px;
+            margin-top: 4px;
+        }
 
         /* شريط التنقل السفلي الثابت */
         .plotcraft-nav-bar {
@@ -793,6 +931,7 @@ html_code = """
                             <span class="exact-bot-icon"></span>
                         </div>
                     </div>
+                    <!-- تمت إعادة جملة "راجع كل خطوة" هنا بدقة -->
                     <div class="card-subtitle">راجع كل خطوة</div>
                 </div>
 
@@ -807,6 +946,7 @@ html_code = """
                             <span class="speed-custom-icon"></span>
                         </div>
                     </div>
+                    <!-- تمت إعادة جملة "إدخال واحد، فيديو كامل" هنا بدقة -->
                     <div class="card-subtitle" id="speedCardSubtitle">إدخال واحد، فيديو كامل</div>
                 </div>
             </div>
@@ -826,31 +966,60 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة الزر الرابع المنفصل -->
+    <!-- واجهة الزر الرابع المنفصل (تفتح عند النقر على الزر السفلي أو إنشاء قصة) -->
     <div id="sparkleDialogScreen" class="screen-view">
-        <div style="display:flex; justify-content:space-between; align-items:center; width:100%; margin-bottom:30px; z-index:2; padding: 20px;">
-            <button style="background:none; border:none; color:#fff; font-size:20px; cursor:pointer;" onclick="switchScreen('homeScreen', event)">✕</button>
+        <div class="sparkle-top-bar">
+            <button class="sparkle-close-btn" onclick="switchScreen('homeScreen', event)">✕</button>
             <div class="brand-title">Plotcraft</div>
-            <div style="background: rgba(255,255,255,0.15); padding: 6px 16px; border-radius: 20px; color: #fff; font-size: 13px; cursor:pointer;" onclick="switchScreen('subscriptionScreen', event)">ترقية</div>
+            <div class="sparkle-upgrade-badge" onclick="switchScreen('subscriptionScreen', event)">ترقية</div>
         </div>
 
-        <div style="display:flex; flex-direction:column; align-items:center; text-align:center; padding: 0 20px; gap:20px;">
-            <svg width="65" height="65" viewBox="0 0 24 24" fill="#93c5fd"><path d="M12 2C12 7.5 16.5 12 22 12C16.5 12 12 16.5 12 22C12 16.5 7.5 12 2 12C7.5 12 12 7.5 12 2Z"/></svg>
-            <div style="color: #fff; font-size: 20px; font-weight: 700;">طاب مساؤك، أيها المخرج<br>أي قصة سنصنع اليوم؟</div>
-            <div style="display:flex; flex-direction:column; gap:12px; width:100%; max-width:420px;">
-                <div style="background: rgba(20,25,40,0.75); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 16px; display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="switchScreen('stepByStepScreen', event)">
-                    <div style="color:#fff; font-weight:700;">خطوة بخطوة</div>
-                    <div style="color:#94a3b8;">↗</div>
+        <div class="sparkle-center-content">
+            <svg class="sparkle-icon-svg" viewBox="0 0 24 24">
+                <path d="M12 2C12 7.5 16.5 12 22 12C16.5 12 12 16.5 12 22C12 16.5 7.5 12 2 12C7.5 12 12 7.5 12 2Z"/>
+                <circle cx="9" cy="10" r="1" fill="#0b0f19"/>
+                <circle cx="15" cy="10" r="1" fill="#0b0f19"/>
+                <path d="M9.5 14C10.2 14.8 11.1 15.2 12 15.2C12.9 15.2 13.8 14.8 14.5 14" stroke="#0b0f19" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+            </svg>
+
+            <div class="sparkle-greeting-text">طاب مساؤك، أيها المخرج<br>أي قصة سنصنع اليوم؟</div>
+
+            <div class="sparkle-rect-cards-container">
+                <div class="sparkle-rect-card" onclick="switchScreen('stepByStepScreen', event)">
+                    <div class="sparkle-rect-right">
+                        <div class="sparkle-card-titles" style="text-align: right;">
+                            <div class="sparkle-card-main-title">خطوة بخطوة</div>
+                            <div class="sparkle-card-sub-title">راجع كل خطوة</div>
+                        </div>
+                    </div>
+                    <div class="sparkle-rect-left">
+                        <div class="sparkle-card-icon-box">↗</div>
+                    </div>
                 </div>
-                <div style="background: rgba(20,25,40,0.75); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 16px; display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="handleSpeedCardClick(event)">
-                    <div style="color:#fff; font-weight:700;">سريع</div>
-                    <div style="color:#94a3b8;" id="sparkleLockSign">🔒</div>
+
+                <div class="sparkle-rect-card" onclick="handleSpeedCardClick(event)">
+                    <div style="display: flex; flex-direction: column; width: 100%; gap: 10px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                            <div class="sparkle-rect-right">
+                                <div class="sparkle-card-titles" style="text-align: right;">
+                                    <div class="sparkle-card-main-title">سريع</div>
+                                    <div class="sparkle-card-sub-title">إدخال واحد، فيديو كامل</div>
+                                </div>
+                            </div>
+                            <div class="sparkle-rect-left">
+                                <div class="sparkle-card-icon-box" id="speedLockIconBox">🔒</div>
+                            </div>
+                        </div>
+                        <div class="sparkle-pro-lock-box" id="sparkleProMsgBox">
+                            🔒 يمكن لأعضاء Pro استخدام الوضع السريع
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- واجهة صفحة "الأدوات" -->
+    <!-- واجهة صفحة "الأدوات" (تحتوي على توليد الصور وتوليد الفيديو وتأثيرات الفيديو) -->
     <div id="toolsScreen" class="screen-view">
         <div class="tools-header">
             <div class="tools-header-title">الأدوات</div>
@@ -864,6 +1033,11 @@ html_code = """
             <div class="tool-card-item tool-card-2" onclick="alert('توليد الفيديو')">
                 <div class="tool-arrow-icon">‹</div>
                 <div class="tool-info-box"><div class="tool-main-title">توليد الفيديو</div><div class="tool-sub-desc">حول توجيهاً إلى فيديو خاص بك</div></div>
+            </div>
+            <!-- تمت إعادة بطاقة "توليد الصور" هنا بدقة -->
+            <div class="tool-card-item tool-card-3" onclick="alert('توليد الصور')">
+                <div class="tool-arrow-icon">‹</div>
+                <div class="tool-info-box"><div class="tool-main-title">توليد الصور</div><div class="tool-sub-desc">حول فكرة إلى صورة مكتملة</div></div>
             </div>
         </div>
     </div>
@@ -928,7 +1102,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة "إضافة شخصية" الجديدة المطابقة تماماً للصورة -->
+    <!-- واجهة "إضافة شخصية" (كاميرا يمين وألبوم يسار وضبط قياس الصورة) -->
     <div id="addCharacterScreen" class="screen-view">
         <div class="add-char-header">
             <button class="add-char-back" onclick="switchScreen('stepByStepScreen', event)">‹</button>
@@ -940,7 +1114,6 @@ html_code = """
             <div class="char-main-card">
                 <div class="char-section-label">الشخصية</div>
                 
-                <!-- المربع العلوي الكبير مع ضبط القياس لعدم قص الوجه -->
                 <div class="char-big-upload-box" id="bigUploadBox" onclick="showSourceModal()">
                     <div id="bigBoxInner" style="display:flex; flex-direction:column; align-items:center; gap:8px; color:#94a3b8; font-size:13px;">
                         <div style="width:32px; height:32px; background:rgba(255,255,255,0.08); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#cbd5e1;">↑</div>
@@ -948,13 +1121,11 @@ html_code = """
                     </div>
                 </div>
 
-                <!-- السرة (الشريط السفلي للصور مع زر الإضافة الدور +) -->
                 <div class="char-thumbs-row" id="thumbsRow">
                     <div class="char-add-role-box" onclick="showSourceModal()">
                         <span>+</span>
                         <span class="char-add-role-text">الدور</span>
                     </div>
-                    <!-- صور جاهزة افتراضية -->
                     <div class="thumb-wrapper">
                         <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&auto=format&fit=crop" class="char-thumb-item" onclick="selectThumb(this)">
                         <div class="thumb-remove-badge" onclick="removeThumb(this, event)">✕</div>
@@ -981,17 +1152,15 @@ html_code = """
         </div>
     </div>
 
-    <!-- نافذة منبثقة لاختيار المصدر: كاميرا باليمين، ألبوم باليسار -->
+    <!-- نافذة اختيار المصدر: كاميرا باليمين، ألبوم باليسار -->
     <div class="source-modal" id="sourceModal">
         <div class="source-modal-content">
             <div style="color:#fff; font-weight:700; font-size:15px; margin-bottom:2px;">اختر مصدر الصورة</div>
             <div class="source-buttons-row">
-                <!-- كاميرا في جهة اليمين -->
                 <button class="source-btn" onclick="triggerFileInput('camera')">
                     <span style="font-size:20px;">📷</span>
                     <span>كاميرا</span>
                 </button>
-                <!-- ألبوم الصور في جهة اليسار -->
                 <button class="source-btn" onclick="triggerFileInput('album')">
                     <span style="font-size:20px;">🖼️</span>
                     <span>ألبوم الصور</span>
@@ -1001,11 +1170,10 @@ html_code = """
         </div>
     </div>
 
-    <!-- عناصر رفع ملفات مخفية للكاميرا والألبوم -->
     <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none;" onchange="handleFileSelected(event)">
     <input type="file" id="albumInput" accept="image/*" style="display:none;" onchange="handleFileSelected(event)">
 
-    <!-- واجهة صفحة الاشتراكات الكاملة مع الخلفية والخطة الثلاثية -->
+    <!-- واجهة صفحة الاشتراكات الكاملة -->
     <div id="subscriptionScreen" class="screen-view">
         <div class="animated-bg-container">
             <div class="explosion-glow glow-1"></div>
