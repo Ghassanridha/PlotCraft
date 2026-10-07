@@ -490,15 +490,16 @@ html_code = """
             text-align: center;
             flex-grow: 1;
         }
-        /* زر السهم للخروج النظيف تماماً بدون أي تداخل أو عنوان فرعي */
-        .settings-back-btn {
+        
+        /* زر إغلاق الإعدادات بالنقر على شريط العنوان أو أيقونة مريحة بدلاً من السهم */
+        .settings-close-btn {
             background: rgba(255, 255, 255, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: #fff;
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            font-size: 18px;
+            font-size: 16px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -506,7 +507,7 @@ html_code = """
             transition: 0.2s;
             outline: none;
         }
-        .settings-back-btn:active {
+        .settings-close-btn:active {
             background-color: #0b0f19 !important;
             transform: scale(0.95);
         }
@@ -669,7 +670,6 @@ html_code = """
         .settings-item-row:last-child {
             border-bottom: none;
         }
-        /* تأثير الضغطة باللون الأسود الغامق عند الضغط على التعليقات أو اللغة */
         .settings-item-row:active {
             background-color: #0b0f19 !important;
         }
@@ -1783,11 +1783,11 @@ html_code = """
         </div>
     </div>
 
-    <!-- شاشة الإعدادات -->
+    <!-- شاشة الإعدادات (بدون أي سهم في الأعلى) -->
     <div class="settings-screen" id="settingsScreen">
         <div class="settings-top-bar">
-            <!-- زر السهم للإغلاق في أقصى اليمين (نظيف ومنفصل تماماً عن أي عنصر آخر) -->
-            <button class="settings-back-btn" onclick="closeSettingsScreen()">›</button>
+            <!-- زر إغلاق (✕) بدلاً من السهم في أقصى اليمين -->
+            <button class="settings-close-btn" onclick="closeSettingsScreen()">✕</button>
             <div class="settings-title">الإعدادات</div>
             <!-- زر الترقية في أقصى اليسار -->
             <button class="settings-upgrade-badge" onclick="openSubscriptionModal()">ترقية</button>
