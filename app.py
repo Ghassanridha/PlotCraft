@@ -616,14 +616,14 @@ html_code = """
             color: #cbd5e1;
         }
 
-        /* زر الحفظ العائم الديناميكي (يتغير مكانه ولونه حسب الكتابة) */
+        /* زر الحفظ العائم الديناميكي (يتكيف مع ظهور الكيبورد وإغلاقه) */
         .story-save-btn-wrapper {
             position: fixed;
             bottom: 25px;
             left: 20px;
             right: 20px;
             z-index: 9999;
-            transition: bottom 0.25s ease;
+            transition: bottom 0.25s ease-out;
         }
         .story-save-btn {
             background: rgba(255, 255, 255, 0.08);
@@ -1602,11 +1602,11 @@ html_code = """
             <div style="width: 20px;"></div>
         </div>
 
-        <div style="padding: 0 16px 120px 16px;">
+        <div style="padding: 0 16px 140px 16px;">
             <textarea class="story-textarea" id="storyTextArea" placeholder="اكتب وصفاً أو حبكة القصة هنا" oninput="checkStoryInput()"></textarea>
         </div>
 
-        <!-- زر الحفظ العائم الديناميكي -->
+        <!-- زر الحفظ العائم الديناميكي فوق الكيبورد أو تحت الشاشة -->
         <div class="story-save-btn-wrapper" id="storySaveBtnWrapper">
             <button class="story-save-btn" id="storySaveBtn" onclick="saveStoryDescription()">حفظ</button>
         </div>
@@ -1792,7 +1792,6 @@ html_code = """
             document.getElementById('storyTextArea').value = savedStoryText;
             checkStoryInput();
             switchScreen('storyDescriptionScreen', event);
-            // محاكاة تركيز المؤشر وتفعيل الكيبورد
             setTimeout(() => {
                 document.getElementById('storyTextArea').focus();
             }, 100);
@@ -1954,7 +1953,6 @@ html_code = """
             `;
         }
 
-        // تفاعل حقل كتابة القصة والتحكم بحالة زر الحفظ ومكانه عند ظهور الكيبورد
         const storyTextArea = document.getElementById('storyTextArea');
         const storySaveBtn = document.getElementById('storySaveBtn');
         const storySaveWrapper = document.getElementById('storySaveBtnWrapper');
@@ -1963,13 +1961,23 @@ html_code = """
             checkStoryInput();
         });
 
+        // التعامل الذكي مع ظهور الكيبورد واختفائه (عبر التغير في نافذة العرض أو التركيز)
+        const initialWindowHeight = window.innerHeight;
+
+        window.addEventListener('resize', function() {
+            // إذا انكمش ارتفاع النافذة، فهذا يدل على ظهور لوحة المفاتيح (الكيبورد)
+            if (window.innerHeight < initialWindowHeight - 120) {
+                storySaveWrapper.style.bottom = "20px";
+            } else {
+                storySaveWrapper.style.bottom = "25px";
+            }
+        });
+
         storyTextArea.addEventListener('focus', function() {
-            // عندما يظهر الكيبورد، يتحرك زر الحفظ ليكون فوق الكيبورد مباشرة
             storySaveWrapper.style.bottom = "20px";
         });
 
         storyTextArea.addEventListener('blur', function() {
-            // عند إغلاق الكيبورد يعود لوضعه الطبيعي أسفل الشاشة
             storySaveWrapper.style.bottom = "25px";
         });
 
@@ -1985,7 +1993,6 @@ html_code = """
         function saveStoryDescription() {
             var val = storyTextArea.value.trim();
             if (val === "") {
-                // بدون كتابة وصف لا يمكن الحفظ نهائياً
                 return;
             }
 
