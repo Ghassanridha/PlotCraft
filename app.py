@@ -759,7 +759,7 @@ html_code = """
         }
         .source-btn:active { background: #2a344e; }
 
-        /* واجهة صفحة الأدوات - إبعاد الصور للخلف لتظهر بوضوح بالكامل مع الرقبة والوجه */
+        /* واجهة صفحة الأدوات */
         #toolsScreen { background: #0b0f19; overflow-y: auto; }
         .tools-header {
             display: flex;
@@ -789,7 +789,6 @@ html_code = """
             cursor: pointer; 
         }
         
-        /* إبعاد الصور للخلف (Contain) وتوسيطها لضمان ظهور الوجه والرقبة تماماً */
         .tool-card-1 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop') center/contain no-repeat, #0b0f19; }
         .tool-card-2 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop') center/contain no-repeat, #0b0f19; }
         .tool-card-3 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop') center/contain no-repeat, #0b0f19; }
@@ -937,6 +936,113 @@ html_code = """
             font-size: 12px;
         }
 
+        /* نافذة تسجيل الدخول عند الضغط على اشتراك */
+        .login-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 9999999;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        .login-modal-overlay.show { display: flex; }
+        .login-modal-content {
+            background: #141824;
+            border-top-left-radius: 28px;
+            border-top-right-radius: 28px;
+            border: 1px solid rgba(255,255,255,0.12);
+            width: 100%;
+            max-width: 480px;
+            padding: 24px 20px 40px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            position: relative;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
+            animation: slideUpModal 0.3s ease;
+        }
+        @keyframes slideUpModal {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        .login-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .login-modal-title {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .login-close-x {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 20px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-btn-google {
+            width: 100%;
+            background: #ffffff;
+            color: #0b0f19;
+            border-radius: 16px;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(255,255,255,0.15);
+            transition: 0.2s;
+        }
+        .login-btn-google:active { transform: scale(0.98); background: #e2e8f0; }
+        .login-btn-email {
+            width: 100%;
+            background: #1e2538;
+            color: #ffffff;
+            border-radius: 16px;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            border: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.2s;
+        }
+        .login-btn-email:active { transform: scale(0.98); background: #2a344e; }
+        .login-footer-text {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 13px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .login-footer-text span { color: #3b82f6; font-weight: 600; }
+        .login-links-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            color: #64748b;
+            font-size: 11px;
+            margin-top: 5px;
+        }
+        .login-links-row span { cursor: pointer; }
+
         /* شريط التنقل السفلي الثابت */
         .plotcraft-nav-bar {
             position: fixed;
@@ -1010,7 +1116,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- نافذة منبثقة مخصصة باللغة العربية حصراً -->
+    <!-- نافذة منبثقة مخصصة باللغة العربية -->
     <div class="custom-alert-overlay" id="customAlertOverlay">
         <div class="custom-alert-box">
             <div class="custom-alert-msg">يتم إضافة القصص قريباً</div>
@@ -1222,8 +1328,8 @@ html_code = """
     <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none;" onchange="handleFileSelected(event)">
     <input type="file" id="albumInput" accept="image/*" style="display:none;" onchange="handleFileSelected(event)">
 
-    <!-- واجهة صفحة الاشتراكات الكاملة -->
-    <div id="subscriptionScreen" class="screen-view">
+    <!-- واجهة صفحة الاشتراكات (تظهر أول ما يفتح المستخدم التطبيق مع زر X باليمنى) -->
+    <div id="subscriptionScreen" class="screen-view active">
         <div class="animated-bg-container">
             <div class="explosion-glow glow-1"></div>
             <div class="explosion-glow glow-2"></div>
@@ -1269,7 +1375,37 @@ html_code = """
                 </div>
             </div>
 
-            <button class="action-main-btn" onclick="confirmSubscription()">اشتراك</button>
+            <button class="action-main-btn" onclick="openLoginModal()">اشتراك</button>
+        </div>
+    </div>
+
+    <!-- نافذة تسجيل الدخول عند الضغط على اشتراك (مطابقة للصورة تماماً) -->
+    <div class="login-modal-overlay" id="loginModalOverlay">
+        <div class="login-modal-content">
+            <div class="login-modal-header">
+                <div class="login-modal-title">تسجيل الدخول إلى Plotcraft</div>
+                <button class="login-close-x" onclick="closeLoginModal()">✕</button>
+            </div>
+
+            <button class="login-btn-google" onclick="alert('تم تسجيل الدخول بنجاح عبر Google')">
+                <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.2v3.15C3.17 21.32 7.22 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.2C.44 8.12 0 9.87 0 11.73s.44 3.61 1.2 5.15l4.08-2.61z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.22 0 3.17 2.68 1.2 6.58l4.08 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>
+                <span>استمر مع Google</span>
+            </button>
+
+            <button class="login-btn-email" onclick="alert('فتح تسجيل الدخول بالبريد الإلكتروني')">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                <span>استمر مع البريد الإلكتروني</span>
+            </button>
+
+            <div class="login-footer-text" onclick="alert('انتقال لصفحة الاشتراك')">
+                ليس لدي حساب؟ <span>اشتراك</span>
+            </div>
+
+            <div class="login-links-row">
+                <span onclick="alert('شروط الاستخدام')">شروط الاستخدام</span>
+                <span>|</span>
+                <span onclick="alert('الخصوصية')">الخصوصية</span>
+            </div>
         </div>
     </div>
 
@@ -1308,7 +1444,7 @@ html_code = """
             document.getElementById(screenId).classList.add('active');
             
             var navBar = document.getElementById('mainNavBar');
-            if (screenId === 'sparkleDialogScreen' || screenId === 'addCharacterScreen') {
+            if (screenId === 'sparkleDialogScreen' || screenId === 'addCharacterScreen' || screenId === 'subscriptionScreen') {
                 navBar.classList.add('hidden');
             } else {
                 navBar.classList.remove('hidden');
@@ -1341,6 +1477,14 @@ html_code = """
             var cards = document.querySelectorAll('.plan-card');
             cards.forEach(c => c.classList.remove('selected'));
             element.classList.add('selected');
+        }
+
+        function openLoginModal() {
+            document.getElementById('loginModalOverlay').classList.add('show');
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModalOverlay').classList.remove('show');
         }
 
         function showCustomAlert() {
@@ -1419,11 +1563,6 @@ html_code = """
 
         function handleSpeedCardClick(event) {
             switchScreen('subscriptionScreen', event);
-        }
-
-        function confirmSubscription() {
-            alert('تم الاشتراك بنجاح!');
-            switchScreen('homeScreen');
         }
     </script>
 </body>
