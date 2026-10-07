@@ -683,7 +683,7 @@ html_code = """
             font-size: 11px;
             font-weight: bold;
         }
-        /* زر تعديل مع شعار قلم باليمين وكلمة تعديل باليسار بلون أبيض وبدون إكس */
+        /* زر تعديل: كلمة تعديل باليسار وشعار القلم باليمين بجوارها داخل نفس الزر */
         .added-story-edit-btn {
             background: rgba(255, 255, 255, 0.12);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -1964,20 +1964,20 @@ html_code = """
             switchScreen('stepByStepScreen', event);
         }
 
-        // تحديث خانة الحكاية: شعار القلم باليمين وكلمة "تعديل" باليسار بلون أبيض، بدون إكس أو سم
+        /* تحديث خانة الحكاية: الحكاية وعلامة الصح في اليمين، وزر التعديل في اليسار (أيقونة قلم يمين كلمة تعديل) */
         function updateStorySlotUI(text) {
             var slot = document.getElementById('storyRowSlot');
             slot.innerHTML = `
                 <div style="width:100%;">
                     <div class="added-story-card-vertical">
                         <div class="added-story-top-row">
-                            <div class="added-story-edit-btn" onclick="openStoryDescription(event)">
-                                <span>تعديل</span>
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                            </div>
                             <div class="added-story-title-group">
                                 <span>الحكاية</span>
                                 <div class="added-story-check-icon">✓</div>
+                            </div>
+                            <div class="added-story-edit-btn" onclick="openStoryDescription(event)">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                <span>تعديل</span>
                             </div>
                         </div>
                         <div class="added-story-content-text">` + text + `</div>
