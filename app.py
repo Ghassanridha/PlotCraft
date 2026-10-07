@@ -543,23 +543,25 @@ html_code = """
 
         /* زر التالي: أبيض على أسود غامق ومخفي حتى يكتمل الإدخال */
         .next-step-btn {
-            background: #1f242d !important;
-            color: #ffffff !important;
-            font-size: 15px;
+            background: #ffffff !important;
+            color: #0b0f19 !important;
+            font-size: 16px;
             font-weight: 700;
-            padding: 12px 28px;
-            border-radius: 14px;
-            border: 1px solid rgba(255,255,255,0.3);
+            padding: 14px;
+            border-radius: 24px;
+            border: none;
             cursor: pointer;
             display: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(255,255,255,0.15);
             transition: 0.2s;
         }
         .next-step-btn.show {
             display: block;
         }
         .next-step-btn:active {
-            background: #282f3d !important;
+            background: #e2e8f0 !important;
             transform: scale(0.98);
         }
 
@@ -646,23 +648,66 @@ html_code = """
         }
 
         /* قائمة الحكاية المضافة عمودياً تحت الشخصيات */
-        .added-story-preview-card {
-            background: #343d50;
-            border-radius: 12px;
-            padding: 12px;
+        .added-story-card-vertical {
+            background: #282f3d;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .added-story-top-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 10px;
         }
-        .added-story-text {
+        .added-story-title-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             color: #ffffff;
-            font-size: 13px;
+            font-size: 15px;
             font-weight: 700;
-            max-width: 220px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+        }
+        .added-story-check-icon {
+            width: 18px;
+            height: 18px;
+            background: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1f242d;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        /* زر تعديل مع شعار قلم باليمين وكلمة تعديل باليسار بلون أبيض وبدون إكس */
+        .added-story-edit-btn {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+        .added-story-edit-btn:active {
+            background: rgba(255, 255, 255, 0.25);
+        }
+        .added-story-content-text {
+            color: #cbd5e1;
+            font-size: 13px;
+            line-height: 1.6;
+            text-align: right;
+            max-height: 80px;
+            overflow-y: auto;
         }
 
         /* --- واجهة "إضافة شخصية" --- */
@@ -1535,7 +1580,7 @@ html_code = """
                 </div>
             </div>
 
-            <div class="bottom-next-row" style="display:flex; justify-content:flex-end; margin-top:10px;">
+            <div class="bottom-next-row" style="margin-top:10px;">
                 <button class="next-step-btn" id="nextStepBtn" onclick="showCustomAlert('الانتقال للخطوة التالية بنجاح!')">التالي</button>
             </div>
         </div>
@@ -1898,7 +1943,6 @@ html_code = """
             `;
         }
 
-        // تفقد إدخال الحكاية لإظهار أو إخفاء زر الحفظ
         function checkStoryInput() {
             var val = document.getElementById('storyTextArea').value.trim();
             var saveWrapper = document.getElementById('storySaveBtnWrapper');
@@ -1909,7 +1953,6 @@ html_code = """
             }
         }
 
-        // عند حفظ الحكاية
         function saveStoryDescription() {
             var val = document.getElementById('storyTextArea').value.trim();
             if (val === "") return;
@@ -1921,49 +1964,28 @@ html_code = """
             switchScreen('stepByStepScreen', event);
         }
 
-        // تحديث خانة الحكاية عمودياً تحت الشخصيات
+        // تحديث خانة الحكاية: شعار القلم باليمين وكلمة "تعديل" باليسار بلون أبيض، بدون إكس أو سم
         function updateStorySlotUI(text) {
             var slot = document.getElementById('storyRowSlot');
             slot.innerHTML = `
-                <div style="width:100%; display:flex; flex-direction:column; gap:8px;">
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <div class="item-info">
-                            <h4>الحكاية</h4>
-                            <p>تم حفظ حبكة القصة بنجاح</p>
-                        </div>
-                    </div>
-                    <div class="added-story-preview-card">
-                        <div class="added-story-text">` + text + `</div>
-                        <div class="added-char-left">
-                            <div class="added-char-change-group" onclick="openStoryDescription(event)">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path><polyline points="21 3 21 8 16 8"></polyline></svg>
-                                <span>تغيير</span>
+                <div style="width:100%;">
+                    <div class="added-story-card-vertical">
+                        <div class="added-story-top-row">
+                            <div class="added-story-edit-btn" onclick="openStoryDescription(event)">
+                                <span>تعديل</span>
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                             </div>
-                            <div class="added-char-delete-btn" onclick="deleteStorySlot(event)">✕</div>
+                            <div class="added-story-title-group">
+                                <span>الحكاية</span>
+                                <div class="added-story-check-icon">✓</div>
+                            </div>
                         </div>
+                        <div class="added-story-content-text">` + text + `</div>
                     </div>
                 </div>
             `;
         }
 
-        function deleteStorySlot(event) {
-            event.stopPropagation();
-            storyAdded = false;
-            savedStoryText = "";
-            document.getElementById('storyTextArea').value = "";
-            updateCounter();
-
-            var slot = document.getElementById('storyRowSlot');
-            slot.innerHTML = `
-                <div class="item-info">
-                    <h4>الحكاية</h4>
-                    <p>اكتب أو صف حبكة قصتك هنا</p>
-                </div>
-                <button class="action-add-btn" onclick="openStoryDescription(event)">إضافة</button>
-            `;
-        }
-
-        // تحديث العداد وزر التالي المخفي
         function updateCounter() {
             let count = 0;
             if (characterAdded) count++;
