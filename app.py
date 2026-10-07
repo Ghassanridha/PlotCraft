@@ -1594,16 +1594,16 @@ html_code = """
         .sub-modal-close-x:active { background: rgba(255,255,255,0.2); }
 
         .plans-list { display: flex; flex-direction: column; gap: 12px; }
-        .plan-card { background: #282f3d; backdrop-filter: blur(12px); border: 1.5px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 16px 16px 16px 16px; cursor: pointer; transition: 0.2s; position: relative; }
+        .plan-card { background: #282f3d; backdrop-filter: blur(12px); border: 1.5px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 16px; cursor: pointer; transition: 0.2s; position: relative; }
         .plan-card.selected { border-color: #3b82f6; background: #343d50; box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
         .plan-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
         .plan-name { color: #ffffff; font-size: 15px; font-weight: 700; }
         .plan-price { background: rgba(255, 255, 255, 0.12); padding: 4px 10px; border-radius: 10px; color: #ffffff; font-size: 12px; font-weight: 600; }
         .plan-desc { color: #cbd5e1; font-size: 12px; }
         
-        /* ضبط إزاحة التاجات إلى جهة اليسار بدلاً من اليمين لتفادي تشويه الكلمات */
-        .new-tag { position: absolute; top: 12px; inset-inline-start: 130px; background: #3b82f6; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
-        .best-value-tag { position: absolute; top: 12px; inset-inline-start: 140px; background: linear-gradient(135deg, #f59e0b, #ec4899); color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
+        /* ضبط موقع وحجم التاجات ليصبحا صغيرين في أقصى اليسار فوق كلمة شهر وسنة بمسافة مناسبة */
+        .new-tag { position: absolute; top: 12px; inset-inline-start: 12px; background: #3b82f6; color: #fff; font-size: 9px; padding: 1px 6px; border-radius: 6px; font-weight: 600; width: fit-content; }
+        .best-value-tag { position: absolute; top: 12px; inset-inline-start: 12px; background: linear-gradient(135deg, #f59e0b, #ec4899); color: #fff; font-size: 9px; padding: 1px 6px; border-radius: 6px; font-weight: 600; width: fit-content; }
 
         .action-main-btn { width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 20px; border: none; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); margin-top: 10px; }
 
