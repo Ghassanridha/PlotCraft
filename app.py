@@ -338,7 +338,6 @@ html_code = """
             display: flex;
         }
 
-        /* الهيدر العلوي الجديد لواجهة الأعمال */
         .works-top-header {
             display: flex;
             justify-content: space-between;
@@ -466,65 +465,304 @@ html_code = """
             background: #e2e8f0;
         }
 
-        /* قائمة الحساب الجانبية المنبثقة من اليسار */
-        .account-drawer-overlay {
+        /* --- شاشة الإعدادات المطابقة للصورة --- */
+        .settings-screen {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 99999999;
-            justify-content: flex-start;
-        }
-        .account-drawer-overlay.show { display: flex; }
-        .account-drawer {
-            background: #1f242d;
-            width: 80%;
-            max-width: 300px;
-            height: 100%;
-            padding: 24px 20px;
-            display: flex;
+            background-color: #1f242d;
+            z-index: 9999999;
             flex-direction: column;
-            gap: 20px;
-            border-left: 1px solid rgba(255,255,255,0.1);
-            animation: slideInLeft 0.3s ease;
+            overflow-y: auto;
+            padding: 20px;
+            direction: rtl;
         }
-        @keyframes slideInLeft {
-            from { transform: translateX(-100%); }
-            to { transform: translateX(0); }
-        }
-        .drawer-header {
+        .settings-screen.active { display: flex; }
+
+        .settings-top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            padding-bottom: 15px;
+            width: 100%;
+            margin-bottom: 25px;
         }
-        .drawer-profile-row {
+        .settings-title {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+            flex-grow: 1;
+        }
+        .settings-back-btn, .settings-upgrade-badge {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .profile-header-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .profile-right-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
+        }
+        .profile-name-row {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
         }
-        .drawer-avatar {
-            width: 48px;
-            height: 48px;
+        .profile-name-text {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .profile-edit-pencil {
+            cursor: pointer;
+            color: #cbd5e1;
+            font-size: 14px;
+            background: rgba(255,255,255,0.08);
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+        .profile-edit-pencil:active { background: rgba(255,255,255,0.2); }
+
+        .profile-id-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #282f3d;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 4px 10px;
+            border-radius: 12px;
+            color: #cbd5e1;
+            font-size: 12px;
+        }
+        .profile-avatar-box {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.2);
             background: #343d50;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
-            font-size: 18px;
-            font-weight: bold;
-            border: 1px solid rgba(255,255,255,0.2);
-            overflow: hidden;
         }
-        .drawer-avatar img { width: 100%; height: 100%; object-fit: cover; }
-        .drawer-user-info { display: flex; flex-direction: column; gap: 2px; }
-        .drawer-name { color: #fff; font-size: 15px; font-weight: 700; }
-        .drawer-id { color: #cbd5e1; font-size: 12px; }
-        .drawer-menu-list { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
-        .drawer-menu-item { background: #282f3d; color: #fff; padding: 12px 16px; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05); }
-        .drawer-menu-item:active { background: #343d50; }
+        .profile-avatar-box img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* بانر PlotCraft Pro المخصص */
+        .pro-banner-card {
+            background: linear-gradient(135deg, rgba(30, 35, 50, 0.9), rgba(15, 20, 35, 0.95));
+            border: 1.5px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 16px;
+            position: relative;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .pro-banner-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .pro-banner-title {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+        }
+        .pro-sparkle-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #3b82f6, #ec4899);
+            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C12 7.5 16.5 12 22 12C16.5 12 12 16.5 12 22C12 16.5 7.5 12 2 12C7.5 12 12 7.5 12 2Z"/></svg>') no-repeat center;
+            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C12 7.5 16.5 12 22 12C16.5 12 12 16.5 12 22C12 16.5 7.5 12 2 12C7.5 12 12 7.5 12 2Z"/></svg>') no-repeat center;
+            background-size: contain;
+        }
+        .pro-banner-desc {
+            color: #cbd5e1;
+            font-size: 12px;
+        }
+        .pro-banner-btn {
+            background: #3b82f6;
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: 700;
+            width: fit-content;
+            cursor: pointer;
+            margin-top: 4px;
+        }
+        .pro-banner-btn:active { background: #2563eb; }
+
+        /* قوائم الخيارات الكتلية */
+        .settings-group-box {
+            background: #282f3d;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 6px 16px;
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: column;
+        }
+        .settings-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+        }
+        .settings-item-row:last-child {
+            border-bottom: none;
+        }
+        .settings-item-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .settings-item-left {
+            color: #cbd5e1;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* زر تبديل iOS للإشعارات */
+        .switch-toggle {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+        .switch-toggle input { opacity: 0; width: 0; height: 0; }
+        .slider-round {
+            position: absolute; cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #343d50;
+            transition: .3s;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .slider-round:before {
+            position: absolute; content: "";
+            height: 18px; width: 18px;
+            left: 3px; bottom: 2px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+        }
+        input:checked + .slider-round { background-color: #3b82f6; }
+        input:checked + .slider-round:before { transform: translateX(20px); }
+
+        /* نافذة طلب الإشعارات المخصصة */
+        .notif-permission-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.75);
+            z-index: 99999999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .notif-permission-box {
+            background: #282f3d;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 22px;
+            width: 100%;
+            max-width: 300px;
+            padding: 22px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+        .notif-permission-title {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1.5;
+        }
+        .notif-allow-btn {
+            background: #3b82f6;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .notif-deny-btn {
+            background: #1f242d;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 12px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* نافذة تعديل الاسم */
+        .name-edit-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.75);
+            z-index: 99999999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .name-edit-box {
+            background: #282f3d;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 22px;
+            width: 100%;
+            max-width: 320px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .name-edit-input {
+            width: 100%;
+            background: #1f242d;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 12px;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+            text-align: right;
+        }
 
         /* شاشة تفاصيل "خطوة بخطوة" */
         .step-container {
@@ -1508,35 +1746,137 @@ html_code = """
         </div>
     </div>
 
-    <!-- قائمة الحساب الجانبية من اليسار -->
-    <div class="account-drawer-overlay" id="accountDrawerOverlay" onclick="closeAccountDrawer(event)">
-        <div class="account-drawer" onclick="event.stopPropagation()">
-            <div class="drawer-header">
-                <div class="drawer-profile-row">
-                    <div class="drawer-avatar">
-                        <span>غ</span>
-                    </div>
-                    <div class="drawer-user-info">
-                        <div class="drawer-name">غسان</div>
-                        <div class="drawer-id">ID: 849201</div>
-                    </div>
+    <!-- شاشة الإعدادات الجديدة (المطابقة تماماً للصورة) -->
+    <div class="settings-screen" id="settingsScreen">
+        <div class="settings-top-bar">
+            <button class="settings-upgrade-badge" onclick="openSubscriptionModal()">ترقية</button>
+            <div class="settings-title">الإعدادات</div>
+            <button class="settings-back-btn" onclick="closeSettingsScreen()">‹</button>
+        </div>
+
+        <!-- ملف المستخدم (الاسم، الأيدي، الصورة، والقلم) -->
+        <div class="profile-header-card">
+            <div class="profile-right-group">
+                <div class="profile-name-row">
+                    <span class="profile-name-text" id="displayUserName">NewUser</span>
+                    <span class="profile-edit-pencil" onclick="openNameEditModal()" title="تعديل الاسم">✏️</span>
                 </div>
-                <button onclick="closeAccountDrawer(event)" style="background:none; border:none; color:#fff; font-size:18px; cursor:pointer;">✕</button>
+                <div class="profile-id-row">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    <span id="displayUniqueId">4422114 ID</span>
+                </div>
             </div>
-            <div class="drawer-menu-list">
-                <div class="drawer-menu-item" onclick="openSubscriptionModal(); closeAccountDrawer();">
-                    <span>ترقية الحساب</span>
-                    <span>⭐</span>
+            <div class="profile-avatar-box">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop" id="userAvatarImg">
+            </div>
+        </div>
+
+        <!-- بانر PlotCraft Pro المخصص -->
+        <div class="pro-banner-card">
+            <div class="pro-banner-top">
+                <div class="pro-banner-title">افتح PlotCraft Pro</div>
+                <div class="pro-sparkle-icon"></div>
+            </div>
+            <div class="pro-banner-desc">حول كل فكرة إلى فيلم مكتمل</div>
+            <button class="pro-banner-btn" onclick="openSubscriptionModal()">عرض خطط Pro ←</button>
+        </div>
+
+        <!-- مجموعة الخيارات الأولى -->
+        <div class="settings-group-box">
+            <div class="settings-item-row" onclick="showCustomAlert('سجل النقاط')">
+                <div class="settings-item-right">
+                    <span>✨</span>
+                    <span>سجل النقاط</span>
                 </div>
-                <div class="drawer-menu-item" onclick="showCustomAlert('إعدادات الحساب قريباً')">
-                    <span>إعدادات الحساب</span>
+                <div class="settings-item-left">
+                    <span>›</span>
+                </div>
+            </div>
+            <div class="settings-item-row" onclick="showCustomAlert('التعليقات')">
+                <div class="settings-item-right">
+                    <span>📝</span>
+                    <span>التعليقات</span>
+                </div>
+                <div class="settings-item-left">
+                    <span>›</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- مجموعة الخيارات الثانية (الإشعارات واللغة والروابط) -->
+        <div class="settings-group-box">
+            <div class="settings-item-row">
+                <div class="settings-item-right">
+                    <span>🔔</span>
+                    <span>الإشعارات</span>
+                </div>
+                <div class="settings-item-left">
+                    <label class="switch-toggle">
+                        <input type="checkbox" id="notifSwitch" onchange="handleNotifToggle(this)">
+                        <span class="slider-round"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="settings-item-row" onclick="showCustomAlert('اللغة: العربية')">
+                <div class="settings-item-right">
+                    <span>🌐</span>
+                    <span>اللغة</span>
+                </div>
+                <div class="settings-item-left">
+                    <span>العربية</span>
+                    <span>›</span>
+                </div>
+            </div>
+            <div class="settings-item-row" onclick="showCustomAlert('انضم إلينا (تليجرام)')">
+                <div class="settings-item-right">
+                    <span>✈️</span>
+                    <span>انضم إلينا</span>
+                </div>
+                <div class="settings-item-left">
+                    <span>›</span>
+                </div>
+            </div>
+            <div class="settings-item-row" onclick="showCustomAlert('اتصل بنا')">
+                <div class="settings-item-right">
+                    <span>✉️</span>
+                    <span>اتصل بنا</span>
+                </div>
+                <div class="settings-item-left">
+                    <span>›</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- مجموعة الخيارات الثالثة (الإعدادات العامة) -->
+        <div class="settings-group-box">
+            <div class="settings-item-row" onclick="showCustomAlert('الإعدادات العامة')">
+                <div class="settings-item-right">
                     <span>⚙️</span>
+                    <span>الإعدادات</span>
                 </div>
-                <div class="drawer-menu-item" onclick="showCustomAlert('تم تسجيل الخروج بنجاح')">
-                    <span>تسجيل الخروج</span>
-                    <span>🚪</span>
+                <div class="settings-item-left">
+                    <span>›</span>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- نافذة طلب الإشعارات المنبثقة بنظام الهاتف -->
+    <div class="notif-permission-overlay" id="notifPermissionModal">
+        <div class="notif-permission-box">
+            <div class="notif-permission-title">هل تريد السماح لتطبيق Plotcraft بإرسال إشعارات إليك؟</div>
+            <button class="notif-allow-btn" onclick="allowNotifications()">سماح</button>
+            <button class="notif-deny-btn" onclick="denyNotifications()">عدم السماح</button>
+        </div>
+    </div>
+
+    <!-- نافذة تعديل الاسم -->
+    <div class="name-edit-modal-overlay" id="nameEditModal">
+        <div class="name-edit-box">
+            <div style="color:#fff; font-size:16px; font-weight:700;">تعديل اسم المستخدم</div>
+            <input type="text" class="name-edit-input" id="editNameInputField" placeholder="أدخل الاسم الجديد">
+            <button class="notif-allow-btn" onclick="saveNewUserName()">إرسال</button>
+            <button class="notif-deny-btn" onclick="closeNameEditModal()">إلغاء</button>
         </div>
     </div>
 
@@ -1672,13 +2012,13 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة "الأعمال" (المعدلة) -->
+    <!-- واجهة "الأعمال" -->
     <div id="worksScreen" class="screen-view">
         <div class="works-top-header">
             <div class="works-screen-title">الأعمال</div>
             <div class="works-header-left-group">
                 <div class="works-upgrade-badge" onclick="openSubscriptionModalFromBadge()">ترقية</div>
-                <div class="works-robot-logo" onclick="openAccountDrawer()" title="حسابي والقائمة"></div>
+                <div class="works-robot-logo" onclick="openSettingsScreen()" title="الإعدادات"></div>
             </div>
         </div>
 
@@ -1757,7 +2097,6 @@ html_code = """
             <textarea class="story-textarea" id="storyTextArea" placeholder="اكتب وصفاً أو حبكة القصة هنا" oninput="checkStoryInput()"></textarea>
         </div>
 
-        <!-- زر الحفظ العائم الديناميكي فوق الكيبورد أو تحت الشاشة -->
         <div class="story-save-btn-wrapper" id="storySaveBtnWrapper">
             <button class="story-save-btn" id="storySaveBtn" onclick="saveStoryDescription()">حفظ</button>
         </div>
@@ -1894,6 +2233,10 @@ html_code = """
         let storyAdded = false;
         let savedStoryText = "";
 
+        // توليد ID فريد وعشوائي للمستخدم الحالي عند التشغيل
+        let userUniqueId = Math.floor(1000000 + Math.random() * 9000000);
+        document.getElementById('displayUniqueId').innerText = userUniqueId + " ID";
+
         document.addEventListener('click', function(event) {
             if (event.target.tagName === 'BUTTON' || event.target.closest('button') || event.target.closest('.interactive-card') || event.target.closest('.plotcraft-nav-item') || event.target.closest('.plotcraft-nav-square') || event.target.closest('.works-tab') || event.target.closest('.plan-card') || event.target.closest('.char-thumb-item')) {
                 if ("vibrate" in navigator) {
@@ -1935,12 +2278,53 @@ html_code = """
             document.getElementById('mainNavBar').classList.add('hidden');
         }
 
-        function openAccountDrawer() {
-            document.getElementById('accountDrawerOverlay').classList.add('show');
+        /* دوال تحكم شاشة الإعدادات الجديدة */
+        function openSettingsScreen() {
+            document.getElementById('settingsScreen').classList.add('active');
+            document.getElementById('mainNavBar').classList.add('hidden');
         }
 
-        function closeAccountDrawer(event) {
-            document.getElementById('accountDrawerOverlay').classList.remove('show');
+        function closeSettingsScreen() {
+            document.getElementById('settingsScreen').classList.remove('active');
+            document.getElementById('mainNavBar').classList.remove('hidden');
+        }
+
+        /* تحكم الإشعارات المخصص */
+        function handleNotifToggle(checkbox) {
+            if (checkbox.checked) {
+                document.getElementById('notifPermissionModal').style.display = 'flex';
+            } else {
+                showCustomAlert('تم تعطيل الإشعارات');
+            }
+        }
+
+        function allowNotifications() {
+            document.getElementById('notifPermissionModal').style.display = 'none';
+            showCustomAlert('تم تفعيل الإشعارات بنجاح!');
+        }
+
+        function denyNotifications() {
+            document.getElementById('notifPermissionModal').style.display = 'none';
+            document.getElementById('notifSwitch').checked = false;
+            showCustomAlert('تم رفض الإذن. يمكنك تفعيلها من إعدادات جهازك الرئيسي.');
+        }
+
+        /* تحكم تعديل الاسم */
+        function openNameEditModal() {
+            document.getElementById('editNameInputField').value = document.getElementById('displayUserName').innerText;
+            document.getElementById('nameEditModal').style.display = 'flex';
+        }
+
+        function closeNameEditModal() {
+            document.getElementById('nameEditModal').style.display = 'none';
+        }
+
+        function saveNewUserName() {
+            var val = document.getElementById('editNameInputField').value.trim();
+            if (val !== "") {
+                document.getElementById('displayUserName').innerText = val;
+            }
+            closeNameEditModal();
         }
 
         function openAddCharacter(event) {
