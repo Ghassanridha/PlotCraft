@@ -1,4 +1,4 @@
-Import streamlit as st
+import streamlit as st
 import streamlit.components.v1 as components
 
 # إعداد صفحة ستريمليت لإزالة الهوامش واستغلال الشاشة بالكامل
@@ -2937,4 +2937,4 @@ html_code = """
 </html>
 """
 
-
+components.html(html_code, height=680, scrolling=True)
