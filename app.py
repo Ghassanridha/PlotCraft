@@ -727,6 +727,85 @@ html_code = """
         input:checked + .slider-round { background-color: #3b82f6; }
         input:checked + .slider-round:before { transform: translateX(20px); }
 
+        /* نافذة اختيار اللغات بالإنجليزية وجهة اليسار */
+        .language-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 999999999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .language-modal-overlay.show { display: flex; }
+        .language-modal-box {
+            background: #282f3d;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 340px;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+        }
+        .lang-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .lang-modal-title {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+        }
+        .lang-modal-close {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #fff;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        .lang-list-container {
+            padding: 10px 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            direction: ltr; /* الترتيب والمحاذاة لجهة اليسار */
+            text-align: left;
+        }
+        .lang-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.15s;
+            color: #cbd5e1;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .lang-item-row:hover, .lang-item-row:active {
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+        }
+        .lang-item-row.selected {
+            background: #3b82f6;
+            color: #fff;
+        }
+
         .notif-permission-overlay {
             display: none;
             position: fixed;
@@ -1785,7 +1864,6 @@ html_code = """
     <!-- شاشة الإعدادات -->
     <div class="settings-screen" id="settingsScreen">
         <div class="settings-top-bar">
-            <!-- تم تغيير زر الإغلاق من علامة x إلى سهم متجه لليمين ونقله للجهة اليمنى -->
             <button class="settings-close-btn" onclick="closeSettingsScreen(event)" title="رجوع">‹</button>
             <div class="settings-title">الإعدادات</div>
             <button class="settings-upgrade-badge" onclick="openSubscriptionModal()">ترقية</button>
@@ -1848,12 +1926,13 @@ html_code = """
                     </label>
                 </div>
             </div>
-            <div class="settings-item-row" onclick="handleMenuClick(event, 'اللغة: العربية')">
+            <!-- زر اللغة الجديد الذي يفتح القائمة الإنجليزية جهة اليسار -->
+            <div class="settings-item-row" onclick="openLanguageModal(event)">
                 <div class="settings-item-right">
                     <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.92 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A8.03 8.03 0 0 1 5.08 16zm2.95-8H5.08a8.03 8.03 0 0 1 4.33-3.56A15.65 15.65 0 0 0 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.65-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.35-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg></div>
                     <span>اللغة</span>
                 </div>
-                <div class="settings-item-left"><span>العربية</span><span>›</span></div>
+                <div class="settings-item-left"><span id="currentLangDisplay">English</span><span>›</span></div>
             </div>
             <div class="settings-item-row" onclick="handleMenuClick(event, 'انضم إلينا (تليجرام)')">
                 <div class="settings-item-right">
@@ -1878,6 +1957,30 @@ html_code = """
                     <span>الإعدادات</span>
                 </div>
                 <div class="settings-item-left"><span>›</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة اختيار اللغات (عمودية، بالإنجليزية، محاذاة لليسار) -->
+    <div class="language-modal-overlay" id="languageModalOverlay" onclick="closeLanguageModal(event)">
+        <div class="language-modal-box" onclick="event.stopPropagation()">
+            <div class="lang-modal-header">
+                <div class="lang-modal-title">Select Language</div>
+                <button class="lang-modal-close" onclick="closeLanguageModal(event)">✕</button>
+            </div>
+            <div class="lang-list-container" id="langListContainer">
+                <div class="lang-item-row selected" onclick="selectLanguage('English', this)">English</div>
+                <div class="lang-item-row" onclick="selectLanguage('Arabic', this)">Arabic</div>
+                <div class="lang-item-row" onclick="selectLanguage('Spanish', this)">Spanish</div>
+                <div class="lang-item-row" onclick="selectLanguage('French', this)">French</div>
+                <div class="lang-item-row" onclick="selectLanguage('German', this)">German</div>
+                <div class="lang-item-row" onclick="selectLanguage('Chinese', this)">Chinese</div>
+                <div class="lang-item-row" onclick="selectLanguage('Japanese', this)">Japanese</div>
+                <div class="lang-item-row" onclick="selectLanguage('Korean', this)">Korean</div>
+                <div class="lang-item-row" onclick="selectLanguage('Portuguese', this)">Portuguese</div>
+                <div class="lang-item-row" onclick="selectLanguage('Russian', this)">Russian</div>
+                <div class="lang-item-row" onclick="selectLanguage('Italian', this)">Italian</div>
+                <div class="lang-item-row" onclick="selectLanguage('Turkish', this)">Turkish</div>
             </div>
         </div>
     </div>
@@ -2243,9 +2346,8 @@ html_code = """
         let userUniqueId = Math.floor(1000000 + Math.random() * 9000000);
         document.getElementById('displayUniqueId').innerText = userUniqueId + " ID";
 
-        // تفعيل الاهتزاز الخفيف (صوت النقر/الاهتزاز) لجميع الأزرار وعناصر التفاعل في التطبيق بالكامل
         document.addEventListener('click', function(event) {
-            if (event.target.tagName === 'BUTTON' || event.target.closest('button') || event.target.closest('.interactive-card') || event.target.closest('.plotcraft-nav-item') || event.target.closest('.plotcraft-nav-square') || event.target.closest('.works-tab') || event.target.closest('.plan-card') || event.target.closest('.char-thumb-item') || event.target.closest('.settings-item-row') || event.target.closest('.movie-card') || event.target.closest('.sparkle-rect-card')) {
+            if (event.target.tagName === 'BUTTON' || event.target.closest('button') || event.target.closest('.interactive-card') || event.target.closest('.plotcraft-nav-item') || event.target.closest('.plotcraft-nav-square') || event.target.closest('.works-tab') || event.target.closest('.plan-card') || event.target.closest('.char-thumb-item') || event.target.closest('.settings-item-row') || event.target.closest('.movie-card') || event.target.closest('.sparkle-rect-card') || event.target.closest('.lang-item-row')) {
                 if ("vibrate" in navigator) {
                     navigator.vibrate(35);
                 }
@@ -2299,8 +2401,31 @@ html_code = """
             document.getElementById('mainNavBar').classList.remove('hidden');
         }
 
+        function openLanguageModal(event) {
+            if (event) event.stopPropagation();
+            document.getElementById('languageModalOverlay').classList.add('show');
+        }
+
+        function closeLanguageModal(event) {
+            if (event) event.stopPropagation();
+            document.getElementById('languageModalOverlay').classList.remove('show');
+        }
+
+        function selectLanguage(langName, element) {
+            var rows = document.querySelectorAll('.lang-item-row');
+            rows.forEach(r => r.classList.remove('selected'));
+            element.classList.add('selected');
+            document.getElementById('currentLangDisplay').innerText = langName;
+            setTimeout(() => {
+                closeLanguageModal();
+            }, 150);
+        }
+
         function handleMenuClick(event, msg) {
             if (event) event.stopPropagation();
+            if (msg === 'التعليقات') {
+                showCustomAlert('ميزة التعليقات قادمة قريباً');
+            }
         }
 
         function handleNotifToggle(checkbox) {
@@ -2382,7 +2507,6 @@ html_code = """
         }
 
         function showCustomAlert(message) {
-            if (message.includes('اللغة') || message.includes('التعليقات')) return;
             document.getElementById('customAlertMsgText').innerText = message;
             document.getElementById('customAlertOverlay').classList.add('show');
         }
@@ -2397,7 +2521,7 @@ html_code = """
         }
 
         function closeSourceModal() {
-            document.getElementById('sourceModal').classList.remove('show');
+            document.getElementById('sourceModal').classList.add('show');
         }
 
         function triggerFileInput(type) {
