@@ -270,7 +270,7 @@ html_code = """
             line-height: 1.2;
         }
 
-        /* نافذة منبثقة مخصصة باللغة العربية بالكامل بدلاً من تنبيه المتصفح المزعج */
+        /* نافذة منبثقة مخصصة باللغة العربية بالكامل */
         .custom-alert-overlay {
             display: none;
             position: fixed;
@@ -622,52 +622,20 @@ html_code = """
             font-size: 14px;
         }
 
-        .char-thumbs-row {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding-bottom: 4px;
-            direction: rtl;
-            scrollbar-width: none;
-        }
-        .char-thumbs-row::-webkit-scrollbar { display: none; }
-        
-        .thumb-wrapper {
-            position: relative;
-            flex-shrink: 0;
-        }
-        .char-thumb-item {
-            width: 55px;
-            height: 55px;
-            border-radius: 12px;
-            object-fit: cover;
-            border: 1.5px solid rgba(255,255,255,0.15);
-            cursor: pointer;
-            display: block;
-        }
-        .thumb-remove-badge {
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            background: #ef4444;
-            color: #fff;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            font-size: 10px;
+        /* حاوية الصور المرنة مع زر الإضافة الثابت */
+        .char-thumbs-container {
             display: flex;
             align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border: 1px solid #fff;
-            z-index: 2;
+            gap: 12px;
+            width: 100%;
         }
+
         .char-add-role-box {
             width: 55px;
             height: 55px;
             border-radius: 12px;
             background: #1a2030;
-            border: 1.5px dashed rgba(255,255,255,0.3);
+            border: 1.5px dashed rgba(255,255,255,0.4);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -677,8 +645,34 @@ html_code = """
             cursor: pointer;
             flex-shrink: 0;
             gap: 2px;
+            transition: 0.2s;
         }
+        .char-add-role-box:active { background: #222b3f; }
         .char-add-role-text { font-size: 10px; }
+
+        .char-thumbs-scroll {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            direction: rtl;
+            scrollbar-width: none;
+            flex-grow: 1;
+        }
+        .char-thumbs-scroll::-webkit-scrollbar { display: none; }
+        
+        .char-thumb-item {
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1.5px solid rgba(255,255,255,0.15);
+            cursor: pointer;
+            flex-shrink: 0;
+            display: block;
+            transition: transform 0.2s;
+        }
+        .char-thumb-item:active { transform: scale(0.95); }
 
         .char-name-input {
             width: 100%;
@@ -1345,7 +1339,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة "إضافة شخصية" -->
+    <!-- واجهة "إضافة شخصية" المحدثة -->
     <div id="addCharacterScreen" class="screen-view">
         <div class="add-char-header">
             <button class="add-char-back" onclick="switchScreen('stepByStepScreen', event)">‹</button>
@@ -1364,22 +1358,20 @@ html_code = """
                     </div>
                 </div>
 
-                <div class="char-thumbs-row" id="thumbsRow">
-                    <div class="char-add-role-box" onclick="showSourceModal()">
+                <!-- شريط الصور الجديد: زر الإضافة (+) ثابت منفصل، والصور الجاهزة قابلة للتمرير بدون علامة حذف -->
+                <div class="char-thumbs-container">
+                    <div class="char-add-role-box" onclick="showSourceModal()" title="إضافة صورة جديدة">
                         <span>+</span>
                         <span class="char-add-role-text">الدور</span>
                     </div>
-                    <div class="thumb-wrapper">
+
+                    <div class="char-thumbs-scroll">
                         <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&auto=format&fit=crop" class="char-thumb-item" onclick="selectThumb(this)">
-                        <div class="thumb-remove-badge" onclick="removeThumb(this, event)">✕</div>
-                    </div>
-                    <div class="thumb-wrapper">
                         <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150&auto=format&fit=crop" class="char-thumb-item" onclick="selectThumb(this)">
-                        <div class="thumb-remove-badge" onclick="removeThumb(this, event)">✕</div>
-                    </div>
-                    <div class="thumb-wrapper">
                         <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=150&auto=format&fit=crop" class="char-thumb-item" onclick="selectThumb(this)">
-                        <div class="thumb-remove-badge" onclick="removeThumb(this, event)">✕</div>
+                        <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=150&auto=format&fit=crop" class="char-thumb-item" onclick="selectThumb(this)">
+                        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=150&auto=format&fit=crop" class="char-thumb-item" onclick="selectThumb(this)">
+                        <img src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?q=80&w=150&auto=format&fit=crop" class="char-thumb-item" onclick="selectThumb(this)">
                     </div>
                 </div>
             </div>
@@ -1476,9 +1468,9 @@ html_code = """
     <script>
         // دالة الاهتزاز عند النقر على أي زر أو عنصر تفاعلي
         document.addEventListener('click', function(event) {
-            if (event.target.tagName === 'BUTTON' || event.target.closest('button') || event.target.closest('.interactive-card') || event.target.closest('.plotcraft-nav-item') || event.target.closest('.plotcraft-nav-square') || event.target.closest('.works-tab') || event.target.closest('.plan-card')) {
+            if (event.target.tagName === 'BUTTON' || event.target.closest('button') || event.target.closest('.interactive-card') || event.target.closest('.plotcraft-nav-item') || event.target.closest('.plotcraft-nav-square') || event.target.closest('.works-tab') || event.target.closest('.plan-card') || event.target.closest('.char-thumb-item')) {
                 if ("vibrate" in navigator) {
-                    navigator.vibrate(35); // اهتزاز خفيف وملموس
+                    navigator.vibrate(35);
                 }
             }
         });
@@ -1546,7 +1538,6 @@ html_code = """
             document.getElementById('loginModalOverlay').classList.remove('show');
         }
 
-        // إظهار النافذة المنبثقة المخصصة بالعربية بدلاً من alert المتصفح المزعجة
         function showCustomAlert(message) {
             document.getElementById('customAlertMsgText').innerText = message;
             document.getElementById('customAlertOverlay').classList.add('show');
@@ -1580,7 +1571,6 @@ html_code = """
                 reader.onload = function(e) {
                     var imgSrc = e.target.result;
                     setBigBoxImage(imgSrc);
-                    addThumbToRow(imgSrc);
                 }
                 reader.readAsDataURL(file);
             }
@@ -1597,29 +1587,8 @@ html_code = """
             box.innerHTML = '<div id="bigBoxInner" style="display:flex; flex-direction:column; align-items:center; gap:8px; color:#94a3b8; font-size:13px;"><div style="width:32px; height:32px; background:rgba(255,255,255,0.08); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#cbd5e1;">↑</div><span>رفع صورة</span></div>';
         }
 
-        function addThumbToRow(src) {
-            var row = document.getElementById('thumbsRow');
-            var wrapper = document.createElement('div');
-            wrapper.className = 'thumb-wrapper';
-            wrapper.innerHTML = '<img src="' + src + '" class="char-thumb-item" onclick="selectThumb(this)"><div class="thumb-remove-badge" onclick="removeThumb(this, event)">✕</div>';
-            row.appendChild(wrapper);
-        }
-
         function selectThumb(imgElement) {
             setBigBoxImage(imgElement.src);
-        }
-
-        function removeThumb(badgeElement, event) {
-            event.stopPropagation();
-            var wrapper = badgeElement.parentElement;
-            var img = wrapper.querySelector('img');
-            var bigBox = document.getElementById('bigUploadBox');
-            var bigImg = bigBox.querySelector('img');
-            
-            if (bigImg && bigImg.src === img.src) {
-                clearBigBox(event);
-            }
-            wrapper.remove();
         }
 
         function handleSpeedCardClick(event) {
