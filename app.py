@@ -1769,13 +1769,13 @@ html_code = """
         </div>
     </div>
 
-    <!-- شاشة الإعدادات المحدثة طبقاً لطلبك -->
+    <!-- شاشة الإعدادات -->
     <div class="settings-screen" id="settingsScreen">
         <div class="settings-top-bar">
-            <!-- زر السهم أصبح في أقصى اليمين تماماً لإغلاق الإعدادات -->
+            <!-- زر السهم للخروج من الإعدادات في أقصى اليمين تماماً -->
             <button class="settings-back-btn" onclick="closeSettingsScreen()">›</button>
             <div class="settings-title">الإعدادات</div>
-            <!-- زر الترقية أصبح في أقصى اليسار تماماً -->
+            <!-- زر الترقية في أقصى اليسار تماماً -> يفتح قائمة الاشتراكات (الأسبوعي، الشهري، السنوي) -->
             <button class="settings-upgrade-badge" onclick="openSubscriptionModal()">ترقية</button>
         </div>
 
@@ -1892,7 +1892,7 @@ html_code = """
         <div class="hero-box">
             <div class="top-header">
                 <div class="brand-title">PlotCraft</div>
-                <div class="upgrade-badge" onclick="openSubscriptionModalFromBadge()">ترقية</div>
+                <div class="upgrade-badge" onclick="openSubscriptionModalFromBadge(event)">ترقية</div>
             </div>
 
             <div class="welcome-section">
@@ -1951,7 +1951,7 @@ html_code = """
         <div class="sparkle-top-bar">
             <button class="sparkle-close-btn" onclick="switchScreen('homeScreen', event)">✕</button>
             <div class="brand-title">Plotcraft</div>
-            <div class="sparkle-upgrade-badge" onclick="openSubscriptionModalFromBadge()">ترقية</div>
+            <div class="sparkle-upgrade-badge" onclick="openSubscriptionModalFromBadge(event)">ترقية</div>
         </div>
 
         <div class="sparkle-center-content">
@@ -1998,7 +1998,7 @@ html_code = """
     <div id="toolsScreen" class="screen-view">
         <div class="tools-header">
             <div class="tools-header-title">الأدوات</div>
-            <div class="tools-upgrade-btn" onclick="openSubscriptionModalFromBadge()">ترقية</div>
+            <div class="tools-upgrade-btn" onclick="openSubscriptionModalFromBadge(event)">ترقية</div>
         </div>
         <div class="tools-body">
             <div class="tool-card-item tool-card-1" onclick="showCustomAlert('تأثيرات الفيديو قادمة قريباً')">
@@ -2020,7 +2020,7 @@ html_code = """
         <div class="works-top-header">
             <div class="works-screen-title">الأعمال</div>
             <div class="works-header-left-group">
-                <div class="works-upgrade-badge" onclick="openSubscriptionModalFromBadge()">ترقية</div>
+                <div class="works-upgrade-badge" onclick="openSubscriptionModalFromBadge(event)">ترقية</div>
                 <div class="works-robot-logo" onclick="openSettingsScreen()" title="الإعدادات"></div>
             </div>
         </div>
