@@ -44,7 +44,6 @@ html_code = """
             display: none;
             width: 100%;
             min-height: 100vh;
-            /* الثيم الجديد المستوحى من الصورة لكل الاقسام عدا الرئيسية والزر المنفصل */
             background-color: #1f242d;
             flex-direction: column;
             padding-bottom: 90px;
@@ -54,12 +53,10 @@ html_code = """
             display: flex;
         }
 
-        /* الصفحة الرئيسية تبقى بخلفيتها الأصلية حسب طلبك */
         #homeScreen.screen-view {
             background-color: #0b0f19;
         }
 
-        /* قسم الزر المنفصل يبقى بخلفيته الأصلية حسب طلبك */
         #sparkleDialogScreen.screen-view {
             background-color: #0b0f19;
         }
@@ -499,8 +496,9 @@ html_code = """
         }
 
         .setup-subtitle {
-            color: #cbd5e1;
+            color: #ffffff;
             font-size: 11px;
+            font-weight: 700;
         }
 
         .setup-row-item {
@@ -1391,7 +1389,8 @@ html_code = """
                     <div class="setup-main-title">إعداد القصة</div>
                     <div class="counter-badge" id="counterBadge">0/2</div>
                 </div>
-                <div class="setup-subtitle">أضف الشخصيات والحكاية أولاً، ثم أكمل الخطوات:</div>
+                <!-- النص الجديد المطلوب -->
+                <div class="setup-subtitle">أضف الشخصيات والقصة أولاً، ثم اختر المدة والنسبة.</div>
 
                 <div class="setup-row-item" id="characterRowSlot">
                     <div class="item-info">
