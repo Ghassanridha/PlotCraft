@@ -462,7 +462,7 @@ html_code = """
             background: #e2e8f0;
         }
 
-        /* --- شاشة الإعدادات المحدثة والمطابقة تماماً --- */
+        /* --- شاشة الإعدادات --- */
         .settings-screen {
             display: none;
             position: fixed;
@@ -490,7 +490,6 @@ html_code = """
             text-align: center;
             flex-grow: 1;
         }
-        /* السهم أصبح في أقصى اليمين والترقية في أقصى اليسار */
         .settings-back-btn {
             background: rgba(255, 255, 255, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -559,7 +558,6 @@ html_code = """
             font-weight: 700;
             white-space: nowrap;
         }
-        /* القلم أصبح بلون أبيض وشكل عصري أنيق */
         .profile-edit-pencil {
             cursor: pointer;
             width: 26px;
@@ -1426,7 +1424,7 @@ html_code = """
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.8);
-            z-index: 9999999;
+            z-index: 999999999;
             align-items: center;
             justify-content: center;
             padding: 15px;
@@ -1605,7 +1603,7 @@ html_code = """
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85);
-            z-index: 99999999;
+            z-index: 9999999999;
             align-items: flex-end;
             justify-content: center;
         }
@@ -1725,7 +1723,7 @@ html_code = """
 </head>
 <body>
 
-    <div class="subscription-modal-overlay" id="subscriptionModal">
+    <div class="subscription-modal-overlay hidden" id="subscriptionModal">
         <div class="subscription-modal-box">
             <div class="sub-modal-header">
                 <div class="sub-modal-title">ترقية الحساب</div>
