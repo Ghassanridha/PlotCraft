@@ -530,7 +530,7 @@ html_code = """
             transform: scale(0.95);
         }
 
-        /* --- واجهة "إضافة شخصية" الجديدة --- */
+        /* --- واجهة "إضافة شخصية" المحدثة --- */
         #addCharacterScreen {
             background-color: #0b0f19;
             display: none;
@@ -706,6 +706,74 @@ html_code = """
             cursor: pointer;
             text-align: center;
             box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+            transition: 0.3s;
+        }
+        .char-submit-btn.disabled {
+            background: #1e2538 !important;
+            color: #64748b !important;
+            cursor: not-allowed;
+            box-shadow: none;
+            opacity: 0.6;
+        }
+
+        /* تنسيق بطاقة الشخصية المضافة حديثاً في قائمة الشخصيات (خطوة بخطوة) */
+        .added-character-preview-card {
+            background: #1a2234;
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .added-char-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .added-char-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .added-char-name {
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+        }
+        .added-char-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .added-char-change-group {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: #3b82f6;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            background: rgba(59, 130, 246, 0.12);
+            padding: 4px 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(59, 130, 246, 0.25);
+        }
+        .added-char-delete-btn {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            cursor: pointer;
+            font-weight: bold;
         }
 
         /* نافذة اختيار المصدر: كاميرا يمين، ألبوم يسار */
@@ -792,7 +860,7 @@ html_code = """
         .tool-sub-desc { color: #cbd5e1; font-size: 12px; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
         .tool-arrow-icon { position: absolute; top: 16px; right: 16px; color: #ffffff; font-size: 16px; font-weight: bold; background: rgba(0,0,0,0.4); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
 
-        /* نافذة اشتراكات منبثقة (Popup Modal) تظهر أول ما يفتح التطبيق فوق الواجهة */
+        /* نافذة اشتراكات منبثقة */
         .subscription-modal-overlay {
             display: flex;
             position: fixed;
@@ -973,7 +1041,7 @@ html_code = """
             font-size: 12px;
         }
 
-        /* نافذة تسجيل الدخول عند الضغط على اشتراك */
+        /* نافذة تسجيل الدخول */
         .login-modal-overlay {
             display: none;
             position: fixed;
@@ -1100,7 +1168,7 @@ html_code = """
 </head>
 <body>
 
-    <!-- نافذة منبثقة لترقية الحساب تظهر تلقائياً عند فتح التطبيق -->
+    <!-- نافذة منبثقة لترقية الحساب -->
     <div class="subscription-modal-overlay" id="subscriptionModal">
         <div class="subscription-modal-box">
             <div class="sub-modal-header">
@@ -1206,7 +1274,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة الزر الرابع المنفصل مع شارة Pro only والقفل الأبيض الثابت -->
+    <!-- واجهة الزر الرابع المنفصل -->
     <div id="sparkleDialogScreen" class="screen-view">
         <div class="sparkle-top-bar">
             <button class="sparkle-close-btn" onclick="switchScreen('homeScreen', event)">✕</button>
@@ -1225,7 +1293,6 @@ html_code = """
             <div class="sparkle-greeting-text">طاب مساؤك، أيها المخرج<br>أي قصة سنصنع اليوم؟</div>
 
             <div class="sparkle-rect-cards-container">
-                <!-- بطاقة خطوة بخطوة -->
                 <div class="sparkle-rect-card" onclick="switchScreen('stepByStepScreen', event)">
                     <div class="sparkle-rect-right">
                         <div class="sparkle-card-titles" style="text-align: right;">
@@ -1238,7 +1305,6 @@ html_code = """
                     </div>
                 </div>
 
-                <!-- بطاقة سريع مع شارة Pro only والقفل الأبيض حصراً -->
                 <div class="sparkle-rect-card" onclick="handleSpeedCardClick(event)">
                     <div class="sparkle-rect-right">
                         <div class="sparkle-card-titles" style="text-align: right;">
@@ -1312,11 +1378,11 @@ html_code = """
             <div class="story-setup-box">
                 <div class="setup-header-row">
                     <div class="setup-main-title">إعداد القصة</div>
-                    <div class="counter-badge">0/2</div>
+                    <div class="counter-badge" id="counterBadge">0/2</div>
                 </div>
                 <div class="setup-subtitle">أضف الشخصيات والحكاية أولاً، ثم أكمل الخطوات:</div>
 
-                <div class="setup-row-item">
+                <div class="setup-row-item" id="characterRowSlot">
                     <div class="item-info">
                         <h4>الشخصيات</h4>
                         <p>أضف صورتين كحد أقصى لشخصيات القصة</p>
@@ -1358,7 +1424,6 @@ html_code = """
                     </div>
                 </div>
 
-                <!-- شريط الصور الجديد: زر الإضافة (+) ثابت منفصل، والصور الجاهزة قابلة للتمرير بدون علامة حذف -->
                 <div class="char-thumbs-container">
                     <div class="char-add-role-box" onclick="showSourceModal()" title="إضافة صورة جديدة">
                         <span>+</span>
@@ -1377,13 +1442,13 @@ html_code = """
             </div>
 
             <div class="char-main-card">
-                <div class="char-section-label">اسم الشخصية</div>
-                <input type="text" class="char-name-input" placeholder="مثال: شخصية مرجعية">
+                <div class="char-section-label">اسم الشخصية *</div>
+                <input type="text" class="char-name-input" id="characterNameInput" placeholder="أدخل اسم الشخصية (إجباري)" oninput="checkFormValidity()">
             </div>
         </div>
 
         <div class="char-submit-btn-wrapper">
-            <button class="char-submit-btn" onclick="showCustomAlert('تم حفظ الشخصية بنجاح!'); switchScreen('stepByStepScreen', event);">إرسال</button>
+            <button class="char-submit-btn disabled" id="submitCharacterBtn" onclick="submitCharacterData()">إرسال</button>
         </div>
     </div>
 
@@ -1408,7 +1473,7 @@ html_code = """
     <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none;" onchange="handleFileSelected(event)">
     <input type="file" id="albumInput" accept="image/*" style="display:none;" onchange="handleFileSelected(event)">
 
-    <!-- نافذة تسجيل الدخول عند الضغط على اشتراك -->
+    <!-- نافذة تسجيل الدخول -->
     <div class="login-modal-overlay" id="loginModalOverlay">
         <div class="login-modal-content">
             <div class="login-modal-header">
@@ -1466,7 +1531,10 @@ html_code = """
     </div>
 
     <script>
-        // دالة الاهتزاز عند النقر على أي زر أو عنصر تفاعلي
+        // متغيرات حفظ حالة الشخصية المضافة
+        let currentUploadedImageSrc = "";
+        let characterAdded = false;
+
         document.addEventListener('click', function(event) {
             if (event.target.tagName === 'BUTTON' || event.target.closest('button') || event.target.closest('.interactive-card') || event.target.closest('.plotcraft-nav-item') || event.target.closest('.plotcraft-nav-square') || event.target.closest('.works-tab') || event.target.closest('.plan-card') || event.target.closest('.char-thumb-item')) {
                 if ("vibrate" in navigator) {
@@ -1535,6 +1603,7 @@ html_code = """
         }
 
         function closeLoginModal() {
+            document.getElementById('loginModalOverlay').classList.add('show').remove;
             document.getElementById('loginModalOverlay').classList.remove('show');
         }
 
@@ -1569,26 +1638,117 @@ html_code = """
             if (file) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    var imgSrc = e.target.result;
-                    setBigBoxImage(imgSrc);
+                    currentUploadedImageSrc = e.target.result;
+                    setBigBoxImage(currentUploadedImageSrc);
+                    checkFormValidity();
                 }
                 reader.readAsDataURL(file);
             }
         }
 
         function setBigBoxImage(src) {
+            currentUploadedImageSrc = src;
             var box = document.getElementById('bigUploadBox');
             box.innerHTML = '<button class="remove-big-img" onclick="clearBigBox(event)">✕</button><img src="' + src + '">';
+            checkFormValidity();
         }
 
         function clearBigBox(event) {
-            event.stopPropagation();
+            if (event) event.stopPropagation();
+            currentUploadedImageSrc = "";
             var box = document.getElementById('bigUploadBox');
             box.innerHTML = '<div id="bigBoxInner" style="display:flex; flex-direction:column; align-items:center; gap:8px; color:#94a3b8; font-size:13px;"><div style="width:32px; height:32px; background:rgba(255,255,255,0.08); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#cbd5e1;">↑</div><span>رفع صورة</span></div>';
+            checkFormValidity();
         }
 
         function selectThumb(imgElement) {
             setBigBoxImage(imgElement.src);
+        }
+
+        // التحقق من أن اسم الشخصية مكتوب والصورة مرفوعة لتفعيل زر الإرسال
+        function checkFormValidity() {
+            var nameInput = document.getElementById('characterNameInput').value.trim();
+            var submitBtn = document.getElementById('submitCharacterBtn');
+            
+            if (currentUploadedImageSrc !== "" && nameInput !== "") {
+                submitBtn.classList.remove('disabled');
+            } else {
+                submitBtn.classList.add('disabled');
+            }
+        }
+
+        // عند الضغط على زر إرسال
+        function submitCharacterData() {
+            var nameInput = document.getElementById('characterNameInput').value.trim();
+            if (currentUploadedImageSrc === "") {
+                showCustomAlert("يجب رفع صورة للشخصية أولاً!");
+                return;
+            }
+            if (nameInput === "") {
+                showCustomAlert("يجب كتابة اسم شخصية معينة!");
+                return;
+            }
+
+            characterAdded = true;
+            updateCharacterSlotUI(currentUploadedImageSrc, nameInput);
+            document.getElementById('counterBadge').innerText = "1/2";
+            showCustomAlert("تم حفظ الشخصية بنجاح!");
+            switchScreen('stepByStepScreen', event);
+        }
+
+        // تحديث خانة الشخصيات في شاشة خطوة بخطوة
+        function updateCharacterSlotUI(imgSrc, charName) {
+            var slot = document.getElementById('characterRowSlot');
+            slot.innerHTML = `
+                <div style="width:100%; display:flex; flex-direction:column; gap:8px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div class="item-info">
+                            <h4>الشخصيات</h4>
+                            <p>تم إضافة الشخصية بنجاح</p>
+                        </div>
+                    </div>
+                    <div class="added-character-preview-card">
+                        <div class="added-char-right">
+                            <img src="` + imgSrc + `" class="added-char-img">
+                            <span class="added-char-name">` + charName + `</span>
+                        </div>
+                        <div class="added-char-left">
+                            <div class="added-char-change-group" onclick="editCharacter('` + imgSrc + `', '` + charName + `')">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path><polyline points="21 3 21 8 16 8"></polyline></svg>
+                                <span>تغيير</span>
+                            </div>
+                            <div class="added-char-delete-btn" onclick="deleteCharacterSlot(event)">✕</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // تعديل الشخصية المضافة (الرجوع لشاشة الإضافة مع البيانات القديمة)
+        function editCharacter(imgSrc, charName) {
+            setBigBoxImage(imgSrc);
+            document.getElementById('characterNameInput').value = charName;
+            checkFormValidity();
+            switchScreen('addCharacterScreen', event);
+        }
+
+        // حذف الشخصية وإرجاع القطة فارغة
+        function deleteCharacterSlot(event) {
+            event.stopPropagation();
+            characterAdded = false;
+            currentUploadedImageSrc = "";
+            document.getElementById('characterNameInput').value = "";
+            document.getElementById('counterBadge').innerText = "0/2";
+            
+            var slot = document.getElementById('characterRowSlot');
+            slot.innerHTML = `
+                <div class="item-info">
+                    <h4>الشخصيات</h4>
+                    <p>أضف صورتين كحد أقصى لشخصيات القصة</p>
+                </div>
+                <button class="action-add-btn" onclick="openAddCharacter(event)">إضافة</button>
+            `;
+            showCustomAlert("تم حذف الشخصية بنجاح.");
         }
 
         function handleSpeedCardClick(event) {
