@@ -498,7 +498,7 @@ html_code = """
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            font-size: 16px;
+            font-size: 18px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -1785,8 +1785,8 @@ html_code = """
     <!-- شاشة الإعدادات -->
     <div class="settings-screen" id="settingsScreen">
         <div class="settings-top-bar">
-            <!-- زر إغلاق (✕) منظم وآمن تماماً بدون تداخل -->
-            <button class="settings-close-btn" onclick="closeSettingsScreen(event)">✕</button>
+            <!-- تم تغيير زر الإغلاق من علامة x إلى سهم متجه لليمين ونقله للجهة اليمنى -->
+            <button class="settings-close-btn" onclick="closeSettingsScreen(event)" title="رجوع">‹</button>
             <div class="settings-title">الإعدادات</div>
             <button class="settings-upgrade-badge" onclick="openSubscriptionModal()">ترقية</button>
         </div>
@@ -2243,8 +2243,9 @@ html_code = """
         let userUniqueId = Math.floor(1000000 + Math.random() * 9000000);
         document.getElementById('displayUniqueId').innerText = userUniqueId + " ID";
 
+        // تفعيل الاهتزاز الخفيف (صوت النقر/الاهتزاز) لجميع الأزرار وعناصر التفاعل في التطبيق بالكامل
         document.addEventListener('click', function(event) {
-            if (event.target.tagName === 'BUTTON' || event.target.closest('button') || event.target.closest('.interactive-card') || event.target.closest('.plotcraft-nav-item') || event.target.closest('.plotcraft-nav-square') || event.target.closest('.works-tab') || event.target.closest('.plan-card') || event.target.closest('.char-thumb-item')) {
+            if (event.target.tagName === 'BUTTON' || event.target.closest('button') || event.target.closest('.interactive-card') || event.target.closest('.plotcraft-nav-item') || event.target.closest('.plotcraft-nav-square') || event.target.closest('.works-tab') || event.target.closest('.plan-card') || event.target.closest('.char-thumb-item') || event.target.closest('.settings-item-row') || event.target.closest('.movie-card') || event.target.closest('.sparkle-rect-card')) {
                 if ("vibrate" in navigator) {
                     navigator.vibrate(35);
                 }
@@ -2300,7 +2301,6 @@ html_code = """
 
         function handleMenuClick(event, msg) {
             if (event) event.stopPropagation();
-            // منع فتح أي تنبيه غير مقصود عند عنصر اللغة أو التعليقات لمنع تعليق الشاشة
         }
 
         function handleNotifToggle(checkbox) {
@@ -2382,7 +2382,6 @@ html_code = """
         }
 
         function showCustomAlert(message) {
-            // تم تعطيل التنبيهات المؤقتة الخاصة باللغة والتعليقات لمنع ظهور نوافذ غير مرغوبة
             if (message.includes('اللغة') || message.includes('التعليقات')) return;
             document.getElementById('customAlertMsgText').innerText = message;
             document.getElementById('customAlertOverlay').classList.add('show');
