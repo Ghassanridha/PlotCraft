@@ -282,7 +282,7 @@ html_code = """
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.7);
-            z-index: 999999;
+            z-index: 99999999999;
             align-items: center;
             justify-content: center;
         }
@@ -468,7 +468,7 @@ html_code = """
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-color: #1f242d;
-            z-index: 9999999;
+            z-index: 999999;
             flex-direction: column;
             overflow-y: auto;
             padding: 20px;
@@ -491,7 +491,6 @@ html_code = """
             flex-grow: 1;
         }
         
-        /* زر إغلاق الإعدادات بالنقر على شريط العنوان أو أيقونة مريحة بدلاً من السهم */
         .settings-close-btn {
             background: rgba(255, 255, 255, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -1740,7 +1739,7 @@ html_code = """
 <body>
 
     <div class="subscription-modal-overlay hidden" id="subscriptionModal">
-        <div class="subscription-modal-box">
+        <div class="subscription-modal-box" onclick="event.stopPropagation()">
             <div class="sub-modal-header">
                 <div class="sub-modal-title">ترقية الحساب</div>
                 <button class="sub-modal-close-x" onclick="closeSubscriptionModal()">✕</button>
@@ -1783,13 +1782,12 @@ html_code = """
         </div>
     </div>
 
-    <!-- شاشة الإعدادات (بدون أي سهم في الأعلى) -->
+    <!-- شاشة الإعدادات -->
     <div class="settings-screen" id="settingsScreen">
         <div class="settings-top-bar">
-            <!-- زر إغلاق (✕) بدلاً من السهم في أقصى اليمين -->
-            <button class="settings-close-btn" onclick="closeSettingsScreen()">✕</button>
+            <!-- زر إغلاق (✕) منظم وآمن تماماً بدون تداخل -->
+            <button class="settings-close-btn" onclick="closeSettingsScreen(event)">✕</button>
             <div class="settings-title">الإعدادات</div>
-            <!-- زر الترقية في أقصى اليسار -->
             <button class="settings-upgrade-badge" onclick="openSubscriptionModal()">ترقية</button>
         </div>
 
@@ -1821,14 +1819,14 @@ html_code = """
         </div>
 
         <div class="settings-group-box">
-            <div class="settings-item-row" onclick="showCustomAlert('سجل النقاط')">
+            <div class="settings-item-row" onclick="handleMenuClick(event, 'سجل النقاط')">
                 <div class="settings-item-right">
                     <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
                     <span>سجل النقاط</span>
                 </div>
                 <div class="settings-item-left"><span>›</span></div>
             </div>
-            <div class="settings-item-row" onclick="showCustomAlert('التعليقات')">
+            <div class="settings-item-row" onclick="handleMenuClick(event, 'التعليقات')">
                 <div class="settings-item-right">
                     <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg></div>
                     <span>التعليقات</span>
@@ -1838,33 +1836,33 @@ html_code = """
         </div>
 
         <div class="settings-group-box">
-            <div class="settings-item-row">
+            <div class="settings-item-row" onclick="event.stopPropagation()">
                 <div class="settings-item-right">
                     <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg></div>
                     <span>الإشعارات</span>
                 </div>
                 <div class="settings-item-left">
-                    <label class="switch-toggle">
+                    <label class="switch-toggle" onclick="event.stopPropagation()">
                         <input type="checkbox" id="notifSwitch" onchange="handleNotifToggle(this)">
                         <span class="slider-round"></span>
                     </label>
                 </div>
             </div>
-            <div class="settings-item-row" onclick="showCustomAlert('اللغة: العربية')">
+            <div class="settings-item-row" onclick="handleMenuClick(event, 'اللغة: العربية')">
                 <div class="settings-item-right">
                     <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.92 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A8.03 8.03 0 0 1 5.08 16zm2.95-8H5.08a8.03 8.03 0 0 1 4.33-3.56A15.65 15.65 0 0 0 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.65-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.35-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg></div>
                     <span>اللغة</span>
                 </div>
                 <div class="settings-item-left"><span>العربية</span><span>›</span></div>
             </div>
-            <div class="settings-item-row" onclick="showCustomAlert('انضم إلينا (تليجرام)')">
+            <div class="settings-item-row" onclick="handleMenuClick(event, 'انضم إلينا (تليجرام)')">
                 <div class="settings-item-right">
                     <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.02-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.36-.49 1-.74 3.91-1.7 6.52-2.82 7.83-3.37 3.72-1.56 4.49-1.83 4.99-1.84.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.13-.05.29z"/></svg></div>
                     <span>انضم إلينا</span>
                 </div>
                 <div class="settings-item-left"><span>›</span></div>
             </div>
-            <div class="settings-item-row" onclick="showCustomAlert('اتصل بنا')">
+            <div class="settings-item-row" onclick="handleMenuClick(event, 'اتصل بنا')">
                 <div class="settings-item-right">
                     <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
                     <span>اتصل بنا</span>
@@ -1874,7 +1872,7 @@ html_code = """
         </div>
 
         <div class="settings-group-box">
-            <div class="settings-item-row" onclick="showCustomAlert('الإعدادات العامة')">
+            <div class="settings-item-row" onclick="handleMenuClick(event, 'الإعدادات العامة')">
                 <div class="settings-item-right">
                     <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
                     <span>الإعدادات</span>
@@ -1884,20 +1882,20 @@ html_code = """
         </div>
     </div>
 
-    <div class="notif-permission-overlay" id="notifPermissionModal">
+    <div class="notif-permission-overlay" id="notifPermissionModal" onclick="event.stopPropagation()">
         <div class="notif-permission-box">
             <div class="notif-permission-title">هل تريد السماح لتطبيق Plotcraft بإرسال إشعارات إليك؟</div>
-            <button class="notif-allow-btn" onclick="allowNotifications()">سماح</button>
-            <button class="notif-deny-btn" onclick="denyNotifications()">عدم السماح</button>
+            <button class="notif-allow-btn" onclick="allowNotifications(event)">سماح</button>
+            <button class="notif-deny-btn" onclick="denyNotifications(event)">عدم السماح</button>
         </div>
     </div>
 
-    <div class="name-edit-modal-overlay" id="nameEditModal">
+    <div class="name-edit-modal-overlay" id="nameEditModal" onclick="event.stopPropagation()">
         <div class="name-edit-box">
             <div style="color:#fff; font-size:16px; font-weight:700;">تعديل اسم المستخدم</div>
             <input type="text" class="name-edit-input" id="editNameInputField" placeholder="أدخل الاسم الجديد">
-            <button class="notif-allow-btn" onclick="saveNewUserName()">إرسال</button>
-            <button class="notif-deny-btn" onclick="closeNameEditModal()">إلغاء</button>
+            <button class="notif-allow-btn" onclick="saveNewUserName(event)">إرسال</button>
+            <button class="notif-deny-btn" onclick="closeNameEditModal(event)">إلغاء</button>
         </div>
     </div>
 
@@ -1953,10 +1951,10 @@ html_code = """
         </div>
     </div>
 
-    <div class="custom-alert-overlay" id="customAlertOverlay">
+    <div class="custom-alert-overlay" id="customAlertOverlay" onclick="event.stopPropagation()">
         <div class="custom-alert-box">
             <div class="custom-alert-msg" id="customAlertMsgText">يتم إضافة القصص قريباً</div>
-            <button class="custom-alert-btn" onclick="closeCustomAlert()">حسناً</button>
+            <button class="custom-alert-btn" onclick="closeCustomAlert(event)">حسناً</button>
         </div>
     </div>
 
@@ -2034,7 +2032,7 @@ html_code = """
             <div class="works-screen-title">الأعمال</div>
             <div class="works-header-left-group">
                 <div class="works-upgrade-badge" onclick="openSubscriptionModalFromBadge(event)">ترقية</div>
-                <div class="works-robot-logo" onclick="openSettingsScreen()" title="الإعدادات"></div>
+                <div class="works-robot-logo" onclick="openSettingsScreen(event)" title="الإعدادات"></div>
             </div>
         </div>
 
@@ -2161,7 +2159,7 @@ html_code = """
         </div>
     </div>
 
-    <div class="source-modal" id="sourceModal">
+    <div class="source-modal" id="sourceModal" onclick="event.stopPropagation()">
         <div class="source-modal-content">
             <div style="color:#fff; font-weight:700; font-size:15px; margin-bottom:2px;">اختر مصدر الصورة</div>
             <div class="source-buttons-row">
@@ -2181,7 +2179,7 @@ html_code = """
     <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none;" onchange="handleFileSelected(event)">
     <input type="file" id="albumInput" accept="image/*" style="display:none;" onchange="handleFileSelected(event)">
 
-    <div class="login-modal-overlay" id="loginModalOverlay">
+    <div class="login-modal-overlay" id="loginModalOverlay" onclick="event.stopPropagation()">
         <div class="login-modal-content">
             <div class="login-modal-header">
                 <div class="login-modal-title">تسجيل الدخول إلى Plotcraft</div>
@@ -2278,22 +2276,31 @@ html_code = """
 
         function openSubscriptionModalFromBadge(event) {
             if (event) event.preventDefault();
+            event.stopPropagation();
             openSubscriptionModal();
         }
 
         function openSparkleDialog(event) {
+            if (event) event.stopPropagation();
             switchScreen('sparkleDialogScreen', event);
             document.getElementById('mainNavBar').classList.add('hidden');
         }
 
-        function openSettingsScreen() {
+        function openSettingsScreen(event) {
+            if (event) event.stopPropagation();
             document.getElementById('settingsScreen').classList.add('active');
             document.getElementById('mainNavBar').classList.add('hidden');
         }
 
-        function closeSettingsScreen() {
+        function closeSettingsScreen(event) {
+            if (event) event.stopPropagation();
             document.getElementById('settingsScreen').classList.remove('active');
             document.getElementById('mainNavBar').classList.remove('hidden');
+        }
+
+        function handleMenuClick(event, msg) {
+            if (event) event.stopPropagation();
+            // منع فتح أي تنبيه غير مقصود عند عنصر اللغة أو التعليقات لمنع تعليق الشاشة
         }
 
         function handleNotifToggle(checkbox) {
@@ -2304,15 +2311,16 @@ html_code = """
             }
         }
 
-        function allowNotifications() {
+        function allowNotifications(event) {
+            if (event) event.stopPropagation();
             document.getElementById('notifPermissionModal').style.display = 'none';
             showCustomAlert('تم تفعيل الإشعارات بنجاح!');
         }
 
-        function denyNotifications() {
+        function denyNotifications(event) {
+            if (event) event.stopPropagation();
             document.getElementById('notifPermissionModal').style.display = 'none';
             document.getElementById('notifSwitch').checked = false;
-            showCustomAlert('تم رفض الإذن. يمكنك تفعيلها من إعدادات جهازك الرئيسي.');
         }
 
         function openNameEditModal() {
@@ -2320,11 +2328,13 @@ html_code = """
             document.getElementById('nameEditModal').style.display = 'flex';
         }
 
-        function closeNameEditModal() {
+        function closeNameEditModal(event) {
+            if (event) event.stopPropagation();
             document.getElementById('nameEditModal').style.display = 'none';
         }
 
-        function saveNewUserName() {
+        function saveNewUserName(event) {
+            if (event) event.stopPropagation();
             var val = document.getElementById('editNameInputField').value.trim();
             if (val !== "") {
                 document.getElementById('displayUserName').innerText = val;
@@ -2372,11 +2382,14 @@ html_code = """
         }
 
         function showCustomAlert(message) {
+            // تم تعطيل التنبيهات المؤقتة الخاصة باللغة والتعليقات لمنع ظهور نوافذ غير مرغوبة
+            if (message.includes('اللغة') || message.includes('التعليقات')) return;
             document.getElementById('customAlertMsgText').innerText = message;
             document.getElementById('customAlertOverlay').classList.add('show');
         }
 
-        function closeCustomAlert() {
+        function closeCustomAlert(event) {
+            if (event) event.stopPropagation();
             document.getElementById('customAlertOverlay').classList.remove('show');
         }
 
