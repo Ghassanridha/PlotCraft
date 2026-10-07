@@ -420,6 +420,8 @@ html_code = """
             display: flex;
             flex-direction: column;
             gap: 16px;
+            max-height: calc(100vh - 90px);
+            overflow-y: auto;
         }
 
         .ai-assistant-card {
@@ -537,6 +539,130 @@ html_code = """
         .action-add-btn:active {
             transform: scale(0.95);
             background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* زر التالي: أبيض على أسود غامق ومخفي حتى يكتمل الإدخال */
+        .next-step-btn {
+            background: #1f242d !important;
+            color: #ffffff !important;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 12px 28px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.3);
+            cursor: pointer;
+            display: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: 0.2s;
+        }
+        .next-step-btn.show {
+            display: block;
+        }
+        .next-step-btn:active {
+            background: #282f3d !important;
+            transform: scale(0.98);
+        }
+
+        /* --- واجهة شاشة إعداد الحكاية (وصف لاهاية له) --- */
+        #storyDescriptionScreen {
+            display: none;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #1f242d;
+            padding: 20px;
+            position: relative;
+        }
+        #storyDescriptionScreen.active {
+            display: flex;
+        }
+        .story-desc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            margin-bottom: 20px;
+        }
+        .story-desc-title {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .story-desc-back {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .story-textarea {
+            width: 100%;
+            height: 350px;
+            background: #282f3d;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 16px;
+            color: #ffffff;
+            font-size: 15px;
+            outline: none;
+            resize: vertical;
+            text-align: right;
+            line-height: 1.6;
+        }
+        .story-textarea::placeholder {
+            color: #cbd5e1;
+        }
+        .story-save-btn-wrapper {
+            position: fixed;
+            bottom: 25px;
+            left: 20px;
+            right: 20px;
+            z-index: 20;
+            display: none;
+        }
+        .story-save-btn-wrapper.show {
+            display: block;
+        }
+        .story-save-btn {
+            background: #0b0f19;
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,0.4);
+            font-size: 14px;
+            font-weight: 700;
+            padding: 12px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 160px;
+            margin: 0 auto;
+            display: block;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+        .story-save-btn:active {
+            background: #161b22;
+            transform: scale(0.98);
+        }
+
+        /* قائمة الحكاية المضافة عمودياً تحت الشخصيات */
+        .added-story-preview-card {
+            background: #343d50;
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .added-story-text {
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            max-width: 220px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         /* --- واجهة "إضافة شخصية" --- */
@@ -1375,7 +1501,7 @@ html_code = """
             <div style="width:36px;"></div>
         </div>
 
-        <div class="step-container">
+        <div class="step-container" id="stepContainerScroll">
             <div class="ai-assistant-card">
                 <div class="ai-header-row">
                     <div class="ai-title">مساعد AI بلوت كرافت</div>
@@ -1389,7 +1515,6 @@ html_code = """
                     <div class="setup-main-title">إعداد القصة</div>
                     <div class="counter-badge" id="counterBadge">0/2</div>
                 </div>
-                <!-- النص الجديد المطلوب -->
                 <div class="setup-subtitle">أضف الشخصيات والقصة أولاً، ثم اختر المدة والنسبة.</div>
 
                 <div class="setup-row-item" id="characterRowSlot">
@@ -1400,18 +1525,38 @@ html_code = """
                     <button class="action-add-btn" onclick="openAddCharacter(event)">إضافة</button>
                 </div>
 
-                <div class="setup-row-item">
+                <!-- خانة الحكاية -->
+                <div class="setup-row-item" id="storyRowSlot">
                     <div class="item-info">
                         <h4>الحكاية</h4>
                         <p>اكتب أو صف حبكة قصتك هنا</p>
                     </div>
-                    <button class="action-add-btn" onclick="showCustomAlert('فتح إعداد الحكاية قريباً')">إضافة</button>
+                    <button class="action-add-btn" onclick="openStoryDescription(event)">إضافة</button>
                 </div>
             </div>
 
             <div class="bottom-next-row" style="display:flex; justify-content:flex-end; margin-top:10px;">
-                <button style="background:linear-gradient(135deg,#3b82f6,#8b5cf6); color:#fff; font-weight:700; padding:10px 24px; border-radius:12px; border:none; cursor:pointer;" onclick="showCustomAlert('تم حفظ الخطوات بنجاح!')">التالي</button>
+                <button class="next-step-btn" id="nextStepBtn" onclick="showCustomAlert('الانتقال للخطوة التالية بنجاح!')">التالي</button>
             </div>
+        </div>
+    </div>
+
+    <!-- شاشة إعداد الحكاية (وصف لاهاية له) -->
+    <div id="storyDescriptionScreen" class="screen-view">
+        <div class="story-desc-header">
+            <button class="story-desc-back" onclick="switchScreen('stepByStepScreen', event)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5"></path><polyline points="12 19 5 12 12 5"></polyline></svg>
+            </button>
+            <div class="story-desc-title">إعداد الحكاية</div>
+            <div style="width: 20px;"></div>
+        </div>
+
+        <div style="padding: 0 16px 100px 16px;">
+            <textarea class="story-textarea" id="storyTextArea" placeholder="اكتب وصفاً أو حبكة القصة هنا (بدون حدود)..." oninput="checkStoryInput()"></textarea>
+        </div>
+
+        <div class="story-save-btn-wrapper" id="storySaveBtnWrapper">
+            <button class="story-save-btn" onclick="saveStoryDescription()">حفظ</button>
         </div>
     </div>
 
@@ -1543,6 +1688,8 @@ html_code = """
     <script>
         let currentUploadedImageSrc = "";
         let characterAdded = false;
+        let storyAdded = false;
+        let savedStoryText = "";
 
         document.addEventListener('click', function(event) {
             if (event.target.tagName === 'BUTTON' || event.target.closest('button') || event.target.closest('.interactive-card') || event.target.closest('.plotcraft-nav-item') || event.target.closest('.plotcraft-nav-square') || event.target.closest('.works-tab') || event.target.closest('.plan-card') || event.target.closest('.char-thumb-item')) {
@@ -1559,7 +1706,7 @@ html_code = """
             document.getElementById(screenId).classList.add('active');
             
             var navBar = document.getElementById('mainNavBar');
-            if (screenId === 'sparkleDialogScreen' || screenId === 'addCharacterScreen') {
+            if (screenId === 'sparkleDialogScreen' || screenId === 'addCharacterScreen' || screenId === 'storyDescriptionScreen') {
                 navBar.classList.add('hidden');
             } else {
                 navBar.classList.remove('hidden');
@@ -1587,6 +1734,12 @@ html_code = """
 
         function openAddCharacter(event) {
             switchScreen('addCharacterScreen', event);
+        }
+
+        function openStoryDescription(event) {
+            document.getElementById('storyTextArea').value = savedStoryText;
+            checkStoryInput();
+            switchScreen('storyDescriptionScreen', event);
         }
 
         function setActiveNav(navId) {
@@ -1690,7 +1843,7 @@ html_code = """
 
             characterAdded = true;
             updateCharacterSlotUI(currentUploadedImageSrc, nameInput);
-            document.getElementById('counterBadge').innerText = "1/2";
+            updateCounter();
             switchScreen('stepByStepScreen', event);
         }
 
@@ -1733,7 +1886,7 @@ html_code = """
             characterAdded = false;
             currentUploadedImageSrc = "";
             document.getElementById('characterNameInput').value = "";
-            document.getElementById('counterBadge').innerText = "0/2";
+            updateCounter();
             
             var slot = document.getElementById('characterRowSlot');
             slot.innerHTML = `
@@ -1743,6 +1896,87 @@ html_code = """
                 </div>
                 <button class="action-add-btn" onclick="openAddCharacter(event)">إضافة</button>
             `;
+        }
+
+        // تفقد إدخال الحكاية لإظهار أو إخفاء زر الحفظ
+        function checkStoryInput() {
+            var val = document.getElementById('storyTextArea').value.trim();
+            var saveWrapper = document.getElementById('storySaveBtnWrapper');
+            if (val !== "") {
+                saveWrapper.classList.add('show');
+            } else {
+                saveWrapper.classList.remove('show');
+            }
+        }
+
+        // عند حفظ الحكاية
+        function saveStoryDescription() {
+            var val = document.getElementById('storyTextArea').value.trim();
+            if (val === "") return;
+
+            savedStoryText = val;
+            storyAdded = true;
+            updateStorySlotUI(val);
+            updateCounter();
+            switchScreen('stepByStepScreen', event);
+        }
+
+        // تحديث خانة الحكاية عمودياً تحت الشخصيات
+        function updateStorySlotUI(text) {
+            var slot = document.getElementById('storyRowSlot');
+            slot.innerHTML = `
+                <div style="width:100%; display:flex; flex-direction:column; gap:8px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div class="item-info">
+                            <h4>الحكاية</h4>
+                            <p>تم حفظ حبكة القصة بنجاح</p>
+                        </div>
+                    </div>
+                    <div class="added-story-preview-card">
+                        <div class="added-story-text">` + text + `</div>
+                        <div class="added-char-left">
+                            <div class="added-char-change-group" onclick="openStoryDescription(event)">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path><polyline points="21 3 21 8 16 8"></polyline></svg>
+                                <span>تغيير</span>
+                            </div>
+                            <div class="added-char-delete-btn" onclick="deleteStorySlot(event)">✕</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function deleteStorySlot(event) {
+            event.stopPropagation();
+            storyAdded = false;
+            savedStoryText = "";
+            document.getElementById('storyTextArea').value = "";
+            updateCounter();
+
+            var slot = document.getElementById('storyRowSlot');
+            slot.innerHTML = `
+                <div class="item-info">
+                    <h4>الحكاية</h4>
+                    <p>اكتب أو صف حبكة قصتك هنا</p>
+                </div>
+                <button class="action-add-btn" onclick="openStoryDescription(event)">إضافة</button>
+            `;
+        }
+
+        // تحديث العداد وزر التالي المخفي
+        function updateCounter() {
+            let count = 0;
+            if (characterAdded) count++;
+            if (storyAdded) count++;
+
+            document.getElementById('counterBadge').innerText = count + "/2";
+
+            var nextBtn = document.getElementById('nextStepBtn');
+            if (count === 2) {
+                nextBtn.classList.add('show');
+            } else {
+                nextBtn.classList.remove('show');
+            }
         }
 
         function handleSpeedCardClick(event) {
