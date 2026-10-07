@@ -18,7 +18,7 @@ st.markdown("""
 
 html_code = """
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="appHtmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -103,7 +103,6 @@ html_code = """
         }
 
         .welcome-section {
-            text-align: right;
             margin-top: 15px;
         }
 
@@ -235,7 +234,6 @@ html_code = """
 
         .movies-carousel {
             display: flex;
-            flex-direction: row-reverse;
             gap: 14px;
             overflow-x: auto;
             padding-bottom: 10px;
@@ -472,7 +470,6 @@ html_code = """
             flex-direction: column;
             overflow-y: auto;
             padding: 20px;
-            direction: rtl;
         }
         .settings-screen.active { display: flex; }
 
@@ -727,7 +724,7 @@ html_code = """
         input:checked + .slider-round { background-color: #3b82f6; }
         input:checked + .slider-round:before { transform: translateX(20px); }
 
-        /* نافذة اختيار اللغات بالإنجليزية وجهة اليسار */
+        /* نافذة اختيار اللغات */
         .language-modal-overlay {
             display: none;
             position: fixed;
@@ -745,7 +742,7 @@ html_code = """
             border-radius: 24px;
             width: 100%;
             max-width: 340px;
-            max-height: 80vh;
+            max-height: 85vh;
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -757,13 +754,19 @@ html_code = """
             align-items: center;
             padding: 18px 20px;
             border-bottom: 1px solid rgba(255,255,255,0.08);
+            position: relative;
         }
         .lang-modal-title {
             color: #fff;
             font-size: 16px;
             font-weight: 700;
+            width: 100%;
+            text-align: center;
         }
-        .lang-modal-close {
+        /* زر الإغلاق (X) في جهة اليسار فوق */
+        .lang-modal-close-left {
+            position: absolute;
+            left: 20px;
             background: rgba(255,255,255,0.1);
             border: none;
             color: #fff;
@@ -775,15 +778,21 @@ html_code = """
             align-items: center;
             justify-content: center;
             font-size: 14px;
+            transition: 0.2s;
         }
+        .lang-modal-close-left:active {
+            background: rgba(255,255,255,0.25);
+        }
+
         .lang-list-container {
             padding: 10px 20px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
             gap: 4px;
-            direction: ltr; /* الترتيب والمحاذاة لجهة اليسار */
+            direction: ltr;
             text-align: left;
+            max-height: 50vh;
         }
         .lang-item-row {
             display: flex;
@@ -804,6 +813,31 @@ html_code = """
         .lang-item-row.selected {
             background: #3b82f6;
             color: #fff;
+        }
+
+        /* زر تطبيق الأبيض في الأسفل */
+        .lang-modal-footer {
+            padding: 16px 20px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            background: #282f3d;
+        }
+        .lang-apply-btn {
+            width: 100%;
+            background: #ffffff;
+            color: #1f242d;
+            border: none;
+            border-radius: 16px;
+            padding: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(255,255,255,0.15);
+            transition: 0.2s;
+        }
+        .lang-apply-btn:active {
+            transform: scale(0.98);
+            background: #e2e8f0;
         }
 
         .notif-permission-overlay {
@@ -886,7 +920,6 @@ html_code = """
             color: #fff;
             font-size: 15px;
             outline: none;
-            text-align: right;
         }
 
         .step-container {
@@ -1081,7 +1114,6 @@ html_code = """
             font-size: 15px;
             outline: none;
             resize: vertical;
-            text-align: right;
             line-height: 1.6;
         }
         .story-textarea::placeholder {
@@ -1181,7 +1213,6 @@ html_code = """
             color: #cbd5e1;
             font-size: 13px;
             line-height: 1.6;
-            text-align: right;
             max-height: 80px;
             overflow-y: auto;
         }
@@ -1232,7 +1263,6 @@ html_code = """
             color: #ffffff;
             font-size: 15px;
             font-weight: 700;
-            text-align: right;
         }
         
         .char-big-upload-box {
@@ -1261,7 +1291,6 @@ html_code = """
         .remove-big-img {
             position: absolute;
             top: 10px;
-            left: 10px;
             background: rgba(0,0,0,0.7);
             color: #fff;
             border: none;
@@ -1308,7 +1337,6 @@ html_code = """
             gap: 10px;
             overflow-x: auto;
             padding-bottom: 4px;
-            direction: rtl;
             scrollbar-width: none;
             flex-grow: 1;
         }
@@ -1336,7 +1364,6 @@ html_code = """
             color: #ffffff;
             font-size: 14px;
             outline: none;
-            text-align: right;
         }
         .char-name-input::placeholder { color: #cbd5e1; }
 
@@ -1511,7 +1538,7 @@ html_code = """
         .tool-info-box { position: relative; z-index: 2; }
         .tool-main-title { color: #ffffff; font-size: 17px; font-weight: 700; margin-bottom: 4px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
         .tool-sub-desc { color: #cbd5e1; font-size: 12px; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
-        .tool-arrow-icon { position: absolute; top: 16px; right: 16px; color: #ffffff; font-size: 16px; font-weight: bold; background: rgba(0,0,0,0.4); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        .tool-arrow-icon { position: absolute; top: 16px; color: #ffffff; font-size: 16px; font-weight: bold; background: rgba(0,0,0,0.4); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
 
         .subscription-modal-overlay {
             display: flex;
@@ -1575,8 +1602,8 @@ html_code = """
         .plan-name { color: #ffffff; font-size: 15px; font-weight: 700; }
         .plan-price { background: rgba(255, 255, 255, 0.12); padding: 4px 10px; border-radius: 10px; color: #ffffff; font-size: 12px; font-weight: 600; }
         .plan-desc { color: #cbd5e1; font-size: 12px; }
-        .new-tag { position: absolute; top: 12px; left: 12px; background: #3b82f6; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
-        .best-value-tag { position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg, #f59e0b, #ec4899); color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
+        .new-tag { position: absolute; top: 12px; inset-inline-start: 12px; background: #3b82f6; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
+        .best-value-tag { position: absolute; top: 12px; inset-inline-start: 12px; background: linear-gradient(135deg, #f59e0b, #ec4899); color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
         .action-main-btn { width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 20px; border: none; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); margin-top: 10px; }
 
         #sparkleDialogScreen {
@@ -1679,7 +1706,6 @@ html_code = """
         .sparkle-card-titles {
             display: flex;
             flex-direction: column;
-            text-align: right;
             gap: 2px;
         }
         .sparkle-card-main-title {
@@ -1804,7 +1830,7 @@ html_code = """
             background-color: #1f242d;
             padding: 10px 15px;
             display: flex; justify-content: center; align-items: center; gap: 12px;
-            z-index: 999999; box-sizing: border-box; direction: rtl;
+            z-index: 999999; box-sizing: border-box;
             box-shadow: 0 -4px 15px rgba(0,0,0,0.6);
             transition: transform 0.3s ease;
         }
@@ -1820,44 +1846,44 @@ html_code = """
     <div class="subscription-modal-overlay hidden" id="subscriptionModal">
         <div class="subscription-modal-box" onclick="event.stopPropagation()">
             <div class="sub-modal-header">
-                <div class="sub-modal-title">ترقية الحساب</div>
+                <div class="sub-modal-title" data-tr="subTitle">ترقية الحساب</div>
                 <button class="sub-modal-close-x" onclick="closeSubscriptionModal()">✕</button>
             </div>
 
             <div style="text-align: center; margin-bottom: 5px;">
-                <div style="color: #ffffff; font-size: 17px; font-weight: 700; margin-bottom: 4px;">حول أفكارك إلى PlotCraft</div>
-                <div style="color: #cbd5e1; font-size: 12px;">أنشئ كل لقطة وعدلها وأكملها بسرعة.</div>
+                <div style="color: #ffffff; font-size: 17px; font-weight: 700; margin-bottom: 4px;" data-tr="subHeading">حول أفكارك إلى PlotCraft</div>
+                <div style="color: #cbd5e1; font-size: 12px;" data-tr="subDesc">أنشئ كل لقطة وعدلها وأكملها بسرعة.</div>
             </div>
 
             <div class="plans-list">
                 <div class="plan-card selected" onclick="selectPlan(this)">
                     <div class="plan-top">
                         <div class="plan-name">PlotCraft Pro Weekly</div>
-                        <div class="plan-price">9.99 دولار أمريكي / أسبوع</div>
+                        <div class="plan-price" data-tr="priceWeekly">9.99 دولار أمريكي / أسبوع</div>
                     </div>
-                    <div class="plan-desc">500 نقطة / أسبوعياً، جرب PlotCraft</div>
+                    <div class="plan-desc" data-tr="descWeekly">500 نقطة / أسبوعياً، جرب PlotCraft</div>
                 </div>
 
                 <div class="plan-card" onclick="selectPlan(this)">
-                    <div class="new-tag">جديد</div>
+                    <div class="new-tag" data-tr="newTag">جديد</div>
                     <div class="plan-top">
                         <div class="plan-name">PlotCraft Pro Monthly</div>
-                        <div class="plan-price">29.99 دولار أمريكي / شهر</div>
+                        <div class="plan-price" data-tr="priceMonthly">29.99 دولار أمريكي / شهر</div>
                     </div>
-                    <div class="plan-desc">1800 نقطة / شهرياً، مثالي للمبدعين</div>
+                    <div class="plan-desc" data-tr="descMonthly">1800 نقطة / شهرياً، مثالي للمبدعين</div>
                 </div>
 
                 <div class="plan-card" onclick="selectPlan(this)">
-                    <div class="best-value-tag">الأفضل قيمة</div>
+                    <div class="best-value-tag" data-tr="bestValueTag">الأفضل قيمة</div>
                     <div class="plan-top">
                         <div class="plan-name">PlotCraft Pro Annual</div>
-                        <div class="plan-price">69.99 دولار أمريكي / سنة</div>
+                        <div class="plan-price" data-tr="priceAnnual">69.99 دولار أمريكي / سنة</div>
                     </div>
-                    <div class="plan-desc">5000 نقطة / سنوياً، إمكانيات غير محدودة للمخرجين المحترفين</div>
+                    <div class="plan-desc" data-tr="descAnnual">5000 نقطة / سنوياً، إمكانيات غير محدودة للمخرجين المحترفين</div>
                 </div>
             </div>
 
-            <button class="action-main-btn" onclick="openLoginModal()">اشتراك</button>
+            <button class="action-main-btn" onclick="openLoginModal()" data-tr="subscribeBtn">اشتراك</button>
         </div>
     </div>
 
@@ -1865,8 +1891,8 @@ html_code = """
     <div class="settings-screen" id="settingsScreen">
         <div class="settings-top-bar">
             <button class="settings-close-btn" onclick="closeSettingsScreen(event)" title="رجوع">‹</button>
-            <div class="settings-title">الإعدادات</div>
-            <button class="settings-upgrade-badge" onclick="openSubscriptionModal()">ترقية</button>
+            <div class="settings-title" data-tr="settingsTitle">الإعدادات</div>
+            <button class="settings-upgrade-badge" onclick="openSubscriptionModal()" data-tr="upgradeBadge">ترقية</button>
         </div>
 
         <div class="profile-header-card">
@@ -1889,18 +1915,18 @@ html_code = """
 
         <div class="pro-banner-card">
             <div class="pro-banner-top">
-                <div class="pro-banner-title">افتح PlotCraft Pro</div>
+                <div class="pro-banner-title" data-tr="proBannerTitle">افتح PlotCraft Pro</div>
                 <div class="pro-sparkle-icon"></div>
             </div>
-            <div class="pro-banner-desc">حول كل فكرة إلى فيلم مكتمل</div>
-            <button class="pro-banner-btn" onclick="openSubscriptionModal()">عرض خطط Pro ←</button>
+            <div class="pro-banner-desc" data-tr="proBannerDesc">حول كل فكرة إلى فيلم مكتمل</div>
+            <button class="pro-banner-btn" onclick="openSubscriptionModal()" data-tr="proBannerBtn">عرض خطط Pro ←</button>
         </div>
 
         <div class="settings-group-box">
             <div class="settings-item-row" onclick="handleMenuClick(event, 'سجل النقاط')">
                 <div class="settings-item-right">
                     <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-                    <span>سجل النقاط</span>
+                    <span data-tr="scoreLog">سجل النقاط</span>
                 </div>
                 <div class="settings-item-left"><span>›</span></div>
             </div>
@@ -1910,7 +1936,7 @@ html_code = """
             <div class="settings-item-row" onclick="event.stopPropagation()">
                 <div class="settings-item-right">
                     <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg></div>
-                    <span>الإشعارات</span>
+                    <span data-tr="notifications">الإشعارات</span>
                 </div>
                 <div class="settings-item-left">
                     <label class="switch-toggle" onclick="event.stopPropagation()">
@@ -1919,65 +1945,67 @@ html_code = """
                     </label>
                 </div>
             </div>
-            <!-- زر اللغة الجديد الذي يفتح القائمة الإنجليزية جهة اليسار -->
             <div class="settings-item-row" onclick="openLanguageModal(event)">
                 <div class="settings-item-right">
                     <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.92 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A8.03 8.03 0 0 1 5.08 16zm2.95-8H5.08a8.03 8.03 0 0 1 4.33-3.56A15.65 15.65 0 0 0 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.65-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.35-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg></div>
-                    <span>اللغة</span>
+                    <span data-tr="language">اللغة</span>
                 </div>
-                <div class="settings-item-left"><span id="currentLangDisplay">English</span><span>›</span></div>
+                <div class="settings-item-left"><span id="currentLangDisplay">Arabic</span><span>›</span></div>
             </div>
         </div>
 
         <div class="settings-group-box">
             <div class="settings-item-row" onclick="handleMenuClick(event, 'الإعدادات العامة')">
                 <div class="settings-item-right">
-                    <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
-                    <span>الإعدادات</span>
+                    <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c-.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
+                    <span data-tr="settings">الإعدادات</span>
                 </div>
                 <div class="settings-item-left"><span>›</span></div>
             </div>
         </div>
     </div>
 
-    <!-- نافذة اختيار اللغات (عمودية، بالإنجليزية، محاذاة لليسار) -->
+    <!-- نافذة اختيار اللغات مع علامة X جهة اليسار وزر تطبيق أبيض في الأسفل -->
     <div class="language-modal-overlay" id="languageModalOverlay" onclick="closeLanguageModal(event)">
         <div class="language-modal-box" onclick="event.stopPropagation()">
             <div class="lang-modal-header">
+                <button class="lang-modal-close-left" onclick="closeLanguageModal(event)">✕</button>
                 <div class="lang-modal-title">Select Language</div>
-                <button class="lang-modal-close" onclick="closeLanguageModal(event)">✕</button>
             </div>
             <div class="lang-list-container" id="langListContainer">
-                <div class="lang-item-row selected" onclick="selectLanguage('English', this)">English</div>
-                <div class="lang-item-row" onclick="selectLanguage('Arabic', this)">Arabic</div>
-                <div class="lang-item-row" onclick="selectLanguage('Spanish', this)">Spanish</div>
-                <div class="lang-item-row" onclick="selectLanguage('French', this)">French</div>
-                <div class="lang-item-row" onclick="selectLanguage('German', this)">German</div>
-                <div class="lang-item-row" onclick="selectLanguage('Chinese', this)">Chinese</div>
-                <div class="lang-item-row" onclick="selectLanguage('Japanese', this)">Japanese</div>
-                <div class="lang-item-row" onclick="selectLanguage('Korean', this)">Korean</div>
-                <div class="lang-item-row" onclick="selectLanguage('Portuguese', this)">Portuguese</div>
-                <div class="lang-item-row" onclick="selectLanguage('Russian', this)">Russian</div>
-                <div class="lang-item-row" onclick="selectLanguage('Italian', this)">Italian</div>
-                <div class="lang-item-row" onclick="selectLanguage('Turkish', this)">Turkish</div>
+                <div class="lang-item-row" onclick="tempSelectLanguage('English', this)">English</div>
+                <div class="lang-item-row selected" onclick="tempSelectLanguage('Arabic', this)">Arabic</div>
+                <div class="lang-item-row" onclick="tempSelectLanguage('Spanish', this)">Spanish</div>
+                <div class="lang-item-row" onclick="tempSelectLanguage('French', this)">French</div>
+                <div class="lang-item-row" onclick="tempSelectLanguage('German', this)">German</div>
+                <div class="lang-item-row" onclick="tempSelectLanguage('Chinese', this)">Chinese</div>
+                <div class="lang-item-row" onclick="tempSelectLanguage('Japanese', this)">Japanese</div>
+                <div class="lang-item-row" onclick="tempSelectLanguage('Korean', this)">Korean</div>
+                <div class="lang-item-row" onclick="tempSelectLanguage('Portuguese', this)">Portuguese</div>
+                <div class="lang-item-row" onclick="tempSelectLanguage('Russian', this)">Russian</div>
+                <div class="lang-item-row" onclick="tempSelectLanguage('Italian', this)">Italian</div>
+                <div class="lang-item-row" onclick="tempSelectLanguage('Turkish', this)">Turkish</div>
+            </div>
+            <div class="lang-modal-footer">
+                <button class="lang-apply-btn" onclick="applySelectedLanguage()">تطبيق</button>
             </div>
         </div>
     </div>
 
     <div class="notif-permission-overlay" id="notifPermissionModal" onclick="event.stopPropagation()">
         <div class="notif-permission-box">
-            <div class="notif-permission-title">هل تريد السماح لتطبيق Plotcraft بإرسال إشعارات إليك؟</div>
-            <button class="notif-allow-btn" onclick="allowNotifications(event)">سماح</button>
-            <button class="notif-deny-btn" onclick="denyNotifications(event)">عدم السماح</button>
+            <div class="notif-permission-title" data-tr="notifPermTitle">هل تريد السماح لتطبيق Plotcraft بإرسال إشعارات إليك؟</div>
+            <button class="notif-allow-btn" onclick="allowNotifications(event)" data-tr="allowBtn">سماح</button>
+            <button class="notif-deny-btn" onclick="denyNotifications(event)" data-tr="denyBtn">عدم السماح</button>
         </div>
     </div>
 
     <div class="name-edit-modal-overlay" id="nameEditModal" onclick="event.stopPropagation()">
         <div class="name-edit-box">
-            <div style="color:#fff; font-size:16px; font-weight:700;">تعديل اسم المستخدم</div>
+            <div style="color:#fff; font-size:16px; font-weight:700;" data-tr="editNameTitle">تعديل اسم المستخدم</div>
             <input type="text" class="name-edit-input" id="editNameInputField" placeholder="أدخل الاسم الجديد">
-            <button class="notif-allow-btn" onclick="saveNewUserName(event)">إرسال</button>
-            <button class="notif-deny-btn" onclick="closeNameEditModal(event)">إلغاء</button>
+            <button class="notif-allow-btn" onclick="saveNewUserName(event)" data-tr="sendBtn">إرسال</button>
+            <button class="notif-deny-btn" onclick="closeNameEditModal(event)" data-tr="cancelBtn">إلغاء</button>
         </div>
     </div>
 
@@ -1985,47 +2013,47 @@ html_code = """
         <div class="hero-box">
             <div class="top-header">
                 <div class="brand-title">PlotCraft</div>
-                <div class="upgrade-badge" onclick="openSubscriptionModalFromBadge(event)">ترقية</div>
+                <div class="upgrade-badge" onclick="openSubscriptionModalFromBadge(event)" data-tr="upgradeBadge">ترقية</div>
             </div>
 
             <div class="welcome-section">
-                <h1>مساء الخير، أيها المخرج<br>أي قصة سنصنع اليوم؟</h1>
+                <h1 data-tr="welcomeMsg">مساء الخير، أيها المخرج<br>أي قصة سنصنع اليوم؟</h1>
             </div>
 
             <div class="cards-row">
                 <div class="interactive-card" onclick="switchScreen('stepByStepScreen', event)">
                     <div class="card-header-row">
                         <div class="card-title-group-left">
-                            <div class="card-title">خطوة بخطوة</div>
+                            <div class="card-title" data-tr="stepByStepTitle">خطوة بخطوة</div>
                             <span class="exact-bot-icon"></span>
                         </div>
                     </div>
-                    <div class="card-subtitle">راجع كل خطوة</div>
+                    <div class="card-subtitle" data-tr="stepByStepSub">راجع كل خطوة</div>
                 </div>
 
                 <div class="interactive-card" id="speedCard" onclick="handleSpeedCardClick(event)">
                     <div class="pro-badge-top">
-                        <span>Pro only</span>
+                        <span data-tr="proOnly">Pro only</span>
                         <span class="pro-lock-icon"></span>
                     </div>
                     <div class="card-header-row">
                         <div class="card-title-group-left">
-                            <div class="card-title">سريع</div>
+                            <div class="card-title" data-tr="speedTitle">سريع</div>
                             <span class="speed-custom-icon"></span>
                         </div>
                     </div>
-                    <div class="card-subtitle">إدخال واحد، فيديو كامل</div>
+                    <div class="card-subtitle" data-tr="speedSub">إدخال واحد، فيديو كامل</div>
                 </div>
             </div>
         </div>
 
         <div class="inspiration-section">
             <div class="section-header">
-                <div class="section-title">إلهام بلوت كرافت</div>
-                <div class="view-all">عرض الكل ></div>
+                <div class="section-title" data-tr="inspirationTitle">إلهام بلوت كرافت</div>
+                <div class="view-all" data-tr="viewAll">عرض الكل ></div>
             </div>
 
-            <div class="movies-carousel">
+            <div class="movies-carousel" id="moviesCarouselContainer">
                 <div class="movie-card m1" onclick="showCustomAlert('يتم إضافة القصص قريباً')"><div class="movie-title">THE DELIVERYMAN'S SECRET BILLIONAIRE</div></div>
                 <div class="movie-card m2" onclick="showCustomAlert('يتم إضافة القصص قريباً')"><div class="movie-title">SECRET BILLIONAIRE</div></div>
                 <div class="movie-card m3" onclick="showCustomAlert('يتم إضافة القصص قريباً')"><div class="movie-title">CYBER CITY</div></div>
@@ -2036,7 +2064,7 @@ html_code = """
     <div class="custom-alert-overlay" id="customAlertOverlay" onclick="event.stopPropagation()">
         <div class="custom-alert-box">
             <div class="custom-alert-msg" id="customAlertMsgText">يتم إضافة القصص قريباً</div>
-            <button class="custom-alert-btn" onclick="closeCustomAlert(event)">حسناً</button>
+            <button class="custom-alert-btn" onclick="closeCustomAlert(event)" data-tr="okBtn">حسناً</button>
         </div>
     </div>
 
@@ -2044,7 +2072,7 @@ html_code = """
         <div class="sparkle-top-bar">
             <button class="sparkle-close-btn" onclick="switchScreen('homeScreen', event)">✕</button>
             <div class="brand-title">Plotcraft</div>
-            <div class="sparkle-upgrade-badge" onclick="openSubscriptionModalFromBadge(event)">ترقية</div>
+            <div class="sparkle-upgrade-badge" onclick="openSubscriptionModalFromBadge(event)" data-tr="upgradeBadge">ترقية</div>
         </div>
 
         <div class="sparkle-center-content">
@@ -2055,14 +2083,14 @@ html_code = """
                 <path d="M9.5 14C10.2 14.8 11.1 15.2 12 15.2C12.9 15.2 13.8 14.8 14.5 14" stroke="#0b0f19" stroke-width="1.2" stroke-linecap="round" fill="none"/>
             </svg>
 
-            <div class="sparkle-greeting-text">طاب مساؤك، أيها المخرج<br>أي قصة سنصنع اليوم؟</div>
+            <div class="sparkle-greeting-text" data-tr="welcomeMsg">طاب مساؤك، أيها المخرج<br>أي قصة سنصنع اليوم؟</div>
 
             <div class="sparkle-rect-cards-container">
                 <div class="sparkle-rect-card" onclick="switchScreen('stepByStepScreen', event)">
                     <div class="sparkle-rect-right">
-                        <div class="sparkle-card-titles" style="text-align: right;">
-                            <div class="sparkle-card-main-title">خطوة بخطوة</div>
-                            <div class="sparkle-card-sub-title">راجع كل خطوة</div>
+                        <div class="sparkle-card-titles">
+                            <div class="sparkle-card-main-title" data-tr="stepByStepTitle">خطوة بخطوة</div>
+                            <div class="sparkle-card-sub-title" data-tr="stepByStepSub">راجع كل خطوة</div>
                         </div>
                     </div>
                     <div class="sparkle-rect-left">
@@ -2072,14 +2100,14 @@ html_code = """
 
                 <div class="sparkle-rect-card" onclick="handleSpeedCardClick(event)">
                     <div class="sparkle-rect-right">
-                        <div class="sparkle-card-titles" style="text-align: right;">
-                            <div class="sparkle-card-main-title">سريع</div>
-                            <div class="sparkle-card-sub-title">إدخال واحد، فيديو كامل</div>
+                        <div class="sparkle-card-titles">
+                            <div class="sparkle-card-main-title" data-tr="speedTitle">سريع</div>
+                            <div class="sparkle-card-sub-title" data-tr="speedSub">إدخال واحد، فيديو كامل</div>
                         </div>
                     </div>
                     <div class="sparkle-rect-left">
                         <div class="pro-badge-top" style="margin-bottom:0;">
-                            <span>Pro only</span>
+                            <span data-tr="proOnly">Pro only</span>
                             <span class="pro-lock-icon"></span>
                         </div>
                     </div>
@@ -2090,43 +2118,43 @@ html_code = """
 
     <div id="toolsScreen" class="screen-view">
         <div class="tools-header">
-            <div class="tools-header-title">الأدوات</div>
-            <div class="tools-upgrade-btn" onclick="openSubscriptionModalFromBadge(event)">ترقية</div>
+            <div class="tools-header-title" data-tr="toolsTitle">الأدوات</div>
+            <div class="tools-upgrade-btn" onclick="openSubscriptionModalFromBadge(event)" data-tr="upgradeBadge">ترقية</div>
         </div>
         <div class="tools-body">
             <div class="tool-card-item tool-card-1" onclick="showCustomAlert('تأثيرات الفيديو قادمة قريباً')">
-                <div class="tool-arrow-icon">‹</div>
-                <div class="tool-info-box"><div class="tool-main-title">تأثيرات الفيديو</div><div class="tool-sub-desc">أضف لمسة سينمائية</div></div>
+                <div class="tool-arrow-icon" style="inset-inline-end: 16px;">‹</div>
+                <div class="tool-info-box"><div class="tool-main-title" data-tr="tool1Title">تأثيرات الفيديو</div><div class="tool-sub-desc" data-tr="tool1Sub">أضف لمسة سينمائية</div></div>
             </div>
             <div class="tool-card-item tool-card-2" onclick="showCustomAlert('توليد الفيديو قادم قريباً')">
-                <div class="tool-arrow-icon">‹</div>
-                <div class="tool-info-box"><div class="tool-main-title">توليد الفيديو</div><div class="tool-sub-desc">حول توجيهاً إلى فيديو خاص بك</div></div>
+                <div class="tool-arrow-icon" style="inset-inline-end: 16px;">‹</div>
+                <div class="tool-info-box"><div class="tool-main-title" data-tr="tool2Title">توليد الفيديو</div><div class="tool-sub-desc" data-tr="tool2Sub">حول توجيهاً إلى فيديو خاص بك</div></div>
             </div>
             <div class="tool-card-item tool-card-3" onclick="showCustomAlert('توليد الصور قادم قريباً')">
-                <div class="tool-arrow-icon">‹</div>
-                <div class="tool-info-box"><div class="tool-main-title">توليد الصور</div><div class="tool-sub-desc">حول فكرة إلى صورة مكتملة</div></div>
+                <div class="tool-arrow-icon" style="inset-inline-end: 16px;">‹</div>
+                <div class="tool-info-box"><div class="tool-main-title" data-tr="tool3Title">توليد الصور</div><div class="tool-sub-desc" data-tr="tool3Sub">حول فكرة إلى صورة مكتملة</div></div>
             </div>
         </div>
     </div>
 
     <div id="worksScreen" class="screen-view">
         <div class="works-top-header">
-            <div class="works-screen-title">الأعمال</div>
+            <div class="works-screen-title" data-tr="worksTitle">الأعمال</div>
             <div class="works-header-left-group">
-                <div class="works-upgrade-badge" onclick="openSubscriptionModalFromBadge(event)">ترقية</div>
+                <div class="works-upgrade-badge" onclick="openSubscriptionModalFromBadge(event)" data-tr="upgradeBadge">ترقية</div>
                 <div class="works-robot-logo" onclick="openSettingsScreen(event)" title="الإعدادات"></div>
             </div>
         </div>
 
         <div class="works-body-container">
             <div class="works-tabs-container">
-                <div class="works-tab active" onclick="switchWorksTab(this)">المشاريع</div>
-                <div class="works-tab" onclick="switchWorksTab(this)">مكتبة الوسائط</div>
+                <div class="works-tab active" onclick="switchWorksTab(this)" data-tr="tabProjects">المشاريع</div>
+                <div class="works-tab" onclick="switchWorksTab(this)" data-tr="tabMedia">مكتبة الوسائط</div>
             </div>
             <div class="works-empty-content">
                 <div class="works-box-icon"></div>
-                <div class="works-empty-text-sub">ستظهر هنا مشاريع القصة الخاصة بك.</div>
-                <button class="works-create-btn" onclick="openSparkleDialog(event)">إنشاء قصة</button>
+                <div class="works-empty-text-sub" data-tr="emptyWorks">ستظهر هنا مشاريع القصة الخاصة بك.</div>
+                <button class="works-create-btn" onclick="openSparkleDialog(event)" data-tr="createStoryBtn">إنشاء قصة</button>
             </div>
         </div>
     </div>
@@ -2141,38 +2169,38 @@ html_code = """
         <div class="step-container" id="stepContainerScroll">
             <div class="ai-assistant-card">
                 <div class="ai-header-row">
-                    <div class="ai-title">مساعد AI بلوت كرافت</div>
+                    <div class="ai-title" data-tr="aiTitle">مساعد AI بلوت كرافت</div>
                     <div class="ai-badge-circle">AI+</div>
                 </div>
-                <div class="ai-desc">عزيزي المخرج، استمتع بإنشاء وتخصيص تفاصيل فيلمك خطوة بخطوة بدقة احترافية عالية.</div>
+                <div class="ai-desc" data-tr="aiDesc">عزيزي المخرج، استمتع بإنشاء وتخصيص تفاصيل فيلمك خطوة بخطوة بدقة احترافية عالية.</div>
             </div>
 
             <div class="story-setup-box">
                 <div class="setup-header-row">
-                    <div class="setup-main-title">إعداد القصة</div>
+                    <div class="setup-main-title" data-tr="storySetupTitle">إعداد القصة</div>
                     <div class="counter-badge" id="counterBadge">0/2</div>
                 </div>
-                <div class="setup-subtitle">أضف الشخصيات والقصة أولاً، ثم اختر المدة والنسبة.</div>
+                <div class="setup-subtitle" data-tr="storySetupSub">أضف الشخصيات والقصة أولاً، ثم اختر المدة والنسبة.</div>
 
                 <div class="setup-row-item" id="characterRowSlot">
                     <div class="item-info">
-                        <h4>الشخصيات</h4>
-                        <p>أضف صورتين كحد أقصى لشخصيات القصة</p>
+                        <h4 data-tr="charTitle">الشخصيات</h4>
+                        <p data-tr="charDesc">أضف صورتين كحد أقصى لشخصيات القصة</p>
                     </div>
-                    <button class="action-add-btn" onclick="openAddCharacter(event)">إضافة</button>
+                    <button class="action-add-btn" onclick="openAddCharacter(event)" data-tr="addBtn">إضافة</button>
                 </div>
 
                 <div class="setup-row-item" id="storyRowSlot">
                     <div class="item-info">
-                        <h4>الحكاية</h4>
-                        <p>اكتب أو صف حبكة قصتك هنا</p>
+                        <h4 data-tr="taleTitle">الحكاية</h4>
+                        <p data-tr="taleDesc">اكتب أو صف حبكة قصتك هنا</p>
                     </div>
-                    <button class="action-add-btn" onclick="openStoryDescription(event)">إضافة</button>
+                    <button class="action-add-btn" onclick="openStoryDescription(event)" data-tr="addBtn">إضافة</button>
                 </div>
             </div>
 
             <div class="bottom-next-row" style="margin-top:10px;">
-                <button class="next-step-btn" id="nextStepBtn" onclick="showCustomAlert('الانتقال للخطوة التالية بنجاح!')">التالي</button>
+                <button class="next-step-btn" id="nextStepBtn" onclick="showCustomAlert('الانتقال للخطوة التالية بنجاح!')" data-tr="nextBtn">التالي</button>
             </div>
         </div>
     </div>
@@ -2182,7 +2210,7 @@ html_code = """
             <button class="story-desc-back" onclick="switchScreen('stepByStepScreen', event)">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5"></path><polyline points="12 19 5 12 12 5"></polyline></svg>
             </button>
-            <div class="story-desc-title">اكتب قصة</div>
+            <div class="story-desc-title" data-tr="writeStoryTitle">اكتب قصة</div>
             <div style="width: 20px;"></div>
         </div>
 
@@ -2191,32 +2219,32 @@ html_code = """
         </div>
 
         <div class="story-save-btn-wrapper" id="storySaveBtnWrapper">
-            <button class="story-save-btn" id="storySaveBtn" onclick="saveStoryDescription()">حفظ</button>
+            <button class="story-save-btn" id="storySaveBtn" onclick="saveStoryDescription()" data-tr="saveBtn">حفظ</button>
         </div>
     </div>
 
     <div id="addCharacterScreen" class="screen-view">
         <div class="add-char-header">
             <button class="add-char-back" onclick="switchScreen('stepByStepScreen', event)">‹</button>
-            <div class="add-char-title">إضافة شخصية</div>
+            <div class="add-char-title" data-tr="addCharTitle">إضافة شخصية</div>
             <div style="width: 20px;"></div>
         </div>
 
         <div style="padding: 0 16px 100px 16px;">
             <div class="char-main-card">
-                <div class="char-section-label">الشخصية</div>
+                <div class="char-section-label" data-tr="charLabel">الشخصية</div>
                 
                 <div class="char-big-upload-box" id="bigUploadBox" onclick="showSourceModal()">
                     <div id="bigBoxInner" style="display:flex; flex-direction:column; align-items:center; gap:8px; color:#cbd5e1; font-size:13px;">
                         <div style="width:32px; height:32px; background:rgba(255,255,255,0.08); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#ffffff;">↑</div>
-                        <span>رفع صورة</span>
+                        <span data-tr="uploadImg">رفع صورة</span>
                     </div>
                 </div>
 
                 <div class="char-thumbs-container">
                     <div class="char-add-role-box" onclick="showSourceModal()" title="إضافة صورة جديدة">
                         <span>+</span>
-                        <span class="char-add-role-text">الدور</span>
+                        <span class="char-add-role-text" data-tr="roleText">الدور</span>
                     </div>
 
                     <div class="char-thumbs-scroll">
@@ -2231,30 +2259,30 @@ html_code = """
             </div>
 
             <div class="char-main-card">
-                <div class="char-section-label">اسم الشخصية *</div>
+                <div class="char-section-label" data-tr="charNameLabel">اسم الشخصية *</div>
                 <input type="text" class="char-name-input" id="characterNameInput" placeholder="أدخل اسم الشخصية (إجباري)" oninput="checkFormValidity()">
             </div>
         </div>
 
         <div class="char-submit-btn-wrapper">
-            <button class="char-submit-btn disabled" id="submitCharacterBtn" onclick="submitCharacterData()">إرسال</button>
+            <button class="char-submit-btn disabled" id="submitCharacterBtn" onclick="submitCharacterData()" data-tr="submitBtn">إرسال</button>
         </div>
     </div>
 
     <div class="source-modal" id="sourceModal" onclick="event.stopPropagation()">
         <div class="source-modal-content">
-            <div style="color:#fff; font-weight:700; font-size:15px; margin-bottom:2px;">اختر مصدر الصورة</div>
+            <div style="color:#fff; font-weight:700; font-size:15px; margin-bottom:2px;" data-tr="sourceTitle">اختر مصدر الصورة</div>
             <div class="source-buttons-row">
                 <button class="source-btn" onclick="triggerFileInput('camera')">
                     <span style="font-size:20px;">📷</span>
-                    <span>كاميرا</span>
+                    <span data-tr="cameraBtn">كاميرا</span>
                 </button>
                 <button class="source-btn" onclick="triggerFileInput('album')">
                     <span style="font-size:20px;">🖼️</span>
-                    <span>ألبوم الصور</span>
+                    <span data-tr="albumBtn">ألبوم الصور</span>
                 </button>
             </div>
-            <button style="background:none; border:none; color:#cbd5e1; margin-top:4px; cursor:pointer; font-size:13px;" onclick="closeSourceModal()">إلغاء</button>
+            <button style="background:none; border:none; color:#cbd5e1; margin-top:4px; cursor:pointer; font-size:13px;" onclick="closeSourceModal()" data-tr="cancelBtn">إلغاء</button>
         </div>
     </div>
 
@@ -2264,28 +2292,28 @@ html_code = """
     <div class="login-modal-overlay" id="loginModalOverlay" onclick="event.stopPropagation()">
         <div class="login-modal-content">
             <div class="login-modal-header">
-                <div class="login-modal-title">تسجيل الدخول إلى Plotcraft</div>
+                <div class="login-modal-title" data-tr="loginTitle">تسجيل الدخول إلى Plotcraft</div>
                 <button class="login-close-x" onclick="closeLoginModal()">✕</button>
             </div>
 
             <button class="login-btn-google" onclick="showCustomAlert('تم تسجيل الدخول بنجاح عبر Google')">
                 <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.2v3.15C3.17 21.32 7.22 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.2C.44 8.12 0 9.87 0 11.73s.44 3.61 1.2 5.15l4.08-2.61z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.22 0 3.17 2.68 1.2 6.58l4.08 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>
-                <span>استمر مع Google</span>
+                <span data-tr="googleLogin">استمر مع Google</span>
             </button>
 
             <button class="login-btn-email" onclick="showCustomAlert('فتح تسجيل الدخول بالبريد الإلكتروني')">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                <span>استمر مع البريد الإلكتروني</span>
+                <span data-tr="emailLogin">استمر مع البريد الإلكتروني</span>
             </button>
 
             <div class="login-footer-text" onclick="showCustomAlert('انتقال لصفحة الاشتراك')">
-                ليس لدي حساب؟ <span>اشتراك</span>
+                <span data-tr="noAccount">ليس لدي حساب؟</span> <span data-tr="signupText" style="color: #3b82f6; font-weight: 600;">اشتراك</span>
             </div>
 
             <div class="login-links-row">
-                <span onclick="showCustomAlert('شروط الاستخدام')">شروط الاستخدام</span>
+                <span onclick="showCustomAlert('شروط الاستخدام')" data-tr="termsText">شروط الاستخدام</span>
                 <span>|</span>
-                <span onclick="showCustomAlert('الخصوصية')">الخصوصية</span>
+                <span onclick="showCustomAlert('الخصوصية')" data-tr="privacyText">الخصوصية</span>
             </div>
         </div>
     </div>
@@ -2293,15 +2321,15 @@ html_code = """
     <div class="plotcraft-nav-bar" id="mainNavBar">
         <div class="plotcraft-nav-pill">
             <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="switchScreen('homeScreen', event); setActiveNav('navHome')">
-                <span>الرئيسية</span>
+                <span data-tr="navHome">الرئيسية</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
             </a>
             <a href="#" class="plotcraft-nav-item" id="navTools" onclick="switchScreen('toolsScreen', event); setActiveNav('navTools')">
-                <span>الأدوات</span>
+                <span data-tr="navTools">الأدوات</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
             </a>
             <a href="#" class="plotcraft-nav-item" id="navWorks" onclick="switchScreen('worksScreen', event); setActiveNav('navWorks')">
-                <span>الأعمال</span>
+                <span data-tr="navWorks">الأعمال</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path></svg>
             </a>
         </div>
@@ -2321,9 +2349,222 @@ html_code = """
         let characterAdded = false;
         let storyAdded = false;
         let savedStoryText = "";
+        let tempSelectedLangName = "Arabic";
 
         let userUniqueId = Math.floor(1000000 + Math.random() * 9000000);
         document.getElementById('displayUniqueId').innerText = userUniqueId + " ID";
+
+        const translations = {
+            Arabic: {
+                upgradeBadge: "ترقية",
+                welcomeMsg: "مساء الخير، أيها المخرج<br>أي قصة سنصنع اليوم؟",
+                stepByStepTitle: "خطوة بخطوة",
+                stepByStepSub: "راجع كل خطوة",
+                proOnly: "Pro only",
+                speedTitle: "سريع",
+                speedSub: "إدخال واحد، فيديو كامل",
+                inspirationTitle: "إلهام بلوت كرافت",
+                viewAll: "عرض الكل >",
+                toolsTitle: "الأدوات",
+                tool1Title: "تأثيرات الفيديو",
+                tool1Sub: "أضف لمسة سينمائية",
+                tool2Title: "توليد الفيديو",
+                tool2Sub: "حول توجيهاً إلى فيديو خاص بك",
+                tool3Title: "توليد الصور",
+                tool3Sub: "حول فكرة إلى صورة مكتملة",
+                worksTitle: "الأعمال",
+                tabProjects: "المشاريع",
+                tabMedia: "مكتبة الوسائط",
+                emptyWorks: "ستظهر هنا مشاريع القصة الخاصة بك.",
+                createStoryBtn: "إنشاء قصة",
+                aiTitle: "مساعد AI بلوت كرافت",
+                aiDesc: "عزيزي المخرج، استمتع بإنشاء وتخصيص تفاصيل فيلمك خطوة بخطوة بدقة احترافية عالية.",
+                storySetupTitle: "إعداد القصة",
+                storySetupSub: "أضف الشخصيات والقصة أولاً، ثم اختر المدة والنسبة.",
+                charTitle: "الشخصيات",
+                charDesc: "أضف صورتين كحد أقصى لشخصيات القصة",
+                addBtn: "إضافة",
+                taleTitle: "الحكاية",
+                taleDesc: "اكتب أو صف حبكة قصتك هنا",
+                nextBtn: "التالي",
+                writeStoryTitle: "اكتب قصة",
+                storyPlaceholder: "اكتب وصفاً أو حبكة القصة هنا",
+                saveBtn: "حفظ",
+                addCharTitle: "إضافة شخصية",
+                charLabel: "الشخصية",
+                uploadImg: "رفع صورة",
+                roleText: "الدور",
+                charNameLabel: "اسم الشخصية *",
+                charNamePlaceholder: "أدخل اسم الشخصية (إجباري)",
+                submitBtn: "إرسال",
+                sourceTitle: "اختر مصدر الصورة",
+                cameraBtn: "كاميرا",
+                albumBtn: "ألبوم الصور",
+                cancelBtn: "إلغاء",
+                loginTitle: "تسجيل الدخول إلى Plotcraft",
+                googleLogin: "استمر مع Google",
+                emailLogin: "استمر مع البريد الإلكتروني",
+                noAccount: "ليس لدي حساب؟",
+                signupText: "اشتراك",
+                termsText: "شروط الاستخدام",
+                privacyText: "الخصوصية",
+                navHome: "الرئيسية",
+                navTools: "الأدوات",
+                navWorks: "الأعمال",
+                settingsTitle: "الإعدادات",
+                scoreLog: "سجل النقاط",
+                notifications: "الإشعارات",
+                language: "اللغة",
+                settings: "الإعدادات",
+                proBannerTitle: "افتح PlotCraft Pro",
+                proBannerDesc: "حول كل فكرة إلى فيلم مكتمل",
+                proBannerBtn: "عرض خطط Pro ←",
+                subTitle: "ترقية الحساب",
+                subHeading: "حول أفكارك إلى PlotCraft",
+                subDesc: "أنشئ كل لقطة وعدلها وأكملها بسرعة.",
+                priceWeekly: "9.99 دولار أمريكي / أسبوع",
+                descWeekly: "500 نقطة / أسبوعياً، جرب PlotCraft",
+                newTag: "جديد",
+                priceMonthly: "29.99 دولار أمريكي / شهر",
+                descMonthly: "1800 نقطة / شهرياً، مثالي للمبدعين",
+                bestValueTag: "الأفضل قيمة",
+                priceAnnual: "69.99 دولار أمريكي / سنة",
+                descAnnual: "5000 نقطة / سنوياً، إمكانيات غير محدودة للمخرجين المحترفين",
+                subscribeBtn: "اشتراك",
+                notifPermTitle: "هل تريد السماح لتطبيق Plotcraft بإرسال إشعارات إليك؟",
+                allowBtn: "سماح",
+                denyBtn: "عدم السماح",
+                editNameTitle: "تعديل اسم المستخدم",
+                editNamePlaceholder: "أدخل الاسم الجديد",
+                sendBtn: "إرسال",
+                okBtn: "حسناً"
+            },
+            English: {
+                upgradeBadge: "Upgrade",
+                welcomeMsg: "Good evening, Director<br>What story shall we create today?",
+                stepByStepTitle: "Step by Step",
+                stepByStepSub: "Review every step",
+                proOnly: "Pro only",
+                speedTitle: "Speed",
+                speedSub: "One input, full video",
+                inspirationTitle: "PlotCraft Inspiration",
+                viewAll: "View all >",
+                toolsTitle: "Tools",
+                tool1Title: "Video Effects",
+                tool1Sub: "Add cinematic touch",
+                tool2Title: "Video Generation",
+                tool2Sub: "Turn prompt into your video",
+                tool3Title: "Image Generation",
+                tool3Sub: "Turn idea into complete image",
+                worksTitle: "Works",
+                tabProjects: "Projects",
+                tabMedia: "Media Library",
+                emptyWorks: "Your story projects will appear here.",
+                createStoryBtn: "Create Story",
+                aiTitle: "PlotCraft AI Assistant",
+                aiDesc: "Dear Director, enjoy creating and customizing your film details step by step with high professional accuracy.",
+                storySetupTitle: "Story Setup",
+                storySetupSub: "Add characters and story first, then choose duration and ratio.",
+                charTitle: "Characters",
+                charDesc: "Add up to 2 images for story characters",
+                addBtn: "Add",
+                taleTitle: "Tale",
+                taleDesc: "Write or describe your story plot here",
+                nextBtn: "Next",
+                writeStoryTitle: "Write Story",
+                storyPlaceholder: "Write your story plot or description here",
+                saveBtn: "Save",
+                addCharTitle: "Add Character",
+                charLabel: "Character",
+                uploadImg: "Upload Image",
+                roleText: "Role",
+                charNameLabel: "Character Name *",
+                charNamePlaceholder: "Enter character name (Required)",
+                submitBtn: "Submit",
+                sourceTitle: "Choose Image Source",
+                cameraBtn: "Camera",
+                albumBtn: "Photo Album",
+                cancelBtn: "Cancel",
+                loginTitle: "Sign in to Plotcraft",
+                googleLogin: "Continue with Google",
+                emailLogin: "Continue with Email",
+                noAccount: "Don't have an account?",
+                signupText: "Sign up",
+                termsText: "Terms of Use",
+                privacyText: "Privacy",
+                navHome: "Home",
+                navTools: "Tools",
+                navWorks: "Works",
+                settingsTitle: "Settings",
+                scoreLog: "Score Log",
+                notifications: "Notifications",
+                language: "Language",
+                settings: "Settings",
+                proBannerTitle: "Unlock PlotCraft Pro",
+                proBannerDesc: "Turn every idea into a complete film",
+                proBannerBtn: "View Pro Plans ←",
+                subTitle: "Upgrade Account",
+                subHeading: "Turn your ideas into PlotCraft",
+                subDesc: "Create, edit, and complete every shot quickly.",
+                priceWeekly: "$9.99 USD / week",
+                descWeekly: "500 pts / weekly, try PlotCraft",
+                newTag: "NEW",
+                priceMonthly: "$29.99 USD / month",
+                descMonthly: "1800 pts / monthly, perfect for creators",
+                bestValueTag: "BEST VALUE",
+                priceAnnual: "$69.99 USD / year",
+                descAnnual: "5000 pts / yearly, unlimited possibilities for pro directors",
+                subscribeBtn: "Subscribe",
+                notifPermTitle: "Allow Plotcraft to send you notifications?",
+                allowBtn: "Allow",
+                denyBtn: "Don't Allow",
+                editNameTitle: "Edit Username",
+                editNamePlaceholder: "Enter new name",
+                sendBtn: "Send",
+                okBtn: "OK"
+            }
+        };
+
+        function tempSelectLanguage(langName, element) {
+            var rows = document.querySelectorAll('.lang-item-row');
+            rows.forEach(r => r.classList.remove('selected'));
+            element.classList.add('selected');
+            tempSelectedLangName = langName;
+        }
+
+        function applySelectedLanguage() {
+            var langName = tempSelectedLangName;
+            document.getElementById('currentLangDisplay').innerText = langName;
+
+            var htmlRoot = document.getElementById('appHtmlRoot');
+            var t = translations[langName] || translations['English'];
+
+            if (langName === 'English') {
+                htmlRoot.setAttribute('dir', 'ltr');
+                htmlRoot.setAttribute('lang', 'en');
+            } else {
+                htmlRoot.setAttribute('dir', 'rtl');
+                htmlRoot.setAttribute('lang', 'ar');
+            }
+
+            document.querySelectorAll('[data-tr]').forEach(el => {
+                var key = el.getAttribute('data-tr');
+                if (t[key]) {
+                    el.innerHTML = t[key];
+                }
+            });
+
+            var storyArea = document.getElementById('storyTextArea');
+            if(storyArea) storyArea.placeholder = t['storyPlaceholder'];
+
+            var charInput = document.getElementById('characterNameInput');
+            if(charInput) charInput.placeholder = t['charNamePlaceholder'];
+
+            var editInput = document.getElementById('editNameInputField');
+            if(editInput) editInput.placeholder = t['editNamePlaceholder'];
+
+            closeLanguageModal();
+        }
 
         document.addEventListener('click', function(event) {
             if (event.target.tagName === 'BUTTON' || event.target.closest('button') || event.target.closest('.interactive-card') || event.target.closest('.plotcraft-nav-item') || event.target.closest('.plotcraft-nav-square') || event.target.closest('.works-tab') || event.target.closest('.plan-card') || event.target.closest('.char-thumb-item') || event.target.closest('.settings-item-row') || event.target.closest('.movie-card') || event.target.closest('.sparkle-rect-card') || event.target.closest('.lang-item-row')) {
@@ -2388,16 +2629,6 @@ html_code = """
         function closeLanguageModal(event) {
             if (event) event.stopPropagation();
             document.getElementById('languageModalOverlay').classList.remove('show');
-        }
-
-        function selectLanguage(langName, element) {
-            var rows = document.querySelectorAll('.lang-item-row');
-            rows.forEach(r => r.classList.remove('selected'));
-            element.classList.add('selected');
-            document.getElementById('currentLangDisplay').innerText = langName;
-            setTimeout(() => {
-                closeLanguageModal();
-            }, 150);
         }
 
         function handleMenuClick(event, msg) {
@@ -2497,7 +2728,7 @@ html_code = """
         }
 
         function closeSourceModal() {
-            document.getElementById('sourceModal').classList.add('show');
+            document.getElementById('sourceModal').classList.remove('show');
         }
 
         function triggerFileInput(type) {
@@ -2533,7 +2764,7 @@ html_code = """
             if (event) event.stopPropagation();
             currentUploadedImageSrc = "";
             var box = document.getElementById('bigUploadBox');
-            box.innerHTML = '<div id="bigBoxInner" style="display:flex; flex-direction:column; align-items:center; gap:8px; color:#cbd5e1; font-size:13px;"><div style="width:32px; height:32px; background:rgba(255,255,255,0.08); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#ffffff;">↑</div><span>رفع صورة</span></div>';
+            box.innerHTML = '<div id="bigBoxInner" style="display:flex; flex-direction:column; align-items:center; gap:8px; color:#cbd5e1; font-size:13px;"><div style="width:32px; height:32px; background:rgba(255,255,255,0.08); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#ffffff;">↑</div><span data-tr="uploadImg">رفع صورة</span></div>';
             checkFormValidity();
         }
 
@@ -2568,7 +2799,7 @@ html_code = """
                 <div style="width:100%; display:flex; flex-direction:column; gap:8px;">
                     <div style="display:flex; justify-content:space-between; align-items:center;">
                         <div class="item-info">
-                            <h4>الشخصيات</h4>
+                            <h4 data-tr="charTitle">الشخصيات</h4>
                             <p>تم إضافة الشخصية بنجاح</p>
                         </div>
                     </div>
@@ -2606,10 +2837,10 @@ html_code = """
             var slot = document.getElementById('characterRowSlot');
             slot.innerHTML = `
                 <div class="item-info">
-                    <h4>الشخصيات</h4>
-                    <p>أضف صورتين كحد أقصى لشخصيات القصة</p>
+                    <h4 data-tr="charTitle">الشخصيات</h4>
+                    <p data-tr="charDesc">أضف صورتين كحد أقصى لشخصيات القصة</p>
                 </div>
-                <button class="action-add-btn" onclick="openAddCharacter(event)">إضافة</button>
+                <button class="action-add-btn" onclick="openAddCharacter(event)" data-tr="addBtn">إضافة</button>
             `;
         }
 
@@ -2668,12 +2899,12 @@ html_code = """
                     <div class="added-story-card-vertical">
                         <div class="added-story-top-row">
                             <div class="added-story-title-group">
-                                <span>الحكاية</span>
+                                <span data-tr="taleTitle">الحكاية</span>
                                 <div class="added-story-check-icon">✓</div>
                             </div>
                             <div class="added-story-edit-btn" onclick="openStoryDescription(event)">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                                <span>تعديل</span>
+                                <span data-tr="editBtn">تعديل</span>
                             </div>
                         </div>
                         <div class="added-story-content-text">` + text + `</div>
