@@ -44,13 +44,24 @@ html_code = """
             display: none;
             width: 100%;
             min-height: 100vh;
-            background-color: #0b0f19;
+            /* الثيم الجديد المستوحى من الصورة لكل الاقسام عدا الرئيسية والزر المنفصل */
+            background-color: #1f242d;
             flex-direction: column;
             padding-bottom: 90px;
         }
 
         .screen-view.active {
             display: flex;
+        }
+
+        /* الصفحة الرئيسية تبقى بخلفيتها الأصلية حسب طلبك */
+        #homeScreen.screen-view {
+            background-color: #0b0f19;
+        }
+
+        /* قسم الزر المنفصل يبقى بخلفيته الأصلية حسب طلبك */
+        #sparkleDialogScreen.screen-view {
+            background-color: #0b0f19;
         }
 
         .hero-box {
@@ -149,7 +160,7 @@ html_code = """
         }
 
         .card-subtitle {
-            color: #94a3b8;
+            color: #cbd5e1;
             font-size: 12px;
             font-weight: 400;
         }
@@ -221,7 +232,7 @@ html_code = """
         }
 
         .view-all {
-            color: #94a3b8;
+            color: #cbd5e1;
             font-size: 13px;
             cursor: pointer;
         }
@@ -270,7 +281,7 @@ html_code = """
             line-height: 1.2;
         }
 
-        /* نافذة منبثقة عامة للتنبيهات الضرورية الأخرى */
+        /* نافذة منبثقة عامة للتنبيهات الضرورية */
         .custom-alert-overlay {
             display: none;
             position: fixed;
@@ -284,7 +295,7 @@ html_code = """
             display: flex;
         }
         .custom-alert-box {
-            background: #141824;
+            background: #282f3d;
             border: 1px solid rgba(255,255,255,0.15);
             border-radius: 20px;
             padding: 24px 20px;
@@ -320,7 +331,6 @@ html_code = """
 
         /* --- واجهة الأعمال --- */
         #worksScreen {
-            background-color: #0b0f19;
             display: none;
             flex-direction: column;
             min-height: 100vh;
@@ -333,7 +343,7 @@ html_code = """
 
         .works-tabs-container {
             display: flex;
-            background: #141824;
+            background: #282f3d;
             border-radius: 30px;
             padding: 4px;
             width: 100%;
@@ -348,7 +358,7 @@ html_code = """
             padding: 10px 0;
             font-size: 13px;
             font-weight: 600;
-            color: #94a3b8;
+            color: #cbd5e1;
             background: transparent;
             border-radius: 25px;
             cursor: pointer;
@@ -357,7 +367,7 @@ html_code = """
         }
 
         .works-tab.active {
-            background: #1e2538 !important;
+            background: #343d50 !important;
             color: #ffffff !important;
             font-weight: 700;
         }
@@ -377,12 +387,12 @@ html_code = """
             height: 90px;
             margin-bottom: 24px;
             opacity: 0.8;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2364748b" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>') no-repeat center;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23cbd5e1" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>') no-repeat center;
             background-size: contain;
         }
 
         .works-empty-text-sub {
-            color: #64748b;
+            color: #cbd5e1;
             font-size: 13px;
             margin-bottom: 35px;
         }
@@ -391,7 +401,7 @@ html_code = """
             width: 100%;
             max-width: 220px;
             background: #ffffff;
-            color: #0b0f19;
+            color: #1f242d;
             font-size: 14px;
             font-weight: 700;
             padding: 10px 16px;
@@ -416,8 +426,8 @@ html_code = """
         }
 
         .ai-assistant-card {
-            background: #141824;
-            border: 1px solid #1e293b;
+            background: #282f3d;
+            border: 1px solid #343d50;
             border-radius: 16px;
             padding: 16px;
             display: flex;
@@ -452,14 +462,14 @@ html_code = """
         }
 
         .ai-desc {
-            color: #94a3b8;
+            color: #cbd5e1;
             font-size: 12px;
             line-height: 1.5;
         }
 
         .story-setup-box {
-            background: #141824;
-            border: 1px solid #1e293b;
+            background: #282f3d;
+            border: 1px solid #343d50;
             border-radius: 16px;
             padding: 16px;
             display: flex;
@@ -480,8 +490,8 @@ html_code = """
         }
 
         .counter-badge {
-            background-color: #1e293b;
-            color: #94a3b8;
+            background-color: #343d50;
+            color: #cbd5e1;
             padding: 3px 10px;
             border-radius: 10px;
             font-size: 11px;
@@ -489,12 +499,12 @@ html_code = """
         }
 
         .setup-subtitle {
-            color: #64748b;
+            color: #cbd5e1;
             font-size: 11px;
         }
 
         .setup-row-item {
-            background: #1a2234;
+            background: #343d50;
             border-radius: 12px;
             padding: 12px;
             display: flex;
@@ -510,11 +520,10 @@ html_code = """
         }
 
         .item-info p {
-            color: #94a3b8;
+            color: #cbd5e1;
             font-size: 11px;
         }
 
-        /* تعديل ألوان أزرار "إضافة" (الشخصيات والحكاية) لتكون باللون الأبيض */
         .action-add-btn {
             background: rgba(255, 255, 255, 0.12);
             color: #ffffff;
@@ -534,7 +543,6 @@ html_code = """
 
         /* --- واجهة "إضافة شخصية" --- */
         #addCharacterScreen {
-            background-color: #0b0f19;
             display: none;
             flex-direction: column;
             min-height: 100vh;
@@ -567,7 +575,7 @@ html_code = """
         }
 
         .char-main-card {
-            background: #141824;
+            background: #282f3d;
             border: 1px solid rgba(255,255,255,0.08);
             border-radius: 20px;
             padding: 16px;
@@ -584,7 +592,7 @@ html_code = """
         }
         
         .char-big-upload-box {
-            background: #1a2030;
+            background: #343d50;
             border: 1px dashed rgba(255,255,255,0.2);
             border-radius: 16px;
             height: 180px;
@@ -635,20 +643,20 @@ html_code = """
             width: 55px;
             height: 55px;
             border-radius: 12px;
-            background: #1a2030;
+            background: #343d50;
             border: 1.5px dashed rgba(255,255,255,0.4);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: #94a3b8;
+            color: #cbd5e1;
             font-size: 18px;
             cursor: pointer;
             flex-shrink: 0;
             gap: 2px;
             transition: 0.2s;
         }
-        .char-add-role-box:active { background: #222b3f; }
+        .char-add-role-box:active { background: #3f4b63; }
         .char-add-role-text { font-size: 10px; }
 
         .char-thumbs-scroll {
@@ -677,7 +685,7 @@ html_code = """
 
         .char-name-input {
             width: 100%;
-            background: #1a2030;
+            background: #343d50;
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 14px;
             padding: 14px;
@@ -686,7 +694,7 @@ html_code = """
             outline: none;
             text-align: right;
         }
-        .char-name-input::placeholder { color: #64748b; }
+        .char-name-input::placeholder { color: #cbd5e1; }
 
         .char-submit-btn-wrapper {
             position: fixed;
@@ -710,16 +718,15 @@ html_code = """
             transition: 0.3s;
         }
         .char-submit-btn.disabled {
-            background: #1e2538 !important;
-            color: #64748b !important;
+            background: #343d50 !important;
+            color: #cbd5e1 !important;
             cursor: not-allowed;
             box-shadow: none;
             opacity: 0.6;
         }
 
-        /* تنسيق بطاقة الشخصية المضافة حديثاً في قائمة الشخصيات مع الألوان المطلوبة */
         .added-character-preview-card {
-            background: #1a2234;
+            background: #343d50;
             border-radius: 12px;
             padding: 12px;
             display: flex;
@@ -749,7 +756,6 @@ html_code = """
             align-items: center;
             gap: 10px;
         }
-        /* زر "تغيير" مع السهم بلون أبيض */
         .added-char-change-group {
             display: flex;
             align-items: center;
@@ -765,9 +771,8 @@ html_code = """
         }
         .added-char-change-group:active { background: rgba(255, 255, 255, 0.2); }
         
-        /* علامة (✕) بلون أبيض على خلفية سوداء غامقة */
         .added-char-delete-btn {
-            background: #0b0f19;
+            background: #1f242d;
             color: #ffffff;
             border: 1px solid rgba(255, 255, 255, 0.3);
             width: 30px;
@@ -780,7 +785,7 @@ html_code = """
             cursor: pointer;
             font-weight: bold;
         }
-        .added-char-delete-btn:active { background: #1a2030; }
+        .added-char-delete-btn:active { background: #282f3d; }
 
         /* نافذة اختيار المصدر */
         .source-modal {
@@ -794,7 +799,7 @@ html_code = """
         }
         .source-modal.show { display: flex; }
         .source-modal-content {
-            background: #141824;
+            background: #282f3d;
             border: 1px solid rgba(255,255,255,0.15);
             border-radius: 20px;
             padding: 20px;
@@ -812,7 +817,7 @@ html_code = """
         }
         .source-btn {
             flex: 1;
-            background: #1e2538;
+            background: #343d50;
             color: #fff;
             border: 1px solid rgba(255,255,255,0.1);
             padding: 12px 8px;
@@ -825,16 +830,16 @@ html_code = """
             align-items: center;
             gap: 6px;
         }
-        .source-btn:active { background: #2a344e; }
+        .source-btn:active { background: #3f4b63; }
 
         /* واجهة صفحة الأدوات */
-        #toolsScreen { background: #0b0f19; overflow-y: auto; }
+        #toolsScreen { overflow-y: auto; }
         .tools-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 20px;
-            background: rgba(11, 15, 25, 0.85);
+            background: rgba(31, 36, 45, 0.85);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255,255,255,0.08);
         }
@@ -857,9 +862,9 @@ html_code = """
             cursor: pointer; 
         }
         
-        .tool-card-1 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop') center/contain no-repeat, #0b0f19; }
-        .tool-card-2 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop') center/contain no-repeat, #0b0f19; }
-        .tool-card-3 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop') center/contain no-repeat, #0b0f19; }
+        .tool-card-1 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop') center/contain no-repeat, #1f242d; }
+        .tool-card-2 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop') center/contain no-repeat, #1f242d; }
+        .tool-card-3 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop') center/contain no-repeat, #1f242d; }
 
         .tool-info-box { position: relative; z-index: 2; }
         .tool-main-title { color: #ffffff; font-size: 17px; font-weight: 700; margin-bottom: 4px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
@@ -880,7 +885,7 @@ html_code = """
         .subscription-modal-overlay.hidden { display: none; }
         
         .subscription-modal-box {
-            background: #0b0f19;
+            background: #1f242d;
             border: 1.5px solid rgba(255,255,255,0.15);
             border-radius: 24px;
             width: 100%;
@@ -923,12 +928,12 @@ html_code = """
         .sub-modal-close-x:active { background: rgba(255,255,255,0.2); }
 
         .plans-list { display: flex; flex-direction: column; gap: 12px; }
-        .plan-card { background: rgba(20, 25, 40, 0.85); backdrop-filter: blur(12px); border: 1.5px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 16px; cursor: pointer; transition: 0.2s; position: relative; }
-        .plan-card.selected { border-color: #3b82f6; background: rgba(30, 41, 75, 0.95); box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
+        .plan-card { background: #282f3d; backdrop-filter: blur(12px); border: 1.5px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 16px; cursor: pointer; transition: 0.2s; position: relative; }
+        .plan-card.selected { border-color: #3b82f6; background: #343d50; box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
         .plan-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
         .plan-name { color: #ffffff; font-size: 15px; font-weight: 700; }
         .plan-price { background: rgba(255, 255, 255, 0.12); padding: 4px 10px; border-radius: 10px; color: #ffffff; font-size: 12px; font-weight: 600; }
-        .plan-desc { color: #94a3b8; font-size: 12px; }
+        .plan-desc { color: #cbd5e1; font-size: 12px; }
         .new-tag { position: absolute; top: 12px; left: 12px; background: #3b82f6; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
         .best-value-tag { position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg, #f59e0b, #ec4899); color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
         .action-main-btn { width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 20px; border: none; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); margin-top: 10px; }
@@ -1043,7 +1048,7 @@ html_code = """
             font-weight: 700;
         }
         .sparkle-card-sub-title {
-            color: #94a3b8;
+            color: #cbd5e1;
             font-size: 12px;
         }
 
@@ -1059,7 +1064,7 @@ html_code = """
         }
         .login-modal-overlay.show { display: flex; }
         .login-modal-content {
-            background: #141824;
+            background: #1f242d;
             border-top-left-radius: 28px;
             border-top-right-radius: 28px;
             border: 1px solid rgba(255,255,255,0.12);
@@ -1103,7 +1108,7 @@ html_code = """
         .login-btn-google {
             width: 100%;
             background: #ffffff;
-            color: #0b0f19;
+            color: #1f242d;
             border-radius: 16px;
             padding: 14px;
             font-size: 15px;
@@ -1120,7 +1125,7 @@ html_code = """
         .login-btn-google:active { transform: scale(0.98); background: #e2e8f0; }
         .login-btn-email {
             width: 100%;
-            background: #1e2538;
+            background: #343d50;
             color: #ffffff;
             border-radius: 16px;
             padding: 14px;
@@ -1134,10 +1139,10 @@ html_code = """
             gap: 10px;
             transition: 0.2s;
         }
-        .login-btn-email:active { transform: scale(0.98); background: #2a344e; }
+        .login-btn-email:active { transform: scale(0.98); background: #3f4b63; }
         .login-footer-text {
             text-align: center;
-            color: #94a3b8;
+            color: #cbd5e1;
             font-size: 13px;
             margin-top: 10px;
             cursor: pointer;
@@ -1148,7 +1153,7 @@ html_code = """
             justify-content: center;
             align-items: center;
             gap: 15px;
-            color: #64748b;
+            color: #cbd5e1;
             font-size: 11px;
             margin-top: 5px;
         }
@@ -1158,7 +1163,7 @@ html_code = """
         .plotcraft-nav-bar {
             position: fixed;
             bottom: 0; left: 0; width: 100%;
-            background-color: #0b0f19;
+            background-color: #1f242d;
             padding: 10px 15px;
             display: flex; justify-content: center; align-items: center; gap: 12px;
             z-index: 999999; box-sizing: border-box; direction: rtl;
@@ -1166,10 +1171,10 @@ html_code = """
             transition: transform 0.3s ease;
         }
         .plotcraft-nav-bar.hidden { transform: translateY(120%); }
-        .plotcraft-nav-pill { background-color: #161b22; border: 1px solid #30363d; border-radius: 35px; display: flex; justify-content: space-around; align-items: center; padding: 8px 15px; flex-grow: 1; max-width: 380px; }
-        .plotcraft-nav-item { display: flex; align-items: center; gap: 6px; color: #8b949e; font-size: 13px; text-decoration: none; cursor: pointer; white-space: nowrap; }
+        .plotcraft-nav-pill { background-color: #282f3d; border: 1px solid #343d50; border-radius: 35px; display: flex; justify-content: space-around; align-items: center; padding: 8px 15px; flex-grow: 1; max-width: 380px; }
+        .plotcraft-nav-item { display: flex; align-items: center; gap: 6px; color: #cbd5e1; font-size: 13px; text-decoration: none; cursor: pointer; white-space: nowrap; }
         .plotcraft-nav-item.active { color: #ffffff; font-weight: bold; }
-        .plotcraft-nav-square { background-color: #161b22; border: 1px solid #30363d; border-radius: 16px; width: 48px; height: 48px; display: flex; justify-content: center; align-items: center; flex-shrink: 0; cursor: pointer; position: relative; }
+        .plotcraft-nav-square { background-color: #282f3d; border: 1px solid #343d50; border-radius: 16px; width: 48px; height: 48px; display: flex; justify-content: center; align-items: center; flex-shrink: 0; cursor: pointer; position: relative; }
     </style>
 </head>
 <body>
@@ -1184,7 +1189,7 @@ html_code = """
 
             <div style="text-align: center; margin-bottom: 5px;">
                 <div style="color: #ffffff; font-size: 17px; font-weight: 700; margin-bottom: 4px;">حول أفكارك إلى PlotCraft</div>
-                <div style="color: #94a3b8; font-size: 12px;">أنشئ كل لقطة وعدلها وأكملها بسرعة.</div>
+                <div style="color: #cbd5e1; font-size: 12px;">أنشئ كل لقطة وعدلها وأكملها بسرعة.</div>
             </div>
 
             <div class="plans-list">
@@ -1307,7 +1312,7 @@ html_code = """
                         </div>
                     </div>
                     <div class="sparkle-rect-left">
-                        <div style="background: rgba(255,255,255,0.08); width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #94a3b8;">↗</div>
+                        <div style="background: rgba(255,255,255,0.08); width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #cbd5e1;">↗</div>
                     </div>
                 </div>
 
@@ -1388,7 +1393,6 @@ html_code = """
                 </div>
                 <div class="setup-subtitle">أضف الشخصيات والحكاية أولاً، ثم أكمل الخطوات:</div>
 
-                <!-- زر إضافة الشخصيات بلون أبيض -->
                 <div class="setup-row-item" id="characterRowSlot">
                     <div class="item-info">
                         <h4>الشخصيات</h4>
@@ -1397,7 +1401,6 @@ html_code = """
                     <button class="action-add-btn" onclick="openAddCharacter(event)">إضافة</button>
                 </div>
 
-                <!-- زر إضافة الحكاية بلون أبيض -->
                 <div class="setup-row-item">
                     <div class="item-info">
                         <h4>الحكاية</h4>
@@ -1426,8 +1429,8 @@ html_code = """
                 <div class="char-section-label">الشخصية</div>
                 
                 <div class="char-big-upload-box" id="bigUploadBox" onclick="showSourceModal()">
-                    <div id="bigBoxInner" style="display:flex; flex-direction:column; align-items:center; gap:8px; color:#94a3b8; font-size:13px;">
-                        <div style="width:32px; height:32px; background:rgba(255,255,255,0.08); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#cbd5e1;">↑</div>
+                    <div id="bigBoxInner" style="display:flex; flex-direction:column; align-items:center; gap:8px; color:#cbd5e1; font-size:13px;">
+                        <div style="width:32px; height:32px; background:rgba(255,255,255,0.08); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#ffffff;">↑</div>
                         <span>رفع صورة</span>
                     </div>
                 </div>
@@ -1460,7 +1463,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- نافذة اختيار المصدر: كاميرا يمين، ألبوم يسار -->
+    <!-- نافذة اختيار المصدر -->
     <div class="source-modal" id="sourceModal">
         <div class="source-modal-content">
             <div style="color:#fff; font-weight:700; font-size:15px; margin-bottom:2px;">اختر مصدر الصورة</div>
@@ -1474,7 +1477,7 @@ html_code = """
                     <span>ألبوم الصور</span>
                 </button>
             </div>
-            <button style="background:none; border:none; color:#94a3b8; margin-top:4px; cursor:pointer; font-size:13px;" onclick="closeSourceModal()">إلغاء</button>
+            <button style="background:none; border:none; color:#cbd5e1; margin-top:4px; cursor:pointer; font-size:13px;" onclick="closeSourceModal()">إلغاء</button>
         </div>
     </div>
 
@@ -1530,9 +1533,9 @@ html_code = """
 
         <div class="plotcraft-nav-square" onclick="openSparkleDialog(event)" title="إنشاء سريع">
             <svg width="26" height="26" viewBox="0 0 24 24">
-                <rect x="3" y="6" width="14" height="12" rx="3" fill="#94a3b8"/>
-                <path d="M14 6h3c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2h-3V6z" fill="#64748b"/>
-                <polygon points="8,10 12,12 8,14" fill="#0b0f19"/>
+                <rect x="3" y="6" width="14" height="12" rx="3" fill="#cbd5e1"/>
+                <path d="M14 6h3c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2h-3V6z" fill="#94a3b8"/>
+                <polygon points="8,10 12,12 8,14" fill="#1f242d"/>
                 <path d="M8 3C8 4.65 6.65 6 5 6C6.65 6 8 7.35 8 9C8 7.35 9.35 6 11 6C9.35 6 8 4.65 8 3Z" fill="#3b82f6"/>
             </svg>
         </div>
@@ -1663,7 +1666,7 @@ html_code = """
             if (event) event.stopPropagation();
             currentUploadedImageSrc = "";
             var box = document.getElementById('bigUploadBox');
-            box.innerHTML = '<div id="bigBoxInner" style="display:flex; flex-direction:column; align-items:center; gap:8px; color:#94a3b8; font-size:13px;"><div style="width:32px; height:32px; background:rgba(255,255,255,0.08); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#cbd5e1;">↑</div><span>رفع صورة</span></div>';
+            box.innerHTML = '<div id="bigBoxInner" style="display:flex; flex-direction:column; align-items:center; gap:8px; color:#cbd5e1; font-size:13px;"><div style="width:32px; height:32px; background:rgba(255,255,255,0.08); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#ffffff;">↑</div><span>رفع صورة</span></div>';
             checkFormValidity();
         }
 
@@ -1682,7 +1685,6 @@ html_code = """
             }
         }
 
-        // عند الضغط على زر إرسال (بدون أي نوافذ تنبيه، مباشرة للعودة والقائمة)
         function submitCharacterData() {
             var nameInput = document.getElementById('characterNameInput').value.trim();
             if (currentUploadedImageSrc === "" || nameInput === "") return;
@@ -1693,7 +1695,6 @@ html_code = """
             switchScreen('stepByStepScreen', event);
         }
 
-        // تحديث خانة الشخصيات مع الألوان المطلوبة (تغيير أبيض، وعلامة إكس أبيض على أسود غامق)
         function updateCharacterSlotUI(imgSrc, charName) {
             var slot = document.getElementById('characterRowSlot');
             slot.innerHTML = `
@@ -1728,7 +1729,6 @@ html_code = """
             switchScreen('addCharacterScreen', event);
         }
 
-        // عند الضغط على علامة الإكس تحذف فوراً وبدون أي رسائل تنبيه
         function deleteCharacterSlot(event) {
             event.stopPropagation();
             characterAdded = false;
