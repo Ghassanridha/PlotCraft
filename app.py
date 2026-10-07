@@ -1601,7 +1601,6 @@ html_code = """
         .plan-price { background: rgba(255, 255, 255, 0.12); padding: 4px 10px; border-radius: 10px; color: #ffffff; font-size: 12px; font-weight: 600; }
         .plan-desc { color: #cbd5e1; font-size: 12px; }
         
-        /* ضبط موقع وحجم التاجات لتكون صغيرة في أقصى اليمين فوق كلمة شهر وسنة */
         .new-tag { position: absolute; top: -8px; right: 14px; background: #3b82f6; color: #fff; font-size: 9px; padding: 1px 6px; border-radius: 6px; font-weight: 600; width: fit-content; z-index: 5; }
         .best-value-tag { position: absolute; top: -8px; right: 14px; background: linear-gradient(135deg, #f59e0b, #ec4899); color: #fff; font-size: 9px; padding: 1px 6px; border-radius: 6px; font-weight: 600; width: fit-content; z-index: 5; }
 
@@ -1964,6 +1963,9 @@ html_code = """
                 <div class="settings-item-left"><span>›</span></div>
             </div>
         </div>
+
+        <!-- زر تسجيل الخروج داخل الإعدادات -->
+        <button class="action-main-btn" style="background: #ef4444; margin-top: 10px;" onclick="handleLogout(event)" data-tr="logoutBtn">تسجيل خروج</button>
     </div>
 
     <!-- نافذة اختيار اللغات -->
@@ -2290,6 +2292,7 @@ html_code = """
     <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none;" onchange="handleFileSelected(event)">
     <input type="file" id="albumInput" accept="image/*" style="display:none;" onchange="handleFileSelected(event)">
 
+    <!-- نافذة تسجيل الدخول المُعدلة -->
     <div class="login-modal-overlay" id="loginModalOverlay" onclick="event.stopPropagation()">
         <div class="login-modal-content">
             <div class="login-modal-header">
@@ -2297,21 +2300,21 @@ html_code = """
                 <button class="login-close-x" onclick="closeLoginModal()">✕</button>
             </div>
 
-            <button class="login-btn-google" onclick="showCustomAlert('تم تسجيل الدخول بنجاح عبر Google')">
+            <!-- زر تسجيل الدخول (لون أبيض) -->
+            <button class="login-btn-google" onclick="performLogin('Google')">
                 <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.2v3.15C3.17 21.32 7.22 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.2C.44 8.12 0 9.87 0 11.73s.44 3.61 1.2 5.15l4.08-2.61z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.22 0 3.17 2.68 1.2 6.58l4.08 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>
-                <span data-tr="googleLogin">استمر مع Google</span>
+                <span data-tr="googleLogin">تسجيل الدخول مع Google</span>
             </button>
 
-            <button class="login-btn-email" onclick="showCustomAlert('فتح تسجيل الدخول بالبريد الإلكتروني')">
+            <button class="login-btn-email" onclick="performLogin('Email')">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                <span data-tr="emailLogin">استمر مع البريد الإلكتروني</span>
+                <span data-tr="emailLogin">تسجيل الدخول مع البريد الإلكتروني</span>
             </button>
 
-            <div class="login-footer-text" onclick="showCustomAlert('انتقال لصفحة الاشتراك')">
-                <span data-tr="noAccount">ليس لدي حساب؟</span> <span data-tr="signupText" style="color: #3b82f6; font-weight: 600;">اشتراك</span>
-            </div>
+            <!-- زر إنشاء حساب جديد (لون أزرق تحت) -->
+            <button class="action-main-btn" style="background: #3b82f6; margin-top: 5px;" onclick="performLogin('CreateAccount')" data-tr="createAccountBtn">إنشاء حساب جديد</button>
 
-            <div class="login-links-row">
+            <div class="login-links-row" style="margin-top: 15px;">
                 <span onclick="showCustomAlert('شروط الاستخدام')" data-tr="termsText">شروط الاستخدام</span>
                 <span>|</span>
                 <span onclick="showCustomAlert('الخصوصية')" data-tr="privacyText">الخصوصية</span>
@@ -2351,6 +2354,7 @@ html_code = """
         let storyAdded = false;
         let savedStoryText = "";
         let tempSelectedLangName = "Arabic";
+        let isUserLoggedIn = false; // متغير حالة تسجيل الدخول
 
         let userUniqueId = Math.floor(1000000 + Math.random() * 9000000);
         document.getElementById('displayUniqueId').innerText = userUniqueId + " ID";
@@ -2403,10 +2407,9 @@ html_code = """
                 albumBtn: "ألبوم الصور",
                 cancelBtn: "إلغاء",
                 loginTitle: "تسجيل الدخول إلى Plotcraft",
-                googleLogin: "استمر مع Google",
-                emailLogin: "استمر مع البريد الإلكتروني",
-                noAccount: "ليس لدي حساب؟",
-                signupText: "اشتراك",
+                googleLogin: "تسجيل الدخول مع Google",
+                emailLogin: "تسجيل الدخول مع البريد الإلكتروني",
+                createAccountBtn: "إنشاء حساب جديد",
                 termsText: "شروط الاستخدام",
                 privacyText: "الخصوصية",
                 navHome: "الرئيسية",
@@ -2438,7 +2441,8 @@ html_code = """
                 editNameTitle: "تعديل اسم المستخدم",
                 editNamePlaceholder: "أدخل الاسم الجديد",
                 sendBtn: "إرسال",
-                okBtn: "حسناً"
+                okBtn: "حسناً",
+                logoutBtn: "تسجيل خروج"
             },
             English: {
                 upgradeBadge: "Upgrade",
@@ -2487,10 +2491,9 @@ html_code = """
                 albumBtn: "Photo Album",
                 cancelBtn: "Cancel",
                 loginTitle: "Sign in to Plotcraft",
-                googleLogin: "Continue with Google",
-                emailLogin: "Continue with Email",
-                noAccount: "Don't have an account?",
-                signupText: "Sign up",
+                googleLogin: "Sign in with Google",
+                emailLogin: "Sign in with Email",
+                createAccountBtn: "Create New Account",
                 termsText: "Terms of Use",
                 privacyText: "Privacy",
                 navHome: "Home",
@@ -2522,7 +2525,8 @@ html_code = """
                 editNameTitle: "Edit Username",
                 editNamePlaceholder: "Enter new name",
                 sendBtn: "Send",
-                okBtn: "OK"
+                okBtn: "OK",
+                logoutBtn: "Log Out"
             }
         };
 
@@ -2610,10 +2614,17 @@ html_code = """
             document.getElementById('mainNavBar').classList.add('hidden');
         }
 
+        // --- التحكم بظهور الإعدادات بناءً على تسجيل الدخول ---
         function openSettingsScreen(event) {
             if (event) event.stopPropagation();
-            document.getElementById('settingsScreen').classList.add('active');
-            document.getElementById('mainNavBar').classList.add('hidden');
+            if (!isUserLoggedIn) {
+                // إذا لم يكن مسجلاً، افتح نافذة تسجيل الدخول بدلاً من الإعدادات
+                openLoginModal();
+            } else {
+                // إذا كان مسجلاً، افتح شاشة الإعدادات بشكل طبيعي
+                document.getElementById('settingsScreen').classList.add('active');
+                document.getElementById('mainNavBar').classList.add('hidden');
+            }
         }
 
         function closeSettingsScreen(event) {
@@ -2712,6 +2723,31 @@ html_code = """
 
         function closeLoginModal() {
             document.getElementById('loginModalOverlay').classList.remove('show');
+        }
+
+        // --- تنفيذ تسجيل الدخول أو إنشاء الحساب ---
+        function performLogin(type) {
+            isUserLoggedIn = true; // تعيين حالة المستخدم كمسجل دخول
+            closeLoginModal();
+            if (type === 'Google') {
+                showCustomAlert('تم تسجيل الدخول بنجاح عبر Google');
+            } else if (type === 'Email') {
+                showCustomAlert('تم تسجيل الدخول بنجاح عبر البريد الإلكتروني');
+            } else {
+                showCustomAlert('تم إنشاء حساب جديد بنجاح');
+            }
+            // فتح الإعدادات تلقائياً بعد النجاح ليرى المستخدم حسابه
+            document.getElementById('settingsScreen').classList.add('active');
+            document.getElementById('mainNavBar').classList.add('hidden');
+        }
+
+        // --- تسجيل الخروج وإخفاء الإعدادات ---
+        function handleLogout(event) {
+            if (event) event.stopPropagation();
+            isUserLoggedIn = false; // إلغاء حالة تسجيل الدخول
+            document.getElementById('settingsScreen').classList.remove('active');
+            document.getElementById('mainNavBar').classList.remove('hidden');
+            showCustomAlert('تم تسجيل الخروج بنجاح');
         }
 
         function showCustomAlert(message) {
