@@ -502,6 +502,11 @@ html_code = """
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: 0.2s;
+        }
+        .settings-back-btn:active {
+            background: rgba(0, 0, 0, 0.4);
+            transform: scale(0.95);
         }
         .settings-upgrade-badge {
             background: rgba(255, 255, 255, 0.15);
@@ -651,13 +656,21 @@ html_code = """
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 0;
+            padding: 14px 10px;
+            margin: 0 -10px;
+            border-radius: 12px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             cursor: pointer;
+            transition: background-color 0.15s ease;
         }
         .settings-item-row:last-child {
             border-bottom: none;
         }
+        /* تأثير الضغطة: تحول من لون فاتح إلى أسود غامق لفترة الضغط */
+        .settings-item-row:active {
+            background-color: #0b0f19 !important;
+        }
+
         .settings-item-right {
             display: flex;
             align-items: center;
@@ -1770,10 +1783,10 @@ html_code = """
     <!-- شاشة الإعدادات -->
     <div class="settings-screen" id="settingsScreen">
         <div class="settings-top-bar">
-            <!-- زر السهم للخروج من الإعدادات في أقصى اليمين تماماً -->
+            <!-- زر السهم للخروج من الإعدادات في أقصى اليمين تماماً (تم الإصلاح ليغلق الإعدادات فقط) -->
             <button class="settings-back-btn" onclick="closeSettingsScreen()">›</button>
             <div class="settings-title">الإعدادات</div>
-            <!-- زر الترقية في أقصى اليسار تماماً -> يفتح قائمة الاشتراكات (الأسبوعي، الشهري، السنوي) -->
+            <!-- زر الترقية في أقصى اليسار تماماً -> يفتح قائمة الاشتراكات -->
             <button class="settings-upgrade-badge" onclick="openSubscriptionModal()">ترقية</button>
         </div>
 
@@ -1784,7 +1797,6 @@ html_code = """
             <div class="profile-info-group">
                 <div class="profile-name-row">
                     <span class="profile-name-text" id="displayUserName">NewUser</span>
-                    <!-- قلم أبيض واحترافي بتصميم أنيق -->
                     <span class="profile-edit-pencil" onclick="openNameEditModal()" title="تعديل الاسم">
                         <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
                     </span>
