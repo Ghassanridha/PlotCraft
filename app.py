@@ -508,7 +508,6 @@ html_code = """
             transform: scale(0.95);
         }
 
-        /* صندوق الإعدادات المماثل للصورة بالضبط */
         .settings-card-box {
             background: #171b22;
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -549,7 +548,6 @@ html_code = """
             fill: #cbd5e1;
         }
 
-        /* زر تسجيل الخروج السفلي */
         .settings-logout-btn {
             background: #ffffff;
             color: #1f242d;
@@ -571,7 +569,7 @@ html_code = """
             transform: scale(0.98);
         }
 
-        /* نافذة تسجيل الدخول وحقول الإدخال المطورة */
+        /* نافذة تسجيل الدخول */
         .login-modal-overlay {
             display: none;
             position: fixed;
@@ -646,7 +644,6 @@ html_code = """
         }
         .login-btn-google:active { transform: scale(0.98); background: #e2e8f0; }
 
-        /* قائمة الإيميلات المنسدلة عند الضغط على جوجل */
         .google-emails-dropdown {
             display: none;
             flex-direction: column;
@@ -670,7 +667,6 @@ html_code = """
         .email-item-row:last-child { border-bottom: none; }
         .email-item-row:hover, .email-item-row:active { background: #343d50; }
 
-        /* تنسيق حقول الإدخال للبريد وكلمة المرور المطلوبة */
         .input-group-field {
             display: flex;
             flex-direction: column;
@@ -698,7 +694,6 @@ html_code = """
             color: rgba(255, 255, 255, 0.35);
         }
 
-        /* زر تسجيل الدخول (يتفاعل حسب الإدخال) */
         .login-submit-main-btn {
             width: 100%;
             background: rgba(255, 255, 255, 0.2);
@@ -720,7 +715,6 @@ html_code = """
             box-shadow: 0 4px 15px rgba(255,255,255,0.25);
         }
 
-        /* الروابط السفلية لحقول تسجيل الدخول */
         .login-bottom-links-row {
             display: flex;
             justify-content: space-between;
@@ -741,6 +735,62 @@ html_code = """
             text-align: left;
         }
 
+        /* الشاشات الأخرى الكاملة (خطوة بخطوة، الأدوات، الأسرار، إلخ) */
+        .step-container {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-height: calc(100vh - 90px);
+            overflow-y: auto;
+        }
+        .ai-assistant-card {
+            background: #282f3d;
+            border: 1px solid #343d50;
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .ai-header-row { display: flex; justify-content: space-between; align-items: center; }
+        .ai-title { color: #ff2a85; font-size: 14px; font-weight: 700; }
+        .ai-badge-circle { width: 32px; height: 32px; background: linear-gradient(135deg, #ff2a85, #7928ca); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 11px; }
+        .ai-desc { color: #cbd5e1; font-size: 12px; line-height: 1.5; }
+        
+        .story-setup-box {
+            background: #282f3d;
+            border: 1px solid #343d50;
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .setup-header-row { display: flex; justify-content: space-between; align-items: center; }
+        .setup-main-title { color: #ffffff; font-size: 15px; font-weight: 700; }
+        .counter-badge { background-color: #343d50; color: #cbd5e1; padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+        .setup-subtitle { color: #ffffff; font-size: 11px; font-weight: 700; }
+        .setup-row-item { background: #343d50; border-radius: 12px; padding: 12px; display: flex; justify-content: space-between; align-items: center; }
+        .item-info h4 { color: #ffffff; font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+        .item-info p { color: #cbd5e1; font-size: 11px; }
+        .action-add-btn { background: rgba(255, 255, 255, 0.12); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.3); padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; }
+        
+        .next-step-btn { background: #ffffff !important; color: #0b0f19 !important; font-size: 16px; font-weight: 700; padding: 14px; border-radius: 24px; border: none; cursor: pointer; display: none; width: 100%; text-align: center; }
+        .next-step-btn.show { display: block; }
+
+        #toolsScreen { overflow-y: auto; }
+        .tools-header { display: flex; align-items: center; justify-content: space-between; padding: 20px; background: rgba(31, 36, 45, 0.85); border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .tools-header-title { color: #ffffff; font-size: 20px; font-weight: 700; }
+        .tools-upgrade-btn { background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.2); padding: 6px 14px; border-radius: 20px; color: #ffffff; font-size: 13px; font-weight: 500; cursor: pointer; }
+        .tools-body { padding: 16px; display: flex; flex-direction: column; gap: 16px; }
+        .tool-card-item { position: relative; width: 100%; height: 180px; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
+        .tool-card-1 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop') center/contain no-repeat, #1f242d; }
+        .tool-card-2 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop') center/contain no-repeat, #1f242d; }
+        .tool-card-3 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop') center/contain no-repeat, #1f242d; }
+        .tool-main-title { color: #ffffff; font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+        .tool-sub-desc { color: #cbd5e1; font-size: 12px; }
+
         .plotcraft-nav-bar {
             position: fixed;
             bottom: 0; left: 0; width: 100%;
@@ -760,7 +810,7 @@ html_code = """
 </head>
 <body>
 
-    <!-- شاشة الإعدادات المطابقة للصورة -->
+    <!-- شاشة الإعدادات -->
     <div class="settings-screen" id="settingsScreen">
         <div class="settings-top-bar">
             <button class="settings-close-btn" onclick="closeSettingsScreen(event)" title="رجوع">‹</button>
@@ -805,7 +855,7 @@ html_code = """
         <button class="settings-logout-btn" onclick="handleLogout(event)">تسجيل الخروج</button>
     </div>
 
-    <!-- نافذة تسجيل الدخول مع خيارات Google وإدخال البريد -->
+    <!-- نافذة تسجيل الدخول -->
     <div class="login-modal-overlay" id="loginModalOverlay" onclick="event.stopPropagation()">
         <div class="login-modal-content">
             <div class="login-modal-header">
@@ -813,13 +863,11 @@ html_code = """
                 <button class="login-close-x" onclick="closeLoginModal()">✕</button>
             </div>
 
-            <!-- زر تسجيل الدخول عبر Google -->
             <button class="login-btn-google" onclick="toggleGoogleEmails(event)">
                 <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.2v3.15C3.17 21.32 7.22 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.2C.44 8.12 0 9.87 0 11.73s.44 3.61 1.2 5.15l4.08-2.61z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.22 0 3.17 2.68 1.2 6.58l4.08 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>
                 <span>تسجيل الدخول مع Google</span>
             </button>
 
-            <!-- قائمة الإيميلات المنبثقة العمودية بجهة اليمين -->
             <div class="google-emails-dropdown" id="googleEmailsDropdown">
                 <div class="email-item-row" onclick="selectEmail('ghassan.ridha1@gmail.com')">ghassan.ridha1@gmail.com</div>
                 <div class="email-item-row" onclick="selectEmail('plotcraft.user@gmail.com')">plotcraft.user@gmail.com</div>
@@ -828,33 +876,22 @@ html_code = """
 
             <div style="text-align: center; color: #cbd5e1; font-size: 13px; margin: 4px 0;">أو باستخدام البريد الإلكتروني</div>
 
-            <!-- حقل البريد الإلكتروني -->
             <div class="input-group-field">
                 <div class="input-label-right">البريد الإلكتروني</div>
                 <input type="email" class="custom-text-input" id="emailInputField" placeholder="يرجى إدخال عنوان البريد الإلكتروني" oninput="checkLoginInputs()">
             </div>
 
-            <!-- حقل كلمة المرور -->
             <div class="input-group-field">
                 <div class="input-label-right">كلمة المرور</div>
                 <input type="password" class="custom-text-input" id="passwordInputField" placeholder="ادخل كلمة المرور تحتوي على أكثر من 6 احرف" oninput="checkLoginInputs()">
             </div>
 
-            <!-- زر تسجيل الدخول (يتفاعل) -->
             <button class="login-submit-main-btn" id="loginSubmitBtn" onclick="performEmailLogin()">تسجيل الدخول</button>
 
-            <!-- الروابط السفلية (هل نسيت كلمة السر وإنشاء حساب) -->
             <div class="login-bottom-links-row">
                 <div class="forgot-pass-link" onclick="showCustomAlert('استعادة كلمة المرور')">هل نسيت كلمة السر؟</div>
                 <div class="create-acc-link" onclick="showCustomAlert('إنشاء حساب جديد')">إنشاء حساب جديد</div>
             </div>
-        </div>
-    </div>
-
-    <div class="custom-alert-overlay" id="customAlertOverlay" onclick="event.stopPropagation()">
-        <div class="custom-alert-box">
-            <div class="custom-alert-msg" id="customAlertMsgText">تنبيه</div>
-            <button class="custom-alert-btn" onclick="closeCustomAlert(event)">حسناً</button>
         </div>
     </div>
 
@@ -863,7 +900,7 @@ html_code = """
         <div class="hero-box">
             <div class="top-header">
                 <div class="brand-title">PlotCraft</div>
-                <div class="upgrade-badge" onclick="openSubscriptionModalFromBadge(event)">ترقية</div>
+                <div class="upgrade-badge" onclick="showCustomAlert('ترقية الحساب')">ترقية</div>
             </div>
 
             <div class="welcome-section">
@@ -911,11 +948,77 @@ html_code = """
         </div>
     </div>
 
+    <!-- شاشة خطوة بخطوة -->
+    <div id="stepByStepScreen" class="screen-view">
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:20px; border-bottom:1px solid rgba(255,255,255,0.08);">
+            <button style="background:rgba(255,255,255,0.1); border:none; color:#fff; width:36px; height:36px; border-radius:50%; cursor:pointer;" onclick="switchScreen('homeScreen', event)">✕</button>
+            <div style="color:#fff; font-weight:700;">PlotCraft</div>
+            <div style="width:36px;"></div>
+        </div>
+
+        <div class="step-container">
+            <div class="ai-assistant-card">
+                <div class="ai-header-row">
+                    <div class="ai-title">مساعد AI بلوت كرافت</div>
+                    <div class="ai-badge-circle">AI+</div>
+                </div>
+                <div class="ai-desc">عزيزي المخرج، استمتع بإنشاء وتخصيص تفاصيل فيلمك خطوة بخطوة بدقة احترافية عالية.</div>
+            </div>
+
+            <div class="story-setup-box">
+                <div class="setup-header-row">
+                    <div class="setup-main-title">إعداد القصة</div>
+                    <div class="counter-badge" id="counterBadge">0/2</div>
+                </div>
+                <div class="setup-subtitle">أضف الشخصيات والقصة أولاً، ثم اختر المدة والنسبة.</div>
+
+                <div class="setup-row-item">
+                    <div class="item-info">
+                        <h4>الشخصيات</h4>
+                        <p>أضف صورتين كحد أقصى لشخصيات القصة</p>
+                    </div>
+                    <button class="action-add-btn" onclick="showCustomAlert('إضافة شخصية')">إضافة</button>
+                </div>
+
+                <div class="setup-row-item">
+                    <div class="item-info">
+                        <h4>الحكاية</h4>
+                        <p>اكتب أو صف حبكة قصتك هنا</p>
+                    </div>
+                    <button class="action-add-btn" onclick="showCustomAlert('إضافة حكاية')">إضافة</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- شاشة الأدوات -->
+    <div id="toolsScreen" class="screen-view">
+        <div class="tools-header">
+            <div class="tools-header-title">الأدوات</div>
+            <div class="tools-upgrade-btn" onclick="showCustomAlert('ترقية الحساب')">ترقية</div>
+        </div>
+        <div class="tools-body">
+            <div class="tool-card-item tool-card-1" onclick="showCustomAlert('تأثيرات الفيديو')">
+                <div class="tool-main-title">تأثيرات الفيديو</div>
+                <div class="tool-sub-desc">أضف لمسة سينمائية</div>
+            </div>
+            <div class="tool-card-item tool-card-2" onclick="showCustomAlert('توليد الفيديو')">
+                <div class="tool-main-title">توليد الفيديو</div>
+                <div class="tool-sub-desc">حول توجيهاً إلى فيديو خاص بك</div>
+            </div>
+            <div class="tool-card-item tool-card-3" onclick="showCustomAlert('توليد الصور')">
+                <div class="tool-main-title">توليد الصور</div>
+                <div class="tool-sub-desc">حول فكرة إلى صورة مكتملة</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- شاشة الأعمال -->
     <div id="worksScreen" class="screen-view">
         <div class="works-top-header">
             <div class="works-screen-title">الأعمال</div>
             <div class="works-header-left-group">
-                <div class="works-upgrade-badge" onclick="openSubscriptionModalFromBadge(event)">ترقية</div>
+                <div class="works-upgrade-badge" onclick="showCustomAlert('ترقية الحساب')">ترقية</div>
                 <div class="works-robot-logo" onclick="openSettingsScreen(event)" title="الإعدادات"></div>
             </div>
         </div>
@@ -930,6 +1033,14 @@ html_code = """
                 <div class="works-empty-text-sub">ستظهر هنا مشاريع القصة الخاصة بك.</div>
                 <button class="works-create-btn" onclick="showCustomAlert('إنشاء قصة جديدة')">إنشاء قصة</button>
             </div>
+        </div>
+    </div>
+
+    <!-- نافذة منبثقة للتنبيهات -->
+    <div class="custom-alert-overlay" id="customAlertOverlay" onclick="event.stopPropagation()">
+        <div class="custom-alert-box">
+            <div class="custom-alert-msg" id="customAlertMsgText">تنبيه</div>
+            <button class="custom-alert-btn" onclick="closeCustomAlert(event)">حسناً</button>
         </div>
     </div>
 
@@ -979,6 +1090,12 @@ html_code = """
             if(target) target.classList.add('active');
         }
 
+        function switchWorksTab(element) {
+            var tabs = document.querySelectorAll('.works-tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
+        }
+
         function openSettingsScreen(event) {
             if (event) event.stopPropagation();
             if (!isUserLoggedIn) {
@@ -1000,7 +1117,7 @@ html_code = """
         }
 
         function closeLoginModal() {
-            document.getElementById('loginModalOverlay').classList.add('hidden');
+            document.getElementById('loginModalOverlay').classList.remove('show');
             document.getElementById('googleEmailsDropdown').classList.remove('show');
         }
 
