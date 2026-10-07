@@ -39,7 +39,6 @@ html_code = """
             overflow-x: hidden;
         }
 
-        /* الشاشات المختلفة */
         .screen-view {
             display: none;
             width: 100%;
@@ -278,7 +277,6 @@ html_code = """
             line-height: 1.2;
         }
 
-        /* نافذة منبثقة عامة للتنبيهات الضرورية */
         .custom-alert-overlay {
             display: none;
             position: fixed;
@@ -326,7 +324,6 @@ html_code = """
             transform: scale(0.98);
         }
 
-        /* --- واجهة الأعمال --- */
         #worksScreen {
             display: none;
             flex-direction: column;
@@ -465,7 +462,7 @@ html_code = """
             background: #e2e8f0;
         }
 
-        /* --- شاشة الإعدادات المطابقة للصورة --- */
+        /* --- شاشة الإعدادات المحدثة والمطابقة تماماً للصورة --- */
         .settings-screen {
             display: none;
             position: fixed;
@@ -503,43 +500,71 @@ html_code = """
             cursor: pointer;
         }
 
+        /* تعديل قسم المستخدم لتكون الصورة في اليمين بجانب الاسم */
         .profile-header-card {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: center;
+            gap: 16px;
             margin-bottom: 20px;
         }
-        .profile-right-group {
+        .profile-avatar-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.25);
+            background: #111827;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        /* روبوت مميز وسينمائي احترافي */
+        .profile-avatar-box svg {
+            width: 36px;
+            height: 36px;
+            fill: #60a5fa;
+            filter: drop-shadow(0 0 6px rgba(96,165,250,0.6));
+        }
+
+        .profile-info-group {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            gap: 4px;
+            gap: 6px;
         }
         .profile-name-row {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
         .profile-name-text {
             color: #ffffff;
-            font-size: 18px;
+            font-size: 19px;
             font-weight: 700;
             white-space: nowrap;
         }
+        /* أيقونة القلم الأنيقة المطابقة للصورة السابقة */
         .profile-edit-pencil {
             cursor: pointer;
-            color: #cbd5e1;
-            font-size: 14px;
-            background: rgba(255,255,255,0.08);
-            width: 24px;
-            height: 24px;
+            width: 26px;
+            height: 26px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: 0.2s;
         }
-        .profile-edit-pencil:active { background: rgba(255,255,255,0.2); }
+        .profile-edit-pencil svg {
+            width: 12px;
+            height: 12px;
+            fill: #fbbf24;
+        }
+        .profile-edit-pencil:active { background: rgba(255, 255, 255, 0.25); }
 
         .profile-id-row {
             display: flex;
@@ -552,20 +577,7 @@ html_code = """
             color: #cbd5e1;
             font-size: 12px;
         }
-        .profile-avatar-box {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 2px solid rgba(255,255,255,0.2);
-            background: #343d50;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .profile-avatar-box img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* بانر PlotCraft Pro المخصص */
         .pro-banner-card {
             background: linear-gradient(135deg, rgba(30, 35, 50, 0.9), rgba(15, 20, 35, 0.95));
             border: 1.5px solid rgba(255, 255, 255, 0.15);
@@ -615,7 +627,6 @@ html_code = """
         }
         .pro-banner-btn:active { background: #2563eb; }
 
-        /* قوائم الخيارات الكتلية */
         .settings-group-box {
             background: #282f3d;
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -644,6 +655,19 @@ html_code = """
             font-size: 15px;
             font-weight: 600;
         }
+        /* أيقونات احترافية ونظيفة بدل الأيقونات التقليدية */
+        .menu-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .menu-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: #94a3b8;
+        }
         .settings-item-left {
             color: #cbd5e1;
             font-size: 14px;
@@ -652,7 +676,6 @@ html_code = """
             gap: 6px;
         }
 
-        /* زر تبديل iOS للإشعارات */
         .switch-toggle {
             position: relative;
             display: inline-block;
@@ -679,7 +702,6 @@ html_code = """
         input:checked + .slider-round { background-color: #3b82f6; }
         input:checked + .slider-round:before { transform: translateX(20px); }
 
-        /* نافذة طلب الإشعارات المخصصة */
         .notif-permission-overlay {
             display: none;
             position: fixed;
@@ -730,7 +752,6 @@ html_code = """
             cursor: pointer;
         }
 
-        /* نافذة تعديل الاسم */
         .name-edit-modal-overlay {
             display: none;
             position: fixed;
@@ -764,7 +785,6 @@ html_code = """
             text-align: right;
         }
 
-        /* شاشة تفاصيل "خطوة بخطوة" */
         .step-container {
             padding: 20px;
             display: flex;
@@ -914,7 +934,6 @@ html_code = """
             transform: scale(0.98);
         }
 
-        /* --- واجهة شاشة إعداد الحكاية ("اكتب قصة") --- */
         #storyDescriptionScreen {
             display: none;
             flex-direction: column;
@@ -1063,7 +1082,6 @@ html_code = """
             overflow-y: auto;
         }
 
-        /* --- واجهة "إضافة شخصية" --- */
         #addCharacterScreen {
             display: none;
             flex-direction: column;
@@ -1309,7 +1327,6 @@ html_code = """
         }
         .added-char-delete-btn:active { background: #282f3d; }
 
-        /* نافذة اختيار المصدر */
         .source-modal {
             display: none;
             position: fixed;
@@ -1354,7 +1371,6 @@ html_code = """
         }
         .source-btn:active { background: #3f4b63; }
 
-        /* واجهة صفحة الأدوات */
         #toolsScreen { overflow-y: auto; }
         .tools-header {
             display: flex;
@@ -1393,7 +1409,6 @@ html_code = """
         .tool-sub-desc { color: #cbd5e1; font-size: 12px; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
         .tool-arrow-icon { position: absolute; top: 16px; right: 16px; color: #ffffff; font-size: 16px; font-weight: bold; background: rgba(0,0,0,0.4); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
 
-        /* نافذة اشتراكات منبثقة */
         .subscription-modal-overlay {
             display: flex;
             position: fixed;
@@ -1460,7 +1475,6 @@ html_code = """
         .best-value-tag { position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg, #f59e0b, #ec4899); color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
         .action-main-btn { width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 20px; border: none; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); margin-top: 10px; }
 
-        /* شاشة الزر الرابع المنفصل */
         #sparkleDialogScreen {
             background-color: #0b0f19;
             display: none;
@@ -1574,7 +1588,6 @@ html_code = """
             font-size: 12px;
         }
 
-        /* نافذة تسجيل الدخول */
         .login-modal-overlay {
             display: none;
             position: fixed;
@@ -1681,7 +1694,6 @@ html_code = """
         }
         .login-links-row span { cursor: pointer; }
 
-        /* شريط التنقل السفلي الثابت */
         .plotcraft-nav-bar {
             position: fixed;
             bottom: 0; left: 0; width: 100%;
@@ -1701,7 +1713,6 @@ html_code = """
 </head>
 <body>
 
-    <!-- نافذة منبثقة لترقية الحساب -->
     <div class="subscription-modal-overlay" id="subscriptionModal">
         <div class="subscription-modal-box">
             <div class="sub-modal-header">
@@ -1746,7 +1757,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- شاشة الإعدادات الجديدة (المطابقة تماماً للصورة) -->
+    <!-- شاشة الإعدادات المحدثة بالكامل -->
     <div class="settings-screen" id="settingsScreen">
         <div class="settings-top-bar">
             <button class="settings-upgrade-badge" onclick="openSubscriptionModal()">ترقية</button>
@@ -1754,24 +1765,27 @@ html_code = """
             <button class="settings-back-btn" onclick="closeSettingsScreen()">‹</button>
         </div>
 
-        <!-- ملف المستخدم (الاسم، الأيدي، الصورة، والقلم) -->
+        <!-- ملف المستخدم (الصورة في اليمين، الاسم، القلم الأنيق، والأيدي) -->
         <div class="profile-header-card">
-            <div class="profile-right-group">
+            <div class="profile-avatar-box">
+                <!-- روبوت مميز وسينمائي احترافي -->
+                <svg viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73C10.4 5.39 10 4.74 10 4a2 2 0 0 1 2-2M7.5 13a1.5 1.5 0 0 0-1.5 1.5A1.5 1.5 0 0 0 7.5 16a1.5 1.5 0 0 0 1.5-1.5A1.5 1.5 0 0 0 7.5 13m9 0a1.5 1.5 0 0 0-1.5 1.5a1.5 1.5 0 0 0 1.5 1.5a1.5 1.5 0 0 0 1.5-1.5a1.5 1.5 0 0 0-1.5-1.5M10 18v2h4v-2z"/></svg>
+            </div>
+            <div class="profile-info-group">
                 <div class="profile-name-row">
                     <span class="profile-name-text" id="displayUserName">NewUser</span>
-                    <span class="profile-edit-pencil" onclick="openNameEditModal()" title="تعديل الاسم">✏️</span>
+                    <!-- قلم أنيق واحترافي مطابق تماماً للصورة المطلوبة -->
+                    <span class="profile-edit-pencil" onclick="openNameEditModal()" title="تعديل الاسم">
+                        <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                    </span>
                 </div>
                 <div class="profile-id-row">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                     <span id="displayUniqueId">4422114 ID</span>
                 </div>
             </div>
-            <div class="profile-avatar-box">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop" id="userAvatarImg">
-            </div>
         </div>
 
-        <!-- بانر PlotCraft Pro المخصص -->
         <div class="pro-banner-card">
             <div class="pro-banner-top">
                 <div class="pro-banner-title">افتح PlotCraft Pro</div>
@@ -1781,33 +1795,29 @@ html_code = """
             <button class="pro-banner-btn" onclick="openSubscriptionModal()">عرض خطط Pro ←</button>
         </div>
 
-        <!-- مجموعة الخيارات الأولى -->
+        <!-- مجموعة الخيارات الأولى مع شعارات احترافية ونظيفة -->
         <div class="settings-group-box">
             <div class="settings-item-row" onclick="showCustomAlert('سجل النقاط')">
                 <div class="settings-item-right">
-                    <span>✨</span>
+                    <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
                     <span>سجل النقاط</span>
                 </div>
-                <div class="settings-item-left">
-                    <span>›</span>
-                </div>
+                <div class="settings-item-left"><span>›</span></div>
             </div>
             <div class="settings-item-row" onclick="showCustomAlert('التعليقات')">
                 <div class="settings-item-right">
-                    <span>📝</span>
+                    <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg></div>
                     <span>التعليقات</span>
                 </div>
-                <div class="settings-item-left">
-                    <span>›</span>
-                </div>
+                <div class="settings-item-left"><span>›</span></div>
             </div>
         </div>
 
-        <!-- مجموعة الخيارات الثانية (الإشعارات واللغة والروابط) -->
+        <!-- مجموعة الخيارات الثانية -->
         <div class="settings-group-box">
             <div class="settings-item-row">
                 <div class="settings-item-right">
-                    <span>🔔</span>
+                    <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg></div>
                     <span>الإشعارات</span>
                 </div>
                 <div class="settings-item-left">
@@ -1819,49 +1829,39 @@ html_code = """
             </div>
             <div class="settings-item-row" onclick="showCustomAlert('اللغة: العربية')">
                 <div class="settings-item-right">
-                    <span>🌐</span>
+                    <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.92 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A8.03 8.03 0 0 1 5.08 16zm2.95-8H5.08a8.03 8.03 0 0 1 4.33-3.56A15.65 15.65 0 0 0 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.65-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.35-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg></div>
                     <span>اللغة</span>
                 </div>
-                <div class="settings-item-left">
-                    <span>العربية</span>
-                    <span>›</span>
-                </div>
+                <div class="settings-item-left"><span>العربية</span><span>›</span></div>
             </div>
             <div class="settings-item-row" onclick="showCustomAlert('انضم إلينا (تليجرام)')">
                 <div class="settings-item-right">
-                    <span>✈️</span>
+                    <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.02-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.36-.49 1-.74 3.91-1.7 6.52-2.82 7.83-3.37 3.72-1.56 4.49-1.83 4.99-1.84.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.13-.05.29z"/></svg></div>
                     <span>انضم إلينا</span>
                 </div>
-                <div class="settings-item-left">
-                    <span>›</span>
-                </div>
+                <div class="settings-item-left"><span>›</span></div>
             </div>
             <div class="settings-item-row" onclick="showCustomAlert('اتصل بنا')">
                 <div class="settings-item-right">
-                    <span>✉️</span>
+                    <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
                     <span>اتصل بنا</span>
                 </div>
-                <div class="settings-item-left">
-                    <span>›</span>
-                </div>
+                <div class="settings-item-left"><span>›</span></div>
             </div>
         </div>
 
-        <!-- مجموعة الخيارات الثالثة (الإعدادات العامة) -->
+        <!-- مجموعة الخيارات الثالثة -->
         <div class="settings-group-box">
             <div class="settings-item-row" onclick="showCustomAlert('الإعدادات العامة')">
                 <div class="settings-item-right">
-                    <span>⚙️</span>
+                    <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
                     <span>الإعدادات</span>
                 </div>
-                <div class="settings-item-left">
-                    <span>›</span>
-                </div>
+                <div class="settings-item-left"><span>›</span></div>
             </div>
         </div>
     </div>
 
-    <!-- نافذة طلب الإشعارات المنبثقة بنظام الهاتف -->
     <div class="notif-permission-overlay" id="notifPermissionModal">
         <div class="notif-permission-box">
             <div class="notif-permission-title">هل تريد السماح لتطبيق Plotcraft بإرسال إشعارات إليك؟</div>
@@ -1870,7 +1870,6 @@ html_code = """
         </div>
     </div>
 
-    <!-- نافذة تعديل الاسم -->
     <div class="name-edit-modal-overlay" id="nameEditModal">
         <div class="name-edit-box">
             <div style="color:#fff; font-size:16px; font-weight:700;">تعديل اسم المستخدم</div>
@@ -1880,7 +1879,6 @@ html_code = """
         </div>
     </div>
 
-    <!-- الواجهة الرئيسية -->
     <div id="homeScreen" class="screen-view active">
         <div class="hero-box">
             <div class="top-header">
@@ -1933,7 +1931,6 @@ html_code = """
         </div>
     </div>
 
-    <!-- نافذة منبثقة عامة للتنبيهات الضرورية -->
     <div class="custom-alert-overlay" id="customAlertOverlay">
         <div class="custom-alert-box">
             <div class="custom-alert-msg" id="customAlertMsgText">يتم إضافة القصص قريباً</div>
@@ -1941,7 +1938,6 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة الزر الرابع المنفصل -->
     <div id="sparkleDialogScreen" class="screen-view">
         <div class="sparkle-top-bar">
             <button class="sparkle-close-btn" onclick="switchScreen('homeScreen', event)">✕</button>
@@ -1990,7 +1986,6 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة صفحة "الأدوات" -->
     <div id="toolsScreen" class="screen-view">
         <div class="tools-header">
             <div class="tools-header-title">الأدوات</div>
@@ -2012,7 +2007,6 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة "الأعمال" -->
     <div id="worksScreen" class="screen-view">
         <div class="works-top-header">
             <div class="works-screen-title">الأعمال</div>
@@ -2035,7 +2029,6 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة تفاصيل "خطوة بخطوة" -->
     <div id="stepByStepScreen" class="screen-view">
         <div style="display:flex; justify-content:space-between; align-items:center; padding:20px; border-bottom:1px solid rgba(255,255,255,0.08);">
             <button style="background:rgba(255,255,255,0.1); border:none; color:#fff; width:36px; height:36px; border-radius:50%; cursor:pointer;" onclick="switchScreen('homeScreen', event)">✕</button>
@@ -2067,7 +2060,6 @@ html_code = """
                     <button class="action-add-btn" onclick="openAddCharacter(event)">إضافة</button>
                 </div>
 
-                <!-- خانة الحكاية -->
                 <div class="setup-row-item" id="storyRowSlot">
                     <div class="item-info">
                         <h4>الحكاية</h4>
@@ -2083,7 +2075,6 @@ html_code = """
         </div>
     </div>
 
-    <!-- شاشة إعداد الحكاية ("اكتب قصة") -->
     <div id="storyDescriptionScreen" class="screen-view">
         <div class="story-desc-header">
             <button class="story-desc-back" onclick="switchScreen('stepByStepScreen', event)">
@@ -2102,7 +2093,6 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة "إضافة شخصية" -->
     <div id="addCharacterScreen" class="screen-view">
         <div class="add-char-header">
             <button class="add-char-back" onclick="switchScreen('stepByStepScreen', event)">‹</button>
@@ -2149,7 +2139,6 @@ html_code = """
         </div>
     </div>
 
-    <!-- نافذة اختيار المصدر -->
     <div class="source-modal" id="sourceModal">
         <div class="source-modal-content">
             <div style="color:#fff; font-weight:700; font-size:15px; margin-bottom:2px;">اختر مصدر الصورة</div>
@@ -2170,7 +2159,6 @@ html_code = """
     <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none;" onchange="handleFileSelected(event)">
     <input type="file" id="albumInput" accept="image/*" style="display:none;" onchange="handleFileSelected(event)">
 
-    <!-- نافذة تسجيل الدخول -->
     <div class="login-modal-overlay" id="loginModalOverlay">
         <div class="login-modal-content">
             <div class="login-modal-header">
@@ -2200,7 +2188,6 @@ html_code = """
         </div>
     </div>
 
-    <!-- شريط التنقل السفلي الثابت -->
     <div class="plotcraft-nav-bar" id="mainNavBar">
         <div class="plotcraft-nav-pill">
             <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="switchScreen('homeScreen', event); setActiveNav('navHome')">
@@ -2233,7 +2220,6 @@ html_code = """
         let storyAdded = false;
         let savedStoryText = "";
 
-        // توليد ID فريد وعشوائي للمستخدم الحالي عند التشغيل
         let userUniqueId = Math.floor(1000000 + Math.random() * 9000000);
         document.getElementById('displayUniqueId').innerText = userUniqueId + " ID";
 
@@ -2278,7 +2264,6 @@ html_code = """
             document.getElementById('mainNavBar').classList.add('hidden');
         }
 
-        /* دوال تحكم شاشة الإعدادات الجديدة */
         function openSettingsScreen() {
             document.getElementById('settingsScreen').classList.add('active');
             document.getElementById('mainNavBar').classList.add('hidden');
@@ -2289,7 +2274,6 @@ html_code = """
             document.getElementById('mainNavBar').classList.remove('hidden');
         }
 
-        /* تحكم الإشعارات المخصص */
         function handleNotifToggle(checkbox) {
             if (checkbox.checked) {
                 document.getElementById('notifPermissionModal').style.display = 'flex';
@@ -2309,7 +2293,6 @@ html_code = """
             showCustomAlert('تم رفض الإذن. يمكنك تفعيلها من إعدادات جهازك الرئيسي.');
         }
 
-        /* تحكم تعديل الاسم */
         function openNameEditModal() {
             document.getElementById('editNameInputField').value = document.getElementById('displayUserName').innerText;
             document.getElementById('nameEditModal').style.display = 'flex';
