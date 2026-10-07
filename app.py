@@ -270,7 +270,7 @@ html_code = """
             line-height: 1.2;
         }
 
-        /* نافذة منبثقة مخصصة باللغة العربية */
+        /* نافذة منبثقة مخصصة باللغة العربية بالكامل بدلاً من تنبيه المتصفح المزعج */
         .custom-alert-overlay {
             display: none;
             position: fixed;
@@ -1197,9 +1197,9 @@ html_code = """
             </div>
 
             <div class="movies-carousel">
-                <div class="movie-card m1" onclick="showCustomAlert()"><div class="movie-title">THE DELIVERYMAN'S SECRET BILLIONAIRE</div></div>
-                <div class="movie-card m2" onclick="showCustomAlert()"><div class="movie-title">SECRET BILLIONAIRE</div></div>
-                <div class="movie-card m3" onclick="showCustomAlert()"><div class="movie-title">CYBER CITY</div></div>
+                <div class="movie-card m1" onclick="showCustomAlert('يتم إضافة القصص قريباً')"><div class="movie-title">THE DELIVERYMAN'S SECRET BILLIONAIRE</div></div>
+                <div class="movie-card m2" onclick="showCustomAlert('يتم إضافة القصص قريباً')"><div class="movie-title">SECRET BILLIONAIRE</div></div>
+                <div class="movie-card m3" onclick="showCustomAlert('يتم إضافة القصص قريباً')"><div class="movie-title">CYBER CITY</div></div>
             </div>
         </div>
     </div>
@@ -1207,7 +1207,7 @@ html_code = """
     <!-- نافذة منبثقة مخصصة باللغة العربية -->
     <div class="custom-alert-overlay" id="customAlertOverlay">
         <div class="custom-alert-box">
-            <div class="custom-alert-msg">يتم إضافة القصص قريباً</div>
+            <div class="custom-alert-msg" id="customAlertMsgText">يتم إضافة القصص قريباً</div>
             <button class="custom-alert-btn" onclick="closeCustomAlert()">حسناً</button>
         </div>
     </div>
@@ -1270,15 +1270,15 @@ html_code = """
             <div class="tools-upgrade-btn" onclick="openSubscriptionModalFromBadge()">ترقية</div>
         </div>
         <div class="tools-body">
-            <div class="tool-card-item tool-card-1" onclick="alert('تأثيرات الفيديو')">
+            <div class="tool-card-item tool-card-1" onclick="showCustomAlert('تأثيرات الفيديو قادمة قريباً')">
                 <div class="tool-arrow-icon">‹</div>
                 <div class="tool-info-box"><div class="tool-main-title">تأثيرات الفيديو</div><div class="tool-sub-desc">أضف لمسة سينمائية</div></div>
             </div>
-            <div class="tool-card-item tool-card-2" onclick="alert('توليد الفيديو')">
+            <div class="tool-card-item tool-card-2" onclick="showCustomAlert('توليد الفيديو قادم قريباً')">
                 <div class="tool-arrow-icon">‹</div>
                 <div class="tool-info-box"><div class="tool-main-title">توليد الفيديو</div><div class="tool-sub-desc">حول توجيهاً إلى فيديو خاص بك</div></div>
             </div>
-            <div class="tool-card-item tool-card-3" onclick="alert('توليد الصور')">
+            <div class="tool-card-item tool-card-3" onclick="showCustomAlert('توليد الصور قادم قريباً')">
                 <div class="tool-arrow-icon">‹</div>
                 <div class="tool-info-box"><div class="tool-main-title">توليد الصور</div><div class="tool-sub-desc">حول فكرة إلى صورة مكتملة</div></div>
             </div>
@@ -1335,12 +1335,12 @@ html_code = """
                         <h4>الحكاية</h4>
                         <p>اكتب أو صف حبكة قصتك هنا</p>
                     </div>
-                    <button class="action-add-btn" onclick="alert('فتح إعداد الحكاية')">إضافة</button>
+                    <button class="action-add-btn" onclick="showCustomAlert('فتح إعداد الحكاية قريباً')">إضافة</button>
                 </div>
             </div>
 
             <div class="bottom-next-row" style="display:flex; justify-content:flex-end; margin-top:10px;">
-                <button style="background:linear-gradient(135deg,#3b82f6,#8b5cf6); color:#fff; font-weight:700; padding:10px 24px; border-radius:12px; border:none; cursor:pointer;" onclick="alert('تم حفظ الخطوات بنجاح!')">التالي</button>
+                <button style="background:linear-gradient(135deg,#3b82f6,#8b5cf6); color:#fff; font-weight:700; padding:10px 24px; border-radius:12px; border:none; cursor:pointer;" onclick="showCustomAlert('تم حفظ الخطوات بنجاح!')">التالي</button>
             </div>
         </div>
     </div>
@@ -1391,7 +1391,7 @@ html_code = """
         </div>
 
         <div class="char-submit-btn-wrapper">
-            <button class="char-submit-btn" onclick="alert('تم حفظ الشخصية بنجاح!'); switchScreen('stepByStepScreen', event);">إرسال</button>
+            <button class="char-submit-btn" onclick="showCustomAlert('تم حفظ الشخصية بنجاح!'); switchScreen('stepByStepScreen', event);">إرسال</button>
         </div>
     </div>
 
@@ -1416,7 +1416,7 @@ html_code = """
     <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none;" onchange="handleFileSelected(event)">
     <input type="file" id="albumInput" accept="image/*" style="display:none;" onchange="handleFileSelected(event)">
 
-    <!-- نافذة تسجيل الدخول عند الضغط على اشتراك (مطابقة للصورة تماماً) -->
+    <!-- نافذة تسجيل الدخول عند الضغط على اشتراك -->
     <div class="login-modal-overlay" id="loginModalOverlay">
         <div class="login-modal-content">
             <div class="login-modal-header">
@@ -1424,24 +1424,24 @@ html_code = """
                 <button class="login-close-x" onclick="closeLoginModal()">✕</button>
             </div>
 
-            <button class="login-btn-google" onclick="alert('تم تسجيل الدخول بنجاح عبر Google')">
+            <button class="login-btn-google" onclick="showCustomAlert('تم تسجيل الدخول بنجاح عبر Google')">
                 <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.2v3.15C3.17 21.32 7.22 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.2C.44 8.12 0 9.87 0 11.73s.44 3.61 1.2 5.15l4.08-2.61z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.22 0 3.17 2.68 1.2 6.58l4.08 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>
                 <span>استمر مع Google</span>
             </button>
 
-            <button class="login-btn-email" onclick="alert('فتح تسجيل الدخول بالبريد الإلكتروني')">
+            <button class="login-btn-email" onclick="showCustomAlert('فتح تسجيل الدخول بالبريد الإلكتروني')">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                 <span>استمر مع البريد الإلكتروني</span>
             </button>
 
-            <div class="login-footer-text" onclick="alert('انتقال لصفحة الاشتراك')">
+            <div class="login-footer-text" onclick="showCustomAlert('انتقال لصفحة الاشتراك')">
                 ليس لدي حساب؟ <span>اشتراك</span>
             </div>
 
             <div class="login-links-row">
-                <span onclick="alert('شروط الاستخدام')">شروط الاستخدام</span>
+                <span onclick="showCustomAlert('شروط الاستخدام')">شروط الاستخدام</span>
                 <span>|</span>
-                <span onclick="alert('الخصوصية')">الخصوصية</span>
+                <span onclick="showCustomAlert('الخصوصية')">الخصوصية</span>
             </div>
         </div>
     </div>
@@ -1478,7 +1478,7 @@ html_code = """
         document.addEventListener('click', function(event) {
             if (event.target.tagName === 'BUTTON' || event.target.closest('button') || event.target.closest('.interactive-card') || event.target.closest('.plotcraft-nav-item') || event.target.closest('.plotcraft-nav-square') || event.target.closest('.works-tab') || event.target.closest('.plan-card')) {
                 if ("vibrate" in navigator) {
-                    navigator.vibrate(35); // اهتزاز خفيف جداً وملموس
+                    navigator.vibrate(35); // اهتزاز خفيف وملموس
                 }
             }
         });
@@ -1546,7 +1546,9 @@ html_code = """
             document.getElementById('loginModalOverlay').classList.remove('show');
         }
 
-        function showCustomAlert() {
+        // إظهار النافذة المنبثقة المخصصة بالعربية بدلاً من alert المتصفح المزعجة
+        function showCustomAlert(message) {
+            document.getElementById('customAlertMsgText').innerText = message;
             document.getElementById('customAlertOverlay').classList.add('show');
         }
 
@@ -1559,8 +1561,7 @@ html_code = """
         }
 
         function closeSourceModal() {
-            document.getElementById('sourceModal').classList.add('show');
-            document.getElementById('sourceModal').classList.remove('show'); // لإخفائها تماماً
+            document.getElementById('sourceModal').classList.remove('show');
         }
 
         function triggerFileInput(type) {
