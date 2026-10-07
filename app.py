@@ -331,11 +331,62 @@ html_code = """
             display: none;
             flex-direction: column;
             min-height: 100vh;
-            padding: 20px;
-            align-items: center;
+            padding: 0;
+            align-items: stretch;
         }
         #worksScreen.active {
             display: flex;
+        }
+
+        /* الهيدر العلوي الجديد لواجهة الأعمال */
+        .works-top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 20px 10px 20px;
+            width: 100%;
+        }
+
+        .works-screen-title {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .works-header-left-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .works-upgrade-badge {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 6px 14px;
+            border-radius: 20px;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+        }
+
+        .works-robot-logo {
+            width: 32px;
+            height: 32px;
+            background: #dbeafe;
+            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1 z"/></svg>') no-repeat center;
+            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1 z"/></svg>') no-repeat center;
+            background-size: contain;
+            cursor: pointer;
+        }
+
+        .works-body-container {
+            padding: 10px 20px 20px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-grow: 1;
         }
 
         .works-tabs-container {
@@ -345,7 +396,8 @@ html_code = """
             padding: 4px;
             width: 100%;
             max-width: 360px;
-            margin-bottom: 80px;
+            margin-top: 15px;
+            margin-bottom: 60px;
             border: 1px solid rgba(255,255,255,0.08);
         }
 
@@ -376,7 +428,7 @@ html_code = """
             justify-content: center;
             flex-grow: 1;
             text-align: center;
-            margin-top: 40px;
+            margin-top: 10px;
         }
 
         .works-box-icon {
@@ -413,6 +465,66 @@ html_code = """
             transform: scale(0.98);
             background: #e2e8f0;
         }
+
+        /* قائمة الحساب الجانبية المنبثقة من اليسار */
+        .account-drawer-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 99999999;
+            justify-content: flex-start;
+        }
+        .account-drawer-overlay.show { display: flex; }
+        .account-drawer {
+            background: #1f242d;
+            width: 80%;
+            max-width: 300px;
+            height: 100%;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            border-left: 1px solid rgba(255,255,255,0.1);
+            animation: slideInLeft 0.3s ease;
+        }
+        @keyframes slideInLeft {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+        .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 15px;
+        }
+        .drawer-profile-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .drawer-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #343d50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            border: 1px solid rgba(255,255,255,0.2);
+            overflow: hidden;
+        }
+        .drawer-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .drawer-user-info { display: flex; flex-direction: column; gap: 2px; }
+        .drawer-name { color: #fff; font-size: 15px; font-weight: 700; }
+        .drawer-id { color: #cbd5e1; font-size: 12px; }
+        .drawer-menu-list { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+        .drawer-menu-item { background: #282f3d; color: #fff; padding: 12px 16px; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05); }
+        .drawer-menu-item:active { background: #343d50; }
 
         /* شاشة تفاصيل "خطوة بخطوة" */
         .step-container {
@@ -541,7 +653,6 @@ html_code = """
             background: rgba(255, 255, 255, 0.25);
         }
 
-        /* زر التالي: أبيض على أسود غامق ومخفي حتى يكتمل الإدخال */
         .next-step-btn {
             background: #ffffff !important;
             color: #0b0f19 !important;
@@ -616,7 +727,6 @@ html_code = """
             color: #cbd5e1;
         }
 
-        /* زر الحفظ العائم الديناميكي (يتكيف مع ظهور الكيبورد وإغلاقه) */
         .story-save-btn-wrapper {
             position: fixed;
             bottom: 25px;
@@ -654,7 +764,6 @@ html_code = """
             transform: scale(0.98);
         }
 
-        /* قائمة الحكاية المضافة عمودياً تحت الشخصيات */
         .added-story-card-vertical {
             background: #282f3d;
             border: 1px solid rgba(255,255,255,0.12);
@@ -1399,6 +1508,38 @@ html_code = """
         </div>
     </div>
 
+    <!-- قائمة الحساب الجانبية من اليسار -->
+    <div class="account-drawer-overlay" id="accountDrawerOverlay" onclick="closeAccountDrawer(event)">
+        <div class="account-drawer" onclick="event.stopPropagation()">
+            <div class="drawer-header">
+                <div class="drawer-profile-row">
+                    <div class="drawer-avatar">
+                        <span>غ</span>
+                    </div>
+                    <div class="drawer-user-info">
+                        <div class="drawer-name">غسان</div>
+                        <div class="drawer-id">ID: 849201</div>
+                    </div>
+                </div>
+                <button onclick="closeAccountDrawer(event)" style="background:none; border:none; color:#fff; font-size:18px; cursor:pointer;">✕</button>
+            </div>
+            <div class="drawer-menu-list">
+                <div class="drawer-menu-item" onclick="openSubscriptionModal(); closeAccountDrawer();">
+                    <span>ترقية الحساب</span>
+                    <span>⭐</span>
+                </div>
+                <div class="drawer-menu-item" onclick="showCustomAlert('إعدادات الحساب قريباً')">
+                    <span>إعدادات الحساب</span>
+                    <span>⚙️</span>
+                </div>
+                <div class="drawer-menu-item" onclick="showCustomAlert('تم تسجيل الخروج بنجاح')">
+                    <span>تسجيل الخروج</span>
+                    <span>🚪</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- الواجهة الرئيسية -->
     <div id="homeScreen" class="screen-view active">
         <div class="hero-box">
@@ -1531,16 +1672,26 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة "الأعمال" -->
+    <!-- واجهة "الأعمال" (المعدلة) -->
     <div id="worksScreen" class="screen-view">
-        <div class="works-tabs-container">
-            <div class="works-tab active" onclick="switchWorksTab(this)">المشاريع</div>
-            <div class="works-tab" onclick="switchWorksTab(this)">مكتبة الوسائط</div>
+        <div class="works-top-header">
+            <div class="works-screen-title">الأعمال</div>
+            <div class="works-header-left-group">
+                <div class="works-upgrade-badge" onclick="openSubscriptionModalFromBadge()">ترقية</div>
+                <div class="works-robot-logo" onclick="openAccountDrawer()" title="حسابي والقائمة"></div>
+            </div>
         </div>
-        <div class="works-empty-content">
-            <div class="works-box-icon"></div>
-            <div class="works-empty-text-sub">ستظهر هنا مشاريع القصة الخاصة بك.</div>
-            <button class="works-create-btn" onclick="openSparkleDialog(event)">إنشاء قصة</button>
+
+        <div class="works-body-container">
+            <div class="works-tabs-container">
+                <div class="works-tab active" onclick="switchWorksTab(this)">المشاريع</div>
+                <div class="works-tab" onclick="switchWorksTab(this)">مكتبة الوسائط</div>
+            </div>
+            <div class="works-empty-content">
+                <div class="works-box-icon"></div>
+                <div class="works-empty-text-sub">ستظهر هنا مشاريع القصة الخاصة بك.</div>
+                <button class="works-create-btn" onclick="openSparkleDialog(event)">إنشاء قصة</button>
+            </div>
         </div>
     </div>
 
@@ -1784,6 +1935,14 @@ html_code = """
             document.getElementById('mainNavBar').classList.add('hidden');
         }
 
+        function openAccountDrawer() {
+            document.getElementById('accountDrawerOverlay').classList.add('show');
+        }
+
+        function closeAccountDrawer(event) {
+            document.getElementById('accountDrawerOverlay').classList.remove('show');
+        }
+
         function openAddCharacter(event) {
             switchScreen('addCharacterScreen', event);
         }
@@ -1961,11 +2120,9 @@ html_code = """
             checkStoryInput();
         });
 
-        // التعامل الذكي مع ظهور الكيبورد واختفائه (عبر التغير في نافذة العرض أو التركيز)
         const initialWindowHeight = window.innerHeight;
 
         window.addEventListener('resize', function() {
-            // إذا انكمش ارتفاع النافذة، فهذا يدل على ظهور لوحة المفاتيح (الكيبورد)
             if (window.innerHeight < initialWindowHeight - 120) {
                 storySaveWrapper.style.bottom = "20px";
             } else {
