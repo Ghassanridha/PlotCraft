@@ -565,7 +565,7 @@ html_code = """
             transform: scale(0.98);
         }
 
-        /* --- واجهة شاشة إعداد الحكاية (وصف لاهاية له) --- */
+        /* --- واجهة شاشة إعداد الحكاية ("اكتب قصة") --- */
         #storyDescriptionScreen {
             display: none;
             flex-direction: column;
@@ -615,35 +615,42 @@ html_code = """
         .story-textarea::placeholder {
             color: #cbd5e1;
         }
+
+        /* زر الحفظ العائم الديناميكي (يتغير مكانه ولونه حسب الكتابة) */
         .story-save-btn-wrapper {
             position: fixed;
             bottom: 25px;
             left: 20px;
             right: 20px;
-            z-index: 20;
-            display: none;
-        }
-        .story-save-btn-wrapper.show {
-            display: block;
+            z-index: 9999;
+            transition: bottom 0.25s ease;
         }
         .story-save-btn {
-            background: #0b0f19;
-            color: #ffffff;
-            border: 1px solid rgba(255,255,255,0.4);
-            font-size: 14px;
+            background: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            font-size: 15px;
             font-weight: 700;
-            padding: 12px;
-            border-radius: 12px;
+            padding: 14px;
+            border-radius: 24px;
             width: 100%;
-            max-width: 160px;
+            max-width: 420px;
             margin: 0 auto;
             display: block;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
             text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            cursor: not-allowed;
+            transition: 0.3s;
         }
-        .story-save-btn:active {
-            background: #161b22;
+        .story-save-btn.active-save {
+            background: #ffffff !important;
+            color: #0b0f19 !important;
+            border: 1px solid #ffffff !important;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(255,255,255,0.25);
+        }
+        .story-save-btn.active-save:active {
+            background: #e2e8f0 !important;
             transform: scale(0.98);
         }
 
@@ -683,7 +690,6 @@ html_code = """
             font-size: 11px;
             font-weight: bold;
         }
-        /* زر تعديل: كلمة تعديل باليسار وشعار القلم باليمين بجوارها داخل نفس الزر */
         .added-story-edit-btn {
             background: rgba(255, 255, 255, 0.12);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -1586,22 +1592,23 @@ html_code = """
         </div>
     </div>
 
-    <!-- شاشة إعداد الحكاية (وصف لاهاية له) -->
+    <!-- شاشة إعداد الحكاية ("اكتب قصة") -->
     <div id="storyDescriptionScreen" class="screen-view">
         <div class="story-desc-header">
             <button class="story-desc-back" onclick="switchScreen('stepByStepScreen', event)">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5"></path><polyline points="12 19 5 12 12 5"></polyline></svg>
             </button>
-            <div class="story-desc-title">إعداد الحكاية</div>
+            <div class="story-desc-title">اكتب قصة</div>
             <div style="width: 20px;"></div>
         </div>
 
-        <div style="padding: 0 16px 100px 16px;">
-            <textarea class="story-textarea" id="storyTextArea" placeholder="اكتب وصفاً أو حبكة القصة هنا (بدون حدود)..." oninput="checkStoryInput()"></textarea>
+        <div style="padding: 0 16px 120px 16px;">
+            <textarea class="story-textarea" id="storyTextArea" placeholder="اكتب وصفاً أو حبكة القصة هنا" oninput="checkStoryInput()"></textarea>
         </div>
 
+        <!-- زر الحفظ العائم الديناميكي -->
         <div class="story-save-btn-wrapper" id="storySaveBtnWrapper">
-            <button class="story-save-btn" onclick="saveStoryDescription()">حفظ</button>
+            <button class="story-save-btn" id="storySaveBtn" onclick="saveStoryDescription()">حفظ</button>
         </div>
     </div>
 
@@ -1785,6 +1792,10 @@ html_code = """
             document.getElementById('storyTextArea').value = savedStoryText;
             checkStoryInput();
             switchScreen('storyDescriptionScreen', event);
+            // محاكاة تركيز المؤشر وتفعيل الكيبورد
+            setTimeout(() => {
+                document.getElementById('storyTextArea').focus();
+            }, 100);
         }
 
         function setActiveNav(navId) {
@@ -1943,19 +1954,40 @@ html_code = """
             `;
         }
 
+        // تفاعل حقل كتابة القصة والتحكم بحالة زر الحفظ ومكانه عند ظهور الكيبورد
+        const storyTextArea = document.getElementById('storyTextArea');
+        const storySaveBtn = document.getElementById('storySaveBtn');
+        const storySaveWrapper = document.getElementById('storySaveBtnWrapper');
+
+        storyTextArea.addEventListener('input', function() {
+            checkStoryInput();
+        });
+
+        storyTextArea.addEventListener('focus', function() {
+            // عندما يظهر الكيبورد، يتحرك زر الحفظ ليكون فوق الكيبورد مباشرة
+            storySaveWrapper.style.bottom = "20px";
+        });
+
+        storyTextArea.addEventListener('blur', function() {
+            // عند إغلاق الكيبورد يعود لوضعه الطبيعي أسفل الشاشة
+            storySaveWrapper.style.bottom = "25px";
+        });
+
         function checkStoryInput() {
-            var val = document.getElementById('storyTextArea').value.trim();
-            var saveWrapper = document.getElementById('storySaveBtnWrapper');
+            var val = storyTextArea.value.trim();
             if (val !== "") {
-                saveWrapper.classList.add('show');
+                storySaveBtn.classList.add('active-save');
             } else {
-                saveWrapper.classList.remove('show');
+                storySaveBtn.classList.remove('active-save');
             }
         }
 
         function saveStoryDescription() {
-            var val = document.getElementById('storyTextArea').value.trim();
-            if (val === "") return;
+            var val = storyTextArea.value.trim();
+            if (val === "") {
+                // بدون كتابة وصف لا يمكن الحفظ نهائياً
+                return;
+            }
 
             savedStoryText = val;
             storyAdded = true;
@@ -1964,7 +1996,6 @@ html_code = """
             switchScreen('stepByStepScreen', event);
         }
 
-        /* تحديث خانة الحكاية: الحكاية وعلامة الصح في اليمين، وزر التعديل في اليسار (أيقونة قلم يمين كلمة تعديل) */
         function updateStorySlotUI(text) {
             var slot = document.getElementById('storyRowSlot');
             slot.innerHTML = `
