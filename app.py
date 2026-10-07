@@ -1474,6 +1474,15 @@ html_code = """
     </div>
 
     <script>
+        // دالة الاهتزاز عند النقر على أي زر أو عنصر تفاعلي
+        document.addEventListener('click', function(event) {
+            if (event.target.tagName === 'BUTTON' || event.target.closest('button') || event.target.closest('.interactive-card') || event.target.closest('.plotcraft-nav-item') || event.target.closest('.plotcraft-nav-square') || event.target.closest('.works-tab') || event.target.closest('.plan-card')) {
+                if ("vibrate" in navigator) {
+                    navigator.vibrate(35); // اهتزاز خفيف جداً وملموس
+                }
+            }
+        });
+
         function switchScreen(screenId, event) {
             if (event) event.preventDefault();
             var screens = document.querySelectorAll('.screen-view');
@@ -1550,7 +1559,8 @@ html_code = """
         }
 
         function closeSourceModal() {
-            document.getElementById('sourceModal').classList.remove('show');
+            document.getElementById('sourceModal').classList.add('show');
+            document.getElementById('sourceModal').classList.remove('show'); // لإخفائها تماماً
         }
 
         function triggerFileInput(type) {
