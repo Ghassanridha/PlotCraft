@@ -2937,4 +2937,4 @@ html_code = """
 </html>
 """
 
-components.html(html_code, height=680, scrolling=True)
+
