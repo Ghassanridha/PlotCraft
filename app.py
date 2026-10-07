@@ -270,7 +270,7 @@ html_code = """
             line-height: 1.2;
         }
 
-        /* نافذة منبثقة مخصصة باللغة العربية بالكامل */
+        /* نافذة منبثقة عامة للتنبيهات الضرورية الأخرى */
         .custom-alert-overlay {
             display: none;
             position: fixed;
@@ -514,10 +514,11 @@ html_code = """
             font-size: 11px;
         }
 
+        /* تعديل ألوان أزرار "إضافة" (الشخصيات والحكاية) لتكون باللون الأبيض */
         .action-add-btn {
-            background: rgba(59, 130, 246, 0.15);
-            color: #3b82f6;
-            border: 1px solid rgba(59, 130, 246, 0.3);
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             padding: 6px 14px;
             border-radius: 8px;
             font-size: 12px;
@@ -528,9 +529,10 @@ html_code = """
 
         .action-add-btn:active {
             transform: scale(0.95);
+            background: rgba(255, 255, 255, 0.25);
         }
 
-        /* --- واجهة "إضافة شخصية" المحدثة --- */
+        /* --- واجهة "إضافة شخصية" --- */
         #addCharacterScreen {
             background-color: #0b0f19;
             display: none;
@@ -622,7 +624,6 @@ html_code = """
             font-size: 14px;
         }
 
-        /* حاوية الصور المرنة مع زر الإضافة الثابت */
         .char-thumbs-container {
             display: flex;
             align-items: center;
@@ -716,7 +717,7 @@ html_code = """
             opacity: 0.6;
         }
 
-        /* تنسيق بطاقة الشخصية المضافة حديثاً في قائمة الشخصيات (خطوة بخطوة) */
+        /* تنسيق بطاقة الشخصية المضافة حديثاً في قائمة الشخصيات مع الألوان المطلوبة */
         .added-character-preview-card {
             background: #1a2234;
             border-radius: 12px;
@@ -748,25 +749,29 @@ html_code = """
             align-items: center;
             gap: 10px;
         }
+        /* زر "تغيير" مع السهم بلون أبيض */
         .added-char-change-group {
             display: flex;
             align-items: center;
-            gap: 4px;
-            color: #3b82f6;
+            gap: 5px;
+            color: #ffffff;
             font-size: 12px;
             font-weight: 600;
             cursor: pointer;
-            background: rgba(59, 130, 246, 0.12);
-            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 12px;
             border-radius: 8px;
-            border: 1px solid rgba(59, 130, 246, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
+        .added-char-change-group:active { background: rgba(255, 255, 255, 0.2); }
+        
+        /* علامة (✕) بلون أبيض على خلفية سوداء غامقة */
         .added-char-delete-btn {
-            background: rgba(239, 68, 68, 0.15);
-            color: #ef4444;
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            width: 28px;
-            height: 28px;
+            background: #0b0f19;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            width: 30px;
+            height: 30px;
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -775,8 +780,9 @@ html_code = """
             cursor: pointer;
             font-weight: bold;
         }
+        .added-char-delete-btn:active { background: #1a2030; }
 
-        /* نافذة اختيار المصدر: كاميرا يمين، ألبوم يسار */
+        /* نافذة اختيار المصدر */
         .source-modal {
             display: none;
             position: fixed;
@@ -1266,7 +1272,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- نافذة منبثقة مخصصة باللغة العربية -->
+    <!-- نافذة منبثقة عامة للتنبيهات الضرورية -->
     <div class="custom-alert-overlay" id="customAlertOverlay">
         <div class="custom-alert-box">
             <div class="custom-alert-msg" id="customAlertMsgText">يتم إضافة القصص قريباً</div>
@@ -1382,6 +1388,7 @@ html_code = """
                 </div>
                 <div class="setup-subtitle">أضف الشخصيات والحكاية أولاً، ثم أكمل الخطوات:</div>
 
+                <!-- زر إضافة الشخصيات بلون أبيض -->
                 <div class="setup-row-item" id="characterRowSlot">
                     <div class="item-info">
                         <h4>الشخصيات</h4>
@@ -1390,6 +1397,7 @@ html_code = """
                     <button class="action-add-btn" onclick="openAddCharacter(event)">إضافة</button>
                 </div>
 
+                <!-- زر إضافة الحكاية بلون أبيض -->
                 <div class="setup-row-item">
                     <div class="item-info">
                         <h4>الحكاية</h4>
@@ -1405,7 +1413,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- واجهة "إضافة شخصية" المحدثة -->
+    <!-- واجهة "إضافة شخصية" -->
     <div id="addCharacterScreen" class="screen-view">
         <div class="add-char-header">
             <button class="add-char-back" onclick="switchScreen('stepByStepScreen', event)">‹</button>
@@ -1531,7 +1539,6 @@ html_code = """
     </div>
 
     <script>
-        // متغيرات حفظ حالة الشخصية المضافة
         let currentUploadedImageSrc = "";
         let characterAdded = false;
 
@@ -1603,7 +1610,6 @@ html_code = """
         }
 
         function closeLoginModal() {
-            document.getElementById('loginModalOverlay').classList.add('show').remove;
             document.getElementById('loginModalOverlay').classList.remove('show');
         }
 
@@ -1665,7 +1671,6 @@ html_code = """
             setBigBoxImage(imgElement.src);
         }
 
-        // التحقق من أن اسم الشخصية مكتوب والصورة مرفوعة لتفعيل زر الإرسال
         function checkFormValidity() {
             var nameInput = document.getElementById('characterNameInput').value.trim();
             var submitBtn = document.getElementById('submitCharacterBtn');
@@ -1677,26 +1682,18 @@ html_code = """
             }
         }
 
-        // عند الضغط على زر إرسال
+        // عند الضغط على زر إرسال (بدون أي نوافذ تنبيه، مباشرة للعودة والقائمة)
         function submitCharacterData() {
             var nameInput = document.getElementById('characterNameInput').value.trim();
-            if (currentUploadedImageSrc === "") {
-                showCustomAlert("يجب رفع صورة للشخصية أولاً!");
-                return;
-            }
-            if (nameInput === "") {
-                showCustomAlert("يجب كتابة اسم شخصية معينة!");
-                return;
-            }
+            if (currentUploadedImageSrc === "" || nameInput === "") return;
 
             characterAdded = true;
             updateCharacterSlotUI(currentUploadedImageSrc, nameInput);
             document.getElementById('counterBadge').innerText = "1/2";
-            showCustomAlert("تم حفظ الشخصية بنجاح!");
             switchScreen('stepByStepScreen', event);
         }
 
-        // تحديث خانة الشخصيات في شاشة خطوة بخطوة
+        // تحديث خانة الشخصيات مع الألوان المطلوبة (تغيير أبيض، وعلامة إكس أبيض على أسود غامق)
         function updateCharacterSlotUI(imgSrc, charName) {
             var slot = document.getElementById('characterRowSlot');
             slot.innerHTML = `
@@ -1724,7 +1721,6 @@ html_code = """
             `;
         }
 
-        // تعديل الشخصية المضافة (الرجوع لشاشة الإضافة مع البيانات القديمة)
         function editCharacter(imgSrc, charName) {
             setBigBoxImage(imgSrc);
             document.getElementById('characterNameInput').value = charName;
@@ -1732,7 +1728,7 @@ html_code = """
             switchScreen('addCharacterScreen', event);
         }
 
-        // حذف الشخصية وإرجاع القطة فارغة
+        // عند الضغط على علامة الإكس تحذف فوراً وبدون أي رسائل تنبيه
         function deleteCharacterSlot(event) {
             event.stopPropagation();
             characterAdded = false;
@@ -1748,7 +1744,6 @@ html_code = """
                 </div>
                 <button class="action-add-btn" onclick="openAddCharacter(event)">إضافة</button>
             `;
-            showCustomAlert("تم حذف الشخصية بنجاح.");
         }
 
         function handleSpeedCardClick(event) {
