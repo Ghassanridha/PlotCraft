@@ -222,17 +222,8 @@ html_code = """
             margin-bottom: 16px;
         }
 
-        .section-title {
-            color: #ffffff;
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        .view-all {
-            color: #cbd5e1;
-            font-size: 13px;
-            cursor: pointer;
-        }
+        .section-title { color: #ffffff; font-size: 18px; font-weight: 700; }
+        .view-all { color: #cbd5e1; font-size: 13px; cursor: pointer; }
 
         .movies-carousel {
             display: flex;
@@ -297,12 +288,7 @@ html_code = """
             gap: 18px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.6);
         }
-        .custom-alert-msg {
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: 700;
-            line-height: 1.5;
-        }
+        .custom-alert-msg { color: #ffffff; font-size: 16px; font-weight: 700; line-height: 1.5; }
         .custom-alert-btn {
             background: #3b82f6;
             color: #ffffff;
@@ -333,17 +319,8 @@ html_code = """
             width: 100%;
         }
 
-        .works-screen-title {
-            color: #ffffff;
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        .works-header-left-group {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .works-screen-title { color: #ffffff; font-size: 20px; font-weight: 700; }
+        .works-header-left-group { display: flex; align-items: center; gap: 12px; }
 
         .works-upgrade-badge {
             background: rgba(255, 255, 255, 0.15);
@@ -426,11 +403,7 @@ html_code = """
             background-size: contain;
         }
 
-        .works-empty-text-sub {
-            color: #cbd5e1;
-            font-size: 13px;
-            margin-bottom: 35px;
-        }
+        .works-empty-text-sub { color: #cbd5e1; font-size: 13px; margin-bottom: 35px; }
 
         .works-create-btn {
             width: 100%;
@@ -469,13 +442,7 @@ html_code = """
             width: 100%;
             margin-bottom: 25px;
         }
-        .settings-title {
-            color: #ffffff;
-            font-size: 18px;
-            font-weight: 700;
-            text-align: center;
-            flex-grow: 1;
-        }
+        .settings-title { color: #ffffff; font-size: 18px; font-weight: 700; text-align: center; flex-grow: 1; }
         
         .settings-close-btn {
             background: rgba(255, 255, 255, 0.15);
@@ -505,15 +472,8 @@ html_code = """
             cursor: pointer;
         }
 
-        .profile-header-card {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-        [dir="rtl"] .profile-header-card { justify-content: flex-start; }
-        [dir="ltr"] .profile-header-card { justify-content: flex-start; }
-
+        .profile-header-card { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+        
         .profile-avatar-box {
             width: 60px;
             height: 60px;
@@ -527,30 +487,11 @@ html_code = """
             flex-shrink: 0;
             box-shadow: 0 4px 12px rgba(0,0,0,0.5);
         }
-        .profile-avatar-box svg {
-            width: 36px;
-            height: 36px;
-            fill: #60a5fa;
-            filter: drop-shadow(0 0 6px rgba(96,165,250,0.6));
-        }
+        .profile-avatar-box svg { width: 36px; height: 36px; fill: #60a5fa; }
 
-        .profile-info-group {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 6px;
-        }
-        .profile-name-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .profile-name-text {
-            color: #ffffff;
-            font-size: 19px;
-            font-weight: 700;
-            white-space: nowrap;
-        }
+        .profile-info-group { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+        .profile-name-row { display: flex; align-items: center; gap: 10px; }
+        .profile-name-text { color: #ffffff; font-size: 19px; font-weight: 700; white-space: nowrap; }
         .profile-edit-pencil {
             cursor: pointer;
             width: 26px;
@@ -561,10 +502,8 @@ html_code = """
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: 0.2s;
         }
         .profile-edit-pencil svg { width: 13px; height: 13px; fill: #ffffff; }
-        .profile-edit-pencil:active { background: rgba(255, 255, 255, 0.25); }
 
         .profile-id-row {
             display: flex;
@@ -591,11 +530,7 @@ html_code = """
             flex-direction: column;
             gap: 10px;
         }
-        .pro-banner-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .pro-banner-top { display: flex; justify-content: space-between; align-items: center; }
         .pro-banner-title { color: #ffffff; font-size: 16px; font-weight: 700; }
         .pro-sparkle-icon {
             width: 45px;
@@ -653,13 +588,7 @@ html_code = """
         }
         .menu-icon { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; }
         .menu-icon svg { width: 18px; height: 18px; fill: #94a3b8; }
-        .settings-item-left {
-            color: #cbd5e1;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+        .settings-item-left { color: #cbd5e1; font-size: 14px; display: flex; align-items: center; gap: 6px; }
 
         .switch-toggle { position: relative; display: inline-block; width: 44px; height: 24px; }
         .switch-toggle input { opacity: 0; width: 0; height: 0; }
@@ -682,8 +611,8 @@ html_code = """
         input:checked + .slider-round { background-color: #3b82f6; }
         input:checked + .slider-round:before { transform: translateX(20px); }
 
-        /* نافذة اختيار اللغات */
-        .language-modal-overlay {
+        /* نوافذ التطبيق */
+        .language-modal-overlay, .feedback-modal-overlay, .subscription-modal-overlay, .notif-permission-overlay, .name-edit-modal-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -693,49 +622,31 @@ html_code = """
             justify-content: center;
             padding: 20px;
         }
-        .language-modal-overlay.show { display: flex; }
-        .language-modal-box {
+        .language-modal-overlay.show, .feedback-modal-overlay.show, .subscription-modal-overlay.show, .notif-permission-overlay.show, .name-edit-modal-overlay.show { display: flex; }
+        
+        .modal-box {
             background: #282f3d;
             border: 1px solid rgba(255,255,255,0.15);
             border-radius: 24px;
             width: 100%;
             max-width: 340px;
-            max-height: 80vh;
+            max-height: 85vh;
             display: flex;
             flex-direction: column;
             overflow: hidden;
             box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+            padding: 22px;
+            gap: 16px;
         }
-        .lang-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 18px 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            direction: ltr;
-        }
-        .lang-modal-title { color: #fff; font-size: 16px; font-weight: 700; }
-        .lang-modal-close {
-            background: rgba(255,255,255,0.1);
-            border: none;
-            color: #fff;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-        }
+        
         .lang-list-container {
-            padding: 10px 20px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
             gap: 4px;
             direction: ltr;
             text-align: left;
+            max-height: 50vh;
         }
         .lang-item-row {
             display: flex;
@@ -744,7 +655,6 @@ html_code = """
             padding: 12px 14px;
             border-radius: 12px;
             cursor: pointer;
-            transition: 0.15s;
             color: #cbd5e1;
             font-size: 14px;
             font-weight: 600;
@@ -752,33 +662,8 @@ html_code = """
         .lang-item-row:hover, .lang-item-row:active { background: rgba(255,255,255,0.08); color: #fff; }
         .lang-item-row.selected { background: #3b82f6; color: #fff; }
 
-        /* نافذة التعليقات لإرسال المشكلة كمطور */
-        .feedback-modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 999999999;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .feedback-modal-overlay.show { display: flex; }
-        .feedback-modal-box {
-            background: #282f3d;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 22px;
+        .feedback-textarea, .name-edit-input {
             width: 100%;
-            max-width: 340px;
-            padding: 22px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-        }
-        .feedback-textarea {
-            width: 100%;
-            height: 130px;
             background: #1f242d;
             border: 1px solid rgba(255,255,255,0.15);
             border-radius: 12px;
@@ -786,67 +671,20 @@ html_code = """
             color: #fff;
             font-size: 14px;
             outline: none;
-            resize: none;
         }
+        .feedback-textarea { height: 120px; resize: none; }
 
-        .notif-permission-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.75);
-            z-index: 99999999;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .notif-permission-box {
-            background: #282f3d;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 22px;
-            width: 100%;
-            max-width: 300px;
-            padding: 22px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-        }
-        .notif-permission-title { color: #fff; font-size: 16px; font-weight: 700; line-height: 1.5; }
-        .notif-allow-btn { background: #3b82f6; color: #fff; border: none; padding: 12px; border-radius: 14px; font-size: 14px; font-weight: 700; cursor: pointer; }
-        .notif-deny-btn { background: #1f242d; color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 12px; border-radius: 14px; font-size: 14px; font-weight: 700; cursor: pointer; }
+        .notif-allow-btn { background: #3b82f6; color: #fff; border: none; padding: 12px; border-radius: 14px; font-size: 14px; font-weight: 700; cursor: pointer; width: 100%; text-align: center; }
+        .notif-deny-btn { background: #1f242d; color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 12px; border-radius: 14px; font-size: 14px; font-weight: 700; cursor: pointer; width: 100%; text-align: center; }
 
-        .name-edit-modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.75);
-            z-index: 99999999;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .name-edit-box {
-            background: #282f3d;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 22px;
-            width: 100%;
-            max-width: 320px;
-            padding: 22px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        .name-edit-input {
-            width: 100%;
-            background: #1f242d;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 12px;
-            padding: 12px;
-            color: #fff;
-            font-size: 15px;
-            outline: none;
-        }
+        /* خطط الاشتراكات */
+        .plans-list { display: flex; flex-direction: column; gap: 10px; overflow-y: auto; max-height: 50vh; }
+        .plan-card { background: #1f242d; border: 1.5px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 14px; cursor: pointer; position: relative; }
+        .plan-card.selected { border-color: #3b82f6; background: #343d50; }
+        .plan-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+        .plan-name { color: #ffffff; font-size: 14px; font-weight: 700; }
+        .plan-price { background: rgba(255, 255, 255, 0.12); padding: 3px 8px; border-radius: 8px; color: #ffffff; font-size: 11px; font-weight: 600; }
+        .plan-desc { color: #cbd5e1; font-size: 11px; }
 
         .step-container { padding: 20px; display: flex; flex-direction: column; gap: 16px; max-height: calc(100vh - 90px); overflow-y: auto; }
         .ai-assistant-card { background: #282f3d; border: 1px solid #343d50; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
@@ -865,67 +703,6 @@ html_code = """
         .item-info p { color: #cbd5e1; font-size: 11px; }
         .action-add-btn { background: rgba(255, 255, 255, 0.12); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.3); padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; }
 
-        .next-step-btn { background: #ffffff !important; color: #0b0f19 !important; font-size: 16px; font-weight: 700; padding: 14px; border-radius: 24px; border: none; cursor: pointer; display: none; width: 100%; text-align: center; box-shadow: 0 6px 20px rgba(255,255,255,0.15); }
-        .next-step-btn.show { display: block; }
-
-        #storyDescriptionScreen { display: none; flex-direction: column; min-height: 100vh; background-color: #1f242d; padding: 20px; position: relative; }
-        #storyDescriptionScreen.active { display: flex; }
-        .story-desc-header { display: flex; justify-content: space-between; align-items: center; width: 100%; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 20px; }
-        .story-desc-title { color: #ffffff; font-size: 18px; font-weight: 700; }
-        .story-desc-back { background: none; border: none; color: #ffffff; font-size: 18px; cursor: pointer; }
-        .story-textarea { width: 100%; height: 350px; background: #282f3d; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 16px; color: #ffffff; font-size: 15px; outline: none; resize: vertical; line-height: 1.6; }
-
-        .story-save-btn-wrapper { position: fixed; bottom: 25px; left: 20px; right: 20px; z-index: 9999; }
-        .story-save-btn { background: rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.25); border: 1px solid rgba(255, 255, 255, 0.12); font-size: 15px; font-weight: 700; padding: 14px; border-radius: 24px; width: 100%; max-width: 420px; margin: 0 auto; display: block; text-align: center; cursor: not-allowed; transition: 0.3s; }
-        .story-save-btn.active-save { background: #ffffff !important; color: #0b0f19 !important; border: 1px solid #ffffff !important; cursor: pointer; }
-
-        .added-story-card-vertical { background: #282f3d; border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
-        .added-story-top-row { display: flex; justify-content: space-between; align-items: center; }
-        .added-story-title-group { display: flex; align-items: center; gap: 8px; color: #ffffff; font-size: 15px; font-weight: 700; }
-        .added-story-check-icon { width: 18px; height: 18px; background: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #1f242d; font-size: 11px; font-weight: bold; }
-        .added-story-edit-btn { background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.2); color: #ffffff; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; }
-        .added-story-content-text { color: #cbd5e1; font-size: 13px; line-height: 1.6; max-height: 80px; overflow-y: auto; }
-
-        #addCharacterScreen { display: none; flex-direction: column; min-height: 100vh; padding: 20px; position: relative; }
-        #addCharacterScreen.active { display: flex; }
-        .add-char-header { display: flex; justify-content: space-between; align-items: center; width: 100%; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 20px; }
-        .add-char-title { color: #ffffff; font-size: 18px; font-weight: 700; }
-        .add-char-back { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; }
-
-        .char-main-card { background: #282f3d; border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 16px; }
-        .char-section-label { color: #ffffff; font-size: 15px; font-weight: 700; }
-        
-        .char-big-upload-box { background: #343d50; border: 1px dashed rgba(255,255,255,0.2); border-radius: 16px; height: 180px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; cursor: pointer; position: relative; overflow: hidden; }
-        .char-big-upload-box img { width: 100%; height: 100%; object-fit: contain; background-color: #000; position: absolute; top: 0; left: 0; }
-        .remove-big-img { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.7); color: #fff; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; z-index: 5; display: flex; align-items: center; justify-content: center; font-size: 14px; }
-
-        .char-thumbs-container { display: flex; align-items: center; gap: 12px; width: 100%; }
-        .char-add-role-box { width: 55px; height: 55px; border-radius: 12px; background: #343d50; border: 1.5px dashed rgba(255,255,255,0.4); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #cbd5e1; font-size: 18px; cursor: pointer; flex-shrink: 0; gap: 2px; }
-        .char-add-role-text { font-size: 10px; }
-
-        .char-thumbs-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; flex-grow: 1; }
-        .char-thumbs-scroll::-webkit-scrollbar { display: none; }
-        .char-thumb-item { width: 55px; height: 55px; border-radius: 12px; object-fit: cover; border: 1.5px solid rgba(255,255,255,0.15); cursor: pointer; flex-shrink: 0; display: block; }
-        .char-name-input { width: 100%; background: #343d50; border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 14px; color: #ffffff; font-size: 14px; outline: none; }
-
-        .char-submit-btn-wrapper { position: fixed; bottom: 20px; left: 20px; right: 20px; z-index: 20; }
-        .char-submit-btn { width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #ec4899 100%); color: #ffffff; font-size: 16px; font-weight: 700; padding: 16px; border-radius: 24px; border: none; cursor: pointer; text-align: center; box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4); }
-        .char-submit-btn.disabled { background: #343d50 !important; color: #cbd5e1 !important; cursor: not-allowed; opacity: 0.6; }
-
-        .added-character-preview-card { background: #343d50; border-radius: 12px; padding: 12px; display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
-        .added-char-right { display: flex; align-items: center; gap: 12px; }
-        .added-char-img { width: 45px; height: 45px; border-radius: 10px; object-fit: cover; border: 1px solid rgba(255,255,255,0.2); }
-        .added-char-name { color: #ffffff; font-size: 13px; font-weight: 700; }
-        .added-char-left { display: flex; align-items: center; gap: 10px; }
-        .added-char-change-group { display: flex; align-items: center; gap: 5px; color: #ffffff; font-size: 12px; font-weight: 600; cursor: pointer; background: rgba(255, 255, 255, 0.1); padding: 5px 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.2); }
-        .added-char-delete-btn { background: #1f242d; color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.3); width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; cursor: pointer; font-weight: bold; }
-
-        .source-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 999; align-items: center; justify-content: center; }
-        .source-modal.show { display: flex; }
-        .source-modal-content { background: #282f3d; border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; padding: 20px; width: 90%; max-width: 320px; display: flex; flex-direction: column; gap: 14px; text-align: center; }
-        .source-buttons-row { display: flex; gap: 10px; justify-content: space-between; }
-        .source-btn { flex: 1; background: #343d50; color: #fff; border: 1px solid rgba(255,255,255,0.1); padding: 12px 8px; border-radius: 12px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-
         #toolsScreen { overflow-y: auto; }
         .tools-header { display: flex; align-items: center; justify-content: space-between; padding: 20px; background: rgba(31, 36, 45, 0.85); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.08); }
         .tools-header-title { color: #ffffff; font-size: 20px; font-weight: 700; }
@@ -935,7 +712,6 @@ html_code = """
         .tool-card-item { position: relative; width: 100%; height: 180px; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; box-shadow: 0 6px 20px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
         .tool-card-1 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop') center/contain no-repeat, #1f242d; }
         .tool-card-2 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop') center/contain no-repeat, #1f242d; }
-        .tool-card-3 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop') center/contain no-repeat, #1f242d; }
 
         .tool-info-box { position: relative; z-index: 2; }
         .tool-main-title { color: #ffffff; font-size: 17px; font-weight: 700; margin-bottom: 4px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
@@ -943,24 +719,6 @@ html_code = """
         .tool-arrow-icon { position: absolute; top: 16px; color: #ffffff; font-size: 16px; font-weight: bold; background: rgba(0,0,0,0.4); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
         [dir="rtl"] .tool-arrow-icon { right: 16px; }
         [dir="ltr"] .tool-arrow-icon { left: 16px; transform: scaleX(-1); }
-
-        .subscription-modal-overlay { display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 999999999; align-items: center; justify-content: center; padding: 15px; }
-        .subscription-modal-overlay.hidden { display: none; }
-        .subscription-modal-box { background: #1f242d; border: 1.5px solid rgba(255,255,255,0.15); border-radius: 24px; width: 100%; max-width: 420px; max-height: 90vh; overflow-y: auto; padding: 24px 20px; display: flex; flex-direction: column; gap: 16px; position: relative; box-shadow: 0 15px 40px rgba(0,0,0,0.9); }
-        .sub-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-        .sub-modal-title { color: #ffffff; font-size: 18px; font-weight: 700; }
-        .sub-modal-close-x { background: rgba(255,255,255,0.1); border: none; color: #ffffff; font-size: 16px; cursor: pointer; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-
-        .plans-list { display: flex; flex-direction: column; gap: 12px; }
-        .plan-card { background: #282f3d; backdrop-filter: blur(12px); border: 1.5px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 16px; cursor: pointer; transition: 0.2s; position: relative; }
-        .plan-card.selected { border-color: #3b82f6; background: #343d50; box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
-        .plan-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-        .plan-name { color: #ffffff; font-size: 15px; font-weight: 700; }
-        .plan-price { background: rgba(255, 255, 255, 0.12); padding: 4px 10px; border-radius: 10px; color: #ffffff; font-size: 12px; font-weight: 600; }
-        .plan-desc { color: #cbd5e1; font-size: 12px; }
-        .new-tag { position: absolute; top: 12px; left: 12px; background: #3b82f6; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
-        .best-value-tag { position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg, #f59e0b, #ec4899); color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
-        .action-main-btn { width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 20px; border: none; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); margin-top: 10px; }
 
         #sparkleDialogScreen { background-color: #0b0f19; display: none; flex-direction: column; min-height: 100vh; padding: 20px; position: relative; overflow-y: auto; }
         #sparkleDialogScreen.active { display: flex; }
@@ -970,26 +728,6 @@ html_code = """
         .sparkle-center-content { display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; margin-top: 20px; gap: 20px; }
         .sparkle-icon-svg { width: 65px; height: 65px; fill: #93c5fd; filter: drop-shadow(0 0 12px rgba(147, 197, 253, 0.5)); }
         .sparkle-greeting-text { color: #ffffff; font-size: 20px; font-weight: 700; line-height: 1.5; }
-        .sparkle-rect-cards-container { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 420px; margin-top: 15px; }
-        .sparkle-rect-card { background: rgba(20, 25, 40, 0.75); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 16px; padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: 0.2s; }
-        .sparkle-rect-card:active { background: rgba(30, 40, 65, 0.9); transform: scale(0.98); }
-        .sparkle-rect-left { display: flex; align-items: center; gap: 12px; }
-        .sparkle-rect-right { display: flex; align-items: center; gap: 12px; }
-        .sparkle-card-titles { display: flex; flex-direction: column; gap: 2px; }
-        .sparkle-card-main-title { color: #ffffff; font-size: 15px; font-weight: 700; }
-        .sparkle-card-sub-title { color: #cbd5e1; font-size: 12px; }
-
-        .login-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999999999; align-items: flex-end; justify-content: center; }
-        .login-modal-overlay.show { display: flex; }
-        .login-modal-content { background: #1f242d; border-top-left-radius: 28px; border-top-right-radius: 28px; border: 1px solid rgba(255,255,255,0.12); width: 100%; max-width: 480px; padding: 24px 20px 40px 20px; display: flex; flex-direction: column; gap: 16px; position: relative; box-shadow: 0 -10px 30px rgba(0,0,0,0.8); }
-        .login-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-        .login-modal-title { color: #ffffff; font-size: 18px; font-weight: 700; }
-        .login-close-x { background: none; border: none; color: #ffffff; font-size: 20px; cursor: pointer; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; }
-        .login-btn-google { width: 100%; background: #ffffff; color: #1f242d; border-radius: 16px; padding: 14px; font-size: 15px; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .login-btn-email { width: 100%; background: #343d50; color: #ffffff; border-radius: 16px; padding: 14px; font-size: 15px; font-weight: 700; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .login-footer-text { text-align: center; color: #cbd5e1; font-size: 13px; margin-top: 10px; cursor: pointer; }
-        .login-footer-text span { color: #3b82f6; font-weight: 600; }
-        .login-links-row { display: flex; justify-content: center; align-items: center; gap: 15px; color: #cbd5e1; font-size: 11px; margin-top: 5px; }
 
         .plotcraft-nav-bar {
             position: fixed;
@@ -1010,47 +748,28 @@ html_code = """
 </head>
 <body>
 
-    <div class="subscription-modal-overlay hidden" id="subscriptionModal">
-        <div class="subscription-modal-box" onclick="event.stopPropagation()">
-            <div class="sub-modal-header">
-                <div class="sub-modal-title" data-i18n="upgradeTitle">ترقية الحساب</div>
-                <button class="sub-modal-close-x" onclick="closeSubscriptionModal()">✕</button>
+    <!-- نافذة الاشتراكات -->
+    <div class="subscription-modal-overlay" id="subscriptionModal">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div style="color:#fff; font-size:18px; font-weight:700;" data-i18n="upgradeTitle">ترقية الحساب</div>
+                <button onclick="closeSubscriptionModal()" style="background:rgba(255,255,255,0.1); border:none; color:#fff; width:30px; height:30px; border-radius:50%; cursor:pointer;">✕</button>
             </div>
-
-            <div style="text-align: center; margin-bottom: 5px;">
-                <div style="color: #ffffff; font-size: 17px; font-weight: 700; margin-bottom: 4px;" data-i18n="subSubHeading">حول أفكارك إلى PlotCraft</div>
-                <div style="color: #cbd5e1; font-size: 12px;" data-i18n="subDesc">أنشئ كل لقطة وعدلها وأكملها بسرعة.</div>
+            <div style="text-align: center;">
+                <div style="color: #ffffff; font-size: 15px; font-weight: 700; margin-bottom: 4px;" data-i18n="subSubHeading">حول أفكارك إلى PlotCraft</div>
+                <div style="color: #cbd5e1; font-size: 11px;" data-i18n="subDesc">أنشئ كل لقطة وعدلها بسرعة.</div>
             </div>
-
             <div class="plans-list">
                 <div class="plan-card selected" onclick="selectPlan(this)">
-                    <div class="plan-top">
-                        <div class="plan-name">PlotCraft Pro Weekly</div>
-                        <div class="plan-price" data-i18n="priceWeekly">9.99 دولار أمريكي / أسبوع</div>
-                    </div>
-                    <div class="plan-desc" data-i18n="descWeekly">500 نقطة / أسبوعياً، جرب PlotCraft</div>
+                    <div class="plan-top"><div class="plan-name">PlotCraft Weekly</div><div class="plan-price">$9.99</div></div>
+                    <div class="plan-desc" data-i18n="descWeekly">500 نقطة / أسبوعياً</div>
                 </div>
-
                 <div class="plan-card" onclick="selectPlan(this)">
-                    <div class="new-tag" data-i18n="newTag">جديد</div>
-                    <div class="plan-top">
-                        <div class="plan-name">PlotCraft Pro Monthly</div>
-                        <div class="plan-price" data-i18n="priceMonthly">29.99 دولار أمريكي / شهر</div>
-                    </div>
-                    <div class="plan-desc" data-i18n="descMonthly">1800 نقطة / شهرياً، مثالي للمبدعين</div>
-                </div>
-
-                <div class="plan-card" onclick="selectPlan(this)">
-                    <div class="best-value-tag" data-i18n="bestValue">الأفضل قيمة</div>
-                    <div class="plan-top">
-                        <div class="plan-name">PlotCraft Pro Annual</div>
-                        <div class="plan-price" data-i18n="priceAnnual">69.99 دولار أمريكي / سنة</div>
-                    </div>
-                    <div class="plan-desc" data-i18n="descAnnual">5000 نقطة / سنوياً، إمكانيات غير محدودة</div>
+                    <div class="plan-top"><div class="plan-name">PlotCraft Monthly</div><div class="plan-price">$29.99</div></div>
+                    <div class="plan-desc" data-i18n="descMonthly">1800 نقطة / شهرياً</div>
                 </div>
             </div>
-
-            <button class="action-main-btn" onclick="openLoginModal()" data-i18n="subscribeBtn">اشتراك</button>
+            <button class="notif-allow-btn" onclick="closeSubscriptionModal()" data-i18n="subscribeBtn">اشتراك</button>
         </div>
     </div>
 
@@ -1069,14 +788,11 @@ html_code = """
             <div class="profile-info-group">
                 <div class="profile-name-row">
                     <span class="profile-name-text" id="displayUserName">NewUser</span>
-                    <span class="profile-edit-pencil" onclick="openNameEditModal()" title="تعديل الاسم">
+                    <span class="profile-edit-pencil" onclick="openNameEditModal()">
                         <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
                     </span>
                 </div>
-                <div class="profile-id-row">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                    <span id="displayUniqueId">4422114 ID</span>
-                </div>
+                <div class="profile-id-row"><span id="displayUniqueId">4422114 ID</span></div>
             </div>
         </div>
 
@@ -1090,194 +806,122 @@ html_code = """
         </div>
 
         <div class="settings-group-box">
-            <div class="settings-item-row" onclick="handleMenuClick(event, 'points')">
-                <div class="settings-item-right">
-                    <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-                    <span data-i18n="pointsRecord">سجل النقاط</span>
-                </div>
+            <div class="settings-item-row" onclick="showCustomAlert('سجل النقاط فارغ')">
+                <div class="settings-item-right"><div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span data-i18n="pointsRecord">سجل النقاط</span></div>
                 <div class="settings-item-left"><span>›</span></div>
             </div>
-            <!-- عنصر التعليقات يفتح نافذة كتابة الشكوى/المشكلة لتصل إليك كمطور -->
             <div class="settings-item-row" onclick="openFeedbackModal(event)">
-                <div class="settings-item-right">
-                    <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg></div>
-                    <span data-i18n="feedbackMenu">التعليقات</span>
-                </div>
+                <div class="settings-item-right"><div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg></div><span data-i18n="feedbackMenu">التعليقات</span></div>
                 <div class="settings-item-left"><span>›</span></div>
             </div>
         </div>
 
         <div class="settings-group-box">
             <div class="settings-item-row" onclick="event.stopPropagation()">
-                <div class="settings-item-right">
-                    <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg></div>
-                    <span data-i18n="notificationsMenu">الإشعارات</span>
-                </div>
-                <div class="settings-item-left">
-                    <label class="switch-toggle" onclick="event.stopPropagation()">
-                        <input type="checkbox" id="notifSwitch" onchange="handleNotifToggle(this)">
-                        <span class="slider-round"></span>
-                    </label>
-                </div>
+                <div class="settings-item-right"><div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg></div><span data-i18n="notificationsMenu">الإشعارات</span></div>
+                <div class="settings-item-left"><label class="switch-toggle"><input type="checkbox" id="notifSwitch" onchange="handleNotifToggle(this)"><span class="slider-round"></span></label></div>
             </div>
             <div class="settings-item-row" onclick="openLanguageModal(event)">
-                <div class="settings-item-right">
-                    <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.92 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A8.03 8.03 0 0 1 5.08 16zm2.95-8H5.08a8.03 8.03 0 0 1 4.33-3.56A15.65 15.65 0 0 0 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.65-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.35-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg></div>
-                    <span data-i18n="languageMenu">اللغة</span>
-                </div>
+                <div class="settings-item-right"><div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.92 8z"/></svg></div><span data-i18n="languageMenu">اللغة</span></div>
                 <div class="settings-item-left"><span id="currentLangDisplay">العربية</span><span>›</span></div>
             </div>
-            <div class="settings-item-row" onclick="handleMenuClick(event, 'telegram')">
-                <div class="settings-item-right">
-                    <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.02-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.36-.49 1-.74 3.91-1.7 6.52-2.82 7.83-3.37 3.72-1.56 4.49-1.83 4.99-1.84.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.13-.05.29z"/></svg></div>
-                    <span data-i18n="joinUsMenu">انضم إلينا</span>
-                </div>
-                <div class="settings-item-left"><span>›</span></div>
-            </div>
-            <!-- عنصر اتصل بنا الذي يفتح البريد الإلكتروني للمطور مباشرة -->
             <div class="settings-item-row" onclick="openContactEmail(event)">
-                <div class="settings-item-right">
-                    <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
-                    <span data-i18n="contactUsMenu">اتصل بنا</span>
-                </div>
+                <div class="settings-item-right"><div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div><span data-i18n="contactUsMenu">اتصل بنا</span></div>
                 <div class="settings-item-left"><span>›</span></div>
             </div>
         </div>
     </div>
 
-    <!-- نافذة كتابة الشكوى/التعليق لتصل للمطور -->
+    <!-- نافذة التعليقات للمطور -->
     <div class="feedback-modal-overlay" id="feedbackModalOverlay" onclick="closeFeedbackModal(event)">
-        <div class="feedback-modal-box" onclick="event.stopPropagation()">
-            <div style="color:#fff; font-size:16px; font-weight:700;" data-i18n="feedbackModalTitle">أرسل مشكلتك أو تعليقك</div>
-            <textarea class="feedback-textarea" id="feedbackTextField" placeholder="اكتب مشكلتك هنا بالتفصيل..."></textarea>
-            <button class="notif-allow-btn" onclick="sendDeveloperFeedback(event)" data-i18n="sendBtn">إرسال للمطور</button>
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div style="color:#fff; font-size:16px; font-weight:700;" data-i18n="feedbackModalTitle">أرسل مشكلتك للمطور</div>
+            <textarea class="feedback-textarea" id="feedbackTextField" placeholder="اكتب مشكلتك هنا..."></textarea>
+            <button class="notif-allow-btn" onclick="sendDeveloperFeedback(event)" data-i18n="sendBtn">إرسال</button>
             <button class="notif-deny-btn" onclick="closeFeedbackModal(event)" data-i18n="cancelBtn">إلغاء</button>
         </div>
     </div>
 
     <!-- نافذة اللغات -->
     <div class="language-modal-overlay" id="languageModalOverlay" onclick="closeLanguageModal(event)">
-        <div class="language-modal-box" onclick="event.stopPropagation()">
-            <div class="lang-modal-header">
-                <div class="lang-modal-title">Select Language</div>
-                <button class="lang-modal-close" onclick="closeLanguageModal(event)">✕</button>
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div style="display:flex; justify-content:space-between; align-items:center; direction:ltr;">
+                <div style="color:#fff; font-size:16px; font-weight:700;">Select Language</div>
+                <button onclick="closeLanguageModal(event)" style="background:rgba(255,255,255,0.1); border:none; color:#fff; width:30px; height:30px; border-radius:50%; cursor:pointer;">✕</button>
             </div>
-            <div class="lang-list-container" id="langListContainer">
-                <div class="lang-item-row" onclick="changeAppLanguage('ar', 'العربية', this)">Arabic (العربية)</div>
-                <div class="lang-item-row selected" onclick="changeAppLanguage('en', 'English', this)">English</div>
+            <div class="lang-list-container">
+                <div class="lang-item-row selected" onclick="changeAppLanguage('ar', 'العربية', this)">Arabic (العربية)</div>
+                <div class="lang-item-row" onclick="changeAppLanguage('en', 'English', this)">English</div>
                 <div class="lang-item-row" onclick="changeAppLanguage('es', 'Spanish', this)">Spanish (Español)</div>
                 <div class="lang-item-row" onclick="changeAppLanguage('fr', 'French', this)">French (Français)</div>
-                <div class="lang-item-row" onclick="changeAppLanguage('tr', 'Turkish', this))">Turkish (Türkçe)</div>
+                <div class="lang-item-row" onclick="changeAppLanguage('tr', 'Turkish', this)">Turkish (Türkçe)</div>
             </div>
         </div>
     </div>
 
-    <div class="notif-permission-overlay" id="notifPermissionModal" onclick="event.stopPropagation()">
-        <div class="notif-permission-box">
-            <div class="notif-permission-title" data-i18n="notifAskMsg">هل تريد السماح لتطبيق Plotcraft بإرسال إشعارات إليك؟</div>
-            <button class="notif-allow-btn" onclick="allowNotifications(event)" data-i18n="allowBtn">سماح</button>
-            <button class="notif-deny-btn" onclick="denyNotifications(event)" data-i18n="denyBtn">عدم السماح</button>
-        </div>
-    </div>
-
+    <!-- نافذة تعديل الاسم -->
     <div class="name-edit-modal-overlay" id="nameEditModal" onclick="event.stopPropagation()">
-        <div class="name-edit-box">
+        <div class="modal-box">
             <div style="color:#fff; font-size:16px; font-weight:700;" data-i18n="editNameTitle">تعديل اسم المستخدم</div>
-            <input type="text" class="name-edit-input" id="editNameInputField" placeholder="أدخل الاسم الجديد">
+            <input type="text" class="name-edit-input" id="editNameInputField">
             <button class="notif-allow-btn" onclick="saveNewUserName(event)" data-i18n="sendBtn">إرسال</button>
             <button class="notif-deny-btn" onclick="closeNameEditModal(event)" data-i18n="cancelBtn">إلغاء</button>
         </div>
     </div>
 
-    <div id="homeScreen" class="screen-view active">
-        <div class="hero-box">
-            <div class="top-header">
-                <div class="brand-title">PlotCraft</div>
-                <div class="upgrade-badge" onclick="openSubscriptionModalFromBadge(event)" data-i18n="upgradeBadge">ترقية</div>
-            </div>
-
-            <div class="welcome-section">
-                <h1 id="greetingHeading">مساء الخير، أيها المخرج<br>أي قصة سنصنع اليوم؟</h1>
-            </div>
-
-            <div class="cards-row">
-                <div class="interactive-card" onclick="switchScreen('stepByStepScreen', event)">
-                    <div class="card-header-row">
-                        <div class="card-title-group-left">
-                            <div class="card-title" data-i18n="stepByStepCard">خطوة بخطوة</div>
-                            <span class="exact-bot-icon"></span>
-                        </div>
-                    </div>
-                    <div class="card-subtitle" data-i18n="stepByStepSub">راجع كل خطوة</div>
-                </div>
-
-                <div class="interactive-card" id="speedCard" onclick="handleSpeedCardClick(event)">
-                    <div class="pro-badge-top">
-                        <span>Pro only</span>
-                        <span class="pro-lock-icon"></span>
-                    </div>
-                    <div class="card-header-row">
-                        <div class="card-title-group-left">
-                            <div class="card-title" data-i18n="fastCard">سريع</div>
-                            <span class="speed-custom-icon"></span>
-                        </div>
-                    </div>
-                    <div class="card-subtitle" data-i18n="fastSub">إدخال واحد، فيديو كامل</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="inspiration-section">
-            <div class="section-header">
-                <div class="section-title" data-i18n="inspirationTitle">إلهام بلوت كرافت</div>
-                <div class="view-all" data-i18n="viewAll">عرض الكل ></div>
-            </div>
-
-            <div class="movies-carousel">
-                <div class="movie-card m1" onclick="showCustomAlert('يتم إضافة القصص قريباً')"><div class="movie-title">THE DELIVERYMAN'S SECRET BILLIONAIRE</div></div>
-                <div class="movie-card m2" onclick="showCustomAlert('يتم إضافة القصص قريباً')"><div class="movie-title">SECRET BILLIONAIRE</div></div>
-                <div class="movie-card m3" onclick="showCustomAlert('يتم إضافة القصص قريباً')"><div class="movie-title">CYBER CITY</div></div>
-            </div>
+    <!-- تنبيه الإشعارات -->
+    <div class="notif-permission-overlay" id="notifPermissionModal" onclick="event.stopPropagation()">
+        <div class="modal-box" style="text-align:center;">
+            <div style="color:#fff; font-size:15px; font-weight:700;" data-i18n="notifAskMsg">هل تريد السماح بالإشعارات؟</div>
+            <button class="notif-allow-btn" onclick="allowNotifications(event)" data-i18n="allowBtn">سماح</button>
+            <button class="notif-deny-btn" onclick="denyNotifications(event)" data-i18n="denyBtn">عدم السماح</button>
         </div>
     </div>
 
+    <!-- التنبيه العام -->
     <div class="custom-alert-overlay" id="customAlertOverlay" onclick="event.stopPropagation()">
         <div class="custom-alert-box">
-            <div class="custom-alert-msg" id="customAlertMsgText">يتم إضافة القصص قريباً</div>
+            <div class="custom-alert-msg" id="customAlertMsgText">تنبيه</div>
             <button class="custom-alert-btn" onclick="closeCustomAlert(event)" data-i18n="okBtn">حسناً</button>
         </div>
     </div>
 
-    <div id="sparkleDialogScreen" class="screen-view">
-        <div class="sparkle-top-bar">
-            <button class="sparkle-close-btn" onclick="switchScreen('homeScreen', event)">✕</button>
-            <div class="brand-title">Plotcraft</div>
-            <div class="sparkle-upgrade-badge" onclick="openSubscriptionModalFromBadge(event)" data-i18n="upgradeBadge">ترقية</div>
-        </div>
-
-        <div class="sparkle-center-content">
-            <svg class="sparkle-icon-svg" viewBox="0 0 24 24">
-                <path d="M12 2C12 7.5 16.5 12 22 12C16.5 12 12 16.5 12 22C12 16.5 7.5 12 2 12C7.5 12 12 7.5 12 2Z"/>
-            </svg>
-            <div class="sparkle-greeting-text" id="sparkleGreetingText">طاب مساؤك، أيها المخرج<br>أي قصة سنصنع اليوم؟</div>
-
-            <div class="sparkle-rect-cards-container">
-                <div class="sparkle-rect-card" onclick="switchScreen('stepByStepScreen', event)">
-                    <div class="sparkle-rect-right">
-                        <div class="sparkle-card-titles">
-                            <div class="sparkle-card-main-title" data-i18n="stepByStepCard">خطوة بخطوة</div>
-                            <div class="sparkle-card-sub-title" data-i18n="stepByStepSub">راجع كل خطوة</div>
-                        </div>
-                    </div>
+    <!-- الشاشة الرئيسية -->
+    <div id="homeScreen" class="screen-view active">
+        <div class="hero-box">
+            <div class="top-header">
+                <div class="brand-title">PlotCraft</div>
+                <div class="upgrade-badge" onclick="openSubscriptionModal(event)" data-i18n="upgradeBadge">ترقية</div>
+            </div>
+            <div class="welcome-section">
+                <h1 id="greetingHeading">مساء الخير، أيها المخرج<br>أي قصة سنصنع اليوم؟</h1>
+            </div>
+            <div class="cards-row">
+                <div class="interactive-card" onclick="switchScreen('stepByStepScreen', event)">
+                    <div class="card-header-row"><div class="card-title" data-i18n="stepByStepCard">خطوة بخطوة</div><span class="exact-bot-icon"></span></div>
+                    <div class="card-subtitle" data-i18n="stepByStepSub">راجع كل خطوة</div>
                 </div>
+                <div class="interactive-card" onclick="openSubscriptionModal(event)">
+                    <div class="pro-badge-top"><span>Pro only</span><span class="pro-lock-icon"></span></div>
+                    <div class="card-header-row"><div class="card-title" data-i18n="fastCard">سريع</div><span class="speed-custom-icon"></span></div>
+                    <div class="card-subtitle" data-i18n="fastSub">إدخال واحد، فيديو كامل</div>
+                </div>
+            </div>
+        </div>
+        <div class="inspiration-section">
+            <div class="section-header"><div class="section-title" data-i18n="inspirationTitle">إلهام بلوت كرافت</div><div class="view-all">عرض الكل ></div></div>
+            <div class="movies-carousel">
+                <div class="movie-card m1" onclick="showCustomAlert('قريباً')"><div class="movie-title">THE DELIVERYMAN</div></div>
+                <div class="movie-card m2" onclick="showCustomAlert('قريباً')"><div class="movie-title">SECRET BILLIONAIRE</div></div>
             </div>
         </div>
     </div>
 
+    <!-- شاشة الأدوات -->
     <div id="toolsScreen" class="screen-view">
         <div class="tools-header">
             <div class="tools-header-title" data-i18n="toolsTitle">الأدوات</div>
-            <div class="tools-upgrade-btn" onclick="openSubscriptionModalFromBadge(event)" data-i18n="upgradeBadge">ترقية</div>
+            <div class="tools-upgrade-btn" onclick="openSubscriptionModal(event)" data-i18n="upgradeBadge">ترقية</div>
         </div>
         <div class="tools-body">
             <div class="tool-card-item tool-card-1" onclick="showCustomAlert('قريباً')">
@@ -1286,20 +930,20 @@ html_code = """
             </div>
             <div class="tool-card-item tool-card-2" onclick="showCustomAlert('قريباً')">
                 <div class="tool-arrow-icon">‹</div>
-                <div class="tool-info-box"><div class="tool-main-title" data-i18n="tool2Title">توليد الفيديو</div><div class="tool-sub-desc" data-i18n="tool2Sub">حول توجيهاً إلى فيديو خاص بك</div></div>
+                <div class="tool-info-box"><div class="tool-main-title" data-i18n="tool2Title">توليد الفيديو</div><div class="tool-sub-desc" data-i18n="tool2Sub">حول توجيهاً إلى فيديو</div></div>
             </div>
         </div>
     </div>
 
+    <!-- شاشة الأعمال -->
     <div id="worksScreen" class="screen-view">
         <div class="works-top-header">
             <div class="works-screen-title" data-i18n="worksTitle">الأعمال</div>
             <div class="works-header-left-group">
-                <div class="works-upgrade-badge" onclick="openSubscriptionModalFromBadge(event)" data-i18n="upgradeBadge">ترقية</div>
+                <div class="works-upgrade-badge" onclick="openSubscriptionModal(event)" data-i18n="upgradeBadge">ترقية</div>
                 <div class="works-robot-logo" onclick="openSettingsScreen(event)" title="الإعدادات"></div>
             </div>
         </div>
-
         <div class="works-body-container">
             <div class="works-tabs-container">
                 <div class="works-tab active" onclick="switchWorksTab(this)" data-i18n="projectsTab">المشاريع</div>
@@ -1313,6 +957,35 @@ html_code = """
         </div>
     </div>
 
+    <!-- شاشة خطوة بخطوة -->
+    <div id="stepByStepScreen" class="screen-view">
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:20px; border-bottom:1px solid rgba(255,255,255,0.08);">
+            <button style="background:rgba(255,255,255,0.1); border:none; color:#fff; width:36px; height:36px; border-radius:50%; cursor:pointer;" onclick="switchScreen('homeScreen', event)">✕</button>
+            <div style="color:#fff; font-weight:700;">PlotCraft</div>
+            <div style="width:36px;"></div>
+        </div>
+        <div class="step-container">
+            <div class="ai-assistant-card">
+                <div class="ai-header-row"><div class="ai-title">مساعد AI</div><div class="ai-badge-circle">AI+</div></div>
+                <div class="ai-desc" data-i18n="aiDescText">أنشئ تفاصيل فيلمك خطوة بخطوة بدقة عالية.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- شاشة الحوار الذكي (Sparkle) -->
+    <div id="sparkleDialogScreen" class="screen-view">
+        <div class="sparkle-top-bar">
+            <button class="sparkle-close-btn" onclick="switchScreen('homeScreen', event)">✕</button>
+            <div class="brand-title">Plotcraft</div>
+            <div class="sparkle-upgrade-badge" onclick="openSubscriptionModal(event)" data-i18n="upgradeBadge">ترقية</div>
+        </div>
+        <div class="sparkle-center-content">
+            <svg class="sparkle-icon-svg" viewBox="0 0 24 24"><path d="M12 2C12 7.5 16.5 12 22 12C16.5 12 12 16.5 12 22C12 16.5 7.5 12 2 12C7.5 12 12 7.5 12 2Z"/></svg>
+            <div class="sparkle-greeting-text" id="sparkleGreetingText">طاب مساؤك، أيها المخرج<br>أي قصة سنصنع اليوم؟</div>
+        </div>
+    </div>
+
+    <!-- شريط التنقل السفلي -->
     <div class="plotcraft-nav-bar" id="mainNavBar">
         <div class="plotcraft-nav-pill">
             <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="switchScreen('homeScreen', event); setActiveNav('navHome')">
@@ -1328,16 +1001,13 @@ html_code = """
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path></svg>
             </a>
         </div>
-
-        <div class="plotcraft-nav-square" onclick="openSparkleDialog(event)" title="إنشاء سريع">
-            <svg width="26" height="26" viewBox="0 0 24 24">
-                <rect x="3" y="6" width="14" height="12" rx="3" fill="#cbd5e1"/>
-            </svg>
+        <div class="plotcraft-nav-square" onclick="openSparkleDialog(event)" title="إنشاء">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#cbd5e1"><rect x="3" y="6" width="14" height="12" rx="3"/></svg>
         </div>
     </div>
 
     <script>
-        // قاموس ترجمة نصوص التطبيق الحية بالكامل
+        // قواميس الترجمة الشاملة لجميع لغات التطبيق
         const translations = {
             ar: {
                 upgradeBadge: "ترقية",
@@ -1347,7 +1017,6 @@ html_code = """
                 fastCard: "سريع",
                 fastSub: "إدخال واحد، فيديو كامل",
                 inspirationTitle: "إلهام بلوت كرافت",
-                viewAll: "عرض الكل >",
                 toolsTitle: "الأدوات",
                 worksTitle: "الأعمال",
                 projectsTab: "المشاريع",
@@ -1365,32 +1034,26 @@ html_code = """
                 feedbackMenu: "التعليقات",
                 notificationsMenu: "الإشعارات",
                 languageMenu: "اللغة",
-                joinUsMenu: "انضم إلينا",
                 contactUsMenu: "اتصل بنا",
                 upgradeTitle: "ترقية الحساب",
                 subSubHeading: "حول أفكارك إلى PlotCraft",
-                subDesc: "أنشئ كل لقطة وعدلها وأكملها بسرعة.",
-                priceWeekly: "9.99 دولار أمريكي / أسبوع",
-                descWeekly: "500 نقطة / أسبوعياً، جرب PlotCraft",
-                newTag: "جديد",
-                priceMonthly: "29.99 دولار أمريكي / شهر",
-                descMonthly: "1800 نقطة / شهرياً، مثالي للمبدعين",
-                bestValue: "الأفضل قيمة",
-                priceAnnual: "69.99 دولار أمريكي / سنة",
-                descAnnual: "5000 نقطة / سنوياً، إمكانيات غير محدودة",
+                subDesc: "أنشئ كل لقطة وعدلها بسرعة.",
+                descWeekly: "500 نقطة / أسبوعياً",
+                descMonthly: "1800 نقطة / شهرياً",
                 subscribeBtn: "اشتراك",
                 okBtn: "حسناً",
                 cancelBtn: "إلغاء",
                 sendBtn: "إرسال",
                 editNameTitle: "تعديل اسم المستخدم",
-                notifAskMsg: "هل تريد السماح لتطبيق Plotcraft بإرسال إشعارات إليك؟",
+                notifAskMsg: "هل تريد السماح بالإشعارات؟",
                 allowBtn: "سماح",
                 denyBtn: "عدم السماح",
-                feedbackModalTitle: "أرسل مشكلتك أو تعليقك للمطور",
+                feedbackModalTitle: "أرسل مشكلتك للمطور",
+                aiDescText: "أنشئ تفاصيل فيلمك خطوة بخطوة بدقة عالية.",
                 tool1Title: "تأثيرات الفيديو",
                 tool1Sub: "أضف لمسة سينمائية",
                 tool2Title: "توليد الفيديو",
-                tool2Sub: "حول توجيهاً إلى فيديو خاص بك"
+                tool2Sub: "حول توجيهاً إلى فيديو"
             },
             en: {
                 upgradeBadge: "Upgrade",
@@ -1400,7 +1063,6 @@ html_code = """
                 fastCard: "Fast",
                 fastSub: "One input, full video",
                 inspirationTitle: "PlotCraft Inspiration",
-                viewAll: "View All >",
                 toolsTitle: "Tools",
                 worksTitle: "Works",
                 projectsTab: "Projects",
@@ -1418,32 +1080,26 @@ html_code = """
                 feedbackMenu: "Feedback",
                 notificationsMenu: "Notifications",
                 languageMenu: "Language",
-                joinUsMenu: "Join Us",
                 contactUsMenu: "Contact Us",
                 upgradeTitle: "Account Upgrade",
                 subSubHeading: "Turn your ideas into PlotCraft",
-                subDesc: "Create, edit, and complete every shot quickly.",
-                priceWeekly: "$9.99 USD / week",
-                descWeekly: "500 points / week, try PlotCraft",
-                newTag: "NEW",
-                priceMonthly: "$29.99 USD / month",
-                descMonthly: "1800 points / month, ideal for creators",
-                bestValue: "BEST VALUE",
-                priceAnnual: "$69.99 USD / year",
-                descAnnual: "5000 points / year, unlimited cinematic power",
+                subDesc: "Create and edit every shot quickly.",
+                descWeekly: "500 points / week",
+                descMonthly: "1800 points / month",
                 subscribeBtn: "Subscribe",
                 okBtn: "OK",
                 cancelBtn: "Cancel",
                 sendBtn: "Send",
                 editNameTitle: "Edit Username",
-                notifAskMsg: "Do you want to allow Plotcraft to send you notifications?",
+                notifAskMsg: "Allow notifications?",
                 allowBtn: "Allow",
                 denyBtn: "Don't Allow",
                 feedbackModalTitle: "Send your feedback to developer",
+                aiDescText: "Create your film details step by step.",
                 tool1Title: "Video Effects",
                 tool1Sub: "Add a cinematic touch",
                 tool2Title: "Video Generation",
-                tool2Sub: "Turn a prompt into your video"
+                tool2Sub: "Turn a prompt into video"
             },
             es: {
                 upgradeBadge: "Mejorar",
@@ -1453,37 +1109,29 @@ html_code = """
                 fastCard: "Rápido",
                 fastSub: "Una entrada, video completo",
                 inspirationTitle: "Inspiración PlotCraft",
-                viewAll: "Ver todo >",
                 toolsTitle: "Herramientas",
                 worksTitle: "Obras",
                 projectsTab: "Proyectos",
                 mediaTab: "Biblioteca",
-                emptyWorksText: "Tus proyectos de historias aparecerán aquí.",
+                emptyWorksText: "Tus proyectos aparecerán aquí.",
                 createStoryBtn: "Crear Historia",
                 navHome: "Inicio",
                 navTools: "Herramientas",
                 navWorks: "Obras",
                 settingsTitle: "Configuración",
-                proBannerTitle: "Desbloquear PlotCraft Pro",
-                proBannerDesc: "Convierte cada idea en una película completa",
+                proBannerTitle: "PlotCraft Pro",
+                proBannerDesc: "Convierte cada idea en película",
                 proBannerBtn: "Ver planes Pro ←",
-                pointsRecord: "Historial de puntos",
+                pointsRecord: "Puntos",
                 feedbackMenu: "Comentarios",
                 notificationsMenu: "Notificaciones",
                 languageMenu: "Idioma",
-                joinUsMenu: "Únete",
                 contactUsMenu: "Contáctanos",
                 upgradeTitle: "Mejorar Cuenta",
-                subSubHeading: "Convierte tus ideas",
-                subDesc: "Crea y edita rápidamente.",
-                priceWeekly: "$9.99 USD / semana",
+                subSubHeading: "Crea tus ideas",
+                subDesc: "Edita rápidamente.",
                 descWeekly: "500 puntos / semana",
-                newTag: "NUEVO",
-                priceMonthly: "$29.99 USD / mes",
                 descMonthly: "1800 puntos / mes",
-                bestValue: "MEJOR VALOR",
-                priceAnnual: "$69.99 USD / año",
-                descAnnual: "5000 puntos / año",
                 subscribeBtn: "Suscribirse",
                 okBtn: "Aceptar",
                 cancelBtn: "Cancelar",
@@ -1492,64 +1140,58 @@ html_code = """
                 notifAskMsg: "¿Permitir notificaciones?",
                 allowBtn: "Permitir",
                 denyBtn: "No permitir",
-                feedbackModalTitle: "Enviar comentarios al desarrollador",
+                feedbackModalTitle: "Enviar comentarios",
+                aiDescText: "Crea tu película paso a paso.",
                 tool1Title: "Efectos de video",
-                tool1Sub: "Añade toque cinemático",
+                tool1Sub: "Toque cinemático",
                 tool2Title: "Generación de video",
                 tool2Sub: "Convierte texto en video"
             },
             fr: {
                 upgradeBadge: "Mettre à niveau",
-                greeting: "Bonsoir, Réalisateur<br>Quelle histoire ferons-nous aujourd'hui?",
+                greeting: "Bonsoir, Réalisateur<br>Quelle histoire ferons-nous?",
                 stepByStepCard: "Étape par étape",
                 stepByStepSub: "Vérifier chaque étape",
                 fastCard: "Rapide",
-                fastSub: "Une entrée, vidéo complète",
+                fastSub: "Vidéo complète",
                 inspirationTitle: "Inspiration PlotCraft",
-                viewAll: "Voir tout >",
                 toolsTitle: "Outils",
                 worksTitle: "Œuvres",
                 projectsTab: "Projets",
                 mediaTab: "Médiathèque",
-                emptyWorksText: "Vos projets d'histoires apparaîtront ici.",
+                emptyWorksText: "Vos projets apparaîtront ici.",
                 createStoryBtn: "Créer une histoire",
                 navHome: "Accueil",
                 navTools: "Outils",
                 navWorks: "Œuvres",
                 settingsTitle: "Paramètres",
-                proBannerTitle: "Débloquer PlotCraft Pro",
-                proBannerDesc: "Transformez chaque idée en film",
-                proBannerBtn: "Voir les offres Pro ←",
-                pointsRecord: "Historique des points",
+                proBannerTitle: "PlotCraft Pro",
+                proBannerDesc: "Transformez vos idées",
+                proBannerBtn: "Voir offres Pro ←",
+                pointsRecord: "Points",
                 feedbackMenu: "Commentaires",
                 notificationsMenu: "Notifications",
                 languageMenu: "Langue",
-                joinUsMenu: "Rejoignez-nous",
                 contactUsMenu: "Contactez-nous",
                 upgradeTitle: "Mise à niveau",
-                subSubHeading: "Transformez vos idées",
-                subDesc: "Créez et éditez rapidement.",
-                priceWeekly: "$9.99 USD / semaine",
+                subSubHeading: "Créez vos films",
+                subDesc: "Édition rapide.",
                 descWeekly: "500 points / semaine",
-                newTag: "NOUVEAU",
-                priceMonthly: "$29.99 USD / mois",
                 descMonthly: "1800 points / mois",
-                bestValue: "MEILLEURE OFFRE",
-                priceAnnual: "$69.99 USD / an",
-                descAnnual: "5000 points / an",
                 subscribeBtn: "S'abonner",
                 okBtn: "OK",
                 cancelBtn: "Annuler",
                 sendBtn: "Envoyer",
                 editNameTitle: "Modifier le nom",
-                notifAskMsg: "Autoriser les notifications?",
+                notifAskMsg: "Autoriser notifications?",
                 allowBtn: "Autoriser",
-                denyBtn: "Ne pas autoriser",
-                feedbackModalTitle: "Envoyer vos commentaires au développeur",
+                denyBtn: "Refuser",
+                feedbackModalTitle: "Envoyer vos commentaires",
+                aiDescText: "Créez votre film étape par étape.",
                 tool1Title: "Effets vidéo",
-                tool1Sub: "Ajouter une touche cinématique",
+                tool1Sub: "Touche cinématique",
                 tool2Title: "Génération vidéo",
-                tool2Sub: "Transformer un texte en vidéo"
+                tool2Sub: "Texte en vidéo"
             },
             tr: {
                 upgradeBadge: "Yükselt",
@@ -1557,151 +1199,65 @@ html_code = """
                 stepByStepCard: "Adım Adım",
                 stepByStepSub: "Her adımı gözden geçir",
                 fastCard: "Hızlı",
-                fastSub: "Tek girdi, tam video",
+                fastSub: "Tam video",
                 inspirationTitle: "PlotCraft İlhamı",
-                viewAll: "Tümünü Gör >",
                 toolsTitle: "Araçlar",
                 worksTitle: "Çalışmalar",
                 projectsTab: "Projeler",
                 mediaTab: "Medya Kitaplığı",
-                emptyWorksText: "Hikaye projeleriniz burada görünecek.",
+                emptyWorksText: "Projeleriniz burada görünecek.",
                 createStoryBtn: "Hikaye Oluştur",
                 navHome: "Ana Sayfa",
                 navTools: "Araçlar",
                 navWorks: "Çalışmalar",
                 settingsTitle: "Ayarlar",
-                proBannerTitle: "PlotCraft Pro'yu Aç",
-                proBannerDesc: "Her fikri tam bir filme dönüştür",
-                proBannerBtn: "Pro Planları Gör ←",
-                pointsRecord: "Puan Geçmişi",
+                proBannerTitle: "PlotCraft Pro",
+                proBannerDesc: "Fikirlerinizi filme dönüştürün",
+                proBannerBtn: "Pro Planlar ←",
+                pointsRecord: "Puanlar",
                 feedbackMenu: "Geri Bildirim",
                 notificationsMenu: "Bildirimler",
                 languageMenu: "Dil",
-                joinUsMenu: "Bize Katılın",
                 contactUsMenu: "İletişim",
                 upgradeTitle: "Hesabı Yükselt",
-                subSubHeading: "Fikirlerinizi dönüştürün",
-                subDesc: "Hızlıca oluşturun ve düzenleyin.",
-                priceWeekly: "$9.99 USD / hafta",
+                subSubHeading: "Fikirlerinizi hayata geçirin",
+                subDesc: "Hızlıca oluşturun.",
                 descWeekly: "500 puan / hafta",
-                newTag: "YENİ",
-                priceMonthly: "$29.99 USD / ay",
                 descMonthly: "1800 puan / ay",
-                bestValue: "EN İYİ DEĞER",
-                priceAnnual: "$69.99 USD / yıl",
-                descAnnual: "5000 puan / yıl",
                 subscribeBtn: "Abone Ol",
                 okBtn: "Tamam",
                 cancelBtn: "İptal",
                 sendBtn: "Gönder",
-                editNameTitle: "Kullanıcı Adını Düzenle",
-                notifAskMsg: "Bildirim gönderilmesine izin verilsin mi?",
+                editNameTitle: "Adı Düzenle",
+                notifAskMsg: "Bildirimlere izin verilsin mi?",
                 allowBtn: "İzin Ver",
                 denyBtn: "İzin Verme",
-                feedbackModalTitle: "Geri bildiriminizi geliştiriciye gönderin",
+                feedbackModalTitle: "Geri bildirim gönder",
+                aiDescText: "Film detaylarınızı adım adım oluşturun.",
                 tool1Title: "Video Efektleri",
-                tool1Sub: "Sinematik dokunuş ekle",
+                tool1Sub: "Sinematik dokunuş",
                 tool2Title: "Video Üretimi",
                 tool2Sub: "Komutu videoya dönüştür"
             }
         };
 
         let currentLang = 'ar';
-        let currentUploadedImageSrc = "";
-        let characterAdded = false;
-        let storyAdded = false;
-        let savedStoryText = "";
 
-        let userUniqueId = Math.floor(1000000 + Math.random() * 9000000);
-        document.getElementById('displayUniqueId').innerText = userUniqueId + " ID";
-
+        // تفعيل الهزاز الخفيف
         document.addEventListener('click', function(event) {
-            if (event.target.tagName === 'BUTTON' || event.target.closest('button') || event.target.closest('.interactive-card') || event.target.closest('.plotcraft-nav-item') || event.target.closest('.plotcraft-nav-square') || event.target.closest('.works-tab') || event.target.closest('.plan-card') || event.target.closest('.char-thumb-item') || event.target.closest('.settings-item-row') || event.target.closest('.movie-card') || event.target.closest('.sparkle-rect-card') || event.target.closest('.lang-item-row')) {
-                if ("vibrate" in navigator) {
-                    navigator.vibrate(35);
-                }
+            if (event.target.closest('button') || event.target.closest('.interactive-card') || event.target.closest('.plotcraft-nav-item') || event.target.closest('.plotcraft-nav-square') || event.target.closest('.works-tab') || event.target.closest('.plan-card') || event.target.closest('.settings-item-row') || event.target.closest('.lang-item-row')) {
+                if ("vibrate" in navigator) navigator.vibrate(35);
             }
         });
 
-        // تغيير لغة التطبيق وتحديث النصوص والاتجاه بالكامل (RTL / LTR)
-        function changeAppLanguage(langCode, langDisplayName, element) {
-            currentLang = langCode;
-            document.getElementById('currentLangDisplay').innerText = langDisplayName;
-            
-            var rows = document.querySelectorAll('.lang-item-row');
-            rows.forEach(r => r.classList.remove('selected'));
-            element.classList.add('selected');
-
-            var htmlRoot = document.getElementById('htmlRoot');
-            if (langCode === 'ar') {
-                htmlRoot.setAttribute('dir', 'rtl');
-                htmlRoot.setAttribute('lang', 'ar');
-            } else {
-                htmlRoot.setAttribute('dir', 'ltr');
-                htmlRoot.setAttribute('lang', langCode);
-            }
-
-            // تحديث جميع النصوص التي تحمل مفتاح الترجمة data-i18n
-            const dict = translations[langCode];
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (dict[key]) {
-                    el.innerText = dict[key];
-                }
-            });
-
-            // تحديث عناصر محددة تحمل HTML (مثل التحيات)
-            if (dict['greeting']) {
-                document.getElementById('greetingHeading').innerHTML = dict['greeting'];
-                document.getElementById('sparkleGreetingText').innerHTML = dict['greeting'];
-            }
-
-            setTimeout(() => {
-                closeLanguageModal();
-            }, 150);
-        }
-
-        // 3. الخطوة الثالثة: اتصل بنا (التحويل المباشر لبريدك الإلكتروني كمطور)
-        function openContactEmail(event) {
-            if (event) event.stopPropagation();
-            const developerEmail = "your-email@example.com"; // استبدل هذا بإيميلك الشخصي الفعلي
-            const subject = encodeURIComponent("Support - PlotCraft App");
-            const body = encodeURIComponent("Hello Developer,\n\nI need help regarding: ");
-            window.location.href = `mailto:${developerEmail}?subject=${subject}&body=${body}`;
-        }
-
-        // فتح نافذة التعليقات لإرسال المشكلة للمطور
-        function openFeedbackModal(event) {
-            if (event) event.stopPropagation();
-            document.getElementById('feedbackTextField').value = "";
-            document.getElementById('feedbackModalOverlay').classList.add('show');
-        }
-
-        function closeFeedbackModal(event) {
-            if (event) event.stopPropagation();
-            document.getElementById('feedbackModalOverlay').classList.remove('show');
-        }
-
-        function sendDeveloperFeedback(event) {
-            if (event) event.stopPropagation();
-            const feedbackText = document.getElementById('feedbackTextField').value.trim();
-            if (feedbackText === "") {
-                showCustomAlert(currentLang === 'ar' ? "يرجى كتابة المشكلة أولاً" : "Please write your feedback first");
-                return;
-            }
-            // هنا كمطور يمكنك ربطها لاحقاً بسيرفر أو إيميل، حالياً سنعرض تأكيد للإرسال
-            closeFeedbackModal();
-            showCustomAlert(currentLang === 'ar' ? "تم إرسال تعليقك إلى المطور بنجاح. شكراً لك!" : "Feedback sent successfully. Thank you!");
-        }
-
+        // دوال التنقل بين الشاشات والنوافذ
         function switchScreen(screenId, event) {
             if (event) event.preventDefault();
-            var screens = document.querySelectorAll('.screen-view');
-            screens.forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.screen-view').forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
             
             var navBar = document.getElementById('mainNavBar');
-            if (screenId === 'sparkleDialogScreen' || screenId === 'addCharacterScreen' || screenId === 'storyDescriptionScreen') {
+            if (['sparkleDialogScreen', 'stepByStepScreen'].includes(screenId)) {
                 navBar.classList.add('hidden');
             } else {
                 navBar.classList.remove('hidden');
@@ -1709,18 +1265,17 @@ html_code = """
             window.scrollTo(0, 0);
         }
 
-        function openSubscriptionModal() {
-            document.getElementById('subscriptionModal').classList.remove('hidden');
+        function setActiveNav(navId) {
+            document.querySelectorAll('.plotcraft-nav-item').forEach(i => i.classList.remove('active'));
+            document.getElementById(navId).classList.add('active');
         }
 
+        function openSubscriptionModal(event) {
+            if (event) { event.preventDefault(); event.stopPropagation(); }
+            document.getElementById('subscriptionModal').classList.add('show');
+        }
         function closeSubscriptionModal() {
-            document.getElementById('subscriptionModal').classList.add('hidden');
-        }
-
-        function openSubscriptionModalFromBadge(event) {
-            if (event) event.preventDefault();
-            event.stopPropagation();
-            openSubscriptionModal();
+            document.getElementById('subscriptionModal').classList.remove('show');
         }
 
         function openSparkleDialog(event) {
@@ -1745,98 +1300,116 @@ html_code = """
             if (event) event.stopPropagation();
             document.getElementById('languageModalOverlay').classList.add('show');
         }
-
         function closeLanguageModal(event) {
             if (event) event.stopPropagation();
             document.getElementById('languageModalOverlay').classList.remove('show');
         }
 
-        function handleMenuClick(event, type) {
+        function openFeedbackModal(event) {
             if (event) event.stopPropagation();
-            if (type === 'points') {
-                showCustomAlert(currentLang === 'ar' ? "سجل النقاط فارغ حالياً" : "Points history is currently empty");
-            } else if (type === 'telegram') {
-                showCustomAlert(currentLang === 'ar' ? "قريباً قناة التليجرام" : "Telegram channel coming soon");
-            }
+            document.getElementById('feedbackTextField').value = "";
+            document.getElementById('feedbackModalOverlay').classList.add('show');
         }
-
-        function handleNotifToggle(checkbox) {
-            if (checkbox.checked) {
-                document.getElementById('notifPermissionModal').style.display = 'flex';
-            } else {
-                showCustomAlert(currentLang === 'ar' ? "تم تعطيل الإشعارات" : "Notifications disabled");
-            }
-        }
-
-        function allowNotifications(event) {
+        function closeFeedbackModal(event) {
             if (event) event.stopPropagation();
-            document.getElementById('notifPermissionModal').style.display = 'none';
-            showCustomAlert(currentLang === 'ar' ? "تم تفعيل الإشعارات بنجاح!" : "Notifications enabled successfully!");
-        }
-
-        function denyNotifications(event) {
-            if (event) event.stopPropagation();
-            document.getElementById('notifPermissionModal').style.display = 'none';
-            document.getElementById('notifSwitch').checked = false;
+            document.getElementById('feedbackModalOverlay').classList.remove('show');
         }
 
         function openNameEditModal() {
             document.getElementById('editNameInputField').value = document.getElementById('displayUserName').innerText;
-            document.getElementById('nameEditModal').style.display = 'flex';
+            document.getElementById('nameEditModal').classList.add('show');
         }
-
         function closeNameEditModal(event) {
             if (event) event.stopPropagation();
-            document.getElementById('nameEditModal').style.display = 'none';
+            document.getElementById('nameEditModal').classList.remove('show');
         }
-
         function saveNewUserName(event) {
             if (event) event.stopPropagation();
             var val = document.getElementById('editNameInputField').value.trim();
-            if (val !== "") {
-                document.getElementById('displayUserName').innerText = val;
-            }
+            if (val !== "") document.getElementById('displayUserName').innerText = val;
             closeNameEditModal();
         }
 
-        function setActiveNav(navId) {
-            var items = document.querySelectorAll('.plotcraft-nav-item');
-            items.forEach(i => i.classList.remove('active'));
-            document.getElementById(navId).classList.add('active');
+        function sendDeveloperFeedback(event) {
+            if (event) event.stopPropagation();
+            var text = document.getElementById('feedbackTextField').value.trim();
+            if (text === "") return;
+            closeFeedbackModal();
+            showCustomAlert(currentLang === 'ar' ? "تم إرسال تعليقك للمطور بنجاح!" : "Feedback sent successfully!");
         }
 
-        function switchWorksTab(element) {
-            var tabs = document.querySelectorAll('.works-tab');
-            tabs.forEach(t => t.classList.remove('active'));
-            element.classList.add('active');
+        // اتصل بنا المباشر لإيميلك كمطور
+        function openContactEmail(event) {
+            if (event) event.stopPropagation();
+            window.location.href = "mailto:developer@plotcraft.app?subject=Support%20Request&body=Hello%20Developer,%20";
         }
 
-        function selectPlan(element) {
-            var cards = document.querySelectorAll('.plan-card');
-            cards.forEach(c => c.classList.remove('selected'));
-            element.classList.add('selected');
-        }
-
-        function openLoginModal() {
-            document.getElementById('loginModalOverlay').classList.add('show');
-        }
-
-        function closeLoginModal() {
-            document.getElementById('loginModalOverlay').classList.remove('show');
-        }
-
-        function showCustomAlert(message) {
-            document.getElementById('customAlertMsgText').innerText = message;
+        function showCustomAlert(msg) {
+            document.getElementById('customAlertMsgText').innerText = msg;
             document.getElementById('customAlertOverlay').classList.add('show');
         }
-
         function closeCustomAlert(event) {
             if (event) event.stopPropagation();
             document.getElementById('customAlertOverlay').classList.remove('show');
         }
 
-        function handleSpeedCardClick(event) {
-            openSubscriptionModal();
+        function handleNotifToggle(checkbox) {
+            if (checkbox.checked) {
+                document.getElementById('notifPermissionModal').classList.add('show');
+            } else {
+                showCustomAlert(currentLang === 'ar' ? "تم تعطيل الإشعارات" : "Notifications disabled");
+            }
+        }
+        function allowNotifications(event) {
+            if (event) event.stopPropagation();
+            document.getElementById('notifPermissionModal').classList.remove('show');
+            showCustomAlert(currentLang === 'ar' ? "تم تفعيل الإشعارات بنجاح!" : "Notifications enabled!");
+        }
+        function denyNotifications(event) {
+            if (event) event.stopPropagation();
+            document.getElementById('notifPermissionModal').classList.remove('show');
+            document.getElementById('notifSwitch').checked = false;
+        }
+
+        function switchWorksTab(element) {
+            document.querySelectorAll('.works-tab').forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        function selectPlan(element) {
+            document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        // تغيير اللغة الفعلي وتحديث واجهة التطبيق والاتجاه
+        function changeAppLanguage(langCode, langName, element) {
+            currentLang = langCode;
+            document.getElementById('currentLangDisplay').innerText = langName;
+            
+            document.querySelectorAll('.lang-item-row').forEach(r => r.classList.remove('selected'));
+            element.classList.add('selected');
+
+            var htmlRoot = document.getElementById('htmlRoot');
+            if (langCode === 'ar') {
+                htmlRoot.setAttribute('dir', 'rtl');
+                htmlRoot.setAttribute('lang', 'ar');
+            } else {
+                htmlRoot.setAttribute('dir', 'ltr');
+                htmlRoot.setAttribute('lang', langCode);
+            }
+
+            const dict = translations[langCode];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) el.innerText = dict[key];
+            });
+
+            if (dict['greeting']) {
+                document.getElementById('greetingHeading').innerHTML = dict['greeting'];
+                document.getElementById('sparkleGreetingText').innerHTML = dict['greeting'];
+            }
+
+            setTimeout(() => { closeLanguageModal(); }, 150);
         }
     </script>
 </body>
