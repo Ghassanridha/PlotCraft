@@ -462,7 +462,7 @@ html_code = """
             background: #e2e8f0;
         }
 
-        /* --- شاشة الإعدادات المحدثة والمطابقة تماماً للصورة --- */
+        /* --- شاشة الإعدادات المحدثة والمطابقة تماماً --- */
         .settings-screen {
             display: none;
             position: fixed;
@@ -490,17 +490,31 @@ html_code = """
             text-align: center;
             flex-grow: 1;
         }
-        .settings-back-btn, .settings-upgrade-badge {
+        /* السهم أصبح في أقصى اليمين والترقية في أقصى اليسار */
+        .settings-back-btn {
             background: rgba(255, 255, 255, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: #fff;
-            padding: 6px 14px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .settings-upgrade-badge {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 6px 16px;
             border-radius: 20px;
             font-size: 13px;
+            font-weight: 500;
             cursor: pointer;
         }
 
-        /* تعديل قسم المستخدم لتكون الصورة في اليمين بجانب الاسم */
         .profile-header-card {
             display: flex;
             justify-content: flex-start;
@@ -521,7 +535,6 @@ html_code = """
             flex-shrink: 0;
             box-shadow: 0 4px 12px rgba(0,0,0,0.5);
         }
-        /* روبوت مميز وسينمائي احترافي */
         .profile-avatar-box svg {
             width: 36px;
             height: 36px;
@@ -546,13 +559,13 @@ html_code = """
             font-weight: 700;
             white-space: nowrap;
         }
-        /* أيقونة القلم الأنيقة المطابقة للصورة السابقة */
+        /* القلم أصبح بلون أبيض وشكل عصري أنيق */
         .profile-edit-pencil {
             cursor: pointer;
             width: 26px;
             height: 26px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -560,9 +573,9 @@ html_code = """
             transition: 0.2s;
         }
         .profile-edit-pencil svg {
-            width: 12px;
-            height: 12px;
-            fill: #fbbf24;
+            width: 13px;
+            height: 13px;
+            fill: #ffffff;
         }
         .profile-edit-pencil:active { background: rgba(255, 255, 255, 0.25); }
 
@@ -655,7 +668,6 @@ html_code = """
             font-size: 15px;
             font-weight: 600;
         }
-        /* أيقونات احترافية ونظيفة بدل الأيقونات التقليدية */
         .menu-icon {
             width: 20px;
             height: 20px;
@@ -1757,24 +1769,24 @@ html_code = """
         </div>
     </div>
 
-    <!-- شاشة الإعدادات المحدثة بالكامل -->
+    <!-- شاشة الإعدادات المحدثة طبقاً لطلبك -->
     <div class="settings-screen" id="settingsScreen">
         <div class="settings-top-bar">
-            <button class="settings-upgrade-badge" onclick="openSubscriptionModal()">ترقية</button>
+            <!-- زر السهم أصبح في أقصى اليمين تماماً لإغلاق الإعدادات -->
+            <button class="settings-back-btn" onclick="closeSettingsScreen()">›</button>
             <div class="settings-title">الإعدادات</div>
-            <button class="settings-back-btn" onclick="closeSettingsScreen()">‹</button>
+            <!-- زر الترقية أصبح في أقصى اليسار تماماً -->
+            <button class="settings-upgrade-badge" onclick="openSubscriptionModal()">ترقية</button>
         </div>
 
-        <!-- ملف المستخدم (الصورة في اليمين، الاسم، القلم الأنيق، والأيدي) -->
         <div class="profile-header-card">
             <div class="profile-avatar-box">
-                <!-- روبوت مميز وسينمائي احترافي -->
                 <svg viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73C10.4 5.39 10 4.74 10 4a2 2 0 0 1 2-2M7.5 13a1.5 1.5 0 0 0-1.5 1.5A1.5 1.5 0 0 0 7.5 16a1.5 1.5 0 0 0 1.5-1.5A1.5 1.5 0 0 0 7.5 13m9 0a1.5 1.5 0 0 0-1.5 1.5a1.5 1.5 0 0 0 1.5 1.5a1.5 1.5 0 0 0 1.5-1.5a1.5 1.5 0 0 0-1.5-1.5M10 18v2h4v-2z"/></svg>
             </div>
             <div class="profile-info-group">
                 <div class="profile-name-row">
                     <span class="profile-name-text" id="displayUserName">NewUser</span>
-                    <!-- قلم أنيق واحترافي مطابق تماماً للصورة المطلوبة -->
+                    <!-- قلم أبيض واحترافي بتصميم أنيق -->
                     <span class="profile-edit-pencil" onclick="openNameEditModal()" title="تعديل الاسم">
                         <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
                     </span>
@@ -1795,7 +1807,6 @@ html_code = """
             <button class="pro-banner-btn" onclick="openSubscriptionModal()">عرض خطط Pro ←</button>
         </div>
 
-        <!-- مجموعة الخيارات الأولى مع شعارات احترافية ونظيفة -->
         <div class="settings-group-box">
             <div class="settings-item-row" onclick="showCustomAlert('سجل النقاط')">
                 <div class="settings-item-right">
@@ -1813,7 +1824,6 @@ html_code = """
             </div>
         </div>
 
-        <!-- مجموعة الخيارات الثانية -->
         <div class="settings-group-box">
             <div class="settings-item-row">
                 <div class="settings-item-right">
@@ -1850,7 +1860,6 @@ html_code = """
             </div>
         </div>
 
-        <!-- مجموعة الخيارات الثالثة -->
         <div class="settings-group-box">
             <div class="settings-item-row" onclick="showCustomAlert('الإعدادات العامة')">
                 <div class="settings-item-right">
