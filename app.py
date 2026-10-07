@@ -714,7 +714,7 @@ html_code = """
             box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
         }
 
-        /* قائمة اختيار المصدر: كاميرا يمين، ألبوم يسار */
+        /* نافذة اختيار المصدر: كاميرا يمين، ألبوم يسار */
         .source-modal {
             display: none;
             position: fixed;
@@ -798,19 +798,62 @@ html_code = """
         .tool-sub-desc { color: #cbd5e1; font-size: 12px; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
         .tool-arrow-icon { position: absolute; top: 16px; right: 16px; color: #ffffff; font-size: 16px; font-weight: bold; background: rgba(0,0,0,0.4); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
 
-        /* واجهة صفحة الاشتراكات */
-        #subscriptionScreen { background: #0b0f19; overflow-y: auto; position: relative; }
-        .animated-bg-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; opacity: 0.35; pointer-events: none; }
-        .explosion-glow { position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(59,130,246,0.6) 0%, rgba(139,92,246,0.2) 50%, transparent 70%); border-radius: 50%; animation: pulseExplosion 4s infinite alternate ease-in-out; }
-        .glow-1 { top: -50px; right: -50px; }
-        .glow-2 { bottom: 100px; left: -80px; animation-delay: 2s; background: radial-gradient(circle, rgba(236,72,153,0.5) 0%, rgba(59,130,246,0.2) 50%, transparent 70%); }
-        @keyframes pulseExplosion { 0% { transform: scale(1) translate(0, 0); opacity: 0.3; } 50% { transform: scale(1.4) translate(20px, 30px); opacity: 0.7; } 100% { transform: scale(1.1) translate(-10px, 15px); opacity: 0.4; } }
+        /* نافذة اشتراكات منبثقة (Popup Modal) تظهر أول ما يفتح التطبيق فوق الواجهة */
+        .subscription-modal-overlay {
+            display: flex;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 9999999;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+        .subscription-modal-overlay.hidden { display: none; }
+        
+        .subscription-modal-box {
+            background: #0b0f19;
+            border: 1.5px solid rgba(255,255,255,0.15);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 420px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.9);
+        }
+        
+        .sub-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .sub-modal-title {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .sub-modal-close-x {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+        .sub-modal-close-x:active { background: rgba(255,255,255,0.2); }
 
-        .page-header-sub, .content-body-sub { position: relative; z-index: 2; }
-        .page-header-sub { display: flex; align-items: center; justify-content: space-between; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(11, 15, 25, 0.75); backdrop-filter: blur(10px); }
-        .back-btn-sub { background: rgba(255,255,255,0.1); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .page-title-sub { color: #ffffff; font-size: 18px; font-weight: 700; }
-        .content-body-sub { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
         .plans-list { display: flex; flex-direction: column; gap: 12px; }
         .plan-card { background: rgba(20, 25, 40, 0.85); backdrop-filter: blur(12px); border: 1.5px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 16px; cursor: pointer; transition: 0.2s; position: relative; }
         .plan-card.selected { border-color: #3b82f6; background: rgba(30, 41, 75, 0.95); box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
@@ -941,8 +984,8 @@ html_code = """
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 9999999;
+            background: rgba(0,0,0,0.85);
+            z-index: 99999999;
             align-items: flex-end;
             justify-content: center;
         }
@@ -1063,12 +1106,57 @@ html_code = """
 </head>
 <body>
 
+    <!-- نافذة منبثقة لترقية الحساب تظهر تلقائياً عند فتح التطبيق -->
+    <div class="subscription-modal-overlay" id="subscriptionModal">
+        <div class="subscription-modal-box">
+            <div class="sub-modal-header">
+                <div class="sub-modal-title">ترقية الحساب</div>
+                <button class="sub-modal-close-x" onclick="closeSubscriptionModal()">✕</button>
+            </div>
+
+            <div style="text-align: center; margin-bottom: 5px;">
+                <div style="color: #ffffff; font-size: 17px; font-weight: 700; margin-bottom: 4px;">حول أفكارك إلى PlotCraft</div>
+                <div style="color: #94a3b8; font-size: 12px;">أنشئ كل لقطة وعدلها وأكملها بسرعة.</div>
+            </div>
+
+            <div class="plans-list">
+                <div class="plan-card selected" onclick="selectPlan(this)">
+                    <div class="plan-top">
+                        <div class="plan-name">PlotCraft Pro Weekly</div>
+                        <div class="plan-price">9.99 دولار أمريكي / أسبوع</div>
+                    </div>
+                    <div class="plan-desc">500 نقطة / أسبوعياً، جرب PlotCraft</div>
+                </div>
+
+                <div class="plan-card" onclick="selectPlan(this)">
+                    <div class="new-tag">جديد</div>
+                    <div class="plan-top">
+                        <div class="plan-name">PlotCraft Pro Monthly</div>
+                        <div class="plan-price">29.99 دولار أمريكي / شهر</div>
+                    </div>
+                    <div class="plan-desc">1800 نقطة / شهرياً، مثالي للمبدعين</div>
+                </div>
+
+                <div class="plan-card" onclick="selectPlan(this)">
+                    <div class="best-value-tag">الأفضل قيمة</div>
+                    <div class="plan-top">
+                        <div class="plan-name">PlotCraft Pro Annual</div>
+                        <div class="plan-price">69.99 دولار أمريكي / سنة</div>
+                    </div>
+                    <div class="plan-desc">5000 نقطة / سنوياً، إمكانيات غير محدودة للمخرجين المحترفين</div>
+                </div>
+            </div>
+
+            <button class="action-main-btn" onclick="openLoginModal()">اشتراك</button>
+        </div>
+    </div>
+
     <!-- الواجهة الرئيسية -->
     <div id="homeScreen" class="screen-view active">
         <div class="hero-box">
             <div class="top-header">
                 <div class="brand-title">PlotCraft</div>
-                <div class="upgrade-badge" onclick="switchScreen('subscriptionScreen', event)">ترقية</div>
+                <div class="upgrade-badge" onclick="openSubscriptionModalFromBadge()">ترقية</div>
             </div>
 
             <div class="welcome-section">
@@ -1129,7 +1217,7 @@ html_code = """
         <div class="sparkle-top-bar">
             <button class="sparkle-close-btn" onclick="switchScreen('homeScreen', event)">✕</button>
             <div class="brand-title">Plotcraft</div>
-            <div class="sparkle-upgrade-badge" onclick="switchScreen('subscriptionScreen', event)">ترقية</div>
+            <div class="sparkle-upgrade-badge" onclick="openSubscriptionModalFromBadge()">ترقية</div>
         </div>
 
         <div class="sparkle-center-content">
@@ -1179,7 +1267,7 @@ html_code = """
     <div id="toolsScreen" class="screen-view">
         <div class="tools-header">
             <div class="tools-header-title">الأدوات</div>
-            <div class="tools-upgrade-btn" onclick="switchScreen('subscriptionScreen', event)">ترقية</div>
+            <div class="tools-upgrade-btn" onclick="openSubscriptionModalFromBadge()">ترقية</div>
         </div>
         <div class="tools-body">
             <div class="tool-card-item tool-card-1" onclick="alert('تأثيرات الفيديو')">
@@ -1328,57 +1416,6 @@ html_code = """
     <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none;" onchange="handleFileSelected(event)">
     <input type="file" id="albumInput" accept="image/*" style="display:none;" onchange="handleFileSelected(event)">
 
-    <!-- واجهة صفحة الاشتراكات (تظهر أول ما يفتح المستخدم التطبيق مع زر X باليمنى) -->
-    <div id="subscriptionScreen" class="screen-view active">
-        <div class="animated-bg-container">
-            <div class="explosion-glow glow-1"></div>
-            <div class="explosion-glow glow-2"></div>
-        </div>
-
-        <div class="page-header-sub">
-            <button class="back-btn-sub" onclick="switchScreen('homeScreen', event)">✕</button>
-            <div class="page-title-sub">ترقية الحساب</div>
-            <div style="width: 36px;"></div>
-        </div>
-
-        <div class="content-body-sub">
-            <div style="text-align: center; margin-bottom: 5px;">
-                <div style="color: #ffffff; font-size: 18px; font-weight: 700; margin-bottom: 4px;">حول أفكارك إلى PlotCraft</div>
-                <div style="color: #94a3b8; font-size: 12px;">أنشئ كل لقطة وعدلها وأكملها بسرعة.</div>
-            </div>
-
-            <div class="plans-list">
-                <div class="plan-card selected" onclick="selectPlan(this)">
-                    <div class="plan-top">
-                        <div class="plan-name">PlotCraft Pro Weekly</div>
-                        <div class="plan-price">9.99 دولار أمريكي / أسبوع</div>
-                    </div>
-                    <div class="plan-desc">500 نقطة / أسبوعياً، جرب PlotCraft</div>
-                </div>
-
-                <div class="plan-card" onclick="selectPlan(this)">
-                    <div class="new-tag">جديد</div>
-                    <div class="plan-top">
-                        <div class="plan-name">PlotCraft Pro Monthly</div>
-                        <div class="plan-price">29.99 دولار أمريكي / شهر</div>
-                    </div>
-                    <div class="plan-desc">1800 نقطة / شهرياً، مثالي للمبدعين</div>
-                </div>
-
-                <div class="plan-card" onclick="selectPlan(this)">
-                    <div class="best-value-tag">الأفضل قيمة</div>
-                    <div class="plan-top">
-                        <div class="plan-name">PlotCraft Pro Annual</div>
-                        <div class="plan-price">69.99 دولار أمريكي / سنة</div>
-                    </div>
-                    <div class="plan-desc">5000 نقطة / سنوياً، إمكانيات غير محدودة للمخرجين المحترفين</div>
-                </div>
-            </div>
-
-            <button class="action-main-btn" onclick="openLoginModal()">اشتراك</button>
-        </div>
-    </div>
-
     <!-- نافذة تسجيل الدخول عند الضغط على اشتراك (مطابقة للصورة تماماً) -->
     <div class="login-modal-overlay" id="loginModalOverlay">
         <div class="login-modal-content">
@@ -1444,12 +1481,25 @@ html_code = """
             document.getElementById(screenId).classList.add('active');
             
             var navBar = document.getElementById('mainNavBar');
-            if (screenId === 'sparkleDialogScreen' || screenId === 'addCharacterScreen' || screenId === 'subscriptionScreen') {
+            if (screenId === 'sparkleDialogScreen' || screenId === 'addCharacterScreen') {
                 navBar.classList.add('hidden');
             } else {
                 navBar.classList.remove('hidden');
             }
             window.scrollTo(0, 0);
+        }
+
+        function openSubscriptionModal() {
+            document.getElementById('subscriptionModal').classList.remove('hidden');
+        }
+
+        function closeSubscriptionModal() {
+            document.getElementById('subscriptionModal').classList.add('hidden');
+        }
+
+        function openSubscriptionModalFromBadge(event) {
+            if (event) event.preventDefault();
+            openSubscriptionModal();
         }
 
         function openSparkleDialog(event) {
@@ -1562,7 +1612,7 @@ html_code = """
         }
 
         function handleSpeedCardClick(event) {
-            switchScreen('subscriptionScreen', event);
+            openSubscriptionModal();
         }
     </script>
 </body>
