@@ -1904,13 +1904,6 @@ html_code = """
                 </div>
                 <div class="settings-item-left"><span>›</span></div>
             </div>
-            <div class="settings-item-row" onclick="handleMenuClick(event, 'التعليقات')">
-                <div class="settings-item-right">
-                    <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg></div>
-                    <span>التعليقات</span>
-                </div>
-                <div class="settings-item-left"><span>›</span></div>
-            </div>
         </div>
 
         <div class="settings-group-box">
@@ -1933,20 +1926,6 @@ html_code = """
                     <span>اللغة</span>
                 </div>
                 <div class="settings-item-left"><span id="currentLangDisplay">English</span><span>›</span></div>
-            </div>
-            <div class="settings-item-row" onclick="handleMenuClick(event, 'انضم إلينا (تليجرام)')">
-                <div class="settings-item-right">
-                    <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.02-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.36-.49 1-.74 3.91-1.7 6.52-2.82 7.83-3.37 3.72-1.56 4.49-1.83 4.99-1.84.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.13-.05.29z"/></svg></div>
-                    <span>انضم إلينا</span>
-                </div>
-                <div class="settings-item-left"><span>›</span></div>
-            </div>
-            <div class="settings-item-row" onclick="handleMenuClick(event, 'اتصل بنا')">
-                <div class="settings-item-right">
-                    <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
-                    <span>اتصل بنا</span>
-                </div>
-                <div class="settings-item-left"><span>›</span></div>
             </div>
         </div>
 
@@ -2423,9 +2402,6 @@ html_code = """
 
         function handleMenuClick(event, msg) {
             if (event) event.stopPropagation();
-            if (msg === 'التعليقات') {
-                showCustomAlert('ميزة التعليقات قادمة قريباً');
-            }
         }
 
         function handleNotifToggle(checkbox) {
