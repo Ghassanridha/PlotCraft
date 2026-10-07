@@ -490,6 +490,7 @@ html_code = """
             text-align: center;
             flex-grow: 1;
         }
+        /* زر السهم للخروج النظيف تماماً بدون أي تداخل أو عنوان فرعي */
         .settings-back-btn {
             background: rgba(255, 255, 255, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -503,11 +504,13 @@ html_code = """
             align-items: center;
             justify-content: center;
             transition: 0.2s;
+            outline: none;
         }
         .settings-back-btn:active {
-            background: rgba(0, 0, 0, 0.4);
+            background-color: #0b0f19 !important;
             transform: scale(0.95);
         }
+
         .settings-upgrade-badge {
             background: rgba(255, 255, 255, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -666,7 +669,7 @@ html_code = """
         .settings-item-row:last-child {
             border-bottom: none;
         }
-        /* تأثير الضغطة: تحول من لون فاتح إلى أسود غامق لفترة الضغط */
+        /* تأثير الضغطة باللون الأسود الغامق عند الضغط على التعليقات أو اللغة */
         .settings-item-row:active {
             background-color: #0b0f19 !important;
         }
@@ -1783,10 +1786,10 @@ html_code = """
     <!-- شاشة الإعدادات -->
     <div class="settings-screen" id="settingsScreen">
         <div class="settings-top-bar">
-            <!-- زر السهم للخروج من الإعدادات في أقصى اليمين تماماً (تم الإصلاح ليغلق الإعدادات فقط) -->
+            <!-- زر السهم للإغلاق في أقصى اليمين (نظيف ومنفصل تماماً عن أي عنصر آخر) -->
             <button class="settings-back-btn" onclick="closeSettingsScreen()">›</button>
             <div class="settings-title">الإعدادات</div>
-            <!-- زر الترقية في أقصى اليسار تماماً -> يفتح قائمة الاشتراكات -->
+            <!-- زر الترقية في أقصى اليسار -->
             <button class="settings-upgrade-badge" onclick="openSubscriptionModal()">ترقية</button>
         </div>
 
