@@ -1454,7 +1454,7 @@ html_code = """
         }
         .added-char-delete-btn:active { background: #282f3d; }
 
-        /* --- نافذة رفع الصورة (تمت إضافة hidden لتختفي افتراضياً عند فتح التطبيق) --- */
+        /* --- نافذة رفع الصورة --- */
         .source-modal {
             display: flex;
             position: fixed;
@@ -2589,7 +2589,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- نافذة رفع الصورة (تمت إضافة hidden لتختفي افتراضياً عند فتح التطبيق) -->
+    <!-- نافذة رفع الصورة المعدلة حسب طلبك (الصور والأزرار) -->
     <div class="source-modal hidden" id="sourceModal" onclick="event.stopPropagation()">
         <div class="source-modal-content">
             <div class="source-modal-header">
@@ -2602,18 +2602,7 @@ html_code = """
             </div>
 
             <div class="source-images-row">
-                <!-- جهة اليمين: البنت الشقراء التي تضع يدها على فمها وتضحك -->
-                <div class="source-img-card">
-                    <div class="source-img-frame">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=500&auto=format&fit=crop">
-                    </div>
-                    <div class="source-img-caption bad">
-                        <span style="font-weight:bold; font-size:13px;">✕</span>
-                        <span>الوجه محجوب أو جانبي</span>
-                    </div>
-                </div>
-
-                <!-- جهة اليسار: البنت الشقراء التي تنظر للأمام بوضوح -->
+                <!-- جهة اليمين: الصورة التي تحتها سطر أخضر -->
                 <div class="source-img-card">
                     <div class="source-img-frame">
                         <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=500&auto=format&fit=crop">
@@ -2623,16 +2612,29 @@ html_code = """
                         <span>صورة أمامية واضحة</span>
                     </div>
                 </div>
+
+                <!-- جهة اليسار: الصورة التي تحتها سطر أحمر -->
+                <div class="source-img-card">
+                    <div class="source-img-frame">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=500&auto=format&fit=crop">
+                    </div>
+                    <div class="source-img-caption bad">
+                        <span style="font-weight:bold; font-size:13px;">✕</span>
+                        <span>الوجه محجوب أو جانبي</span>
+                    </div>
+                </div>
             </div>
 
             <div class="source-buttons-row">
-                <button class="source-btn dark-white" onclick="triggerFileInput('album')">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                    <span>مكتبة الصور</span>
-                </button>
+                <!-- جهة اليمين: زر الكاميرا -->
                 <button class="source-btn bright-white" onclick="triggerFileInput('camera')">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
                     <span>الكاميرا</span>
+                </button>
+                <!-- جهة اليسار: زر مكتبة الصور -->
+                <button class="source-btn dark-white" onclick="triggerFileInput('album')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                    <span>مكتبة الصور</span>
                 </button>
             </div>
         </div>
