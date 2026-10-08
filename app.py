@@ -1933,6 +1933,7 @@ html_code = """
             flex-direction: column;
             gap: 12px;
             margin-bottom: 16px;
+            position: relative;
         }
         .auth-input-field {
             width: 100%;
@@ -1963,6 +1964,21 @@ html_code = """
             font-size: 12px;
             text-align: center;
             font-weight: 600;
+        }
+        .auth-back-arrow {
+            position: absolute;
+            top: 12px;
+            right: 14px;
+            color: #ffffff;
+            font-size: 18px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.1);
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
@@ -2025,7 +2041,7 @@ html_code = """
                 <svg viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73C10.4 5.39 10 4.74 10 4a2 2 0 0 1 2-2M7.5 13a1.5 1.5 0 0 0-1.5 1.5A1.5 1.5 0 0 0 7.5 16a1.5 1.5 0 0 0 1.5-1.5A1.5 1.5 0 0 0 7.5 13m9 0a1.5 1.5 0 0 0-1.5 1.5a1.5 1.5 0 0 0 1.5 1.5a1.5 1.5 0 0 0 1.5-1.5a1.5 1.5 0 0 0-1.5-1.5M10 18v2h4v-2z"/></svg>
             </div>
             
-            <div class="profile-info-group" id="loggedInUserInfoArea">
+            <div class="profile-info-group" id="loggedInUserInfoArea" style="display: none;">
                 <div class="profile-name-row">
                     <span class="profile-name-text" id="displayUserName">NewUser</span>
                     <span class="profile-edit-pencil" onclick="openNameEditModal()" title="تعديل الاسم">
@@ -2038,7 +2054,7 @@ html_code = """
                 </div>
             </div>
 
-            <div class="profile-info-group" id="loggedOutUserInfoArea" style="display: none; width: 100%;">
+            <div class="profile-info-group" id="loggedOutUserInfoArea" style="display: flex; width: 100%;">
                 <button class="auth-main-btn" onclick="showLoginOptionsInSettings()">تسجيل الدخول</button>
             </div>
         </div>
@@ -2482,7 +2498,6 @@ html_code = """
                 <span data-tr="emailLogin">استمر مع البريد الإلكتروني</span>
             </button>
 
-            <!-- نموذج البريد الإلكتروني (البريد وكلمة المرور فقط بدون اسم أو كلمة إنشاء حساب) -->
             <div id="modalEmailRegisterContainer" style="display: none; flex-direction: column; gap: 10px; margin-top: 5px;">
                 <input type="email" class="auth-input-field" id="modalRegEmail" placeholder="البريد الإلكتروني">
                 <input type="password" class="auth-input-field" id="modalRegPassword" placeholder="كلمة المرور">
@@ -2541,7 +2556,7 @@ html_code = """
         let registeredUsersDB = [
             { email: "test@gmail.com", name: "Ghassan", id: "9482110 ID" }
         ];
-        let isLoggedIn = true;
+        let isLoggedIn = false;
 
         const translations = {
             Arabic: {
@@ -3121,7 +3136,6 @@ html_code = """
             openSubscriptionModal();
         }
 
-        // --- التحكم في القائمة الفرعية للإعدادات المطابقة للصورة ---
         function openSettingsSubMenu(event) {
             if (event) event.stopPropagation();
             document.getElementById('settingsSubMenu').classList.add('show');
@@ -3148,18 +3162,24 @@ html_code = """
             var container = document.getElementById('settingsAuthDynamicContainer');
             container.innerHTML = `
                 <div class="auth-form-box">
-                    <div style="color:#fff; font-size:15px; font-weight:700; text-align:center;">اختر طريقة تسجيل الدخول</div>
+                    <div class="auth-back-arrow" onclick="hideSettingsAuthContainer()" title="رجوع">‹</div>
+                    <div style="color:#fff; font-size:15px; font-weight:700; text-align:center; margin-top:5px;">اختر طريقة تسجيل الدخول</div>
                     <button class="auth-main-btn" onclick="loginWithGoogleAction()" style="background:#fff; color:#1f242d; font-weight:700;">Google</button>
                     <button class="auth-main-btn" onclick="renderEmailRegisterForm()">البريد الإلكتروني</button>
                 </div>
             `;
         }
 
+        function hideSettingsAuthContainer() {
+            document.getElementById('settingsAuthDynamicContainer').innerHTML = "";
+        }
+
         function renderEmailRegisterForm() {
             var container = document.getElementById('settingsAuthDynamicContainer');
             container.innerHTML = `
                 <div class="auth-form-box">
-                    <div style="color:#fff; font-size:15px; font-weight:700;">البريد الإلكتروني</div>
+                    <div class="auth-back-arrow" onclick="showLoginOptionsInSettings()" title="رجوع">‹</div>
+                    <div style="color:#fff; font-size:15px; font-weight:700; margin-top:5px;">البريد الإلكتروني</div>
                     <input type="email" class="auth-input-field" id="settingsRegEmail" placeholder="البريد الإلكتروني">
                     <input type="password" class="auth-input-field" id="settingsRegPassword" placeholder="كلمة المرور">
                     <button class="auth-main-btn" onclick="submitNewAccountSettings()">البريد الإلكتروني</button>
