@@ -1,10 +1,8 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
-# إعداد صفحة ستريمليت لإزالة الهوامش واستغلال الشاشة بالكامل
 st.set_page_config(page_title="PlotCraft UI", layout="wide", initial_sidebar_state="collapsed")
 
-# إزالة هوامش وتداخلات صفحة ستريمليت الافتراضية للجوال
 st.markdown("""
     <style>
         .block-container {
@@ -1456,9 +1454,9 @@ html_code = """
         }
         .added-char-delete-btn:active { background: #282f3d; }
 
-        /* --- التصميم الاحترافي المطابق للصورة تماماً --- */
+        /* --- التصميم المطابق 100% لصورتك الأخيرة --- */
         .source-modal {
-            display: none;
+            display: flex; /* مطروحة افتراضياً كما في صورتك لتشاهدها فوراً */
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85);
@@ -1466,7 +1464,7 @@ html_code = """
             align-items: flex-end;
             justify-content: center;
         }
-        .source-modal.show { display: flex; }
+        .source-modal.hidden { display: none; }
         
         .source-modal-content {
             background: #1f242d;
@@ -2591,7 +2589,7 @@ html_code = """
         </div>
     </div>
 
-    <!-- نافذة رفع الصورة المطابقة للصورة الاحترافية المطلوبة -->
+    <!-- نافذة رفع الصورة المطابقة 100% لصورتك الأخيرة -->
     <div class="source-modal" id="sourceModal" onclick="event.stopPropagation()">
         <div class="source-modal-content">
             <div class="source-modal-header">
@@ -2604,10 +2602,10 @@ html_code = """
             </div>
 
             <div class="source-images-row">
-                <!-- جهة اليمين: صورة البنت التي تضع يدها على فمها وتنظر لجانبها -->
+                <!-- جهة اليمين: البنت الشقراء التي تضع يدها على فمها وتضحك -->
                 <div class="source-img-card">
                     <div class="source-img-frame">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=500&auto=format&fit=crop">
                     </div>
                     <div class="source-img-caption bad">
                         <span style="font-weight:bold; font-size:13px;">✕</span>
@@ -2615,10 +2613,10 @@ html_code = """
                     </div>
                 </div>
 
-                <!-- جهة اليسار: صورة البنت الاحترافية التي تنظر للأمام بوضوح -->
+                <!-- جهة اليسار: البنت الشقراء التي تنظر للأمام بوضوح -->
                 <div class="source-img-card">
                     <div class="source-img-frame">
-                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop">
+                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=500&auto=format&fit=crop">
                     </div>
                     <div class="source-img-caption good">
                         <span style="font-weight:bold; font-size:13px;">✓</span>
@@ -3090,11 +3088,11 @@ html_code = """
         }
 
         function showSourceModal() {
-            document.getElementById('sourceModal').classList.add('show');
+            document.getElementById('sourceModal').classList.remove('hidden');
         }
 
         function closeSourceModal() {
-            document.getElementById('sourceModal').classList.remove('show');
+            document.getElementById('sourceModal').classList.add('hidden');
         }
 
         function triggerFileInput(type) {
