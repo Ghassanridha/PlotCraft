@@ -458,6 +458,7 @@ html_code = """
             background: #e2e8f0;
         }
 
+        /* --- شاشة الإعدادات --- */
         .settings-screen {
             display: none;
             position: fixed;
@@ -721,6 +722,7 @@ html_code = """
         input:checked + .slider-round { background-color: #3b82f6; }
         input:checked + .slider-round:before { transform: translateX(20px); }
 
+        /* نافذة اختيار اللغات */
         .language-modal-overlay {
             display: none;
             position: fixed;
@@ -1243,10 +1245,9 @@ html_code = """
             cursor: pointer;
         }
 
-        /* --- التصميم الدقيق المطابق تماماً لصورتك (الشخصية + المربع العلوي + شريط الشخصيات الأربعة + زر الإضافة + الدور) --- */
-        .character-manager-card {
+        .char-main-card {
             background: #282f3d;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255,255,255,0.08);
             border-radius: 20px;
             padding: 16px;
             display: flex;
@@ -1254,17 +1255,17 @@ html_code = """
             gap: 16px;
             margin-bottom: 16px;
         }
-        .character-manager-title {
+        .char-section-label {
             color: #ffffff;
             font-size: 15px;
             font-weight: 700;
-            text-align: right;
         }
-        .character-top-upload-box {
-            background: #1f242d;
-            border: 1.5px dashed rgba(255, 255, 255, 0.15);
+        
+        .char-big-upload-box {
+            background: #343d50;
+            border: 1px dashed rgba(255,255,255,0.2);
             border-radius: 16px;
-            height: 120px;
+            height: 180px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -1273,91 +1274,189 @@ html_code = """
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            transition: 0.2s;
         }
-        .character-top-upload-box:active { background: #252c3b; }
-        .character-top-upload-box img {
+        .char-big-upload-box img {
             width: 100%;
             height: 100%;
             object-fit: contain;
+            background-color: #000;
             position: absolute;
-            top: 0; left: 0;
-            background: #000;
+            top: 0;
+            left: 0;
         }
-        .character-upload-icon-circle {
-            width: 34px;
-            height: 34px;
-            background: rgba(255, 255, 255, 0.08);
+        .remove-big-img {
+            position: absolute;
+            top: 10px;
+            background: rgba(0,0,0,0.7);
+            color: #fff;
+            border: none;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
+            cursor: pointer;
+            z-index: 5;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: bold;
-        }
-        .character-upload-text {
-            color: #cbd5e1;
-            font-size: 13px;
-            font-weight: 500;
+            font-size: 14px;
         }
 
-        .character-tray-row {
+        .char-thumbs-container {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             width: 100%;
+        }
+
+        .char-add-role-box {
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            background: #343d50;
+            border: 1.5px dashed rgba(255,255,255,0.4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #cbd5e1;
+            font-size: 18px;
+            cursor: pointer;
+            flex-shrink: 0;
+            gap: 2px;
+            transition: 0.2s;
+        }
+        .char-add-role-box:active { background: #3f4b63; }
+        .char-add-role-text { font-size: 10px; }
+
+        .char-thumbs-scroll {
+            display: flex;
+            gap: 10px;
             overflow-x: auto;
             padding-bottom: 4px;
             scrollbar-width: none;
+            flex-grow: 1;
         }
-        .character-tray-row::-webkit-scrollbar { display: none; }
-
-        .tray-thumb-item {
+        .char-thumbs-scroll::-webkit-scrollbar { display: none; }
+        
+        .char-thumb-item {
             width: 55px;
             height: 55px;
             border-radius: 12px;
             object-fit: cover;
-            border: 1.5px solid rgba(255, 255, 255, 0.15);
+            border: 1.5px solid rgba(255,255,255,0.15);
             cursor: pointer;
             flex-shrink: 0;
+            display: block;
             transition: transform 0.2s;
         }
-        .tray-thumb-item:active { transform: scale(0.95); }
+        .char-thumb-item:active { transform: scale(0.95); }
 
-        .tray-add-role-box {
+        .char-name-input {
+            width: 100%;
+            background: #343d50;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+            padding: 14px;
+            color: #ffffff;
+            font-size: 14px;
+            outline: none;
+        }
+        .char-name-input::placeholder { color: #cbd5e1; }
+
+        .char-submit-btn-wrapper {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            z-index: 20;
+        }
+        .char-submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #3b82f6 0%, #ec4899 100%);
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 16px;
+            border-radius: 24px;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+            transition: 0.3s;
+        }
+        .char-submit-btn.disabled {
+            background: #343d50 !important;
+            color: #cbd5e1 !important;
+            cursor: not-allowed;
+            box-shadow: none;
+            opacity: 0.6;
+        }
+
+        .added-character-preview-card {
+            background: #343d50;
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .added-char-right {
             display: flex;
             align-items: center;
-            gap: 8px;
-            flex-shrink: 0;
-            cursor: pointer;
-            background: transparent;
-            padding: 4px;
+            gap: 12px;
         }
-        .tray-plus-square {
-            width: 55px;
-            height: 55px;
-            border-radius: 12px;
+        .added-char-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .added-char-name {
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+        }
+        .added-char-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .added-char-change-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .added-char-change-group:active { background: rgba(255, 255, 255, 0.2); }
+        
+        .added-char-delete-btn {
             background: #1f242d;
-            border: 1.5px dashed rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #ffffff;
-            font-size: 22px;
-            font-weight: 600;
-            transition: 0.2s;
+            font-size: 13px;
+            cursor: pointer;
+            font-weight: bold;
         }
-        .tray-plus-square:active { background: #282f3d; }
-        .tray-role-label {
-            color: #ffffff;
-            font-size: 14px;
-            font-weight: 600;
-        }
+        .added-char-delete-btn:active { background: #282f3d; }
 
-        /* --- النافذة المنبثقة المطابقة 100% لصورتك --- */
+        /* --- التصميم المطابق 100% لصورتك الأخيرة --- */
         .source-modal {
-            display: none;
+            display: flex; /* مطروحة افتراضياً كما في صورتك لتشاهدها فوراً */
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85);
@@ -1365,7 +1464,7 @@ html_code = """
             align-items: flex-end;
             justify-content: center;
         }
-        .source-modal.show { display: flex; }
+        .source-modal.hidden { display: none; }
         
         .source-modal-content {
             background: #1f242d;
@@ -1381,11 +1480,6 @@ html_code = """
             position: relative;
             box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
             animation: slideUpModal 0.3s ease;
-        }
-
-        @keyframes slideUpModal {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
         }
 
         .source-modal-header {
@@ -1515,48 +1609,6 @@ html_code = """
         }
         .source-btn.bright-white:active { background: #e2e8f0; transform: scale(0.98); }
 
-        .char-name-input {
-            width: 100%;
-            background: #282f3d;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 14px;
-            padding: 14px;
-            color: #ffffff;
-            font-size: 14px;
-            outline: none;
-            margin-top: 16px;
-        }
-        .char-name-input::placeholder { color: #cbd5e1; }
-
-        .char-submit-btn-wrapper {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            z-index: 20;
-        }
-        .char-submit-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #3b82f6 0%, #ec4899 100%);
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: 700;
-            padding: 16px;
-            border-radius: 24px;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
-            transition: 0.3s;
-        }
-        .char-submit-btn.disabled {
-            background: #343d50 !important;
-            color: #cbd5e1 !important;
-            cursor: not-allowed;
-            box-shadow: none;
-            opacity: 0.6;
-        }
-
         #toolsScreen { overflow-y: auto; }
         .tools-header {
             display: flex;
@@ -1586,9 +1638,9 @@ html_code = """
             cursor: pointer; 
         }
         
-        .tool-card-1 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), #1f242d; }
-        .tool-card-2 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), #1f242d; }
-        .tool-card-3 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), #1f242d; }
+        .tool-card-1 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop') center/contain no-repeat, #1f242d; }
+        .tool-card-2 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop') center/contain no-repeat, #1f242d; }
+        .tool-card-3 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop') center/contain no-repeat, #1f242d; }
 
         .tool-info-box { position: relative; z-index: 2; }
         .tool-main-title { color: #ffffff; font-size: 17px; font-weight: 700; margin-bottom: 4px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
@@ -1800,6 +1852,10 @@ html_code = """
             box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
             animation: slideUpModal 0.3s ease;
         }
+        @keyframes slideUpModal {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
         .login-modal-header {
             display: flex;
             justify-content: space-between;
@@ -1810,6 +1866,19 @@ html_code = """
             color: #ffffff;
             font-size: 18px;
             font-weight: 700;
+        }
+        .login-close-x {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 20px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
         }
         .login-close-arrow {
             position: absolute;
@@ -2426,40 +2495,20 @@ html_code = """
                 <div class="ai-desc" data-tr="aiDesc">عزيزي المخرج، استمتع بإنشاء وتخصيص تفاصيل فيلمك خطوة بخطوة بدقة احترافية عالية.</div>
             </div>
 
-            <!-- تصميم قسم الشخصيات المطابق تماماً لصورتك -->
-            <div class="character-manager-card">
-                <div class="character-manager-title">الشخصية</div>
-                
-                <div class="character-top-upload-box" id="topUploadBox" onclick="openSourceModal()">
-                    <div id="topBoxInner" style="display:flex; flex-direction:column; align-items:center; gap:8px;">
-                        <div class="character-upload-icon-circle">↑</div>
-                        <span class="character-upload-text">رفع صورة</span>
-                    </div>
-                </div>
-
-                <div class="character-tray-row">
-                    <!-- زر المربع الصغير الذي بداخله زائد + وكلمة الدور بجانبه أو تحته كما في الصورة -->
-                    <div class="tray-add-role-box" onclick="openSourceModal()">
-                        <div class="tray-plus-square">+</div>
-                        <span class="tray-role-label">الدور</span>
-                    </div>
-
-                    <!-- الصور المصغرة الأربعة الدقيقة المطابقة تماماً لصورتك -->
-                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&auto=format&fit=crop" class="tray-thumb-item" onclick="selectTrayThumb(this)">
-                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150&auto=format&fit=crop" class="tray-thumb-item" onclick="selectTrayThumb(this)">
-                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=150&auto=format&fit=crop" class="tray-thumb-item" onclick="selectTrayThumb(this)">
-                    <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=150&auto=format&fit=crop" class="tray-thumb-item" onclick="selectTrayThumb(this)">
-                </div>
-
-                <input type="text" class="char-name-input" id="characterNameInput" placeholder="أدخل اسم الشخصية (إجباري)" oninput="checkFormValidity()">
-            </div>
-
             <div class="story-setup-box">
                 <div class="setup-header-row">
                     <div class="setup-main-title" data-tr="storySetupTitle">إعداد القصة</div>
                     <div class="counter-badge" id="counterBadge">0/2</div>
                 </div>
                 <div class="setup-subtitle" data-tr="storySetupSub">أضف الشخصيات والقصة أولاً، ثم اختر المدة والنسبة.</div>
+
+                <div class="setup-row-item" id="characterRowSlot">
+                    <div class="item-info">
+                        <h4 data-tr="charTitle">الشخصيات</h4>
+                        <p data-tr="charDesc">أضف صورتين كحد أقصى لشخصيات القصة</p>
+                    </div>
+                    <button class="action-add-btn" onclick="openAddCharacter(event)" data-tr="addBtn">إضافة</button>
+                </div>
 
                 <div class="setup-row-item" id="storyRowSlot">
                     <div class="item-info">
@@ -2494,7 +2543,53 @@ html_code = """
         </div>
     </div>
 
-    <!-- النافذة المنبثقة المطابقة 100% لصورتك التي تحتوي على الصورتين (الوجه المحجوب / والأمامية الواضحة) -->
+    <div id="addCharacterScreen" class="screen-view">
+        <div class="add-char-header">
+            <button class="add-char-back" onclick="switchScreen('stepByStepScreen', event)">‹</button>
+            <div class="add-char-title" data-tr="addCharTitle">إضافة شخصية</div>
+            <div style="width: 20px;"></div>
+        </div>
+
+        <div style="padding: 0 16px 100px 16px;">
+            <div class="char-main-card">
+                <div class="char-section-label" data-tr="charLabel">الشخصية</div>
+                
+                <div class="char-big-upload-box" id="bigUploadBox" onclick="showSourceModal()">
+                    <div id="bigBoxInner" style="display:flex; flex-direction:column; align-items:center; gap:8px; color:#cbd5e1; font-size:13px;">
+                        <div style="width:32px; height:32px; background:rgba(255,255,255,0.08); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#ffffff;">↑</div>
+                        <span data-tr="uploadImg">رفع صورة</span>
+                    </div>
+                </div>
+
+                <div class="char-thumbs-container">
+                    <div class="char-add-role-box" onclick="showSourceModal()" title="إضافة صورة جديدة">
+                        <span>+</span>
+                        <span class="char-add-role-text" data-tr="roleText">الدور</span>
+                    </div>
+
+                    <div class="char-thumbs-scroll">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&auto=format&fit=crop" class="char-thumb-item" onclick="selectThumb(this)">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150&auto=format&fit=crop" class="char-thumb-item" onclick="selectThumb(this)">
+                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=150&auto=format&fit=crop" class="char-thumb-item" onclick="selectThumb(this)">
+                        <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=150&auto=format&fit=crop" class="char-thumb-item" onclick="selectThumb(this)">
+                        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=150&auto=format&fit=crop" class="char-thumb-item" onclick="selectThumb(this)">
+                        <img src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?q=80&w=150&auto=format&fit=crop" class="char-thumb-item" onclick="selectThumb(this)">
+                    </div>
+                </div>
+            </div>
+
+            <div class="char-main-card">
+                <div class="char-section-label" data-tr="charNameLabel">اسم الشخصية *</div>
+                <input type="text" class="char-name-input" id="characterNameInput" placeholder="أدخل اسم الشخصية (إجباري)" oninput="checkFormValidity()">
+            </div>
+        </div>
+
+        <div class="char-submit-btn-wrapper">
+            <button class="char-submit-btn disabled" id="submitCharacterBtn" onclick="submitCharacterData()" data-tr="submitBtn">إرسال</button>
+        </div>
+    </div>
+
+    <!-- نافذة رفع الصورة المطابقة 100% لصورتك الأخيرة -->
     <div class="source-modal" id="sourceModal" onclick="event.stopPropagation()">
         <div class="source-modal-content">
             <div class="source-modal-header">
@@ -2650,13 +2745,33 @@ html_code = """
                 aiDesc: "عزيزي المخرج، استمتع بإنشاء وتخصيص تفاصيل فيلمك خطوة بخطوة بدقة احترافية عالية.",
                 storySetupTitle: "إعداد القصة",
                 storySetupSub: "أضف الشخصيات والقصة أولاً، ثم اختر المدة والنسبة.",
+                charTitle: "الشخصيات",
+                charDesc: "أضف صورتين كحد أقصى لشخصيات القصة",
+                addBtn: "إضافة",
                 taleTitle: "الحكاية",
                 taleDesc: "اكتب أو صف حبكة قصتك هنا",
-                addBtn: "إضافة",
                 nextBtn: "التالي",
                 writeStoryTitle: "اكتب قصة",
                 storyPlaceholder: "اكتب وصفاً أو حبكة القصة هنا",
                 saveBtn: "حفظ",
+                addCharTitle: "إضافة شخصية",
+                charLabel: "الشخصية",
+                uploadImg: "رفع صورة",
+                roleText: "الدور",
+                charNameLabel: "اسم الشخصية *",
+                charNamePlaceholder: "أدخل اسم الشخصية (إجباري)",
+                submitBtn: "إرسال",
+                sourceTitle: "اختر مصدر الصورة",
+                cameraBtn: "كاميرا",
+                albumBtn: "ألبوم الصور",
+                cancelBtn: "إلغاء",
+                loginTitle: "تسجيل الدخول إلى Plotcraft",
+                googleLogin: "استمر مع Google",
+                emailLogin: "استمر مع البريد الإلكتروني",
+                noAccount: "ليس لدي حساب؟",
+                signupText: "البريد الإلكتروني",
+                termsText: "شروط الاستخدام",
+                privacyText: "الخصوصية",
                 navHome: "الرئيسية",
                 navTools: "الأدوات",
                 navWorks: "الأعمال",
@@ -2686,7 +2801,6 @@ html_code = """
                 editNameTitle: "تعديل اسم المستخدم",
                 editNamePlaceholder: "أدخل الاسم الجديد",
                 sendBtn: "إرسال",
-                cancelBtn: "إلغاء",
                 okBtn: "حسناً"
             },
             English: {
@@ -2715,13 +2829,33 @@ html_code = """
                 aiDesc: "Dear Director, enjoy creating and customizing your film details step by step with high professional accuracy.",
                 storySetupTitle: "Story Setup",
                 storySetupSub: "Add characters and story first, then choose duration and ratio.",
+                charTitle: "Characters",
+                charDesc: "Add up to 2 images for story characters",
+                addBtn: "Add",
                 taleTitle: "Tale",
                 taleDesc: "Write or describe your story plot here",
-                addBtn: "Add",
                 nextBtn: "Next",
                 writeStoryTitle: "Write Story",
                 storyPlaceholder: "Write your story plot or description here",
                 saveBtn: "Save",
+                addCharTitle: "Add Character",
+                charLabel: "Character",
+                uploadImg: "Upload Image",
+                roleText: "Role",
+                charNameLabel: "Character Name *",
+                charNamePlaceholder: "Enter character name (Required)",
+                submitBtn: "Submit",
+                sourceTitle: "Choose Image Source",
+                cameraBtn: "Camera",
+                albumBtn: "Photo Album",
+                cancelBtn: "Cancel",
+                loginTitle: "Sign in to Plotcraft",
+                googleLogin: "Continue with Google",
+                emailLogin: "Continue with Email",
+                noAccount: "Don't have an account?",
+                signupText: "Email",
+                termsText: "Terms of Use",
+                privacyText: "Privacy",
                 navHome: "Home",
                 navTools: "Tools",
                 navWorks: "Works",
@@ -2751,7 +2885,6 @@ html_code = """
                 editNameTitle: "Edit Username",
                 editNamePlaceholder: "Enter new name",
                 sendBtn: "Send",
-                cancelBtn: "Cancel",
                 okBtn: "OK"
             }
         };
@@ -2788,11 +2921,17 @@ html_code = """
             var storyArea = document.getElementById('storyTextArea');
             if(storyArea) storyArea.placeholder = t['storyPlaceholder'];
 
+            var charInput = document.getElementById('characterNameInput');
+            if(charInput) charInput.placeholder = t['charNamePlaceholder'];
+
+            var editInput = document.getElementById('editNameInputField');
+            if(editInput) editInput.placeholder = t['editNamePlaceholder'];
+
             closeLanguageModal();
         }
 
         document.addEventListener('click', function(event) {
-            if (event.target.tagName === 'BUTTON' || event.target.closest('button') || event.target.closest('.interactive-card') || event.target.closest('.plotcraft-nav-item') || event.target.closest('.plotcraft-nav-square') || event.target.closest('.works-tab') || event.target.closest('.plan-card') || event.target.closest('.tray-thumb-item') || event.target.closest('.tray-add-role-box') || event.target.closest('.settings-item-row') || event.target.closest('.movie-card') || event.target.closest('.sparkle-rect-card') || event.target.closest('.lang-item-row')) {
+            if (event.target.tagName === 'BUTTON' || event.target.closest('button') || event.target.closest('.interactive-card') || event.target.closest('.plotcraft-nav-item') || event.target.closest('.plotcraft-nav-square') || event.target.closest('.works-tab') || event.target.closest('.plan-card') || event.target.closest('.char-thumb-item') || event.target.closest('.settings-item-row') || event.target.closest('.movie-card') || event.target.closest('.sparkle-rect-card') || event.target.closest('.lang-item-row')) {
                 if ("vibrate" in navigator) {
                     navigator.vibrate(35);
                 }
@@ -2806,7 +2945,7 @@ html_code = """
             document.getElementById(screenId).classList.add('active');
             
             var navBar = document.getElementById('mainNavBar');
-            if (screenId === 'sparkleDialogScreen' || screenId === 'storyDescriptionScreen') {
+            if (screenId === 'sparkleDialogScreen' || screenId === 'addCharacterScreen' || screenId === 'storyDescriptionScreen') {
                 navBar.classList.add('hidden');
             } else {
                 navBar.classList.remove('hidden');
@@ -2899,6 +3038,10 @@ html_code = """
             closeNameEditModal();
         }
 
+        function openAddCharacter(event) {
+            switchScreen('addCharacterScreen', event);
+        }
+
         function openStoryDescription(event) {
             document.getElementById('storyTextArea').value = savedStoryText;
             checkStoryInput();
@@ -2944,13 +3087,12 @@ html_code = """
             document.getElementById('customAlertOverlay').classList.remove('show');
         }
 
-        /* --- تحكم نافذة رفع الصورة الدقيقة من صورتك --- */
-        function openSourceModal() {
-            document.getElementById('sourceModal').classList.add('show');
+        function showSourceModal() {
+            document.getElementById('sourceModal').classList.remove('hidden');
         }
 
         function closeSourceModal() {
-            document.getElementById('sourceModal').classList.remove('show');
+            document.getElementById('sourceModal').classList.add('hidden');
         }
 
         function triggerFileInput(type) {
@@ -2968,44 +3110,102 @@ html_code = """
                 var reader = new FileReader();
                 reader.onload = function(e) {
                     currentUploadedImageSrc = e.target.result;
-                    setTopBoxImage(currentUploadedImageSrc);
+                    setBigBoxImage(currentUploadedImageSrc);
                     checkFormValidity();
                 }
                 reader.readAsDataURL(file);
             }
         }
 
-        function setTopBoxImage(src) {
+        function setBigBoxImage(src) {
             currentUploadedImageSrc = src;
-            var box = document.getElementById('topUploadBox');
-            box.innerHTML = '<button style="position:absolute; top:8px; left:8px; background:rgba(0,0,0,0.7); color:#fff; border:none; width:26px; height:26px; border-radius:50%; cursor:pointer; z-index:5; display:flex; align-items:center; justify-content:center; font-size:12px;" onclick="clearTopBox(event)">✕</button><img src="' + src + '">';
-            characterAdded = true;
-            updateCounter();
+            var box = document.getElementById('bigUploadBox');
+            box.innerHTML = '<button class="remove-big-img" onclick="clearBigBox(event)">✕</button><img src="' + src + '">';
             checkFormValidity();
         }
 
-        function clearTopBox(event) {
+        function clearBigBox(event) {
             if (event) event.stopPropagation();
             currentUploadedImageSrc = "";
-            var box = document.getElementById('topUploadBox');
-            box.innerHTML = '<div id="topBoxInner" style="display:flex; flex-direction:column; align-items:center; gap:8px;"><div class="character-upload-icon-circle">↑</div><span class="character-upload-text">رفع صورة</span></div>';
-            characterAdded = false;
-            updateCounter();
+            var box = document.getElementById('bigUploadBox');
+            box.innerHTML = '<div id="bigBoxInner" style="display:flex; flex-direction:column; align-items:center; gap:8px; color:#cbd5e1; font-size:13px;"><div style="width:32px; height:32px; background:rgba(255,255,255,0.08); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#ffffff;">↑</div><span data-tr="uploadImg">رفع صورة</span></div>';
             checkFormValidity();
         }
 
-        function selectTrayThumb(imgElement) {
-            setTopBoxImage(imgElement.src);
+        function selectThumb(imgElement) {
+            setBigBoxImage(imgElement.src);
         }
 
         function checkFormValidity() {
             var nameInput = document.getElementById('characterNameInput').value.trim();
+            var submitBtn = document.getElementById('submitCharacterBtn');
+            
             if (currentUploadedImageSrc !== "" && nameInput !== "") {
-                characterAdded = true;
+                submitBtn.classList.remove('disabled');
             } else {
-                characterAdded = false;
+                submitBtn.classList.add('disabled');
             }
+        }
+
+        function submitCharacterData() {
+            var nameInput = document.getElementById('characterNameInput').value.trim();
+            if (currentUploadedImageSrc === "" || nameInput === "") return;
+
+            characterAdded = true;
+            updateCharacterSlotUI(currentUploadedImageSrc, nameInput);
             updateCounter();
+            switchScreen('stepByStepScreen', event);
+        }
+
+        function updateCharacterSlotUI(imgSrc, charName) {
+            var slot = document.getElementById('characterRowSlot');
+            slot.innerHTML = `
+                <div style="width:100%; display:flex; flex-direction:column; gap:8px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div class="item-info">
+                            <h4 data-tr="charTitle">الشخصيات</h4>
+                            <p>تم إضافة الشخصية بنجاح</p>
+                        </div>
+                    </div>
+                    <div class="added-character-preview-card">
+                        <div class="added-char-right">
+                            <img src="` + imgSrc + `" class="added-char-img">
+                            <span class="added-char-name">` + charName + `</span>
+                        </div>
+                        <div class="added-char-left">
+                            <div class="added-char-change-group" onclick="editCharacter('` + imgSrc + `', '` + charName + `')">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path><polyline points="21 3 21 8 16 8"></polyline></svg>
+                                <span>تغيير</span>
+                            </div>
+                            <div class="added-char-delete-btn" onclick="deleteCharacterSlot(event)">✕</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function editCharacter(imgSrc, charName) {
+            setBigBoxImage(imgSrc);
+            document.getElementById('characterNameInput').value = charName;
+            checkFormValidity();
+            switchScreen('addCharacterScreen', event);
+        }
+
+        function deleteCharacterSlot(event) {
+            event.stopPropagation();
+            characterAdded = false;
+            currentUploadedImageSrc = "";
+            document.getElementById('characterNameInput').value = "";
+            updateCounter();
+            
+            var slot = document.getElementById('characterRowSlot');
+            slot.innerHTML = `
+                <div class="item-info">
+                    <h4 data-tr="charTitle">الشخصيات</h4>
+                    <p data-tr="charDesc">أضف صورتين كحد أقصى لشخصيات القصة</p>
+                </div>
+                <button class="action-add-btn" onclick="openAddCharacter(event)" data-tr="addBtn">إضافة</button>
+            `;
         }
 
         const storyTextArea = document.getElementById('storyTextArea');
@@ -3045,7 +3245,9 @@ html_code = """
 
         function saveStoryDescription() {
             var val = storyTextArea.value.trim();
-            if (val === "") return;
+            if (val === "") {
+                return;
+            }
 
             savedStoryText = val;
             storyAdded = true;
@@ -3117,6 +3319,36 @@ html_code = """
             showCustomAlert('تم تسجيل الخروج بنجاح');
         }
 
+        function submitNewAccountSettings() {
+            var email = document.getElementById('settingsRegEmail').value.trim();
+            var pass = document.getElementById('settingsRegPassword').value.trim();
+            var errDiv = document.getElementById('settingsRegError');
+
+            if (!email || !pass) {
+                errDiv.innerText = "يرجى ملء جميع الحقول المطلوبة";
+                return;
+            }
+
+            var exists = registeredUsersDB.some(u => u.email === email);
+            if (exists) {
+                errDiv.innerText = "هذا البريد الإلكتروني مسجل مسبقاً!";
+            } else {
+                var newId = Math.floor(1000000 + Math.random() * 9000000) + " ID";
+                registeredUsersDB.push({ email: email, name: email.split('@')[0], id: newId });
+                
+                isLoggedIn = true;
+                document.getElementById('displayUserName').innerText = email.split('@')[0];
+                document.getElementById('displayUniqueId').innerText = newId;
+                
+                document.getElementById('settingsLoginBtn').style.display = 'none';
+                document.getElementById('settingsLogoutBtn').style.display = 'block';
+                document.getElementById('settingsAuthDynamicContainer').innerHTML = "";
+                document.getElementById('loggedOutUserInfoArea').style.display = 'none';
+                document.getElementById('loggedInUserInfoArea').style.display = 'flex';
+                showCustomAlert("تم تسجيل الدخول بنجاح!");
+            }
+        }
+
         function loginWithGoogleAction() {
             isLoggedIn = true;
             document.getElementById('displayUserName').innerText = "Google User";
@@ -3145,17 +3377,24 @@ html_code = """
                 return;
             }
 
-            isLoggedIn = true;
-            var newId = Math.floor(1000000 + Math.random() * 9000000) + " ID";
-            document.getElementById('displayUserName').innerText = email.split('@')[0];
-            document.getElementById('displayUniqueId').innerText = newId;
-            
-            document.getElementById('settingsLoginBtn').style.display = 'none';
-            document.getElementById('settingsLogoutBtn').style.display = 'block';
-            closeLoginModal();
-            document.getElementById('loggedOutUserInfoArea').style.display = 'none';
-            document.getElementById('loggedInUserInfoArea').style.display = 'flex';
-            showCustomAlert("تم تسجيل الدخول بنجاح!");
+            var exists = registeredUsersDB.some(u => u.email === email);
+            if (exists) {
+                errDiv.innerText = "هذا البريد الإلكتروني مسجل مسبقاً!";
+            } else {
+                var newId = Math.floor(1000000 + Math.random() * 9000000) + " ID";
+                registeredUsersDB.push({ email: email, name: email.split('@')[0], id: newId });
+                
+                isLoggedIn = true;
+                document.getElementById('displayUserName').innerText = email.split('@')[0];
+                document.getElementById('displayUniqueId').innerText = newId;
+                
+                document.getElementById('settingsLoginBtn').style.display = 'none';
+                document.getElementById('settingsLogoutBtn').style.display = 'block';
+                closeLoginModal();
+                document.getElementById('loggedOutUserInfoArea').style.display = 'none';
+                document.getElementById('loggedInUserInfoArea').style.display = 'flex';
+                showCustomAlert("تم تسجيل الدخول بنجاح!");
+            }
         }
     </script>
 </body>
