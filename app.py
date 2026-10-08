@@ -1456,7 +1456,7 @@ html_code = """
         }
         .added-char-delete-btn:active { background: #282f3d; }
 
-        /* --- التصميم الجديد المحدث بناءً على طلبك --- */
+        /* --- التصميم المحدث بالكامل حسب طلبك الدقيق --- */
         .source-modal {
             display: none;
             position: fixed;
@@ -2591,23 +2591,24 @@ html_code = """
         </div>
     </div>
 
-    <!-- نافذة اختيار مصدر الصورة المحدثة حسب طلبك تماماً -->
+    <!-- نافذة رفع الصورة المحدثة تماماً حسب طلبك الدقيق -->
     <div class="source-modal" id="sourceModal" onclick="event.stopPropagation()">
         <div class="source-modal-content">
+            <!-- رفع الصورة: عنوان في اليمين وعلامة الإكس (✕) في اليسار تماماً -->
             <div class="source-modal-header">
                 <button class="source-modal-close" onclick="closeSourceModal()">✕</button>
                 <div class="source-modal-title">رفع صورة</div>
             </div>
 
             <div class="source-info-banner">
-                الصور المرجعية تحدد ورقة مناظر الشخصية وتماسك المظهر في اللقطات التالية. يمكن إضافة شخصيتين كحد أقصى.[span_0](start_span)[span_0](end_span)
+                الصور المرجعية تحدد ورقة مناظر الشخصية وتماسك المظهر في اللقطات التالية. يمكن إضافة شخصيتين كحد أقصى.
             </div>
 
             <div class="source-images-row">
-                <!-- جهة اليمين: صورة الوجه المحجوب أو الجانبي مع علامة خطأ حمراء -->
+                <!-- جهة اليمين: صورة بنت تضع يدها تغطي نصف وجهها / وجه جانبي محجوب -->
                 <div class="source-img-card">
                     <div class="source-img-frame">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop">
+                        <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=300&auto=format&fit=crop">
                     </div>
                     <div class="source-img-caption bad">
                         <span style="font-weight:bold; font-size:13px;">✕</span>
@@ -2615,10 +2616,10 @@ html_code = """
                     </div>
                 </div>
 
-                <!-- جهة اليسار: صورة الوجه الواضح الأمامي مع علامة صح خضراء -->
+                <!-- جهة اليسار: صورة بنت واضحة تماماً تنظر للأمام -->
                 <div class="source-img-card">
                     <div class="source-img-frame">
-                        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=300&auto=format&fit=crop">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop">
                     </div>
                     <div class="source-img-caption good">
                         <span style="font-weight:bold; font-size:13px;">✓</span>
@@ -2627,7 +2628,7 @@ html_code = """
                 </div>
             </div>
 
-            <!-- أزرار الاختيار: مكتبة الصور باليسار والكاميرا باليمين -->
+            <!-- أزرار الاختيار: مكتبة الصور في جهة اليسار، والكاميرا في جهة اليمين -->
             <div class="source-buttons-row">
                 <button class="source-btn dark-white" onclick="triggerFileInput('album')">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
