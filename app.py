@@ -1456,7 +1456,7 @@ html_code = """
         }
         .added-char-delete-btn:active { background: #282f3d; }
 
-        /* --- التصميم المحدث تماماً حسب طلبك الدقيق --- */
+        /* --- التصميم الاحترافي المطابق للصورة تماماً --- */
         .source-modal {
             display: none;
             position: fixed;
@@ -2591,10 +2591,9 @@ html_code = """
         </div>
     </div>
 
-    <!-- نافذة رفع الصورة المحدثة تماماً حسب طلبك الدقيق -->
+    <!-- نافذة رفع الصورة المطابقة للصورة الاحترافية المطلوبة -->
     <div class="source-modal" id="sourceModal" onclick="event.stopPropagation()">
         <div class="source-modal-content">
-            <!-- رفع الصورة: "رفع صورة" في أقصى اليمين وعلامة الإكس (✕) في أقصى اليسار تماماً -->
             <div class="source-modal-header">
                 <div class="source-modal-title">رفع صورة</div>
                 <button class="source-modal-close" onclick="closeSourceModal()">✕</button>
@@ -2605,10 +2604,10 @@ html_code = """
             </div>
 
             <div class="source-images-row">
-                <!-- جهة اليمين: صورة بنت تنظر نحو الجدار مع وجه مائل نحوه وتضع يدها لتغطية فمها -->
+                <!-- جهة اليمين: صورة البنت التي تضع يدها على فمها وتنظر لجانبها -->
                 <div class="source-img-card">
                     <div class="source-img-frame">
-                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=300&auto=format&fit=crop">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop">
                     </div>
                     <div class="source-img-caption bad">
                         <span style="font-weight:bold; font-size:13px;">✕</span>
@@ -2616,10 +2615,10 @@ html_code = """
                     </div>
                 </div>
 
-                <!-- جهة اليسار: صورة بنت جديدة ومختلفة تنظر للأمام بوضوح تام وبشكل مستقيم تماماً -->
+                <!-- جهة اليسار: صورة البنت الاحترافية التي تنظر للأمام بوضوح -->
                 <div class="source-img-card">
                     <div class="source-img-frame">
-                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop">
+                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop">
                     </div>
                     <div class="source-img-caption good">
                         <span style="font-weight:bold; font-size:13px;">✓</span>
@@ -2628,7 +2627,6 @@ html_code = """
                 </div>
             </div>
 
-            <!-- أزرار الاختيار: مكتبة الصور في جهة اليسار، والكاميرا في جهة اليمين -->
             <div class="source-buttons-row">
                 <button class="source-btn dark-white" onclick="triggerFileInput('album')">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
