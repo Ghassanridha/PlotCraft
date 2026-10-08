@@ -1454,9 +1454,9 @@ html_code = """
         }
         .added-char-delete-btn:active { background: #282f3d; }
 
-        /* --- التصميم المطابق 100% لصورتك الأخيرة --- */
+        /* --- نافذة رفع الصورة (تمت إضافة hidden لتختفي افتراضياً عند فتح التطبيق) --- */
         .source-modal {
-            display: flex; /* مطروحة افتراضياً كما في صورتك لتشاهدها فوراً */
+            display: flex;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85);
@@ -2589,8 +2589,8 @@ html_code = """
         </div>
     </div>
 
-    <!-- نافذة رفع الصورة المطابقة 100% لصورتك الأخيرة -->
-    <div class="source-modal" id="sourceModal" onclick="event.stopPropagation()">
+    <!-- نافذة رفع الصورة (تمت إضافة hidden لتختفي افتراضياً عند فتح التطبيق) -->
+    <div class="source-modal hidden" id="sourceModal" onclick="event.stopPropagation()">
         <div class="source-modal-content">
             <div class="source-modal-header">
                 <div class="source-modal-title">رفع صورة</div>
