@@ -1456,7 +1456,7 @@ html_code = """
         }
         .added-char-delete-btn:active { background: #282f3d; }
 
-        /* --- التصميم المحدث بالكامل حسب طلبك الدقيق --- */
+        /* --- التصميم المحدث تماماً حسب طلبك الدقيق --- */
         .source-modal {
             display: none;
             position: fixed;
@@ -2594,10 +2594,10 @@ html_code = """
     <!-- نافذة رفع الصورة المحدثة تماماً حسب طلبك الدقيق -->
     <div class="source-modal" id="sourceModal" onclick="event.stopPropagation()">
         <div class="source-modal-content">
-            <!-- رفع الصورة: عنوان في اليمين وعلامة الإكس (✕) في اليسار تماماً -->
+            <!-- رفع الصورة: "رفع صورة" في أقصى اليمين وعلامة الإكس (✕) في أقصى اليسار تماماً -->
             <div class="source-modal-header">
-                <button class="source-modal-close" onclick="closeSourceModal()">✕</button>
                 <div class="source-modal-title">رفع صورة</div>
+                <button class="source-modal-close" onclick="closeSourceModal()">✕</button>
             </div>
 
             <div class="source-info-banner">
@@ -2605,10 +2605,10 @@ html_code = """
             </div>
 
             <div class="source-images-row">
-                <!-- جهة اليمين: صورة بنت تضع يدها تغطي نصف وجهها / وجه جانبي محجوب -->
+                <!-- جهة اليمين: صورة بنت تنظر نحو الجدار مع وجه مائل نحوه وتضع يدها لتغطية فمها -->
                 <div class="source-img-card">
                     <div class="source-img-frame">
-                        <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=300&auto=format&fit=crop">
+                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=300&auto=format&fit=crop">
                     </div>
                     <div class="source-img-caption bad">
                         <span style="font-weight:bold; font-size:13px;">✕</span>
@@ -2616,10 +2616,10 @@ html_code = """
                     </div>
                 </div>
 
-                <!-- جهة اليسار: صورة بنت واضحة تماماً تنظر للأمام -->
+                <!-- جهة اليسار: صورة بنت جديدة ومختلفة تنظر للأمام بوضوح تام وبشكل مستقيم تماماً -->
                 <div class="source-img-card">
                     <div class="source-img-frame">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop">
                     </div>
                     <div class="source-img-caption good">
                         <span style="font-weight:bold; font-size:13px;">✓</span>
