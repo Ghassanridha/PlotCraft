@@ -1840,40 +1840,90 @@ html_code = """
         .plotcraft-nav-item.active { color: #ffffff; font-weight: bold; }
         .plotcraft-nav-square { background-color: #282f3d; border: 1px solid #343d50; border-radius: 16px; width: 48px; height: 48px; display: flex; justify-content: center; align-items: center; flex-shrink: 0; cursor: pointer; position: relative; }
 
-        /* --- إضافات نظام المصادقة وتسجيل الحساب الجديد --- */
-        .auth-dropdown-menu {
+        /* --- إضافات نظام الإعدادات المطابق للصورة المطلوبة --- */
+        .settings-dropdown-menu {
             display: none;
-            position: absolute;
-            top: 50px;
-            right: 0;
-            background: #282f3d;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 14px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.7);
-            padding: 8px;
-            z-index: 999;
-            min-width: 140px;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #1f242d;
+            z-index: 9999999;
+            flex-direction: column;
+            padding: 20px;
+            overflow-y: auto;
         }
-        .auth-dropdown-menu.show { display: flex; flex-direction: column; gap: 6px; }
-        .auth-menu-btn {
-            background: #ef4444;
-            color: #fff;
+        .settings-dropdown-menu.show { display: flex; }
+        
+        .settings-sub-header {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .settings-sub-back {
+            background: none;
             border: none;
-            padding: 8px 12px;
-            border-radius: 10px;
-            font-size: 13px;
-            font-weight: 700;
+            color: #fff;
+            font-size: 22px;
             cursor: pointer;
-            text-align: center;
         }
-        .auth-menu-btn:active { background: #dc2626; }
 
-        .auth-container-logged-out {
+        .settings-card-group-box {
+            background: #282f3d;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 8px 16px;
+            margin-bottom: 20px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            width: 100%;
         }
+        .settings-card-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            cursor: pointer;
+        }
+        .settings-card-row:last-child { border-bottom: none; }
+        .settings-card-row:active { background: rgba(255,255,255,0.05); }
+
+        .settings-card-row-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .settings-card-row-left {
+            color: #cbd5e1;
+            font-size: 16px;
+        }
+        .settings-logout-fixed-btn {
+            background: #ffffff;
+            color: #1f242d;
+            border: none;
+            border-radius: 16px;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            width: 100%;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(255,255,255,0.15);
+            margin-top: auto;
+            margin-bottom: 15px;
+        }
+        .settings-logout-fixed-btn:active { background: #e2e8f0; }
+
+        .settings-version-text {
+            color: #94a3b8;
+            font-size: 12px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
         .auth-form-box {
             background: #282f3d;
             border: 1px solid rgba(255,255,255,0.1);
@@ -1975,7 +2025,6 @@ html_code = """
                 <svg viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73C10.4 5.39 10 4.74 10 4a2 2 0 0 1 2-2M7.5 13a1.5 1.5 0 0 0-1.5 1.5A1.5 1.5 0 0 0 7.5 16a1.5 1.5 0 0 0 1.5-1.5A1.5 1.5 0 0 0 7.5 13m9 0a1.5 1.5 0 0 0-1.5 1.5a1.5 1.5 0 0 0 1.5 1.5a1.5 1.5 0 0 0 1.5-1.5a1.5 1.5 0 0 0-1.5-1.5M10 18v2h4v-2z"/></svg>
             </div>
             
-            <!-- حالة المستخدم مسجل دخول -->
             <div class="profile-info-group" id="loggedInUserInfoArea">
                 <div class="profile-name-row">
                     <span class="profile-name-text" id="displayUserName">NewUser</span>
@@ -1989,13 +2038,11 @@ html_code = """
                 </div>
             </div>
 
-            <!-- حالة المستخدم غير مسجل دخول (تظهر بدلاً من الاسم والـ ID) -->
             <div class="profile-info-group" id="loggedOutUserInfoArea" style="display: none; width: 100%;">
                 <button class="auth-main-btn" onclick="showLoginOptionsInSettings()">تسجيل الدخول</button>
             </div>
         </div>
 
-        <!-- قائمة تسجيل الدخول / حساب جديد داخل الإعدادات (تظهر عند الطلب) -->
         <div id="settingsAuthDynamicContainer"></div>
 
         <div class="pro-banner-card">
@@ -2040,18 +2087,57 @@ html_code = """
         </div>
 
         <div class="settings-group-box">
-            <div class="settings-item-row" onclick="toggleSettingsLogoutMenu(event)" style="position: relative;">
+            <div class="settings-item-row" onclick="openSettingsSubMenu(event)">
                 <div class="settings-item-right">
                     <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c-.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
                     <span data-tr="settings">الإعدادات</span>
                 </div>
                 <div class="settings-item-left"><span>›</span></div>
+            </div>
+        </div>
 
-                <!-- القائمة المنسدلة لإعدادات الحساب (تسجيل الخروج) -->
-                <div class="auth-dropdown-menu" id="settingsLogoutDropdown">
-                    <button class="auth-menu-btn" onclick="performLogout(event)">تسجيل الخروج</button>
+        <!-- القائمة الفرعية للإعدادات المطابقة للصورة -->
+        <div class="settings-dropdown-menu" id="settingsSubMenu">
+            <div class="settings-sub-header">
+                <button class="settings-sub-back" onclick="closeSettingsSubMenu(event)">‹</button>
+            </div>
+
+            <div class="settings-card-group-box">
+                <div class="settings-card-row" onclick="showCustomAlert('شروط الاستخدام')">
+                    <div class="settings-card-row-right">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        <span>شروط الاستخدام</span>
+                    </div>
+                    <div class="settings-card-row-left">‹</div>
+                </div>
+
+                <div class="settings-card-row" onclick="showCustomAlert('الخصوصية')">
+                    <div class="settings-card-row-right">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        <span>الخصوصية</span>
+                    </div>
+                    <div class="settings-card-row-left">‹</div>
+                </div>
+
+                <div class="settings-card-row" onclick="showCustomAlert('إلغاء الاشتراك')">
+                    <div class="settings-card-row-right">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                        <span>إلغاء الاشتراك</span>
+                    </div>
+                    <div class="settings-card-row-left">‹</div>
+                </div>
+
+                <div class="settings-card-row" onclick="showCustomAlert('حذف الحساب')">
+                    <div class="settings-card-row-right">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="18" y1="8" x2="23" y2="13"></line><line x1="23" y1="8" x2="18" y2="13"></line></svg>
+                        <span>حذف الحساب</span>
+                    </div>
+                    <div class="settings-card-row-left">‹</div>
                 </div>
             </div>
+
+            <button class="settings-logout-fixed-btn" onclick="performLogoutFromSubMenu(event)">تسجيل الخروج</button>
+            <div class="settings-version-text">الإصدار:2.0.4</div>
         </div>
     </div>
 
@@ -2396,17 +2482,16 @@ html_code = """
                 <span data-tr="emailLogin">استمر مع البريد الإلكتروني</span>
             </button>
 
-            <!-- نموذج إنشاء حساب جديد بالبريد داخل النافذة المنبثقة -->
+            <!-- نموذج البريد الإلكتروني (البريد وكلمة المرور فقط بدون اسم أو كلمة إنشاء حساب) -->
             <div id="modalEmailRegisterContainer" style="display: none; flex-direction: column; gap: 10px; margin-top: 5px;">
-                <input type="text" class="auth-input-field" id="modalRegName" placeholder="الاسم الكامل">
                 <input type="email" class="auth-input-field" id="modalRegEmail" placeholder="البريد الإلكتروني">
                 <input type="password" class="auth-input-field" id="modalRegPassword" placeholder="كلمة المرور">
-                <button class="auth-main-btn" onclick="submitNewAccountModal()">تأكيد وإنشاء الحساب</button>
+                <button class="auth-main-btn" onclick="submitNewAccountModal()">البريد الإلكتروني</button>
                 <div class="auth-error-text" id="modalRegError"></div>
             </div>
 
             <div class="login-footer-text" onclick="showEmailRegisterFormInModal()">
-                <span data-tr="noAccount">ليس لدي حساب؟</span> <span data-tr="signupText" style="color: #3b82f6; font-weight: 600;">اشتراك</span>
+                <span data-tr="noAccount">ليس لدي حساب؟</span> <span data-tr="signupText" style="color: #3b82f6; font-weight: 600;">البريد الإلكتروني</span>
             </div>
 
             <div class="login-links-row">
@@ -2453,11 +2538,10 @@ html_code = """
         let userUniqueId = Math.floor(1000000 + Math.random() * 9000000);
         document.getElementById('displayUniqueId').innerText = userUniqueId + " ID";
 
-        // --- نظام تخزين المستخدمين لمنع تكرار الإيميل ---
         let registeredUsersDB = [
             { email: "test@gmail.com", name: "Ghassan", id: "9482110 ID" }
         ];
-        let isLoggedIn = true; // الحالة الافتراضية مسجل دخول
+        let isLoggedIn = true;
 
         const translations = {
             Arabic: {
@@ -2510,7 +2594,7 @@ html_code = """
                 googleLogin: "استمر مع Google",
                 emailLogin: "استمر مع البريد الإلكتروني",
                 noAccount: "ليس لدي حساب؟",
-                signupText: "اشتراك",
+                signupText: "البريد الإلكتروني",
                 termsText: "شروط الاستخدام",
                 privacyText: "الخصوصية",
                 navHome: "الرئيسية",
@@ -2594,7 +2678,7 @@ html_code = """
                 googleLogin: "Continue with Google",
                 emailLogin: "Continue with Email",
                 noAccount: "Don't have an account?",
-                signupText: "Sign up",
+                signupText: "Email",
                 termsText: "Terms of Use",
                 privacyText: "Privacy",
                 navHome: "Home",
@@ -3037,20 +3121,24 @@ html_code = """
             openSubscriptionModal();
         }
 
-        // --- دمج وتفعيل تفاصيل المصادقة وإدارة حالة الحساب ---
-        function toggleSettingsLogoutMenu(event) {
+        // --- التحكم في القائمة الفرعية للإعدادات المطابقة للصورة ---
+        function openSettingsSubMenu(event) {
             if (event) event.stopPropagation();
-            if (!isLoggedIn) return; // إذا غير مسجل دخول لا تظهر قائمة الخروج
-            var dropdown = document.getElementById('settingsLogoutDropdown');
-            dropdown.classList.toggle('show');
+            document.getElementById('settingsSubMenu').classList.add('show');
         }
 
-        function performLogout(event) {
+        function closeSettingsSubMenu(event) {
+            if (event) event.stopPropagation();
+            document.getElementById('settingsSubMenu').classList.remove('show');
+        }
+
+        function performLogoutFromSubMenu(event) {
             if (event) event.stopPropagation();
             isLoggedIn = false;
-            document.getElementById('settingsLogoutDropdown').classList.remove('show');
+            document.getElementById('settingsSubMenu').classList.remove('show');
+            document.getElementById('settingsScreen').classList.remove('active');
+            document.getElementById('mainNavBar').classList.remove('hidden');
             
-            // تبديل واجهة الإعدادات لحالة الخروج
             document.getElementById('loggedInUserInfoArea').style.display = 'none';
             document.getElementById('loggedOutUserInfoArea').style.display = 'flex';
             showCustomAlert('تم تسجيل الخروج بنجاح');
@@ -3071,42 +3159,40 @@ html_code = """
             var container = document.getElementById('settingsAuthDynamicContainer');
             container.innerHTML = `
                 <div class="auth-form-box">
-                    <div style="color:#fff; font-size:15px; font-weight:700;">إنشاء حساب جديد</div>
-                    <input type="text" class="auth-input-field" id="settingsRegName" placeholder="الاسم الكامل">
+                    <div style="color:#fff; font-size:15px; font-weight:700;">البريد الإلكتروني</div>
                     <input type="email" class="auth-input-field" id="settingsRegEmail" placeholder="البريد الإلكتروني">
                     <input type="password" class="auth-input-field" id="settingsRegPassword" placeholder="كلمة المرور">
-                    <button class="auth-main-btn" onclick="submitNewAccountSettings()">تأكيد وحفظ</button>
+                    <button class="auth-main-btn" onclick="submitNewAccountSettings()">البريد الإلكتروني</button>
                     <div class="auth-error-text" id="settingsRegError"></div>
                 </div>
             `;
         }
 
         function submitNewAccountSettings() {
-            var name = document.getElementById('settingsRegName').value.trim();
             var email = document.getElementById('settingsRegEmail').value.trim();
             var pass = document.getElementById('settingsRegPassword').value.trim();
             var errDiv = document.getElementById('settingsRegError');
 
-            if (!name || !email || !pass) {
+            if (!email || !pass) {
                 errDiv.innerText = "يرجى ملء جميع الحقول المطلوبة";
                 return;
             }
 
             var exists = registeredUsersDB.some(u => u.email === email);
             if (exists) {
-                errDiv.innerText = "هذا البريد الإلكتروني مسجل مسبقاً، يرجى تسجيل الدخول";
+                errDiv.innerText = "هذا البريد الإلكتروني مسجل مسبقاً!";
             } else {
                 var newId = Math.floor(1000000 + Math.random() * 9000000) + " ID";
-                registeredUsersDB.push({ email: email, name: name, id: newId });
+                registeredUsersDB.push({ email: email, name: email.split('@')[0], id: newId });
                 
                 isLoggedIn = true;
-                document.getElementById('displayUserName').innerText = name;
+                document.getElementById('displayUserName').innerText = email.split('@')[0];
                 document.getElementById('displayUniqueId').innerText = newId;
                 
                 document.getElementById('settingsAuthDynamicContainer').innerHTML = "";
                 document.getElementById('loggedOutUserInfoArea').style.display = 'none';
                 document.getElementById('loggedInUserInfoArea').style.display = 'flex';
-                showCustomAlert("تم إنشاء الحساب وتسجيل الدخول بنجاح!");
+                showCustomAlert("تم تسجيل الدخول بنجاح!");
             }
         }
 
@@ -3126,12 +3212,11 @@ html_code = """
         }
 
         function submitNewAccountModal() {
-            var name = document.getElementById('modalRegName').value.trim();
             var email = document.getElementById('modalRegEmail').value.trim();
             var pass = document.getElementById('modalRegPassword').value.trim();
             var errDiv = document.getElementById('modalRegError');
 
-            if (!name || !email || !pass) {
+            if (!email || !pass) {
                 errDiv.innerText = "يرجى ملء جميع الحقول المطلوبة";
                 return;
             }
@@ -3141,16 +3226,16 @@ html_code = """
                 errDiv.innerText = "هذا البريد الإلكتروني مسجل مسبقاً!";
             } else {
                 var newId = Math.floor(1000000 + Math.random() * 9000000) + " ID";
-                registeredUsersDB.push({ email: email, name: name, id: newId });
+                registeredUsersDB.push({ email: email, name: email.split('@')[0], id: newId });
                 
                 isLoggedIn = true;
-                document.getElementById('displayUserName').innerText = name;
+                document.getElementById('displayUserName').innerText = email.split('@')[0];
                 document.getElementById('displayUniqueId').innerText = newId;
                 
                 closeLoginModal();
                 document.getElementById('loggedOutUserInfoArea').style.display = 'none';
                 document.getElementById('loggedInUserInfoArea').style.display = 'flex';
-                showCustomAlert("تم إنشاء الحساب بنجاح وتسجيل الدخول!");
+                showCustomAlert("تم تسجيل الدخول بنجاح!");
             }
         }
     </script>
