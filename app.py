@@ -1456,49 +1456,160 @@ html_code = """
         }
         .added-char-delete-btn:active { background: #282f3d; }
 
+        /* --- التصميم الجديد المطابق للصورة المطلوبة تماماً --- */
         .source-modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 999;
-            align-items: center;
+            background: rgba(0,0,0,0.85);
+            z-index: 9999999999;
+            align-items: flex-end;
             justify-content: center;
         }
         .source-modal.show { display: flex; }
+        
         .source-modal-content {
-            background: #282f3d;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 20px;
-            padding: 20px;
-            width: 90%;
-            max-width: 320px;
+            background: #1f242d;
+            border-top-left-radius: 28px;
+            border-top-right-radius: 28px;
+            border: 1px solid rgba(255,255,255,0.12);
+            width: 100%;
+            max-width: 480px;
+            padding: 20px 20px 35px 20px;
             display: flex;
             flex-direction: column;
-            gap: 14px;
-            text-align: center;
+            gap: 16px;
+            position: relative;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
+            animation: slideUpModal 0.3s ease;
         }
+
+        .source-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        .source-modal-title {
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .source-modal-close {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .source-modal-close:active { background: rgba(255, 255, 255, 0.25); }
+
+        .source-info-banner {
+            background: rgba(40, 47, 61, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 12px 14px;
+            color: #cbd5e1;
+            font-size: 12px;
+            line-height: 1.5;
+            text-align: right;
+        }
+
+        .source-images-row {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .source-img-card {
+            flex: 1;
+            background: #282f3d;
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .source-img-frame {
+            width: 100%;
+            height: 150px;
+            position: relative;
+            background-color: #000;
+        }
+
+        .source-img-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .source-img-caption {
+            padding: 10px 8px;
+            font-size: 11px;
+            font-weight: 600;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .source-img-caption.bad {
+            color: #f87171;
+            background: rgba(248, 113, 113, 0.08);
+        }
+
+        .source-img-caption.good {
+            color: #4ade80;
+            background: rgba(74, 222, 128, 0.08);
+        }
+
         .source-buttons-row {
             display: flex;
-            gap: 10px;
-            justify-content: space-between;
+            gap: 12px;
+            width: 100%;
+            margin-top: 5px;
         }
+
         .source-btn {
             flex: 1;
-            background: #343d50;
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 12px 8px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 600;
+            border-radius: 16px;
+            padding: 14px 10px;
+            font-size: 14px;
+            font-weight: 700;
             cursor: pointer;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 6px;
+            justify-content: center;
+            gap: 8px;
+            border: none;
+            transition: 0.2s;
         }
-        .source-btn:active { background: #3f4b63; }
+
+        .source-btn.dark-white {
+            background: #282f3d;
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .source-btn.dark-white:active { background: #343d50; transform: scale(0.98); }
+
+        .source-btn.bright-white {
+            background: #ffffff;
+            color: #1f242d;
+            box-shadow: 0 4px 15px rgba(255,255,255,0.15);
+        }
+        .source-btn.bright-white:active { background: #e2e8f0; transform: scale(0.98); }
 
         #toolsScreen { overflow-y: auto; }
         .tools-header {
@@ -1861,7 +1972,6 @@ html_code = """
         .plotcraft-nav-item.active { color: #ffffff; font-weight: bold; }
         .plotcraft-nav-square { background-color: #282f3d; border: 1px solid #343d50; border-radius: 16px; width: 48px; height: 48px; display: flex; justify-content: center; align-items: center; flex-shrink: 0; cursor: pointer; position: relative; }
 
-        /* --- إضافات نظام الإعدادات المطابق للصورة المطلوبة --- */
         .settings-dropdown-menu {
             display: none;
             position: fixed;
@@ -2133,7 +2243,6 @@ html_code = """
             </div>
         </div>
 
-        <!-- القائمة الفرعية للإعدادات المطابقة للصورة -->
         <div class="settings-dropdown-menu" id="settingsSubMenu">
             <div class="settings-sub-header">
                 <button class="settings-sub-back" onclick="closeSettingsSubMenu(event)">‹</button>
@@ -2173,7 +2282,6 @@ html_code = """
                 </div>
             </div>
 
-            <!-- زر تسجيل الخروج يظهر فقط عند تسجيل الدخول ويختفي عند عدم تسجيل الدخول -->
             <button class="settings-logout-fixed-btn" id="settingsLogoutBtn" style="display: none;" onclick="performLogoutFromSubMenu(event)">تسجيل الخروج</button>
             <div class="settings-version-text">الإصدار:2.0.4</div>
         </div>
@@ -2483,20 +2591,50 @@ html_code = """
         </div>
     </div>
 
+    <!-- نافذة اختيار مصدر الصورة الجديدة المطابقة للتصميم المطلوب -->
     <div class="source-modal" id="sourceModal" onclick="event.stopPropagation()">
         <div class="source-modal-content">
-            <div style="color:#fff; font-weight:700; font-size:15px; margin-bottom:2px;" data-tr="sourceTitle">اختر مصدر الصورة</div>
+            <div class="source-modal-header">
+                <div class="source-modal-title">رفع صورة</div>
+                <button class="source-modal-close" onclick="closeSourceModal()">✕</button>
+            </div>
+
+            <div class="source-info-banner">
+                الصور المرجعية تحدد ورقة مناظر الشخصية وتماسك المظهر في اللقطات التالية. يمكن إضافة شخصيتين كحد أقصى.
+            </div>
+
+            <div class="source-images-row">
+                <div class="source-img-card">
+                    <div class="source-img-frame">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop">
+                    </div>
+                    <div class="source-img-caption bad">
+                        <span>الوجه محجوب أو جانبي</span>
+                        <span style="font-weight:bold; font-size:13px;">✕</span>
+                    </div>
+                </div>
+
+                <div class="source-img-card">
+                    <div class="source-img-frame">
+                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=300&auto=format&fit=crop">
+                    </div>
+                    <div class="source-img-caption good">
+                        <span>صورة أمامية واضحة</span>
+                        <span style="font-weight:bold; font-size:13px;">✓</span>
+                    </div>
+                </div>
+            </div>
+
             <div class="source-buttons-row">
-                <button class="source-btn" onclick="triggerFileInput('camera')">
-                    <span style="font-size:20px;">📷</span>
-                    <span data-tr="cameraBtn">كاميرا</span>
+                <button class="source-btn dark-white" onclick="triggerFileInput('album')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                    <span>مكتبة الصور</span>
                 </button>
-                <button class="source-btn" onclick="triggerFileInput('album')">
-                    <span style="font-size:20px;">🖼️</span>
-                    <span data-tr="albumBtn">ألبوم الصور</span>
+                <button class="source-btn bright-white" onclick="triggerFileInput('camera')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                    <span>الكاميرا</span>
                 </button>
             </div>
-            <button style="background:none; border:none; color:#cbd5e1; margin-top:4px; cursor:pointer; font-size:13px;" onclick="closeSourceModal()" data-tr="cancelBtn">إلغاء</button>
         </div>
     </div>
 
@@ -2954,7 +3092,7 @@ html_code = """
         }
 
         function closeSourceModal() {
-            document.getElementById('sourceModal').classList.add('show');
+            document.getElementById('sourceModal').classList.remove('show');
         }
 
         function triggerFileInput(type) {
@@ -3172,7 +3310,6 @@ html_code = """
             if (event) event.stopPropagation();
             isLoggedIn = false;
             
-            // إظهار زر تسجيل الدخول في الإعدادات وإخفاء زر تسجيل الخروج، وإغلاق القائمة تلقائياً
             document.getElementById('settingsLoginBtn').style.display = 'block';
             document.getElementById('settingsLogoutBtn').style.display = 'none';
             document.getElementById('loggedInUserInfoArea').style.display = 'none';
@@ -3203,7 +3340,6 @@ html_code = """
                 document.getElementById('displayUserName').innerText = email.split('@')[0];
                 document.getElementById('displayUniqueId').innerText = newId;
                 
-                // إخفاء زر تسجيل الدخول وإظهار زر تسجيل الخروج داخل الإعدادات
                 document.getElementById('settingsLoginBtn').style.display = 'none';
                 document.getElementById('settingsLogoutBtn').style.display = 'block';
                 document.getElementById('settingsAuthDynamicContainer').innerHTML = "";
@@ -3218,7 +3354,6 @@ html_code = """
             document.getElementById('displayUserName').innerText = "Google User";
             document.getElementById('loginModalOverlay').classList.remove('show');
             
-            // إخفاء زر تسجيل الدخول وإظهار زر تسجيل الخروج داخل الإعدادات
             document.getElementById('settingsLoginBtn').style.display = 'none';
             document.getElementById('settingsLogoutBtn').style.display = 'block';
             document.getElementById('settingsAuthDynamicContainer').innerHTML = "";
@@ -3253,7 +3388,6 @@ html_code = """
                 document.getElementById('displayUserName').innerText = email.split('@')[0];
                 document.getElementById('displayUniqueId').innerText = newId;
                 
-                // إخفاء زر تسجيل الدخول وإظهار زر تسجيل الخروج داخل الإعدادات
                 document.getElementById('settingsLoginBtn').style.display = 'none';
                 document.getElementById('settingsLogoutBtn').style.display = 'block';
                 closeLoginModal();
