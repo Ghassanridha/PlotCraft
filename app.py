@@ -18,6 +18,6 @@ st.markdown("""
 try:
     with open("index.html", "r", encoding="utf-8") as f:
         html_code = f.read()
-    components.html(html_code, height=850, scrolling=True)
+    components.html(html_code, height=680, scrolling=False)
 except FileNotFoundError:
     st.error("الرجاء التأكد من وجود ملف index.html في نفس المجلد.")
