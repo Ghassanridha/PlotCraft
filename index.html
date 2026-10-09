@@ -1961,11 +1961,12 @@
         }
         .login-links-row span { cursor: pointer; }
 
+        /* --- التعديل هنا: رفع الأزرار وحدها للأعلى داخل الشريط --- */
         .plotcraft-nav-bar {
             position: absolute;
             bottom: 0; left: 0; width: 100%;
             background-color: #1f242d;
-            padding: 10px 15px;
+            padding: 6px 15px 16px 15px; /* تم تقليل البادنغ السفلي وزيادة العلوي لرفع الأزرار */
             display: flex; justify-content: center; align-items: center; gap: 12px;
             z-index: 1000; box-sizing: border-box;
             box-shadow: 0 -4px 15px rgba(0,0,0,0.6);
@@ -3352,6 +3353,7 @@
                 document.getElementById('settingsLoginBtn').style.display = 'none';
                 document.getElementById('settingsLogoutBtn').style.display = 'block';
                 closeLoginModal();
+                document.getElementById('loggedOutToolbarInfoArea').style.display = 'none';
                 document.getElementById('loggedOutUserInfoArea').style.display = 'none';
                 document.getElementById('loggedInUserInfoArea').style.display = 'flex';
                 showCustomAlert("تم تسجيل الدخول بنجاح!");
