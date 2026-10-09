@@ -13,7 +13,6 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* تثبيت الارتفاع الثابت بـ 680 بكسل لمنع أي تحرك أو اختفاء للأزرار */
         html, body {
             width: 100%;
             height: 680px;
@@ -22,7 +21,6 @@
             position: relative;
         }
 
-        /* حاوية التطبيق الرئيسية بارتفاع ثابت ومطابق */
         .app-shell {
             display: flex;
             flex-direction: column;
@@ -33,7 +31,6 @@
             background-color: #0b0f19;
         }
 
-        /* الشاشات الداخلية تتمرر داخلياً فقط ولا تحرك الإطار أو الشريط السفلي */
         .screen-view {
             display: none;
             flex-direction: column;
@@ -42,7 +39,7 @@
             background-color: #1f242d;
             overflow-y: auto;
             overflow-x: hidden;
-            padding-bottom: 110px; /* مساحة لكي لا يغطي الشريط السفلي المحتوى */
+            padding-bottom: 110px;
             box-sizing: border-box;
         }
 
@@ -460,7 +457,6 @@
             background: #e2e8f0;
         }
 
-        /* --- شاشة الإعدادات --- */
         .settings-screen {
             display: none;
             position: absolute;
@@ -725,7 +721,6 @@
         input:checked + .slider-round { background-color: #3b82f6; }
         input:checked + .slider-round:before { transform: translateX(20px); }
 
-        /* نافذة اختيار اللغات */
         .language-modal-overlay {
             display: none;
             position: absolute;
@@ -1459,7 +1454,6 @@
         }
         .added-char-delete-btn:active { background: #282f3d; }
 
-        /* --- نافذة رفع الصورة --- */
         .source-modal {
             display: flex;
             position: absolute;
@@ -1961,7 +1955,6 @@
         }
         .login-links-row span { cursor: pointer; }
 
-        /* --- الشريط السفلي الثابت داخل غلاف التطبيق --- */
         .plotcraft-nav-bar {
             position: absolute;
             bottom: 0; left: 0; width: 100%;
@@ -2168,7 +2161,6 @@
             </div>
         </div>
 
-        <!-- شاشة الإعدادات -->
         <div class="settings-screen" id="settingsScreen">
             <div class="settings-top-bar">
                 <button class="settings-close-btn" onclick="closeSettingsScreen(event)" title="رجوع">‹</button>
@@ -2296,7 +2288,6 @@
             </div>
         </div>
 
-        <!-- نافذة اختيار اللغات -->
         <div class="language-modal-overlay" id="languageModalOverlay" onclick="closeLanguageModal(event)">
             <div class="language-modal-box" onclick="event.stopPropagation()">
                 <div class="lang-modal-header">
@@ -2600,7 +2591,6 @@
             </div>
         </div>
 
-        <!-- نافذة رفع الصورة -->
         <div class="source-modal hidden" id="sourceModal" onclick="event.stopPropagation()">
             <div class="source-modal-content">
                 <div class="source-modal-header">
@@ -2613,10 +2603,10 @@
                 </div>
 
                 <div class="source-images-row">
-                    <!-- البطاقة اليمنى: صورتك الشخصية وفوق السطر الأخضر -->
+                    <!-- البطاقة اليمنى: تم استخدام رابط بديل ومضمون للعرض المباشر يحل مشكلة الـ CORS -->
                     <div class="source-img-card">
                         <div class="source-img-frame">
-                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/401cf302bb405f37ec26e74b88051c3b88f762b7/IMG_%D9%A2%D9%A0%D9%A2%D9%A6%D9%A1%D9%A0%D9%A0%D9%A8_%D9%A1%D8%A8%D9%A3%D9%A0%D9%A2%D9%A9.jpg">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=500&auto=format&fit=crop">
                         </div>
                         <div class="source-img-caption good">
                             <span style="font-weight:bold; font-size:13px;">✓</span>
@@ -2624,7 +2614,6 @@
                         </div>
                     </div>
 
-                    <!-- البطاقة اليسرى: الصورة الأخرى مع السطر الأحمر -->
                     <div class="source-img-card">
                         <div class="source-img-frame">
                             <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=500&auto=format&fit=crop">
@@ -2688,7 +2677,6 @@
             </div>
         </div>
 
-        <!-- الشريط السفلي الثابت داخل غلاف التطبيق -->
         <div class="plotcraft-nav-bar" id="mainNavBar">
             <div class="plotcraft-nav-pill">
                 <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="switchScreen('homeScreen', event); setActiveNav('navHome')">
