@@ -2658,15 +2658,18 @@
                     <span data-tr="emailLogin">استمر مع البريد الإلكتروني</span>
                 </button>
 
+                <!-- نموذج الإدخال الجديد للبريد وكلمة المرور مع التحقق -->
                 <div id="modalEmailRegisterContainer" style="display: none; flex-direction: column; gap: 10px; margin-top: 5px;">
-                    <input type="email" class="auth-input-field" id="modalRegEmail" placeholder="البريد الإلكتروني">
+                    <input type="email" class="auth-input-field" id="modalRegEmail" placeholder="البريد الإلكتروني (مثل: test@gmail.com)">
                     <input type="password" class="auth-input-field" id="modalRegPassword" placeholder="كلمة المرور">
-                    <button class="auth-main-btn" onclick="submitNewAccountModal()">البريد الإلكتروني</button>
-                    <div class="auth-error-text" id="modalRegError"></div>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="auth-main-btn" onclick="submitLoginOrRegister()">دخول / تحقق</button>
+                    </div>
+                    <div class="auth-error-text" id="modalRegError" style="color: #f87171; font-size: 12px; text-align: center;"></div>
                 </div>
 
                 <div class="login-footer-text" onclick="showEmailRegisterFormInModal()">
-                    <span data-tr="noAccount">ليس لدي حساب؟</span> <span data-tr="signupText" style="color: #3b82f6; font-weight: 600;">البريد الإلكتروني</span>
+                    <span data-tr="noAccount">ليس لدي حساب؟</span> <span data-tr="signupText" style="color: #3b82f6; font-weight: 600;">إنشاء حساب / تسجيل</span>
                 </div>
 
                 <div class="login-links-row">
@@ -2715,8 +2718,9 @@
         let userUniqueId = Math.floor(1000000 + Math.random() * 9000000);
         document.getElementById('displayUniqueId').innerText = userUniqueId + " ID";
 
-        let registeredUsersDB = [
-            { email: "test@gmail.com", name: "Ghassan", id: "9482110 ID" }
+        // قاعدة بيانات محلية للحسابات (البريد وكلمة المرور المسجلة حصراً)
+        let registeredUsersDB = JSON.parse(localStorage.getItem('plotcraft_db_users')) || [
+            { email: "test@gmail.com", password: "123", name: "Ghassan", id: "9482110 ID" }
         ];
         let isLoggedIn = false;
 
@@ -2768,10 +2772,10 @@
                 albumBtn: "ألبوم الصور",
                 cancelBtn: "إلغاء",
                 loginTitle: "تسجيل الدخول إلى Plotcraft",
-                googleLogin: "استمر مع Google",
-                emailLogin: "استمر مع البريد الإلكتروني",
-                noAccount: "ليس لدي حساب؟",
-                signupText: "البريد الإلكتروني",
+                googleLogin: "استمر مع Google (حسابات الجهاز)",
+                emailLogin: "البريد الإلكتروني وكلمة المرور",
+                noAccount: "ليس لديك حساب؟",
+                signupText: "اضغط هنا لإنشاء حساب جديد",
                 termsText: "شروط الاستخدام",
                 privacyText: "الخصوصية",
                 navHome: "الرئيسية",
@@ -2853,9 +2857,9 @@
                 cancelBtn: "Cancel",
                 loginTitle: "Sign in to Plotcraft",
                 googleLogin: "Continue with Google",
-                emailLogin: "Continue with Email",
+                emailLogin: "Email and Password",
                 noAccount: "Don't have an account?",
-                signupText: "Email",
+                signupText: "Sign up / Register",
                 termsText: "Terms of Use",
                 privacyText: "Privacy",
                 navHome: "Home",
@@ -3301,17 +3305,24 @@
             showCustomAlert('تم تسجيل الخروج بنجاح');
         }
 
+        // 1. فتح واجهة حسابات جوجل الخاصة بجهاز المستخدم (Account Chooser Simulation)
         function loginWithGoogleAction() {
+            // محاكاة استعراض الحسابات الفعلية الموجودة على جهاز المستخدم
+            let simulatedDeviceGoogleEmails = ["ghassan.device@gmail.com", "director.pro@gmail.com"];
+            let chosenEmail = prompt("اختر حساب Google الخاص بجهازك:\n1. " + simulatedDeviceGoogleEmails[0] + "\n2. " + simulatedDeviceGoogleEmails[1] + "\n(أو اكتب إيميلك الخاص المسجل بالجهاز)");
+            
+            if (!chosenEmail) return;
+
             isLoggedIn = true;
-            document.getElementById('displayUserName').innerText = "Google User";
+            let username = chosenEmail.split('@')[0];
+            document.getElementById('displayUserName').innerText = username;
             document.getElementById('loginModalOverlay').classList.remove('show');
             
             document.getElementById('settingsLoginBtn').style.display = 'none';
             document.getElementById('settingsLogoutBtn').style.display = 'block';
-            document.getElementById('settingsAuthDynamicContainer').innerHTML = "";
             document.getElementById('loggedOutUserInfoArea').style.display = 'none';
             document.getElementById('loggedInUserInfoArea').style.display = 'flex';
-            showCustomAlert("تم تسجيل الدخول بنجاح عبر Google");
+            showCustomAlert("تم تسجيل الدخول بنجاح عبر حساب Google الخاص بجهازك!");
         }
 
         function showEmailRegisterFormInModal() {
@@ -3319,34 +3330,59 @@
             formBox.style.display = (formBox.style.display === 'flex') ? 'none' : 'flex';
         }
 
-        function submitNewAccountModal() {
+        // 2. منطق التحقق الصارم من البريد وكلمة المرور كما طلبته
+        function submitLoginOrRegister() {
             var email = document.getElementById('modalRegEmail').value.trim();
             var pass = document.getElementById('modalRegPassword').value.trim();
             var errDiv = document.getElementById('modalRegError');
 
             if (!email || !pass) {
-                errDiv.innerText = "يرجى ملء جميع الحقول المطلوبة";
+                errDiv.innerText = "يرجى إدخال البريد الإلكتروني وكلمة المرور";
                 return;
             }
 
-            var exists = registeredUsersDB.some(u => u.email === email);
-            if (exists) {
-                errDiv.innerText = "هذا البريد الإلكتروني مسجل مسبقاً!";
+            // البحث عما إذا كان الحساب مسجلاً مسبقاً
+            let foundUser = registeredUsersDB.find(u => u.email === email);
+
+            if (!foundUser) {
+                // إذا لم يكن الحساب موجوداً نهائياً: نسأله هل يريد إنشاء حساب جديد بهذا البريد؟
+                let createNew = confirm("هذا البريد الإلكتروني غير مسجل مسبقاً في التطبيق!\nهل تريد إنشاء حساب جديد بهذا البريد وكلمة المرور؟");
+                if (createNew) {
+                    let newId = Math.floor(1000000 + Math.random() * 9000000) + " ID";
+                    let newUser = { email: email, password: pass, name: email.split('@')[0], id: newId };
+                    registeredUsersDB.push(newUser);
+                    localStorage.setItem('plotcraft_db_users', JSON.stringify(registeredUsersDB));
+                    
+                    isLoggedIn = true;
+                    document.getElementById('displayUserName').innerText = newUser.name;
+                    document.getElementById('displayUniqueId').innerText = newId;
+                    
+                    document.getElementById('settingsLoginBtn').style.display = 'none';
+                    document.getElementById('settingsLogoutBtn').style.display = 'block';
+                    closeLoginModal();
+                    document.getElementById('loggedOutUserInfoArea').style.display = 'none';
+                    document.getElementById('loggedInUserInfoArea').style.display = 'flex';
+                    showCustomAlert("تم إنشاء الحساب وتسجيل الدخول بنجاح!");
+                } else {
+                    errDiv.innerText = "يجب عليك التسجيل أو إنشاء حساب أولاً.";
+                }
             } else {
-                var newId = Math.floor(1000000 + Math.random() * 9000000) + " ID";
-                registeredUsersDB.push({ email: email, name: email.split('@')[0], id: newId });
-                
-                isLoggedIn = true;
-                document.getElementById('displayUserName').innerText = email.split('@')[0];
-                document.getElementById('displayUniqueId').innerText = newId;
-                
-                document.getElementById('settingsLoginBtn').style.display = 'none';
-                document.getElementById('settingsLogoutBtn').style.display = 'block';
-                closeLoginModal();
-                document.getElementById('loggedOutToolbarInfoArea').style.display = 'none';
-                document.getElementById('loggedOutUserInfoArea').style.display = 'none';
-                document.getElementById('loggedInUserInfoArea').style.display = 'flex';
-                showCustomAlert("تم تسجيل الدخول بنجاح!");
+                // إذا كان الحساب موجوداً مسبقاً: نتحقق حصراً من مطابقة كلمة المرور
+                if (foundUser.password !== pass) {
+                    errDiv.innerText = "كلمة المرور غير صحيحة! يرجى التأكد وإعادة المحاولة.";
+                } else {
+                    // كلمة المرور صحيحة وتم تسجيل الدخول بنجاح
+                    isLoggedIn = true;
+                    document.getElementById('displayUserName').innerText = foundUser.name;
+                    document.getElementById('displayUniqueId').innerText = foundUser.id;
+                    
+                    document.getElementById('settingsLoginBtn').style.display = 'none';
+                    document.getElementById('settingsLogoutBtn').style.display = 'block';
+                    closeLoginModal();
+                    document.getElementById('loggedOutUserInfoArea').style.display = 'none';
+                    document.getElementById('loggedInUserInfoArea').style.display = 'flex';
+                    showCustomAlert("تم تسجيل الدخول بنجاح، أهلاً بك يا مخرج!");
+                }
             }
         }
     </script>
