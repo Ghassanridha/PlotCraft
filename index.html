@@ -1828,57 +1828,61 @@
             font-size: 12px;
         }
 
+        /* تعديل نافذة تسجيل الدخول لتصبح طولية بارتفاع الشاشة بالكامل */
         .login-modal-overlay {
             display: none;
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85);
             z-index: 99999;
-            align-items: flex-end;
+            align-items: center;
             justify-content: center;
         }
         .login-modal-overlay.show { display: flex; }
         .login-modal-content {
             background: #1f242d;
-            border-top-left-radius: 28px;
-            border-top-right-radius: 28px;
-            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 0;
             width: 100%;
-            max-width: 480px;
-            padding: 24px 20px 40px 20px;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            padding: 30px 20px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            justify-content: center;
+            gap: 18px;
             position: relative;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
-            animation: slideUpModal 0.3s ease;
+            box-shadow: none;
+            animation: fadeInModal 0.25s ease;
+            overflow-y: auto;
         }
-        @keyframes slideUpModal {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
+        @keyframes fadeInModal {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
         }
         .login-modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
         .login-modal-title {
             color: #ffffff;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
+            text-align: center;
         }
         .login-close-arrow {
             position: absolute;
-            top: 6px;
-            right: 8px;
+            top: 20px;
+            right: 20px;
             color: #ffffff;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
             cursor: pointer;
             background: rgba(255, 255, 255, 0.1);
-            width: 26px;
-            height: 26px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -1938,7 +1942,7 @@
             gap: 15px;
             color: #cbd5e1;
             font-size: 11px;
-            margin-top: 5px;
+            margin-top: 10px;
         }
         .login-links-row span { cursor: pointer; }
 
@@ -2224,7 +2228,7 @@
             <div class="settings-group-box">
                 <div class="settings-item-row" onclick="openSettingsSubMenu(event)">
                     <div class="settings-item-right">
-                        <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c-.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
+                        <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c-.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6 z"/></svg></div>
                         <span data-tr="settings">الإعدادات</span>
                     </div>
                     <div class="settings-item-left"><span>›</span></div>
@@ -3289,7 +3293,7 @@
             showCustomAlert('تم تسجيل الخروج بنجاح');
         }
 
-        // تسجيل الدخول المباشر بحساب جوجل بدون إظهار القائمة
+        // تسجيل الدخول المباشر بحساب جوجل وتحديث واجهة الإعدادات فوراً
         function loginWithGoogleDirectly() {
             closeLoginModal();
             isLoggedIn = true;
