@@ -2720,7 +2720,7 @@
                 <div class="source-images-row">
                     <div class="source-img-card">
                         <div class="source-img-frame">
-                            <!-- التعديل الجديد لرابط الصورة المباشر المرفق -->
+                            <!-- تم دمج رابط الصورة المباشر الجديد الخاص بك هنا -->
                             <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/e644efcd84078ecb02f2612e20f31a4f95d72f6f/Go.jpg">
                         </div>
                         <div class="source-img-caption good">
@@ -2838,9 +2838,6 @@
     </div>
 
     <script>
-        // ==========================================
-        // بيانات وتضمين Google OAuth Credentials
-        // ==========================================
         const GOOGLE_CLIENT_ID = "1087604212326-ar74pri9eaaneqvi552b04fba91k0804.apps.googleusercontent.com";
 
         let currentUploadedImageSrc = "";
@@ -2853,10 +2850,7 @@
         document.getElementById('displayUniqueId').innerText = userUniqueId + " ID";
 
         let registeredUsersDB = JSON.parse(localStorage.getItem('plotcraft_db_users')) || [];
-        
-        // مسح الإيميلات الافتراضية للظهور المباشر للخدمة الرسمية أو الحسابات المضافة
         let deviceGoogleAccounts = JSON.parse(localStorage.getItem('plotcraft_device_google_accounts')) || [];
-        
         let isLoggedIn = false;
 
         const translations = {
@@ -3440,9 +3434,6 @@
             showCustomAlert('تم تسجيل الخروج بنجاح');
         }
 
-        // ==========================================
-        // الربط المباشر مع Google Identity SDK
-        // ==========================================
         function openGoogleAccountsChooser() {
             closeLoginModal();
             
