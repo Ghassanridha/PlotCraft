@@ -1973,57 +1973,19 @@
         }
         .register-modal-overlay.show { display: flex; }
 
-        /* تعديل وتصحيح تنسيق شريط التنقل السفلي والإنشاء السريع */
         .plotcraft-nav-bar {
             position: absolute;
             bottom: 0; left: 0; width: 100%;
             background-color: #1f242d;
-            padding: 8px 16px 16px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-            z-index: 1000;
-            box-sizing: border-box;
+            padding: 6px 15px 16px 15px;
+            display: flex; justify-content: center; align-items: center; gap: 12px;
+            z-index: 1000; box-sizing: border-box;
             box-shadow: 0 -4px 15px rgba(0,0,0,0.6);
         }
-        .plotcraft-nav-pill {
-            background-color: #282f3d;
-            border: 1px solid #343d50;
-            border-radius: 35px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 6px 12px;
-            flex-grow: 1;
-        }
-        .plotcraft-nav-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #cbd5e1;
-            font-size: 13px;
-            text-decoration: none;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-        .plotcraft-nav-item.active {
-            color: #ffffff;
-            font-weight: bold;
-        }
-        .plotcraft-nav-square {
-            background-color: #282f3d;
-            border: 1px solid #343d50;
-            border-radius: 16px;
-            width: 48px;
-            height: 48px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-shrink: 0;
-            cursor: pointer;
-            position: relative;
-        }
+        .plotcraft-nav-pill { background-color: #282f3d; border: 1px solid #343d50; border-radius: 35px; display: flex; justify-around: space-around; align-items: center; padding: 8px 15px; flex-grow: 1; max-width: 380px; }
+        .plotcraft-nav-item { display: flex; align-items: center; gap: 6px; color: #cbd5e1; font-size: 13px; text-decoration: none; cursor: pointer; white-space: nowrap; }
+        .plotcraft-nav-item.active { color: #ffffff; font-weight: bold; }
+        .plotcraft-nav-square { background-color: #282f3d; border: 1px solid #343d50; border-radius: 16px; width: 48px; height: 48px; display: flex; justify-content: center; align-items: center; flex-shrink: 0; cursor: pointer; position: relative; }
 
         .settings-dropdown-menu {
             display: none;
@@ -3036,6 +2998,7 @@
                     <p>يشمل "محتوى المستخدم" التوجيهات، ووصف القصص، وأسماء الشخصيات، والصور، والفيديوهات، والمقاطع الصوتية، والنصوص، والتعليقات، وغيرها من المواد التي تقدمها. أما "المحتوى المُنشأ بواسطة الذكاء الاصطناعي" فيشمل المحتوى الذي تُنشئه الخدمات أو تُعدّله أو تُحوّله أو تُجمّعه من محتوى المستخدم أو غيره من التعليمات.</p>
                     <p>تحتفظ بحقوقك في محتوى المستخدم. أنت تمنحنا ترخيصًا محدودًا وغير حصري لاستضافة محتوى المستخدم وبيانات المشروع الناتجة وتخزينها وإعادة إنتاجها ونقلها ومعالجتها وتحليلها لأغراض السلامة، واستخدامها بأي شكل آخر فقط بالقدر اللازم بشكل معقول لتوفير الخدمات وصيانتها وتأمينها ودعمها وإنفاذها، وذلك وفقًا لسياسة الخصوصية الخاصة بنا.</p>
                     <p>مع مراعاة هذه الشروط والقوانين المعمول بها وحقوق الأطراف الثالثة، يجوز لك استخدام المحتوى المُنشأ بواسطة الذكاء الاصطناعي لأغراض شخصية أو تجارية. لا ندّعي ملكية المحتوى المُنشأ بواسطة الذكاء الاصطناعي الخاص بك. مع ذلك، قد لا يكون ناتج الذكاء الاصطناعي فريدًا، وقد يُشابه الناتج المُنشأ لمستخدمين آخرين، وقد لا يستوفي شروط حقوق النشر أو أي حماية قانونية أخرى.</p>
+                    <p>أنت مسؤول عن مراجعة كل مخرجات المحتوى قبل نشرها أو مشاركتها أو تحقيق الربح منها أو الاعتماد عليها. لا نضمن دقة هذه المخرجات أو قانونيتها أو سلامتها أو عدم انتهاكها لحقوق الملكية الفكرية أو ملاءمتها لغرض معين أو إتاحتها للاستخدام الحصري.</p>
 
                     <h4>الحقوق والتراخيص الخاصة بالمواد المرفوعة</h4>
                     <p>قبل تحميل أو إرسال أي مواد، يجب أن تمتلك جميع الحقوق والتراخيص والأذونات والتصريحات والأسس القانونية اللازمة لنا ولمزودي خدماتنا لمعالجتها ولك لاستخدام الناتج.</p>
@@ -3839,7 +3802,7 @@
                         id: generateUniqueID()
                     };
                     users.push(userObj);
-                    saveUsers(userObj);
+                    saveUsers(users);
                 }
 
                 setCurrentUser(userObj);
