@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PlotCraft UI</title>
+    <!-- استدعاء مكتبة جوجل الرسمية لتسجيل الدخول وإظهار قائمة الحسابات -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         * {
             box-sizing: border-box;
@@ -1955,7 +1957,6 @@
         }
         .login-links-row span { cursor: pointer; }
 
-        /* تعديلات وتنسيق قائمة اختيار حسابات Google العمودية الجديدة */
         .google-accounts-modal-overlay {
             display: none;
             position: absolute;
@@ -2801,7 +2802,6 @@
             </div>
         </div>
 
-        <!-- نافذة مودال اختيار حسابات جوجل العمودية المحسنة حسب طلبك -->
         <div class="google-accounts-modal-overlay" id="googleAccountsModal" onclick="closeGoogleAccountsChooser()">
             <div class="google-accounts-modal-content" onclick="event.stopPropagation()">
                 <div class="google-modal-top-brand">
@@ -2809,12 +2809,9 @@
                     <div class="google-modal-subtitle">اختر حساب Google الخاص بجهازك</div>
                 </div>
 
-                <!-- قائمة الحسابات العمودية -->
                 <div class="google-accounts-list-vertical" id="googleAccountsListContainer">
-                    <!-- سيتم تعبئتها ديناميكياً وعمودياً بناءً على الحسابات المتوفرة -->
                 </div>
 
-                <!-- زر إضافة حساب آخر يتحرك ديناميكياً حسب عدد الحسابات -->
                 <button class="google-add-account-btn" onclick="addNewDeviceGoogleAccount()">
                     <span>+</span>
                     <span>إضافة حساب آخر إلى الجهاز</span>
@@ -2851,6 +2848,9 @@
     </div>
 
     <script>
+        // تعريف المفتاح الأول العام (Client ID) بدقة داخل الكود
+        const GOOGLE_CLIENT_ID = "1087604212326-ar74pri9eaaneqvi552b04fba91k0804.apps.googleusercontent.com";
+
         let currentUploadedImageSrc = "";
         let characterAdded = false;
         let storyAdded = false;
@@ -2864,7 +2864,6 @@
             { email: "test@gmail.com", password: "123", name: "Ghassan", id: "9482110 ID" }
         ];
         
-        // قائمة حسابات Google المخزنة على الجهاز (تتحدث ديناميكياً)
         let deviceGoogleAccounts = JSON.parse(localStorage.getItem('plotcraft_device_google_accounts')) || [
             { name: "Ghassan Ridha", email: "ghassan.device@gmail.com" },
             { name: "Director Pro", email: "director.pro@gmail.com" }
@@ -3453,18 +3452,33 @@
             showCustomAlert('تم تسجيل الخروج بنجاح');
         }
 
-        // دالة عرض نافذة اختيار حسابات جوجل العمودية المحدثة
         function openGoogleAccountsChooser() {
             closeLoginModal();
+            // تفعيل مكتبة جوجل ومحاولة إظهار النافذة رسمياً باستخدام Client ID
+            if (window.google && google.accounts) {
+                try {
+                    google.accounts.id.initialize({
+                        client_id: GOOGLE_CLIENT_ID,
+                        callback: handleCredentialResponse
+                    });
+                    google.accounts.id.prompt();
+                } catch (e) {
+                    console.log("Fallback to UI modal");
+                }
+            }
             renderGoogleAccountsList();
             document.getElementById('googleAccountsModal').classList.add('show');
+        }
+
+        function handleCredentialResponse(response) {
+            console.log("Google Auth Response:", response);
+            showCustomAlert("تم الاتصال بحساب جوجل بنجاح!");
         }
 
         function closeGoogleAccountsChooser() {
             document.getElementById('googleAccountsModal').classList.remove('show');
         }
 
-        // بناء قائمة الحسابات العمودية وتحديث موضع زر الإضافة ديناميكياً
         function renderGoogleAccountsList() {
             let container = document.getElementById('googleAccountsListContainer');
             container.innerHTML = "";
@@ -3499,7 +3513,6 @@
             }
         }
 
-        // اختيار حساب وتحديد تسجيل الدخول
         function selectGoogleAccount(acc) {
             isLoggedIn = true;
             document.getElementById('displayUserName').innerText = acc.name;
@@ -3512,7 +3525,6 @@
             showCustomAlert("تم تسجيل الدخول بنجاح بحساب: " + acc.email);
         }
 
-        // إضافة حساب جديد لجهاز المستخدم ديناميكياً
         function addNewDeviceGoogleAccount() {
             let newEmail = prompt("أدخل البريد الإلكتروني الجديد لحساب Google:");
             if (!newEmail || !newEmail.includes('@')) return;
