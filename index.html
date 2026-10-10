@@ -2210,7 +2210,8 @@
                 </div>
 
                 <div class="settings-card-group-box">
-                    <div class="settings-card-row" onclick="showToast('شروط الاستخدام')">
+                    <!-- زر شروط الاستخدام المحدث لينتقل مباشرة إلى رابط الويب -->
+                    <div class="settings-card-row" onclick="window.open('https://plotcraft-s84ivmhu8safjehv7vxwvs.streamlit.app/', '_blank')">
                         <div class="settings-card-row-right">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                             <span>شروط الاستخدام</span>
@@ -2218,7 +2219,8 @@
                         <div class="settings-card-row-left">‹</div>
                     </div>
 
-                    <div class="settings-card-row" onclick="showToast('الخصوصية')">
+                    <!-- زر الخصوصية المحدث لينتقل مباشرة إلى رابط الويب -->
+                    <div class="settings-card-row" onclick="window.open('https://plotcraft-s84ivmhu8safjehv7vxwvs.streamlit.app/', '_blank')">
                         <div class="settings-card-row-right">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                             <span>الخصوصية</span>
@@ -2637,9 +2639,9 @@
                 </div>
 
                 <div style="display: flex; justify-content: center; align-items: center; gap: 15px; color: #cbd5e1; font-size: 11px; margin-top: 6px;">
-                    <span onclick="showToast('شروط الاستخدام')" style="cursor: pointer;">شروط الاستخدام</span>
+                    <span onclick="window.open('https://plotcraft-s84ivmhu8safjehv7vxwvs.streamlit.app/', '_blank')" style="cursor: pointer;">شروط الاستخدام</span>
                     <span>|</span>
-                    <span onclick="showToast('الخصوصية')" style="cursor: pointer;">الخصوصية</span>
+                    <span onclick="window.open('https://plotcraft-s84ivmhu8safjehv7vxwvs.streamlit.app/', '_blank')" style="cursor: pointer;">الخصوصية</span>
                 </div>
             </div>
         </div>
@@ -3113,7 +3115,6 @@
             document.getElementById('loginModalOverlay').classList.add('show');
         }
 
-        // تم تعديل وإصلاح دالة الإغلاق هنا لتعمل بشكل صحيح فور الضغط على زر X
         function closeLoginModal() {
             document.getElementById('loginModalOverlay').classList.remove('show');
         }
@@ -3420,7 +3421,6 @@
             showToast("تم تسجيل الحساب بنجاح");
         }
 
-        // معالجة استجابة تسجيل الدخول عبر Google
         function handleGoogleCredentialResponse(response) {
             try {
                 let base64Url = response.credential.split('.')[1];
