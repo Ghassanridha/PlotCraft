@@ -1855,7 +1855,7 @@
             font-size: 12px;
         }
 
-        /* نافذة تسجيل الدخول (للمسجلين سابقاً) */
+        /* نافذة تسجيل الدخول */
         .login-modal-overlay {
             display: none;
             position: absolute;
@@ -1899,7 +1899,6 @@
             width: 100%;
         }
         
-        /* علامة الخروج X البيضاء الصغيرة أعلى اليمين */
         .login-close-x-btn {
             position: absolute;
             top: 16px;
@@ -2077,7 +2076,6 @@
 
     <div class="app-shell">
 
-        <!-- الإشعار المؤقت السريع (يختفي تلقائياً بعد ثانية) -->
         <div class="toast-notification" id="toastNotification"></div>
 
         <div class="subscription-modal-overlay hidden" id="subscriptionModal">
@@ -2602,7 +2600,7 @@
         <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none;" onchange="handleFileSelected(event)">
         <input type="file" id="albumInput" accept="image/*" style="display:none;" onchange="handleFileSelected(event)">
 
-        <!-- نافذة تسجيل الدخول بالحساب القديم -->
+        <!-- نافذة تسجيل الدخول بالحساب المسجل مسبقاً -->
         <div class="login-modal-overlay" id="loginModalOverlay" onclick="event.stopPropagation()">
             <div class="login-modal-content">
                 <div class="login-close-x-btn" onclick="closeLoginModal()">✕</div>
@@ -2627,7 +2625,7 @@
             </div>
         </div>
 
-        <!-- نافذة إنشاء حساب جديد المنبثقة -->
+        <!-- نافذة إنشاء حساب جديد الحقيقية -->
         <div class="register-modal-overlay" id="registerModalOverlay" onclick="event.stopPropagation()">
             <div class="login-modal-content">
                 <div class="login-close-x-btn" onclick="closeRegisterModal()">✕</div>
@@ -2681,7 +2679,7 @@
         let savedStoryText = "";
         let tempSelectedLangName = "Arabic";
 
-        // إدارة المستخدمين والحساب الحقيقي عبر localStorage
+        // إدارة قاعدة بيانات المستخدمين الحقيقية عبر localStorage بدون أي حسابات وهمية مسبقة
         function getRegisteredUsers() {
             return JSON.parse(localStorage.getItem('plotcraft_db_users')) || [];
         }
@@ -2702,7 +2700,7 @@
             }
         }
 
-        // توليد ID فريد من 7 أرقام لا يتكرر
+        // توليد ID فريد مكون من 7 أرقام لا يتكرر أبداً
         function generateUniqueID() {
             let users = getRegisteredUsers();
             let newId = "";
@@ -3335,7 +3333,7 @@
             showToast('تم تسجيل الخروج بنجاح');
         }
 
-        // تسجيل الدخول لحساب موجود بالفعل
+        // تسجيل الدخول لحساب مسجل مسبقاً
         function handleExistingLogin() {
             let email = document.getElementById('loginEmailField').value.trim();
             let pass = document.getElementById('loginPasswordField').value.trim();
@@ -3362,7 +3360,7 @@
             }
         }
 
-        // إنشاء حساب جديد حقيقي وتوليد ID فريد
+        // إنشاء حساب جديد حقيقي وتوليد ID فريد وإلغاء أي حسابات افتراضية سابقة
         function handleCreateNewAccount() {
             let email = document.getElementById('regEmailField').value.trim();
             let pass = document.getElementById('regPasswordField').value.trim();
@@ -3385,7 +3383,7 @@
                 return;
             }
 
-            // توليد ID فريد مكون من 7 أرقام
+            // توليد ID فريد من 7 أرقام
             let uniqueID = generateUniqueID();
             let newUser = { 
                 email: email, 
