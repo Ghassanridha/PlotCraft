@@ -1974,7 +1974,7 @@
             border: 1px solid rgba(255,255,255,0.12);
             width: 100%;
             max-width: 480px;
-            height: 90vh; /* مظبوط بطول 90% من الشاشة كما طلبته مسبقاً */
+            height: 90vh;
             padding: 24px 20px 35px 20px;
             display: flex;
             flex-direction: column;
@@ -2006,7 +2006,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            flex-grow: 1; /* تتمدد لتاخذ المساحة الطولية بالكامل بدلاً من النافذة الوهمية القديمة */
+            flex-grow: 1;
             max-height: none;
             overflow-y: auto;
             padding-bottom: 10px;
@@ -2854,7 +2854,6 @@
     </div>
 
     <script>
-        // تعريف المفتاح الأول العام (Client ID) بدقة داخل الكود
         const GOOGLE_CLIENT_ID = "1087604212326-ar74pri9eaaneqvi552b04fba91k0804.apps.googleusercontent.com";
 
         let currentUploadedImageSrc = "";
@@ -3460,7 +3459,6 @@
 
         function openGoogleAccountsChooser() {
             closeLoginModal();
-            // تفعيل مكتبة جوجل الرسمية ومحاولة فتح نافذة المصادقة الفعلية
             if (window.google && google.accounts) {
                 try {
                     google.accounts.id.initialize({
