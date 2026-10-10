@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PlotCraft UI</title>
-    <!-- استدعاء مكتبة جوجل الرسمية لتسجيل الدخول وإظهار قائمة الحسابات -->
+    <!-- استدعاء مكتبة جوجل الرسمية لتسجيل الدخول -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         * {
@@ -2779,12 +2779,10 @@
                     <div class="login-modal-title" data-tr="loginTitle">تسجيل الدخول إلى Plotcraft</div>
                 </div>
 
-                <button class="login-btn-google" onclick="openGoogleAccountsChooser()">
-                    <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.2v3.15C3.17 21.32 7.22 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.2C.44 8.12 0 9.87 0 11.73s.44 3.61 1.2 5.15l4.08-2.61z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.22 0 3.17 2.68 1.2 6.58l4.08 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>
-                    <span data-tr="googleLogin">استمر مع Google</span>
-                </button>
+                <!-- مكان عرض زر جوجل الرسمي بالطريقة المعتمدة من المكتبة -->
+                <div id="googleDiv" style="display: flex; justify-content: center; width: 100%; margin-top: 10px;"></div>
 
-                <button class="login-btn-email" onclick="showEmailRegisterFormInModal()">
+                <button class="login-btn-email" onclick="showEmailRegisterFormInModal()" style="margin-top: 10px;">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                     <span data-tr="emailLogin">البريد الإلكتروني وكلمة المرور</span>
                 </button>
@@ -2853,8 +2851,34 @@
 
     </div>
 
+    <!-- تفعيل مكتبة Google Identity بالطريقة الصحيحة -->
     <script>
         const GOOGLE_CLIENT_ID = "1087604212326-ar74pri9eaaneqvi552b04fba91k0804.apps.googleusercontent.com";
+
+        window.onload = function () {
+            if (window.google && google.accounts) {
+                google.accounts.id.initialize({
+                    client_id: GOOGLE_CLIENT_ID,
+                    callback: handleCredentialResponse
+                });
+                google.accounts.id.renderButton(
+                    document.getElementById("googleDiv"),
+                    { theme: "outline", size: "large", width: "100%" }
+                );
+            }
+        };
+
+        function handleCredentialResponse(response) {
+            console.log("Encoded JWT ID token: " + response.credential);
+            showCustomAlert("تم تسجيل الدخول عبر Google بنجاح!");
+            closeLoginModal();
+            isLoggedIn = true;
+            document.getElementById('displayUserName').innerText = "Google User";
+            document.getElementById('settingsLoginBtn').style.display = 'none';
+            document.getElementById('settingsLogoutBtn').style.display = 'block';
+            document.getElementById('loggedOutUserInfoArea').style.display = 'none';
+            document.getElementById('loggedInUserInfoArea').style.display = 'flex';
+        }
 
         let currentUploadedImageSrc = "";
         let characterAdded = false;
@@ -3459,24 +3483,8 @@
 
         function openGoogleAccountsChooser() {
             closeLoginModal();
-            if (window.google && google.accounts) {
-                try {
-                    google.accounts.id.initialize({
-                        client_id: GOOGLE_CLIENT_ID,
-                        callback: handleCredentialResponse
-                    });
-                    google.accounts.id.prompt();
-                } catch (e) {
-                    console.log("Google accounts prompt initialized");
-                }
-            }
             renderGoogleAccountsList();
             document.getElementById('googleAccountsModal').classList.add('show');
-        }
-
-        function handleCredentialResponse(response) {
-            console.log("Google Auth Response:", response);
-            showCustomAlert("تم الاتصال بحساب جوجل بنجاح!");
         }
 
         function closeGoogleAccountsChooser() {
