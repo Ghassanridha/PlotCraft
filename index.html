@@ -1868,19 +1868,6 @@
             font-size: 18px;
             font-weight: 700;
         }
-        .login-close-x {
-            background: none;
-            border: none;
-            color: #ffffff;
-            font-size: 20px;
-            cursor: pointer;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
         .login-close-arrow {
             position: absolute;
             top: 6px;
@@ -1954,130 +1941,6 @@
             margin-top: 5px;
         }
         .login-links-row span { cursor: pointer; }
-
-        /* تعديلات وتنسيق قائمة اختيار حسابات Google العمودية الجديدة */
-        .google-accounts-modal-overlay {
-            display: none;
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 999999;
-            align-items: flex-end;
-            justify-content: center;
-        }
-        .google-accounts-modal-overlay.show { display: flex; }
-        .google-accounts-modal-content {
-            background: #1f242d;
-            border-top-left-radius: 28px;
-            border-top-right-radius: 28px;
-            border: 1px solid rgba(255,255,255,0.12);
-            width: 100%;
-            max-width: 480px;
-            padding: 24px 20px 35px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            position: relative;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
-            animation: slideUpModal 0.3s ease;
-        }
-        .google-modal-top-brand {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            text-align: center;
-            margin-bottom: 5px;
-        }
-        .google-modal-brand-title {
-            color: #ffffff;
-            font-size: 18px;
-            font-weight: 700;
-        }
-        .google-modal-subtitle {
-            color: #cbd5e1;
-            font-size: 13px;
-        }
-        .google-accounts-list-vertical {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            max-height: 220px;
-            overflow-y: auto;
-        }
-        .google-account-item-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #282f3d;
-            border: 1px solid rgba(255,255,255,0.08);
-            padding: 12px 14px;
-            border-radius: 16px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .google-account-item-row:active {
-            background: #343d50;
-            transform: scale(0.98);
-        }
-        .google-acc-right-group {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .google-acc-avatar {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: #3b82f6;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 15px;
-            flex-shrink: 0;
-        }
-        .google-acc-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            text-align: right;
-        }
-        .google-acc-name {
-            color: #fff;
-            font-size: 14px;
-            font-weight: 700;
-        }
-        .google-acc-email {
-            color: #cbd5e1;
-            font-size: 12px;
-        }
-        .google-acc-google-logo {
-            width: 20px;
-            height: 20px;
-        }
-        .google-add-account-btn {
-            background: #343d50;
-            color: #ffffff;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 16px;
-            padding: 12px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: 0.2s;
-            margin-top: 4px;
-        }
-        .google-add-account-btn:active {
-            background: #3f4b63;
-            transform: scale(0.98);
-        }
 
         .plotcraft-nav-bar {
             position: absolute;
@@ -2772,7 +2635,7 @@
                     <div class="login-modal-title" data-tr="loginTitle">تسجيل الدخول إلى Plotcraft</div>
                 </div>
 
-                <button class="login-btn-google" onclick="openGoogleAccountsChooser()">
+                <button class="login-btn-google" onclick="loginWithGoogleDirectly()">
                     <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.2v3.15C3.17 21.32 7.22 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.2C.44 8.12 0 9.87 0 11.73s.44 3.61 1.2 5.15l4.08-2.61z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.22 0 3.17 2.68 1.2 6.58l4.08 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>
                     <span data-tr="googleLogin">استمر مع Google</span>
                 </button>
@@ -2798,27 +2661,6 @@
                     <span>|</span>
                     <span onclick="showCustomAlert('الخصوصية')" data-tr="privacyText">الخصوصية</span>
                 </div>
-            </div>
-        </div>
-
-        <!-- نافذة مودال اختيار حسابات جوجل العمودية المحسنة حسب طلبك -->
-        <div class="google-accounts-modal-overlay" id="googleAccountsModal" onclick="closeGoogleAccountsChooser()">
-            <div class="google-accounts-modal-content" onclick="event.stopPropagation()">
-                <div class="google-modal-top-brand">
-                    <div class="google-modal-brand-title">Plotcraft</div>
-                    <div class="google-modal-subtitle">اختر حساب Google الخاص بجهازك</div>
-                </div>
-
-                <!-- قائمة الحسابات العمودية -->
-                <div class="google-accounts-list-vertical" id="googleAccountsListContainer">
-                    <!-- سيتم تعبئتها ديناميكياً وعمودياً بناءً على الحسابات المتوفرة -->
-                </div>
-
-                <!-- زر إضافة حساب آخر يتحرك ديناميكياً حسب عدد الحسابات -->
-                <button class="google-add-account-btn" onclick="addNewDeviceGoogleAccount()">
-                    <span>+</span>
-                    <span>إضافة حساب آخر إلى الجهاز</span>
-                </button>
             </div>
         </div>
 
@@ -2862,12 +2704,6 @@
 
         let registeredUsersDB = JSON.parse(localStorage.getItem('plotcraft_db_users')) || [
             { email: "test@gmail.com", password: "123", name: "Ghassan", id: "9482110 ID" }
-        ];
-        
-        // قائمة حسابات Google المخزنة على الجهاز (تتحدث ديناميكياً)
-        let deviceGoogleAccounts = JSON.parse(localStorage.getItem('plotcraft_device_google_accounts')) || [
-            { name: "Ghassan Ridha", email: "ghassan.device@gmail.com" },
-            { name: "Director Pro", email: "director.pro@gmail.com" }
         ];
         
         let isLoggedIn = false;
@@ -3453,78 +3289,17 @@
             showCustomAlert('تم تسجيل الخروج بنجاح');
         }
 
-        // دالة عرض نافذة اختيار حسابات جوجل العمودية المحدثة
-        function openGoogleAccountsChooser() {
+        // تسجيل الدخول المباشر بحساب جوجل بدون إظهار القائمة
+        function loginWithGoogleDirectly() {
             closeLoginModal();
-            renderGoogleAccountsList();
-            document.getElementById('googleAccountsModal').classList.add('show');
-        }
-
-        function closeGoogleAccountsChooser() {
-            document.getElementById('googleAccountsModal').classList.remove('show');
-        }
-
-        // بناء قائمة الحسابات العمودية وتحديث موضع زر الإضافة ديناميكياً
-        function renderGoogleAccountsList() {
-            let container = document.getElementById('googleAccountsListContainer');
-            container.innerHTML = "";
-
-            if (deviceGoogleAccounts.length === 0) {
-                container.innerHTML = `<div style="color:#cbd5e1; text-align:center; padding:15px; font-size:13px;">لا توجد حسابات مسجلة على الجهاز</div>`;
-            } else {
-                deviceGoogleAccounts.forEach((acc, index) => {
-                    let firstLetter = acc.name.charAt(0).toUpperCase();
-                    let itemDiv = document.createElement('div');
-                    itemDiv.className = "google-account-item-row";
-                    itemDiv.innerHTML = `
-                        <div class="google-acc-right-group">
-                            <div class="google-acc-avatar">${firstLetter}</div>
-                            <div class="google-acc-info">
-                                <span class="google-acc-name">${acc.name}</span>
-                                <span class="google-acc-email">${acc.email}</span>
-                            </div>
-                        </div>
-                        <svg class="google-acc-google-logo" viewBox="0 0 24 24">
-                            <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
-                            <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.2v3.15C3.17 21.32 7.22 24 12 24z"/>
-                            <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.2C.44 8.12 0 9.87 0 11.73s.44 3.61 1.2 5.15l4.08-2.61z"/>
-                            <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.22 0 3.17 2.68 1.2 6.58l4.08 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
-                        </svg>
-                    `;
-                    itemDiv.onclick = function() {
-                        selectGoogleAccount(acc);
-                    };
-                    container.appendChild(itemDiv);
-                });
-            }
-        }
-
-        // اختيار حساب وتحديد تسجيل الدخول
-        function selectGoogleAccount(acc) {
             isLoggedIn = true;
-            document.getElementById('displayUserName').innerText = acc.name;
-            closeGoogleAccountsChooser();
+            document.getElementById('displayUserName').innerText = "Ghassan Ridha";
             
             document.getElementById('settingsLoginBtn').style.display = 'none';
             document.getElementById('settingsLogoutBtn').style.display = 'block';
             document.getElementById('loggedOutUserInfoArea').style.display = 'none';
             document.getElementById('loggedInUserInfoArea').style.display = 'flex';
-            showCustomAlert("تم تسجيل الدخول بنجاح بحساب: " + acc.email);
-        }
-
-        // إضافة حساب جديد لجهاز المستخدم ديناميكياً
-        function addNewDeviceGoogleAccount() {
-            let newEmail = prompt("أدخل البريد الإلكتروني الجديد لحساب Google:");
-            if (!newEmail || !newEmail.includes('@')) return;
-            
-            let newName = newEmail.split('@')[0];
-            let newAcc = { name: newName, email: newEmail };
-            
-            deviceGoogleAccounts.push(newAcc);
-            localStorage.setItem('plotcraft_device_google_accounts', JSON.stringify(deviceGoogleAccounts));
-            
-            renderGoogleAccountsList();
-            showCustomAlert("تم إضافة الحساب بنجاح إلى الجهاز!");
+            showCustomAlert("تم تسجيل الدخول بنجاح باستخدام Google!");
         }
 
         function showEmailRegisterFormInModal() {
