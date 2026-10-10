@@ -364,16 +364,6 @@
             cursor: pointer;
         }
 
-        .works-robot-logo {
-            width: 32px;
-            height: 32px;
-            background: #dbeafe;
-            mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1 z"/></svg>') no-repeat center;
-            -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 11h-1V7c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h1v1c0 .55.45 1 1 1s1-.45 1-1v-1h8v1c0 .55.45 1 1 1s1-.45 1-1v-1h1c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 7h8v4H8V7zm3 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1 z"/></svg>') no-repeat center;
-            background-size: contain;
-            cursor: pointer;
-        }
-
         .works-body-container {
             padding: 10px 20px 20px 20px;
             display: flex;
@@ -1957,7 +1947,6 @@
         }
         .login-links-row span { cursor: pointer; }
 
-        /* تعديلات وتنسيق قائمة اختيار حسابات Google العمودية الجديدة */
         .google-accounts-modal-overlay {
             display: none;
             position: absolute;
@@ -2519,7 +2508,7 @@
         <div id="sparkleDialogScreen" class="screen-view">
             <div class="sparkle-top-bar">
                 <button class="sparkle-close-btn" onclick="switchScreen('homeScreen', event)">✕</button>
-                <div class="brand-title">Plotcraft</div>
+                <div class="brand-title">PlotCraft</div>
                 <div class="sparkle-upgrade-badge" onclick="openSubscriptionModalFromBadge(event)" data-tr="upgradeBadge">ترقية</div>
             </div>
 
@@ -2590,7 +2579,6 @@
                 <div class="works-screen-title" data-tr="worksTitle">الأعمال</div>
                 <div class="works-header-left-group">
                     <div class="works-upgrade-badge" onclick="openSubscriptionModalFromBadge(event)" data-tr="upgradeBadge">ترقية</div>
-                    <div class="works-robot-logo" onclick="openSettingsScreen(event)" title="الإعدادات"></div>
                 </div>
             </div>
 
@@ -2732,7 +2720,8 @@
                 <div class="source-images-row">
                     <div class="source-img-card">
                         <div class="source-img-frame">
-                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/main/Gh.jpg">
+                            <!-- التعديل الجديد لرابط الصورة المباشر المرفق -->
+                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/e644efcd84078ecb02f2612e20f31a4f95d72f6f/Go.jpg">
                         </div>
                         <div class="source-img-caption good">
                             <span style="font-weight:bold; font-size:13px;">✓</span>
@@ -2771,7 +2760,7 @@
             <div class="login-modal-content">
                 <div class="login-close-arrow" onclick="closeLoginModal()" title="خروج">‹</div>
                 <div class="login-modal-header" style="justify-content: center; width: 100%;">
-                    <div class="login-modal-title" data-tr="loginTitle">تسجيل الدخول إلى Plotcraft</div>
+                    <div class="login-modal-title" data-tr="loginTitle">تسجيل الدخول إلى PlotCraft</div>
                 </div>
 
                 <button class="login-btn-google" onclick="openGoogleAccountsChooser()">
@@ -2806,7 +2795,7 @@
         <div class="google-accounts-modal-overlay" id="googleAccountsModal" onclick="closeGoogleAccountsChooser()">
             <div class="google-accounts-modal-content" onclick="event.stopPropagation()">
                 <div class="google-modal-top-brand">
-                    <div class="google-modal-brand-title">Plotcraft</div>
+                    <div class="google-modal-brand-title">PlotCraft</div>
                     <div class="google-modal-subtitle">اختر حساب Google الخاص بجهازك</div>
                 </div>
 
@@ -2853,7 +2842,6 @@
         // بيانات وتضمين Google OAuth Credentials
         // ==========================================
         const GOOGLE_CLIENT_ID = "1087604212326-ar74pri9eaaneqvi552b04fba91k0804.apps.googleusercontent.com";
-        // تنبيه أمني: الـ Client Secret يحفظ فقط بجهة السيرفر (Backend) ولا يوضع في كود الـ JavaScript الأمامي.
 
         let currentUploadedImageSrc = "";
         let characterAdded = false;
@@ -2864,14 +2852,10 @@
         let userUniqueId = Math.floor(1000000 + Math.random() * 9000000);
         document.getElementById('displayUniqueId').innerText = userUniqueId + " ID";
 
-        let registeredUsersDB = JSON.parse(localStorage.getItem('plotcraft_db_users')) || [
-            { email: "test@gmail.com", password: "123", name: "Ghassan", id: "9482110 ID" }
-        ];
+        let registeredUsersDB = JSON.parse(localStorage.getItem('plotcraft_db_users')) || [];
         
-        let deviceGoogleAccounts = JSON.parse(localStorage.getItem('plotcraft_device_google_accounts')) || [
-            { name: "Ghassan Ridha", email: "ghassan.device@gmail.com" },
-            { name: "Director Pro", email: "director.pro@gmail.com" }
-        ];
+        // مسح الإيميلات الافتراضية للظهور المباشر للخدمة الرسمية أو الحسابات المضافة
+        let deviceGoogleAccounts = JSON.parse(localStorage.getItem('plotcraft_device_google_accounts')) || [];
         
         let isLoggedIn = false;
 
@@ -2922,7 +2906,7 @@
                 cameraBtn: "كاميرا",
                 albumBtn: "ألبوم الصور",
                 cancelBtn: "إلغاء",
-                loginTitle: "تسجيل الدخول إلى Plotcraft",
+                loginTitle: "تسجيل الدخول إلى PlotCraft",
                 googleLogin: "استمر مع Google",
                 emailLogin: "البريد الإلكتروني وكلمة المرور",
                 noAccount: "ليس لديك حساب؟",
@@ -3006,7 +2990,7 @@
                 cameraBtn: "Camera",
                 albumBtn: "Photo Album",
                 cancelBtn: "Cancel",
-                loginTitle: "Sign in to Plotcraft",
+                loginTitle: "Sign in to PlotCraft",
                 googleLogin: "Continue with Google",
                 emailLogin: "Email and Password",
                 noAccount: "Don't have an account?",
@@ -3467,7 +3451,7 @@
                     client_id: GOOGLE_CLIENT_ID,
                     callback: handleCredentialResponse
                 });
-                google.accounts.id.prompt(); // فتح نافذة تسجيل الدخول الخاصة بجوجل
+                google.accounts.id.prompt();
             } else {
                 renderGoogleAccountsList();
                 document.getElementById('googleAccountsModal').classList.add('show');
@@ -3507,7 +3491,7 @@
             container.innerHTML = "";
 
             if (deviceGoogleAccounts.length === 0) {
-                container.innerHTML = `<div style="color:#cbd5e1; text-align:center; padding:15px; font-size:13px;">لا توجد حسابات مسجلة على الجهاز</div>`;
+                container.innerHTML = `<div style="color:#cbd5e1; text-align:center; padding:15px; font-size:13px;">يرجى تسجيل الدخول بحساب Google المتاح بجهازك</div>`;
             } else {
                 deviceGoogleAccounts.forEach((acc, index) => {
                     let firstLetter = acc.name.charAt(0).toUpperCase();
@@ -3549,17 +3533,7 @@
         }
 
         function addNewDeviceGoogleAccount() {
-            let newEmail = prompt("أدخل البريد الإلكتروني الجديد لحساب Google:");
-            if (!newEmail || !newEmail.includes('@')) return;
-            
-            let newName = newEmail.split('@')[0];
-            let newAcc = { name: newName, email: newEmail };
-            
-            deviceGoogleAccounts.push(newAcc);
-            localStorage.setItem('plotcraft_device_google_accounts', JSON.stringify(deviceGoogleAccounts));
-            
-            renderGoogleAccountsList();
-            showCustomAlert("تم إضافة الحساب بنجاح إلى الجهاز!");
+            openGoogleAccountsChooser();
         }
 
         function showEmailRegisterFormInModal() {
