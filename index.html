@@ -278,7 +278,7 @@
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.7);
-            z-index: 999999;
+            z-index: 99999;
             align-items: center;
             justify-content: center;
         }
@@ -1856,7 +1856,6 @@
             font-size: 12px;
         }
 
-        /* نافذة تسجيل الدخول */
         .login-modal-overlay {
             display: none;
             position: absolute;
@@ -1960,7 +1959,6 @@
             display: inline-block;
         }
 
-        /* نافذة إنشاء حساب جديد المنبثقة */
         .register-modal-overlay {
             display: none;
             position: absolute;
@@ -2072,7 +2070,7 @@
             margin-bottom: 10px;
         }
 
-        /* شاشة عرض الموقع الداخلي (WebView Screen) */
+        /* نافذة عرض شروط الاستخدام (WebView/Content Screen) */
         .webview-screen {
             display: none;
             position: absolute;
@@ -2109,11 +2107,27 @@
             font-size: 16px;
             font-weight: 700;
         }
-        .webview-frame {
+        /* حاوية النص باللون الأسود والحجم الصغير كما طلبت تماماً */
+        .terms-content-container {
             width: 100%;
             height: calc(100% - 66px);
-            border: none;
             background: #ffffff;
+            color: #000000;
+            padding: 20px;
+            overflow-y: auto;
+            font-size: 12px;
+            line-height: 1.6;
+            text-align: right;
+            direction: rtl;
+        }
+        .terms-content-container h3, .terms-content-container h4 {
+            color: #000000;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+        .terms-content-container p {
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -2254,8 +2268,8 @@
                 </div>
 
                 <div class="settings-card-group-box">
-                    <!-- زر شروط الاستخدام المحدث ليفتح رابط الويب بداخله كـ WebView داخل التطبيق -->
-                    <div class="settings-card-row" onclick="openWebView('https://plotcraft-s84ivmhu8safjehv7vxwvs.streamlit.app/', 'شروط الاستخدام')">
+                    <!-- زر شروط الاستخدام المحدث ليفتح النص الجديد باللون الأسود والحجم الصغير -->
+                    <div class="settings-card-row" onclick="openWebView('شروط الاستخدام')">
                         <div class="settings-card-row-right">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                             <span>شروط الاستخدام</span>
@@ -2263,8 +2277,7 @@
                         <div class="settings-card-row-left">‹</div>
                     </div>
 
-                    <!-- زر الخصوصية المحدث ليفتح رابط الويب بداخله أيضاً -->
-                    <div class="settings-card-row" onclick="openWebView('https://plotcraft-s84ivmhu8safjehv7vxwvs.streamlit.app/', 'الخصوصية')">
+                    <div class="settings-card-row" onclick="openWebView('الخصوصية')">
                         <div class="settings-card-row-right">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                             <span>الخصوصية</span>
@@ -2294,14 +2307,16 @@
             </div>
         </div>
 
-        <!-- شاشة الويب لعرض رابط التطبيق بداخله عند الضغط على شروط الاستخدام -->
+        <!-- شاشة عرض النص الداخلي المخصصة لشروط الاستخدام -->
         <div class="webview-screen" id="webViewScreen">
             <div class="webview-top-bar">
                 <button class="webview-back-btn" onclick="closeWebView()">✕</button>
                 <div class="webview-title" id="webViewTitle">شروط الاستخدام</div>
                 <div style="width:36px;"></div>
             </div>
-            <iframe class="webview-frame" id="webViewFrame" src=""></iframe>
+            <div class="terms-content-container" id="termsContentBody">
+                <!-- سيتم تعبئة النص هنا برمجياً -->
+            </div>
         </div>
 
         <div class="language-modal-overlay" id="languageModalOverlay" onclick="closeLanguageModal(event)">
@@ -2657,7 +2672,6 @@
         <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none;" onchange="handleFileSelected(event)">
         <input type="file" id="albumInput" accept="image/*" style="display:none;" onchange="handleFileSelected(event)">
 
-        <!-- نافذة تسجيل الدخول بالحساب المسجل مسبقاً ومع زر جوجل -->
         <div class="login-modal-overlay" id="loginModalOverlay" onclick="event.stopPropagation()">
             <div class="login-modal-content">
                 <div class="login-close-x-btn" onclick="closeLoginModal()">✕</div>
@@ -2670,7 +2684,6 @@
 
                 <button class="auth-main-btn" onclick="handleExistingLogin()">دخول</button>
 
-                <!-- زر تسجيل الدخول بواسطة جوجل (Google Identity Services) -->
                 <div style="display: flex; justify-content: center; width: 100%; margin-top: 4px;">
                     <div id="g_id_onload"
                          data-client_id="1087604212326-ar74pri9eaaneqvi552b04fba91k0804.apps.googleusercontent.com"
@@ -2693,14 +2706,13 @@
                 </div>
 
                 <div style="display: flex; justify-content: center; align-items: center; gap: 15px; color: #cbd5e1; font-size: 11px; margin-top: 6px;">
-                    <span onclick="openWebView('https://plotcraft-s84ivmhu8safjehv7vxwvs.streamlit.app/', 'شروط الاستخدام')" style="cursor: pointer;">شروط الاستخدام</span>
+                    <span onclick="openWebView('شروط الاستخدام')" style="cursor: pointer;">شروط الاستخدام</span>
                     <span>|</span>
-                    <span onclick="openWebView('https://plotcraft-s84ivmhu8safjehv7vxwvs.streamlit.app/', 'الخصوصية')" style="cursor: pointer;">الخصوصية</span>
+                    <span onclick="openWebView('الخصوصية')" style="cursor: pointer;">الخصوصية</span>
                 </div>
             </div>
         </div>
 
-        <!-- نافذة إنشاء حساب جديد الحقيقية -->
         <div class="register-modal-overlay" id="registerModalOverlay" onclick="event.stopPropagation()">
             <div class="login-modal-content">
                 <div class="login-close-x-btn" onclick="closeRegisterModal()">✕</div>
@@ -2815,17 +2827,56 @@
             }, 1000);
         }
 
-        // دوال فتح وإغلاق الشاشة الداخلية لعرض الرابط (WebView)
-        function openWebView(url, title) {
-            document.getElementById('webViewTitle').innerText = title || 'شروط الاستخدام';
-            document.getElementById('webViewFrame').src = url;
+        // دالة فتح الشاشة الداخلية لعرض شروط الاستخدام والنص المطلوب
+        function openWebView(title) {
+            document.getElementById('webViewTitle').innerText = title;
+            
+            let termsHTML = `
+                <h3 style="font-weight:700; margin-bottom:8px;">شروط استخدام PlotCraft</h3>
+                <p style="color:#555; margin-bottom:12px;"><strong>آخر تحديث: 2026</strong></p>
+                
+                <p>تُعد شروط الاستخدام هذه اتفاقية ملزمة قانونًا بينك وبين الشركة ("نحن"، "لنا"، أو "خاصتنا") فيما يتعلق بوصولك إلى تطبيق Plotcraft للهواتف المحمولة واستخدامك له وللمنتجات والخدمات ذات الصلة (يُشار إليها مجتمعة باسم "الخدمات").</p>
+                
+                <p>بالوصول إلى الخدمات أو استخدامها، فإنك تقرّ بأنك قد قرأت هذه الشروط وفهمتها ووافقت عليها. إذا كنت لا توافق، فلا تستخدم الخدمات.</p>
+                
+                <p>هذه الخدمات مخصصة للمستخدمين الذين لا يقل عمرهم عن 13 عامًا. إذا كنت قاصرًا في بلدك، فيجب عليك الحصول على إذن من أحد والديك أو ولي أمرك القانوني، ويجب عليك استخدام الخدمات فقط وفقًا لما يسمح به القانون المعمول به وقواعد المنصة.</p>
+                
+                <p><strong>للتواصل:</strong> <a href="mailto:Ibnridha2@gmail.com" style="color:#2563eb;">Ibnridha2@gmail.com</a></p>
+                
+                <h4 style="font-weight:700; margin-top:15px;">الخدمات</h4>
+                <p>Plotcraft هو استوديو إبداعي مدعوم بالذكاء الاصطناعي لإنتاج Plotcraft قصيرة ومحتوى سمعي بصري آخر. وبحسب الميزة، قد تتيح لك الخدمات إمكانية تقديم فكرة قصة، ومراجع للشخصيات، وموجهات، وصور، وملفات صوتية، وفيديوهات، وتحديد المدة، ونسبة العرض إلى الارتفاع، أو تعليمات أخرى، ومن ثم إنشاء خطط قصصية، ونصوص، ولوحات قصصية، وصور، وفيديوهات مصورة، ووسائط مُعدّلة، وفيديوهات Plotcraft كاملة.</p>
+                
+                <p>قد تشمل الخدمات أيضًا أدوات منفصلة لإنشاء الصور والفيديوهات وتأثيرات الفيديو. قد تتغير الميزات والنماذج والتنسيقات المدعومة وجودة الإخراج والتوافر بمرور الوقت.</p>
+                
+                <p>لم يتم تصميم الخدمات للاستخدامات الخاضعة للتنظيم مثل التشخيص الطبي، أو الاستجابة للطوارئ، أو المشورة القانونية، أو المشورة المالية، أو التعامل مع البيانات الصحية أو المالية أو بيانات الهوية الحكومية أو بيانات الأعمال السرية الخاضعة للتنظيم.</p>
+                
+                <h4 style="font-weight:700; margin-top:15px;">الحسابات والأهلية</h4>
+                <p>يجب عليك تقديم معلومات دقيقة والحفاظ على أمان حسابك. أنت مسؤول عن جميع الأنشطة التي تتم من خلال حسابك، ويجب عليك إخطارنا فورًا إذا كنت تعتقد أنه تم الوصول إلى حسابك دون إذن.</p>
+                <p>لا يجوز لك إنشاء حساب لشخص يقل عمره عن الحد الأدنى للسن المعمول به، أو التحايل على قيود الحساب، أو استخدام حساب شخص آخر دون إذن.</p>
+                
+                <h4 style="font-weight:700; margin-top:15px;">الملكية الفكرية في الخدمات</h4>
+                <p>نحن أو المرخصون لنا نمتلك جميع الحقوق في الخدمات، بما في ذلك البرامج، وواجهة المستخدم، والتصميم، والعلامات التجارية، والشعارات، وسير العمل، وقواعد البيانات، ومحتوى الخدمة. وبموجب هذه الشروط، نمنحك ترخيصًا محدودًا وقابلًا للإلغاء وغير حصري وغير قابل للتحويل للوصول إلى الخدمات واستخدامها للغرض المقصود منها.</p>
+                
+                <h4 style="font-weight:700; margin-top:15px;">محتوى المستخدم والمحتوى الذي يتم إنشاؤه بواسطة الذكاء الاصطناعي</h4>
+                <p>يشمل "محتوى المستخدم" التوجيهات، ووصف القصص، وأسماء الشخصيات، والصور، والفيديوهات، والمقاطع الصوتية، والنصوص، والتعليقات، وغيرها من المواد التي تقدمها. أما "المحتوى المُنشأ بواسطة الذكاء الاصطناعي" فيشمل المحتوى الذي تُنشئه الخدمات أو تُعدّله أو تُحوّله أو تُجمّعه من محتوى المستخدم أو غيره من التعليمات.</p>
+                
+                <h4 style="font-weight:700; margin-top:15px;">المشتريات والاشتراكات والنقاط</h4>
+                <p>تتطلب بعض الميزات اشتراكًا مدفوعًا أو نقاطًا. تظهر الأسعار والضرائب والمزايا المشمولة وعدد النقاط في متجر التطبيقات أو شاشة الشراء قبل إتمام عملية الشراء.</p>
+                
+                <h4 style="font-weight:700; margin-top:15px;">سلامة الذكاء الاصطناعي والاستخدامات المحظورة</h4>
+                <p>لا يجوز لك استخدام الخدمات لإنشاء أو طلب أو تحميل أو توزيع أو مشاركة محتوى غير قانوني أو ضار أو مسيء أو مضلل أو مخالف لهذه الشروط أو قواعد المنصة المعمول بها.</p>
+                
+                <h4 style="font-weight:700; margin-top:15px;">الاتصال</h4>
+                <p>العراق<br>البريد الإلكتروني: <a href="mailto:Ibnridha2@gmail.com" style="color:#2563eb;">Ibnridha2@gmail.com</a></p>
+            `;
+
+            document.getElementById('termsContentBody').innerHTML = termsHTML;
             document.getElementById('webViewScreen').classList.add('active');
             document.getElementById('mainNavBar').classList.add('hidden');
         }
 
         function closeWebView() {
             document.getElementById('webViewScreen').classList.remove('active');
-            document.getElementById('webViewFrame').src = '';
             document.getElementById('mainNavBar').classList.remove('hidden');
         }
 
