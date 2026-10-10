@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PlotCraft UI</title>
+    <!-- مكتبة Google Sign-In -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         * {
             box-sizing: border-box;
@@ -318,7 +320,6 @@
             transform: scale(0.98);
         }
 
-        /* الإشعار المؤقت السريع (Toast) */
         .toast-notification {
             position: fixed;
             top: 25px;
@@ -2600,7 +2601,7 @@
         <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none;" onchange="handleFileSelected(event)">
         <input type="file" id="albumInput" accept="image/*" style="display:none;" onchange="handleFileSelected(event)">
 
-        <!-- نافذة تسجيل الدخول بالحساب المسجل مسبقاً -->
+        <!-- نافذة تسجيل الدخول بالحساب المسجل مسبقاً ومع زر جوجل -->
         <div class="login-modal-overlay" id="loginModalOverlay" onclick="event.stopPropagation()">
             <div class="login-modal-content">
                 <div class="login-close-x-btn" onclick="closeLoginModal()">✕</div>
@@ -2613,11 +2614,29 @@
 
                 <button class="auth-main-btn" onclick="handleExistingLogin()">دخول</button>
 
-                <div style="text-align: center;">
+                <!-- زر تسجيل الدخول بواسطة جوجل (Google Identity Services) -->
+                <div style="display: flex; justify-content: center; width: 100%; margin-top: 4px;">
+                    <div id="g_id_onload"
+                         data-client_id="1087604212326-ar74pri9eaaneqvi552b04fba91k0804.apps.googleusercontent.com"
+                         data-callback="handleGoogleCredentialResponse"
+                         data-auto_prompt="false">
+                    </div>
+                    <div class="g_id_signin"
+                         data-type="standard"
+                         data-size="large"
+                         data-theme="outline"
+                         data-text="sign_in_with"
+                         data-shape="rectangular"
+                         data-logo_alignment="left"
+                         data-width="100%">
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 4px;">
                     <span class="small-link-btn" onclick="openRegisterModal()">ليس لديك حساب؟ إنشاء حساب</span>
                 </div>
 
-                <div style="display: flex; justify-content: center; align-items: center; gap: 15px; color: #cbd5e1; font-size: 11px; margin-top: 10px;">
+                <div style="display: flex; justify-content: center; align-items: center; gap: 15px; color: #cbd5e1; font-size: 11px; margin-top: 6px;">
                     <span onclick="showToast('شروط الاستخدام')" style="cursor: pointer;">شروط الاستخدام</span>
                     <span>|</span>
                     <span onclick="showToast('الخصوصية')" style="cursor: pointer;">الخصوصية</span>
@@ -2679,7 +2698,6 @@
         let savedStoryText = "";
         let tempSelectedLangName = "Arabic";
 
-        // إدارة قاعدة بيانات المستخدمين الحقيقية عبر localStorage بدون أي حسابات وهمية مسبقة
         function getRegisteredUsers() {
             return JSON.parse(localStorage.getItem('plotcraft_db_users')) || [];
         }
@@ -2700,7 +2718,6 @@
             }
         }
 
-        // توليد ID فريد مكون من 7 أرقام لا يتكرر أبداً
         function generateUniqueID() {
             let users = getRegisteredUsers();
             let newId = "";
@@ -3097,6 +3114,7 @@
         }
 
         function closeLoginModal() {
+            document.getElementById('loginModalOverlay').classList.add('show').remove('show');
             document.getElementById('loginModalOverlay').classList.remove('show');
         }
 
@@ -3333,7 +3351,6 @@
             showToast('تم تسجيل الخروج بنجاح');
         }
 
-        // تسجيل الدخول لحساب مسجل مسبقاً
         function handleExistingLogin() {
             let email = document.getElementById('loginEmailField').value.trim();
             let pass = document.getElementById('loginPasswordField').value.trim();
@@ -3360,7 +3377,6 @@
             }
         }
 
-        // إنشاء حساب جديد حقيقي وتوليد ID فريد وإلغاء أي حسابات افتراضية سابقة
         function handleCreateNewAccount() {
             let email = document.getElementById('regEmailField').value.trim();
             let pass = document.getElementById('regPasswordField').value.trim();
@@ -3383,7 +3399,6 @@
                 return;
             }
 
-            // توليد ID فريد من 7 أرقام
             let uniqueID = generateUniqueID();
             let newUser = { 
                 email: email, 
@@ -3403,6 +3418,45 @@
             document.getElementById('regPasswordField').value = '';
 
             showToast("تم تسجيل الحساب بنجاح");
+        }
+
+        // معالجة استجابة تسجيل الدخول عبر Google
+        function handleGoogleCredentialResponse(response) {
+            try {
+                let base64Url = response.credential.split('.')[1];
+                let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                let jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+
+                let googleUser = JSON.parse(jsonPayload);
+                let email = googleUser.email;
+                let name = googleUser.name || email.split('@')[0];
+
+                let users = getRegisteredUsers();
+                let existingUser = users.find(u => u.email === email);
+
+                let userObj;
+                if (existingUser) {
+                    userObj = existingUser;
+                } else {
+                    userObj = {
+                        email: email,
+                        password: "GOOGLE_OAUTH_USER",
+                        name: name,
+                        id: generateUniqueID()
+                    };
+                    users.push(userObj);
+                    saveUsers(users);
+                }
+
+                setCurrentUser(userObj);
+                updateUIState();
+                closeLoginModal();
+                showToast("تم تسجيل الدخول بواسطة جوجل بنجاح!");
+            } catch (e) {
+                showToast("فشل تسجيل الدخول عبر جوجل");
+            }
         }
     </script>
 </body>
