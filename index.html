@@ -1973,7 +1973,6 @@
         }
         .register-modal-overlay.show { display: flex; }
 
-        /* تعديل وتصحيح تنسيق شريط التنقل السفلي والإنشاء السريع */
         .plotcraft-nav-bar {
             position: absolute;
             bottom: 0; left: 0; width: 100%;
@@ -1986,6 +1985,10 @@
             z-index: 1000;
             box-sizing: border-box;
             box-shadow: 0 -4px 15px rgba(0,0,0,0.6);
+            transition: display 0.2s;
+        }
+        .plotcraft-nav-bar.hidden {
+            display: none !important;
         }
         .plotcraft-nav-pill {
             background-color: #282f3d;
@@ -3081,6 +3084,7 @@
                         <li>إنهاء الحساب نهائياً في حالة الانتهاكات الجسيمة أو المتكررة أو الاحتيالية أو المتعمدة للتهرب من المسؤولية.</li>
                     </ol>
                     <p>قد تؤدي الانتهاكات الجسيمة، لا سيما تلك التي تُهدد سلامة الأطفال، أو المحتوى الجنسي غير الرضائي، أو التهديدات الخطيرة، أو المحاولات المتكررة للتحايل على إجراءات الحماية، إلى تعليق الحساب أو إنهائه فورًا دون سابق إنذار. يجوز لنا الاحتفاظ بسجلات لأحداث السلامة وقرارات الإنفاذ لحماية المستخدمين، وإنفاذ هذه الشروط، ومنع تكرار الانتهاكات.</p>
+
                     <p>في حالة تعليق الحساب أو إنهائه، قد يتم تقييد الوصول إلى الخدمات والمشاريع والمحتوى المُنشأ والاشتراكات والنقاط إلى الحد الذي يسمح به القانون وقواعد المنصة المعمول بها.</p>
 
                     <h4>خدمات الطرف الثالث ومزودو الذكاء الاصطناعي</h4>
@@ -3364,7 +3368,7 @@
             document.getElementById(screenId).classList.add('active');
             
             var navBar = document.getElementById('mainNavBar');
-            if (screenId === 'sparkleDialogScreen' || screenId === 'addCharacterScreen' || screenId === 'storyDescriptionScreen') {
+            if (screenId === 'sparkleDialogScreen' || screenId === 'addCharacterScreen' || screenId === 'storyDescriptionScreen' || screenId === 'stepByStepScreen') {
                 navBar.classList.add('hidden');
             } else {
                 navBar.classList.remove('hidden');
@@ -3389,7 +3393,6 @@
         function openSparkleDialog(event) {
             if (event) event.stopPropagation();
             switchScreen('sparkleDialogScreen', event);
-            document.getElementById('mainNavBar').classList.add('hidden');
         }
 
         function openSettingsScreen(event) {
