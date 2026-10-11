@@ -1,0 +1,7 @@
+        <div class="plotcraft-nav-bar" id="mainNavBar">
+            <div class="plotcraft-nav-pill">
+                <a href="#" class="plotcraft-nav-item active" id="navHome">الرئيسية</a>
+                <a href="#" class="plotcraft-nav-item" id="navTools">الأدوات</a>
+                <a href="#" class="plotcraft-nav-item" id="navWorks">الأعمال</a>
+            </div>
+        </div>
