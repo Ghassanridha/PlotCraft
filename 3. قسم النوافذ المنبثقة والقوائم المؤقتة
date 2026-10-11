@@ -1,0 +1,19 @@
+        <!-- نافذة الاشتراكات -->
+        <div class="subscription-modal-overlay hidden" id="subscriptionModal">
+            <!-- محتوى خطط الاشتراكات -->
+        </div>
+
+        <!-- نافذة الإعدادات -->
+        <div class="settings-screen" id="settingsScreen">
+            <!-- محتوى الإعدادات والحساب -->
+        </div>
+
+        <!-- نافذة تسجيل الدخول -->
+        <div class="login-modal-overlay" id="loginModalOverlay">
+            <!-- خانات الإيميل وكلمة المرور وزر جوجل -->
+        </div>
+        
+        <!-- نافذة اختيار الصور -->
+        <div class="source-modal hidden" id="sourceModal">
+            <!-- خيار الكاميرا والألبوم -->
+        </div>
