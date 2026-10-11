@@ -1,0 +1,21 @@
+    <div class="app-shell" id="appShellContainer">
+        <!-- الشاشة الرئيسية -->
+        <div id="homeScreen" class="screen-view active">
+            <!-- محتوى الشاشة الرئيسية والأزرار -->
+        </div>
+
+        <!-- شاشة خطوة بخطوة -->
+        <div id="stepByStepScreen" class="screen-view">
+            <!-- محتوى خطوة بخطوة وإعداد القصة والشخصيات -->
+        </div>
+
+        <!-- شاشة الأدوات -->
+        <div id="toolsScreen" class="screen-view">
+            <!-- محتوى الأدوات -->
+        </div>
+
+        <!-- شاشة الأعمال -->
+        <div id="worksScreen" class="screen-view">
+            <!-- محتوى الأعمال والمشاريع -->
+        </div>
+    </div>
