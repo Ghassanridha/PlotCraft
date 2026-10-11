@@ -1,0 +1,20 @@
+        // دوال التنقل بين الشاشات
+        function switchScreen(screenId, event) {
+            var screens = document.querySelectorAll('.screen-view');
+            screens.forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        // دالة تغيير اللغة (عربي / إنجليزي وباقي اللغات)
+        function applySelectedLanguage() {
+            var langName = tempSelectedLangName;
+            document.getElementById('currentLangDisplay').innerText = langName;
+            // ... تطبيق الترجمات واتجاه الصفحة ...
+        }
+
+        // دوال تسجيل الدخول وحفظ البيانات
+        function handleExistingLogin() {
+            let email = document.getElementById('loginEmailField').value.trim();
+            let pass = document.getElementById('loginPasswordField').value.trim();
+            // ... التحقق وتسجيل الدخول ...
+        }
