@@ -18,3 +18,16 @@
             let pass = document.getElementById('loginPasswordField').value.trim();
             // ... التحقق وتسجيل الدخول ...
         }
+
+        // دالة تسجيل الدخول عبر جوجل (معرف العميل فقط)
+        function handleGoogleLogin() {
+            let clientId = "962930295593-gnl6t3hg9tf3fvurilv6den0dg1tjubh.apps.googleusercontent.com";
+            let redirectUri = "https://plotcraft-s84ivmhu8safjehv7vxwvs.streamlit.app";
+            
+            let authUrl = "https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=" 
+                + clientId 
+                + "&redirect_uri=" + encodeURIComponent(redirectUri) 
+                + "&scope=openid%20email%20profile";
+            
+            window.location.href = authUrl;
+        }
