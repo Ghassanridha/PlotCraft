@@ -1,1 +1,11 @@
 
+st.markdown("""
+    <style>
+        .block-container {
+            padding: 0 !important;
+            margin: 0 !important;
+            max-width: 100% !important;
+        }
+        header {visibility: hidden;}
+    </style>
+""", unsafe_allow_html=True)
