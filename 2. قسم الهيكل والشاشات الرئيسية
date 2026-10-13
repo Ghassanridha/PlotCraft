@@ -1,21 +1,25 @@
-    <div class="app-shell" id="appShellContainer">
-        <!-- الشاشة الرئيسية -->
-        <div id="homeScreen" class="screen-view active">
-            <!-- محتوى الشاشة الرئيسية والأزرار -->
-        </div>
+<!-- ========================================== -->
+<!-- 2. قسم الهيكل والشاشات الرئيسية (محدث ومربوط بالتنقل الآمن) -->
+<!-- ========================================== -->
 
-        <!-- شاشة خطوة بخطوة -->
-        <div id="stepByStepScreen" class="screen-view">
-            <!-- محتوى خطوة بخطوة وإعداد القصة والشخصيات -->
-        </div>
-
-        <!-- شاشة الأدوات -->
-        <div id="toolsScreen" class="screen-view">
-            <!-- محتوى الأدوات -->
-        </div>
-
-        <!-- شاشة الأعمال -->
-        <div id="worksScreen" class="screen-view">
-            <!-- محتوى الأعمال والمشاريع -->
-        </div>
+<div class="app-shell" id="appShellContainer" role="main">
+    <!-- الشاشة الرئيسية -->
+    <div id="homeScreen" class="screen-view active" role="region" aria-label="الشاشة الرئيسية">
+        <!-- محتوى الشاشة الرئيسية والأزرار -->
     </div>
+
+    <!-- شاشة خطوة بخطوة (إنشاء قصة/فيديو) -->
+    <div id="stepByStepScreen" class="screen-view" role="region" aria-label="شاشة خطوة بخطوة" data-requires-auth="true">
+        <!-- محتوى خطوة بخطوة وإعداد القصة والشخصيات -->
+    </div>
+
+    <!-- شاشة الأدوات (تنقل لرفع الفيديوهات والأدوات المتقدمة) -->
+    <div id="toolsScreen" class="screen-view" role="region" aria-label="شاشة الأدوات" data-requires-auth="true">
+        <!-- محتوى الأدوات -->
+    </div>
+
+    <!-- شاشة الأعمال (عرض المشاريع المحفوظة) -->
+    <div id="worksScreen" class="screen-view" role="region" aria-label="شاشة الأعمال" data-requires-auth="true">
+        <!-- محتوى الأعمال والمشاريع -->
+    </div>
+</div>
