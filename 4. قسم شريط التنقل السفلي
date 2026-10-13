@@ -1,7 +1,11 @@
-        <div class="plotcraft-nav-bar" id="mainNavBar">
-            <div class="plotcraft-nav-pill">
-                <a href="#" class="plotcraft-nav-item active" id="navHome">الرئيسية</a>
-                <a href="#" class="plotcraft-nav-item" id="navTools">الأدوات</a>
-                <a href="#" class="plotcraft-nav-item" id="navWorks">الأعمال</a>
-            </div>
-        </div>
+<!-- ========================================== -->
+<!-- 4. قسم فتال الجوي (شريط التنقل - مؤمن ومحدث) -->
+<!-- ========================================== -->
+
+<div class="plotcraft-nav-bar" id="mainNavBar" role="navigation" aria-label="الشريط الرئيسي">
+    <div class="plotcraft-nav-pill">
+        <a href="#" class="plotcraft-nav-item active" id="navHome" role="button" tabindex="0">الرئيسية</a>
+        <a href="#" class="plotcraft-nav-item" id="navTools" role="button" tabindex="0">الأدوات</a>
+        <a href="#" class="plotcraft-nav-item" id="navWorks" role="button" tabindex="0">الأعمال</a>
+    </div>
+</div>
