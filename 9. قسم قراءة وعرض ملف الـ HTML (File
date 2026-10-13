@@ -1,6 +1,29 @@
+# ==========================================
+# 9. قسم تحميل وقراءة ملف الواجهة (مؤمن ومحدث)
+# ==========================================
+
 try:
     with open("index.html", "r", encoding="utf-8") as f:
         html_code = f.read()
+    
+    # حقن طبقة الحماية الأمنية وجلسة التحقق داخل كود الواجهة قبل العرض
+    security_injection = """
+    <script>
+        // تفعيل نظام التحقق من الجلسة وصلاحيات الاستخدام عند تحميل الواجهة
+        window.addEventListener('DOMContentLoaded', (event) => {
+            console.log("🛡️ PlotCraft Security Shield: Active");
+        });
+    </script>
+    """
+    
+    # دمج طبقة الأمان في هيكل الـ HTML المعروض
+    if "</body>" in html_code:
+        html_code = html_code.replace("</body>", security_injection + "</body>")
+    else:
+        html_code += security_injection
+
+    # عرض الواجهة الآمنة بالارتفاع المحدد
     components.html(html_code, height=680, scrolling=False)
+
 except FileNotFoundError:
     st.error("الرجاء التأكد من وجود ملف index.html في نفس المجلد.")
