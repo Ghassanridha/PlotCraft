@@ -1,20 +1,68 @@
-        // دوال التنقل بين الشاشات
-        function switchScreen(screenId, event) {
-            var screens = document.querySelectorAll('.screen-view');
-            screens.forEach(s => s.classList.remove('active'));
-            document.getElementById(screenId).classList.add('active');
-        }
+// ==========================================
+// 5. قسم البرامج والوظائف التفاعلية JavaScript (مؤمن ومحدث)
+// ==========================================
 
-        // دالة تغيير اللغة (عربي / إنجليزي وباقي اللغات)
-        function applySelectedLanguage() {
-            var langName = tempSelectedLangName;
-            document.getElementById('currentLangDisplay').innerText = langName;
-            // ... تطبيق الترجمات واتجاه الصفحة ...
-        }
+// دوال التنقل بين الشاشات
+function switchScreen(screenId, event) {
+    var screens = document.querySelectorAll('.screen-view');
+    screens.forEach(s => s.classList.remove('active'));
+    
+    let targetScreen = document.getElementById(screenId);
+    if (targetScreen) {
+        targetScreen.classList.add('active');
+    }
+}
 
-        // دوال تسجيل الدخول وحفظ البيانات
-        function handleExistingLogin() {
-            let email = document.getElementById('loginEmailField').value.trim();
-            let pass = document.getElementById('loginPasswordField').value.trim();
-            // ... التحقق وتسجيل الدخول ...
+// دالة تغيير اللغة (عربي / إنجليزي وباقي اللغات)
+function applySelectedLanguage() {
+    if (typeof tempSelectedLangName !== 'undefined') {
+        var langName = tempSelectedLangName;
+        let displayEl = document.getElementById('currentLangDisplay');
+        if (displayEl) {
+            displayEl.innerText = langName;
         }
+        // ... تطبيق الترجمات واتجاه الصفحة ...
+    }
+}
+
+// دوال تسجيل الدخول وحفظ البيانات مع التحقق الأمني الأولي
+function handleExistingLogin() {
+    let emailField = document.getElementById('loginEmailField');
+    let passField = document.getElementById('loginPasswordField');
+    
+    if (!emailField || !passField) return;
+
+    let email = emailField.value.trim();
+    let pass = passField.value.trim();
+
+    // فحص الأمان الأساسي: منع الإرسال إذا كانت الحقول فارغة
+    if (email === "" || pass === "") {
+        alert("⚠️ يرجى ملء جميع الحقول المطلوبة.");
+        return;
+    }
+
+    // فحص تنسيق البريد الإلكتروني لمنع الإدخال العشوائي
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        alert("⚠️ يرجى إدخال بريد إلكتروني صالح.");
+        return;
+    }
+
+    // ... استكمال التحقق وتسجيل الدخول بأمان ...
+}
+
+// دالة تسجيل الدخول عبر جوجل بشكل آمن ومحمي
+function handleGoogleLogin() {
+    let redirectUri = "https://plotcraft-s84ivmhu8safjehv7vxwvs.streamlit.app";
+    
+    // توليد رمز حالة عشوائي لحماية المصادقة ضد هجمات التلاعب (CSRF)
+    let secureState = Math.random().toString(36).substring(2);
+    sessionStorage.setItem('oauth_state', secureState);
+
+    let authUrl = "https://accounts.google.com/o/oauth2/v2/auth?response_type=code" 
+        + "&redirect_uri=" + encodeURIComponent(redirectUri) 
+        + "&scope=openid%20email%20profile"
+        + "&state=" + secureState;
+    
+    window.location.href = authUrl;
+}
