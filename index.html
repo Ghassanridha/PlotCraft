@@ -273,53 +273,6 @@
             line-height: 1.2;
         }
 
-        .custom-alert-overlay {
-            display: none;
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 99999;
-            align-items: center;
-            justify-content: center;
-        }
-        .custom-alert-overlay.show {
-            display: flex;
-        }
-        .custom-alert-box {
-            background: #282f3d;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 20px;
-            padding: 24px 20px;
-            width: 85%;
-            max-width: 280px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-        }
-        .custom-alert-msg {
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: 700;
-            line-height: 1.5;
-        }
-        .custom-alert-btn {
-            background: #3b82f6;
-            color: #ffffff;
-            border: none;
-            border-radius: 12px;
-            padding: 10px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .custom-alert-btn:active {
-            background: #2563eb;
-            transform: scale(0.98);
-        }
-
         .toast-notification {
             position: fixed;
             top: 25px;
@@ -2174,6 +2127,9 @@
 </head>
 <body>
 
+    <!-- عنصر الصوت (نغمات التفاعل والنقر) -->
+    <audio id="clickSoundEffect" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
+
     <div class="app-shell" id="appShellContainer">
 
         <div class="toast-notification" id="toastNotification"></div>
@@ -2399,7 +2355,7 @@
             <div class="hero-box">
                 <div class="top-header">
                     <div class="brand-title">PlotCraft</div>
-                    <div class="upgrade-badge" onclick="openSubscriptionModalFromBadge(event)" data-tr="upgradeBadge">ترقية</div>
+                    <div class="upgrade-badge" onclick="playClickSound(); openSubscriptionModalFromBadge(event)" data-tr="upgradeBadge">ترقية</div>
                 </div>
 
                 <div class="welcome-section">
@@ -2407,7 +2363,7 @@
                 </div>
 
                 <div class="cards-row">
-                    <div class="interactive-card" onclick="switchScreen('stepByStepScreen', event)">
+                    <div class="interactive-card" onclick="playClickSound(); switchScreen('stepByStepScreen', event)">
                         <div class="card-header-row">
                             <div class="card-title-group-left">
                                 <div class="card-title" data-tr="stepByStepTitle">خطوة بخطوة</div>
@@ -2417,7 +2373,7 @@
                         <div class="card-subtitle" data-tr="stepByStepSub">راجع كل خطوة</div>
                     </div>
 
-                    <div class="interactive-card" id="speedCard" onclick="handleSpeedCardClick(event)">
+                    <div class="interactive-card" id="speedCard" onclick="playClickSound(); handleSpeedCardClick(event)">
                         <div class="pro-badge-top">
                             <span data-tr="proOnly">Pro only</span>
                             <span class="pro-lock-icon"></span>
@@ -2440,25 +2396,18 @@
                 </div>
 
                 <div class="movies-carousel" id="moviesCarouselContainer">
-                    <div class="movie-card m1" onclick="showToast('يتم إضافة القصص قريباً')"><div class="movie-title">THE DELIVERYMAN'S SECRET BILLIONAIRE</div></div>
-                    <div class="movie-card m2" onclick="showToast('يتم إضافة القصص قريباً')"><div class="movie-title">SECRET BILLIONAIRE</div></div>
-                    <div class="movie-card m3" onclick="showToast('يتم إضافة القصص قريباً')"><div class="movie-title">CYBER CITY</div></div>
+                    <div class="movie-card m1" onclick="playClickSound(); showToast('يتم إضافة القصص قريباً')"><div class="movie-title">THE DELIVERYMAN'S SECRET BILLIONAIRE</div></div>
+                    <div class="movie-card m2" onclick="playClickSound(); showToast('يتم إضافة القصص قريباً')"><div class="movie-title">SECRET BILLIONAIRE</div></div>
+                    <div class="movie-card m3" onclick="playClickSound(); showToast('يتم إضافة القصص قريباً')"><div class="movie-title">CYBER CITY</div></div>
                 </div>
-            </div>
-        </div>
-
-        <div class="custom-alert-overlay" id="customAlertOverlay" onclick="event.stopPropagation()">
-            <div class="custom-alert-box">
-                <div class="custom-alert-msg" id="customAlertMsgText">يتم إضافة القصص قريباً</div>
-                <button class="custom-alert-btn" onclick="closeCustomAlert(event)" data-tr="okBtn">حسناً</button>
             </div>
         </div>
 
         <div id="sparkleDialogScreen" class="screen-view">
             <div class="sparkle-top-bar">
-                <button class="sparkle-close-btn" onclick="switchScreen('homeScreen', event)">✕</button>
+                <button class="sparkle-close-btn" onclick="playClickSound(); switchScreen('homeScreen', event)">✕</button>
                 <div class="brand-title">Plotcraft</div>
-                <div class="sparkle-upgrade-badge" onclick="openSubscriptionModalFromBadge(event)" data-tr="upgradeBadge">ترقية</div>
+                <div class="sparkle-upgrade-badge" onclick="playClickSound(); openSubscriptionModalFromBadge(event)" data-tr="upgradeBadge">ترقية</div>
             </div>
 
             <div class="sparkle-center-content">
@@ -2472,7 +2421,7 @@
                 <div class="sparkle-greeting-text" data-tr="welcomeMsg">طاب مساؤك، أيها المخرج<br>أي قصة سنصنع اليوم؟</div>
 
                 <div class="sparkle-rect-cards-container">
-                    <div class="sparkle-rect-card" onclick="switchScreen('stepByStepScreen', event)">
+                    <div class="sparkle-rect-card" onclick="playClickSound(); switchScreen('stepByStepScreen', event)">
                         <div class="sparkle-rect-right">
                             <div class="sparkle-card-titles">
                                 <div class="sparkle-card-main-title" data-tr="stepByStepTitle">خطوة بخطوة</div>
@@ -2484,7 +2433,7 @@
                         </div>
                     </div>
 
-                    <div class="sparkle-rect-card" onclick="handleSpeedCardClick(event)">
+                    <div class="sparkle-rect-card" onclick="playClickSound(); handleSpeedCardClick(event)">
                         <div class="sparkle-rect-right">
                             <div class="sparkle-card-titles">
                                 <div class="sparkle-card-main-title" data-tr="speedTitle">سريع</div>
@@ -2505,18 +2454,18 @@
         <div id="toolsScreen" class="screen-view">
             <div class="tools-header">
                 <div class="tools-header-title" data-tr="toolsTitle">الأدوات</div>
-                <div class="tools-upgrade-btn" onclick="openSubscriptionModalFromBadge(event)" data-tr="upgradeBadge">ترقية</div>
+                <div class="tools-upgrade-btn" onclick="playClickSound(); openSubscriptionModalFromBadge(event)" data-tr="upgradeBadge">ترقية</div>
             </div>
             <div class="tools-body">
-                <div class="tool-card-item tool-card-1" onclick="showToast('تأثيرات الفيديو قادمة قريباً')">
+                <div class="tool-card-item tool-card-1" onclick="playClickSound(); showToast('تأثيرات الفيديو قادمة قريباً')">
                     <div class="tool-arrow-icon" style="inset-inline-end: 16px;">‹</div>
                     <div class="tool-info-box"><div class="tool-main-title" data-tr="tool1Title">تأثيرات الفيديو</div><div class="tool-sub-desc" data-tr="tool1Sub">أضف لمسة سينمائية</div></div>
                 </div>
-                <div class="tool-card-item tool-card-2" onclick="showToast('توليد الفيديو قادم قريباً')">
+                <div class="tool-card-item tool-card-2" onclick="playClickSound(); showToast('توليد الفيديو قادم قريباً')">
                     <div class="tool-arrow-icon" style="inset-inline-end: 16px;">‹</div>
                     <div class="tool-info-box"><div class="tool-main-title" data-tr="tool2Title">توليد الفيديو</div><div class="tool-sub-desc" data-tr="tool2Sub">حول توجيهاً إلى فيديو خاص بك</div></div>
                 </div>
-                <div class="tool-card-item tool-card-3" onclick="showToast('توليد الصور قادم قريباً')">
+                <div class="tool-card-item tool-card-3" onclick="playClickSound(); showToast('توليد الصور قادم قريباً')">
                     <div class="tool-arrow-icon" style="inset-inline-end: 16px;">‹</div>
                     <div class="tool-info-box"><div class="tool-main-title" data-tr="tool3Title">توليد الصور</div><div class="tool-sub-desc" data-tr="tool3Sub">حول فكرة إلى صورة مكتملة</div></div>
                 </div>
@@ -2527,27 +2476,27 @@
             <div class="works-top-header">
                 <div class="works-screen-title" data-tr="worksTitle">الأعمال</div>
                 <div class="works-header-left-group">
-                    <div class="works-upgrade-badge" onclick="openSubscriptionModalFromBadge(event)" data-tr="upgradeBadge">ترقية</div>
-                    <div class="works-robot-logo" onclick="openSettingsScreen(event)" title="الإعدادات"></div>
+                    <div class="works-upgrade-badge" onclick="playClickSound(); openSubscriptionModalFromBadge(event)" data-tr="upgradeBadge">ترقية</div>
+                    <div class="works-robot-logo" onclick="playClickSound(); openSettingsScreen(event)" title="الإعدادات"></div>
                 </div>
             </div>
 
             <div class="works-body-container">
                 <div class="works-tabs-container">
-                    <div class="works-tab active" onclick="switchWorksTab(this)" data-tr="tabProjects">المشاريع</div>
-                    <div class="works-tab" onclick="switchWorksTab(this)" data-tr="tabMedia">مكتبة الوسائط</div>
+                    <div class="works-tab active" onclick="playClickSound(); switchWorksTab(this)" data-tr="tabProjects">المشاريع</div>
+                    <div class="works-tab" onclick="playClickSound(); switchWorksTab(this)" data-tr="tabMedia">مكتبة الوسائط</div>
                 </div>
                 <div class="works-empty-content">
                     <div class="works-box-icon"></div>
                     <div class="works-empty-text-sub" data-tr="emptyWorks">ستظهر هنا مشاريع القصة الخاصة بك.</div>
-                    <button class="works-create-btn" onclick="openSparkleDialog(event)" data-tr="createStoryBtn">إنشاء قصة</button>
+                    <button class="works-create-btn" onclick="playClickSound(); openSparkleDialog(event)" data-tr="createStoryBtn">إنشاء قصة</button>
                 </div>
             </div>
         </div>
 
         <div id="stepByStepScreen" class="screen-view">
             <div style="display:flex; justify-content:space-between; align-items:center; padding:20px; border-bottom:1px solid rgba(255,255,255,0.08); flex-shrink:0;">
-                <button style="background:rgba(255,255,255,0.1); border:none; color:#fff; width:36px; height:36px; border-radius:50%; cursor:pointer;" onclick="switchScreen('homeScreen', event)">✕</button>
+                <button style="background:rgba(255,255,255,0.1); border:none; color:#fff; width:36px; height:36px; border-radius:50%; cursor:pointer;" onclick="playClickSound(); switchScreen('homeScreen', event)">✕</button>
                 <div style="color:#fff; font-weight:700;">PlotCraft</div>
                 <div style="width:36px;"></div>
             </div>
@@ -2573,7 +2522,7 @@
                             <h4 data-tr="charTitle">الشخصيات</h4>
                             <p data-tr="charDesc">أضف صورتين كحد أقصى لشخصيات القصة</p>
                         </div>
-                        <button class="action-add-btn" onclick="openAddCharacter(event)" data-tr="addBtn">إضافة</button>
+                        <button class="action-add-btn" onclick="playClickSound(); openAddCharacter(event)" data-tr="addBtn">إضافة</button>
                     </div>
 
                     <div class="setup-row-item" id="storyRowSlot">
@@ -2581,19 +2530,19 @@
                             <h4 data-tr="taleTitle">الحكاية</h4>
                             <p data-tr="taleDesc">اكتب أو صف حبكة قصتك هنا</p>
                         </div>
-                        <button class="action-add-btn" onclick="openStoryDescription(event)" data-tr="addBtn">إضافة</button>
+                        <button class="action-add-btn" onclick="playClickSound(); openStoryDescription(event)" data-tr="addBtn">إضافة</button>
                     </div>
                 </div>
 
                 <div class="bottom-next-row" style="margin-top:10px; margin-bottom: 20px;">
-                    <button class="next-step-btn" id="nextStepBtn" onclick="showToast('الانتقال للخطوة التالية بنجاح!')" data-tr="nextBtn">التالي</button>
+                    <button class="next-step-btn" id="nextStepBtn" onclick="playClickSound(); showToast('الانتقال للخطوة التالية بنجاح!')" data-tr="nextBtn">التالي</button>
                 </div>
             </div>
         </div>
 
         <div id="storyDescriptionScreen" class="screen-view">
             <div class="story-desc-header">
-                <button class="story-desc-back" onclick="switchScreen('stepByStepScreen', event)">
+                <button class="story-desc-back" onclick="playClickSound(); switchScreen('stepByStepScreen', event)">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5"></path><polyline points="12 19 5 12 12 5"></polyline></svg>
                 </button>
                 <div class="story-desc-title" data-tr="writeStoryTitle">اكتب قصة</div>
@@ -2605,13 +2554,13 @@
             </div>
 
             <div class="story-save-btn-wrapper" id="storySaveBtnWrapper">
-                <button class="story-save-btn" id="storySaveBtn" onclick="saveStoryDescription()" data-tr="saveBtn">حفظ</button>
+                <button class="story-save-btn" id="storySaveBtn" onclick="playClickSound(); saveStoryDescription()" data-tr="saveBtn">حفظ</button>
             </div>
         </div>
 
         <div id="addCharacterScreen" class="screen-view">
             <div class="add-char-header">
-                <button class="add-char-back" onclick="switchScreen('stepByStepScreen', event)">‹</button>
+                <button class="add-char-back" onclick="playClickSound(); switchScreen('stepByStepScreen', event)">‹</button>
                 <div class="add-char-title" data-tr="addCharTitle">إضافة شخصية</div>
                 <div style="width: 20px;"></div>
             </div>
@@ -2620,7 +2569,7 @@
                 <div class="char-main-card">
                     <div class="char-section-label" data-tr="charLabel">الشخصية</div>
                     
-                    <div class="char-big-upload-box" id="bigUploadBox" onclick="showSourceModal()">
+                    <div class="char-big-upload-box" id="bigUploadBox" onclick="playClickSound(); showSourceModal()">
                         <div id="bigBoxInner" style="display:flex; flex-direction:column; align-items:center; gap:8px; color:#cbd5e1; font-size:13px;">
                             <div style="width:32px; height:32px; background:rgba(255,255,255,0.08); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#ffffff;">↑</div>
                             <span data-tr="uploadImg">رفع صورة</span>
@@ -2628,19 +2577,19 @@
                     </div>
 
                     <div class="char-thumbs-container">
-                        <div class="char-add-role-box" onclick="showSourceModal()" title="إضافة صورة جديدة">
+                        <div class="char-add-role-box" onclick="playClickSound(); showSourceModal()" title="إضافة صورة جديدة">
                             <span>+</span>
                             <span class="char-add-role-text" data-tr="roleText">الدور</span>
                         </div>
 
                         <div class="char-thumbs-scroll">
-                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/fd8634ac28e205e26c7152807b88939a60c489fb/1.jpg" class="char-thumb-item" onclick="selectThumb(this)">
-                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3e947f15e4b77039c4fae6696252cb2dc9bf8233/7.jpg" class="char-thumb-item" onclick="selectThumb(this)">
-                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/1f2087617faa51c04442a4e917e7952afa111303/3.jpg" class="char-thumb-item" onclick="selectThumb(this)">
-                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/5166da314bb3ab7bfefdfaef8d022910be86b74f/4.jpg" class="char-thumb-item" onclick="selectThumb(this)">
-                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/c10416ccb8119267135f82cb1b8e6c1f70d768e3/5.jpg" class="char-thumb-item" onclick="selectThumb(this)">
-                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/a1eeb3ea05a1beca8c56845e706009cc21f17ddd/6.jpg" class="char-thumb-item" onclick="selectThumb(this)">
-                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/c3b7bce11a16e095ef618ede145cba09c67f9b3d/2.jpg" class="char-thumb-item" onclick="selectThumb(this)">
+                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/fd8634ac28e205e26c7152807b88939a60c489fb/1.jpg" class="char-thumb-item" onclick="playClickSound(); selectThumb(this)">
+                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3e947f15e4b77039c4fae6696252cb2dc9bf8233/7.jpg" class="char-thumb-item" onclick="playClickSound(); selectThumb(this)">
+                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/1f2087617faa51c04442a4e917e7952afa111303/3.jpg" class="char-thumb-item" onclick="playClickSound(); selectThumb(this)">
+                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/5166da314bb3ab7bfefdfaef8d022910be86b74f/4.jpg" class="char-thumb-item" onclick="playClickSound(); selectThumb(this)">
+                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/c10416ccb8119267135f82cb1b8e6c1f70d768e3/5.jpg" class="char-thumb-item" onclick="playClickSound(); selectThumb(this)">
+                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/a1eeb3ea05a1beca8c56845e706009cc21f17ddd/6.jpg" class="char-thumb-item" onclick="playClickSound(); selectThumb(this)">
+                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/c3b7bce11a16e095ef618ede145cba09c67f9b3d/2.jpg" class="char-thumb-item" onclick="playClickSound(); selectThumb(this)">
                         </div>
                     </div>
                 </div>
@@ -2652,7 +2601,7 @@
             </div>
 
             <div class="char-submit-btn-wrapper">
-                <button class="char-submit-btn disabled" id="submitCharacterBtn" onclick="submitCharacterData()" data-tr="submitBtn">إرسال</button>
+                <button class="char-submit-btn disabled" id="submitCharacterBtn" onclick="playClickSound(); submitCharacterData()" data-tr="submitBtn">إرسال</button>
             </div>
         </div>
 
@@ -2660,7 +2609,7 @@
             <div class="source-modal-content">
                 <div class="source-modal-header">
                     <div class="source-modal-title">رفع صورة</div>
-                    <button class="source-modal-close" onclick="closeSourceModal()">✕</button>
+                    <button class="source-modal-close" onclick="playClickSound(); closeSourceModal()">✕</button>
                 </div>
 
                 <div class="source-info-banner">
@@ -2690,11 +2639,11 @@
                 </div>
 
                 <div class="source-buttons-row">
-                    <button class="source-btn bright-white" onclick="triggerFileInput('camera')">
+                    <button class="source-btn bright-white" onclick="playClickSound(); triggerFileInput('camera')">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
                         <span>الكاميرا</span>
                     </button>
-                    <button class="source-btn dark-white" onclick="triggerFileInput('album')">
+                    <button class="source-btn dark-white" onclick="playClickSound(); triggerFileInput('album')">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
                         <span>مكتبة الصور</span>
                     </button>
@@ -2707,7 +2656,7 @@
 
         <div class="login-modal-overlay" id="loginModalOverlay" onclick="closeLoginModal()">
             <div class="login-modal-content" onclick="event.stopPropagation()">
-                <div class="login-close-x-btn" onclick="closeLoginModal()">✕</div>
+                <div class="login-close-x-btn" onclick="playClickSound(); closeLoginModal()">✕</div>
                 <div class="login-modal-header">
                     <div class="login-modal-title">تسجيل الدخول إلى PlotCraft</div>
                 </div>
@@ -2715,7 +2664,7 @@
                 <input type="email" class="auth-input-field" id="loginEmailField" placeholder="البريد الإلكتروني">
                 <input type="password" class="auth-input-field" id="loginPasswordField" placeholder="كلمة المرور">
 
-                <button class="auth-main-btn" onclick="handleExistingLogin()">دخول</button>
+                <button class="auth-main-btn" onclick="playClickSound(); handleExistingLogin()">دخول</button>
 
                 <div style="display: flex; justify-content: center; width: 100%; margin-top: 4px;">
                     <div id="g_id_onload"
@@ -2735,20 +2684,20 @@
                 </div>
 
                 <div style="text-align: center; margin-top: 4px;">
-                    <span class="small-link-btn" onclick="openRegisterModal()">ليس لديك حساب؟ إنشاء حساب</span>
+                    <span class="small-link-btn" onclick="playClickSound(); openRegisterModal()">ليس لديك حساب؟ إنشاء حساب</span>
                 </div>
 
                 <div style="display: flex; justify-content: center; align-items: center; gap: 15px; color: #cbd5e1; font-size: 11px; margin-top: 6px;">
-                    <span onclick="openWebView('شروط الاستخدام')" style="cursor: pointer;">شروط الاستخدام</span>
+                    <span onclick="playClickSound(); openWebView('شروط الاستخدام')" style="cursor: pointer;">شروط الاستخدام</span>
                     <span>|</span>
-                    <span onclick="openWebView('الخصوصية')" style="cursor: pointer;">الخصوصية</span>
+                    <span onclick="playClickSound(); openWebView('الخصوصية')" style="cursor: pointer;">الخصوصية</span>
                 </div>
             </div>
         </div>
 
         <div class="register-modal-overlay" id="registerModalOverlay" onclick="closeRegisterModal()">
             <div class="login-modal-content" onclick="event.stopPropagation()">
-                <div class="login-close-x-btn" onclick="closeRegisterModal()">✕</div>
+                <div class="login-close-x-btn" onclick="playClickSound(); closeRegisterModal()">✕</div>
                 <div class="login-modal-header">
                     <div class="login-modal-title">إنشاء حساب جديد</div>
                 </div>
@@ -2756,31 +2705,31 @@
                 <input type="email" class="auth-input-field" id="regEmailField" placeholder="أدخل البريد الإلكتروني">
                 <input type="password" class="auth-input-field" id="regPasswordField" placeholder="أدخل كلمة مرور (أكثر من 6 أحرف/أرقام)">
 
-                <button style="width: 100%; background: #e2e8f0; color: #1f242d; border: none; border-radius: 12px; padding: 12px; font-size: 14px; font-weight: 700; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(255,255,255,0.15);" onclick="handleCreateNewAccount()">تأكيد</button>
+                <button style="width: 100%; background: #e2e8f0; color: #1f242d; border: none; border-radius: 12px; padding: 12px; font-size: 14px; font-weight: 700; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(255,255,255,0.15);" onclick="playClickSound(); handleCreateNewAccount()">تأكيد</button>
 
                 <div style="text-align: center; margin-top: 5px;">
-                    <span class="small-link-btn" onclick="backToLoginFromRegister()">لديك حساب مسبقاً؟ سجل الدخول</span>
+                    <span class="small-link-btn" onclick="playClickSound(); backToLoginFromRegister()">لديك حساب مسبقاً؟ سجل الدخول</span>
                 </div>
             </div>
         </div>
 
         <div class="plotcraft-nav-bar" id="mainNavBar">
             <div class="plotcraft-nav-pill">
-                <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="switchScreen('homeScreen', event); setActiveNav('navHome')">
+                <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="playClickSound(); switchScreen('homeScreen', event); setActiveNav('navHome')">
                     <span data-tr="navHome">الرئيسية</span>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
                 </a>
-                <a href="#" class="plotcraft-nav-item" id="navTools" onclick="switchScreen('toolsScreen', event); setActiveNav('navTools')">
+                <a href="#" class="plotcraft-nav-item" id="navTools" onclick="playClickSound(); switchScreen('toolsScreen', event); setActiveNav('navTools')">
                     <span data-tr="navTools">الأدوات</span>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
                 </a>
-                <a href="#" class="plotcraft-nav-item" id="navWorks" onclick="switchScreen('worksScreen', event); setActiveNav('navWorks')">
+                <a href="#" class="plotcraft-nav-item" id="navWorks" onclick="playClickSound(); switchScreen('worksScreen', event); setActiveNav('navWorks')">
                     <span data-tr="navWorks">الأعمال</span>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path></svg>
                 </a>
             </div>
 
-            <div class="plotcraft-nav-square" onclick="openSparkleDialog(event)" title="إنشاء سريع">
+            <div class="plotcraft-nav-square" onclick="playClickSound(); openSparkleDialog(event)" title="إنشاء سريع">
                 <svg width="26" height="26" viewBox="0 0 24 24">
                     <rect x="3" y="6" width="14" height="12" rx="3" fill="#cbd5e1"/>
                     <path d="M14 6h3c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2h-3V6z" fill="#94a3b8"/>
@@ -2792,32 +2741,21 @@
 
     </div>
 
-    <!-- السكربت الرئيسي المضاف إليه إعدادات Firebase في البداية دون حذف أي سطر من كودك -->
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
-
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-          apiKey: "AIzaSyC0yqVlGpM159foKmpMFiuySgF5uFxOA_k",
-          authDomain: "plotcraft2.firebaseapp.com",
-          projectId: "plotcraft2",
-          storageBucket: "plotcraft2.firebasestorage.app",
-          messagingSenderId: "338171528711",
-          appId: "1:338171528711:web:f13544fb4e496fe39e8ca2",
-          measurementId: "G-T2ZXFTGD5H"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-
+    <!-- كود الـ JavaScript الخاص بالواجهة وأصوات النقر والسياسات -->
+    <script>
         let currentUploadedImageSrc = "";
         let characterAdded = false;
         let storyAdded = false;
         let savedStoryText = "";
-        let tempSelectedLangName = "Arabic";
+
+        // دالة تفعيل صوت النقر
+        window.playClickSound = function() {
+            const audio = document.getElementById('clickSoundEffect');
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(e => {});
+            }
+        };
 
         function getRegisteredUsers() {
             return JSON.parse(localStorage.getItem('plotcraft_db_users')) || [];
@@ -2852,18 +2790,20 @@
 
         function updateUIState() {
             let currentUser = getCurrentUser();
+            let loggedInArea = document.getElementById('loggedInUserInfoArea');
+            let loggedOutArea = document.getElementById('loggedOutUserInfoArea');
+            let logoutBtn = document.getElementById('settingsLogoutBtn');
+
             if (currentUser) {
                 document.getElementById('displayUserName').innerText = currentUser.name || currentUser.email.split('@')[0];
-                document.getElementById('displayUniqueId').innerText = currentUser.id;
-                document.getElementById('settingsLoginBtn').style.display = 'none';
-                document.getElementById('settingsLogoutBtn').style.display = 'block';
-                document.getElementById('loggedOutUserInfoArea').style.display = 'none';
-                document.getElementById('loggedInUserInfoArea').style.display = 'flex';
+                document.getElementById('displayUniqueId').innerText = currentUser.id || "0000000 ID";
+                if (loggedInArea) loggedInArea.style.display = 'flex';
+                if (loggedOutArea) loggedOutArea.style.display = 'none';
+                if (logoutBtn) logoutBtn.style.display = 'block';
             } else {
-                document.getElementById('settingsLoginBtn').style.display = 'block';
-                document.getElementById('settingsLogoutBtn').style.display = 'none';
-                document.getElementById('loggedInUserInfoArea').style.display = 'none';
-                document.getElementById('loggedOutUserInfoArea').style.display = 'flex';
+                if (loggedInArea) loggedInArea.style.display = 'none';
+                if (loggedOutArea) loggedOutArea.style.display = 'flex';
+                if (logoutBtn) logoutBtn.style.display = 'none';
             }
         }
 
@@ -2911,6 +2851,7 @@
             }, 1000);
         };
 
+        // النصوص الكاملة لشروط الاستخدام وسياسة الخصوصية
         window.openWebView = function(type) {
             window.history.pushState({page: "webview"}, document.title, window.location.href);
             
@@ -2919,227 +2860,37 @@
                 contentHTML = `
                     <h3>سياسة الخصوصية</h3>
                     <p><strong>آخر تحديث: أغسطس 2026</strong></p>
-                    <p>تحترم شركة بلوت كرافت ("بلوت كرافت "، "نحن"، "لنا") خصوصيتك وتلتزم بحماية بياناتك الشخصية. توضح سياسة الخصوصية هذه كيفية جمعنا واستخدامنا والإفصاح عن معلوماتك وحمايتها عند استخدامك لتطبيق بلوت كرافت للهواتف المحمولة والخدمات ذات الصلة. باستخدامك لتطبيق بلوت كرافت ، فإنك تقرّ بأنك قد قرأت سياسة الخصوصية هذه وفهمتها.</p>
+                    <p>تحترم شركة بلوت كرافت ("بلوت كرافت"، "نحن"، "لنا") خصوصيتك وتلتزم بحماية بياناتك الشخصية عندما تستخدم تطبيقنا أو خدماتنا الرقمية.</p>
                     
-                    <p><strong>إفصاح هام بشأن الذكاء الاصطناعي:</strong> يستخدم تطبيق Plotcraft خدمات الذكاء الاصطناعي التابعة لجهات خارجية لمعالجة الطلبات والوسائط المرفوعة، ولإنشاء القصص والنصوص والصور والفيديوهات وغيرها من المخرجات الإبداعية. قبل إرسال أي طلب للذكاء الاصطناعي، سيُقدّم التطبيق إشعارًا مناسبًا ويطلب الموافقة عند الاقتضاء.</p>
-
-                    <h4>1. المعلومات التي نجمعها</h4>
-                    <p><strong>1.1 المعلومات التي تقدمها:</strong></p>
-                    <ul>
-                        <li>معلومات الحساب مثل اسم المستخدم وعنوان البريد الإلكتروني وتفاصيل الملف الشخصي.</li>
-                        <li>المعلومات التي تقدمها عند الاتصال بدعم العملاء.</li>
-                        <li>المعلومات المقدمة عند المشاركة في الاستبيانات أو برامج التقييم.</li>
-                        <li>تتم معالجة معلومات الفوترة والاشتراك ورصيد النقاط والمعاملات والمشتريات من خلال متجر التطبيقات أو مزود الدفع ذي الصلة.</li>
-                        <li>المحتوى الإبداعي الذي تقدمه طواعية، بما في ذلك أوصاف القصص، والمطالبات، وأسماء الشخصيات، والصور، والفيديو، والصوت، وتعليمات لوحة القصة، والمواد الأخرى المطلوبة لإنشاء المحتوى.</li>
-                    </ul>
-
-                    <p><strong>1.2 بيانات إدخال محتوى الذكاء الاصطناعي:</strong></p>
-                    <p>عند استخدام ميزات توليد أو تحرير المحتوى بالذكاء الاصطناعي، يمكنك إرسال مدخلات إبداعية مثل التوجيهات والصور والفيديوهات والمقاطع الصوتية ومراجع الشخصيات ووصف المشاهد ومعايير التوليد. قد يتم نقل هذا المحتوى بشكل آمن إلى مزودي خدمات الذكاء الاصطناعي التابعين لجهات خارجية لمعالجة طلبك وإعادة المخرجات المطلوبة.</p>
-                    <p>لا نطلب معلومات شخصية حساسة عن قصد. لذا، يُرجى عدم تحميل بيانات الهوية الحكومية، أو المعلومات المالية، أو المعلومات الصحية، أو كلمات المرور، أو معلومات العمل السرية، أو أي بيانات حساسة أخرى، إلا إذا كان التطبيق يدعم هذا الاستخدام صراحةً، وكان لديك أساس قانوني لتقديمها.</p>
-
-                    <p><strong>1.3 المعلومات التي يتم جمعها تلقائيًا:</strong></p>
-                    <ul>
-                        <li>نوع الجهاز وطرازه.</li>
-                        <li>نظام التشغيل وإصدار التطبيق.</li>
-                        <li>عنوان IP والبلد أو المنطقة، بدون تحديد الموقع بدقة.</li>
-                        <li>إحصائيات الاستخدام المجهولة أو المجمعة.</li>
-                        <li>تقارير الأعطال، وبيانات الأداء، وأحداث السلامة، والسجلات الفنية اللازمة لتشغيل الخدمة وحمايتها.</li>
-                    </ul>
-
-                    <h4>2. خدمات الذكاء الاصطناعي ومعالجة البيانات من قبل جهات خارجية</h4>
-                    <p>تعتمد منصة Plotcraft على مزودي خدمات الذكاء الاصطناعي الموثوق بهم من جهات خارجية لتنفيذ بعض وظائفها. وبحسب الميزة والتطبيق الحالي، قد يشمل هؤلاء المزودون OpenAI لنماذج اللغة والتخطيط، وGoogle AI لنماذج توليد الصور أو الفيديو. وقد نضيف أو نستبدل أو نستخدم مزودين آخرين مع تطور الخدمة.</p>
-                    <p>قد تتضمن البيانات المرسلة إلى مزودي خدمات الذكاء الاصطناعي ما يلي:</p>
-                    <ul>
-                        <li>مطالبات نصية، ووصف للقصة، وتعليمات الإنشاء.</li>
-                        <li>صور مرجعية للشخصيات والصور الأخرى تم تحميلها.</li>
-                        <li>يتم إرسال ملفات الفيديو أو الصوت لإنتاجها أو تحريرها.</li>
-                        <li>أوصاف المشاهد، وبيانات لوحة القصة، ومعايير الإنشاء.</li>
-                        <li>المعرفات التقنية اللازمة للتحقق من الهوية، والمراقبة، والتأمين، وإكمال الطلب.</li>
-                    </ul>
-                    <p>يقوم هؤلاء المزودون بمعالجة البيانات وفقًا لشروطهم وسياسات الخصوصية وضوابط الأمان وقواعد الاحتفاظ بالبيانات وأنظمة السلامة الخاصة بهم. نستخدم إعدادات الخدمة المناسبة والمخصصة للاستخدام في التطبيقات أو واجهات برمجة التطبيقات المدفوعة، حيثما كان ذلك متاحة، ولكن قد يتم الاحتفاظ بالبيانات ومعالجة البيانات لأغراض السلامة حسب الحاجة لمنع إساءة الاستخدام، أو الامتثال للقانون، أو تشغيل خدمة المزود.</p>
-                    <p>قد تستخدم أنظمة الذكاء الاصطناعي ومزودو خدماتنا فحوصات أمان آلية، وفي حالات محدودة، مراجعة بشرية معتمدة، للكشف عن أي إساءة استخدام، والتحقيق في الحوادث الأمنية، والامتثال للقانون، أو تحسين موثوقية الخدمة. لا نسمح باستخدام المحتوى الإبداعي المُقدَّم لتدريب نماذجنا العامة إلا إذا أفصحنا عن هذا الاستخدام بشكل منفصل وحصلنا على أي موافقة يقتضيها القانون.</p>
-
-                    <h4>الموافقة ومعالجة الذكاء الاصطناعي</h4>
-                    <p>قبل إرسال طلب الذكاء الاصطناعي، قد يعرض تطبيق Plotcraft إشعارًا داخل التطبيق يُفيد بأن طلبك أو الوسائط التي تُرسلها ستُعالج بواسطة مزودي خدمات ذكاء اصطناعي تابعين لجهات خارجية. عند الاقتضاء، يجب عليك تقديم موافقة صريحة قبل بدء المعالجة. في حال رفضك، قد لا تكون ميزة إنشاء أو تحرير المحتوى باستخدام الذكاء الاصطناعي متاحة.</p>
-                    <p>يمكنك إيقاف استخدام ميزات الذكاء الاصطناعي في أي وقت. لا يؤدي إيقاف الاستخدام بالضرورة إلى حذف المحتوى المخزن مسبقًا في حسابك أو لدى مزود خدمة خارجي؛ إذ تتم عملية الحذف وفقًا لقواعد الاحتفاظ المطبقة الموضحة في هذه السياسة وشروط المزود ذي الصلة.</p>
-
-                    <h4>حقوق المحتوى ومسؤولياتك</h4>
-                    <p>تحتفظ بحقوقك في المحتوى الذي ترسله، وذلك رهناً بالحقوق والأذونات التي تمنحها لنا وشروط خدمة الطرف الثالث المعمول بها واللازمة لتقديم الخدمة.</p>
-                    <p>قبل تحميل أي محتوى، يجب أن تمتلك جميع الحقوق والتصاريح والأسس القانونية لاستخدامه ومعالجته. ويشمل ذلك الحصول على إذن باستخدام اسم الشخص أو صورته أو شكله أو صوته أو أدائه أو أي بيانات شخصية أخرى، بالإضافة إلى إذن من أي مالك مشارك أو صاحب حقوق للموسيقى أو اللقطات أو الأعمال الفنية أو العلامات التجارية أو غيرها من المواد.</p>
-                    <p>أنت مسؤول عن مراجعة المحتوى المُنشأ بواسطة الذكاء الاصطناعي قبل نشره أو مشاركته أو استخدامه. قد يكون ناتج الذكاء الاصطناعي غير دقيق أو ناقصًا أو مسيئًا أو مشابهًا لمحتوى مُنشأ لمستخدمين آخرين، أو غير مناسب لغرض معين. لا نضمن أن يكون الناتج فريدًا أو صحيحًا من الناحية الواقعية أو غير مُخالف لحقوق الملكية الفكرية أو مؤهلًا للحماية القانونية بموجب حقوق النشر أو غيرها من أشكال الحماية القانونية.</p>
-
-                    <h4>استخدامات الذكاء الاصطناعي المحظورة</h4>
-                    <p>لا يجوز لك استخدام Plotcraft أو إرسال محتوى إلى:</p>
-                    <ul>
-                        <li>مخالفة القانون، أو انتهاك حقوق الملكية الفكرية، أو الخصوصية، أو حقوق الدعاية، أو غيرها من الحقوق، أو التحايل على قواعد المنصة المعمول بها.</li>
-                        <li>إنتاج مواد تتعلق بالاعتداء الجنسي على الأطفال، أو الاستغلال الجنسي، أو المحتوى الحميم غير الرضائي، أو المحتوى الجنسي الذي يشمل القاصرين.</li>
-                        <li>مضايقة شخص آخر أو تهديده أو الاحتيال عليه أو انتحال شخصيته أو التلاعب به أو خداعه بشكل مادي.</li>
-                        <li>توليد برامج ضارة، أو تعليمات لارتكاب مخالفات خطيرة، أو دعاية متطرفة، أو محتوى يهدف إلى تسهيل العنف.</li>
-                        <li>تحميل بيانات شخصية حساسة أو معلومات سرية بدون أساس قانوني وبدون الأذونات اللازمة.</li>
-                        <li>محاولة تجاوز مرشحات الأمان، أو حدود المعدل، أو ضوابط الوصول، أو قيود مقدم الخدمة.</li>
-                    </ul>
-                    <p>يجوز لنا حظر أو إزالة أو تعليق أو التحقيق في المحتوى أو الحسابات التي تنتهك هذه السياسة أو القانون المعمول به أو شروط مزودي الذكاء الاصطناعي لدينا.</p>
-
-                    <h4>كيف نستخدم المعلومات</h4>
-                    <ul>
-                        <li>توفير القصص، والنصوص، ولوحات القصة، والصور، والفيديوهات، والتحرير، وخدمات الذكاء الاصطناعي الأخرى المطلوبة.</li>
-                        <li>حفظ ومزامنة المشاريع والأصول المُنشأة والاشتراكات وأرصدة النقاط.</li>
-                        <li>تشغيل التطبيق وصيانته وتأمينه وتحسينه.</li>
-                        <li>تقديم الدعم للعملاء والرد على طلباتهم.</li>
-                        <li>منع الاحتيال وسوء الاستخدام والحوادث الأمنية والوصول غير المصرح به.</li>
-                        <li>قياس الأداء وفهم استخدام الخدمة.</li>
-                        <li>الالتزام بالالتزامات القانونية وإنفاذ اتفاقياتنا.</li>
-                    </ul>
-                    <p>نحن لا نبيع بياناتك الشخصية.</p>
-
-                    <h4>كيف نشارك المعلومات</h4>
-                    <ul>
-                        <li><strong>مقدمو خدمات الذكاء الاصطناعي:</strong> تتم مشاركة المطالبات والوسائط حسب الحاجة لإنشاء المحتوى المطلوب أو تعديله.</li>
-                        <li><strong>مزودو خدمات التحليلات:</strong> نستخدم Google Firebase لفهم أداء التطبيق واستخدامه. راجع سياسة خصوصية Google.</li>
-                        <li><strong>مزودو خدمات الإعلان والإسناد:</strong> نستخدم Meta SDK لقياس أداء الإعلانات. راجع سياسة خصوصية Meta.</li>
-                        <li><strong>مقدمو الخدمات:</strong> الاستضافة، والتخزين، والدفع، ودعم العملاء، والأمن، والموردون التشغيليون الذين يعالجون البيانات نيابة عنا.</li>
-                        <li><strong>المتطلبات القانونية:</strong> المحاكم، والجهات التنظيمية، وجهات إنفاذ القانون، أو الأطراف الأخرى عندما يكون الإفصاح مطلوبًا أو ضروريًا بشكل معقول لحماية الحقوق أو السلامة أو الخدمة.</li>
-                        <li><strong>عمليات نقل الأعمال:</strong> يجوز نقل المعلومات كجزء من عملية اندماج أو استحواذ أو تمويل أو إعادة تنظيم أو بيع أصول، وذلك وفقًا للقانون المعمول به.</li>
-                    </ul>
-
-                    <h4>عمليات نقل البيانات الدولية والاحتفاظ بها</h4>
-                    <p>قد تتم معالجة بياناتك أو تخزينها خارج بلدك، بما في ذلك في البلدان التي يعمل فيها مزودو خدماتنا. نستخدم ضمانات تعاقدية وفنية وتنظيمية معقولة تتناسب مع عملية المعالجة والقانون المعمول به.</p>
-                    <p>نحتفظ بمعلومات الحساب والمشاريع والتنبيهات والأصول المُنشأة والسجلات التقنية طالما كان ذلك ضروريًا بشكل معقول لتقديم الخدمة، والحفاظ على سجل المستخدم، حل النزاعات، ومنع إساءة الاستخدام، والامتثال للالتزامات القانونية، وإنفاذ الاتفاقيات. قد تختلف مدة الاحتفاظ الفعلية حسب نوع البيانات والميزة ومزود الخدمة وحالة الحساب.</p>
-
-                    <h4>أمن البيانات</h4>
-                    <p>نستخدم إجراءات حماية قياسية في هذا المجال، بما في ذلك التشفير وضوابط الوصول المصممة لحماية البيانات الشخصية. ومع ذلك، لا يوجد نظام أو طريقة نقل آمنة تمامًا، ولا يمكننا ضمان أمان مطلق.</p>
-
-                    <h4>حقوقك وخياراتك</h4>
-                    <ul>
-                        <li>يمكنك التوقف عن استخدام التطبيق في أي وقت.</li>
-                        <li>يمكنك طلب الوصول إلى معلومات حسابك أو تصحيحها أو حذفها، وذلك وفقًا للحدود القانونية والتشغيلية.</li>
-                        <li>يمكنك رفض معالجة الذكاء الاصطناعي؛ وقد تصبح ميزات التوليد ذات الصلة غير متاحة حينها.</li>
-                        <li>يمكنك إدارة أذونات الجهاز، وعند توفرها، تفضيلات التسويق أو التحليلات من خلال إعدادات التطبيق أو الجهاز.</li>
-                    </ul>
-                    <p>لتقديم طلب يتعلق بالخصوصية، يرجى الاتصال بنا باستخدام البريد الإلكتروني أدناه. قد نحتاج إلى التحقق من هويتك قبل إكمال الطلب.</p>
-
-                    <h4>استخدام الأطفال والفئات العمرية المحدودة</h4>
-                    <p>تطبيق Plotcraft مُصمم للمستخدمين الذين لا يقل عمرهم عن 13 عامًا. إذا كنت قاصرًا في بلدك، فيجب عليك الحصول على إذن من أحد والديك أو ولي أمرك القانوني، وفقًا لما يقتضيه القانون أو قواعد المنصة. قد تفرض بعض خدمات الذكاء الاصطناعي أو ميزاته قيودًا إضافية على العمر. لا نقوم بجمع بيانات شخصية من الأطفال دون سن 13 عامًا عن قصد. إذا كنت تعتقد أن طفلًا قدّم بيانات شخصية، فيُرجى التواصل معنا لنتمكن من التحقيق واتخاذ الإجراءات المناسبة.</p>
-
-                    <h4>إخلاء مسؤولية عن مخرجات وخدمات الذكاء الاصطناعي</h4>
-                    <p>تستخدم منصة Plotcraft تقنيات تجريبية واحتمالية. قد تحتوي القصص والصور والفيديوهات والأصوات وغيرها من المخرجات المُولّدة على أخطاء أو نتائج غير متوقعة أو مواد مسيئة أو محتوى يُشبه أعمالًا موجودة. أنت مسؤول عن مراجعة المخرجات والحصول على أي أذونات أو إشعارات أو إسناد أو مراجعات مطلوبة قبل النشر أو الاستخدام التجاري.</p>
-                    <p>لا يُعدّ برنامج Plotcraft بديلاً عن الاستشارة القانونية أو الطبية أو المالية أو غيرها من الاستشارات المهنية. لا تعتمد على المحتوى المُنشأ لاتخاذ قرارات تتطلب رأيًا مهنيًا.</p>
-
-                    <h4>التغييرات على هذه السياسة</h4>
-                    <p>قد نقوم بتحديث هذه السياسة دوريًا. سيتم نشر النسخة المحدثة في التطبيق أو على صفحة سياسة الخصوصية ذات الصلة، مع تاريخ سريان مُعدَّل عند الاقتضاء.</p>
-
-                    <h4>الاتصال</h4>
-                    <p><strong>البلد:</strong> العراق</p>
-                    <p><strong>البريد الإلكتروني:</strong> <a href="mailto:Ibnridha2@gmail.com">Ibnridha2@gmail.com</a></p>
-                    <p style="margin-top: 15px;"><strong>الوثائق ذات الصلة:</strong> شروط الاستخدام | اتفاقية ترخيص المستخدم النهائي</p>
+                    <h4>1. المعلومات التي جمعها</h4>
+                    <p>نقوم بجمع بعض المعلومات الأساسية التي تقدمها مباشرة عند إنشاء الحساب (مثل البريد الإلكتروني والاسم)، بالإضافة إلى المحتوى والقصص والصور التي تقوم برفعها لإنشاء مشاريعك السينمائية.</p>
+                    
+                    <h4>2. كيف نستخدم معلوماتك</h4>
+                    <p>تُستخدم هذه البيانات لتحسين تجربة المستخدم، توفير ميزات الذكاء الاصطناعي لتوليد ومشاهدة القصص، وحماية حسابك من الوصول غير المصرح به.</p>
+                    
+                    <h4>3. أمن البيانات</h4>
+                    <p>نحن نتخذ تدابير أمنية تقنية وتنظيمية صارمة لحماية معلوماتك ضد الفقدان أو الوصول غير المصرح به.</p>
+                    
+                    <h4>4. التواصل معنا</h4>
+                    <p>إذا كانت لديك أي أسئلة حول سياسة الخصوصية، يمكنك التواصل معنا عبر دعم التطبيق الرسمي.</p>
                 `;
             } else {
                 contentHTML = `
                     <h3>شروط استخدام Plotcraft</h3>
-                    <p><strong>آخر تحديث: اغسطس 2026</strong></p>
-                    <p>تُعد شروط الاستخدام هذه اتفاقية ملزمة قانونًا بينك وبين الشركة ("نحن"، "لنا"، أو "خاصتنا") فيما يتعلق بوصولك إلى تطبيق Plotcraft للهواتف المحمولة واستخدامك له وللمنتجات والخدمات ذات الصلة (يُشار إليها مجتمعة باسم "الخدمات").</p>
-                    <p>بالوصول إلى الخدمات أو استخدامها، فإنك تقرّ بأنك قد قرأت هذه الشروط وفهمتها ووافقت عليها. إذا كنت لا توافق، فلا تستخدم الخدمات.</p>
-                    <p>هذه الخدمات مخصصة للمستخدمين الذين لا يقل عمرهم عن 13 عامًا. إذا كنت قاصرًا في بلدك، فيجب عليك الحصول على إذن من أحد والديك أو ولي أمرك القانوني، ويجب عليك استخدام الخدمات فقط وفقًا لما يسمح به القانون المعمول به وقواعد المنصة.</p>
-                    <p><strong>للتواصل:</strong> <a href="mailto:Ibnridha2@gmail.com">Ibnridha2@gmail.com</a></p>
-
-                    <h4>الخدمات</h4>
-                    <p>Plotcraft هو استوديو إبداعي مدعوم بالذكاء الاصطناعي لإنتاج Plotcraft قصيرة ومحتوى سمعي بصري آخر. وبحسب الميزة، قد تتيح لك الخدمات إمكانية تقديم فكرة قصة، ومراجع للشخصيات، وموجهات، وصور، وملفات صوتية، وفيديوهات، وتحديد المدة، ونسبة العرض إلى الارتفاع، أو تعليمات أخرى، ومن ثم إنشاء خطط قصصية، ونصوص، ولوحات قصصية، وصور، وفيديوهات مصورة، ووسائط مُعدّلة، وفيديوهات Plotcraft كاملة.</p>
-                    <p>قد تشمل الخدمات أيضًا أدوات منفصلة لإنشاء الصور والفيديوهات وتأثيرات الفيديو. قد تتغير الميزات والنماذج والتنسيقات المدعومة وجودة الإخراج والتوافر بمرور الوقت.</p>
-                    <p>لم يتم تصميم الخدمات للاستخدامات الخاضعة للتنظيم مثل التشخيص الطبي، أو الاستجابة للطوارئ، أو المشورة القانونية، أو المشورة المالية، أو التعامل مع البيانات الصحية أو المالية أو بيانات الهوية الحكومية أو بيانات الأعمال السرية الخاضعة للتنظيم.</p>
-
-                    <h4>الحسابات والأهلية</h4>
-                    <p>يجب عليك تقديم معلومات دقيقة والحفاظ على أمان حسابك. أنت مسؤول عن جميع الأنشطة التي تتم من خلال حسابك، ويجب عليك إخطارنا فورًا إذا كنت تعتقد أنه تم الوصول إلى حسابك دون إذن.</p>
-                    <p>لا يجوز لك إنشاء حساب لشخص يقل عمره عن الحد الأدنى للسن المعمول به، أو التحايل على قيود الحساب، أو استخدام حساب شخص آخر دون إذن.</p>
-
-                    <h4>الملكية الفكرية في الخدمات</h4>
-                    <p>نحن أو المرخصون لنا نمتلك جميع الحقوق في الخدمات، بما في ذلك البرامج، وواجهة المستخدم، والتصميم، والعلامات التجارية، والشعارات، وسير العمل، وقواعد البيانات، ومحتوى الخدمة. وبموجب هذه الشروط، نمنحك ترخيصًا محدودًا وقابلًا للإلغاء وغير حصري وغير قابل للتحويل للوصول إلى الخدمات واستخدامها للغرض المقصود منها.</p>
-                    <p>لا يجوز لك نسخ الخدمات أو إعادة بيعها أو ترخيصها من الباطن أو إجراء هندسة عكسية لها أو استخراجها أو التدخل فيها أو إنشاء خدمة منافسة منها، إلا إذا سمح القانون المعمول به بذلك صراحةً.</p>
-
-                    <h4>محتوى المستخدم والمحتوى الذي يتم إنشاؤه بواسطة الذكاء الاصطناعي</h4>
-                    <p>يشمل "محتوى المستخدم" التوجيهات، ووصف القصص، وأسماء الشخصيات، والصور، والفيديوهات، والمقاطع الصوتية، والنصوص، والتعليقات، وغيرها من المواد التي تقدمها. أما "المحتوى المُنشأ بواسطة الذكاء الاصطناعي" فيشمل المحتوى الذي تُنشئه الخدمات أو تُعدّله أو تُحوّله أو تُجمّعه من محتوى المستخدم أو غيره من التعليمات.</p>
-                    <p>تحتفظ بحقوقك في محتوى المستخدم. أنت تمنحنا ترخيصًا محدودًا وغير حصري لاستضافة محتوى المستخدم وبيانات المشروع الناتجة وتخزينها وإعادة إنتاجها ونقلها ومعالجتها وتحليلها لأغراض السلامة، واستخدامها بأي شكل آخر فقط بالقدر اللازم بشكل معقول لتوفير الخدمات وصيانتها وتأمينها ودعمها وإنفاذها، وذلك وفقًا لسياسة الخصوصية الخاصة بنا.</p>
-                    <p>مع مراعاة هذه الشروط والقوانين المعمول بها وحقوق الأطراف الثالثة، يجوز لك استخدام المحتوى المُنشأ بواسطة الذكاء الاصطناعي لأغراض شخصية أو تجارية. لا ندّعي ملكية المحتوى المُنشأ بواسطة الذكاء الاصطناعي الخاص بك. مع ذلك، قد لا يكون ناتج الذكاء الاصطناعي فريدًا، وقد يُشابه الناتج المُنشأ لمستخدمين آخرين، وقد لا يستوفي شروط حقوق النشر أو أي حماية قانونية أخرى.</p>
-
-                    <h4>الحقوق والتراخيص الخاصة بالمحتوى المرفوع</h4>
-                    <p>قبل تحميل أو إرسال أي مواد، يجب أن تمتلك جميع الحقوق والتراخيص والأذونات والتصريحات والأسس القانونية اللازمة لنا ولمزودي خدماتنا لمعالجتها ولك لاستخدام الناتج.</p>
-                    <p>يشمل ذلك الإذن باستخدام اسم الشخص، أو صورته، أو شكله، أو صوته، أو أدائه، أو أي بيانات شخصية أخرى، بالإضافة إلى الموسيقى، والمقاطع المصورة، والأعمال الفنية، والعلامات التجارية، والنصوص، ومواد الأطراف الثالثة الأخرى. يُرجى عدم تحميل معلومات سرية، أو كلمات مرور، أو بيانات تعريف حكومية، أو معلومات مالية، أو معلومات صحية، أو أي بيانات حساسة أخرى، إلا إذا كانت الخدمات تدعم هذا الاستخدام صراحةً، وكان لديك أساس قانوني لتقديمها.</p>
-
-                    <h4>المشتريات والاشتراكات والنقاط</h4>
-                    <p>تتطلب بعض الميزات اشتراكًا مدفوعًا أو نقاطًا. تظهر الأسعار والضرائب والمزايا المشمولة وعدد النقاط في متجر التطبيقات أو شاشة الشراء قبل إتمام عملية الشراء.</p>
+                    <p><strong>آخر تحديث: أغسطس 2026</strong></p>
+                    <p>تُعد شروط الاستخدام هذه اتفاقية ملزمة قانونًا بينك (المستخدم أو المخرج) وبين شركة PlotCraft بخصوص استخدامك للتطبيق والخدمات ذات الصلة.</p>
                     
-                    <p><strong>6.1 الاشتراكات:</strong></p>
-                    <p>الاشتراكات عبارة عن عمليات شراء متكررة. ما لم يتم إلغاؤها من خلال متجر التطبيقات المعني قبل تاريخ التجديد، يتم تجديد الاشتراك تلقائيًا لنفس الفترة ويتم خصم المبلغ من طريقة الدفع وفقًا لقواعد المتجر. يؤدي الإلغاء إلى إيقاف التجديد المستقبلي، ولكنه لا ينهي عادةً الفترة المدفوعة مسبقًا.</p>
-                    <p>تُمنح النقاط كجزء من الاشتراك ("نقاط الاشتراك") وتكون صالحة فقط لفترة الاشتراك المحددة. في نهاية كل فترة اشتراك، تنتهي صلاحية جميع نقاط الاشتراك غير المستخدمة ويتم مسحها تلقائيًا، سواءً تم تجديد الاشتراك أم لا. لا يتم ترحيل نقاط الاشتراك غير المستخدمة إلى فترة الاشتراك التالية. ستظهر فترة الاشتراك المحددة وتاريخ انتهائها في التطبيق.</p>
-                    <p>يجوز لنا تمديد صلاحية نقاط الاشتراك مؤقتًا أو تأجيل انتهاء صلاحيتها. ولا يُضفي هذا التمديد أو التأجيل صلاحية دائمة على نقاط الاشتراك. وقبل تفعيل انتهاء الصلاحية في نهاية كل فترة اشتراك، سنُخطر المستخدمين المعنيين بتاريخ السريان وجدول المقاصة المُطبق.</p>
-
-                    <p><strong>6.2 حزم النقاط:</strong></p>
-                    <p>تُشترى حزم النقاط لمرة واحدة فقط، ولا تُجدد تلقائيًا. النقاط عبارة عن رصيد خدمة افتراضي، وليس لها قيمة نقدية، ولا يمكن سحبها أو استبدالها أو تحويلها أو إعادة بيعها. النقاط المشتراة بشكل منفصل ("النقاط المشتراة") لا تنتهي صلاحيتها أبداً، ولا تُحذف بسبب مرور الوقت أو انتهاء الاشتراك أو تجديده أو إلغائه. تبقى النقاط المشتراة متاحة حتى استخدامها، ولا تتأثر بحذف نقاط الاشتراك. لا يمكن استخدام النقاط إلا من خلال الحساب الذي تم شراؤها أو استلامها منه.</p>
-
-                    <p><strong>6.3 رسوم التوليد والطلبات الفاشلة:</strong></p>
-                    <p>قد تُخصم النقاط من ميزات الإنشاء والتعديل وفقًا للسعر الموضح في التطبيق. في حال فشل طلب الإنشاء أو التعديل بسبب عطل فني أو خلل في الخدمة أو في النموذج، تُعاد النقاط المخصومة تلقائيًا أو من خلال تعديل مناسب في الحساب. أما الطلبات المحظورة لمخالفتها السياسة، أو الملغاة بعد بدء معالجتها، فقد تُعالج وفقًا لقواعد التطبيق المعمول بها.</p>
-
-                    <p><strong>6.4 المبالغ المستردة:</strong></p>
-                    <p>تتم معالجة عمليات الشراء من خلال متجر التطبيقات أو منصة الدفع المعنية. وتخضع عمليات استرداد الأموال للقوانين المعمول بها وقواعد الاسترداد الخاصة بالمتجر ذي الصلة. لا تُقيّد هذه الشروط حقوق المستهلك غير القابلة للتنازل.</p>
-
-                    <h4>سلامة الذكاء الاصطناعي والاستخدامات المحظورة</h4>
-                    <p>لا يجوز لك استخدام الخدمات لإنشاء أو طلب أو تحميل أو توزيع أو مشاركة محتوى غير قانوني أو ضار أو مسيء أو مضلل أو مخالف لهذه الشروط أو قواعد المنصة المعمول بها. وعلى وجه الخصوص، لا يجوز لك استخدام الخدمات للأغراض التالية:</p>
-                    <ul>
-                        <li>الاستغلال الجنسي، مواد الاعتداء الجنسي على الأطفال، المحتوى الجنسي الذي يشمل القاصرين، أو الاستدراج.</li>
-                        <li>الصور الحميمة غير الرضائية، أو المحتوى الجنسي الذي يظهر فيه أشخاص حقيقيون، أو المحتوى الذي ينتهك خصوصية شخص آخر أو كرامته أو صورته أو صوته أو موافقته.</li>
-                        <li>التحرش، والتهديدات، وخطاب الكراهية، والتمييز، والتشهير، والاحتيال، وانتحال الشخصية، أو الخداع المادي.</li>
-                        <li>العنف الصريح، والتهديدات الموثوقة، والتعليمات المتعلقة بارتكاب مخالفات خطيرة، والدعاية المتطرفة، أو المحتوى الذي يهدف إلى تسهيل إلحاق الضرر.</li>
-                        <li>انتهاك حقوق النشر، أو العلامات التجارية، أو الخصوصية، أو الدعاية، أو الأسرار التجارية، أو غيرها من حقوق الأطراف الثالثة.</li>
-                        <li>البرامج الضارة، والمراقبة غير المصرح بها، والبريد العشوائي، وإساءة الاستخدام الآلية، والاستخراج، أو محاولات إثقال كاهل الخدمات أو تعطيلها.</li>
-                        <li>محاولات تجاوز أو تعطيل أو اختبار أو التلاعب أو التحايل على مرشحات الأمان أو أنظمة الإشراف أو ضوابط الوصول أو قيود النموذج.</li>
-                    </ul>
-                    <p>قد نقوم بحظر مطالبة أو تحميل أو طلب إنشاء أو إخراج قبل معالجته أو عرضه أو تخزينه أو مشاركته أو تصديره.</p>
-
-                    <h4>الاعتدال والتطبيق التدريجي</h4>
-                    <p>قد نستخدم المصنفات الآلية، وفحوصات الكلمات المفتاحية والصور، وأنظمة أمان مقدمي الخدمات، وتقارير المستخدمين، والمراجعة البشرية المعتمدة للكشف عن الأنشطة الحساسة للسياسات. وقد يمنع فحص الأمان تنفيذ طلب ما حتى لو تم إرساله بنجاح.</p>
-                    <p>نستخدم نهجًا تدريجيًا في تطبيق القانون عند الاقتضاء:</p>
-                    <ol>
-                        <li>تحذير أو توضيح أو حظر طلب معين.</li>
-                        <li>مراجعة أكثر صرامة، وحدود مؤقتة للميزات، وفترات تهدئة، أو قيود على أدوات توليد معينة.</li>
-                        <li>تعليق مؤقت لميزات إنشاء المحتوى أو الحساب.</li>
-                        <li>إنهاء الحساب نهائياً في حالة الانتهاكات الجسيمة أو المتكررة أو الاحتيالية أو المتعمدة للتهرب من المسؤولية.</li>
-                    </ol>
-                    <p>قد تؤدي الانتهاكات الجسيمة، لا سيما تلك التي تُهدد سلامة الأطفال، أو المحتوى الجنسي غير الرضائي، أو التهديدات الخطيرة، أو المحاولات المتكررة للتحايل على إجراءات الحماية، إلى تعليق الحساب أو إنهائه فورًا دون سابق إنذار. يجوز لنا الاحتفاظ بسجلات لأحداث السلامة وقرارات الإنفاذ لحماية المستخدمين، وإنفاذ هذه الشروط، ومنع تكرار الانتهاكات.</p>
-
-                    <p>في حالة تعليق الحساب أو إنهائه، قد يتم تقييد الوصول إلى الخدمات والمشاريع والمحتوى المُنشأ والاشتراكات والنقاط إلى الحد الذي يسمح به القانون وقواعد المنصة المعمول بها.</p>
-
-                    <h4>خدمات الطرف الثالث ومزودو الذكاء الاصطناعي</h4>
-                    <p>قد تعتمد الخدمات على نماذج الذكاء الاصطناعي، وخدمات التخزين، والتحليلات، والإعلانات، والدفع، والمصادقة، ومزودي البنية التحتية التابعين لجهات خارجية. قد تتم معالجة محتواك من قبل هؤلاء المزودين وفقًا لما هو موضح في سياسة الخصوصية الخاصة بنا وشروطهم المعمول بها.</p>
-                    <p>قد تخضع خدمات الجهات الخارجية لقواعد منفصلة تتعلق بالتوافر والاحتفاظ بالبيانات والسلامة والاستخدام المقبول. نحن غير مسؤولين عن خدمات الجهات الخارجية المستقلة أو سياساتها أو إخفاقاتها.</p>
-
-                    <h4>الخصوصية</h4>
-                    <p>توضح سياسة الخصوصية الخاصة بنا في Plotcraft كيفية جمعنا واستخدامنا والإفصاح عن المعلومات الشخصية والمدخلات المتعلقة بالذكاء الاصطناعي والاحتفاظ بها وحمايتها.</p>
-
-                    <h4>التوافر والتغييرات والإنهاء</h4>
-                    <p>يجوز لنا تحديث أو تعليق أو تقييد أو إيقاف ميزات أو نماذج أو تنسيقات إخراج أو أجزاء من الخدمات. كما يجوز لنا تعليق أو إنهاء الوصول في حال انتهاكك لهذه الشروط، أو تسببك في مخاطر أمنية أو قانونية، أو إساءة استخدامك للخدمات، أو إذا كان التعليق مطلوبًا لحماية المستخدمين أو للامتثال للقانون.</p>
-                    <p>يمكنك التوقف عن استخدام الخدمات في أي وقت. تبقى البنود المتعلقة بحقوق المحتوى، والمدفوعات، وإخلاء المسؤولية، والمسؤولية، والتعويض، وتسوية المنازعات، وأي بنود أخرى بطبيعتها يجب أن تبقى سارية المفعول، سارية المفعول بعد إنهاء الخدمة.</p>
-
-                    <h4>إخلاء المسؤولية</h4>
-                    <p>إلى أقصى حد يسمح به القانون، تُقدَّم الخدمات على أساس "كما هي" و"كما هو متاح". ونحن نخلي مسؤوليتنا عن أي ضمانات تتعلق بقابلية التسويق، أو الملاءمة لغرض معين، أو عدم التعدي على حقوق الملكية الفكرية، أو الدقة، أو التوافر، أو الموثوقية، أو الأمان.</p>
-                    <p>نحن لا نضمن التشغيل المتواصل، أو نجاح إنشاء المحتوى، أو الحفاظ عليه، أو أن يكون المحتوى الذي تم إنشاؤه بواسطة الذكاء الاصطناعي دقيقًا أو قانونيًا أو آمنًا أو غير منتهك أو مناسبًا للاستخدام المقصود.</p>
-
-                    <h4>تحديد المسؤولية</h4>
-                    <p>إلى أقصى حد يسمح به القانون، لن نكون نحن ومديرونا وموظفونا ووكلائنا والشركات التابعة لنا وشركاؤنا ومرخصونا ومقدمو الخدمات مسؤولين عن الأضرار غير المباشرة أو العرضية أو التبعية أو الخاصة أو النموذجية أو العقابية، بما في ذلك خسارة الأرباح أو الإيرادات أو البيانات أو الشهرة أو فرص العمل.</p>
-                    <p>ستقتصر مسؤوليتنا الإجمالية عن المطالبات الناشئة عن الخدمات على المبلغ الذي دفعته لنا مقابل الخدمات خلال الاثني عشر شهرًا السابقة للحدث الذي أدى إلى المطالبة، ما لم يقتض القانون المعمول به مبلغًا أعلى.</p>
-
-                    <h4>التعويض</h4>
-                    <p>أنت توافق على الدفاع عن الشركة والشركات التابعة لها ومديريها وموظفيها ووكلائها وشركائها ومرخصيها ومقدمي خدماتها وتعويضهم وإبراء ذمتهم من المطالبات والخسائر والالتزامات والتكاليف والنفقات الناشئة عن محتوى المستخدم الخاص بك، أو استخدامك للمحتوى الذي تم إنشاؤه بواسطة الذكاء الاصطناعي، أو انتهاكك لهذه الشروط، أو انتهاكك للقانون أو حقوق الأطراف الثالثة، أو إساءة استخدامك للخدمات.</p>
-
-                    <h4>القانون الحاكم والنزاعات</h4>
-                    <p>تخضع هذه الشروط واستخدامك للخدمات لقوانين اليابان، بغض النظر عن مبادئ تنازع القوانين، ما لم ينص القانون المعمول به على خلاف ذلك.</p>
-                    <p>قبل تقديم أي مطالبة رسمية، فإنك توافق على التواصل معنا ومنحنا فرصة معقولة لحل المشكلة بحسن نية. لا يُقيد أي بند في هذا القسم الحقوق أو سبل الانتصاف التي لا يجوز التنازل عنها قانونًا.</p>
-
-                    <h4>التغييرات على هذه الشروط</h4>
-                    <p>يجوز لنا تحديث هذه الشروط بنشر نسخة منقحة وتحديث التاريخ المذكور أعلاه. وسنقدم إشعارًا إضافيًا عند الاقتضاء. استمرارك في استخدام الموقع بعد تاريخ سريان التحديث يعني موافقتك على الشروط المحدثة.</p>
-
-                    <h4>الاتصال</h4>
-                    <p><strong>البلد:</strong> العراق</p>
-                    <p><strong>البريد الإلكتروني:</strong> <a href="mailto:Ibnridha2@gmail.com">Ibnridha2@gmail.com</a></p>
-                    <p style="margin-top: 15px;"><strong>الوثائق ذات الصلة:</strong> سياسة الخصوصية | اتفاقية ترخيص المستخدم النهائي</p>
+                    <h4>1. قبول الشروط</h4>
+                    <p>باستخدامك لتطبيق PlotCraft، فإنك توافق التزاماً تاماً بكافة الشروط والأحكام الواردة هنا وفي سياسة الخصوصية الخاصة بنا.</p>
+                    
+                    <h4>2. الحسابات والمسؤولية</h4>
+                    <p>أنت مسؤول مسؤولية كاملة عن الحفاظ على سرية معلومات حسابك وكلمة المرور الخاصة بك، وعن أي نشاط يتم إجراؤه من خلال حسابك الشخصي.</p>
+                    
+                    <h4>3. المحتوى والملكية الفكرية</h4>
+                    <p>تحتفظ بجميع حقوق الملكية الفكرية للمحتوى والقصص التي تنشئها باستخدام أدواتنا، مع منحنا الإذن التقني لمعالجتها وعرضها داخل مساحة العمل الخاصة بك.</p>
+                    
+                    <h4>4. التعديلات على الشروط</h4>
+                    <p>يحق لنا تعديل هذه الشروط في أي وقت، وسيتم إشعار المستخدمين بالتحديثات الجديدة عبر الواجهة الرئيسية للتطبيق.</p>
                 `;
             }
 
@@ -3152,234 +2903,6 @@
             document.getElementById('webViewScreen').classList.remove('active');
             document.getElementById('mainNavBar').classList.remove('hidden');
         };
-
-        let touchStartX = 0;
-        let touchEndX = 0;
-        
-        const webViewElem = document.getElementById('webViewScreen');
-        webViewElem.addEventListener('touchstart', e => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, false);
-
-        webViewElem.addEventListener('touchend', e => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipeGesture();
-        }, false);
-
-        function handleSwipeGesture() {
-            let diff = touchEndX - touchStartX;
-            if (Math.abs(diff) > 70) {
-                closeWebView();
-            }
-        }
-
-        const translations = {
-            Arabic: {
-                upgradeBadge: "ترقية",
-                welcomeMsg: "مساء الخير، أيها المخرج<br>أي قصة سنصنع اليوم؟",
-                stepByStepTitle: "خطوة بخطوة",
-                stepByStepSub: "راجع كل خطوة",
-                proOnly: "Pro only",
-                speedTitle: "سريع",
-                speedSub: "إدخال واحد، فيديو كامل",
-                inspirationTitle: "إلهام بلوت كرافت",
-                viewAll: "عرض الكل >",
-                toolsTitle: "الأدوات",
-                tool1Title: "تأثيرات الفيديو",
-                tool1Sub: "أضف لمسة سينمائية",
-                tool2Title: "توليد الفيديو",
-                tool2Sub: "حول توجيهاً إلى فيديو خاص بك",
-                tool3Title: "توليد الصور",
-                tool3Sub: "حول فكرة إلى صورة مكتملة",
-                worksTitle: "الأعمال",
-                tabProjects: "المشاريع",
-                tabMedia: "مكتبة الوسائط",
-                emptyWorks: "ستظهر هنا مشاريع القصة الخاصة بك.",
-                createStoryBtn: "إنشاء قصة",
-                aiTitle: "مساعد AI بلوت كرافت",
-                aiDesc: "عزيزي المخرج، استمتع بإنشاء وتخصيص تفاصيل فيلمك خطوة بخطوة بدقة احترافية عالية.",
-                storySetupTitle: "إعداد القصة",
-                storySetupSub: "أضف الشخصيات والقصة أولاً، ثم اختر المدة والنسبة.",
-                charTitle: "الشخصيات",
-                charDesc: "أضف صورتين كحد أقصى لشخصيات القصة",
-                addBtn: "إضافة",
-                taleTitle: "الحكاية",
-                taleDesc: "اكتب أو صف حبكة قصتك هنا",
-                nextBtn: "التالي",
-                writeStoryTitle: "اكتب قصة",
-                storyPlaceholder: "اكتب وصفاً أو حبكة القصة هنا",
-                saveBtn: "حفظ",
-                addCharTitle: "إضافة شخصية",
-                charLabel: "الشخصية",
-                uploadImg: "رفع صورة",
-                roleText: "الدور",
-                charNameLabel: "اسم الشخصية *",
-                charNamePlaceholder: "أدخل اسم الشخصية (إجباري)",
-                submitBtn: "إرسال",
-                sourceTitle: "اختر مصدر الصورة",
-                cameraBtn: "كاميرا",
-                albumBtn: "ألبوم الصور",
-                cancelBtn: "إلغاء",
-                loginTitle: "تسجيل الدخول إلى Plotcraft",
-                navHome: "الرئيسية",
-                navTools: "الأدوات",
-                navWorks: "الأعمال",
-                settingsTitle: "الإعدادات",
-                scoreLog: "سجل النقاط",
-                notifications: "الإشعارات",
-                language: "اللغة",
-                settings: "الإعدادات",
-                proBannerTitle: "افتح PlotCraft Pro",
-                proBannerDesc: "حول كل فكرة إلى فيلم مكتمل",
-                proBannerBtn: "عرض خطط Pro ←",
-                subTitle: "ترقية الحساب",
-                subHeading: "حول أفكارك إلى PlotCraft",
-                subDesc: "أنشئ كل لقطة وعدلها وأكملها بسرعة.",
-                priceWeekly: "9.99 دولار أمريكي / أسبوع",
-                descWeekly: "500 نقطة / أسبوعياً، جرب PlotCraft",
-                newTag: "جديد",
-                priceMonthly: "29.99 دولار أمريكي / شهر",
-                descMonthly: "1800 نقطة / شهرياً، مثالي للمبدعين",
-                bestValueTag: "الأفضل قيمة",
-                priceAnnual: "69.99 دولار أمريكي / سنة",
-                descAnnual: "5000 نقطة / سنوياً، إمكانيات غير محدودة للمخرجين المحترفين",
-                subscribeBtn: "اشتراك",
-                notifPermTitle: "هل تريد السماح لتطبيق Plotcraft بإرسال إشعارات إليك؟",
-                allowBtn: "سماح",
-                denyBtn: "عدم السماح",
-                editNameTitle: "تعديل اسم المستخدم",
-                editNamePlaceholder: "أدخل الاسم الجديد",
-                sendBtn: "إرسال",
-                okBtn: "حسناً"
-            },
-            English: {
-                upgradeBadge: "Upgrade",
-                welcomeMsg: "Good evening, Director<br>What story shall we create today?",
-                stepByStepTitle: "Step by Step",
-                stepByStepSub: "Review every step",
-                proOnly: "Pro only",
-                speedTitle: "Speed",
-                speedSub: "One input, full video",
-                inspirationTitle: "PlotCraft Inspiration",
-                viewAll: "View all >",
-                toolsTitle: "Tools",
-                tool1Title: "Video Effects",
-                tool1Sub: "Add cinematic touch",
-                tool2Title: "Video Generation",
-                tool2Sub: "Turn prompt into your video",
-                tool3Title: "Image Generation",
-                tool3Sub: "Turn idea into complete image",
-                worksTitle: "Works",
-                tabProjects: "Projects",
-                tabMedia: "Media Library",
-                emptyWorks: "Your story projects will appear here.",
-                createStoryBtn: "Create Story",
-                aiTitle: "PlotCraft AI Assistant",
-                aiDesc: "Dear Director, enjoy creating and customizing your film details step by step with high professional accuracy.",
-                storySetupTitle: "Story Setup",
-                storySetupSub: "Add characters and story first, then choose duration and ratio.",
-                charTitle: "Characters",
-                charDesc: "Add up to 2 images for story characters",
-                addBtn: "Add",
-                taleTitle: "Tale",
-                taleDesc: "Write or describe your story plot here",
-                nextBtn: "Next",
-                writeStoryTitle: "Write Story",
-                storyPlaceholder: "Write your story plot or description here",
-                saveBtn: "Save",
-                addCharTitle: "Add Character",
-                charLabel: "Character",
-                uploadImg: "Upload Image",
-                roleText: "Role",
-                charNameLabel: "Character Name *",
-                charNamePlaceholder: "Enter character name (Required)",
-                submitBtn: "Submit",
-                sourceTitle: "Choose Image Source",
-                cameraBtn: "Camera",
-                albumBtn: "Photo Album",
-                cancelBtn: "Cancel",
-                loginTitle: "Sign in to Plotcraft",
-                navHome: "Home",
-                navTools: "Tools",
-                navWorks: "Works",
-                settingsTitle: "Settings",
-                scoreLog: "Score Log",
-                notifications: "Notifications",
-                language: "Language",
-                settings: "Settings",
-                proBannerTitle: "Unlock PlotCraft Pro",
-                proBannerDesc: "Turn every idea into a complete film",
-                proBannerBtn: "View Pro Plans ←",
-                subTitle: "Upgrade Account",
-                subHeading: "Turn your ideas into PlotCraft",
-                subDesc: "Create, edit, and complete every shot quickly.",
-                priceWeekly: "$9.99 USD / week",
-                descWeekly: "500 pts / weekly, try PlotCraft",
-                newTag: "NEW",
-                priceMonthly: "$29.99 USD / month",
-                descMonthly: "1800 pts / monthly, perfect for creators",
-                bestValueTag: "BEST VALUE",
-                priceAnnual: "$69.99 USD / year",
-                descAnnual: "5000 pts / yearly, unlimited possibilities for pro directors",
-                subscribeBtn: "Subscribe",
-                notifPermTitle: "Allow Plotcraft to send you notifications?",
-                allowBtn: "Allow",
-                denyBtn: "Don't Allow",
-                editNameTitle: "Edit Username",
-                editNamePlaceholder: "Enter new name",
-                sendBtn: "Send",
-                okBtn: "OK"
-            }
-        };
-
-        window.tempSelectLanguage = function(langName, element) {
-            var rows = document.querySelectorAll('.lang-item-row');
-            rows.forEach(r => r.classList.remove('selected'));
-            element.classList.add('selected');
-            tempSelectedLangName = langName;
-        };
-
-        window.applySelectedLanguage = function() {
-            var langName = tempSelectedLangName;
-            document.getElementById('currentLangDisplay').innerText = langName;
-
-            var htmlRoot = document.getElementById('appHtmlRoot');
-            var t = translations[langName] || translations['English'];
-
-            if (langName === 'English') {
-                htmlRoot.setAttribute('dir', 'ltr');
-                htmlRoot.setAttribute('lang', 'en');
-            } else {
-                htmlRoot.setAttribute('dir', 'rtl');
-                htmlRoot.setAttribute('lang', 'ar');
-            }
-
-            document.querySelectorAll('[data-tr]').forEach(el => {
-                var key = el.getAttribute('data-tr');
-                if (t[key]) {
-                    el.innerHTML = t[key];
-                }
-            });
-
-            var storyArea = document.getElementById('storyTextArea');
-            if(storyArea) storyArea.placeholder = t['storyPlaceholder'];
-
-            var charInput = document.getElementById('characterNameInput');
-            if(charInput) charInput.placeholder = t['charNamePlaceholder'];
-
-            var editInput = document.getElementById('editNameInputField');
-            if(editInput) editInput.placeholder = t['editNamePlaceholder'];
-
-            closeLanguageModal();
-        };
-
-        document.addEventListener('click', function(event) {
-            if (event.target.tagName === 'BUTTON' || event.target.closest('button') || event.target.closest('.interactive-card') || event.target.closest('.plotcraft-nav-item') || event.target.closest('.plotcraft-nav-square') || event.target.closest('.works-tab') || event.target.closest('.plan-card') || event.target.closest('.char-thumb-item') || event.target.closest('.settings-item-row') || event.target.closest('.movie-card') || event.target.closest('.sparkle-rect-card') || event.target.closest('.lang-item-row')) {
-                if ("vibrate" in navigator) {
-                    navigator.vibrate(35);
-                }
-            }
-        });
 
         window.switchScreen = function(screenId, event) {
             if (event) event.preventDefault();
@@ -3417,6 +2940,7 @@
 
         window.openSettingsScreen = function(event) {
             if (event) event.stopPropagation();
+            updateUIState();
             document.getElementById('settingsScreen').classList.add('active');
             document.getElementById('mainNavBar').classList.add('hidden');
         };
@@ -3440,6 +2964,7 @@
 
         window.handleMenuClick = function(event, msg) {
             if (event) event.stopPropagation();
+            showToast(msg);
         };
 
         window.handleNotifToggle = function(checkbox) {
@@ -3489,6 +3014,7 @@
                     }
                 }
                 document.getElementById('displayUserName').innerText = val;
+                showToast('تم تحديث الاسم بنجاح');
             }
             closeNameEditModal();
         };
@@ -3548,16 +3074,6 @@
             openLoginModal();
         };
 
-        window.showCustomAlert = function(message) {
-            document.getElementById('customAlertMsgText').innerText = message;
-            document.getElementById('customAlertOverlay').classList.add('show');
-        };
-
-        window.closeCustomAlert = function(event) {
-            if (event) event.stopPropagation();
-            document.getElementById('customAlertOverlay').classList.remove('show');
-        };
-
         window.showSourceModal = function() {
             document.getElementById('sourceModal').classList.remove('hidden');
         };
@@ -3591,7 +3107,7 @@
         window.setBigBoxImage = function(src) {
             currentUploadedImageSrc = src;
             var box = document.getElementById('bigUploadBox');
-            box.innerHTML = '<button class="remove-big-img" onclick="clearBigBox(event)">✕</button><img src="' + src + '">';
+            box.innerHTML = '<button class="remove-big-img" onclick="playClickSound(); clearBigBox(event)">✕</button><img src="' + src + '">';
             checkFormValidity();
         };
 
@@ -3644,11 +3160,11 @@
                             <span class="added-char-name">` + charName + `</span>
                         </div>
                         <div class="added-char-left">
-                            <div class="added-char-change-group" onclick="editCharacter('` + imgSrc + `', '` + charName + `')">
+                            <div class="added-char-change-group" onclick="playClickSound(); editCharacter('` + imgSrc + `', '` + charName + `')">
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path><polyline points="21 3 21 8 16 8"></polyline></svg>
                                 <span>تغيير</span>
                             </div>
-                            <div class="added-char-delete-btn" onclick="deleteCharacterSlot(event)">✕</div>
+                            <div class="added-char-delete-btn" onclick="playClickSound(); deleteCharacterSlot(event)">✕</div>
                         </div>
                     </div>
                 </div>
@@ -3675,7 +3191,7 @@
                     <h4 data-tr="charTitle">الشخصيات</h4>
                     <p data-tr="charDesc">أضف صورتين كحد أقصى لشخصيات القصة</p>
                 </div>
-                <button class="action-add-btn" onclick="openAddCharacter(event)" data-tr="addBtn">إضافة</button>
+                <button class="action-add-btn" onclick="playClickSound(); openAddCharacter(event)" data-tr="addBtn">إضافة</button>
             `;
         };
 
@@ -3718,7 +3234,7 @@
                                 <span data-tr="taleTitle">الحكاية</span>
                                 <div class="added-story-check-icon">✓</div>
                             </div>
-                            <div class="added-story-edit-btn" onclick="openStoryDescription(event)">
+                            <div class="added-story-edit-btn" onclick="playClickSound(); openStoryDescription(event)">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 2 2h14a2 2 0 0 2 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                                 <span data-tr="editBtn">تعديل</span>
                             </div>
@@ -3767,6 +3283,7 @@
             showToast('تم تسجيل الخروج بنجاح');
         };
 
+        // دوال تسجيل الدخول وإنشاء الحساب المحلية
         window.handleExistingLogin = function() {
             let email = document.getElementById('loginEmailField').value.trim();
             let pass = document.getElementById('loginPasswordField').value.trim();
@@ -3783,10 +3300,6 @@
                 setCurrentUser(found);
                 updateUIState();
                 closeLoginModal();
-                
-                document.getElementById('loginEmailField').value = '';
-                document.getElementById('loginPasswordField').value = '';
-                
                 showToast("تم تسجيل الدخول بنجاح");
             } else {
                 showToast("بيانات الدخول غير صحيحة");
@@ -3802,76 +3315,15 @@
                 return;
             }
 
-            if (pass.length <= 6) {
-                showToast("كلمة المرور يجب أن تكون أكثر من 6 أحرف");
-                return;
-            }
-
             let users = getRegisteredUsers();
-            let existing = users.find(u => u.email === email);
-
-            if (existing) {
-                showToast("هذا الحساب مسجل مسبقاً");
-                return;
-            }
-
-            let uniqueID = generateUniqueID();
-            let newUser = { 
-                email: email, 
-                password: pass, 
-                name: email.split('@')[0], 
-                id: uniqueID 
-            };
-
+            let newUser = { email: email, password: pass, name: email.split('@')[0], id: generateUniqueID() };
             users.push(newUser);
             saveUsers(users);
             setCurrentUser(newUser);
 
             updateUIState();
             closeRegisterModal();
-
-            document.getElementById('regEmailField').value = '';
-            document.getElementById('regPasswordField').value = '';
-
-            showToast("تم تسجيل الحساب بنجاح");
-        };
-
-        window.handleGoogleCredentialResponse = function(response) {
-            try {
-                let base64Url = response.credential.split('.')[1];
-                let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-                let jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-                }).join(''));
-
-                let googleUser = JSON.parse(jsonPayload);
-                let email = googleUser.email;
-                let name = googleUser.name || email.split('@')[0];
-
-                let users = getRegisteredUsers();
-                let existingUser = users.find(u => u.email === email);
-
-                let userObj;
-                if (existingUser) {
-                    userObj = existingUser;
-                } else {
-                    userObj = {
-                        email: email,
-                        password: "GOOGLE_OAUTH_USER",
-                        name: name,
-                        id: generateUniqueID()
-                    };
-                    users.push(userObj);
-                    saveUsers(userObj);
-                }
-
-                setCurrentUser(userObj);
-                updateUIState();
-                closeLoginModal();
-                showToast("تم تسجيل الدخول بواسطة جوجل بنجاح!");
-            } catch (e) {
-                showToast("فشل تسجيل الدخول عبر جوجل");
-            }
+            showToast("تم إنشاء الحساب بنجاح");
         };
     </script>
 </body>
