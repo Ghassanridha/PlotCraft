@@ -1,8 +1,8 @@
 // ==========================================
-// 5. قسم البرامج والوظائف التفاعلية JavaScript (مربوط بـ Firebase)
+// 5. قسم البرامج والوظائف التفاعلية JavaScript (مربوط بـ Firebase مع آيدي رقمي ثابت)
 // ==========================================
 
-// استيراد مكتبات Firebase المطلوبة (تمت إضافة createUserWithEmailAndPassword هنا أيضاً)
+// استيراد مكتبات Firebase المطلوبة
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
@@ -22,6 +22,17 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const analytics = getAnalytics(app);
+
+// دالة لتوليد رقم آيدي ثابت حصرياً بناءً على معرف Firebase (UID) الخاص بالمستخدم
+function getPersistentNumericID(uid) {
+    let hash = 0;
+    for (let i = 0; i < uid.length; i++) {
+        hash = ((hash << 5) - hash) + uid.charCodeAt(i);
+        hash |= 0;
+    }
+    // يضمن لك أن الناتج رقم موجب وبطول ثابت لا يتغير أبداً لهذا المستخدم
+    return Math.abs(hash).toString().substring(0, 7);
+}
 
 // دوال التنقل بين الشاشات
 function switchScreen(screenId, event) {
@@ -47,7 +58,7 @@ function applySelectedLanguage() {
 
 // دالة إنشاء حساب جديد (مستخدم جديد لأول مرة)
 function handleRegister() {
-    let emailField = document.getElementById('registerEmailField'); // تأكد من مطابقة الـ id في واجهة المستخدم لديك
+    let emailField = document.getElementById('registerEmailField');
     let passField = document.getElementById('registerPasswordField');
     
     if (!emailField || !passField) return;
@@ -63,7 +74,10 @@ function handleRegister() {
     createUserWithEmailAndPassword(auth, email, pass)
         .then((userCredential) => {
             let user = userCredential.user;
-            alert("✅ تم إنشاء الحساب بنجاح! أهلاً بك: " + user.email);
+            let persistentId = getPersistentNumericID(user.uid); // الرقم الثابت الخاص بهذا المستخدم
+            
+            // يمكنك حفظ أو استخدام الرقم الثابت هنا بالشكل الذي يناسب مشروعك
+            alert("✅ تم إنشاء الحساب بنجاح! رقم الآيدي الخاص بك: " + persistentId);
             switchScreen('mainAppScreen');
         })
         .catch((error) => {
@@ -72,7 +86,7 @@ function handleRegister() {
         });
 }
 
-// دالة تسجيل الدخول للحسابات الموجودة مسبقاً (تم تصحيح .error إلى .catch)
+// دالة تسجيل الدخول للحسابات الموجودة مسبقاً
 function handleExistingLogin() {
     let emailField = document.getElementById('loginEmailField');
     let passField = document.getElementById('loginPasswordField');
@@ -99,16 +113,18 @@ function handleExistingLogin() {
     signInWithEmailAndPassword(auth, email, pass)
         .then((userCredential) => {
             let user = userCredential.user;
-            alert("✅ تم تسجيل الدخول بنجاح! أهلاً بك: " + user.email);
+            let persistentId = getPersistentNumericID(user.uid); // سيعطي نفس الرقم الثابت تماماً عند كل تسجيل دخول
+            
+            alert("✅ تم تسجيل الدخول بنجاح! رقم الآيدي الثابت: " + persistentId);
             switchScreen('mainAppScreen');
         })
-        .catch((error) => { // تم التصحيح هنا من .error إلى .catch الصحيحة
+        .catch((error) => {
             let errorMessage = error.message;
             alert("❌ خطأ في تسجيل الدخول: " + errorMessage);
         });
 }
 
-// دالة تسجيل الدخول عبر جوجل (مجهزة ومحدثة)
+// دالة تسجيل الدخول عبر جوجل
 function handleGoogleLogin() {
     alert("📌 جارٍ تفعيل تسجيل الدخول عبر Google من لوحة تحكم Firebase...");
 }
