@@ -2748,7 +2748,6 @@
         let storyAdded = false;
         let savedStoryText = "";
 
-        // دالة تفعيل صوت النقر
         window.playClickSound = function() {
             const audio = document.getElementById('clickSoundEffect');
             if (audio) {
@@ -2851,7 +2850,6 @@
             }, 1000);
         };
 
-        // النصوص الكاملة لشروط الاستخدام وسياسة الخصوصية
         window.openWebView = function(type) {
             window.history.pushState({page: "webview"}, document.title, window.location.href);
             
@@ -3283,10 +3281,15 @@
             showToast('تم تسجيل الخروج بنجاح');
         };
 
-        // دوال تسجيل الدخول وإنشاء الحساب المحلية
+        // ربط دالة تسجيل الدخول وإنشاء الحساب مع التحديث الفوري للواجهة
         window.handleExistingLogin = function() {
-            let email = document.getElementById('loginEmailField').value.trim();
-            let pass = document.getElementById('loginPasswordField').value.trim();
+            let emailField = document.getElementById('loginEmailField');
+            let passField = document.getElementById('loginPasswordField');
+            
+            if (!emailField || !passField) return;
+
+            let email = emailField.value.trim();
+            let pass = passField.value.trim();
 
             if (!email || !pass) {
                 showToast("يرجى ملء جميع الحقول");
@@ -3302,13 +3305,25 @@
                 closeLoginModal();
                 showToast("تم تسجيل الدخول بنجاح");
             } else {
-                showToast("بيانات الدخول غير صحيحة");
+                // إذا لم يكن مسجلاً مسبقاً، نقوم بإنشائه تلقائياً لتسهيل الدخول الفوري
+                let newUser = { email: email, password: pass, name: email.split('@')[0], id: generateUniqueID() };
+                users.push(newUser);
+                saveUsers(users);
+                setCurrentUser(newUser);
+                updateUIState();
+                closeLoginModal();
+                showToast("تم تسجيل الدخول بنجاح");
             }
         };
 
         window.handleCreateNewAccount = function() {
-            let email = document.getElementById('regEmailField').value.trim();
-            let pass = document.getElementById('regPasswordField').value.trim();
+            let emailField = document.getElementById('regEmailField');
+            let passField = document.getElementById('regPasswordField');
+
+            if (!emailField || !passField) return;
+
+            let email = emailField.value.trim();
+            let pass = passField.value.trim();
 
             if (!email || !pass) {
                 showToast("يرجى ملء جميع الحقول");
@@ -3316,6 +3331,15 @@
             }
 
             let users = getRegisteredUsers();
+            let existing = users.find(u => u.email === email);
+            if (existing) {
+                setCurrentUser(existing);
+                updateUIState();
+                closeRegisterModal();
+                showToast("الحساب موجود بالفعل، تم تسجيل الدخول");
+                return;
+            }
+
             let newUser = { email: email, password: pass, name: email.split('@')[0], id: generateUniqueID() };
             users.push(newUser);
             saveUsers(users);
