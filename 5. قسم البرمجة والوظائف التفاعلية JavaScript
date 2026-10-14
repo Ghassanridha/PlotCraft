@@ -1,8 +1,35 @@
 // ==========================================
-// 5. قسم البرامج والوظائف التفاعلية JavaScript (مؤمن ومحدث)
+// 5. قسم البرامج والوظائف التفاعلية JavaScript (مؤمن ومحدث مع Firebase)
 // ==========================================
 
-// دوال التنقل بين الشاشات
+// استيراد مكتبات Firebase (تأكد من عمل السكريبت بنظام type="module")
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+
+// إعدادات Firebase الخاصة بمشروعك
+const firebaseConfig = {
+  apiKey: "AIzaSyC0yqVlGpM159foKmpMFiuySgF5uFxOA_k",
+  authDomain: "plotcraft2.firebaseapp.com",
+  projectId: "plotcraft2",
+  storageBucket: "plotcraft2.firebasestorage.app",
+  messagingSenderId: "338171528711",
+  appId: "1:338171528711:web:f13544fb4e496fe39e8ca2",
+  measurementId: "G-T2ZXFTGD5H"
+};
+
+// تهيئة Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+// دالة تثبيت وحفظ معرف المستخدم (UID) محلياً بعد التسجيل
+function saveUserSession(userId) {
+    if (userId) {
+        localStorage.setItem('plotcraft_user_uid', userId);
+        console.log("تم تثبيت وحفظ معرف المستخدم بنجاح:", userId);
+    }
+}
+
+// دالة التنقل بين الشاشات
 function switchScreen(screenId, event) {
     var screens = document.querySelectorAll('.screen-view');
     screens.forEach(s => s.classList.remove('active'));
