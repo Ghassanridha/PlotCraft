@@ -1,149 +1,20 @@
-// ==========================================
-// 5. قسم البرامج والوظائف التفاعلية JavaScript (مربوط بـ Firebase)
-// ==========================================
-
-import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-import { getAnalytics } from "firebase/analytics";
-
-// إعدادات Firebase الخاصة بتطبيقك
-const firebaseConfig = {
-  apiKey: "AIzaSyC0yqVlGpM159foKmpMFiuySgF5uFxOA_k",
-  authDomain: "plotcraft2.firebaseapp.com",
-  projectId: "plotcraft2",
-  storageBucket: "plotcraft2.firebasestorage.app",
-  messagingSenderId: "338171528711",
-  appId: "1:338171528711:web:f13544fb4e496fe39e8ca2",
-  measurementId: "G-T2ZXFTGD5H"
-};
-
-// تهيئة Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const analytics = getAnalytics(app);
-
-// دالة لتوليد آيدي ثابت لكل مستخدم بناءً على معرف Firebase الخاص به
-function getUserFixedID(firebaseUid) {
-    let shortId = firebaseUid.substring(0, 7).toUpperCase();
-    return shortId + " ID";
-}
-
-// دالة التنقل بين الشاشات
-function switchScreen(screenId, event) {
-    if (event) event.preventDefault();
-    var screens = document.querySelectorAll('.screen-view');
-    screens.forEach(s => s.classList.remove('active'));
-    
-    let targetScreen = document.getElementById(screenId);
-    if (targetScreen) {
-        targetScreen.classList.add('active');
-    }
-}
-
-// دالة تغيير اللغة
-function applySelectedLanguage() {
-    if (typeof tempSelectedLangName !== 'undefined') {
-        var langName = tempSelectedLangName;
-        let displayEl = document.getElementById('currentLangDisplay');
-        if (displayEl) {
-            displayEl.innerText = langName;
+        // دوال التنقل بين الشاشات
+        function switchScreen(screenId, event) {
+            var screens = document.querySelectorAll('.screen-view');
+            screens.forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
         }
-    }
-}
 
-// دالة إنشاء حساب جديد مع آيدي ثابت
-function handleCreateNewAccount() {
-    let emailField = document.getElementById('regEmailField') || document.getElementById('registerEmailField');
-    let passField = document.getElementById('regPasswordField') || document.getElementById('registerPasswordField');
-    
-    if (!emailField || !passField) return;
+        // دالة تغيير اللغة (عربي / إنجليزي وباقي اللغات)
+        function applySelectedLanguage() {
+            var langName = tempSelectedLangName;
+            document.getElementById('currentLangDisplay').innerText = langName;
+            // ... تطبيق الترجمات واتجاه الصفحة ...
+        }
 
-    let email = emailField.value.trim();
-    let pass = passField.value.trim();
-
-    if (email === "" || pass === "") {
-        if (typeof showToast === 'function') showToast("يرجى ملء جميع الحقول");
-        else alert("⚠️ يرجى ملء جميع الحقول المطلوبة لإنشاء الحساب.");
-        return;
-    }
-
-    if (pass.length <= 6) {
-        if (typeof showToast === 'function') showToast("كلمة المرور يجب أن تكون أكثر من 6 أحرف");
-        else alert("⚠️ كلمة المرور قصيرة جداً.");
-        return;
-    }
-
-    createUserWithEmailAndPassword(auth, email, pass)
-        .then((userCredential) => {
-            let user = userCredential.user;
-            let fixedID = getUserFixedID(user.uid); // آيدي ثابت لا يتغير
-            let newUser = { 
-                email: user.email, 
-                name: user.email.split('@')[0], 
-                id: fixedID 
-            };
-
-            if (typeof setCurrentUser === 'function') setCurrentUser(newUser);
-            if (typeof updateUIState === 'function') updateUIState();
-            if (typeof closeRegisterModal === 'function') closeRegisterModal();
-            
-            emailField.value = '';
-            passField.value = '';
-
-            if (typeof showToast === 'function') showToast("تم إنشاء الحساب وإرساله إلى Firebase بنجاح!");
-            else alert("✅ تم إنشاء الحساب بنجاح!");
-        })
-        .catch((error) => {
-            let errorMessage = error.message;
-            if (typeof showToast === 'function') showToast("خطأ: " + errorMessage);
-            else alert("❌ خطأ في إنشاء الحساب: " + errorMessage);
-        });
-}
-
-// دالة تسجيل الدخول للحسابات الموجودة مع استرجاع نفس الآيدي الثابت
-function handleExistingLogin() {
-    let emailField = document.getElementById('loginEmailField');
-    let passField = document.getElementById('loginPasswordField');
-    
-    if (!emailField || !passField) return;
-
-    let email = emailField.value.trim();
-    let pass = passField.value.trim();
-
-    if (email === "" || pass === "") {
-        if (typeof showToast === 'function') showToast("يرجى ملء جميع الحقول");
-        else alert("⚠️ يرجى ملء جميع الحقول المطلوبة.");
-        return;
-    }
-
-    signInWithEmailAndPassword(auth, email, pass)
-        .then((userCredential) => {
-            let user = userCredential.user;
-            let fixedID = getUserFixedID(user.uid); // استرجاع نفس الآيدي الثابت الخاص به
-            let loggedUser = {
-                email: user.email,
-                name: user.displayName || user.email.split('@')[0],
-                id: fixedID
-            };
-
-            if (typeof setCurrentUser === 'function') setCurrentUser(loggedUser);
-            if (typeof updateUIState === 'function') updateUIState();
-            if (typeof closeLoginModal === 'function') closeLoginModal();
-            
-            emailField.value = '';
-            passField.value = '';
-
-            if (typeof showToast === 'function') showToast("تم تسجيل الدخول بنجاح!");
-            else alert("✅ تم تسجيل الدخول بنجاح!");
-        })
-        .catch((error) => {
-            let errorMessage = error.message;
-            if (typeof showToast === 'function') showToast("خطأ في تسجيل الدخول");
-            else alert("❌ بيانات الدخول غير صحيحة أو الحساب غير موجود.");
-        });
-}
-
-// دالة تسجيل الدخول عبر جوجل
-function handleGoogleLogin() {
-    if (typeof showToast === 'function') showToast("جارٍ تفعيل تسجيل الدخول عبر Google...");
-}
+        // دوال تسجيل الدخول وحفظ البيانات
+        function handleExistingLogin() {
+            let email = document.getElementById('loginEmailField').value.trim();
+            let pass = document.getElementById('loginPasswordField').value.trim();
+            // ... التحقق وتسجيل الدخول ...
+        }
