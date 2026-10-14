@@ -2833,8 +2833,14 @@
             }
         }
 
-        function generateUniqueID() {
-            return Math.floor(1000000 + Math.random() * 9000000).toString() + " ID";
+        // دالة توليد رقم آيدي ثابت حصرياً بناءً على معرف Firebase (UID) الخاص بالمستخدم
+        function getPersistentNumericID(uid) {
+            let hash = 0;
+            for (let i = 0; i < uid.length; i++) {
+                hash = ((hash << 5) - hash) + uid.charCodeAt(i);
+                hash |= 0;
+            }
+            return Math.abs(hash).toString().substring(0, 7) + " ID";
         }
 
         function updateUIState() {
@@ -2911,7 +2917,7 @@
             document.getElementById('mainNavBar').classList.remove('hidden');
         }
 
-        // دالة إنشاء حساب جديد وإرسال البيانات مباشرة إلى Firebase
+        // دالة إنشاء حساب جديد وإرسال البيانات مباشرة إلى Firebase مع آيدي ثابت
         function handleCreateNewAccount() {
             let email = document.getElementById('regEmailField').value.trim();
             let pass = document.getElementById('regPasswordField').value.trim();
@@ -2929,11 +2935,11 @@
             auth.createUserWithEmailAndPassword(email, pass)
                 .then((userCredential) => {
                     let user = userCredential.user;
-                    let uniqueID = generateUniqueID();
+                    let persistentId = getPersistentNumericID(user.uid);
                     let newUser = { 
                         email: user.email, 
                         name: user.email.split('@')[0], 
-                        id: uniqueID 
+                        id: persistentId 
                     };
 
                     setCurrentUser(newUser);
@@ -2950,7 +2956,7 @@
                 });
         }
 
-        // دالة تسجيل الدخول عبر Firebase
+        // دالة تسجيل الدخول عبر Firebase مع استرجاع نفس الآيدي الثابت
         function handleExistingLogin() {
             let email = document.getElementById('loginEmailField').value.trim();
             let pass = document.getElementById('loginPasswordField').value.trim();
@@ -2963,10 +2969,11 @@
             auth.signInWithEmailAndPassword(email, pass)
                 .then((userCredential) => {
                     let user = userCredential.user;
+                    let persistentId = getPersistentNumericID(user.uid);
                     let loggedUser = {
                         email: user.email,
                         name: user.displayName || user.email.split('@')[0],
-                        id: generateUniqueID()
+                        id: persistentId
                     };
 
                     setCurrentUser(loggedUser);
