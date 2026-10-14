@@ -2,9 +2,9 @@
 // 5. قسم البرامج والوظائف التفاعلية JavaScript (مربوط بـ Firebase)
 // ==========================================
 
-// استيراد مكتبات Firebase المطلوبة
+// استيراد مكتبات Firebase المطلوبة (تمت إضافة createUserWithEmailAndPassword هنا أيضاً)
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
 
 // إعدادات Firebase الخاصة بتطبيقك
@@ -45,7 +45,34 @@ function applySelectedLanguage() {
     }
 }
 
-// دالة تسجيل الدخول الحقيقية عبر Firebase Authentication
+// دالة إنشاء حساب جديد (مستخدم جديد لأول مرة)
+function handleRegister() {
+    let emailField = document.getElementById('registerEmailField'); // تأكد من مطابقة الـ id في واجهة المستخدم لديك
+    let passField = document.getElementById('registerPasswordField');
+    
+    if (!emailField || !passField) return;
+
+    let email = emailField.value.trim();
+    let pass = passField.value.trim();
+
+    if (email === "" || pass === "") {
+        alert("⚠️ يرجى ملء جميع الحقول المطلوبة لإنشاء الحساب.");
+        return;
+    }
+
+    createUserWithEmailAndPassword(auth, email, pass)
+        .then((userCredential) => {
+            let user = userCredential.user;
+            alert("✅ تم إنشاء الحساب بنجاح! أهلاً بك: " + user.email);
+            switchScreen('mainAppScreen');
+        })
+        .catch((error) => {
+            let errorMessage = error.message;
+            alert("❌ خطأ في إنشاء الحساب: " + errorMessage);
+        });
+}
+
+// دالة تسجيل الدخول للحسابات الموجودة مسبقاً (تم تصحيح .error إلى .catch)
 function handleExistingLogin() {
     let emailField = document.getElementById('loginEmailField');
     let passField = document.getElementById('loginPasswordField');
@@ -71,14 +98,11 @@ function handleExistingLogin() {
     // إرسال البيانات إلى سحابة Firebase لتسجيل الدخول
     signInWithEmailAndPassword(auth, email, pass)
         .then((userCredential) => {
-            // Signed in 
             let user = userCredential.user;
             alert("✅ تم تسجيل الدخول بنجاح! أهلاً بك: " + user.email);
-            // يمكنك هنا الانتقال للشاشة الرئيسية للتطبيق
             switchScreen('mainAppScreen');
         })
-        .error((error) => {
-            let errorCode = error.code;
+        .catch((error) => { // تم التصحيح هنا من .error إلى .catch الصحيحة
             let errorMessage = error.message;
             alert("❌ خطأ في تسجيل الدخول: " + errorMessage);
         });
@@ -86,6 +110,5 @@ function handleExistingLogin() {
 
 // دالة تسجيل الدخول عبر جوجل (مجهزة ومحدثة)
 function handleGoogleLogin() {
-    // يمكنك تفعيل Google Provider هنا لاحقاً عبر مكتبة Firebase Auth
     alert("📌 جارٍ تفعيل تسجيل الدخول عبر Google من لوحة تحكم Firebase...");
 }
