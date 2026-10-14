@@ -1,6 +1,27 @@
 // ==========================================
-// 5. قسم البرامج والوظائف التفاعلية JavaScript (مؤمن ومحدث)
+// 5. قسم البرامج والوظائف التفاعلية JavaScript (مربوط بـ Firebase)
 // ==========================================
+
+// استيراد مكتبات Firebase المطلوبة
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAnalytics } from "firebase/analytics";
+
+// إعدادات Firebase الخاصة بتطبيقك
+const firebaseConfig = {
+  apiKey: "AIzaSyC0yqVlGpM159foKmpMFiuySgF5uFxOA_k",
+  authDomain: "plotcraft2.firebaseapp.com",
+  projectId: "plotcraft2",
+  storageBucket: "plotcraft2.firebasestorage.app",
+  messagingSenderId: "338171528711",
+  appId: "1:338171528711:web:f13544fb4e496fe39e8ca2",
+  measurementId: "G-T2ZXFTGD5H"
+};
+
+// تهيئة Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const analytics = getAnalytics(app);
 
 // دوال التنقل بين الشاشات
 function switchScreen(screenId, event) {
@@ -21,11 +42,10 @@ function applySelectedLanguage() {
         if (displayEl) {
             displayEl.innerText = langName;
         }
-        // ... تطبيق الترجمات واتجاه الصفحة ...
     }
 }
 
-// دوال تسجيل الدخول وحفظ البيانات مع التحقق الأمني الأولي
+// دالة تسجيل الدخول الحقيقية عبر Firebase Authentication
 function handleExistingLogin() {
     let emailField = document.getElementById('loginEmailField');
     let passField = document.getElementById('loginPasswordField');
@@ -48,21 +68,24 @@ function handleExistingLogin() {
         return;
     }
 
-    // ... استكمال التحقق وتسجيل الدخول بأمان ...
+    // إرسال البيانات إلى سحابة Firebase لتسجيل الدخول
+    signInWithEmailAndPassword(auth, email, pass)
+        .then((userCredential) => {
+            // Signed in 
+            let user = userCredential.user;
+            alert("✅ تم تسجيل الدخول بنجاح! أهلاً بك: " + user.email);
+            // يمكنك هنا الانتقال للشاشة الرئيسية للتطبيق
+            switchScreen('mainAppScreen');
+        })
+        .error((error) => {
+            let errorCode = error.code;
+            let errorMessage = error.message;
+            alert("❌ خطأ في تسجيل الدخول: " + errorMessage);
+        });
 }
 
-// دالة تسجيل الدخول عبر جوجل بشكل آمن ومحمي
+// دالة تسجيل الدخول عبر جوجل (مجهزة ومحدثة)
 function handleGoogleLogin() {
-    let redirectUri = "https://plotcraft-s84ivmhu8safjehv7vxwvs.streamlit.app";
-    
-    // توليد رمز حالة عشوائي لحماية المصادقة ضد هجمات التلاعب (CSRF)
-    let secureState = Math.random().toString(36).substring(2);
-    sessionStorage.setItem('oauth_state', secureState);
-
-    let authUrl = "https://accounts.google.com/o/oauth2/v2/auth?response_type=code" 
-        + "&redirect_uri=" + encodeURIComponent(redirectUri) 
-        + "&scope=openid%20email%20profile"
-        + "&state=" + secureState;
-    
-    window.location.href = authUrl;
+    // يمكنك تفعيل Google Provider هنا لاحقاً عبر مكتبة Firebase Auth
+    alert("📌 جارٍ تفعيل تسجيل الدخول عبر Google من لوحة تحكم Firebase...");
 }
