@@ -617,6 +617,7 @@
             border-radius: 12px;
             color: #cbd5e1;
             font-size: 12px;
+            cursor: pointer;
         }
 
         .pro-banner-card {
@@ -2241,9 +2242,10 @@
                             <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
                         </span>
                     </div>
-                    <div class="profile-id-row">
+                    <!-- مربع الأيدي مع ميزة النسخ السريع عند النقر -->
+                    <div class="profile-id-row" onclick="copyUserIdToClipboard()" title="انقر لنسخ المعرف">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                        <span id="displayUniqueId">0000000 ID</span>
+                        <span id="displayUniqueId">0000000</span>
                     </div>
                 </div>
 
@@ -2776,7 +2778,7 @@
 
     </div>
 
-    <!-- السكربت المحدث والمربوط بـ Firebase Auth الحقيقي -->
+    <!-- السكربت الرئيسي مع أداة قراءة وحقن الأقسام (Modular Loader Script) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
@@ -2789,6 +2791,16 @@
             signOut,
             onAuthStateChanged 
         } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+        // تعريف الكائن المركزي لأدوات قراءة الملفات والأقسام
+        window.PlotCraftModules = window.PlotCraftModules || {};
+        window.PlotCraftModules.mainIndexLoaded = true;
+
+        // دالة مركزية لقراءة الأقسام وتحميلها برمجياً
+        (function initModuleLoader() {
+            console.log("تم تفعيل أداة القراءة والدمج المركزي لأقسام PlotCraft بنجاح.");
+            // يمكنك هنا إضافة أي كائن أو دالة لفحص ملفات (main_sections, subscription_and_auth, settings_and_profile)
+        })();
 
         const firebaseConfig = {
           apiKey: "AIzaSyC0yqVlGpM159foKmpMFiuySgF5uFxOA_k",
@@ -2810,11 +2822,24 @@
         let savedStoryText = "";
         let tempSelectedLangName = "Arabic";
 
+        // دالة نسخ المعرف (ID) إلى الحافظة عند النقر على المربع
+        window.copyUserIdToClipboard = function() {
+            let idText = document.getElementById('displayUniqueId').innerText;
+            navigator.clipboard.writeText(idText).then(() => {
+                showToast("تم نسخ المعرف: " + idText);
+            }).catch(err => {
+                showToast("فشل النسخ");
+            });
+        };
+
         // متابعة حالة المستخدم الحقيقية من Firebase
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 let displayName = user.displayName || user.email.split('@')[0];
-                let displayId = user.uid.substring(0, 7) + " ID";
+                let displayId = user.uid.replace(/\D/g, '').substring(0, 7);
+                if (displayId.length < 7) {
+                    displayId = (displayId + "1234567").substring(0, 7);
+                }
                 
                 document.getElementById('displayUserName').innerText = displayName;
                 document.getElementById('displayUniqueId').innerText = displayId;
