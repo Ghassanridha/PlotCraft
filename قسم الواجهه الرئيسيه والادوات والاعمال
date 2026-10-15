@@ -1,5 +1,5 @@
 <!-- ========================================== -->
-<!-- ملف: main_sections.html (النسخة النهائية المدمجة والمحدثة) -->
+<!-- ملف: main_sections.html (النسخة النهائية المستقلة والمصححة) -->
 <!-- ========================================== -->
 
 <!-- 1. شاشة الرئيسية (Home Screen) -->
@@ -134,11 +134,11 @@
                 <button onclick="openCharacterModal(event)" style="background: #2b2b3a; border: none; color: white; padding: 6px 14px; border-radius: 10px; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; gap: 4px;">تغيير 🔄</button>
             </div>
 
-            <!-- المربع الكبير الخاص بالصور الأفقية (ثابت ولا ينقل لمكتبة أو كاميرا عند النقر عليه) -->
+            <!-- المربع الكبير الخاص بالصور الأفقية (ثابت ولا ينقل لأي مكان عند النقر عليه) -->
             <div id="horizontal-image-container" onclick="handleHorizontalBoxClick(event)" style="width: 100%; background: #141419; border: 1px dashed #3a3a4d; border-radius: 14px; padding: 16px; cursor: default; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;">
-                <div style="font-size: 0.85rem; color: #a0a0b0;" data-tr="horizontalBoxTitle">اختر صورة أفقية للشخصية</div>
+                <div style="font-size: 0.85rem; color: #a0a0b0;">اختر صورة أفقية للشخصية</div>
                 
-                <!-- زر الإضافة الصغير المجاور الذي ينقل لمكتبة الصور أو الكاميرا -->
+                <!-- زر الإضافة الصغير المجاور -->
                 <button id="add-char-trigger-btn" onclick="openCharacterModal(event)" style="background: transparent; border: 1px dashed #739df0; border-radius: 10px; padding: 8px 16px; color: #739df0; font-size: 0.85rem; cursor: pointer;">
                     + إضافة
                 </button>
@@ -228,7 +228,7 @@
 </div>
 
 <!-- ========================================== -->
-<!-- دوال التحكم البرمجية (JavaScript Logic) -->
+<!-- دوال التحكم البرمجية المحسنة (JavaScript Logic) -->
 <!-- ========================================== -->
 <script>
     window.PlotCraftModules = window.PlotCraftModules || {};
@@ -239,19 +239,18 @@
     let savedCharacterName = '';
     let savedStoryText = '';
 
-    // المربع الكبير مخصص فقط للصور الأفقية ولا ينقل لأي مكان عند النقر عليه
+    // المربع الكبير مخصص فقط للصور الأفقية ولا يتفاعل أو ينتقل
     function handleHorizontalBoxClick(event) {
-        event.stopPropagation();
-        // ثابت ولا يوجد أي انتقال عند النقر عليه
+        if (event) event.stopPropagation();
     }
 
-    // زر الإضافة الصغير المجاور هو وحده الذي ينقل لاختيار الألبوم أو الكاميرا
+    // فتح واجهة إدخال اسم الشخصية مباشرة وضبط البطاقة
     function openCharacterModal(event) {
         if (event) event.stopPropagation();
         
         let name = prompt("أدخل اسم الشخصية:");
         if (!name) return;
-        let imgUrl = prompt("أدخل رابط الصورة:") || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150";
+        let imgUrl = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150";
 
         savedCharacterName = name;
         hasCharacter = true;
@@ -272,7 +271,7 @@
 
         document.getElementById('char-preview-card').style.display = 'none';
         document.getElementById('horizontal-image-container').style.display = 'flex';
-        document.getElementById('char-status-text').innerText = 'تمت إضافة 0، الحد الأقص 2';
+        document.getElementById('char-status-text').innerText = 'تمت إضافة 0، الحد الأقصى 2';
         document.getElementById('char-check-icon').style.display = 'none';
     }
 
