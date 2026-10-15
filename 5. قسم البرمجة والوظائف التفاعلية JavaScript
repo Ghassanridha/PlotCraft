@@ -2,9 +2,16 @@
 // 5. قسم البرامج والوظائف التفاعلية JavaScript (مؤمن ومحدث مع Firebase)
 // ==========================================
 
-// استيراد مكتبات Firebase (تأكد من عمل السكريبت بنظام type="module")
+// استيراد مكتبات Firebase (التوثيق، التطبيق، وتحليل البيانات)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+import { 
+    getAuth, 
+    createUserWithEmailAndPassword, 
+    signInWithEmailAndPassword, 
+    GoogleAuthProvider, 
+    signInWithPopup 
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 // إعدادات Firebase الخاصة بمشروعك
 const firebaseConfig = {
@@ -20,6 +27,7 @@ const firebaseConfig = {
 // تهيئة Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+const auth = getAuth(app); // تفعيل نظام المصادقة
 
 // دالة تثبيت وحفظ معرف المستخدم (UID) محلياً بعد التسجيل
 function saveUserSession(userId) {
@@ -48,12 +56,53 @@ function applySelectedLanguage() {
         if (displayEl) {
             displayEl.innerText = langName;
         }
-        // ... تطبيق الترجمات واتجاه الصفحة ...
     }
 }
 
-// دوال تسجيل الدخول وحفظ البيانات مع التحقق الأمني الأولي
-function handleExistingLogin() {
+// ==========================================
+// وظائف الحسابات والاتصال الفعلي بـ Firebase Auth
+// ==========================================
+
+// 1. دالة إنشاء حساب جديد بالبريد الإلكتروني وكلمة المرور
+window.handleRegister = function() {
+    let emailField = document.getElementById('registerEmailField') || document.getElementById('loginEmailField');
+    let passField = document.getElementById('registerPasswordField') || document.getElementById('loginPasswordField');
+    
+    if (!emailField || !passField) {
+        alert("⚠️ حقول المدخلات غير متوفرة في هذه الشاشة.");
+        return;
+    }
+
+    let email = emailField.value.trim();
+    let pass = passField.value.trim();
+
+    if (email === "" || pass === "") {
+        alert("⚠️ يرجى ملء جميع الحقول المطلوبة.");
+        return;
+    }
+
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        alert("⚠️ يرجى إدخال بريد إلكتروني صالح.");
+        return;
+    }
+
+    // إرسال البيانات إلى Firebase لإنشاء الحساب
+    createUserWithEmailAndPassword(auth, email, pass)
+        .then((userCredential) => {
+            let user = userCredential.user;
+            saveUserSession(user.uid);
+            alert("✅ تم إنشاء الحساب بنجاح!");
+            // انتقل للشاشة الرئيسية بعد التسجيل (يمكنك تعديل اسم الشاشة حسب تصميمك)
+            switchScreen('mainDashboardScreen');
+        })
+        .catch((error) => {
+            alert("❌ خطأ في إنشاء الحساب: " + error.message);
+        });
+};
+
+// 2. دالة تسجيل الدخول للحسابات الموجودة مسبقاً
+window.handleExistingLogin = function() {
     let emailField = document.getElementById('loginEmailField');
     let passField = document.getElementById('loginPasswordField');
     
@@ -62,34 +111,42 @@ function handleExistingLogin() {
     let email = emailField.value.trim();
     let pass = passField.value.trim();
 
-    // فحص الأمان الأساسي: منع الإرسال إذا كانت الحقول فارغة
     if (email === "" || pass === "") {
         alert("⚠️ يرجى ملء جميع الحقول المطلوبة.");
         return;
     }
 
-    // فحص تنسيق البريد الإلكتروني لمنع الإدخال العشوائي
     let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         alert("⚠️ يرجى إدخال بريد إلكتروني صالح.");
         return;
     }
 
-    // ... استكمال التحقق وتسجيل الدخول بأمان ...
-}
+    // التحقق وتسجيل الدخول عبر Firebase
+    signInWithEmailAndPassword(auth, email, pass)
+        .then((userCredential) => {
+            let user = userCredential.user;
+            saveUserSession(user.uid);
+            alert("مرحباً بك مجدداً! تم تسجيل الدخول بنجاح.");
+            switchScreen('mainDashboardScreen');
+        })
+        .catch((error) => {
+            alert("❌ فشل تسجيل الدخول: تأكد من البريد أو كلمة المرور.");
+        });
+};
 
-// دالة تسجيل الدخول عبر جوجل بشكل آمن ومحمي
-function handleGoogleLogin() {
-    let redirectUri = "https://plotcraft-s84ivmhu8safjehv7vxwvs.streamlit.app";
+// 3. دالة تسجيل الدخول عبر جوجل (باستخدام النافذة المنبثقة السريعة والآمنة)
+window.handleGoogleLogin = function() {
+    const provider = new GoogleAuthProvider();
     
-    // توليد رمز حالة عشوائي لحماية المصادقة ضد هجمات التلاعب (CSRF)
-    let secureState = Math.random().toString(36).substring(2);
-    sessionStorage.setItem('oauth_state', secureState);
-
-    let authUrl = "https://accounts.google.com/o/oauth2/v2/auth?response_type=code" 
-        + "&redirect_uri=" + encodeURIComponent(redirectUri) 
-        + "&scope=openid%20email%20profile"
-        + "&state=" + secureState;
-    
-    window.location.href = authUrl;
-}
+    signInWithPopup(auth, provider)
+        .then((result) => {
+            let user = result.user;
+            saveUserSession(user.uid);
+            alert("✅ تم تسجيل الدخول بواسطة جوجل بنجاح!");
+            switchScreen('mainDashboardScreen');
+        })
+        .catch((error) => {
+            alert("❌ حدث خطأ أثناء تسجيل الدخول بجوجل: " + error.message);
+        });
+};
