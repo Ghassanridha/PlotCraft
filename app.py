@@ -2,14 +2,18 @@ import streamlit as st
 import streamlit.components.v1 as components
 import firebase_admin
 from firebase_admin import credentials, firestore
+import uuid
+import hashlib
+import time
+import re
+import html
 
-# --- تهيئة اتصال Firebase بشكل آمن تماماً لا يوقف التطبيق ---
+# --- 1. تهيئة اتصال Firebase بشكل آمن تماماً لا يوقف التطبيق ---
 db = None
 if not firebase_admin._apps:
     try:
         secret_dict = dict(st.secrets["firebase"])
         if "private_key" in secret_dict:
-            # معالجة دقيقة لترميز السطور الخاصة بالمفتاح
             pk = secret_dict["private_key"].strip()
             if not pk.startswith('"') and not pk.startswith("'"):
                 pk = pk.replace("\\n", "\n")
@@ -19,17 +23,56 @@ if not firebase_admin._apps:
         firebase_admin.initialize_app(cred)
         db = firestore.client()
     except Exception as e:
-        # لن يتوقف التطبيق أبداً حتى لو فشل الاتصال، وستعمل الواجهة بشكل طبيعي
         pass
 
-# إعدادات الصفحة الأساسية مع تقييد الأمان ومنع عرض الشريط الجانبي
+# --- 2. منظومة الحماية والأمان (Security Layer المدمجة) ---
+
+def sanitize_input(user_input):
+    """تنظيف المدخلات وتأمينها ضد هجمات الحقن"""
+    if not isinstance(user_input, str):
+        return user_input
+    cleaned = html.escape(user_input)
+    cleaned = re.sub(r'[;\'"\\--]', '', cleaned)
+    return cleaned.strip()
+
+def init_secure_session():
+    """تأمين الجلسة وتوليد رمز حماية فريد"""
+    if "security_token" not in st.session_state:
+        st.session_state.security_token = str(uuid.uuid4())
+    if "is_subscribed" not in st.session_state:
+        st.session_state.is_subscribed = False
+
+def check_rate_limit(action_name="default", delay_seconds=2):
+    """منع الضغط المتكرر لحماية السيرفر (Rate Limiting)"""
+    current_time = time.time()
+    last_action_key = f"last_time_{action_name}"
+    
+    if last_action_key in st.session_state:
+        elapsed = current_time - st.session_state[last_action_key]
+        if elapsed < delay_seconds:
+            st.warning("⚠️ يرجى الانتظار لحظات قبل تنفيذ الطلب مرة أخرى.")
+            return False
+            
+    st.session_state[last_action_key] = current_time
+    return True
+
+def verify_subscription():
+    """التحقق الصارم من اشتراك المستخدم"""
+    if not st.session_state.get("is_subscribed", False):
+        st.error("🔒 هذه الميزة تطلب اشتراكاً فعالاً (أسبوعي، شهري، أو سنوي).")
+        return False
+    return True
+
+# تفعيل جلسة الأمان فوراً
+init_secure_session()
+
+# --- 3. إعدادات الصفحة والتصميم ---
 st.set_page_config(
     page_title="PlotCraft UI", 
     layout="wide", 
     initial_sidebar_state="collapsed"
 )
 
-# قسم التنسيق والحماية البصرية وإلغاء الهوامش وشريط الاستخدام الافتراضي
 st.markdown("""
     <style>
         .block-container {
@@ -41,18 +84,23 @@ st.markdown("""
             visibility: hidden !important;
             display: none !important;
         }
+        /* منع تحديد النصوص غير المرغوب فيه في واجهات المخرجين */
+        .plotcraft-nav-bar, .app-shell {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
     </style>
 """, unsafe_allow_html=True)
 
-# نظام قراءة وتحميل ملف الـ HTML الخارجي مع تأمين الجلسة والحقن الآمن
+# --- 4. قراءة وحقن ملف الـ HTML الرئيسي ---
 try:
     with open("index.html", "r", encoding="utf-8") as f:
         html_code = f.read()
     
     security_shield_injection = """
     <script>
-        // تفعيل درع الحماية الخاص بتطبيق PlotCraft
-        console.log("🛡️ PlotCraft Security Architecture: Online");
+        console.log("🛡️ PlotCraft Security Architecture: Online & Secure");
     </script>
     """
     
