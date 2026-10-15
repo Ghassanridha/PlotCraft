@@ -1,0 +1,107 @@
+<!-- ========================================== -->
+<!-- ملف: subscription_and_auth.html (قسم الاشتراكات وتسجيل الدخول) -->
+<!-- ========================================== -->
+
+<!-- 1. نافذة ترقية الحساب والاشتراكات (Subscription Modal) -->
+<div class="subscription-modal-overlay hidden" id="subscriptionModal">
+    <div class="subscription-modal-box" onclick="event.stopPropagation()">
+        <div class="sub-modal-header">
+            <div class="sub-modal-title" data-tr="subTitle">ترقية الحساب</div>
+            <button class="sub-modal-close-x" onclick="closeSubscriptionModal()">✕</button>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 5px;">
+            <div style="color: #ffffff; font-size: 17px; font-weight: 700; margin-bottom: 4px;" data-tr="subHeading">حول أفكارك إلى PlotCraft</div>
+            <div style="color: #cbd5e1; font-size: 12px;" data-tr="subDesc">أنشئ كل لقطة وعدلها وأكملها بسرعة.</div>
+        </div>
+
+        <div class="plans-list">
+            <div class="plan-card selected" onclick="selectPlan(this)">
+                <div class="plan-top">
+                    <div class="plan-name">PlotCraft Pro Weekly</div>
+                    <div class="plan-price" data-tr="priceWeekly">9.99 دولار أمريكي / أسبوع</div>
+                </div>
+                <div class="plan-desc" data-tr="descWeekly">500 نقطة / أسبوعياً، جرب PlotCraft</div>
+            </div>
+
+            <div class="plan-card" onclick="selectPlan(this)">
+                <div class="new-tag" data-tr="newTag">جديد</div>
+                <div class="plan-top">
+                    <div class="plan-name">PlotCraft Pro Monthly</div>
+                    <div class="plan-price" data-tr="priceMonthly">29.99 دولار أمريكي / شهر</div>
+                </div>
+                <div class="plan-desc" data-tr="descMonthly">1800 نقطة / شهرياً، مثالي للمبدعين</div>
+            </div>
+
+            <div class="plan-card" onclick="selectPlan(this)">
+                <div class="best-value-tag" data-tr="bestValueTag">الأفضل قيمة</div>
+                <div class="plan-top">
+                    <div class="plan-name">PlotCraft Pro Annual</div>
+                    <div class="plan-price" data-tr="priceAnnual">69.99 دولار أمريكي / سنة</div>
+                </div>
+                <div class="plan-desc" data-tr="descAnnual">5000 نقطة / سنوياً، إمكانيات غير محدودة للمخرجين المحترفين</div>
+            </div>
+        </div>
+
+        <button class="action-main-btn" onclick="openLoginModal()" data-tr="subscribeBtn">اشتراك</button>
+    </div>
+</div>
+
+<!-- 2. نافذة تسجيل الدخول الأساسية (Login Modal) -->
+<div class="login-modal-overlay" id="loginModalOverlay" onclick="closeLoginModal()">
+    <div class="login-modal-content" onclick="event.stopPropagation()">
+        <div class="login-close-x-btn" onclick="closeLoginModal()">✕</div>
+        <div class="login-modal-header">
+            <div class="login-modal-title">تسجيل الدخول إلى PlotCraft</div>
+        </div>
+
+        <input type="email" class="auth-input-field" id="loginEmailField" placeholder="البريد الإلكتروني">
+        <input type="password" class="auth-input-field" id="loginPasswordField" placeholder="كلمة المرور">
+
+        <button class="auth-main-btn" onclick="handleExistingLogin()">دخول</button>
+        <button class="auth-main-btn" onclick="handleGoogleLogin()" style="background: #ffffff; color: #000; margin-top: 8px;">تسجيل الدخول بواسطة جوجل</button>
+
+        <div style="text-align: center; margin-top: 4px;">
+            <span class="small-link-btn" onclick="openRegisterModal()">ليس لديك حساب؟ إنشاء حساب</span>
+        </div>
+
+        <div style="display: flex; justify-content: center; align-items: center; gap: 15px; color: #cbd5e1; font-size: 11px; margin-top: 6px;">
+            <span onclick="openWebView('شروط الاستخدام')" style="cursor: pointer;">شروط الاستخدام</span>
+            <span>|</span>
+            <span onclick="openWebView('الخصوصية')" style="cursor: pointer;">الخصوصية</span>
+        </div>
+    </div>
+</div>
+
+<!-- 3. نافذة إنشاء حساب جديد (Register Modal) -->
+<div class="register-modal-overlay" id="registerModalOverlay" onclick="closeRegisterModal()">
+    <div class="login-modal-content" onclick="event.stopPropagation()">
+        <div class="login-close-x-btn" onclick="closeRegisterModal()">✕</div>
+        <div class="login-modal-header">
+            <div class="login-modal-title">إنشاء حساب جديد</div>
+        </div>
+
+        <input type="email" class="auth-input-field" id="regEmailField" placeholder="أدخل البريد الإلكتروني">
+        <input type="password" class="auth-input-field" id="regPasswordField" placeholder="أدخل كلمة مرور (أكثر من 6 أحرف/أرقام)">
+
+        <button style="width: 100%; background: #e2e8f0; color: #1f242d; border: none; border-radius: 12px; padding: 12px; font-size: 14px; font-weight: 700; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(255,255,255,0.15);" onclick="handleCreateNewAccount()">تأكيد</button>
+
+        <div style="text-align: center; margin-top: 5px;">
+            <span class="small-link-btn" onclick="backToLoginFromRegister()">لديك حساب مسبقاً؟ سجل الدخول</span>
+        </div>
+    </div>
+</div>
+
+<!-- ========================================== -->
+<!-- أداة القراءة والتحميل الخارجي (Module Loader Script) -->
+<!-- ========================================== -->
+<script>
+    // تسجيل تحميل هذا القسم في النظام العام
+    window.PlotCraftModules = window.PlotCraftModules || {};
+    window.PlotCraftModules.subscriptionAndAuthLoaded = true;
+
+    // أداة قراءة وحقن الملف خارجياً إذا تم جلبه عبر السيرفر أو الجافاسكريبت
+    (function loadSubscriptionModule() {
+        console.log("تم تحميل قسم الاشتراكات وتسجيل الدخول بنجاح وجاهز للعمل.");
+    })();
+</script>
