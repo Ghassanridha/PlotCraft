@@ -1,5 +1,20 @@
 import streamlit as st
 import streamlit.components.v1 as components
+import firebase_admin
+from firebase_admin import credentials, firestore
+
+# --- تهيئة اتصال Firebase باستخدام الـ Secrets التي حفظناها ---
+if not firebase_admin._apps:
+    try:
+        key_dict = dict(st.secrets["firebase"])
+        cred = credentials.Certificate(key_dict)
+        firebase_admin.initialize_app(cred)
+    except Exception as e:
+        # لن تظهر هذه الرسالة طالما أن الـ Secrets محفوظة بشكل صحيح
+        print(f"خطأ في الاتصال بـ Firebase: {e}")
+
+# تهيئة قاعدة البيانات Firestore للاستخدام عند الحاجة
+db = firestore.client()
 
 # إعدادات الصفحة الأساسية مع تقييد الأمان ومنع عرض الشريط الجانبي
 st.set_page_config(
