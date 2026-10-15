@@ -1,5 +1,5 @@
 <!-- ========================================== -->
-<!-- ملف: main_sections.html (قسم الواجهة الرئيسية، الأدوات، الأعمال، والأزرار السفلية) -->
+<!-- ملف: main_sections.html (محدث: المربع الكبير أصبح عارضاً للصورة فقط بدون أي تفاعل أو تنقل) -->
 <!-- ========================================== -->
 
 <!-- 1. شاشة الرئيسية (Home Screen) -->
@@ -100,7 +100,124 @@
     </div>
 </div>
 
-<!-- 4. شريط التنقل السفلي والتحكم (Bottom Navigation Bar) -->
+<!-- 4. شاشة خطوة بخطوة (Step by Step Screen) -->
+<div id="stepByStepScreen" class="screen-view">
+    <div style="display:flex; justify-content:space-between; align-items:center; padding:20px; border-bottom:1px solid rgba(255,255,255,0.08); flex-shrink:0;">
+        <button style="background:rgba(255,255,255,0.1); border:none; color:#fff; width:36px; height:36px; border-radius:50%; cursor:pointer;" onclick="switchScreen('homeScreen', event)">✕</button>
+        <div style="color:#fff; font-weight:700;">PlotCraft</div>
+        <div style="width:36px;"></div>
+    </div>
+
+    <div class="step-container" id="stepContainerScroll">
+        <div class="ai-assistant-card">
+            <div class="ai-header-row">
+                <div class="ai-title" data-tr="aiTitle">مساعد AI بلوت كرافت</div>
+                <div class="ai-badge-circle">AI+</div>
+            </div>
+            <div class="ai-desc" data-tr="aiDesc">عزيزي المخرج، استمتع بإنشاء وتخصيص تفاصيل فيلمك خطوة بخطوة بدقة احترافية عالية.</div>
+        </div>
+
+        <div class="story-setup-box">
+            <div class="setup-header-row">
+                <div class="setup-main-title" data-tr="storySetupTitle">إعداد القصة</div>
+                <div class="counter-badge" id="counterBadge">0/2</div>
+            </div>
+            <div class="setup-subtitle" data-tr="storySetupSub">أضف الشخصيات والقصة أولاً، ثم اختر المدة والنسبة.</div>
+
+            <div class="setup-row-item" id="characterRowSlot">
+                <div class="item-info">
+                    <h4 data-tr="charTitle">الشخصيات</h4>
+                    <p data-tr="charDesc">أضف صورتين كحد أقصى لشخصيات القصة</p>
+                </div>
+                <button class="action-add-btn" onclick="openAddCharacter(event)" data-tr="addBtn">إضافة</button>
+            </div>
+
+            <div class="setup-row-item" id="storyRowSlot">
+                <div class="item-info">
+                    <h4 data-tr="taleTitle">الحكاية</h4>
+                    <p data-tr="taleDesc">اكتب أو صف حبكة قصتك هنا</p>
+                </div>
+                <button class="action-add-btn" onclick="openStoryDescription(event)" data-tr="addBtn">إضافة</button>
+            </div>
+        </div>
+
+        <div class="bottom-next-row" style="margin-top:10px; margin-bottom: 20px;">
+            <button class="next-step-btn" id="nextStepBtn" onclick="showToast('الانتقال للخطوة التالية بنجاح!')" data-tr="nextBtn">التالي</button>
+        </div>
+    </div>
+</div>
+
+<!-- 5. شاشة كتابة القصة (Story Description Screen) -->
+<div id="storyDescriptionScreen" class="screen-view">
+    <div class="story-desc-header">
+        <button class="story-desc-back" onclick="switchScreen('stepByStepScreen', event)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5"></path><polyline points="12 19 5 12 12 5"></polyline></svg>
+        </button>
+        <div class="story-desc-title" data-tr="writeStoryTitle">اكتب قصة</div>
+        <div style="width: 20px;"></div>
+    </div>
+
+    <div style="padding: 0 16px; flex-grow: 1; overflow-y: auto;">
+        <textarea class="story-textarea" id="storyTextArea" placeholder="اكتب وصفاً أو حبكة القصة هنا" oninput="checkStoryInput()"></textarea>
+    </div>
+
+    <div class="story-save-btn-wrapper" id="storySaveBtnWrapper">
+        <button class="story-save-btn" id="storySaveBtn" onclick="saveStoryDescription()" data-tr="saveBtn">حفظ</button>
+    </div>
+</div>
+
+<!-- 6. شاشة إضافة شخصية (Add Character Screen - المربع الكبير بدون أي تفاعل) -->
+<div id="addCharacterScreen" class="screen-view">
+    <div class="add-char-header">
+        <button class="add-char-back" onclick="switchScreen('stepByStepScreen', event)">‹</button>
+        <div class="add-char-title" data-tr="addCharTitle">إضافة شخصية</div>
+        <div style="width: 20px;"></div>
+    </div>
+
+    <div style="padding: 0 16px 90px 16px;">
+        <div class="char-main-card">
+            <div class="char-section-label" data-tr="charLabel">الشخصية</div>
+            
+            <!-- المربع الكبير: تم إلغاء خاصية onclick نهائياً ليصبح عارضاً فقط بدون أي تنقل أو فتح نوافذ -->
+            <div class="char-big-upload-box" id="bigUploadBox" style="cursor: default;">
+                <div id="bigBoxInner" style="display:flex; flex-direction:column; align-items:center; gap:8px; color:#cbd5e1; font-size:13px;">
+                    <div style="width:32px; height:32px; background:rgba(255,255,255,0.08); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#ffffff;">↑</div>
+                    <span data-tr="uploadImg">رفع صورة</span>
+                </div>
+            </div>
+
+            <div class="char-thumbs-container">
+                <!-- المربع الصغير: هو المسؤول حصرياً عن فتح قائمة الكاميرا أو الألبوم -->
+                <div class="char-add-role-box" onclick="showSourceModal()" title="إضافة صورة جديدة">
+                    <span>+</span>
+                    <span class="char-add-role-text" data-tr="roleText">الدور</span>
+                </div>
+
+                <!-- الصور الأفقية: عند الضغط عليها تظهر مباشرة في المربع الكبير -->
+                <div class="char-thumbs-scroll">
+                    <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/fd8634ac28e205e26c7152807b88939a60c489fb/1.jpg" class="char-thumb-item" onclick="selectThumb(this)">
+                    <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3e947f15e4b77039c4fae6696252cb2dc9bf8233/7.jpg" class="char-thumb-item" onclick="selectThumb(this)">
+                    <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/1f2087617faa51c04442a4e917e7952afa111303/3.jpg" class="char-thumb-item" onclick="selectThumb(this)">
+                    <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/5166da314bb3ab7bfefdfaef8d022910be86b74f/4.jpg" class="char-thumb-item" onclick="selectThumb(this)">
+                    <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/c10416ccb8119267135f82cb1b8e6c1f70d768e3/5.jpg" class="char-thumb-item" onclick="selectThumb(this)">
+                    <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/a1eeb3ea05a1beca8c56845e706009cc21f17ddd/6.jpg" class="char-thumb-item" onclick="selectThumb(this)">
+                    <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/c3b7bce11a16e095ef618ede145cba09c67f9b3d/2.jpg" class="char-thumb-item" onclick="selectThumb(this)">
+                </div>
+            </div>
+        </div>
+
+        <div class="char-main-card">
+            <div class="char-section-label" data-tr="charNameLabel">اسم الشخصية *</div>
+            <input type="text" class="char-name-input" id="characterNameInput" placeholder="أدخل اسم الشخصية (إجباري)" oninput="checkFormValidity()">
+        </div>
+    </div>
+
+    <div class="char-submit-btn-wrapper">
+        <button class="char-submit-btn disabled" id="submitCharacterBtn" onclick="submitCharacterData()" data-tr="submitBtn">إرسال</button>
+    </div>
+</div>
+
+<!-- 7. شريط التنقل السفلي والتحكم (Bottom Navigation Bar) -->
 <div class="plotcraft-nav-bar" id="mainNavBar">
     <div class="plotcraft-nav-pill">
         <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="switchScreen('homeScreen', event); setActiveNav('navHome')">
@@ -127,14 +244,8 @@
     </div>
 </div>
 
-<!-- ========================================== -->
-<!-- أداة القراءة والتحميل الخارجي (Module Loader Script) -->
-<!-- ========================================== -->
 <script>
     window.PlotCraftModules = window.PlotCraftModules || {};
     window.PlotCraftModules.mainViewsLoaded = true;
-
-    (function loadMainViewsModule() {
-        console.log("تم تحميل قسم الواجهات والأدوات والأعمال بنجاح وجاهز للعمل.");
-    })();
+    console.log("تم تعديل سلوك المربع الكبير ليصبح ثابتاً بدون تفاعل بنجاح.");
 </script>
