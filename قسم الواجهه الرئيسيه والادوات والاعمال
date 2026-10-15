@@ -1,5 +1,5 @@
 <!-- ========================================== -->
-<!-- ملف: main_sections.html (الواجهة الرئيسية + إعداد القصة والخطوات بالتفصيل الدقيق) -->
+<!-- ملف: main_sections.html (النسخة النهائية المحدثة بالكامل) -->
 <!-- ========================================== -->
 
 <!-- 1. شاشة الرئيسية (Home Screen) -->
@@ -160,7 +160,7 @@
             </div>
         </div>
 
-        <!-- تلميح الـ AI (كما ظهر في الصورة الأولى) -->
+        <!-- تلميح الـ AI -->
         <div style="background: linear-gradient(135deg, rgba(233,30,99,0.12), rgba(142,36,170,0.12)); border: 1px solid rgba(233,30,99,0.25); border-radius: 14px; padding: 12px; display: flex; align-items: flex-start; gap: 10px;">
             <div style="width: 32px; height: 32px; background: linear-gradient(135deg, #e91e63, #8e24aa); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.75rem; flex-shrink: 0; color: white;">AI</div>
             <div>
@@ -169,7 +169,7 @@
             </div>
         </div>
 
-        <!-- قسم إعدادات المدة والنسبة (مدمج داخل نفس القائمة وبشكل قابل للتمرير والارتفاع) -->
+        <!-- قسم إعدادات المدة والنسبة -->
         <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 12px;">
             <div style="font-size: 0.82rem; color: #9e9ea7; margin-bottom: 8px;">المدة</div>
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
@@ -188,7 +188,7 @@
                 ✨ يستهلك <span id="points-counter">25</span> من الأرصدة
             </div>
 
-            <!-- زر التالي / إنشاء -->
+            <!-- زر التأسيس / إنشاء -->
             <button id="final-action-btn" onclick="startFinalGeneration()" style="width: 100%; background: linear-gradient(135deg, #e91e63, #8e24aa); color: white; border: none; padding: 14px; border-radius: 25px; font-weight: 600; font-size: 0.95rem; cursor: pointer; box-shadow: 0 4px 15px rgba(233,30,99,0.3);">إنشاء</button>
         </div>
 
@@ -223,7 +223,7 @@
 </div>
 
 <!-- ========================================== -->
-<!-- دوال التحكم البرمجية (JavaScript Logic) -->
+<!-- دوال التحكم البرمجية (JavaScript Logic المحدثة) -->
 <!-- ========================================== -->
 <script>
     window.PlotCraftModules = window.PlotCraftModules || {};
@@ -234,7 +234,7 @@
     let savedCharacterName = '';
     let savedStoryText = '';
 
-    // فتح نافذة الشخصية والحفظ والخروج التلقائي
+    // دالة فتح واجهة الشخصية وظهور البطاقة مباشرة
     function openCharacterModal() {
         let name = prompt("أدخل اسم الشخصية (مثال: ع):");
         if (!name) return;
@@ -246,13 +246,14 @@
         document.getElementById('display-char-name').innerText = savedCharacterName;
         document.getElementById('display-char-avatar').style.backgroundImage = `url(${imgUrl})`;
         
+        // إظهار بطاقة الشخصية وإخفاء زر الإضافة المقطع
         document.getElementById('char-preview-card').style.display = 'flex';
         document.getElementById('add-char-trigger-btn').style.display = 'none';
         document.getElementById('char-status-text').innerText = 'تمت إضافة 1، الحد الأقصى 2';
         document.getElementById('char-check-icon').style.display = 'inline';
     }
 
-    // زر الحذف (X) لإلغاء تفاصيل الشخصية العودة للوضع الأصلي
+    // دالة حذف الشخصية (زر X) لإعادتها للوضع الأصلي
     function removeCharacter() {
         hasCharacter = false;
         savedCharacterName = '';
@@ -263,7 +264,7 @@
         document.getElementById('char-check-icon').style.display = 'none';
     }
 
-    // فتح نافذة الحكاية
+    // دالة فتح واجهة الحكاية وظهور البطاقة مباشرة
     function openStoryModal() {
         let story = prompt("اكتب نص الحكاية هنا:");
         if (!story) return;
@@ -272,6 +273,8 @@
         hasStory = true;
 
         document.getElementById('display-story-snippet').innerText = savedStoryText.substring(0, 15) + '...';
+        
+        // إظهار بطاقة الحكاية وإخفاء زر الإضافة المقطع
         document.getElementById('story-preview-card').style.display = 'flex';
         document.getElementById('add-story-trigger-btn').style.display = 'none';
         document.getElementById('story-check-icon').style.display = 'inline';
@@ -304,6 +307,7 @@
         btn.style.fontWeight = '600';
     }
 
+    // زر الإنشاء النهائي
     function startFinalGeneration() {
         if (!hasCharacter || !hasStory) {
             alert('يرجى إضافة الشخصية والحكاية أولاً!');
