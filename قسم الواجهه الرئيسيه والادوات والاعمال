@@ -1,5 +1,5 @@
 <!-- ========================================== -->
-<!-- ملف: main_sections.html (محدث: المربع الكبير أصبح عارضاً للصورة فقط بدون أي تفاعل أو تنقل) -->
+<!-- ملف: main_sections.html (النسخة النهائية الآمنة) -->
 <!-- ========================================== -->
 
 <!-- 1. شاشة الرئيسية (Home Screen) -->
@@ -147,26 +147,7 @@
     </div>
 </div>
 
-<!-- 5. شاشة كتابة القصة (Story Description Screen) -->
-<div id="storyDescriptionScreen" class="screen-view">
-    <div class="story-desc-header">
-        <button class="story-desc-back" onclick="switchScreen('stepByStepScreen', event)">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5"></path><polyline points="12 19 5 12 12 5"></polyline></svg>
-        </button>
-        <div class="story-desc-title" data-tr="writeStoryTitle">اكتب قصة</div>
-        <div style="width: 20px;"></div>
-    </div>
-
-    <div style="padding: 0 16px; flex-grow: 1; overflow-y: auto;">
-        <textarea class="story-textarea" id="storyTextArea" placeholder="اكتب وصفاً أو حبكة القصة هنا" oninput="checkStoryInput()"></textarea>
-    </div>
-
-    <div class="story-save-btn-wrapper" id="storySaveBtnWrapper">
-        <button class="story-save-btn" id="storySaveBtn" onclick="saveStoryDescription()" data-tr="saveBtn">حفظ</button>
-    </div>
-</div>
-
-<!-- 6. شاشة إضافة شخصية (Add Character Screen - المربع الكبير بدون أي تفاعل) -->
+<!-- 5. شاشة إضافة شخصية (Add Character Screen) -->
 <div id="addCharacterScreen" class="screen-view">
     <div class="add-char-header">
         <button class="add-char-back" onclick="switchScreen('stepByStepScreen', event)">‹</button>
@@ -178,7 +159,7 @@
         <div class="char-main-card">
             <div class="char-section-label" data-tr="charLabel">الشخصية</div>
             
-            <!-- المربع الكبير: تم إلغاء خاصية onclick نهائياً ليصبح عارضاً فقط بدون أي تنقل أو فتح نوافذ -->
+            <!-- المربع الكبير: عارض للصورة فقط بدون أي تفاعل -->
             <div class="char-big-upload-box" id="bigUploadBox" style="cursor: default;">
                 <div id="bigBoxInner" style="display:flex; flex-direction:column; align-items:center; gap:8px; color:#cbd5e1; font-size:13px;">
                     <div style="width:32px; height:32px; background:rgba(255,255,255,0.08); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#ffffff;">↑</div>
@@ -187,7 +168,7 @@
             </div>
 
             <div class="char-thumbs-container">
-                <!-- المربع الصغير: هو المسؤول حصرياً عن فتح قائمة الكاميرا أو الألبوم -->
+                <!-- المربع الصغير: مسؤول حصرياً عن فتح الكاميرا أو الألبوم -->
                 <div class="char-add-role-box" onclick="showSourceModal()" title="إضافة صورة جديدة">
                     <span>+</span>
                     <span class="char-add-role-text" data-tr="roleText">الدور</span>
@@ -217,7 +198,7 @@
     </div>
 </div>
 
-<!-- 7. شريط التنقل السفلي والتحكم (Bottom Navigation Bar) -->
+<!-- 6. شريط التنقل السفلي والتحكم (Bottom Navigation Bar) -->
 <div class="plotcraft-nav-bar" id="mainNavBar">
     <div class="plotcraft-nav-pill">
         <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="switchScreen('homeScreen', event); setActiveNav('navHome')">
@@ -243,9 +224,3 @@
         </svg>
     </div>
 </div>
-
-<script>
-    window.PlotCraftModules = window.PlotCraftModules || {};
-    window.PlotCraftModules.mainViewsLoaded = true;
-    console.log("تم تعديل سلوك المربع الكبير ليصبح ثابتاً بدون تفاعل بنجاح.");
-</script>
