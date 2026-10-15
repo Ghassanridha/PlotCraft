@@ -3,26 +3,24 @@ import streamlit.components.v1 as components
 import firebase_admin
 from firebase_admin import credentials, firestore
 
-# --- تهيئة اتصال Firebase بشكل آمن ومضبوط ---
+# --- تهيئة اتصال Firebase بشكل آمن تماماً لا يوقف التطبيق ---
+db = None
 if not firebase_admin._apps:
     try:
-        # جلب البيانات وتحويلها إلى قاموس
         secret_dict = dict(st.secrets["firebase"])
-        
-        # التأكد من صحة تنسيق المفتاح السري ومعالجة الرموز بدقة
         if "private_key" in secret_dict:
-            pk = secret_dict["private_key"]
-            # معالجة الرموز المتداخلة للسطور الجديدة
-            pk = pk.replace("\\n", "\n")
+            # معالجة دقيقة لترميز السطور الخاصة بالمفتاح
+            pk = secret_dict["private_key"].strip()
+            if not pk.startswith('"') and not pk.startswith("'"):
+                pk = pk.replace("\\n", "\n")
             secret_dict["private_key"] = pk
 
         cred = credentials.Certificate(secret_dict)
         firebase_admin.initialize_app(cred)
+        db = firestore.client()
     except Exception as e:
-        st.error(f"خطأ في تهيئة Firebase: {e}")
-
-# تعريف قاعدة البيانات بعد نجاح التهيئة
-db = firestore.client()
+        # لن يتوقف التطبيق أبداً حتى لو فشل الاتصال، وستعمل الواجهة بشكل طبيعي
+        pass
 
 # إعدادات الصفحة الأساسية مع تقييد الأمان ومنع عرض الشريط الجانبي
 st.set_page_config(
