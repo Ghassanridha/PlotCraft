@@ -1180,66 +1180,6 @@
             transform: scale(0.98);
         }
 
-        .added-story-card-vertical {
-            background: #282f3d;
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 16px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 10px;
-        }
-        .added-story-top-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .added-story-title-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: 700;
-        }
-        .added-story-check-icon {
-            width: 18px;
-            height: 18px;
-            background: #ffffff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #1f242d;
-            font-size: 11px;
-            font-weight: bold;
-        }
-        .added-story-edit-btn {
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #ffffff;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.2s;
-        }
-        .added-story-edit-btn:active {
-            background: rgba(255, 255, 255, 0.25);
-        }
-        .added-story-content-text {
-            color: #cbd5e1;
-            font-size: 13px;
-            line-height: 1.6;
-            max-height: 80px;
-            overflow-y: auto;
-        }
-
         #addCharacterScreen {
             display: none;
             flex-direction: column;
@@ -1318,7 +1258,6 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            left: auto;
             background: rgba(0,0,0,0.7);
             color: #fff;
             border: none;
@@ -1424,67 +1363,89 @@
             opacity: 0.6;
         }
 
-        .added-character-preview-card {
+        /* تنسيق بطاقة الشخصية المضافة في شاشة الإعداد مطابقة للصورة */
+        .added-char-card-box {
             background: #343d50;
-            border-radius: 12px;
-            padding: 12px;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 16px;
+            padding: 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-top: 10px;
         }
-        .added-char-right {
+        .added-char-details {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-        .added-char-img {
-            width: 45px;
-            height: 45px;
-            border-radius: 10px;
+        .added-char-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
             object-fit: cover;
             border: 1px solid rgba(255,255,255,0.2);
         }
-        .added-char-name {
+        .added-char-name-text {
             color: #ffffff;
-            font-size: 13px;
+            font-size: 15px;
             font-weight: 700;
         }
-        .added-char-left {
+        .added-char-actions {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        .added-char-change-group {
-            display: flex;
-            align-items: center;
-            gap: 5px;
+        .added-char-change-btn {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: #ffffff;
+            padding: 6px 14px;
+            border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
             cursor: pointer;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 5px 12px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
-        .added-char-change-group:active { background: rgba(255, 255, 255, 0.2); }
-        
-        .added-char-delete-btn {
+        .added-char-change-btn:active { background: rgba(255, 255, 255, 0.25); }
+
+        .added-char-del-btn {
             background: #1f242d;
             color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            width: 30px;
-            height: 30px;
-            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.25);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 13px;
             cursor: pointer;
-            font-weight: bold;
         }
-        .added-char-delete-btn:active { background: #282f3d; }
+        .added-char-del-btn:active { background: #282f3d; }
+
+        /* زر إضافة شخصية المنقط الجديد */
+        .dashed-add-char-btn {
+            width: 100%;
+            background: transparent;
+            border: 1.5px dashed rgba(59, 130, 246, 0.6);
+            color: #ffffff;
+            padding: 12px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+        .dashed-add-char-btn:active { background: rgba(59, 130, 246, 0.1); }
 
         .source-modal {
             display: flex;
@@ -2242,7 +2203,6 @@
                             <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
                         </span>
                     </div>
-                    <!-- مربع الأيدي مع ميزة النسخ السريع عند النقر -->
                     <div class="profile-id-row" onclick="copyUserIdToClipboard()" title="انقر لنسخ المعرف">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                         <span id="displayUniqueId">0000000</span>
@@ -2547,6 +2507,7 @@
             </div>
         </div>
 
+        <!-- شاشة خطوة بخطوة (إعداد القصة) -->
         <div id="stepByStepScreen" class="screen-view">
             <div style="display:flex; justify-content:space-between; align-items:center; padding:20px; border-bottom:1px solid rgba(255,255,255,0.08); flex-shrink:0;">
                 <button style="background:rgba(255,255,255,0.1); border:none; color:#fff; width:36px; height:36px; border-radius:50%; cursor:pointer;" onclick="switchScreen('homeScreen', event)">✕</button>
@@ -2570,20 +2531,26 @@
                     </div>
                     <div class="setup-subtitle" data-tr="storySetupSub">أضف الشخصيات والقصة أولاً، ثم اختر المدة والنسبة.</div>
 
-                    <div class="setup-row-item" id="characterRowSlot">
-                        <div class="item-info">
-                            <h4 data-tr="charTitle">الشخصيات</h4>
-                            <p data-tr="charDesc">أضف صورتين كحد أقصى لشخصيات القصة</p>
+                    <!-- قسم الشخصيات الديناميكي -->
+                    <div id="charactersSectionContainer">
+                        <div class="setup-row-item" id="characterRowSlot">
+                            <div class="item-info">
+                                <h4 data-tr="charTitle">الشخصيات</h4>
+                                <p data-tr="charDesc">أضف صورتين كحد أقصى لشخصيات القصة</p>
+                            </div>
+                            <button class="action-add-btn" onclick="openAddCharacter(event)" data-tr="addBtn">إضافة</button>
                         </div>
-                        <button class="action-add-btn" onclick="openAddCharacter(event)" data-tr="addBtn">إضافة</button>
                     </div>
 
-                    <div class="setup-row-item" id="storyRowSlot">
-                        <div class="item-info">
-                            <h4 data-tr="taleTitle">الحكاية</h4>
-                            <p data-tr="taleDesc">اكتب أو صف حبكة قصتك هنا</p>
+                    <!-- قسم الحكاية الديناميكي -->
+                    <div id="storySectionContainer">
+                        <div class="setup-row-item" id="storyRowSlot">
+                            <div class="item-info">
+                                <h4 data-tr="taleTitle">الحكاية</h4>
+                                <p data-tr="taleDesc">اكتب أو صف حبكة قصتك هنا</p>
+                            </div>
+                            <button class="action-add-btn" onclick="openStoryDescription(event)" data-tr="addBtn">إضافة</button>
                         </div>
-                        <button class="action-add-btn" onclick="openStoryDescription(event)" data-tr="addBtn">إضافة</button>
                     </div>
                 </div>
 
@@ -2593,6 +2560,23 @@
             </div>
         </div>
 
+        <!-- شاشة عرض الحكاية للقراءة فقط -->
+        <div id="storyViewScreen" class="screen-view">
+            <div class="story-desc-header">
+                <button class="story-desc-back" onclick="switchScreen('stepByStepScreen', event)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5"></path><polyline points="12 19 5 12 12 5"></polyline></svg>
+                </button>
+                <div class="story-desc-title">عرض الحكاية</div>
+                <div style="width: 20px;"></div>
+            </div>
+            <div style="padding: 20px; flex-grow: 1; overflow-y: auto;">
+                <div style="background: #282f3d; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; color: #ffffff; font-size: 15px; line-height: 1.8; word-break: break-word;" id="viewStoryTextContent">
+                    <!-- النص المكتوب يظهر هنا للقراءة فقط -->
+                </div>
+            </div>
+        </div>
+
+        <!-- شاشة كتابة القصة -->
         <div id="storyDescriptionScreen" class="screen-view">
             <div class="story-desc-header">
                 <button class="story-desc-back" onclick="switchScreen('stepByStepScreen', event)">
@@ -2611,6 +2595,7 @@
             </div>
         </div>
 
+        <!-- شاشة إضافة شخصية -->
         <div id="addCharacterScreen" class="screen-view">
             <div class="add-char-header">
                 <button class="add-char-back" onclick="switchScreen('stepByStepScreen', event)">‹</button>
@@ -2649,7 +2634,7 @@
 
                 <div class="char-main-card">
                     <div class="char-section-label" data-tr="charNameLabel">اسم الشخصية *</div>
-                    <input type="text" class="char-name-input" id="characterNameInput" placeholder="أدخل الاسم الشخصية (إجباري)" oninput="checkFormValidity()">
+                    <input type="text" class="char-name-input" id="characterNameInput" placeholder="أدخل اسم الشخصية (إجباري)" oninput="checkFormValidity()">
                 </div>
             </div>
 
@@ -2778,7 +2763,7 @@
 
     </div>
 
-    <!-- السكربت الرئيسي مع أداة قراءة وحقن الأقسام المحدثة -->
+    <!-- السكربت الرئيسي -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
@@ -2795,24 +2780,6 @@
         window.PlotCraftModules = window.PlotCraftModules || {};
         window.PlotCraftModules.mainIndexLoaded = true;
 
-        // دالة جلب الأقسام المستقلة مع منع التخزين المؤقت (Cache-busting v=timestamp)
-        (function initModuleLoaderWithCacheBust() {
-            console.log("تم تفعيل أداة جلب الملفات المستقلة مع منع التخزين المؤقت بنجاح.");
-            
-            // مثال لاستخدام الـ fetch المحدث لملفاتك المستقلة في المستقبل عند الحاجة:
-            /*
-            fetch('main_sections.html?v=' + new Date().getTime())
-              .then(response => response.text())
-              .then(html => {
-                  let container = document.getElementById('appShellContainer');
-                  if(container) {
-                      // هنا يمكنك حقن الأقسام المستقلة بأمان تام وبدون كاش قديم
-                  }
-              })
-              .catch(err => console.error('خطأ في جلب الملف المستقل:', err));
-            */
-        })();
-
         const firebaseConfig = {
           apiKey: "AIzaSyC0yqVlGpM159foKmpMFiuySgF5uFxOA_k",
           authDomain: "plotcraft2.firebaseapp.com",
@@ -2828,7 +2795,7 @@
         const auth = getAuth(app);
 
         let currentUploadedImageSrc = "";
-        let characterAdded = false;
+        let charactersList = []; // مصفوفة لتخزين الشخصيات المضافة (بحد أقصى 2)
         let storyAdded = false;
         let savedStoryText = "";
         let tempSelectedLangName = "Arabic";
@@ -2866,6 +2833,8 @@
 
         window.onload = function() {
             window.history.pushState({page: "main"}, document.title, window.location.href);
+            renderCharactersSection();
+            renderStorySection();
         };
 
         window.addEventListener('popstate', function(event) {
@@ -3120,7 +3089,7 @@
             document.getElementById(screenId).classList.add('active');
             
             var navBar = document.getElementById('mainNavBar');
-            if (screenId === 'sparkleDialogScreen' || screenId === 'addCharacterScreen' || screenId === 'storyDescriptionScreen' || screenId === 'stepByStepScreen') {
+            if (screenId === 'sparkleDialogScreen' || screenId === 'addCharacterScreen' || screenId === 'storyDescriptionScreen' || screenId === 'storyViewScreen' || screenId === 'stepByStepScreen') {
                 navBar.classList.add('hidden');
             } else {
                 navBar.classList.remove('hidden');
@@ -3158,10 +3127,22 @@
             closeNameEditModal();
         };
 
-        window.openAddCharacter = function(event) { switchScreen('addCharacterScreen', event); };
+        window.openAddCharacter = function(event) {
+            currentUploadedImageSrc = "";
+            document.getElementById('characterNameInput').value = "";
+            clearBigBox();
+            switchScreen('addCharacterScreen', event);
+        };
+
         window.openStoryDescription = function(event) {
             document.getElementById('storyTextArea').value = savedStoryText;
             switchScreen('storyDescriptionScreen', event);
+        };
+
+        // فتح شاشة عرض الحكاية للقراءة فقط
+        window.openViewStoryScreen = function(event) {
+            document.getElementById('viewStoryTextContent').innerText = savedStoryText;
+            switchScreen('storyViewScreen', event);
         };
 
         window.setActiveNav = function(navId) {
@@ -3203,133 +3184,13 @@
                 var reader = new FileReader();
                 reader.onload = function(e) {
                     currentUploadedImageSrc = e.target.result;
-                    setBigBoxImage(currentUploadedImageSrc);
-                    checkFormValidity();
-                }
-                reader.readAsDataURL(file);
-            }
-        };
+                    setBigBoxImage(نعم، فهمت قصدك بدقة تامة! 
 
-        window.setBigBoxImage = function(src) {
-            currentUploadedImageSrc = src;
-            var box = document.getElementById('bigUploadBox');
-            box.innerHTML = '<button class="remove-big-img" onclick="clearBigBox(event)">✕</button><img src="' + src + '">';
-            checkFormValidity();
-        };
+التعديل المطلوب هو كالتالي:
+1. **في قسم الشخصيات:** عند إضافة الشخصيات، سيظهر مربع المعايشة الخاص بالشخصية (مع صورتها الاسم وخيار الحذف/التغيير)، وتحته يظهر زر **"إضافة شخصية"** جديد في حال أراد المستخدم إضافة شخصية ثانية (بحد أقصى 2).
+2. **في قسم الحكاية:** الزر **لا يكون زر "تعديل"**، بل يتحول إلى **"عرض"** أو وضع معاينة؛ بمعنى أن المستخدم عندما يضغط عليه يستطيع رؤية النص أو الحكاية التي كتبها، ولكن **لا يمكنه التعديل عليها من هناك** (تكون للقراءة فقط).
 
-        window.clearBigBox = function(event) {
-            if (event) event.stopPropagation();
-            currentUploadedImageSrc = "";
-            var box = document.getElementById('bigUploadBox');
-            box.innerHTML = '<div id="bigBoxInner" style="display:flex; flex-direction:column; align-items:center; gap:8px; color:#cbd5e1; font-size:13px;"><div style="width:32px; height:32px; background:rgba(255,255,255,0.08); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#ffffff;">↑</div><span data-tr="uploadImg">رفع صورة</span></div>';
-            checkFormValidity();
-        };
+---
 
-        window.selectThumb = function(imgElement) { setBigBoxImage(imgElement.src); };
-
-        window.checkFormValidity = function() {
-            var nameInput = document.getElementById('characterNameInput').value.trim();
-            var submitBtn = document.getElementById('submitCharacterBtn');
-            if (currentUploadedImageSrc !== "" && nameInput !== "") { submitBtn.classList.remove('disabled'); }
-            else { submitBtn.classList.add('disabled'); }
-        };
-
-        window.submitCharacterData = function() {
-            var nameInput = document.getElementById('characterNameInput').value.trim();
-            if (currentUploadedImageSrc === "" || nameInput === "") return;
-            characterAdded = true;
-            updateCounter();
-            switchScreen('stepByStepScreen', event);
-        };
-
-        window.updateCounter = function() {
-            let count = 0;
-            if (characterAdded) count++;
-            if (storyAdded) count++;
-            document.getElementById('counterBadge').innerText = count + "/2";
-            var nextBtn = document.getElementById('nextStepBtn');
-            if (count === 2) { nextBtn.classList.add('show'); } else { nextBtn.classList.remove('show'); }
-        };
-
-        window.saveStoryDescription = function() {
-            var val = document.getElementById('storyTextArea').value.trim();
-            if (val === "") return;
-            savedStoryText = val;
-            storyAdded = true;
-            updateCounter();
-            switchScreen('stepByStepScreen', event);
-        };
-
-        window.handleSpeedCardClick = function(event) { openSubscriptionModal(); };
-        window.openSettingsSubMenu = function(event) { if (event) event.stopPropagation(); document.getElementById('settingsSubMenu').classList.add('show'); };
-        window.closeSettingsSubMenu = function(event) { if (event) event.stopPropagation(); document.getElementById('settingsSubMenu').classList.remove('show'); };
-
-        window.performLogoutFromSubMenu = function(event) {
-            if (event) event.stopPropagation();
-            signOut(auth).then(() => {
-                document.getElementById('settingsSubMenu').classList.remove('show');
-                showToast('تم تسجيل الخروج بنجاح');
-            });
-        };
-
-        window.handleExistingLogin = function() {
-            let email = document.getElementById('loginEmailField').value.trim();
-            let pass = document.getElementById('loginPasswordField').value.trim();
-
-            if (!email || !pass) {
-                showToast("يرجى ملء جميع الحقول");
-                return;
-            }
-
-            signInWithEmailAndPassword(auth, email, pass)
-                .then((userCredential) => {
-                    closeLoginModal();
-                    document.getElementById('loginEmailField').value = '';
-                    document.getElementById('loginPasswordField').value = '';
-                    showToast("تم تسجيل الدخول بنجاح!");
-                })
-                .catch((error) => {
-                    showToast("خطأ: تأكد من صحة البريد أو كلمة المرور");
-                });
-        };
-
-        window.handleCreateNewAccount = function() {
-            let email = document.getElementById('regEmailField').value.trim();
-            let pass = document.getElementById('regPasswordField').value.trim();
-
-            if (!email || !pass) {
-                showToast("يرجى ملء جميع الحقول");
-                return;
-            }
-
-            if (pass.length < 6) {
-                showToast("كلمة المرور يجب ألا تقل عن 6 أحرف");
-                return;
-            }
-
-            createUserWithEmailAndPassword(auth, email, pass)
-                .then((userCredential) => {
-                    closeRegisterModal();
-                    document.getElementById('regEmailField').value = '';
-                    document.getElementById('regPasswordField').value = '';
-                    showToast("تم إنشاء الحساب بنجاح!");
-                })
-                .catch((error) => {
-                    showToast("خطأ في إنشاء الحساب: " + error.message);
-                });
-        };
-
-        window.handleGoogleLogin = function() {
-            const provider = new GoogleAuthProvider();
-            signInWithPopup(auth, provider)
-                .then((result) => {
-                    closeLoginModal();
-                    showToast("تم تسجيل الدخول بواسطة جوجل بنجاح!");
-                })
-                .catch((error) => {
-                    showToast("فشل تسجيل الدخول عبر جوجل");
-                });
-        };
-    </script>
-</body>
-</html>
+هل هذا هو التعديل الدقيق الذي تقصده؟ 
+إذا كان كذلك، أخبرني بكلمة **"ابدأ"** أو **"نعم"** وسأقوم فوراً بتحديث وتعديل كود الـ HTML والـ JavaScript بالكامل ليطابق هذا التصميم والتجربة بالضبط!
