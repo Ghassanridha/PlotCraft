@@ -2573,34 +2573,23 @@
                     </div>
                     <div class="setup-subtitle" data-tr="storySetupSub">أضف الشخصيات والقصة أولاً، ثم اختر المدة والنسبة.</div>
 
-                    <!-- مستطيل الشخصيات -->
                     <div class="setup-row-item" id="characterRowSlot">
-                        <div class="setup-row-header-controls">
-                            <div class="item-info">
-                                <h4 data-tr="charTitle">الشخصيات</h4>
-                                <p data-tr="charDesc">أضف صورتين كحد أقصى لشخصيات القصة</p>
-                            </div>
-                            <button class="action-add-btn" id="charAddBtn" onclick="openAddCharacter(event)" data-tr="addBtn">إضافة</button>
-                            <div class="char-controls-group" id="charControlsGroup" style="display:none;">
-                                <div class="change-btn-wrapper" onclick="openAddCharacter(event)">
-                                    <svg viewBox="0 0 24 24"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
-                                    <span>تغيير</span>
-                                </div>
-                                <span class="close-x-btn" onclick="removeAllCharactersData(event)">✕</span>
-                            </div>
-                        </div>
-                        
-                        <!-- حاوية الشخصيات المضافة (تتسع لشخصيتين معاً) -->
-                        <div class="char-added-preview-box" id="charAddedPreviewBox" style="display:none;"></div>
-                    </div>
+    <div class="setup-row-header-controls">
+        <div class="item-info">
+            <h4 data-tr="charTitle">الشخصيات</h4>
+            <p data-tr="charDesc">أضف صورتين كحد أقصى لشخصيات القصة</p>
+        </div>
+        <button class="action-add-btn" id="charAddBtn" onclick="openAddCharacter(-1, event)">إضافة</button>
+    </div>
+    <div class="char-added-list-container" id="charAddedListContainer" style="display:none;"></div>
+</div>
+<div class="add-second-char-btn" id="addSecondCharBtn" style="display:none;" onclick="openAddCharacter(-1, event)">
+    <span class="add-second-char-text">أضافة شخصية</span>
+    <div class="add-second-char-icon-box">
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
+    </div>
+</div>
 
-                    <!-- زر إضافة شخصية ثانية (يظهر تحت مستطيل الشخصيات عندما تكون هناك شخصية واحدة فقط) -->
-                    <div class="add-second-char-btn" id="addSecondCharBtn" style="display:none;" onclick="openAddCharacter(event)">
-                        <span class="add-second-char-text">أضافة شخصية</span>
-                        <div class="add-second-char-icon-box">
-                            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
-                        </div>
-                    </div>
 
                     <!-- مستطيل الحكاية -->
                     <div class="setup-row-item" id="storyRowSlot">
@@ -3252,73 +3241,42 @@
             else { submitBtn.classList.add('disabled'); }
         };
 
-        /* وظيفة حفظ الشخصية مع التحقق من عدم تكرار الاسم أو الصورة */
-        window.submitCharacterData = function() {
-            var nameInput = document.getElementById('characterNameInput').value.trim();
-            if (currentUploadedImageSrc === "" || nameInput === "") return;
+let addedCharactersList = [], editingCharIndex = -1;
 
-            // التحقق من وجود الاسم مسبقاً (دون الاعتبار لحالة الأحرف والمسافات)
-            let isNameExists = addedCharactersList.some(c => c.name.toLowerCase() === nameInput.toLowerCase());
-            if (isNameExists) {
-                showToast("عذراً، هذا الاسم مضاف سابقاً! اختر اسماً آخر.");
-                return;
-            }
+window.openAddCharacter = function(index = -1, event) {
+    if (event) event.stopPropagation();
+    editingCharIndex = index;
+    document.getElementById('addCharPageTitle').innerText = (index !== -1) ? "تعديل الشخصية" : "إضافة شخصية";
+    document.getElementById('characterNameInput').value = (index !== -1) ? addedCharactersList[index].name : '';
+    if (index !== -1) setBigBoxImage(addedCharactersList[index].img); else clearBigBox();
+    switchScreen('addCharacterScreen', event);
+};
 
-            // التحقق من وجود الصورة مسبقاً
-            let isImgExists = addedCharactersList.some(c => c.img === currentUploadedImageSrc);
-            if (isImgExists) {
-                showToast("عذراً، هذه الصورة مضافة سابقاً! اختر صورة أخرى.");
-                return;
-            }
+window.submitCharacterData = function() {
+    var name = document.getElementById('characterNameInput').value.trim();
+    if (!currentUploadedImageSrc || !name) return;
+    if (addedCharactersList.some((c, i) => i !== editingCharIndex && c.name.toLowerCase() === name.toLowerCase())) { showToast("الاسم مضاف سابقاً!"); return; }
+    if (editingCharIndex !== -1) addedCharactersList[editingCharIndex] = { name, img: currentUploadedImageSrc };
+    else addedCharactersList.push({ name, img: currentUploadedImageSrc });
+    renderCharactersUI(); updateCounter(); switchScreen('stepByStepScreen', event);
+};
 
-            // إضافة الشخصية للقائمة
-            addedCharactersList.push({
-                name: nameInput,
-                img: currentUploadedImageSrc
-            });
-
-            renderCharactersUI();
-            updateCounter();
-            switchScreen('stepByStepScreen', event);
-        };
-
-        /* إعادة رسم قائمة الشخصيات المضافة داخل المستطيل الرئيسي */
-        window.renderCharactersUI = function() {
-            let container = document.getElementById('charAddedPreviewBox');
-            container.innerHTML = '';
-
-            if (addedCharactersList.length > 0) {
-                document.getElementById('charAddBtn').style.display = 'none';
-                document.getElementById('charControlsGroup').style.display = 'flex';
-                container.style.display = 'flex';
-
-                addedCharactersList.forEach((char) => {
-                    let chip = document.createElement('div');
-                    chip.className = 'single-char-chip';
-                    chip.innerHTML = `<img src="${char.img}" class="char-added-img"><span class="char-added-name">${char.name}</span>`;
-                    container.appendChild(chip);
-                });
-
-                // إذا كانت هناك شخصية واحدة فقط، يظهر زر "إضافة شخصية" أسفل المستطيل
-                if (addedCharactersList.length === 1) {
-                    document.getElementById('addSecondCharBtn').style.display = 'flex';
-                } else {
-                    document.getElementById('addSecondCharBtn').style.display = 'none'; // شخصيتان (الحد الأقصى)، يختفي الزر
-                }
-            } else {
-                document.getElementById('charAddBtn').style.display = 'block';
-                document.getElementById('charControlsGroup').style.display = 'none';
-                container.style.display = 'none';
-                document.getElementById('addSecondCharBtn').style.display = 'none';
-            }
-        };
-
-        window.removeAllCharactersData = function(event) {
-            if (event) event.stopPropagation();
-            addedCharactersList = [];
-            renderCharactersUI();
-            updateCounter();
-        };
+window.renderCharactersUI = function() {
+    let box = document.getElementById('charAddedListContainer');
+    box.innerHTML = '';
+    if (addedCharactersList.length > 0) {
+        document.getElementById('charAddBtn').style.display = 'none';
+        box.style.display = 'flex';
+        addedCharactersList.forEach((c, i) => {
+            box.innerHTML += `<div class="single-char-row-card"><div class="char-info-right"><img src="${c.img}" class="char-added-img"><span class="char-added-name">${c.name}</span></div><div class="char-item-actions-left"><div class="change-single-btn" onclick="openAddCharacter(${i}, event)"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" fill="#fff"/></svg><span>تغيير</span></div><span class="close-single-x-btn" onclick="addedCharactersList.splice(${i},1);renderCharactersUI();updateCounter();">✕</span></div></div>`;
+        });
+        document.getElementById('addSecondCharBtn').style.display = (addedCharactersList.length === 1) ? 'flex' : 'none';
+    } else {
+        document.getElementById('charAddBtn').style.display = 'block';
+        box.style.display = 'none';
+        document.getElementById('addSecondCharBtn').style.display = 'none';
+    }
+};
 
         window.checkStoryInput = function() {
             var val = document.getElementById('storyTextArea').value.trim();
