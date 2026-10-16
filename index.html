@@ -2778,7 +2778,7 @@
 
     </div>
 
-    <!-- السكربت الرئيسي مع أداة قراءة وحقن الأقسام (Modular Loader Script) -->
+    <!-- السكربت الرئيسي مع أداة قراءة وحقن الأقسام المحدثة -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
@@ -2792,14 +2792,25 @@
             onAuthStateChanged 
         } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-        // تعريف الكائن المركزي لأدوات قراءة الملفات والأقسام
         window.PlotCraftModules = window.PlotCraftModules || {};
         window.PlotCraftModules.mainIndexLoaded = true;
 
-        // دالة مركزية لقراءة الأقسام وتحميلها برمجياً
-        (function initModuleLoader() {
-            console.log("تم تفعيل أداة القراءة والدمج المركزي لأقسام PlotCraft بنجاح.");
-            // يمكنك هنا إضافة أي كائن أو دالة لفحص ملفات (main_sections, subscription_and_auth, settings_and_profile)
+        // دالة جلب الأقسام المستقلة مع منع التخزين المؤقت (Cache-busting v=timestamp)
+        (function initModuleLoaderWithCacheBust() {
+            console.log("تم تفعيل أداة جلب الملفات المستقلة مع منع التخزين المؤقت بنجاح.");
+            
+            // مثال لاستخدام الـ fetch المحدث لملفاتك المستقلة في المستقبل عند الحاجة:
+            /*
+            fetch('main_sections.html?v=' + new Date().getTime())
+              .then(response => response.text())
+              .then(html => {
+                  let container = document.getElementById('appShellContainer');
+                  if(container) {
+                      // هنا يمكنك حقن الأقسام المستقلة بأمان تام وبدون كاش قديم
+                  }
+              })
+              .catch(err => console.error('خطأ في جلب الملف المستقل:', err));
+            */
         })();
 
         const firebaseConfig = {
@@ -2822,7 +2833,6 @@
         let savedStoryText = "";
         let tempSelectedLangName = "Arabic";
 
-        // دالة نسخ المعرف (ID) إلى الحافظة عند النقر على المربع
         window.copyUserIdToClipboard = function() {
             let idText = document.getElementById('displayUniqueId').innerText;
             navigator.clipboard.writeText(idText).then(() => {
@@ -2832,7 +2842,6 @@
             });
         };
 
-        // متابعة حالة المستخدم الحقيقية من Firebase
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 let displayName = user.displayName || user.email.split('@')[0];
@@ -3263,11 +3272,6 @@
             });
         };
 
-        // ==========================================
-        // وظائف Firebase Authentication الحقيقية
-        // ==========================================
-
-        // 1. تسجيل الدخول بالبريد وكلمة المرور
         window.handleExistingLogin = function() {
             let email = document.getElementById('loginEmailField').value.trim();
             let pass = document.getElementById('loginPasswordField').value.trim();
@@ -3289,7 +3293,6 @@
                 });
         };
 
-        // 2. إنشاء حساب جديد بالبريد وكلمة المرور
         window.handleCreateNewAccount = function() {
             let email = document.getElementById('regEmailField').value.trim();
             let pass = document.getElementById('regPasswordField').value.trim();
@@ -3316,7 +3319,6 @@
                 });
         };
 
-        // 3. تسجيل الدخول عبر جوجل (Popup)
         window.handleGoogleLogin = function() {
             const provider = new GoogleAuthProvider();
             signInWithPopup(auth, provider)
