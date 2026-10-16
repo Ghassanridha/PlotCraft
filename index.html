@@ -1038,8 +1038,15 @@
             border-radius: 12px;
             padding: 12px;
             display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .setup-row-header-controls {
+            display: flex;
             justify-content: space-between;
             align-items: center;
+            width: 100%;
         }
 
         .item-info h4 {
@@ -1069,6 +1076,108 @@
         .action-add-btn:active {
             transform: scale(0.95);
             background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* تنسيقات أزرار التغيير والتعديل المحدثة */
+        .char-controls-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .change-btn-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .change-btn-wrapper svg {
+            width: 14px;
+            height: 14px;
+            fill: #ffffff;
+        }
+        .close-x-btn {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: 2px;
+        }
+
+        .edit-story-btn-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .edit-story-btn-wrapper svg {
+            width: 14px;
+            height: 14px;
+            fill: #ffffff;
+        }
+
+        /* استعراض الشخصية المضافة داخل المستطيل */
+        .char-added-preview-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 4px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        .char-added-img {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .char-added-name {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        /* زر إضافة شخصية ثانية أسفل مستطيل الشخصيات */
+        .add-second-char-btn {
+            background: #282f3d;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 12px;
+            padding: 12px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            margin-top: -4px;
+            transition: 0.2s;
+        }
+        .add-second-char-btn:active {
+            background: #343d50;
+        }
+        .add-second-char-text {
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+        }
+        .add-second-char-icon-box {
+            width: 24px;
+            height: 24px;
+            background: #141a29;
+            border: 1px solid #1e293b;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .add-second-char-icon-box svg {
+            width: 12px;
+            height: 12px;
+            fill: #3b82f6;
         }
 
         .next-step-btn {
@@ -1180,66 +1289,6 @@
             transform: scale(0.98);
         }
 
-        .added-story-card-vertical {
-            background: #282f3d;
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 16px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 10px;
-        }
-        .added-story-top-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .added-story-title-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: 700;
-        }
-        .added-story-check-icon {
-            width: 18px;
-            height: 18px;
-            background: #ffffff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #1f242d;
-            font-size: 11px;
-            font-weight: bold;
-        }
-        .added-story-edit-btn {
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #ffffff;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.2s;
-        }
-        .added-story-edit-btn:active {
-            background: rgba(255, 255, 255, 0.25);
-        }
-        .added-story-content-text {
-            color: #cbd5e1;
-            font-size: 13px;
-            line-height: 1.6;
-            max-height: 80px;
-            overflow-y: auto;
-        }
-
         #addCharacterScreen {
             display: none;
             flex-direction: column;
@@ -1302,7 +1351,6 @@
             gap: 8px;
             position: relative;
             overflow: hidden;
-            /* تم إزالة الـ cursor: pointer حتى لا يوحي بأنه قابل للنقر */
         }
         .char-big-upload-box img {
             width: 100%;
@@ -2180,7 +2228,6 @@
                             <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
                         </span>
                     </div>
-                    <!-- مربع الأيدي مع ميزة النسخ السريع عند النقر -->
                     <div class="profile-id-row" onclick="copyUserIdToClipboard()" title="انقر لنسخ المعرف">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                         <span id="displayUniqueId">0000000</span>
@@ -2508,20 +2555,49 @@
                     </div>
                     <div class="setup-subtitle" data-tr="storySetupSub">أضف الشخصيات والقصة أولاً، ثم اختر المدة والنسبة.</div>
 
+                    <!-- مستطيل الشخصيات -->
                     <div class="setup-row-item" id="characterRowSlot">
-                        <div class="item-info">
-                            <h4 data-tr="charTitle">الشخصيات</h4>
-                            <p data-tr="charDesc">أضف صورتين كحد أقصى لشخصيات القصة</p>
+                        <div class="setup-row-header-controls">
+                            <div class="item-info">
+                                <h4 data-tr="charTitle">الشخصيات</h4>
+                                <p data-tr="charDesc">أضف صورتين كحد أقصى لشخصيات القصة</p>
+                            </div>
+                            <button class="action-add-btn" id="charAddBtn" onclick="openAddCharacter(event)" data-tr="addBtn">إضافة</button>
+                            <div class="char-controls-group" id="charControlsGroup" style="display:none;">
+                                <div class="change-btn-wrapper" onclick="openAddCharacter(event)">
+                                    <svg viewBox="0 0 24 24"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+                                    <span>تغيير</span>
+                                </div>
+                                <span class="close-x-btn" onclick="removeCharacterData(event)">✕</span>
+                            </div>
                         </div>
-                        <button class="action-add-btn" onclick="openAddCharacter(event)" data-tr="addBtn">إضافة</button>
+                        <div class="char-added-preview-box" id="charAddedPreviewBox" style="display:none;">
+                            <img src="" class="char-added-img" id="charAddedImgTag">
+                            <span class="char-added-name" id="charAddedNameTag"></span>
+                        </div>
                     </div>
 
-                    <div class="setup-row-item" id="storyRowSlot">
-                        <div class="item-info">
-                            <h4 data-tr="taleTitle">الحكاية</h4>
-                            <p data-tr="taleDesc">اكتب أو صف حبكة قصتك هنا</p>
+                    <!-- زر إضافة شخصية ثانية (يظهر تحت مستطيل الشخصيات بعد الإضافة) -->
+                    <div class="add-second-char-btn" id="addSecondCharBtn" style="display:none;" onclick="openAddCharacter(event)">
+                        <span class="add-second-char-text">أضافة شخصية</span>
+                        <div class="add-second-char-icon-box">
+                            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
                         </div>
-                        <button class="action-add-btn" onclick="openStoryDescription(event)" data-tr="addBtn">إضافة</button>
+                    </div>
+
+                    <!-- مستطيل الحكاية -->
+                    <div class="setup-row-item" id="storyRowSlot">
+                        <div class="setup-row-header-controls">
+                            <div class="item-info">
+                                <h4 data-tr="taleTitle">الحكاية</h4>
+                                <p data-tr="taleDesc">اكتب أو صف حبكة قصتك هنا</p>
+                            </div>
+                            <button class="action-add-btn" id="storyAddBtn" onclick="openStoryDescription(event)" data-tr="addBtn">إضافة</button>
+                            <div class="edit-story-btn-wrapper" id="storyEditGroup" style="display:none;" onclick="openStoryDescription(event)">
+                                <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                                <span>تعديل</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -2560,7 +2636,6 @@
                 <div class="char-main-card">
                     <div class="char-section-label" data-tr="charLabel">الشخصية</div>
                     
-                    <!-- تم إلغاء خاصية النقر (onclick) من المربع الكبير ليصبح ثابتاً -->
                     <div class="char-big-upload-box" id="bigUploadBox">
                         <div id="bigBoxInner" style="display:flex; flex-direction:column; align-items:center; gap:8px; color:#cbd5e1; font-size:13px;">
                             <div style="width:32px; height:32px; background:rgba(255,255,255,0.08); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#ffffff;">↑</div>
@@ -2569,7 +2644,6 @@
                     </div>
 
                     <div class="char-thumbs-container">
-                        <!-- زر الدور الصغير بداخل الشريط هو المسؤول فقط عن فتح قائمة المصدر -->
                         <div class="char-add-role-box" onclick="showSourceModal()" title="إضافة صورة جديدة">
                             <span>+</span>
                             <span class="char-add-role-text" data-tr="roleText">الدور</span>
@@ -3082,6 +3156,7 @@
         window.openAddCharacter = function(event) { switchScreen('addCharacterScreen', event); };
         window.openStoryDescription = function(event) {
             document.getElementById('storyTextArea').value = savedStoryText;
+            checkStoryInput();
             switchScreen('storyDescriptionScreen', event);
         };
 
@@ -3158,7 +3233,58 @@
         window.submitCharacterData = function() {
             var nameInput = document.getElementById('characterNameInput').value.trim();
             if (currentUploadedImageSrc === "" || nameInput === "") return;
+            
             characterAdded = true;
+            
+            // تحديث العرض في شاشة إعداد القصة
+            document.getElementById('charAddBtn').style.display = 'none';
+            document.getElementById('charControlsGroup').style.display = 'flex';
+            document.getElementById('charAddedImgTag').src = currentUploadedImageSrc;
+            document.getElementById('charAddedNameTag').innerText = nameInput;
+            document.getElementById('charAddedPreviewBox').style.display = 'flex';
+            document.getElementById('addSecondCharBtn').style.display = 'flex';
+            
+            updateCounter();
+            switchScreen('stepByStepScreen', event);
+        };
+
+        window.removeCharacterData = function(event) {
+            if (event) event.stopPropagation();
+            characterAdded = false;
+            
+            // إعادة تعيين الشاشة للوضع الافتراضي
+            document.getElementById('charAddBtn').style.display = 'block';
+            document.getElementById('charControlsGroup').style.display = 'none';
+            document.getElementById('charAddedPreviewBox').style.display = 'none';
+            document.getElementById('addSecondCharBtn').style.display = 'none';
+            
+            // مسح المدخلات القديمة
+            clearBigBox();
+            document.getElementById('characterNameInput').value = '';
+            
+            updateCounter();
+        };
+
+        window.checkStoryInput = function() {
+            var val = document.getElementById('storyTextArea').value.trim();
+            var btn = document.getElementById('storySaveBtn');
+            if (val !== "") {
+                btn.classList.add('active-save');
+            } else {
+                btn.classList.remove('active-save');
+            }
+        };
+
+        window.saveStoryDescription = function() {
+            var val = document.getElementById('storyTextArea').value.trim();
+            if (val === "") return;
+            savedStoryText = val;
+            storyAdded = true;
+            
+            // تحديث العرض في شاشة إعداد القصة
+            document.getElementById('storyAddBtn').style.display = 'none';
+            document.getElementById('storyEditGroup').style.display = 'flex';
+            
             updateCounter();
             switchScreen('stepByStepScreen', event);
         };
@@ -3170,15 +3296,6 @@
             document.getElementById('counterBadge').innerText = count + "/2";
             var nextBtn = document.getElementById('nextStepBtn');
             if (count === 2) { nextBtn.classList.add('show'); } else { nextBtn.classList.remove('show'); }
-        };
-
-        window.saveStoryDescription = function() {
-            var val = document.getElementById('storyTextArea').value.trim();
-            if (val === "") return;
-            savedStoryText = val;
-            storyAdded = true;
-            updateCounter();
-            switchScreen('stepByStepScreen', event);
         };
 
         window.handleSpeedCardClick = function(event) { openSubscriptionModal(); };
