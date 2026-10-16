@@ -1121,26 +1121,44 @@
             fill: #ffffff;
         }
 
-        /* استعراض الشخصية المضافة داخل المستطيل */
+        /* حاوية استعراض الشخصيات المضافة (تتسع لشخصيتين بجانب بعض) */
         .char-added-preview-box {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             margin-top: 4px;
             padding-top: 8px;
             border-top: 1px solid rgba(255,255,255,0.08);
+            flex-wrap: wrap;
         }
-        .char-added-img {
-            width: 48px;
-            height: 48px;
+
+        .single-char-chip {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 6px 10px;
             border-radius: 10px;
+            flex: 1;
+            min-width: 130px;
+        }
+
+        .char-added-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
             object-fit: cover;
             border: 1px solid rgba(255,255,255,0.2);
+            flex-shrink: 0;
         }
         .char-added-name {
             color: #ffffff;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         /* زر إضافة شخصية ثانية أسفل مستطيل الشخصيات */
@@ -2568,16 +2586,15 @@
                                     <svg viewBox="0 0 24 24"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
                                     <span>تغيير</span>
                                 </div>
-                                <span class="close-x-btn" onclick="removeCharacterData(event)">✕</span>
+                                <span class="close-x-btn" onclick="removeAllCharactersData(event)">✕</span>
                             </div>
                         </div>
-                        <div class="char-added-preview-box" id="charAddedPreviewBox" style="display:none;">
-                            <img src="" class="char-added-img" id="charAddedImgTag">
-                            <span class="char-added-name" id="charAddedNameTag"></span>
-                        </div>
+                        
+                        <!-- حاوية الشخصيات المضافة (تتسع لشخصيتين معاً) -->
+                        <div class="char-added-preview-box" id="charAddedPreviewBox" style="display:none;"></div>
                     </div>
 
-                    <!-- زر إضافة شخصية ثانية (يظهر تحت مستطيل الشخصيات بعد الإضافة) -->
+                    <!-- زر إضافة شخصية ثانية (يظهر تحت مستطيل الشخصيات عندما تكون هناك شخصية واحدة فقط) -->
                     <div class="add-second-char-btn" id="addSecondCharBtn" style="display:none;" onclick="openAddCharacter(event)">
                         <span class="add-second-char-text">أضافة شخصية</span>
                         <div class="add-second-char-icon-box">
@@ -2823,7 +2840,7 @@
         const auth = getAuth(app);
 
         let currentUploadedImageSrc = "";
-        let characterAdded = false;
+        let addedCharactersList = []; // مصفوفة لحفظ الشخصيات المضافة [{name, img}]
         let storyAdded = false;
         let savedStoryText = "";
         let tempSelectedLangName = "Arabic";
@@ -2899,7 +2916,7 @@
             toast.classList.add('show');
             setTimeout(() => {
                 toast.classList.remove('show');
-            }, 1000);
+            }, 1500);
         };
 
         window.openWebView = function(type) {
@@ -3153,7 +3170,12 @@
             closeNameEditModal();
         };
 
-        window.openAddCharacter = function(event) { switchScreen('addCharacterScreen', event); };
+        window.openAddCharacter = function(event) { 
+            clearBigBox();
+            document.getElementById('characterNameInput').value = '';
+            switchScreen('addCharacterScreen', event); 
+        };
+
         window.openStoryDescription = function(event) {
             document.getElementById('storyTextArea').value = savedStoryText;
             checkStoryInput();
@@ -3230,38 +3252,71 @@
             else { submitBtn.classList.add('disabled'); }
         };
 
+        /* وظيفة حفظ الشخصية مع التحقق من عدم تكرار الاسم أو الصورة */
         window.submitCharacterData = function() {
             var nameInput = document.getElementById('characterNameInput').value.trim();
             if (currentUploadedImageSrc === "" || nameInput === "") return;
-            
-            characterAdded = true;
-            
-            // تحديث العرض في شاشة إعداد القصة
-            document.getElementById('charAddBtn').style.display = 'none';
-            document.getElementById('charControlsGroup').style.display = 'flex';
-            document.getElementById('charAddedImgTag').src = currentUploadedImageSrc;
-            document.getElementById('charAddedNameTag').innerText = nameInput;
-            document.getElementById('charAddedPreviewBox').style.display = 'flex';
-            document.getElementById('addSecondCharBtn').style.display = 'flex';
-            
+
+            // التحقق من وجود الاسم مسبقاً (دون الاعتبار لحالة الأحرف والمسافات)
+            let isNameExists = addedCharactersList.some(c => c.name.toLowerCase() === nameInput.toLowerCase());
+            if (isNameExists) {
+                showToast("عذراً، هذا الاسم مضاف سابقاً! اختر اسماً آخر.");
+                return;
+            }
+
+            // التحقق من وجود الصورة مسبقاً
+            let isImgExists = addedCharactersList.some(c => c.img === currentUploadedImageSrc);
+            if (isImgExists) {
+                showToast("عذراً، هذه الصورة مضافة سابقاً! اختر صورة أخرى.");
+                return;
+            }
+
+            // إضافة الشخصية للقائمة
+            addedCharactersList.push({
+                name: nameInput,
+                img: currentUploadedImageSrc
+            });
+
+            renderCharactersUI();
             updateCounter();
             switchScreen('stepByStepScreen', event);
         };
 
-        window.removeCharacterData = function(event) {
+        /* إعادة رسم قائمة الشخصيات المضافة داخل المستطيل الرئيسي */
+        window.renderCharactersUI = function() {
+            let container = document.getElementById('charAddedPreviewBox');
+            container.innerHTML = '';
+
+            if (addedCharactersList.length > 0) {
+                document.getElementById('charAddBtn').style.display = 'none';
+                document.getElementById('charControlsGroup').style.display = 'flex';
+                container.style.display = 'flex';
+
+                addedCharactersList.forEach((char) => {
+                    let chip = document.createElement('div');
+                    chip.className = 'single-char-chip';
+                    chip.innerHTML = `<img src="${char.img}" class="char-added-img"><span class="char-added-name">${char.name}</span>`;
+                    container.appendChild(chip);
+                });
+
+                // إذا كانت هناك شخصية واحدة فقط، يظهر زر "إضافة شخصية" أسفل المستطيل
+                if (addedCharactersList.length === 1) {
+                    document.getElementById('addSecondCharBtn').style.display = 'flex';
+                } else {
+                    document.getElementById('addSecondCharBtn').style.display = 'none'; // شخصيتان (الحد الأقصى)، يختفي الزر
+                }
+            } else {
+                document.getElementById('charAddBtn').style.display = 'block';
+                document.getElementById('charControlsGroup').style.display = 'none';
+                container.style.display = 'none';
+                document.getElementById('addSecondCharBtn').style.display = 'none';
+            }
+        };
+
+        window.removeAllCharactersData = function(event) {
             if (event) event.stopPropagation();
-            characterAdded = false;
-            
-            // إعادة تعيين الشاشة للوضع الافتراضي
-            document.getElementById('charAddBtn').style.display = 'block';
-            document.getElementById('charControlsGroup').style.display = 'none';
-            document.getElementById('charAddedPreviewBox').style.display = 'none';
-            document.getElementById('addSecondCharBtn').style.display = 'none';
-            
-            // مسح المدخلات القديمة
-            clearBigBox();
-            document.getElementById('characterNameInput').value = '';
-            
+            addedCharactersList = [];
+            renderCharactersUI();
             updateCounter();
         };
 
@@ -3291,7 +3346,7 @@
 
         window.updateCounter = function() {
             let count = 0;
-            if (characterAdded) count++;
+            if (addedCharactersList.length > 0) count++;
             if (storyAdded) count++;
             document.getElementById('counterBadge').innerText = count + "/2";
             var nextBtn = document.getElementById('nextStepBtn');
