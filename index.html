@@ -2778,7 +2778,7 @@
 
     </div>
 
-    <!-- السكربت الرئيسي مع أداة قراءة وحقن الأقسام المحدثة -->
+    <!-- السكربت الرئيسي مع أداة جلب الأقسام المستقلة التلقائية -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
@@ -2795,22 +2795,30 @@
         window.PlotCraftModules = window.PlotCraftModules || {};
         window.PlotCraftModules.mainIndexLoaded = true;
 
-        // دالة جلب الأقسام المستقلة مع منع التخزين المؤقت (Cache-busting v=timestamp)
-        (function initModuleLoaderWithCacheBust() {
-            console.log("تم تفعيل أداة جلب الملفات المستقلة مع منع التخزين المؤقت بنجاح.");
+        // ==========================================
+        // أداة جلب الملفات والأقسام المستقلة تلقائياً مع منع التخزين المؤقت (Cache-Busting)
+        // ==========================================
+        (function initDynamicModuleLoader() {
+            console.log("تم تفعيل أداة جلب الملفات المستقلة بنجاح.");
             
-            // مثال لاستخدام الـ fetch المحدث لملفاتك المستقلة في المستقبل عند الحاجة:
-            /*
-            fetch('main_sections.html?v=' + new Date().getTime())
-              .then(response => response.text())
-              .then(html => {
-                  let container = document.getElementById('appShellContainer');
-                  if(container) {
-                      // هنا يمكنك حقن الأقسام المستقلة بأمان تام وبدون كاش قديم
-                  }
-              })
-              .catch(err => console.error('خطأ في جلب الملف المستقل:', err));
-            */
+            // دالة جاهزة لجلب أي ملف مستقل (مثل sections.html أو ما تحتاجه مستقبلاً) بدون لمس الملف الرئيسي
+            window.loadExternalSection = function(fileName, targetContainerId) {
+                fetch(fileName + '?v=' + new Date().getTime())
+                    .then(response => {
+                        if (!response.ok) throw new Error('فشل في جلب الملف');
+                        return response.text();
+                    })
+                    .then(htmlContent => {
+                        let container = document.getElementById(targetContainerId);
+                        if (container) {
+                            container.innerHTML = htmlContent;
+                            console.log("تم تحديث القسم المستقل بنجاح: " + fileName);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("خطأ في تحميل الملف المستقل:", error);
+                    });
+            };
         })();
 
         const firebaseConfig = {
@@ -3294,7 +3302,7 @@
         };
 
         window.handleCreateNewAccount = function() {
-            let email = document.getElementById('regEmailField').value.trim();
+            let email = document.getElementById('regEmailFileField').value.trim();
             let pass = document.getElementById('regPasswordField').value.trim();
 
             if (!email || !pass) {
