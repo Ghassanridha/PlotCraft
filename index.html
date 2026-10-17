@@ -1,81 +1,145 @@
-// ==========================================
-// ملف التشغيل الأساسي للتطبيق (main.js)
-// ==========================================
+import streamlit as st
+import streamlit.components.v1 as components
 
-// متغيرات عامة مشتركة للتنقل والحالة
-let tempSelectedLangName = "Arabic";
+# إعدادات الصفحة الأساسية في Streamlit
+st.set_page_config(page_title="PlotCraft UI", layout="centered")
 
-// 1. عند اكتمال تحميل الصفحة
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("تم تحميل هيكل التطبيق بنجاح!");
-    initApp();
-});
+# ==============================================================================
+# قسم 1: كود الهيكل والتصميم العام (HTML & CSS)
+# ==============================================================================
+html_code = """
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="appHtmlRoot">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PlotCraft UI</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+        html, body { width: 100%; height: 680px; background-color: #0b0f19; overflow: hidden; position: relative; }
+        .app-shell { display: flex; flex-direction: column; width: 100%; height: 680px; position: relative; overflow: hidden; background-color: #0b0f19; }
+        .screen-view { display: none; flex-direction: column; width: 100%; height: 100%; background-color: #1f242d; overflow-y: auto; padding-bottom: 110px; box-sizing: border-box; }
+        .screen-view.active { display: flex; }
+        #homeScreen.screen-view { background-color: #0b0f19; }
+        .hero-box { position: relative; width: 100%; min-height: 52vh; background: linear-gradient(180deg, rgba(11,15,25,0.2) 0%, rgba(11,15,25,0.8) 75%, #0b0f19 100%), url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1080&auto=format&fit=crop') center/cover no-repeat; border-bottom-left-radius: 35px; border-bottom-right-radius: 35px; display: flex; flex-direction: column; justify-content: space-between; padding: 24px 20px 20px 20px; flex-shrink: 0; }
+        .top-header { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .brand-title { color: #ffffff; font-size: 20px; font-weight: 700; }
+        .welcome-section { margin-top: 15px; }
+        .welcome-section h1 { color: #ffffff; font-size: 22px; font-weight: 700; line-height: 1.4; }
+        .toast-notification { position: fixed; top: 25px; left: 50%; transform: translateX(-50%) translateY(-20px); background: rgba(31, 36, 45, 0.95); color: #ffffff; padding: 10px 20px; border-radius: 12px; font-size: 13px; font-weight: 600; border: 1px solid rgba(255, 255, 255, 0.2); z-index: 9999999; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .toast-notification.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+        .plotcraft-nav-bar { position: absolute; bottom: 0; left: 0; width: 100%; background-color: #1f242d; padding: 8px 16px 16px 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; z-index: 1000; box-sizing: border-box; }
+        .plotcraft-nav-pill { background-color: #282f3d; border: 1px solid #343d50; border-radius: 35px; display: flex; justify-content: space-around; align-items: center; padding: 6px 12px; flex-grow: 1; }
+        .plotcraft-nav-item { color: #cbd5e1; font-size: 13px; text-decoration: none; cursor: pointer; }
+        .plotcraft-nav-item.active { color: #ffffff; font-weight: bold; }
+    </style>
+</head>
+<body>
 
-// 2. تهيئة التطبيق الأساسية
-function initApp() {
-    // جعل الشاشة الرئيسية هي الافتراضية
-    switchScreen('homeScreen');
-    
-    // تفعيل حالة زر الرجوع في المتصفح
-    if (window.history && window.history.pushState) {
-        window.history.pushState({page: "main"}, document.title, window.location.href);
-    }
-}
+    <div class="app-shell">
+        <div class="toast-notification" id="toastNotification"></div>
 
-// 3. دالة التنقل العامة بين الشاشات
-function switchScreen(screenId, event) {
-    if (event) event.preventDefault();
-    
-    const screens = document.querySelectorAll('.screen-view');
-    screens.forEach(s => s.classList.remove('active'));
-    
-    const targetScreen = document.getElementById(screenId);
-    if (targetScreen) {
-        targetScreen.classList.add('active');
-    }
+        <!-- الشاشة الرئيسية -->
+        <div id="homeScreen" class="screen-view active">
+            <div class="hero-box">
+                <div class="top-header">
+                    <div class="brand-title">PlotCraft</div>
+                </div>
+                <div class="welcome-section">
+                    <h1>مساء الخير، أيها المخرج<br>أي قصة سنصنع اليوم؟</h1>
+                </div>
+            </div>
+        </div>
 
-    // إظهار أو إخفاء شريط التنقل السفلي حسب الشاشة
-    const navBar = document.getElementById('mainNavBar');
-    if (screenId === 'sparkleDialogScreen' || screenId === 'addCharacterScreen' || screenId === 'storyDescriptionScreen' || screenId === 'stepByStepScreen') {
-        navBar.classList.add('hidden');
-    } else {
-        navBar.classList.remove('hidden');
-    }
-}
+        <!-- شاشة الأدوات -->
+        <div id="toolsScreen" class="screen-view">
+            <div style="padding: 20px; color: #fff; font-size: 18px; font-weight: bold;">قسم الأدوات</div>
+        </div>
 
-// 4. إظهار الإشعارات السريعة (Toast)
-function showToast(message) {
-    const toast = document.getElementById('toastNotification');
-    if (!toast) return;
-    toast.innerText = message;
-    toast.classList.add('show');
-    setTimeout(() => {
-        toast.classList.remove('show');
-    }, 1500);
-}
+        <!-- شاشة الأعمال -->
+        <div id="worksScreen" class="screen-view">
+            <div style="padding: 20px; color: #fff; font-size: 18px; font-weight: bold;">مشاريع القصة والأعمال</div>
+        </div>
 
-// 5. إدارة النوافذ المنبثقة الأساسية (اشتراك، إعدادات، لغة)
-function openSubscriptionModal() { document.getElementById('subscriptionModal').classList.remove('hidden'); }
-function closeSubscriptionModal() { document.getElementById('subscriptionModal').classList.add('hidden'); }
-function openSubscriptionModalFromBadge(event) { if (event) event.preventDefault(); event.stopPropagation(); openSubscriptionModal(); }
+        <!-- شريط التنقل السفلي -->
+        <div class="plotcraft-nav-bar" id="mainNavBar">
+            <div class="plotcraft-nav-pill">
+                <a class="plotcraft-nav-item active" id="navHome" onclick="switchScreen('homeScreen', event); setActiveNav('navHome')">الرئيسية</a>
+                <a class="plotcraft-nav-item" id="navTools" onclick="switchScreen('toolsScreen', event); setActiveNav('navTools')">الأدوات</a>
+                <a class="plotcraft-nav-item" id="navWorks" onclick="switchScreen('worksScreen', event); setActiveNav('navWorks')">الأعمال</a>
+            </div>
+        </div>
+    </div>
 
-function openSparkleDialog(event) { if (event) event.stopPropagation(); switchScreen('sparkleDialogScreen', event); }
-function openSettingsScreen(event) { if (event) event.stopPropagation(); document.getElementById('settingsScreen').classList.add('active'); document.getElementById('mainNavBar').classList.add('hidden'); }
-function closeSettingsScreen(event) { if (event) event.stopPropagation(); document.getElementById('settingsScreen').classList.remove('active'); document.getElementById('mainNavBar').classList.remove('hidden'); }
 
-function openLanguageModal(event) { if (event) event.stopPropagation(); document.getElementById('languageModalOverlay').classList.add('show'); }
-function closeLanguageModal(event) { if (event) event.stopPropagation(); document.getElementById('languageModalOverlay').classList.remove('show'); }
+    <!-- ============================================================================== -->
+    <!-- قسم 2: كود التشغيل الرئيسي والتنقل بين الشاشات (main.js) -->
+    <!-- ============================================================================== -->
+    <script>
+        let tempSelectedLangName = "Arabic";
 
-function tempSelectLanguage(langName, element) {
-    var rows = document.querySelectorAll('.lang-item-row');
-    rows.forEach(r => r.classList.remove('selected'));
-    element.classList.add('selected');
-    tempSelectedLangName = langName;
-}
+        document.addEventListener("DOMContentLoaded", function () {
+            console.log("تم تحميل الهيكل الرئيسي بنجاح!");
+            initApp();
+        });
 
-// تأثير الاهتزاز الخفيف للأزرار
-document.addEventListener('click', function(event) {
-    if (event.target.tagName === 'BUTTON' || event.target.closest('button') || event.target.closest('.interactive-card')) {
-        if ("vibrate" in navigator) { navigator.vibrate(35); }
-    }
-});
+        function initApp() {
+            switchScreen('homeScreen');
+        }
+
+        function switchScreen(screenId, event) {
+            if (event) event.preventDefault();
+            const screens = document.querySelectorAll('.screen-view');
+            screens.forEach(s => s.classList.remove('active'));
+            
+            const targetScreen = document.getElementById(screenId);
+            if (targetScreen) targetScreen.classList.add('active');
+        }
+
+        function setActiveNav(navId) {
+            const items = document.querySelectorAll('.plotcraft-nav-item');
+            items.forEach(i => i.classList.remove('active'));
+            const activeItem = document.getElementById(navId);
+            if (activeItem) activeItem.classList.add('active');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toastNotification');
+            if (!toast) return;
+            toast.innerText = message;
+            toast.classList.add('show');
+            setTimeout(() => { toast.classList.remove('show'); }, 1500);
+        }
+    </script>
+
+
+    <!-- ============================================================================== -->
+    <!-- قسم 3: كود إدارة الشخصيات ورفع الصور (characters.js) -->
+    <!-- ============================================================================== -->
+    <script>
+        let addedCharactersList = [];
+
+        function submitCharacterData() {
+            // كود إضافة وإدارة الشخصيات يوضع هنا
+        }
+    </script>
+
+
+    <!-- ============================================================================== -->
+    <!-- قسم 4: كود القصة والحكاية وحفظ النصوص (story.js) -->
+    <!-- ============================================================================== -->
+    <script>
+        let savedStoryText = "";
+        let storyAdded = false;
+
+        function saveStoryDescription() {
+            // كود كتابة وحفظ القصة يوضع هنا
+        }
+    </script>
+
+</body>
+</html>
+"""
+
+# عرض الواجهة بالكامل داخل Streamlit
+components.html(html_code, height=680, scrolling=False)
