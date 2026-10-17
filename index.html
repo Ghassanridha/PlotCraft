@@ -1078,7 +1078,6 @@
             background: rgba(255, 255, 255, 0.25);
         }
 
-        /* تنسيقات أزرار التغيير والتعديل المحدثة */
         .char-controls-group {
             display: flex;
             align-items: center;
@@ -1121,7 +1120,6 @@
             fill: #ffffff;
         }
 
-        /* حاوية استعراض الشخصيات المضافة (تتسع لشخصيتين بجانب بعض) */
         .char-added-preview-box {
             display: flex;
             align-items: center;
@@ -1161,7 +1159,6 @@
             text-overflow: ellipsis;
         }
 
-        /* زر إضافة شخصية ثانية أسفل مستطيل الشخصيات */
         .add-second-char-btn {
             background: #282f3d;
             border: 1px solid rgba(255,255,255,0.12);
@@ -2000,7 +1997,7 @@
             border: 1px solid #343d50;
             border-radius: 35px;
             display: flex;
-            justify-content: space-around;
+            justify-style: space-around;
             align-items: center;
             padding: 6px 12px;
             flex-grow: 1;
@@ -2216,7 +2213,7 @@
                     <div class="plan-card" onclick="selectPlan(this)">
                         <div class="best-value-tag" data-tr="bestValueTag">الأفضل قيمة</div>
                         <div class="plan-top">
-                            <div class="plan-name">PlotCraft Pro Annual</div>
+                            <div class="nav-card-name">PlotCraft Pro Annual</div>
                             <div class="plan-price" data-tr="priceAnnual">69.99 دولار أمريكي / سنة</div>
                         </div>
                         <div class="plan-desc" data-tr="descAnnual">5000 نقطة / سنوياً، إمكانيات غير محدودة للمخرجين المحترفين</div>
@@ -2573,7 +2570,6 @@
                     </div>
                     <div class="setup-subtitle" data-tr="storySetupSub">أضف الشخصيات والقصة أولاً، ثم اختر المدة والنسبة.</div>
 
-                    <!-- مستطيل الشخصيات -->
                     <div class="setup-row-item" id="characterRowSlot">
                         <div class="setup-row-header-controls">
                             <div class="item-info">
@@ -2590,11 +2586,9 @@
                             </div>
                         </div>
                         
-                        <!-- حاوية الشخصيات المضافة (تتسع لشخصيتين معاً) -->
                         <div class="char-added-preview-box" id="charAddedPreviewBox" style="display:none;"></div>
                     </div>
 
-                    <!-- زر إضافة شخصية ثانية (يظهر تحت مستطيل الشخصيات عندما تكون هناك شخصية واحدة فقط) -->
                     <div class="add-second-char-btn" id="addSecondCharBtn" style="display:none;" onclick="openAddCharacter(event)">
                         <span class="add-second-char-text">أضافة شخصية</span>
                         <div class="add-second-char-icon-box">
@@ -2602,7 +2596,6 @@
                         </div>
                     </div>
 
-                    <!-- مستطيل الحكاية -->
                     <div class="setup-row-item" id="storyRowSlot">
                         <div class="setup-row-header-controls">
                             <div class="item-info">
@@ -2809,620 +2802,10 @@
 
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
-        import { 
-            getAuth, 
-            createUserWithEmailAndPassword, 
-            signInWithEmailAndPassword, 
-            GoogleAuthProvider, 
-            signInWithPopup, 
-            signOut,
-            onAuthStateChanged 
-        } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-        window.PlotCraftModules = window.PlotCraftModules || {};
-        window.PlotCraftModules.mainIndexLoaded = true;
-
-        const firebaseConfig = {
-          apiKey: "AIzaSyC0yqVlGpM159foKmpMFiuySgF5uFxOA_k",
-          authDomain: "plotcraft2.firebaseapp.com",
-          projectId: "plotcraft2",
-          storageBucket: "plotcraft2.firebasestorage.app",
-          messagingSenderId: "338171528711",
-          appId: "1:338171528711:web:f13544fb4e496fe39e8ca2",
-          measurementId: "G-T2ZXFTGD5H"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const auth = getAuth(app);
-
-        let currentUploadedImageSrc = "";
-        let addedCharactersList = []; // مصفوفة لحفظ الشخصيات المضافة [{name, img}]
-        let storyAdded = false;
-        let savedStoryText = "";
-        let tempSelectedLangName = "Arabic";
-
-        window.copyUserIdToClipboard = function() {
-            let idText = document.getElementById('displayUniqueId').innerText;
-            navigator.clipboard.writeText(idText).then(() => {
-                showToast("تم نسخ المعرف: " + idText);
-            }).catch(err => {
-                showToast("فشل النسخ");
-            });
-        };
-
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                let displayName = user.displayName || user.email.split('@')[0];
-                let displayId = user.uid.replace(/\D/g, '').substring(0, 7);
-                if (displayId.length < 7) {
-                    displayId = (displayId + "1234567").substring(0, 7);
-                }
-                
-                document.getElementById('displayUserName').innerText = displayName;
-                document.getElementById('displayUniqueId').innerText = displayId;
-                document.getElementById('settingsLoginBtn').style.display = 'none';
-                document.getElementById('settingsLogoutBtn').style.display = 'block';
-                document.getElementById('loggedOutUserInfoArea').style.display = 'none';
-                document.getElementById('loggedInUserInfoArea').style.display = 'flex';
-            } else {
-                document.getElementById('settingsLoginBtn').style.display = 'block';
-                document.getElementById('settingsLogoutBtn').style.display = 'none';
-                document.getElementById('loggedInUserInfoArea').style.display = 'none';
-                document.getElementById('loggedOutUserInfoArea').style.display = 'flex';
-            }
-        });
-
-        window.onload = function() {
-            window.history.pushState({page: "main"}, document.title, window.location.href);
-        };
-
-        window.addEventListener('popstate', function(event) {
-            let webView = document.getElementById('webViewScreen');
-            let loginModal = document.getElementById('loginModalOverlay');
-            let regModal = document.getElementById('registerModalOverlay');
-            let subModal = document.getElementById('subscriptionModal');
-            let langModal = document.getElementById('languageModalOverlay');
-            
-            if (webView.classList.contains('active')) {
-                closeWebView();
-                window.history.pushState({page: "main"}, document.title, window.location.href);
-                event.preventDefault();
-            } else if (loginModal.classList.contains('show')) {
-                closeLoginModal();
-                window.history.pushState({page: "main"}, document.title, window.location.href);
-                event.preventDefault();
-            } else if (regModal.classList.contains('show')) {
-                closeRegisterModal();
-                window.history.pushState({page: "main"}, document.title, window.location.href);
-                event.preventDefault();
-            } else if (!subModal.classList.contains('hidden')) {
-                closeSubscriptionModal();
-                window.history.pushState({page: "main"}, document.title, window.location.href);
-                event.preventDefault();
-            } else if (langModal.classList.contains('show')) {
-                closeLanguageModal();
-                window.history.pushState({page: "main"}, document.title, window.location.href);
-                event.preventDefault();
-            }
-        });
-
-        window.showToast = function(message) {
-            const toast = document.getElementById('toastNotification');
-            toast.innerText = message;
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 1500);
-        };
-
-        window.openWebView = function(type) {
-            window.history.pushState({page: "webview"}, document.title, window.location.href);
-            let contentHTML = (type === 'الخصوصية') ? "<h3>سياسة الخصوصية</h3><p>محتوى سياسة الخصوصية...</p>" : "<h3>شروط الاستخدام</h3><p>محتوى الشروط...</p>";
-            document.getElementById('termsContentBody').innerHTML = contentHTML;
-            document.getElementById('webViewScreen').classList.add('active');
-            document.getElementById('mainNavBar').classList.add('hidden');
-        };
-
-        window.closeWebView = function() {
-            document.getElementById('webViewScreen').classList.remove('active');
-            document.getElementById('mainNavBar').classList.remove('hidden');
-        };
-
-        const translations = {
-            Arabic: {
-                upgradeBadge: "ترقية",
-                welcomeMsg: "مساء الخير، أيها المخرج<br>أي قصة سنصنع اليوم؟",
-                stepByStepTitle: "خطوة بخطوة",
-                stepByStepSub: "راجع كل خطوة",
-                proOnly: "Pro only",
-                speedTitle: "سريع",
-                speedSub: "إدخال واحد، فيديو كامل",
-                inspirationTitle: "إلهام بلوت كرافت",
-                viewAll: "عرض الكل >",
-                toolsTitle: "الأدوات",
-                tool1Title: "تأثيرات الفيديو",
-                tool1Sub: "أضف لمسة سينمائية",
-                tool2Title: "توليد الفيديو",
-                tool2Sub: "حول توجيهاً إلى فيديو خاص بك",
-                tool3Title: "توليد الصور",
-                tool3Sub: "حول فكرة إلى صورة مكتملة",
-                worksTitle: "الأعمال",
-                tabProjects: "المشاريع",
-                tabMedia: "مكتبة الوسائط",
-                emptyWorks: "ستظهر هنا مشاريع القصة الخاصة بك.",
-                createStoryBtn: "إنشاء قصة",
-                aiTitle: "مساعد AI بلوت كرافت",
-                aiDesc: "عزيزي المخرج، استمتع بإنشاء وتخصيص تفاصيل فيلمك خطوة بخطوة بدقة احترافية عالية.",
-                storySetupTitle: "إعداد القصة",
-                storySetupSub: "أضف الشخصيات والقصة أولاً، ثم اختر المدة والنسبة.",
-                charTitle: "الشخصيات",
-                charDesc: "أضف صورتين كحد أقصى لشخصيات القصة",
-                addBtn: "إضافة",
-                taleTitle: "الحكاية",
-                taleDesc: "اكتب أو صف حبكة قصتك هنا",
-                nextBtn: "التالي",
-                writeStoryTitle: "اكتب قصة",
-                storyPlaceholder: "اكتب وصفاً أو حبكة القصة هنا",
-                saveBtn: "حفظ",
-                addCharTitle: "إضافة شخصية",
-                charLabel: "الشخصية",
-                uploadImg: "رفع صورة",
-                roleText: "الدور",
-                charNameLabel: "اسم الشخصية *",
-                charNamePlaceholder: "أدخل اسم الشخصية (إجباري)",
-                submitBtn: "إرسال",
-                sourceTitle: "اختر مصدر الصورة",
-                cameraBtn: "كاميرا",
-                albumBtn: "ألبوم الصور",
-                cancelBtn: "إلغاء",
-                loginTitle: "تسجيل الدخول إلى Plotcraft",
-                navHome: "الرئيسية",
-                navTools: "الأدوات",
-                navWorks: "الأعمال",
-                settingsTitle: "الإعدادات",
-                scoreLog: "سجل النقاط",
-                notifications: "الإشعارات",
-                language: "اللغة",
-                settings: "الإعدادات",
-                proBannerTitle: "افتح PlotCraft Pro",
-                proBannerDesc: "حول كل فكرة إلى فيلم مكتمل",
-                proBannerBtn: "عرض خطط Pro ←",
-                subTitle: "ترقية الحساب",
-                subHeading: "حول أفكارك إلى PlotCraft",
-                subDesc: "أنشئ كل لقطة وعدلها وأكملها بسرعة.",
-                priceWeekly: "9.99 دولار أمريكي / أسبوع",
-                descWeekly: "500 نقطة / أسبوعياً، جرب PlotCraft",
-                newTag: "جديد",
-                priceMonthly: "29.99 دولار أمريكي / شهر",
-                descMonthly: "1800 نقطة / شهرياً، مثالي للمبدعين",
-                bestValueTag: "الأفضل قيمة",
-                priceAnnual: "69.99 دولار أمريكي / سنة",
-                descAnnual: "5000 نقطة / سنوياً، إمكانيات غير محدودة للمخرجين المحترفين",
-                subscribeBtn: "اشتراك",
-                notifPermTitle: "هل تريد السماح لتطبيق Plotcraft بإرسال إشعارات إليك؟",
-                allowBtn: "سماح",
-                denyBtn: "عدم السماح",
-                editNameTitle: "تعديل اسم المستخدم",
-                editNamePlaceholder: "أدخل الاسم الجديد",
-                sendBtn: "إرسال",
-                okBtn: "حسناً"
-            },
-            English: {
-                upgradeBadge: "Upgrade",
-                welcomeMsg: "Good evening, Director<br>What story shall we create today?",
-                stepByStepTitle: "Step by Step",
-                stepByStepSub: "Review every step",
-                proOnly: "Pro only",
-                speedTitle: "Speed",
-                speedSub: "One input, full video",
-                inspirationTitle: "PlotCraft Inspiration",
-                viewAll: "View all >",
-                toolsTitle: "Tools",
-                tool1Title: "Video Effects",
-                tool1Sub: "Add cinematic touch",
-                tool2Title: "Video Generation",
-                tool2Sub: "Turn prompt into your video",
-                tool3Title: "Image Generation",
-                tool3Sub: "Turn idea into complete image",
-                worksTitle: "Works",
-                tabProjects: "Projects",
-                tabMedia: "Media Library",
-                emptyWorks: "Your story projects will appear here.",
-                createStoryBtn: "Create Story",
-                aiTitle: "PlotCraft AI Assistant",
-                aiDesc: "Dear Director, enjoy creating and customizing your film details step by step with high professional accuracy.",
-                storySetupTitle: "Story Setup",
-                storySetupSub: "Add characters and story first, then choose duration and ratio.",
-                charTitle: "Characters",
-                charDesc: "Add up to 2 images for story characters",
-                addBtn: "Add",
-                taleTitle: "Tale",
-                taleDesc: "Write or describe your story plot here",
-                nextBtn: "Next",
-                writeStoryTitle: "Write Story",
-                storyPlaceholder: "Write your story plot or description here",
-                saveBtn: "Save",
-                addCharTitle: "Add Character",
-                charLabel: "Character",
-                uploadImg: "Upload Image",
-                roleText: "Role",
-                charNameLabel: "Character Name *",
-                charNamePlaceholder: "Enter character name (Required)",
-                submitBtn: "Submit",
-                sourceTitle: "Choose Image Source",
-                cameraBtn: "Camera",
-                albumBtn: "Photo Album",
-                cancelBtn: "Cancel",
-                loginTitle: "Sign in to Plotcraft",
-                navHome: "Home",
-                navTools: "Tools",
-                navWorks: "Works",
-                settingsTitle: "Settings",
-                scoreLog: "Score Log",
-                notifications: "Notifications",
-                language: "Language",
-                settings: "Settings",
-                proBannerTitle: "Unlock PlotCraft Pro",
-                proBannerDesc: "Turn every idea into a complete film",
-                proBannerBtn: "View Pro Plans ←",
-                subTitle: "Upgrade Account",
-                subHeading: "Turn your ideas into PlotCraft",
-                subDesc: "Create, edit, and complete every shot quickly.",
-                priceWeekly: "$9.99 USD / week",
-                descWeekly: "500 pts / weekly, try PlotCraft",
-                newTag: "NEW",
-                priceMonthly: "$29.99 USD / month",
-                descMonthly: "1800 pts / monthly, perfect for creators",
-                bestValueTag: "BEST VALUE",
-                priceAnnual: "$69.99 USD / year",
-                descAnnual: "5000 pts / yearly, unlimited possibilities for pro directors",
-                subscribeBtn: "Subscribe",
-                notifPermTitle: "Allow Plotcraft to send you notifications?",
-                allowBtn: "Allow",
-                denyBtn: "Don't Allow",
-                editNameTitle: "Edit Username",
-                editNamePlaceholder: "Enter new name",
-                sendBtn: "Send",
-                okBtn: "OK"
-            }
-        };
-
-        window.tempSelectLanguage = function(langName, element) {
-            var rows = document.querySelectorAll('.lang-item-row');
-            rows.forEach(r => r.classList.remove('selected'));
-            element.classList.add('selected');
-            tempSelectedLangName = langName;
-        };
-
-        window.applySelectedLanguage = function() {
-            var langName = tempSelectedLangName;
-            document.getElementById('currentLangDisplay').innerText = langName;
-            var htmlRoot = document.getElementById('appHtmlRoot');
-            var t = translations[langName] || translations['English'];
-
-            if (langName === 'English') {
-                htmlRoot.setAttribute('dir', 'ltr');
-                htmlRoot.setAttribute('lang', 'en');
-            } else {
-                htmlRoot.setAttribute('dir', 'rtl');
-                htmlRoot.setAttribute('lang', 'ar');
-            }
-
-            document.querySelectorAll('[data-tr]').forEach(el => {
-                var key = el.getAttribute('data-tr');
-                if (t[key]) { el.innerHTML = t[key]; }
-            });
-            closeLanguageModal();
-        };
-
-        document.addEventListener('click', function(event) {
-            if (event.target.tagName === 'BUTTON' || event.target.closest('button') || event.target.closest('.interactive-card')) {
-                if ("vibrate" in navigator) { navigator.vibrate(35); }
-            }
-        });
-
-        window.switchScreen = function(screenId, event) {
-            if (event) event.preventDefault();
-            var screens = document.querySelectorAll('.screen-view');
-            screens.forEach(s => s.classList.remove('active'));
-            document.getElementById(screenId).classList.add('active');
-            
-            var navBar = document.getElementById('mainNavBar');
-            if (screenId === 'sparkleDialogScreen' || screenId === 'addCharacterScreen' || screenId === 'storyDescriptionScreen' || screenId === 'stepByStepScreen') {
-                navBar.classList.add('hidden');
-            } else {
-                navBar.classList.remove('hidden');
-            }
-        };
-
-        window.openSubscriptionModal = function() { document.getElementById('subscriptionModal').classList.remove('hidden'); };
-        window.closeSubscriptionModal = function() { document.getElementById('subscriptionModal').classList.add('hidden'); };
-        window.openSubscriptionModalFromBadge = function(event) { if (event) event.preventDefault(); event.stopPropagation(); openSubscriptionModal(); };
-        window.openSparkleDialog = function(event) { if (event) event.stopPropagation(); switchScreen('sparkleDialogScreen', event); };
-        window.openSettingsScreen = function(event) { if (event) event.stopPropagation(); document.getElementById('settingsScreen').classList.add('active'); document.getElementById('mainNavBar').classList.add('hidden'); };
-        window.closeSettingsScreen = function(event) { if (event) event.stopPropagation(); document.getElementById('settingsScreen').classList.remove('active'); document.getElementById('mainNavBar').classList.remove('hidden'); };
-        window.openLanguageModal = function(event) { if (event) event.stopPropagation(); document.getElementById('languageModalOverlay').classList.add('show'); };
-        window.closeLanguageModal = function(event) { if (event) event.stopPropagation(); document.getElementById('languageModalOverlay').classList.remove('show'); };
-        window.handleMenuClick = function(event, msg) { if (event) event.stopPropagation(); };
-
-        window.handleNotifToggle = function(checkbox) {
-            if (checkbox.checked) { document.getElementById('notifPermissionModal').style.display = 'flex'; }
-            else { showToast('تم تعطيل الإشعارات'); }
-        };
-
-        window.allowNotifications = function(event) { if (event) event.stopPropagation(); document.getElementById('notifPermissionModal').style.display = 'none'; showToast('تم تفعيل الإشعارات بنجاح!'); };
-        window.denyNotifications = function(event) { if (event) event.stopPropagation(); document.getElementById('notifPermissionModal').style.display = 'none'; document.getElementById('notifSwitch').checked = false; };
-        
-        window.openNameEditModal = function() {
-            document.getElementById('editNameInputField').value = document.getElementById('displayUserName').innerText;
-            document.getElementById('nameEditModal').style.display = 'flex';
-        };
-        window.closeNameEditModal = function(event) { if (event) event.stopPropagation(); document.getElementById('nameEditModal').style.display = 'none'; };
-        
-        window.saveNewUserName = function(event) {
-            if (event) event.stopPropagation();
-            var val = document.getElementById('editNameInputField').value.trim();
-            if (val !== "") { document.getElementById('displayUserName').innerText = val; }
-            closeNameEditModal();
-        };
-
-        window.openAddCharacter = function(event) { 
-            clearBigBox();
-            document.getElementById('characterNameInput').value = '';
-            switchScreen('addCharacterScreen', event); 
-        };
-
-        window.openStoryDescription = function(event) {
-            document.getElementById('storyTextArea').value = savedStoryText;
-            checkStoryInput();
-            switchScreen('storyDescriptionScreen', event);
-        };
-
-        window.setActiveNav = function(navId) {
-            var items = document.querySelectorAll('.plotcraft-nav-item');
-            items.forEach(i => i.classList.remove('active'));
-            document.getElementById(navId).classList.add('active');
-        };
-
-        window.switchWorksTab = function(element) {
-            var tabs = document.querySelectorAll('.works-tab');
-            tabs.forEach(t => t.classList.remove('active'));
-            element.classList.add('active');
-        };
-
-        window.selectPlan = function(element) {
-            var cards = document.querySelectorAll('.plan-card');
-            cards.forEach(c => c.classList.remove('selected'));
-            element.classList.add('selected');
-        };
-
-        window.openLoginModal = function() { document.getElementById('loginModalOverlay').classList.add('show'); };
-        window.closeLoginModal = function() { document.getElementById('loginModalOverlay').classList.remove('show'); };
-        window.openRegisterModal = function() { closeLoginModal(); document.getElementById('registerModalOverlay').classList.add('show'); };
-        window.closeRegisterModal = function() { document.getElementById('registerModalOverlay').classList.remove('show'); };
-        window.backToLoginFromRegister = function() { closeRegisterModal(); openLoginModal(); };
-
-        window.showSourceModal = function() { document.getElementById('sourceModal').classList.remove('hidden'); };
-        window.closeSourceModal = function() { document.getElementById('sourceModal').classList.add('hidden'); };
-
-        window.triggerFileInput = function(type) {
-            closeSourceModal();
-            if (type === 'camera') { document.getElementById('cameraInput').click(); }
-            else { document.getElementById('albumInput').click(); }
-        };
-
-        window.handleFileSelected = function(event) {
-            var file = event.target.files[0];
-            if (file) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    currentUploadedImageSrc = e.target.result;
-                    setBigBoxImage(currentUploadedImageSrc);
-                    checkFormValidity();
-                }
-                reader.readAsDataURL(file);
-            }
-        };
-
-        window.setBigBoxImage = function(src) {
-            currentUploadedImageSrc = src;
-            var box = document.getElementById('bigUploadBox');
-            box.innerHTML = '<button class="remove-big-img" onclick="clearBigBox(event)">✕</button><img src="' + src + '">';
-            checkFormValidity();
-        };
-
-        window.clearBigBox = function(event) {
-            if (event) event.stopPropagation();
-            currentUploadedImageSrc = "";
-            var box = document.getElementById('bigUploadBox');
-            box.innerHTML = '<div id="bigBoxInner" style="display:flex; flex-direction:column; align-items:center; gap:8px; color:#cbd5e1; font-size:13px;"><div style="width:32px; height:32px; background:rgba(255,255,255,0.08); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#ffffff;">↑</div><span data-tr="uploadImg">رفع صورة</span></div>';
-            checkFormValidity();
-        };
-
-        window.selectThumb = function(imgElement) { setBigBoxImage(imgElement.src); };
-
-        window.checkFormValidity = function() {
-            var nameInput = document.getElementById('characterNameInput').value.trim();
-            var submitBtn = document.getElementById('submitCharacterBtn');
-            if (currentUploadedImageSrc !== "" && nameInput !== "") { submitBtn.classList.remove('disabled'); }
-            else { submitBtn.classList.add('disabled'); }
-        };
-
-        /* وظيفة حفظ الشخصية مع التحقق من عدم تكرار الاسم أو الصورة */
-        window.submitCharacterData = function() {
-            var nameInput = document.getElementById('characterNameInput').value.trim();
-            if (currentUploadedImageSrc === "" || nameInput === "") return;
-
-            // التحقق من وجود الاسم مسبقاً (دون الاعتبار لحالة الأحرف والمسافات)
-            let isNameExists = addedCharactersList.some(c => c.name.toLowerCase() === nameInput.toLowerCase());
-            if (isNameExists) {
-                showToast("عذراً، هذا الاسم مضاف سابقاً! اختر اسماً آخر.");
-                return;
-            }
-
-            // التحقق من وجود الصورة مسبقاً
-            let isImgExists = addedCharactersList.some(c => c.img === currentUploadedImageSrc);
-            if (isImgExists) {
-                showToast("عذراً، هذه الصورة مضافة سابقاً! اختر صورة أخرى.");
-                return;
-            }
-
-            // إضافة الشخصية للقائمة
-            addedCharactersList.push({
-                name: nameInput,
-                img: currentUploadedImageSrc
-            });
-
-            renderCharactersUI();
-            updateCounter();
-            switchScreen('stepByStepScreen', event);
-        };
-
-        /* إعادة رسم قائمة الشخصيات المضافة داخل المستطيل الرئيسي */
-        window.renderCharactersUI = function() {
-            let container = document.getElementById('charAddedPreviewBox');
-            container.innerHTML = '';
-
-            if (addedCharactersList.length > 0) {
-                document.getElementById('charAddBtn').style.display = 'none';
-                document.getElementById('charControlsGroup').style.display = 'flex';
-                container.style.display = 'flex';
-
-                addedCharactersList.forEach((char) => {
-                    let chip = document.createElement('div');
-                    chip.className = 'single-char-chip';
-                    chip.innerHTML = `<img src="${char.img}" class="char-added-img"><span class="char-added-name">${char.name}</span>`;
-                    container.appendChild(chip);
-                });
-
-                // إذا كانت هناك شخصية واحدة فقط، يظهر زر "إضافة شخصية" أسفل المستطيل
-                if (addedCharactersList.length === 1) {
-                    document.getElementById('addSecondCharBtn').style.display = 'flex';
-                } else {
-                    document.getElementById('addSecondCharBtn').style.display = 'none'; // شخصيتان (الحد الأقصى)، يختفي الزر
-                }
-            } else {
-                document.getElementById('charAddBtn').style.display = 'block';
-                document.getElementById('charControlsGroup').style.display = 'none';
-                container.style.display = 'none';
-                document.getElementById('addSecondCharBtn').style.display = 'none';
-            }
-        };
-
-        window.removeAllCharactersData = function(event) {
-            if (event) event.stopPropagation();
-            addedCharactersList = [];
-            renderCharactersUI();
-            updateCounter();
-        };
-
-        window.checkStoryInput = function() {
-            var val = document.getElementById('storyTextArea').value.trim();
-            var btn = document.getElementById('storySaveBtn');
-            if (val !== "") {
-                btn.classList.add('active-save');
-            } else {
-                btn.classList.remove('active-save');
-            }
-        };
-
-        window.saveStoryDescription = function() {
-            var val = document.getElementById('storyTextArea').value.trim();
-            if (val === "") return;
-            savedStoryText = val;
-            storyAdded = true;
-            
-            // تحديث العرض في شاشة إعداد القصة
-            document.getElementById('storyAddBtn').style.display = 'none';
-            document.getElementById('storyEditGroup').style.display = 'flex';
-            
-            updateCounter();
-            switchScreen('stepByStepScreen', event);
-        };
-
-        window.updateCounter = function() {
-            let count = 0;
-            if (addedCharactersList.length > 0) count++;
-            if (storyAdded) count++;
-            document.getElementById('counterBadge').innerText = count + "/2";
-            var nextBtn = document.getElementById('nextStepBtn');
-            if (count === 2) { nextBtn.classList.add('show'); } else { nextBtn.classList.remove('show'); }
-        };
-
-        window.handleSpeedCardClick = function(event) { openSubscriptionModal(); };
-        window.openSettingsSubMenu = function(event) { if (event) event.stopPropagation(); document.getElementById('settingsSubMenu').classList.add('show'); };
-        window.closeSettingsSubMenu = function(event) { if (event) event.stopPropagation(); document.getElementById('settingsSubMenu').classList.remove('show'); };
-
-        window.performLogoutFromSubMenu = function(event) {
-            if (event) event.stopPropagation();
-            signOut(auth).then(() => {
-                document.getElementById('settingsSubMenu').classList.remove('show');
-                showToast('تم تسجيل الخروج بنجاح');
-            });
-        };
-
-        window.handleExistingLogin = function() {
-            let email = document.getElementById('loginEmailField').value.trim();
-            let pass = document.getElementById('loginPasswordField').value.trim();
-
-            if (!email || !pass) {
-                showToast("يرجى ملء جميع الحقول");
-                return;
-            }
-
-            signInWithEmailAndPassword(auth, email, pass)
-                .then((userCredential) => {
-                    closeLoginModal();
-                    document.getElementById('loginEmailField').value = '';
-                    document.getElementById('loginPasswordField').value = '';
-                    showToast("تم تسجيل الدخول بنجاح!");
-                })
-                .catch((error) => {
-                    showToast("خطأ: تأكد من صحة البريد أو كلمة المرور");
-                });
-        };
-
-        window.handleCreateNewAccount = function() {
-            let email = document.getElementById('regEmailField').value.trim();
-            let pass = document.getElementById('regPasswordField').value.trim();
-
-            if (!email || !pass) {
-                showToast("يرجى ملء جميع الحقول");
-                return;
-            }
-
-            if (pass.length < 6) {
-                showToast("كلمة المرور يجب ألا تقل عن 6 أحرف");
-                return;
-            }
-
-            createUserWithEmailAndPassword(auth, email, pass)
-                .then((userCredential) => {
-                    closeRegisterModal();
-                    document.getElementById('regEmailField').value = '';
-                    document.getElementById('regPasswordField').value = '';
-                    showToast("تم إنشاء الحساب بنجاح!");
-                })
-                .catch((error) => {
-                    showToast("خطأ في إنشاء الحساب: " + error.message);
-                });
-        };
-
-        window.handleGoogleLogin = function() {
-            const provider = new GoogleAuthProvider();
-            signInWithPopup(auth, provider)
-                .then((result) => {
-                    closeLoginModal();
-                    showToast("تم تسجيل الدخول بواسطة جوجل بنجاح!");
-                })
-                .catch((error) => {
-                    showToast("فشل تسجيل الدخول عبر جوجل");
-                });
-        };
-    </script>
+    <!-- أسطر أخرى من الكود -->
+    
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/extra-features.js') }}"></script>
+    
 </body>
 </html>
