@@ -1,0 +1,205 @@
+<div class="youtube-app-container">
+    <!-- خلفية التصميم الأصلي (صورتك) -->
+    <div class="bg-overlay" style="background-image: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/860c24fa2b434dde4251af1bccd0ab6d798bdb48/Gh.jpg');"></div>
+
+    <!-- المحتوى التفاعلي لمنصة يوتيوب -->
+    <div class="yt-content-wrapper">
+        
+        <!-- الشريط العلوي (البحث والاشتراكات) -->
+        <header class="yt-header">
+            <div class="yt-logo">PlotTube</div>
+            
+            <!-- خانة البحث التفاعلية -->
+            <div class="yt-search-box">
+                <input type="text" id="ytSearchInput" placeholder="بحث عن فيديوهات..." oninput="filterVideos()">
+                <button onclick="filterVideos()">بحث</button>
+            </div>
+
+            <!-- زر قائمة الاشتراكات -->
+            <button class="yt-subs-btn" onclick="toggleSubscriptions()">الاشتراكات</button>
+        </header>
+
+        <!-- لوحة الاشتراكات -->
+        <div id="subscriptionsPanel" class="yt-subs-panel" style="display: none;">
+            <h3>القنوات المشترك بها</h3>
+            <div class="channels-list">
+                <div class="channel-item" onclick="filterByChannel('قناة التقنية')">قناة التقنية</div>
+                <div class="channel-item" onclick="filterByChannel('قناة الألعاب')">قناة الألعاب</div>
+                <div class="channel-item" onclick="filterByChannel('الكل')">عرض الكل</div>
+            </div>
+        </div>
+
+        <!-- منطقة عرض الفيديوهات -->
+        <main class="yt-videos-grid" id="ytVideosContainer">
+            <div class="video-card" data-title="تصميم واجهات احترافية" data-channel="قناة التقنية">
+                <div class="video-thumb">فيديو 1</div>
+                <div class="video-info">
+                    <h4>تصميم واجهات احترافية باستخدام HTML & CSS</h4>
+                    <span class="channel-name">قناة التقنية</span>
+                </div>
+            </div>
+
+            <div class="video-card" data-title="تحديات ألعاب" data-channel="قناة الألعاب">
+                <div class="video-thumb">فيديو 2</div>
+                <div class="video-info">
+                    <h4>تحديات وألعاب ممتعة مع الأصدقاء</h4>
+                    <span class="channel-name">قناة الألعاب</span>
+                </div>
+            </div>
+
+            <div class="video-card" data-title="برمجة سكربتات جافاسكريبت" data-channel="قناة التقنية">
+                <div class="video-thumb">فيديو 3</div>
+                <div class="video-info">
+                    <h4>أساسيات الجافاسكريبت المتقدمة</h4>
+                    <span class="channel-name">قناة التقنية</span>
+                </div>
+            </div>
+        </main>
+
+    </div>
+</div>
+
+<script>
+    function filterVideos() {
+        const query = document.getElementById('ytSearchInput').value.toLowerCase();
+        const cards = document.querySelectorAll('.video-card');
+
+        cards.forEach(card => {
+            const title = card.getAttribute('data-title').toLowerCase();
+            if (title.includes(query)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    function toggleSubscriptions() {
+        const panel = document.getElementById('subscriptionsPanel');
+        panel.style.display = (panel.style.display === 'none') ? 'block' : 'none';
+    }
+
+    function filterByChannel(channelName) {
+        const cards = document.querySelectorAll('.video-card');
+        cards.forEach(card => {
+            const cardChannel = card.getAttribute('data-channel');
+            if (channelName === 'الكل' || cardChannel === channelName) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        document.getElementById('subscriptionsPanel').style.display = 'none';
+    }
+</script>
+
+<style>
+    .youtube-app-container {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        background: #0f0f0f;
+        color: #fff;
+        direction: rtl;
+        font-family: Tahoma, sans-serif;
+    }
+    .bg-overlay {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background-size: cover;
+        background-position: center;
+        opacity: 0.15;
+        pointer-events: none;
+    }
+    .yt-content-wrapper {
+        position: relative;
+        z-index: 2;
+        padding: 20px;
+    }
+    .yt-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #212121;
+        padding: 10px 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+    .yt-logo {
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: #ff0000;
+    }
+    .yt-search-box {
+        display: flex;
+        gap: 5px;
+    }
+    .yt-search-box input {
+        padding: 5px 10px;
+        border-radius: 4px;
+        border: 1px solid #444;
+        background: #121212;
+        color: #fff;
+    }
+    .yt-search-box button, .yt-subs-btn {
+        padding: 5px 15px;
+        background: #cc0000;
+        border: none;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .yt-subs-panel {
+        background: #1e1e1e;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        border: 1px solid #333;
+    }
+    .channels-list {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .channel-item {
+        background: #333;
+        padding: 5px 10px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+    .channel-item:hover {
+        background: #555;
+    }
+    .yt-videos-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    .video-card {
+        background: #181818;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #333;
+    }
+    .video-thumb {
+        width: 100%;
+        height: 140px;
+        background: #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #777;
+    }
+    .video-info {
+        padding: 10px;
+    }
+    .video-info h4 {
+        font-size: 0.95rem;
+        margin-bottom: 5px;
+    }
+    .channel-name {
+        font-size: 0.8rem;
+        color: #aaa;
+    }
+      </style>
