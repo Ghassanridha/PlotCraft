@@ -1,0 +1,25 @@
+<!-- ========================================== -->
+<!--       قسم الأعمال والمشاريع                 -->
+<!-- ========================================== -->
+
+<div id="worksScreen" class="screen-view">
+    <div class="works-top-header">
+        <div class="works-screen-title" data-tr="worksTitle">الأعمال</div>
+        <div class="works-header-left-group">
+            <div class="works-upgrade-badge" onclick="openSubscriptionModalFromBadge(event)" data-tr="upgradeBadge">ترقية</div>
+            <div class="works-robot-logo" onclick="openSettingsScreen(event)" title="الإعدادات"></div>
+        </div>
+    </div>
+
+    <div class="works-body-container">
+        <div class="works-tabs-container">
+            <div class="works-tab active" onclick="switchWorksTab(this)" data-tr="tabProjects">المشاريع</div>
+            <div class="works-tab" onclick="switchWorksTab(this)" data-tr="tabMedia">مكتبة الوسائط</div>
+        </div>
+        <div class="works-empty-content">
+            <div class="works-box-icon"></div>
+            <div class="works-empty-text-sub" data-tr="emptyWorks">ستظهر هنا مشاريع القصة الخاصة بك.</div>
+            <button class="works-create-btn" onclick="openSparkleDialog(event)" data-tr="createStoryBtn">إنشاء قصة</button>
+        </div>
+    </div>
+</div>
