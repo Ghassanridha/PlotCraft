@@ -4,16 +4,17 @@ from fastapi.responses import HTMLResponse
 
 router = APIRouter()
 
-@app_router := APIRouter()
-
 @router.get("/", response_class=HTMLResponse)
 async def serve_index():
-    """قراءة وحقن ملف الـ HTML الرئيسي"""
+    """قراءة وحقن ملف الـ HTML الرئيسي من مجلد templates"""
     try:
-        if not os.path.exists("index.html"):
-            raise HTTPException(status_code=444, detail="ملف index.html غير موجود.")
+        # تحديد المسار الصحيح داخل مجلد templates
+        file_path = os.path.join("templates", "index.html")
         
-        with open("index.html", "r", encoding="utf-8") as f:
+        if not os.path.exists(file_path):
+            raise HTTPException(status_code=404, detail="ملف index.html غير موجود داخل مجلد templates.")
+        
+        with open(file_path, "r", encoding="utf-8") as f:
             html_code = f.read()
         
         security_shield_injection = """
