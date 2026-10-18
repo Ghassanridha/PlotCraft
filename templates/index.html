@@ -1,75 +1,66 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="appHtmlRoot">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PlotCraft</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PlotCraft UI</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100vh;
+            background-color: #0b0f19;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .main-container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .brand-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #3b82f6;
+        }
+
+        .welcome-text {
+            font-size: 16px;
+            color: #cbd5e1;
+            margin-bottom: 20px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- حاوية شاشة الواجهة الرئيسية -->
-    <div id="homeScreenContainer"></div>
+    <div class="main-container">
+        <div class="brand-title">PlotCraft</div>
+        <div class="welcome-text">التطبيق شغال وجاهز بكل استقرار</div>
+        <div class="status-badge">النظام متصل 🟢</div>
+    </div>
 
-    <!-- حاوية شاشة الأدوات -->
-    <div id="toolsScreenContainer"></div>
-
-    <!-- حاوية شاشة الأعمال والمشاريع -->
-    <div id="worksScreenContainer"></div>
-
-    <!-- شريط التنقل السفلي (3 أزرار فقط وبدون يوتيوب) -->
-    <nav class="bottom-nav">
-        <div class="nav-item active" onclick="loadScreen('home', event)">الرئيسية</div>
-        <div class="nav-item" onclick="loadScreen('tools', event)">الأدوات</div>
-        <div class="nav-item" onclick="loadScreen('works', event)">الأعمال</div>
-    </nav>
-
-    <!-- سكربت الـ Fetch وجلب الملفات ديناميكياً -->
-    <script>
-        function loadScreen(screenName, event) {
-            // إزالة الكلاس active من كل الأزرار وإضافته للزر الحالي
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            if (event && event.currentTarget) {
-                event.currentTarget.classList.add('active');
-            }
-
-            // إخفاء كل الحاويات أولاً
-            document.getElementById('homeScreenContainer').style.display = 'none';
-            document.getElementById('toolsScreenContainer').style.display = 'none';
-            document.getElementById('worksScreenContainer').style.display = 'none';
-
-            // جلب وعرض الشاشة المطلوبة
-            if (screenName === 'home') {
-                const container = document.getElementById('homeScreenContainer');
-                container.style.display = 'block';
-                if (!container.innerHTML.trim()) {
-                    fetch('home.html')
-                        .then(response => response.text())
-                        .then(data => container.innerHTML = data);
-                }
-            } else if (screenName === 'tools') {
-                const container = document.getElementById('toolsScreenContainer');
-                container.style.display = 'block';
-                if (!container.innerHTML.trim()) {
-                    fetch('tools.html')
-                        .then(response => response.text())
-                        .then(data => container.innerHTML = data);
-                }
-            } else if (screenName === 'works') {
-                const container = document.getElementById('worksScreenContainer');
-                container.style.display = 'block';
-                if (!container.innerHTML.trim()) {
-                    fetch('works.html')
-                        .then(response => response.text())
-                        .then(data => container.innerHTML = data);
-                }
-            }
-        }
-
-        // تحميل الصفحة الرئيسية تلقائياً عند فتح التطبيق أول مرة
-        window.onload = function() {
-            loadScreen('home');
-        };
-    </script>
 </body>
 </html>
