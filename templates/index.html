@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PlotCraft</title>
-    <link rel="stylesheet" href="style.css"> <!-- اربط ملف التصميم مالتك هنا -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -17,14 +17,14 @@
     <!-- حاوية شاشة الأعمال والمشاريع -->
     <div id="worksScreenContainer"></div>
 
-    <!-- شريط التنقل السفلي (يبقى ثابت بالأسفل) -->
+    <!-- شريط التنقل السفلي (3 أزرار فقط وبدون يوتيوب) -->
     <nav class="bottom-nav">
         <div class="nav-item active" onclick="loadScreen('home', event)">الرئيسية</div>
         <div class="nav-item" onclick="loadScreen('tools', event)">الأدوات</div>
         <div class="nav-item" onclick="loadScreen('works', event)">الأعمال</div>
     </nav>
 
-    <!-- سكربت الـ Fetch لجلب الملفات ديناميكياً -->
+    <!-- سكربت الـ Fetch وجلب الملفات ديناميكياً -->
     <script>
         function loadScreen(screenName, event) {
             // إزالة الكلاس active من كل الأزرار وإضافته للزر الحالي
@@ -43,7 +43,7 @@
                 const container = document.getElementById('homeScreenContainer');
                 container.style.display = 'block';
                 if (!container.innerHTML.trim()) {
-                    fetch('home.html') // اسم ملف الواجهة الرئيسية مالك
+                    fetch('home.html')
                         .then(response => response.text())
                         .then(data => container.innerHTML = data);
                 }
@@ -51,7 +51,7 @@
                 const container = document.getElementById('toolsScreenContainer');
                 container.style.display = 'block';
                 if (!container.innerHTML.trim()) {
-                    fetch('tools.html') // اسم ملف الأدوات مالك
+                    fetch('tools.html')
                         .then(response => response.text())
                         .then(data => container.innerHTML = data);
                 }
@@ -59,7 +59,7 @@
                 const container = document.getElementById('worksScreenContainer');
                 container.style.display = 'block';
                 if (!container.innerHTML.trim()) {
-                    fetch('works.html') // اسم ملف الأعمال مالك
+                    fetch('works.html')
                         .then(response => response.text())
                         .then(data => container.innerHTML = data);
                 }
