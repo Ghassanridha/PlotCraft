@@ -5,19 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PlotCraft</title>
     <link rel="stylesheet" href="style.css"> <!-- اربط ملف التصميم مالتك هنا -->
-    <style>
-        /* تنسيق إضافي للزر الرابع المنفصل بصف الأزرار بشكله المميز */
-        .nav-item.separate-btn {
-            background: #cc0000;
-            border: 1px solid #ff4444;
-            font-weight: bold;
-            color: white;
-            transition: 0.3s;
-        }
-        .nav-item.separate-btn:hover {
-            background: #e60000;
-        }
-    </style>
 </head>
 <body>
 
@@ -30,26 +17,19 @@
     <!-- حاوية شاشة الأعمال والمشاريع -->
     <div id="worksScreenContainer"></div>
 
-    <!-- حاوية واجهة يوتيوب (مخفية بالبداية وتفتح بكامل الشاشة) -->
-    <div id="youtubeScreenContainer" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f0f0f; z-index: 2000; overflow-y: auto;"></div>
-
     <!-- شريط التنقل السفلي (يبقى ثابت بالأسفل) -->
     <nav class="bottom-nav">
         <div class="nav-item active" onclick="loadScreen('home', event)">الرئيسية</div>
         <div class="nav-item" onclick="loadScreen('tools', event)">الأدوات</div>
         <div class="nav-item" onclick="loadScreen('works', event)">الأعمال</div>
-        <!-- الزر الرابع المنفصل بصفهم -->
-        <div class="nav-item separate-btn" id="fourthBtn" onclick="loadScreen('youtube', event)">يوتيوب</div>
     </nav>
 
-    <!-- سكربت الـ Fetch وجلب الملفات ديناميكياً مع إيماءات السحب -->
+    <!-- سكربت الـ Fetch لجلب الملفات ديناميكياً -->
     <script>
         function loadScreen(screenName, event) {
-            const fourthBtn = document.getElementById('fourthBtn');
-
-            // إزالة الكلاس active من كل الأزرار الأساسية وإضافته للزر الحالي
-            document.querySelectorAll('.nav-item:not(.separate-btn)').forEach(item => item.classList.remove('active'));
-            if (event && event.currentTarget && !event.currentTarget.classList.contains('separate-btn')) {
+            // إزالة الكلاس active من كل الأزرار وإضافته للزر الحالي
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            if (event && event.currentTarget) {
                 event.currentTarget.classList.add('active');
             }
 
@@ -57,11 +37,9 @@
             document.getElementById('homeScreenContainer').style.display = 'none';
             document.getElementById('toolsScreenContainer').style.display = 'none';
             document.getElementById('worksScreenContainer').style.display = 'none';
-            document.getElementById('youtubeScreenContainer').style.display = 'none';
 
             // جلب وعرض الشاشة المطلوبة
             if (screenName === 'home') {
-                fourthBtn.style.display = 'block'; // إظهار الزر الرابع
                 const container = document.getElementById('homeScreenContainer');
                 container.style.display = 'block';
                 if (!container.innerHTML.trim()) {
@@ -70,7 +48,6 @@
                         .then(data => container.innerHTML = data);
                 }
             } else if (screenName === 'tools') {
-                fourthBtn.style.display = 'block'; // إظهار الزر الرابع
                 const container = document.getElementById('toolsScreenContainer');
                 container.style.display = 'block';
                 if (!container.innerHTML.trim()) {
@@ -79,7 +56,6 @@
                         .then(data => container.innerHTML = data);
                 }
             } else if (screenName === 'works') {
-                fourthBtn.style.display = 'block'; // إظهار الزر الرابع
                 const container = document.getElementById('worksScreenContainer');
                 container.style.display = 'block';
                 if (!container.innerHTML.trim()) {
@@ -87,40 +63,8 @@
                         .then(response => response.text())
                         .then(data => container.innerHTML = data);
                 }
-            } else if (screenName === 'youtube') {
-                fourthBtn.style.display = 'none'; // إخفاء الزر الرابع المنفصل تماماً عند الدخول
-                const container = document.getElementById('youtubeScreenContainer');
-                container.style.display = 'block';
-                if (!container.innerHTML.trim()) {
-                    fetch('youtube.html') // ملف واجهة يوتيوب
-                        .then(response => response.text())
-                        .then(data => container.innerHTML = data);
-                }
             }
         }
-
-        // إيماءة السحب من أطراف الشاشة للخروج من واجهة يوتيوب
-        let touchStartX = 0;
-        const edgeThreshold = 40; // مسافة أطراف الشاشة بـ بكسل
-
-        window.addEventListener('touchstart', function(e) {
-            touchStartX = e.touches[0].clientX;
-        }, false);
-
-        window.addEventListener('touchend', function(e) {
-            let touchEndX = e.changedTouches[0].clientX;
-            let youtubeContainer = document.getElementById('youtubeScreenContainer');
-
-            // التحقق إذا كانت واجهة يوتيوب مفتوحة
-            if (youtubeContainer.style.display === 'block') {
-                // إذا سحب المستخدم من أقصى اليمين أو أقصى اليسار
-                if (touchStartX <= edgeThreshold || touchStartX >= (window.innerWidth - edgeThreshold)) {
-                    if (Math.abs(touchEndX - touchStartX) > 60) {
-                        loadScreen('home'); // العودة للرئيسية وإظهار الزر المنفصل
-                    }
-                }
-            }
-        }, false);
 
         // تحميل الصفحة الرئيسية تلقائياً عند فتح التطبيق أول مرة
         window.onload = function() {
