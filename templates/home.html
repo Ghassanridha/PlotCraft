@@ -2,23 +2,200 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>تطبيق Flask التجريبي</title>
+    <title>PlotCraft</title>
     <style>
-        body { font-family: Tahoma, sans-serif; background-color: #f4f4f9; text-align: center; padding-top: 50px; }
-        .container { background: white; padding: 30px; border-radius: 8px; display: inline-block; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); }
-        input, button { padding: 10px; margin: 10px; font-size: 16px; }
-        button { background-color: #007BFF; color: white; border: none; border-radius: 4px; cursor: pointer; }
-        button:hover { background-color: #0056b3; }
+        /* تنسيقات أساسية مؤقتة ليظهر التصميم بشكل جميل */
+        body {
+            font-family: Tahoma, sans-serif;
+            background-color: #0f172a;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            direction: rtl;
+            text-align: right;
+        }
+        .hero-box {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #1e293b;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .brand-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+        .upgrade-badge {
+            background: #f59e0b;
+            color: #000;
+            padding: 6px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .welcome-section h1 {
+            font-size: 22px;
+            margin-bottom: 24px;
+        }
+        .cards-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        .interactive-card {
+            flex: 1;
+            background: #334155;
+            padding: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            position: relative;
+        }
+        .interactive-card:hover {
+            background: #475569;
+        }
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .card-subtitle {
+            font-size: 14px;
+            color: #94a3b8;
+        }
+        .pro-badge-top {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ef4444;
+            color: white;
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        .inspiration-section {
+            max-width: 800px;
+            margin: 20px auto 0 auto;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .view-all {
+            font-size: 14px;
+            color: #38bdf8;
+            cursor: pointer;
+        }
+        .movies-carousel {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        .movie-card {
+            min-width: 180px;
+            height: 100px;
+            background: #475569;
+            border-radius: 8px;
+            padding: 10px;
+            display: flex;
+            align-items: flex-end;
+            cursor: pointer;
+            background-size: cover;
+        }
+        .movie-title {
+            font-size: 11px;
+            font-weight: bold;
+            background: rgba(0,0,0,0.6);
+            padding: 4px;
+            width: 100%;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>أهلاً بك في تطبيق Flask</h2>
-        <form action="/submit" method="POST">
-            <label for="username">أدخل اسمك:</label><br>
-            <input type="text" id="username" name="username" required><br>
-            <button type="submit">إرسال</button>
-        </form>
+
+    <div id="homeScreen" class="screen-view active">
+        <div class="hero-box">
+            <div class="top-header">
+                <div class="brand-title">PlotCraft</div>
+                <div class="upgrade-badge" onclick="openSubscriptionModalFromBadge(event)" data-tr="upgradeBadge">ترقية</div>
+            </div>
+
+            <div class="welcome-section">
+                <h1 data-tr="welcomeMsg">مساء الخير، أيها المخرج<br>أي قصة سنصنع اليوم؟</h1>
+            </div>
+
+            <div class="cards-row">
+                <div class="interactive-card" onclick="switchScreen('stepByStepScreen', event)">
+                    <div class="card-header-row">
+                        <div class="card-title-group-left">
+                            <div class="card-title" data-tr="stepByStepTitle">خطوة بخطوة</div>
+                            <span class="exact-bot-icon"></span>
+                        </div>
+                    </div>
+                    <div class="card-subtitle" data-tr="stepByStepSub">راجع كل خطوة</div>
+                </div>
+
+                <div class="interactive-card" id="speedCard" onclick="handleSpeedCardClick(event)">
+                    <div class="pro-badge-top">
+                        <span data-tr="proOnly">Pro only</span>
+                        <span class="pro-lock-icon"></span>
+                    </div>
+                    <div class="card-header-row">
+                        <div class="card-title-group-left">
+                            <div class="card-title" data-tr="speedTitle">سريع</div>
+                            <span class="speed-custom-icon"></span>
+                        </div>
+                    </div>
+                    <div class="card-subtitle" data-tr="speedSub">إدخال واحد، فيديو كامل</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم الإلهام -->
+        <div class="inspiration-section">
+            <div class="section-header">
+                <div class="section-title" data-tr="inspirationTitle">إلهام بلوت كرافت</div>
+                <div class="view-all" data-tr="viewAll">عرض الكل ></div>
+            </div>
+
+            <div class="movies-carousel" id="moviesCarouselContainer">
+                <div class="movie-card m1" onclick="showToast('يتم إضافة القصص قريباً')"><div class="movie-title">THE DELIVERYMAN'S SECRET BILLIONAIRE</div></div>
+                <div class="movie-card m2" onclick="showToast('يتم إضافة القصص قريباً')"><div class="movie-title">SECRET BILLIONAIRE</div></div>
+                <div class="movie-card m3" onclick="showToast('يتم إضافة القصص قريباً')"><div class="movie-title">CYBER CITY</div></div>
+            </div>
+        </div>
     </div>
+
+    <script>
+        function openSubscriptionModalFromBadge(event) {
+            alert("نافذة الترقية والإشتراك");
+        }
+        function switchScreen(screenId, event) {
+            alert("الانتقال إلى: " + screenId);
+        }
+        function handleSpeedCardClick(event) {
+            alert("ميزة السريع خاصة بمشتركي Pro فقط");
+        }
+        function showToast(message) {
+            alert(message);
+        }
+    </script>
 </body>
 </html>
