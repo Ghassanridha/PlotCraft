@@ -28,7 +28,6 @@
             overflow: hidden;
             background-color: #0b0f19;
         }
-        /* إخفاء الشاشات الغير فعالّة وعرض النشطة فقط */
         .screen-view {
             display: none;
             flex-direction: column;
@@ -195,7 +194,6 @@
             color: #fff;
         }
 
-        /* تنسيقات إضافية للأقسام المدمجة */
         .settings-screen, .screen-view {
             max-width: 800px;
             margin: 0 auto;
@@ -290,9 +288,6 @@
 </head>
 <body>
 <div class="app-shell">
-    <!-- ========================================== -->
-    <!--       الشاشة الرئيسية (Home)               -->
-    <!-- ========================================== -->
     <div id="homeScreen" class="screen-view active">
         <div class="hero-box">
             <div class="top-header">
@@ -328,7 +323,6 @@
             </div>
         </div>
 
-        <!-- قسم الإلهام -->
         <div class="inspiration-section">
             <div class="section-header">
                 <div class="section-title" data-tr="inspirationTitle">إلهام بلوت كرافت</div>
@@ -343,10 +337,6 @@
         </div>
     </div>
 
-
-    <!-- ========================================== -->
-    <!--       قسم الإعدادات والملف الشخصي         -->
-    <!-- ========================================== -->
     <div class="settings-screen screen-view" id="settingsScreen">
         <div class="settings-top-bar">
             <button class="settings-close-btn" onclick="switchScreen('homeScreen', event)" title="رجوع">‹</button>
@@ -354,7 +344,6 @@
             <button class="settings-upgrade-badge upgrade-badge" onclick="openSubscriptionModalFromBadge(event)" data-tr="upgradeBadge">ترقية</button>
         </div>
 
-        <!-- بطاقة الملف الشخصي ومعلومات المستخدم -->
         <div class="profile-header-card" style="position: relative; background: #334155; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
             <div class="profile-info-group" id="loggedInUserInfoArea" style="display: none;">
                 <div class="profile-name-row">
@@ -370,7 +359,6 @@
             </div>
         </div>
 
-        <!-- خيارات الإعدادات -->
         <div class="settings-group-box">
             <div class="settings-item-row">
                 <div class="settings-item-right">
@@ -398,10 +386,6 @@
         </div>
     </div>
 
-
-    <!-- ========================================== -->
-    <!--       قسم الأدوات                          -->
-    <!-- ========================================== -->
     <div id="toolsScreen" class="screen-view">
         <div class="tools-header">
             <div class="tools-header-title" data-tr="toolsTitle">الأدوات</div>
@@ -429,10 +413,6 @@
         </div>
     </div>
 
-
-    <!-- ========================================== -->
-    <!--       قسم الأعمال والمشاريع                 -->
-    <!-- ========================================== -->
     <div id="worksScreen" class="screen-view">
         <div class="works-top-header">
             <div class="works-screen-title" data-tr="worksTitle">الأعمال</div>
@@ -455,6 +435,8 @@
     </div>
 </div>
 
+    <!-- Fayila JavaScript qindaa'amee fi Firebase qabatamaan walqabate -->
+    <script type="module" src="firebase-auth.js"></script>
     <script>
         function openSubscriptionModalFromBadge(event) {
             alert("نافذة الترقية والإشتراك");
