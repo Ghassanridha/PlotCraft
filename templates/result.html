@@ -1,0 +1,4 @@
+@app.route('/result')
+def result():
+    name = request.args.get('name', 'زائر')
+    return render_template('result.html', name=name)
