@@ -1,28 +1,17 @@
 import os
-import json
-import firebase_admin
-from firebase_admin import credentials, firestore
 from flask import Flask, send_file, request, jsonify
+from config import init_firebase
 
 base_dir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
 
-# --- اتصال Firebase ---
-db = None
-try:
-    firebase_json = os.environ.get("FIREBASE_CREDENTIALS")
-    if firebase_json and not firebase_admin._apps:
-        cred = credentials.Certificate(json.loads(firebase_json))
-        firebase_admin.initialize_app(cred)
-        db = firestore.client()
-except Exception as e:
-    print("Firebase error:", e)
+db = init_firebase()
 
 
 @app.route('/')
 def home():
-    return send_file(os.path.join(base_dir, 'index.html'))
+    return send_file(os.path.join(base_dir, 'home.html'))
 
 
 @app.route('/save', methods=['POST'])
