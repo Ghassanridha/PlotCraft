@@ -1,83 +1,141 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="appHtmlRoot">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PlotCraft</title>
     <style>
-        body {
-            font-family: Tahoma, sans-serif;
-            background-color: #0f172a;
-            color: #ffffff;
+        * {
+            box-sizing: border-box;
             margin: 0;
-            padding: 20px;
-            direction: rtl;
-            text-align: right;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        html, body {
+            width: 100%;
+            height: 650px;
+            background-color: #0b0f19;
+            overflow: hidden;
+            position: relative;
+        }
+        .app-shell {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 650px;
+            position: relative;
+            overflow: hidden;
+            background-color: #0b0f19;
         }
         /* إخفاء الشاشات الغير فعالّة وعرض النشطة فقط */
         .screen-view {
             display: none;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            background-color: #1f242d;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-bottom: 110px;
+            box-sizing: border-box;
         }
         .screen-view.active {
-            display: block;
+            display: flex;
+        }
+
+        #homeScreen.screen-view {
+            background-color: #0b0f19;
         }
 
         .hero-box {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #1e293b;
-            padding: 24px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            position: relative;
+            width: 100%;
+            min-height: 52vh;
+            background: linear-gradient(180deg, rgba(11,15,25,0.2) 0%, rgba(11,15,25,0.8) 75%, #0b0f19 100%),
+            url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1080&auto=format&fit=crop') center/cover no-repeat;
+            border-bottom-left-radius: 35px;
+            border-bottom-right-radius: 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 24px 20px 20px 20px;
+            flex-shrink: 0;
         }
         .top-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            width: 100%;
         }
         .brand-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #38bdf8;
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 700;
         }
         .upgrade-badge {
-            background: #f59e0b;
-            color: #000;
-            padding: 6px 14px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 25px;
+            color: #ffffff;
             font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .welcome-section {
+            margin-top: 15px;
         }
         .welcome-section h1 {
+            color: #ffffff;
             font-size: 22px;
-            margin-bottom: 24px;
+            font-weight: 700;
+            line-height: 1.4;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
         }
         .cards-row {
             display: flex;
-            gap: 16px;
-            margin-bottom: 30px;
+            gap: 12px;
+            width: 100%;
+            margin-top: 20px;
         }
         .interactive-card {
             flex: 1;
-            background: #334155;
-            padding: 20px;
-            border-radius: 12px;
+            background: rgba(20, 25, 40, 0.65);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 18px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             cursor: pointer;
             transition: 0.2s;
             position: relative;
         }
-        .interactive-card:hover {
-            background: #475569;
+        .interactive-card:active {
+            transform: scale(0.97);
+            background: rgba(30, 40, 65, 0.85);
+        }
+        .card-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
         }
         .card-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 8px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
         }
         .card-subtitle {
-            font-size: 14px;
-            color: #94a3b8;
+            color: #cbd5e1;
+            font-size: 12px;
+            font-weight: 400;
         }
         .pro-badge-top {
             position: absolute;
@@ -92,6 +150,7 @@
         .inspiration-section {
             max-width: 800px;
             margin: 20px auto 0 auto;
+            padding: 0 20px;
         }
         .section-header {
             display: flex;
@@ -102,6 +161,7 @@
         .section-title {
             font-size: 16px;
             font-weight: bold;
+            color: #fff;
         }
         .view-all {
             font-size: 14px;
@@ -132,6 +192,7 @@
             padding: 4px;
             width: 100%;
             border-radius: 4px;
+            color: #fff;
         }
 
         /* تنسيقات إضافية للأقسام المدمجة */
@@ -228,7 +289,7 @@
     </style>
 </head>
 <body>
-
+<div class="app-shell">
     <!-- ========================================== -->
     <!--       الشاشة الرئيسية (Home)               -->
     <!-- ========================================== -->
@@ -248,7 +309,6 @@
                     <div class="card-header-row">
                         <div class="card-title-group-left">
                             <div class="card-title" data-tr="stepByStepTitle">خطوة بخطوة</div>
-                            <span class="exact-bot-icon"></span>
                         </div>
                     </div>
                     <div class="card-subtitle" data-tr="stepByStepSub">راجع كل خطوة</div>
@@ -257,12 +317,10 @@
                 <div class="interactive-card" id="speedCard" onclick="handleSpeedCardClick(event)">
                     <div class="pro-badge-top">
                         <span data-tr="proOnly">Pro only</span>
-                        <span class="pro-lock-icon"></span>
                     </div>
                     <div class="card-header-row">
                         <div class="card-title-group-left">
                             <div class="card-title" data-tr="speedTitle">سريع</div>
-                            <span class="speed-custom-icon"></span>
                         </div>
                     </div>
                     <div class="card-subtitle" data-tr="speedSub">إدخال واحد، فيديو كامل</div>
@@ -395,7 +453,7 @@
             </div>
         </div>
     </div>
-
+</div>
 
     <script>
         function openSubscriptionModalFromBadge(event) {
@@ -403,11 +461,9 @@
         }
         
         function switchScreen(screenId, event) {
-            // إخفاء جميع الشاشات
             const screens = document.querySelectorAll('.screen-view');
             screens.forEach(screen => screen.classList.remove('active'));
             
-            // إظهار الشاشة المطلوبة فقط
             const targetScreen = document.getElementById(screenId);
             if (targetScreen) {
                 targetScreen.classList.add('active');
