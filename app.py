@@ -1,18 +1,15 @@
 import os
-from flask import Flask, send_file, request, jsonify
+from flask import Flask, render_template, request, jsonify
 from config import init_firebase
-
-base_dir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
 
 db = init_firebase()
 
-
 @app.route('/')
 def home():
-    return send_file(os.path.join(base_dir, 'home.html'))
-
+    # render_template يبحث تلقائياً داخل مجلد templates
+    return render_template('home.html')
 
 @app.route('/save', methods=['POST'])
 def save():
@@ -21,7 +18,6 @@ def save():
     data = request.get_json(silent=True) or {}
     db.collection('users').add(data)
     return jsonify({"status": "saved"})
-
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
