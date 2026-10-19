@@ -1,24 +1,32 @@
 import os
-from flask import Flask, render_template, request, jsonify
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.templating import Jinja2Templates
 from config import init_firebase
 
-app = Flask(__name__)
-
+app = FastAPI()
 db = init_firebase()
 
-@app.route('/')
-def home():
-    # render_template يبحث تلقائياً داخل مجلد templates
-    return render_template('home.html')
+templates = Jinja2Templates(directory="templates")
 
-@app.route('/save', methods=['POST'])
-def save():
+@app.get("/", response_class=HTMLResponse)
+async def home(request: Request):
+    return templates.TemplateResponse("home.html", {"request": request})
+
+@app.post("/save")
+async def save(request: Request):
     if db is None:
-        return jsonify({"error": "Firebase غير متصل"}), 500
-    data = request.get_json(silent=True) or {}
+        return JSONResponse({"error": "Firebase غير متصل"}, status_code=500)
+    
+    try:
+        data = await request.json()
+    except Exception:
+        data = {}
+        
     db.collection('users').add(data)
-    return jsonify({"status": "saved"})
+    return {"status": "saved"}
 
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("app:app", host="0.0.0.0", port=port)
