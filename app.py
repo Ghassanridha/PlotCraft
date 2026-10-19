@@ -3,6 +3,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 from config import init_firebase
+from security import sanitize_input  # استيراد دالة التنظيف الآمنة
 
 app = FastAPI()
 db = init_firebase()
@@ -19,10 +20,13 @@ async def save(request: Request):
         return JSONResponse({"error": "Firebase غير متصل"}, status_code=500)
     
     try:
-        data = await request.json()
+        raw_data = await request.json()
     except Exception:
-        data = {}
+        raw_data = {}
         
+    # تنظيف البيانات وتصحيح المفاتيح لمنع أخطاء unhashable type نهائياً
+    data = sanitize_input(raw_data)
+    
     db.collection('users').add(data)
     return {"status": "saved"}
 
