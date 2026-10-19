@@ -1,51 +1,37 @@
 import os
-from flask import Flask, render_template_string, request
+import json
+import firebase_admin
+from firebase_admin import credentials, firestore
+from flask import Flask, send_file, request, jsonify
+
+base_dir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
 
-INDEX_HTML = """
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>الصفحة الرئيسية</title>
-</head>
-<body>
-  <h1>أهلاً بك</h1>
-  <form action="/submit" method="POST">
-    <input type="text" name="username" placeholder="اكتب اسمك" required>
-    <button type="submit">إرسال</button>
-  </form>
-</body>
-</html>
-"""
-
-RESULT_HTML = """
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>النتيجة</title>
-</head>
-<body>
-  <h1>مرحباً {{ name }}!</h1>
-  <a href="/">رجوع</a>
-</body>
-</html>
-"""
+# --- اتصال Firebase ---
+db = None
+try:
+    firebase_json = os.environ.get("FIREBASE_CREDENTIALS")
+    if firebase_json and not firebase_admin._apps:
+        cred = credentials.Certificate(json.loads(firebase_json))
+        firebase_admin.initialize_app(cred)
+        db = firestore.client()
+except Exception as e:
+    print("Firebase error:", e)
 
 
 @app.route('/')
 def home():
-    return render_template_string(INDEX_HTML)
+    return send_file(os.path.join(base_dir, 'index.html'))
 
 
-@app.route('/submit', methods=['POST'])
-def submit():
-    user_name = request.form.get('username')
-    return render_template_string(RESULT_HTML, name=user_name)
+@app.route('/save', methods=['POST'])
+def save():
+    if db is None:
+        return jsonify({"error": "Firebase غير متصل"}), 500
+    data = request.get_json(silent=True) or {}
+    db.collection('users').add(data)
+    return jsonify({"status": "saved"})
 
 
 if __name__ == '__main__':
