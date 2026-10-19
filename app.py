@@ -12,7 +12,8 @@ templates = Jinja2Templates(directory="templates")
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
-    return templates.TemplateResponse("home.html", {"request": request})
+    # تمرير request أولاً لمطابقة تحديثات FastAPI وStarlette الحديثة
+    return templates.TemplateResponse(request, "index.html")
 
 @app.post("/save")
 async def save(request: Request):
@@ -24,7 +25,7 @@ async def save(request: Request):
     except Exception:
         raw_data = {}
         
-    # تنظيف البيانات وتصحيح المفاتيح لمنع أخطاء unhashable type نهائياً
+    # تنظيف البيانات وتصحيح المفاتيح لمنع أخطاء unhashable type
     data = sanitize_input(raw_data)
     
     db.collection('users').add(data)
