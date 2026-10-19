@@ -13,6 +13,14 @@
             direction: rtl;
             text-align: right;
         }
+        /* إخفاء الشاشات الغير فعالّة وعرض النشطة فقط */
+        .screen-view {
+            display: none;
+        }
+        .screen-view.active {
+            display: block;
+        }
+
         .hero-box {
             max-width: 800px;
             margin: 0 auto;
@@ -125,10 +133,105 @@
             width: 100%;
             border-radius: 4px;
         }
+
+        /* تنسيقات إضافية للأقسام المدمجة */
+        .settings-screen, .screen-view {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #1e293b;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .settings-top-bar, .tools-header, .works-top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .settings-title, .tools-header-title, .works-screen-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .settings-close-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .settings-group-box, .tools-body, .works-body-container {
+            margin-top: 20px;
+        }
+        .settings-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #334155;
+            padding: 14px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .settings-item-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .tool-card-item {
+            background: #334155;
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            position: relative;
+            cursor: pointer;
+        }
+        .tool-main-title {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .tool-sub-desc {
+            font-size: 13px;
+            color: #94a3b8;
+        }
+        .works-tabs-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .works-tab {
+            padding: 8px 16px;
+            background: #334155;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .works-tab.active {
+            background: #38bdf8;
+            color: #0f172a;
+            font-weight: bold;
+        }
+        .works-empty-content {
+            text-align: center;
+            padding: 40px 0;
+            color: #94a3b8;
+        }
+        .works-create-btn {
+            margin-top: 15px;
+            background: #38bdf8;
+            color: #0f172a;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
+    <!-- ========================================== -->
+    <!--       الشاشة الرئيسية (Home)               -->
+    <!-- ========================================== -->
     <div id="homeScreen" class="screen-view active">
         <div class="hero-box">
             <div class="top-header">
@@ -182,18 +285,147 @@
         </div>
     </div>
 
+
+    <!-- ========================================== -->
+    <!--       قسم الإعدادات والملف الشخصي         -->
+    <!-- ========================================== -->
+    <div class="settings-screen screen-view" id="settingsScreen">
+        <div class="settings-top-bar">
+            <button class="settings-close-btn" onclick="switchScreen('homeScreen', event)" title="رجوع">‹</button>
+            <div class="settings-title" data-tr="settingsTitle">الإعدادات</div>
+            <button class="settings-upgrade-badge upgrade-badge" onclick="openSubscriptionModalFromBadge(event)" data-tr="upgradeBadge">ترقية</button>
+        </div>
+
+        <!-- بطاقة الملف الشخصي ومعلومات المستخدم -->
+        <div class="profile-header-card" style="position: relative; background: #334155; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+            <div class="profile-info-group" id="loggedInUserInfoArea" style="display: none;">
+                <div class="profile-name-row">
+                    <span class="profile-name-text" id="displayUserName">NewUser</span>
+                </div>
+                <div class="profile-id-row" onclick="copyUserIdToClipboard()" title="انقر لنسخ المعرف" style="color: #94a3b8; font-size: 12px; cursor: pointer;">
+                    <span id="displayUniqueId">0000000</span>
+                </div>
+            </div>
+
+            <div class="profile-info-group" id="loggedOutUserInfoArea" style="display: flex; width: 100%;">
+                <button class="auth-main-btn" id="settingsLoginBtn" onclick="openLoginModal()" style="background: #38bdf8; border: none; padding: 8px 16px; border-radius: 6px; font-weight: bold; cursor: pointer;">تسجيل الدخول</button>
+            </div>
+        </div>
+
+        <!-- خيارات الإعدادات -->
+        <div class="settings-group-box">
+            <div class="settings-item-row">
+                <div class="settings-item-right">
+                    <span data-tr="scoreLog">سجل النقاط</span>
+                </div>
+                <div class="settings-item-left"><span>›</span></div>
+            </div>
+        </div>
+
+        <div class="settings-group-box">
+            <div class="settings-item-row">
+                <div class="settings-item-right">
+                    <span data-tr="notifications">الإشعارات</span>
+                </div>
+                <div class="settings-item-left">
+                    <input type="checkbox" id="notifSwitch" onchange="handleNotifToggle(this)">
+                </div>
+            </div>
+            <div class="settings-item-row">
+                <div class="settings-item-right">
+                    <span data-tr="language">اللغة</span>
+                </div>
+                <div class="settings-item-left"><span id="currentLangDisplay">Arabic</span><span>›</span></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!--       قسم الأدوات                          -->
+    <!-- ========================================== -->
+    <div id="toolsScreen" class="screen-view">
+        <div class="tools-header">
+            <div class="tools-header-title" data-tr="toolsTitle">الأدوات</div>
+            <div class="tools-upgrade-btn upgrade-badge" onclick="openSubscriptionModalFromBadge(event)" data-tr="upgradeBadge">ترقية</div>
+        </div>
+        <div class="tools-body">
+            <div class="tool-card-item tool-card-1" onclick="showToast('تأثيرات الفيديو قادمة قريباً')">
+                <div class="tool-info-box">
+                    <div class="tool-main-title" data-tr="tool1Title">تأثيرات الفيديو</div>
+                    <div class="tool-sub-desc" data-tr="tool1Sub">أضف لمسة سينمائية</div>
+                </div>
+            </div>
+            <div class="tool-card-item tool-card-2" onclick="showToast('توليد الفيديو قادم قريباً')">
+                <div class="tool-info-box">
+                    <div class="tool-main-title" data-tr="tool2Title">توليد الفيديو</div>
+                    <div class="tool-sub-desc" data-tr="tool2Sub">حول توجيهاً إلى فيديو خاص بك</div>
+                </div>
+            </div>
+            <div class="tool-card-item tool-card-3" onclick="showToast('توليد الصور قادم قريباً')">
+                <div class="tool-info-box">
+                    <div class="tool-main-title" data-tr="tool3Title">توليد الصور</div>
+                    <div class="tool-sub-desc" data-tr="tool3Sub">حول فكرة إلى صورة مكتملة</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!--       قسم الأعمال والمشاريع                 -->
+    <!-- ========================================== -->
+    <div id="worksScreen" class="screen-view">
+        <div class="works-top-header">
+            <div class="works-screen-title" data-tr="worksTitle">الأعمال</div>
+            <div class="works-header-left-group" style="display: flex; gap: 10px; align-items: center;">
+                <div class="works-upgrade-badge upgrade-badge" onclick="openSubscriptionModalFromBadge(event)" data-tr="upgradeBadge">ترقية</div>
+                <div class="works-robot-logo" onclick="switchScreen('settingsScreen', event)" title="الإعدادات" style="cursor: pointer;">⚙️</div>
+            </div>
+        </div>
+
+        <div class="works-body-container">
+            <div class="works-tabs-container">
+                <div class="works-tab active" onclick="switchWorksTab(this)" data-tr="tabProjects">المشاريع</div>
+                <div class="works-tab" onclick="switchWorksTab(this)" data-tr="tabMedia">مكتبة الوسائط</div>
+            </div>
+            <div class="works-empty-content">
+                <div class="works-empty-text-sub" data-tr="emptyWorks">ستظهر هنا مشاريع القصة الخاصة بك.</div>
+                <button class="works-create-btn" onclick="showToast('إنشاء قصة جديدة')" data-tr="createStoryBtn">إنشاء قصة</button>
+            </div>
+        </div>
+    </div>
+
+
     <script>
         function openSubscriptionModalFromBadge(event) {
             alert("نافذة الترقية والإشتراك");
         }
+        
         function switchScreen(screenId, event) {
-            alert("الانتقال إلى: " + screenId);
+            // إخفاء جميع الشاشات
+            const screens = document.querySelectorAll('.screen-view');
+            screens.forEach(screen => screen.classList.remove('active'));
+            
+            // إظهار الشاشة المطلوبة فقط
+            const targetScreen = document.getElementById(screenId);
+            if (targetScreen) {
+                targetScreen.classList.add('active');
+            }
         }
+
         function handleSpeedCardClick(event) {
             alert("ميزة السريع خاصة بمشتركي Pro فقط");
         }
+        
         function showToast(message) {
             alert(message);
+        }
+
+        function switchWorksTab(element) {
+            const tabs = element.parentElement.querySelectorAll('.works-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            element.classList.add('active');
         }
     </script>
 </body>
