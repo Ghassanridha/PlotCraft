@@ -93,7 +93,6 @@ window.handleRegister = function() {
             let user = userCredential.user;
             saveUserSession(user.uid);
             alert("✅ تم إنشاء الحساب بنجاح!");
-            // انتقل للشاشة الرئيسية بعد التسجيل (يمكنك تعديل اسم الشاشة حسب تصميمك)
             switchScreen('mainDashboardScreen');
         })
         .catch((error) => {
