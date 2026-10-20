@@ -2140,6 +2140,9 @@
             </div>
         </div>
 
+        <!-- تضمين مكون نافذة الاشتراكات المستقل -->
+        {% include 'subscription_modal.html' %}
+
         <!-- شريط التنقل السفلي -->
         <div class="plotcraft-nav-bar" id="mainNavBar">
             <div class="plotcraft-nav-pill">
@@ -2182,7 +2185,6 @@
             document.getElementById(navId).classList.add('active');
         };
 
-        window.openSubscriptionModal = function() { showToast('نافذة الترقية'); };
         window.openSparkleDialog = function(event) { if (event) event.stopPropagation(); showToast('إنشاء سريع'); };
         window.openSettingsScreen = function(event) { if (event) event.stopPropagation(); showToast('الإعدادات'); };
         window.switchWorksTab = function(element) {
@@ -2190,5 +2192,8 @@
             element.classList.add('active');
         };
     </script>
+
+    <!-- استدعاء ملف الـ Javascript المستقل للترقية والاشتراكات -->
+    <script src="{{ url_for('static', filename='subscription.js') }}"></script>
 </body>
 </html>
