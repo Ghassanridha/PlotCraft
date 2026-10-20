@@ -1,0 +1,14 @@
+{
+  "name": "PlotCraft",
+  "short_name": "PlotCraft",
+  "id": "plotcraft",
+  "start_url": "https://plotcraft-kvmf.onrender.com",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "orientation": "any",
+  "dir": "ltr",
+  "lang": "en",
+  "description": "PlotCraft Interactive Platform"
+}
