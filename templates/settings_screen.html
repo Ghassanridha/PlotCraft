@@ -3,25 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PlotCraft</title>
+    <title>PlotCraft - الإعدادات</title>
     <style>
-        /* تنسيقات شاشة الإعدادات المستقلة كطبقة فوق الصفحة */
-        .settings-screen {
-            display: none;
-            position: fixed;
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%;
+        body {
+            margin: 0;
+            padding: 0;
             background-color: #1f242d;
-            z-index: 99999;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        /* شاشة الإعدادات - ظاهرة دائماً لأنها صفحة مستقلة على Flask */
+        .settings-screen {
+            display: flex !important;
+            position: relative;
+            width: 100%; 
+            min-height: 100vh;
+            background-color: #1f242d;
             flex-direction: column;
             overflow-y: auto;
             padding: 20px;
             box-sizing: border-box;
-        }
-        .settings-screen.active { 
-            display: flex; 
         }
 
         .settings-top-bar {
@@ -53,6 +54,7 @@
             justify-content: center;
             transition: 0.2s;
             outline: none;
+            text-decoration: none;
         }
         .settings-close-btn:active {
             transform: scale(0.95);
@@ -66,6 +68,7 @@
             font-size: 13px;
             font-weight: 500;
             cursor: pointer;
+            border: none;
         }
 
         .profile-header-card {
@@ -153,11 +156,6 @@
             flex-direction: column;
             gap: 10px;
         }
-        .pro-banner-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
         .pro-banner-title {
             color: #ffffff;
             font-size: 16px;
@@ -235,7 +233,7 @@
             box-sizing: border-box;
         }
         .settings-modal-overlay.show { 
-            display: flex; 
+            display: flex !important; 
         }
         .settings-modal-box {
             background: #282f3d;
@@ -252,22 +250,21 @@
 </head>
 <body>
 
-    <!-- شاشة الإعدادات -->
+    <!-- شاشة الإعدادات المستقلة -->
     <div class="settings-screen" id="settingsScreen">
-        <!-- الشريط العلوي: زر السهم مخصص فقط لإغلاق القائمة والعودة -->
         <div class="settings-top-bar">
-            <button class="settings-close-btn" onclick="closeSettingsScreen(event)" title="رجوع وإغلاق">‹</button>
+            <!-- زر الرجوع يعود للصفحة الرئيسية في Flask -->
+            <button class="settings-close-btn" onclick="goBackHome()" title="رجوع">‹</button>
             <div class="settings-title">الإعدادات</div>
             <button class="settings-upgrade-badge" onclick="openSubscriptionModal()">ترقية</button>
         </div>
 
-        <!-- بطاقة الملف الشخصي ومعلومات المستخدم -->
         <div class="profile-header-card">
             <div class="profile-avatar-box">
                 <svg viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73C10.4 5.39 10 4.74 10 4a2 2 0 0 1 2-2M7.5 13a1.5 1.5 0 0 0-1.5 1.5A1.5 1.5 0 0 0 7.5 16a1.5 1.5 0 0 0 1.5-1.5A1.5 1.5 0 0 0 7.5 13m9 0a1.5 1.5 0 0 0-1.5 1.5a1.5 1.5 0 0 0 1.5 1.5a1.5 1.5 0 0 0 1.5-1.5a1.5 1.5 0 0 0-1.5-1.5M10 18v2h4v-2z"/></svg>
             </div>
             
-            <div class="profile-info-group" id="loggedInUserInfoArea">
+            <div class="profile-info-group">
                 <div class="profile-name-row">
                     <span class="profile-name-text" id="displayUserName">NewUser</span>
                     <span class="profile-edit-pencil" onclick="openNameEditModal()" title="تعديل الاسم">
@@ -275,12 +272,11 @@
                     </span>
                 </div>
                 <div class="profile-id-row" onclick="copyUserIdToClipboard()" title="انقر لنسخ المعرف">
-                    <span id="displayUniqueId">0000000</span>
+                    <span id="displayUniqueId">8492041</span>
                 </div>
             </div>
         </div>
 
-        <!-- بنر الترقية: زر عرض خطط Pro يفتح نافذة الاشتراكات أيضاً -->
         <div class="pro-banner-card">
             <div class="pro-banner-top">
                 <div class="pro-banner-title">افتح PlotCraft Pro</div>
@@ -289,9 +285,8 @@
             <button class="pro-banner-btn" onclick="openSubscriptionModal()">عرض خطط Pro ←</button>
         </div>
 
-        <!-- خيارات الإعدادات -->
         <div class="settings-group-box">
-            <div class="settings-item-row" onclick="handleMenuClick(event, 'سجل النقاط')">
+            <div class="settings-item-row" onclick="alert('سجل النقاط')">
                 <div class="settings-item-right">
                     <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
                     <span>سجل النقاط</span>
@@ -300,7 +295,6 @@
             </div>
         </div>
 
-        <!-- زر تسجيل الدخول -->
         <div class="settings-group-box" style="margin-top: auto;">
             <div class="settings-item-row" onclick="openLoginModal()" style="justify-content: center; color: #60a5fa;">
                 <span style="font-weight: bold;">تسجيل الدخول / إنشاء حساب</span>
@@ -308,8 +302,8 @@
         </div>
     </div>
 
-    <!-- نافذة تعديل الاسم المنبثقة -->
-    <div class="settings-modal-overlay" id="nameEditModalOverlay" onclick="closeNameEditModalOnOutside(event)">
+    <!-- نافذة تعديل الاسم -->
+    <div class="settings-modal-overlay" id="nameEditModalOverlay" onclick="closeOnOutside(event, 'nameEditModalOverlay')">
         <div class="settings-modal-box">
             <h3 style="color:#fff; font-size:16px; margin:0;">تعديل الاسم</h3>
             <input type="text" id="nameEditInput" style="width:100%; padding:10px; border-radius:10px; border:1px solid #444; background:#1f242d; color:#fff; box-sizing: border-box;" placeholder="أدخل اسمك الجديد">
@@ -320,8 +314,8 @@
         </div>
     </div>
 
-    <!-- نافذة الترقية والاشتراكات المنبثقة -->
-    <div class="settings-modal-overlay" id="subscriptionModalOverlay" onclick="closeSubscriptionModalOnOutside(event)">
+    <!-- نافذة الاشتراكات -->
+    <div class="settings-modal-overlay" id="subscriptionModalOverlay" onclick="closeOnOutside(event, 'subscriptionModalOverlay')">
         <div class="settings-modal-box">
             <h3 style="color:#fff; font-size:18px; margin:0; text-align:center;">خطط PlotCraft Pro</h3>
             <p style="color:#cbd5e1; font-size:13px; text-align:center; margin:0;">احصل على ميزات غير محدودة لصناعة أفلامك.</p>
@@ -329,14 +323,14 @@
                 <strong>الاشتراك الشهري الاحترافي</strong>
                 <div style="color: #3b82f6; font-size: 16px; margin-top: 5px;">$9.99 / شهرياً</div>
             </div>
-            <div style="display:flex; gap:10px; justify-content: center; margin-top: 5px;">
+            <div style="display:flex; gap:10px; justify- content: center; margin-top: 5px;">
                 <button onclick="closeSubscriptionModal()" style="padding:8px 16px; border-radius:8px; border:none; background:#444; color:#fff; cursor:pointer; width:100%;">إغلاق</button>
             </div>
         </div>
     </div>
 
-    <!-- نافذة تسجيل الدخول المنبثقة -->
-    <div class="settings-modal-overlay" id="loginModalOverlay" onclick="closeLoginModalOnOutside(event)">
+    <!-- نافذة تسجيل الدخول -->
+    <div class="settings-modal-overlay" id="loginModalOverlay" onclick="closeOnOutside(event, 'loginModalOverlay')">
         <div class="settings-modal-box">
             <h3 style="color:#fff; font-size:18px; margin:0; text-align:center;">تسجيل الدخول</h3>
             <input type="email" placeholder="البريد الإلكتروني" style="width:100%; padding:10px; border-radius:10px; border:1px solid #444; background:#1f242d; color:#fff; box-sizing: border-box;">
@@ -347,39 +341,32 @@
         </div>
     </div>
 
-    <!-- دوال الجافاسكريبت المفصولة بدقة -->
     <script>
-        function openSettingsScreen() {
-            const settings = document.getElementById('settingsScreen');
-            if (settings) settings.classList.add('active');
-        }
-
-        /* زر السهم العلوي: إغلاق الإعدادات فقط وبشكل مستقل تماماً */
-        function closeSettingsScreen(event) {
-            if (event) event.stopPropagation();
-            const settings = document.getElementById('settingsScreen');
-            if (settings) settings.classList.remove('active');
-        }
-
-        function openNameEditModal() {
-            document.getElementById('nameEditModalOverlay').classList.add('show');
-        }
-
-        function closeNameEditModal() {
-            document.getElementById('nameEditModalOverlay').classList.remove('show');
-        }
-
-        function closeNameEditModalOnOutside(event) {
-            if (event.target.id === 'nameEditModalOverlay') {
-                closeNameEditModal();
+        // زر الرجوع
+        function goBackHome() {
+            if (document.referrer) {
+                window.history.back();
+            } else {
+                window.location.href = "/";
             }
         }
 
+        // تعديل الاسم وتخزينه بالمتصفح
+        document.addEventListener("DOMContentLoaded", function() {
+            const savedName = localStorage.getItem('plotcraft_username');
+            if (savedName) {
+                document.getElementById('displayUserName').innerText = savedName;
+            }
+        });
+
+        function openNameEditModal() { document.getElementById('nameEditModalOverlay').classList.add('show'); }
+        function closeNameEditModal() { document.getElementById('nameEditModalOverlay').classList.remove('show'); }
         function saveNewName() {
             const input = document.getElementById('nameEditInput');
-            const nameDisplay = document.getElementById('displayUserName');
-            if (input && nameDisplay && input.value.trim() !== '') {
-                nameDisplay.innerText = input.value.trim();
+            if (input && input.value.trim() !== '') {
+                const newName = input.value.trim();
+                document.getElementById('displayUserName').innerText = newName;
+                localStorage.setItem('plotcraft_username', newName);
                 closeNameEditModal();
             }
         }
@@ -388,42 +375,22 @@
             const idText = document.getElementById('displayUniqueId')?.innerText;
             if (idText && navigator.clipboard) {
                 navigator.clipboard.writeText(idText);
-                alert('تم نسخ المعرف');
+                alert('تم نسخ المعرف: ' + idText);
             }
         }
 
-        function handleMenuClick(event, name) {
-            if (event) event.stopPropagation();
-            alert(name);
-        }
+        // الاشتراكات
+        function openSubscriptionModal() { document.getElementById('subscriptionModalOverlay').classList.add('show'); }
+        function closeSubscriptionModal() { document.getElementById('subscriptionModalOverlay').classList.remove('show'); }
 
-        /* دوال الاشتراكات والترقية المستقلة */
-        function openSubscriptionModal() {
-            document.getElementById('subscriptionModalOverlay').classList.add('show');
-        }
+        // الدخول
+        function openLoginModal() { document.getElementById('loginModalOverlay').classList.add('show'); }
+        function closeLoginModal() { document.getElementById('loginModalOverlay').classList.remove('show'); }
 
-        function closeSubscriptionModal() {
-            document.getElementById('subscriptionModalOverlay').classList.remove('show');
-        }
-
-        function closeSubscriptionModalOnOutside(event) {
-            if (event.target.id === 'subscriptionModalOverlay') {
-                closeSubscriptionModal();
-            }
-        }
-
-        /* دوال تسجيل الدخول المستقلة */
-        function openLoginModal() {
-            document.getElementById('loginModalOverlay').classList.add('show');
-        }
-
-        function closeLoginModal() {
-            document.getElementById('loginModalOverlay').classList.remove('show');
-        }
-
-        function closeLoginModalOnOutside(event) {
-            if (event.target.id === 'loginModalOverlay') {
-                closeLoginModal();
+        // إغلاق النوافذ عند النقر خارجها
+        function closeOnOutside(event, modalId) {
+            if (event.target.id === modalId) {
+                document.getElementById(modalId).classList.remove('show');
             }
         }
     </script>
