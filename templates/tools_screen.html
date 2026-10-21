@@ -1,7 +1,102 @@
-<!-- ========================================== -->
-<!--       قسم الأدوات                          -->
-<!-- ========================================== -->
+<style>
+    #toolsScreen {
+        display: none;
+        flex-direction: column;
+        height: 100%;
+        background-color: #1f242d;
+        overflow-y: auto;
+    }
+    #toolsScreen.active {
+        display: flex;
+    }
+    .tools-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+        background: rgba(31, 36, 45, 0.85);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        flex-shrink: 0;
+    }
+    .tools-header-title {
+        color: #ffffff;
+        font-size: 20px;
+        font-weight: 700;
+    }
+    .tools-upgrade-btn {
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 6px 14px;
+        border-radius: 20px;
+        color: #ffffff;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+    }
+    .tools-body {
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .tool-card-item {
+        position: relative;
+        width: 100%;
+        height: 180px;
+        border-radius: 20px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 18px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+        border: 1px solid rgba(255,255,255,0.1);
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+    .tool-card-item:active {
+        transform: scale(0.98);
+    }
+    .tool-card-1 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop') center/contain no-repeat, #1f242d; }
+    .tool-card-2 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop') center/contain no-repeat, #1f242d; }
+    .tool-card-3 { background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop') center/contain no-repeat, #1f242d; }
 
+    .tool-info-box {
+        position: relative;
+        z-index: 2;
+    }
+    .tool-main-title {
+        color: #ffffff;
+        font-size: 17px;
+        font-weight: 700;
+        margin-bottom: 4px;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    }
+    .tool-sub-desc {
+        color: #cbd5e1;
+        font-size: 12px;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    }
+    .tool-arrow-icon {
+        position: absolute;
+        top: 16px;
+        inset-inline-end: 16px;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: bold;
+        background: rgba(0,0,0,0.4);
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(5px);
+    }
+</style>
+
+<!-- شاشة الأدوات -->
 <div id="toolsScreen" class="screen-view">
     <div class="tools-header">
         <div class="tools-header-title" data-tr="toolsTitle">الأدوات</div>
@@ -9,16 +104,25 @@
     </div>
     <div class="tools-body">
         <div class="tool-card-item tool-card-1" onclick="showToast('تأثيرات الفيديو قادمة قريباً')">
-            <div class="tool-arrow-icon" style="inset-inline-end: 16px;">‹</div>
-            <div class="tool-info-box"><div class="tool-main-title" data-tr="tool1Title">تأثيرات الفيديو</div><div class="tool-sub-desc" data-tr="tool1Sub">أضف لمسة سينمائية</div></div>
+            <div class="tool-arrow-icon">‹</div>
+            <div class="tool-info-box">
+                <div class="tool-main-title" data-tr="tool1Title">تأثيرات الفيديو</div>
+                <div class="tool-sub-desc" data-tr="tool1Sub">أضف لمسة سينمائية</div>
+            </div>
         </div>
         <div class="tool-card-item tool-card-2" onclick="showToast('توليد الفيديو قادم قريباً')">
-            <div class="tool-arrow-icon" style="inset-inline-end: 16px;">‹</div>
-            <div class="tool-info-box"><div class="tool-main-title" data-tr="tool2Title">توليد الفيديو</div><div class="tool-sub-desc" data-tr="tool2Sub">حول توجيهاً إلى فيديو خاص بك</div></div>
+            <div class="tool-arrow-icon">‹</div>
+            <div class="tool-info-box">
+                <div class="tool-main-title" data-tr="tool2Title">توليد الفيديو</div>
+                <div class="tool-sub-desc" data-tr="tool2Sub">حول توجيهاً إلى فيديو خاص بك</div>
+            </div>
         </div>
         <div class="tool-card-item tool-card-3" onclick="showToast('توليد الصور قادم قريباً')">
-            <div class="tool-arrow-icon" style="inset-inline-end: 16px;">‹</div>
-            <div class="tool-info-box"><div class="tool-main-title" data-tr="tool3Title">توليد الصور</div><div class="tool-sub-desc" data-tr="tool3Sub">حول فكرة إلى صورة مكتملة</div></div>
+            <div class="tool-arrow-icon">‹</div>
+            <div class="tool-info-box">
+                <div class="tool-main-title" data-tr="tool3Title">توليد الصور</div>
+                <div class="tool-sub-desc" data-tr="tool3Sub">حول فكرة إلى صورة مكتملة</div>
+            </div>
         </div>
     </div>
 </div>
