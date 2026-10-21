@@ -254,7 +254,7 @@
 
     <!-- شاشة الإعدادات -->
     <div class="settings-screen" id="settingsScreen">
-        <!-- الشريط العلوي: السهم الآن مخصص فقط للخروج/الرجوع ولا علاقة له بالترقية -->
+        <!-- الشريط العلوي: زر السهم مخصص فقط لإغلاق القائمة والعودة -->
         <div class="settings-top-bar">
             <button class="settings-close-btn" onclick="closeSettingsScreen(event)" title="رجوع وإغلاق">‹</button>
             <div class="settings-title">الإعدادات</div>
@@ -280,7 +280,7 @@
             </div>
         </div>
 
-        <!-- بنر الترقية (يعمل الآن ويفتح نافذة الاشتراكات) -->
+        <!-- بنر الترقية: زر عرض خطط Pro يفتح نافذة الاشتراكات أيضاً -->
         <div class="pro-banner-card">
             <div class="pro-banner-top">
                 <div class="pro-banner-title">افتح PlotCraft Pro</div>
@@ -300,7 +300,7 @@
             </div>
         </div>
 
-        <!-- زر تسجيل الدخول (تم تفعيله) -->
+        <!-- زر تسجيل الدخول -->
         <div class="settings-group-box" style="margin-top: auto;">
             <div class="settings-item-row" onclick="openLoginModal()" style="justify-content: center; color: #60a5fa;">
                 <span style="font-weight: bold;">تسجيل الدخول / إنشاء حساب</span>
@@ -309,7 +309,7 @@
     </div>
 
     <!-- نافذة تعديل الاسم المنبثقة -->
-    <div class="settings-modal-overlay" id="nameEditModalOverlay">
+    <div class="settings-modal-overlay" id="nameEditModalOverlay" onclick="closeNameEditModalOnOutside(event)">
         <div class="settings-modal-box">
             <h3 style="color:#fff; font-size:16px; margin:0;">تعديل الاسم</h3>
             <input type="text" id="nameEditInput" style="width:100%; padding:10px; border-radius:10px; border:1px solid #444; background:#1f242d; color:#fff; box-sizing: border-box;" placeholder="أدخل اسمك الجديد">
@@ -321,7 +321,7 @@
     </div>
 
     <!-- نافذة الترقية والاشتراكات المنبثقة -->
-    <div class="settings-modal-overlay" id="subscriptionModalOverlay">
+    <div class="settings-modal-overlay" id="subscriptionModalOverlay" onclick="closeSubscriptionModalOnOutside(event)">
         <div class="settings-modal-box">
             <h3 style="color:#fff; font-size:18px; margin:0; text-align:center;">خطط PlotCraft Pro</h3>
             <p style="color:#cbd5e1; font-size:13px; text-align:center; margin:0;">احصل على ميزات غير محدودة لصناعة أفلامك.</p>
@@ -336,7 +336,7 @@
     </div>
 
     <!-- نافذة تسجيل الدخول المنبثقة -->
-    <div class="settings-modal-overlay" id="loginModalOverlay">
+    <div class="settings-modal-overlay" id="loginModalOverlay" onclick="closeLoginModalOnOutside(event)">
         <div class="settings-modal-box">
             <h3 style="color:#fff; font-size:18px; margin:0; text-align:center;">تسجيل الدخول</h3>
             <input type="email" placeholder="البريد الإلكتروني" style="width:100%; padding:10px; border-radius:10px; border:1px solid #444; background:#1f242d; color:#fff; box-sizing: border-box;">
@@ -347,13 +347,14 @@
         </div>
     </div>
 
-    <!-- دوال الجافاسكريبت المحدثة -->
+    <!-- دوال الجافاسكريبت المفصولة بدقة -->
     <script>
         function openSettingsScreen() {
             const settings = document.getElementById('settingsScreen');
             if (settings) settings.classList.add('active');
         }
 
+        /* زر السهم العلوي: إغلاق الإعدادات فقط وبشكل مستقل تماماً */
         function closeSettingsScreen(event) {
             if (event) event.stopPropagation();
             const settings = document.getElementById('settingsScreen');
@@ -366,6 +367,12 @@
 
         function closeNameEditModal() {
             document.getElementById('nameEditModalOverlay').classList.remove('show');
+        }
+
+        function closeNameEditModalOnOutside(event) {
+            if (event.target.id === 'nameEditModalOverlay') {
+                closeNameEditModal();
+            }
         }
 
         function saveNewName() {
@@ -390,7 +397,7 @@
             alert(name);
         }
 
-        /* دوال نوافذ الترقية وتسجيل الدخول الجديدة */
+        /* دوال الاشتراكات والترقية المستقلة */
         function openSubscriptionModal() {
             document.getElementById('subscriptionModalOverlay').classList.add('show');
         }
@@ -399,12 +406,25 @@
             document.getElementById('subscriptionModalOverlay').classList.remove('show');
         }
 
+        function closeSubscriptionModalOnOutside(event) {
+            if (event.target.id === 'subscriptionModalOverlay') {
+                closeSubscriptionModal();
+            }
+        }
+
+        /* دوال تسجيل الدخول المستقلة */
         function openLoginModal() {
             document.getElementById('loginModalOverlay').classList.add('show');
         }
 
         function closeLoginModal() {
             document.getElementById('loginModalOverlay').classList.remove('show');
+        }
+
+        function closeLoginModalOnOutside(event) {
+            if (event.target.id === 'loginModalOverlay') {
+                closeLoginModal();
+            }
         }
     </script>
 </body>
