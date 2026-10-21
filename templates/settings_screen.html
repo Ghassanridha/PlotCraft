@@ -54,6 +54,9 @@
             transition: 0.2s;
             outline: none;
         }
+        .settings-close-btn:active {
+            transform: scale(0.95);
+        }
         .settings-upgrade-badge {
             background: rgba(255, 255, 255, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -219,7 +222,7 @@
             gap: 6px; 
         }
 
-        /* نافذة تعديل الاسم المنبثقة */
+        /* النوافذ المنبثقة العامة */
         .settings-modal-overlay {
             display: none;
             position: fixed;
@@ -249,13 +252,11 @@
 </head>
 <body>
 
-    <!-- ملاحظة: زر فتح الإعدادات الخاص بك في أعلى اليسار يجب أن يكون مرتبطاً بهذه الدالة -->
-    <!-- مثال: <button onclick="openSettingsScreen()">أيقونة الحافلة</button> -->
-
-    <!-- شاشة الإعدادات المخفية افتراضياً (لن تظهر إلا عند الضغط على الزر) -->
+    <!-- شاشة الإعدادات -->
     <div class="settings-screen" id="settingsScreen">
+        <!-- الشريط العلوي: السهم الآن مخصص فقط للخروج/الرجوع ولا علاقة له بالترقية -->
         <div class="settings-top-bar">
-            <button class="settings-close-btn" onclick="closeSettingsScreen(event)" title="رجوع">‹</button>
+            <button class="settings-close-btn" onclick="closeSettingsScreen(event)" title="رجوع وإغلاق">‹</button>
             <div class="settings-title">الإعدادات</div>
             <button class="settings-upgrade-badge" onclick="openSubscriptionModal()">ترقية</button>
         </div>
@@ -279,7 +280,7 @@
             </div>
         </div>
 
-        <!-- بنر الترقية -->
+        <!-- بنر الترقية (يعمل الآن ويفتح نافذة الاشتراكات) -->
         <div class="pro-banner-card">
             <div class="pro-banner-top">
                 <div class="pro-banner-title">افتح PlotCraft Pro</div>
@@ -298,13 +299,20 @@
                 <div class="settings-item-left"><span>›</span></div>
             </div>
         </div>
+
+        <!-- زر تسجيل الدخول (تم تفعيله) -->
+        <div class="settings-group-box" style="margin-top: auto;">
+            <div class="settings-item-row" onclick="openLoginModal()" style="justify-content: center; color: #60a5fa;">
+                <span style="font-weight: bold;">تسجيل الدخول / إنشاء حساب</span>
+            </div>
+        </div>
     </div>
 
     <!-- نافذة تعديل الاسم المنبثقة -->
     <div class="settings-modal-overlay" id="nameEditModalOverlay">
         <div class="settings-modal-box">
-            <h3 style="color:#fff; font-size:16px;">تعديل الاسم</h3>
-            <input type="text" id="nameEditInput" style="width:100%; padding:10px; border-radius:10px; border:1px solid #444; background:#1f242d; color:#fff;" placeholder="أدخل اسمك الجديد">
+            <h3 style="color:#fff; font-size:16px; margin:0;">تعديل الاسم</h3>
+            <input type="text" id="nameEditInput" style="width:100%; padding:10px; border-radius:10px; border:1px solid #444; background:#1f242d; color:#fff; box-sizing: border-box;" placeholder="أدخل اسمك الجديد">
             <div style="display:flex; gap:10px; justify-content: flex-end;">
                 <button onclick="closeNameEditModal()" style="padding:8px 16px; border-radius:8px; border:none; background:#444; color:#fff; cursor:pointer;">إلغاء</button>
                 <button onclick="saveNewName()" style="padding:8px 16px; border-radius:8px; border:none; background:#3b82f6; color:#fff; cursor:pointer;">حفظ</button>
@@ -312,15 +320,40 @@
         </div>
     </div>
 
-    <!-- دوال الجافاسكريبت للتحكم بالفتح والإغلاق -->
+    <!-- نافذة الترقية والاشتراكات المنبثقة -->
+    <div class="settings-modal-overlay" id="subscriptionModalOverlay">
+        <div class="settings-modal-box">
+            <h3 style="color:#fff; font-size:18px; margin:0; text-align:center;">خطط PlotCraft Pro</h3>
+            <p style="color:#cbd5e1; font-size:13px; text-align:center; margin:0;">احصل على ميزات غير محدودة لصناعة أفلامك.</p>
+            <div style="background: #1f242d; padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); color: #fff; text-align: center;">
+                <strong>الاشتراك الشهري الاحترافي</strong>
+                <div style="color: #3b82f6; font-size: 16px; margin-top: 5px;">$9.99 / شهرياً</div>
+            </div>
+            <div style="display:flex; gap:10px; justify-content: center; margin-top: 5px;">
+                <button onclick="closeSubscriptionModal()" style="padding:8px 16px; border-radius:8px; border:none; background:#444; color:#fff; cursor:pointer; width:100%;">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة تسجيل الدخول المنبثقة -->
+    <div class="settings-modal-overlay" id="loginModalOverlay">
+        <div class="settings-modal-box">
+            <h3 style="color:#fff; font-size:18px; margin:0; text-align:center;">تسجيل الدخول</h3>
+            <input type="email" placeholder="البريد الإلكتروني" style="width:100%; padding:10px; border-radius:10px; border:1px solid #444; background:#1f242d; color:#fff; box-sizing: border-box;">
+            <div style="display:flex; gap:10px; justify-content: flex-end;">
+                <button onclick="closeLoginModal()" style="padding:8px 16px; border-radius:8px; border:none; background:#444; color:#fff; cursor:pointer;">إلغاء</button>
+                <button onclick="alert('تم تسجيل الدخول بنجاح'); closeLoginModal();" style="padding:8px 16px; border-radius:8px; border:none; background:#3b82f6; color:#fff; cursor:pointer;">دخول</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- دوال الجافاسكريبت المحدثة -->
     <script>
-        // دالة فتح شاشة الإعدادات (اربطها بزر الأيقونة في أعلى اليسار)
         function openSettingsScreen() {
             const settings = document.getElementById('settingsScreen');
             if (settings) settings.classList.add('active');
         }
 
-        // دالة إغلاق شاشة الإعدادات
         function closeSettingsScreen(event) {
             if (event) event.stopPropagation();
             const settings = document.getElementById('settingsScreen');
@@ -357,8 +390,21 @@
             alert(name);
         }
 
+        /* دوال نوافذ الترقية وتسجيل الدخول الجديدة */
         function openSubscriptionModal() {
-            alert('نافذة الترقية');
+            document.getElementById('subscriptionModalOverlay').classList.add('show');
+        }
+
+        function closeSubscriptionModal() {
+            document.getElementById('subscriptionModalOverlay').classList.remove('show');
+        }
+
+        function openLoginModal() {
+            document.getElementById('loginModalOverlay').classList.add('show');
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModalOverlay').classList.remove('show');
         }
     </script>
 </body>
