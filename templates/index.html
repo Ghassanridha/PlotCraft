@@ -2126,16 +2126,24 @@
             </div>
         </div>
 
-        <!-- شاشة الأدوات -->
+        <!-- شاشة الأدوات (المحدثة مع الكود الجديد لقراءة الأدوات الثلاثة) -->
         <div id="toolsScreen" class="screen-view">
             <div class="tools-header">
-                <div class="tools-header-title">الأدوات</div>
-                <div class="tools-upgrade-btn" onclick="openSubscriptionModal()">ترقية</div>
+                <div class="tools-header-title" data-tr="toolsTitle">الأدوات</div>
+                <div class="tools-upgrade-btn" onclick="openSubscriptionModalFromBadge(event)" data-tr="upgradeBadge">ترقية</div>
             </div>
             <div class="tools-body">
-                <div class="tool-card-item tool-card-1" onclick="showToast('قريباً')">
+                <div class="tool-card-item tool-card-1" onclick="showToast('تأثيرات الفيديو قادمة قريباً')">
                     <div class="tool-arrow-icon" style="inset-inline-end: 16px;">‹</div>
-                    <div class="tool-info-box"><div class="tool-main-title">تأثيرات الفيديو</div><div class="tool-sub-desc">أضف لمسة سينمائية</div></div>
+                    <div class="tool-info-box"><div class="tool-main-title" data-tr="tool1Title">تأثيرات الفيديو</div><div class="tool-sub-desc" data-tr="tool1Sub">أضف لمسة سينمائية</div></div>
+                </div>
+                <div class="tool-card-item tool-card-2" onclick="showToast('توليد الفيديو قادم قريباً')">
+                    <div class="tool-arrow-icon" style="inset-inline-end: 16px;">‹</div>
+                    <div class="tool-info-box"><div class="tool-main-title" data-tr="tool2Title">توليد الفيديو</div><div class="tool-sub-desc" data-tr="tool2Sub">حول توجيهاً إلى فيديو خاص بك</div></div>
+                </div>
+                <div class="tool-card-item tool-card-3" onclick="showToast('توليد الصور قادم قريباً')">
+                    <div class="tool-arrow-icon" style="inset-inline-end: 16px;">‹</div>
+                    <div class="tool-info-box"><div class="tool-main-title" data-tr="tool3Title">توليد الصور</div><div class="tool-sub-desc" data-tr="tool3Sub">حول فكرة إلى صورة مكتملة</div></div>
                 </div>
             </div>
         </div>
