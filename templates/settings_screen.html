@@ -12,17 +12,24 @@
             font-family: system-ui, -apple-system, sans-serif;
         }
 
-        /* شاشة الإعدادات - ظاهرة دائماً لأنها صفحة مستقلة على Flask */
+        /* شاشة الإعدادات: مخفية افتراضياً وتظهر فقط عند إضافة كلاس active */
         .settings-screen {
-            display: flex !important;
-            position: relative;
+            display: none;
+            position: fixed;
+            top: 0; 
+            left: 0; 
             width: 100%; 
-            min-height: 100vh;
+            height: 100%;
             background-color: #1f242d;
+            z-index: 99999;
             flex-direction: column;
             overflow-y: auto;
             padding: 20px;
             box-sizing: border-box;
+        }
+        
+        .settings-screen.active { 
+            display: flex !important; 
         }
 
         .settings-top-bar {
@@ -253,8 +260,8 @@
     <!-- شاشة الإعدادات المستقلة -->
     <div class="settings-screen" id="settingsScreen">
         <div class="settings-top-bar">
-            <!-- زر الرجوع يعود للصفحة الرئيسية في Flask -->
-            <button class="settings-close-btn" onclick="goBackHome()" title="رجوع">‹</button>
+            <!-- زر السهم لإغلاق الإعدادات والعودة للرئيسية -->
+            <button class="settings-close-btn" onclick="closeSettingsScreen(event)" title="رجوع">‹</button>
             <div class="settings-title">الإعدادات</div>
             <button class="settings-upgrade-badge" onclick="openSubscriptionModal()">ترقية</button>
         </div>
@@ -323,7 +330,7 @@
                 <strong>الاشتراك الشهري الاحترافي</strong>
                 <div style="color: #3b82f6; font-size: 16px; margin-top: 5px;">$9.99 / شهرياً</div>
             </div>
-            <div style="display:flex; gap:10px; justify- content: center; margin-top: 5px;">
+            <div style="display:flex; gap:10px; justify-content: center; margin-top: 5px;">
                 <button onclick="closeSubscriptionModal()" style="padding:8px 16px; border-radius:8px; border:none; background:#444; color:#fff; cursor:pointer; width:100%;">إغلاق</button>
             </div>
         </div>
@@ -342,13 +349,14 @@
     </div>
 
     <script>
-        // زر الرجوع
-        function goBackHome() {
-            if (document.referrer) {
-                window.history.back();
-            } else {
-                window.location.href = "/";
-            }
+        // فتح وإغلاق الشاشة
+        function openSettingsScreen() {
+            document.getElementById('settingsScreen').classList.add('active');
+        }
+
+        function closeSettingsScreen(event) {
+            if (event) event.stopPropagation();
+            document.getElementById('settingsScreen').classList.remove('active');
         }
 
         // تعديل الاسم وتخزينه بالمتصفح
