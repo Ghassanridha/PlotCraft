@@ -1643,8 +1643,8 @@
                     <span>الرئيسية</span>
                 </a>
                 
-                <!-- زر اليوتيوب المستقل بدل الأدوات (مربع أحمر وبداخله مثلث وبدون اسم) -->
-                <a href="/youtube" id="navTools" style="text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 2px;">
+                <!-- زر اليوتيوب المباشر المدمج الصحيح الذي يفتح toolsScreen بدون خطأ Not Found -->
+                <a href="#" class="plotcraft-nav-item" id="navTools" onclick="switchScreen('toolsScreen', event); setActiveNav('navTools')" style="text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 2px;">
                     <svg width="28" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="2" y="4" width="20" height="16" rx="4" fill="#FF0000" />
                         <polygon points="10,8 16,12 10,16" fill="#FFFFFF" />
@@ -1670,7 +1670,12 @@
         window.switchScreen = function(screenId, event) {
             if (event) event.preventDefault();
             document.querySelectorAll('.screen-view').forEach(s => s.classList.remove('active'));
-            document.getElementById(screenId).classList.add('active');
+            
+            const targetScreen = document.getElementById(screenId);
+            if (targetScreen) {
+                targetScreen.classList.add('active');
+            }
+
             let navBar = document.getElementById('mainNavBar');
             if (['sparkleDialogScreen', 'addCharacterScreen', 'storyDescriptionScreen', 'stepByStepScreen'].includes(screenId)) {
                 navBar.classList.add('hidden');
