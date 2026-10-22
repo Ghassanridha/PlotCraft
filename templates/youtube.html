@@ -1,17 +1,19 @@
-<!-- شاشة قائمة اليوتيوب (youtube.html) -->
-<div id="toolsScreen" class="screen-view" style="padding-bottom: 70px; background-color: #0f0f0f; position: relative;">
+<!-- شاشة اليوتيوب الرئيسية (youtube.html) -->
+<div id="toolsScreen" class="screen-view" style="padding-bottom: 70px; background-color: #0f0f0f; position: relative; height: 100vh; overflow-y: auto;">
 
-    <!-- 1. الهيدر العلوي المتحرك -->
-    <div id="ytHeaderContainer" style="position: sticky; top: 0; z-index: 100; background-color: #0f0f0f; transition: transform 0.3s ease, opacity 0.3s ease; border-bottom: 1px solid rgba(255,255,255,0.08);">
+    <!-- 1. الهيدر العلوي وشريط البحث -->
+    <div id="ytHeaderContainer" style="position: sticky; top: 0; z-index: 100; background-color: #0f0f0f; border-bottom: 1px solid rgba(255,255,255,0.08);">
         
-        <!-- السطر العلوي: الشعار + الإشعارات + البحث -->
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px;">
+        <!-- الهيدر العادي -->
+        <div id="mainHeaderView" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px;">
             <div style="display: flex; align-items: center; gap: 18px;">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="rippleEffect(this)">
+                <!-- أيقونة البحث -->
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="openSearchUI()">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
-                <div style="position: relative; cursor: pointer;" onclick="rippleEffect(this)">
+                <!-- الإشعارات -->
+                <div style="position: relative; cursor: pointer;">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                         <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
@@ -20,6 +22,7 @@
                 </div>
             </div>
 
+            <!-- اللوجو -->
             <div style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
                 <span style="color: #ffffff; font-weight: bold; font-size: 18px; font-family: Roboto, sans-serif;">YouTube</span>
                 <svg width="28" height="20" viewBox="0 0 24 24" fill="none">
@@ -29,219 +32,168 @@
             </div>
         </div>
 
-        <!-- السطر الثاني: شريط التبويبات العلوي -->
-        <div style="display: flex; gap: 22px; padding: 8px 16px 12px 16px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; direction: rtl;" id="ytTabsContainer">
-            <div class="yt-top-tab active" onclick="switchYtTab(this)" style="color: #ffffff; font-size: 14px; font-weight: bold; position: relative; padding: 6px 10px; border-radius: 8px; cursor: pointer;">
-                الصفحة الرئيسية
-                <div class="active-tab-indicator" style="position: absolute; bottom: 0; right: 10px; left: 10px; height: 2px; background: #ff0000; border-radius: 2px;"></div>
-            </div>
-            <div class="yt-top-tab" onclick="switchYtTab(this)" style="color: #aaaaaa; font-size: 14px; font-weight: 500; position: relative; padding: 6px 10px; border-radius: 8px; cursor: pointer;">
-                الاشتراكات
-                <div class="active-tab-indicator" style="position: absolute; bottom: 0; right: 10px; left: 10px; height: 2px; background: transparent; border-radius: 2px;"></div>
-            </div>
-            <div class="yt-top-tab" onclick="switchYtTab(this)" style="color: #aaaaaa; font-size: 14px; font-weight: 500; position: relative; padding: 6px 10px; border-radius: 8px; cursor: pointer;">
-                موسيقى
-                <div class="active-tab-indicator" style="position: absolute; bottom: 0; right: 10px; left: 10px; height: 2px; background: transparent; border-radius: 2px;"></div>
-            </div>
-            <div class="yt-top-tab" onclick="switchYtTab(this)" style="color: #aaaaaa; font-size: 14px; font-weight: 500; position: relative; padding: 6px 10px; border-radius: 8px; cursor: pointer;">
-                مباشر
-                <div class="active-tab-indicator" style="position: absolute; bottom: 0; right: 10px; left: 10px; height: 2px; background: transparent; border-radius: 2px;"></div>
-            </div>
-            <div class="yt-top-tab" onclick="switchYtTab(this)" style="color: #aaaaaa; font-size: 14px; font-weight: 500; position: relative; padding: 6px 10px; border-radius: 8px; cursor: pointer;">
-                المزيد
-                <div class="active-tab-indicator" style="position: absolute; bottom: 0; right: 10px; left: 10px; height: 2px; background: transparent; border-radius: 2px;"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 2. محتوى الصفحة -->
-    <div style="padding: 16px; display: flex; flex-direction: column; gap: 18px;">
-        <div style="background: #1f242d; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08);" onclick="showToast('جاري فتح الأداة...')">
-            <div style="width: 100%; height: 180px; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%), url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=600&auto=format&fit=crop') center/cover; position: relative; display: flex; align-items: center; justify-content: center;">
-                <div style="width: 48px; height: 48px; background: rgba(255,0,0,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff"><polygon points="8,5 19,12 8,19" /></svg>
-                </div>
-            </div>
-            <div style="padding: 12px; display: flex; gap: 12px; align-items: center;">
-                <div style="width: 38px; height: 38px; border-radius: 50%; background: #ff0000; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: bold; font-size: 15px; flex-shrink: 0;">🎬</div>
-                <div style="flex-grow: 1;">
-                    <h3 style="color: #ffffff; font-size: 14px; font-weight: 700; margin-bottom: 2px;">مُنشئ سكربتات وحوارات اليوتيوب</h3>
-                    <p style="color: #aaa; font-size: 11px;">توليد سيناريو كامل بالذكاء الاصطناعي</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 3. الشريط السفلي الثابت -->
-    <div style="position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background-color: #0f0f0f; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-around; align-items: center; z-index: 999999; box-sizing: border-box;">
-        
-        <div class="bottom-nav-btn" onclick="switchScreen('homeScreen', event); bottomRipple(this)" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 25%; height: 100%; cursor: pointer; color: #ffffff;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-        </div>
-
-        <div class="bottom-nav-btn" onclick="showToast('Shorts'); bottomRipple(this)" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 25%; height: 100%; cursor: pointer; color: #ffffff;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.77 10.32l-1.2-.5L18 9.06c1.84-.96 2.53-3.23 1.56-5.06s-3.24-2.53-5.07-1.56L6 6.22C4.13 7.18 3.42 9.48 4.38 11.33c.53 1.02 1.45 1.7 2.53 1.94l1.2.5-1.43.76c-1.84.96-2.53 3.23-1.56 5.06 1 1.83 3.27 2.5 5.1 1.53l8.43-3.78c1.87-.96 2.58-3.26 1.62-5.11-.53-1.01-1.45-1.7-2.5-1.91zM10 14.5v-5l4.5 2.5L10 14.5z"/></svg>
-        </div>
-
-        <div class="bottom-nav-btn" onclick="openPlusMenu(); bottomRipple(this)" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 25%; height: 100%; cursor: pointer; color: #ffffff;">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                <circle cx="12" cy="12" r="10" stroke="#ffffff"/>
-                <line x1="12" y1="8" x2="12" y2="16" stroke="#ffffff"/>
-                <line x1="8" y1="12" x2="16" y2="12" stroke="#ffffff"/>
-            </svg>
-        </div>
-
-        <div class="bottom-nav-btn" onclick="openSettingsScreen(event); bottomRipple(this)" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 25%; height: 100%; cursor: pointer; color: #ffffff;">
-            <div style="width: 26px; height: 26px; border-radius: 50%; overflow: hidden; border: 1.5px solid #ffffff;">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;" alt="Profile">
-            </div>
-        </div>
-
-    </div>
-
-</div>
-
-<!-- 4. شاشة القائمة السوداء عند الضغط على زر الزائد -->
-<div id="plusMenuModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000000; z-index: 9999999; flex-direction: column; justify-content: space-between; padding: 20px 16px; box-sizing: border-box;">
-    
-    <!-- الهيدر العلوي -->
-    <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%; position: relative;">
-        
-        <!-- الجهة اليسرى: علامة X وتحتها عبارة "تحميل فيديو من معرض الصور" -->
-        <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 8px;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="closePlusMenu()">
+        <!-- واجهة البحث التفاعلية (تظهر عند الضغط على أداة البحث) -->
+        <div id="searchHeaderView" style="display: none; padding: 10px 16px; background: #0f0f0f; align-items: center; gap: 12px; position: relative;">
+            <input type="text" id="searchInput" oninput="handleSearchInput(this.value)" placeholder="ابحث في YouTube..." style="width: 100%; background: #222222; border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 8px 16px; color: #ffffff; font-size: 14px; outline: none;">
+            
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="closeSearchUI()">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
-            <span style="color: #ffffff; font-size: 15px; font-weight: bold;">تحميل فيديو من معرض الصور</span>
+
+            <!-- قائمة الأسماء والمقترحات المنسدلة للبحث -->
+            <div id="searchSuggestions" style="display: none; position: absolute; top: 50px; left: 16px; right: 16px; background: #1f1f1f; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); max-height: 220px; overflow-y: auto; z-index: 200; box-shadow: 0 8px 20px rgba(0,0,0,0.8);">
+            </div>
         </div>
 
-        <!-- الجهة اليمنى: كلمة "الفيديوهات" وبجانبها السهم من جهة اليمين -->
-        <div style="position: relative;">
-            <div onclick="toggleAlbumsDropdown(event)" style="display: flex; align-items: center; gap: 6px; color: #ffffff; font-size: 14px; font-weight: bold; cursor: pointer; background: rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 12px;">
-                <span id="mediaDropdownTitle">الفيديوهات</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        <!-- شريط التبويبات العلوي -->
+        <div style="display: flex; gap: 22px; padding: 8px 16px 12px 16px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; direction: rtl;" id="ytTabsContainer">
+            <div class="yt-top-tab active" style="color: #ffffff; font-size: 14px; font-weight: bold; position: relative; padding: 6px 10px; border-radius: 8px; cursor: pointer;">
+                الصفحة الرئيسية
+                <div style="position: absolute; bottom: 0; right: 10px; left: 10px; height: 2px; background: #ff0000; border-radius: 2px;"></div>
             </div>
-
-            <!-- القائمة السوداء المنسدلة عمودياً -->
-            <div id="albumsDropdownMenu" style="display: none; position: absolute; top: 40px; right: 0; background: #000000; border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; overflow: hidden; z-index: 10; min-width: 140px; box-shadow: 0 4px 15px rgba(0,0,0,0.9); flex-direction: column; text-align: right;">
-                <div onclick="selectMediaType('videos')" style="padding: 12px 16px; color: #ffffff; font-size: 13px; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.1);" onmouseover="this.style.background='#222222'" onmouseout="this.style.background='transparent'">الفيديوهات</div>
-                <div onclick="selectMediaType('albums')" style="padding: 12px 16px; color: #ffffff; font-size: 13px; cursor: pointer;" onmouseover="this.style.background='#222222'" onmouseout="this.style.background='transparent'">الألبومات</div>
-            </div>
+            <div class="yt-top-tab" style="color: #aaaaaa; font-size: 14px; font-weight: 500; padding: 6px 10px; cursor: pointer;">الاشتراكات</div>
+            <div class="yt-top-tab" style="color: #aaaaaa; font-size: 14px; font-weight: 500; padding: 6px 10px; cursor: pointer;">موسيقى</div>
+            <div class="yt-top-tab" style="color: #aaaaaa; font-size: 14px; font-weight: 500; padding: 6px 10px; cursor: pointer;">مباشر</div>
         </div>
     </div>
 
-    <!-- منطقة عرض الفيديو المختار (بدون أزرار حشو في المنتصف) -->
-    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; text-align: center; width: 100%;">
-        <input type="file" id="deviceVideoInput" accept="video/*" style="display: none;" onchange="handleVideoSelected(event)">
-        
-        <div id="selectedVideoPreviewContainer" style="display: none; width: 100%; max-width: 400px;">
-            <video id="videoPreviewElement" controls style="width: 100%; border-radius: 12px; max-height: 280px; background: #000;"></video>
-        </div>
+    <!-- 2. قائمة الفيديوهات الرئيسية المتعددة (قابلة للتمرير العمودي) -->
+    <div id="videoFeedContainer" style="padding: 16px; display: flex; flex-direction: column; gap: 20px;">
+        <!-- يتم إدراج الفيديوهات تلقائياً عبر JavaScript -->
     </div>
 
-    <!-- الشريط السفلي الأفقي المتحرك يميناً ويساراً بسلاسة -->
-    <div style="display: flex; gap: 12px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; direction: rtl; padding-bottom: 10px; align-items: center; width: 100%; box-sizing: border-box;" id="plusBottomCarousel">
-        <div class="plus-tab-item active-plus-tab" onclick="selectPlusTab(this, 'video')" style="flex-shrink: 0; background: #ffffff; color: #000000; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: bold; cursor: pointer;">
-            فيديو
-        </div>
-        <div class="plus-tab-item" onclick="selectPlusTab(this, 'shorts')" style="flex-shrink: 0; background: #282f3d; color: #ffffff; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: 600; cursor: pointer;">
-            Shorts
-        </div>
-        <div class="plus-tab-item" onclick="selectPlusTab(this, 'live')" style="flex-shrink: 0; background: #282f3d; color: #ffffff; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: 600; cursor: pointer;">
-            بث مباشر
-        </div>
-        <div class="plus-tab-item" onclick="selectPlusTab(this, 'post')" style="flex-shrink: 0; background: #282f3d; color: #ffffff; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: 600; cursor: pointer;">
-            منشور
-        </div>
+    <!-- 3. الشريط السفلي الثابت -->
+    <div style="position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background-color: #0f0f0f; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-around; align-items: center; z-index: 999999;">
+        <div style="cursor: pointer; color: #ffffff;"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
+        <div style="cursor: pointer; color: #ffffff;"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.77 10.32l-1.2-.5L18 9.06c1.84-.96 2.53-3.23 1.56-5.06s-3.24-2.53-5.07-1.56L6 6.22C4.13 7.18 3.42 9.48 4.38 11.33c.53 1.02 1.45 1.7 2.53 1.94l1.2.5-1.43.76c-1.84.96-2.53 3.23-1.56 5.06 1 1.83 3.27 2.5 5.1 1.53l8.43-3.78c1.87-.96 2.58-3.26 1.62-5.11-.53-1.01-1.45-1.7-2.5-1.91zM10 14.5v-5l4.5 2.5L10 14.5z"/></svg></div>
+        <div style="cursor: pointer; color: #ffffff;" onclick="openPlusMenu()"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
+        <div style="cursor: pointer; color: #ffffff;"><div style="width: 26px; height: 26px; border-radius: 50%; overflow: hidden; border: 1.5px solid #ffffff;"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;"></div></div>
     </div>
 
 </div>
 
-<!-- دوال التفاعل -->
+<!-- 4. البرمجة التفاعلية للفيديوهات والبحث -->
 <script>
-    function openPlusMenu() {
-        const modal = document.getElementById('plusMenuModal');
-        if (modal) modal.style.display = 'flex';
-    }
-
-    function closePlusMenu() {
-        const modal = document.getElementById('plusMenuModal');
-        if (modal) modal.style.display = 'none';
-    }
-
-    function toggleAlbumsDropdown(event) {
-        event.stopPropagation();
-        const dropdown = document.getElementById('albumsDropdownMenu');
-        if (dropdown) {
-            dropdown.style.display = (dropdown.style.display === 'flex') ? 'none' : 'flex';
+    // قائمة الفيديوهات القادمة تلقائياً (يمكن إضافة عشرات الفيديوهات هنا)
+    const videosData = [
+        {
+            id: 1,
+            title: "مُنشئ سكربتات وحوارات اليوتيوب بالذكاء الاصطناعي",
+            channel: "قناة PlotCraft",
+            duration: "10:25",
+            views: "15 ألف مشاهدة",
+            thumbnail: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=600&auto=format&fit=crop"
+        },
+        {
+            id: 2,
+            title: "تغطية دوري أبطال أوروبا وتحليل المباريات",
+            channel: "الرياضة اليوم",
+            duration: "18:40",
+            views: "120 ألف مشاهدة",
+            thumbnail: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=600&auto=format&fit=crop"
+        },
+        {
+            id: 3,
+            title: "أفضل الممارسات لتصميم واجهات تطبيقات الهواتف",
+            channel: "عالم البرمجة",
+            duration: "14:15",
+            views: "45 ألف مشاهدة",
+            thumbnail: "https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=600&auto=format&fit=crop"
+        },
+        {
+            id: 4,
+            title: "طريقة إعداد تجميعة PC واختيار القطع المناسبة",
+            channel: "تقنية وتجميعات",
+            duration: "22:05",
+            views: "89 ألف مشاهدة",
+            thumbnail: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?q=80&w=600&auto=format&fit=crop"
         }
+    ];
+
+    // عرض الفيديوهات في الصفحة تلقائياً
+    function renderVideos(list) {
+        const container = document.getElementById('videoFeedContainer');
+        container.innerHTML = '';
+
+        if (list.length === 0) {
+            container.innerHTML = `<div style="color: #aaa; text-align: center; padding: 40px 0;">لا توجد نتائج مطابقة للبحث</div>`;
+            return;
+        }
+
+        list.forEach(video => {
+            const card = document.createElement('div');
+            card.style.cssText = "background: #1f242d; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); cursor: pointer;";
+            card.innerHTML = `
+                <div style="width: 100%; height: 180px; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%), url('${video.thumbnail}') center/cover; position: relative; display: flex; align-items: center; justify-content: center;">
+                    <div style="width: 48px; height: 48px; background: rgba(255,0,0,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff"><polygon points="8,5 19,12 8,19" /></svg>
+                    </div>
+                    <span style="position: absolute; bottom: 8px; left: 8px; background: rgba(0,0,0,0.8); color: #fff; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">${video.duration}</span>
+                </div>
+                <div style="padding: 12px; display: flex; gap: 12px; align-items: center;">
+                    <div style="width: 38px; height: 38px; border-radius: 50%; background: #ff0000; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: bold; font-size: 15px; flex-shrink: 0;">🎬</div>
+                    <div style="flex-grow: 1;">
+                        <h3 style="color: #ffffff; font-size: 14px; font-weight: 700; margin-bottom: 2px;">${video.title}</h3>
+                        <p style="color: #aaa; font-size: 11px;">${video.channel} • ${video.views}</p>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
     }
 
-    function selectMediaType(type) {
-        const titleSpan = document.getElementById('mediaDropdownTitle');
-        const dropdown = document.getElementById('albumsDropdownMenu');
-        if (type === 'videos') {
-            titleSpan.innerText = "الفيديوهات";
-            document.getElementById('deviceVideoInput').click();
+    // فتح واجهة البحث
+    function openSearchUI() {
+        document.getElementById('mainHeaderView').style.display = 'none';
+        const searchView = document.getElementById('searchHeaderView');
+        searchView.style.display = 'flex';
+        document.getElementById('searchInput').focus();
+    }
+
+    // إغلاق واجهة البحث
+    function closeSearchUI() {
+        document.getElementById('mainHeaderView').style.display = 'flex';
+        document.getElementById('searchHeaderView').style.display = 'none';
+        document.getElementById('searchSuggestions').style.display = 'none';
+        renderVideos(videosData);
+    }
+
+    // التعامل مع الكتابة وإظهار المقترحات المباشرة
+    function handleSearchInput(query) {
+        const suggestionsBox = document.getElementById('searchSuggestions');
+        if (!query.trim()) {
+            suggestionsBox.style.display = 'none';
+            renderVideos(videosData);
+            return;
+        }
+
+        const filtered = videosData.filter(v => 
+            v.title.toLowerCase().includes(query.toLowerCase()) || 
+            v.channel.toLowerCase().includes(query.toLowerCase())
+        );
+
+        // بناء قائمة الاقتراحات
+        suggestionsBox.innerHTML = '';
+        if (filtered.length > 0) {
+            suggestionsBox.style.display = 'block';
+            filtered.forEach(item => {
+                const row = document.createElement('div');
+                row.style.cssText = "padding: 10px 14px; color: #fff; font-size: 13px; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.05);";
+                row.innerText = item.title;
+                row.onclick = function() {
+                    document.getElementById('searchInput').value = item.title;
+                    suggestionsBox.style.display = 'none';
+                    renderVideos([item]);
+                };
+                suggestionsBox.appendChild(row);
+            });
         } else {
-            titleSpan.innerText = "الألبومات";
-        }
-        if (dropdown) dropdown.style.display = 'none';
-    }
-
-    window.addEventListener('click', function() {
-        const dropdown = document.getElementById('albumsDropdownMenu');
-        if (dropdown) dropdown.style.display = 'none';
-    });
-
-    function selectPlusTab(element, type) {
-        document.querySelectorAll('.plus-tab-item').forEach(tab => {
-            tab.style.color = "#ffffff";
-            tab.style.fontWeight = "600";
-            tab.style.backgroundColor = "#282f3d";
-        });
-        element.style.color = "#000000";
-        element.style.fontWeight = "bold";
-        element.style.backgroundColor = "#ffffff";
-
-        if (type === 'video') {
-            document.getElementById('deviceVideoInput').click();
+            suggestionsBox.style.display = 'none';
+            renderVideos([]);
         }
     }
 
-    function handleVideoSelected(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const videoURL = URL.createObjectURL(file);
-            const previewContainer = document.getElementById('selectedVideoPreviewContainer');
-            const videoElement = document.getElementById('videoPreviewElement');
-
-            videoElement.src = videoURL;
-            previewContainer.style.display = 'block';
-        }
-    }
-
-    function switchYtTab(element) {
-        document.querySelectorAll('.yt-top-tab').forEach(tab => {
-            tab.style.color = "#aaaaaa";
-            tab.style.fontWeight = "500";
-            let ind = tab.querySelector('.active-tab-indicator');
-            if (ind) ind.style.background = "transparent";
-        });
-        element.style.color = "#ffffff";
-        element.style.fontWeight = "bold";
-        let activeInd = element.querySelector('.active-tab-indicator');
-        if (activeInd) activeInd.style.background = "#ff0000";
-    }
-
-    function bottomRipple(element) {
-        element.style.backgroundColor = "rgba(255, 255, 255, 0.25)";
-        setTimeout(() => { element.style.backgroundColor = "transparent"; }, 200);
-    }
-
-    function rippleEffect(element) {
-        element.style.opacity = "0.4";
-        setTimeout(() => { element.style.opacity = "1"; }, 200);
-    }
+    // تشغيل القائمة الافتراضية للفيديوهات عند التحميل
+    renderVideos(videosData);
 </script>
