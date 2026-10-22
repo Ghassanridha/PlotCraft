@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <!-- شريط التصنيفات (يحتوي على تصنيفات عربية وعالمية مختلطة) -->
+        <!-- شريط التصنيفات (النصوص كما هي تماماً بدون قص) -->
         <div style="display: flex; gap: 10px; padding: 8px 16px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; direction: rtl; border-bottom: 1px solid rgba(255,255,255,0.05);">
             <div onclick="resetToYouTubeHome()" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">الصفحة الرئيسية</div>
             <div onclick="fetchYouTubeVideos('قنوات عراقية مشهورة', false)" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">منوعات عراقية</div>
@@ -121,7 +121,7 @@
         touchStartX = e.touches[0].clientX;
     }, {passive: true});
 
-    // منع المتصفح من اعتراض إيماءة السحب وإخراج المستخدم للموقع الخارجي
+    // التعديل الصحيح لمنع متصفح الهاتف من مغادرة التطبيق وجعل السحب خاص بيوتيوب حصراً
     toolsScreen.addEventListener('touchend', function(e) {
         let touchEndX = e.changedTouches[0].clientX;
         let diffX = touchEndX - touchStartX;
@@ -147,12 +147,12 @@
     function handleEdgeSwipe() {
         if (isVideoPlaying) {
             if (!isMiniPlayer) {
-                makeMiniPlayer(); // تصغير الفيديو لمربع أسفل اليمين
+                makeMiniPlayer();
             } else {
-                exitToYouTubeHome(); // العودة لرئيسية اليوتيوب فقط
+                exitToHomeApp();
             }
         } else {
-            resetToYouTubeHome();
+            exitToHomeApp();
         }
     }
 
@@ -175,25 +175,6 @@
         
         wrapper.style.height = '150px';
         if (videoInfo) videoInfo.style.display = 'none';
-    }
-
-    function exitToYouTubeHome() {
-        isMiniPlayer = false;
-        const container = document.getElementById('activePlayerContainer');
-        const wrapper = document.getElementById('playerWrapper');
-        const videoInfo = document.getElementById('activeVideoInfo');
-        
-        container.style.position = 'sticky';
-        container.style.top = '0';
-        container.style.width = '100%';
-        container.style.right = 'auto';
-        container.style.bottom = 'auto';
-        container.style.borderRadius = '0';
-        container.style.boxShadow = 'none';
-        
-        wrapper.style.height = '215px';
-        if (videoInfo) videoInfo.style.display = 'block';
-        toolsScreen.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function resetToYouTubeHome() {
@@ -334,6 +315,19 @@
 
         iframePlayer.src = `https://www.youtube.com/embed/${video.ytId}?autoplay=1`;
         toolsScreen.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function exitToHomeApp() {
+        isVideoPlaying = false;
+        isMiniPlayer = false;
+        const playerContainer = document.getElementById('activePlayerContainer');
+        const iframePlayer = document.getElementById('mainYouTubeEmbed');
+        iframePlayer.src = '';
+        playerContainer.style.display = 'none';
+
+        if (typeof switchScreen === 'function') {
+            switchScreen('home');
+        }
     }
 
     function openSearchUI() {
