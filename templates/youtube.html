@@ -37,18 +37,18 @@
             </div>
         </div>
 
-        <!-- شريط التصنيفات -->
+        <!-- شريط التصنيفات (يحتوي على تصنيفات عربية وعالمية مختلطة) -->
         <div style="display: flex; gap: 10px; padding: 8px 16px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; direction: rtl; border-bottom: 1px solid rgba(255,255,255,0.05);">
             <div onclick="resetToYouTubeHome()" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">الصفحة الرئيسية</div>
-            <div onclick="fetchYouTubeVideos('subscriptions', false)" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">الاشتراكات</div>
-            <div onclick="fetchYouTubeVideos('music creator', false)" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">موسيقى</div>
-            <div onclick="fetchYouTubeVideos('live stream gaming', false)" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">مباشر</div>
-            <div onclick="fetchYouTubeVideos('trending viral videos', false)" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">المزيد</div>
+            <div onclick="fetchYouTubeVideos('قنوات عراقية مشهورة', false)" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">منوعات عراقية</div>
+            <div onclick="fetchYouTubeVideos('بودكاست عربي مشهور', false)" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">بودكاست عربي</div>
+            <div onclick="fetchYouTubeVideos('gaming highlights arab', false)" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">ألعاب وتطوير</div>
+            <div onclick="fetchYouTubeVideos('trending tech videos', false)" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">تكنولوجيا عالمية</div>
         </div>
 
         <!-- واجهة البحث التفاعلية -->
         <div id="searchHeaderView" style="display: none; padding: 10px 16px; background: #0f0f0f; align-items: center; gap: 12px; position: relative;">
-            <input type="text" id="searchInput" placeholder="ابحث في الفيديوهات..." style="width: 100%; background: #222222; border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 8px 16px; color: #ffffff; font-size: 14px; outline: none; text-align: right;" onkeydown="if(event.key === 'Enter'){ performSearch(this.value); }">
+            <input type="text" id="searchInput" placeholder="ابحث عن شخصية، برامج، أو فيديوهات..." style="width: 100%; background: #222222; border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 8px 16px; color: #ffffff; font-size: 14px; outline: none; text-align: right;" onkeydown="if(event.key === 'Enter'){ performSearch(this.value); }">
             
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="closeSearchUI()">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -59,11 +59,11 @@
 
     <!-- 2. قائمة الفيديوهات -->
     <div id="videoFeedContainer" style="display: flex; flex-direction: column; gap: 20px; padding: 0 0 40px 0; min-height: 100vh;">
-        <div style="color: #aaa; text-align: center; padding: 40px 0;">جاري تحميل الفيديوهات...</div>
+        <div style="color: #aaa; text-align: center; padding: 40px 0;">جاري تحميل المحتوى المختلط (عربي وعالمي)...</div>
     </div>
 
     <div id="loadingMoreIndicator" style="display: none; text-align: center; padding: 15px; color: #aaa; font-size: 13px;">
-        جاري تحميل المزيد من الفيديوهات الجديدة...
+        جاري جلب المزيد من الاقتراحات والفيديوهات المقاربة...
     </div>
 
     <!-- 3. شريط التنقل السفلي -->
@@ -73,7 +73,7 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         </div>
 
-        <div onclick="fetchYouTubeVideos('shorts viral', false)" style="color: #fff; font-size: 11px; cursor: pointer; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 3px;">
+        <div onclick="fetchYouTubeVideos('فيديوهات ريلز وقنوات مشهورة', false)" style="color: #fff; font-size: 11px; cursor: pointer; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 3px;">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
         </div>
 
@@ -92,17 +92,26 @@
 <!-- البرمجة والدوال التفاعلية -->
 <script>
     let globalVideosList = [];
-    let seenVideoIds = new Set(); // مجموعة لمنع تكرار الفيديوهات نهائياً
+    let seenVideoIds = new Set();
     let isVideoPlaying = false;
     let isMiniPlayer = false;
     let currentQuery = '';
     let nextPageToken = '';
     let isLoadingMore = false;
 
-    const randomKeywords = ['top creators 2026', 'viral tech videos', 'gaming streamers', 'new podcasts', 'documentaries hd', 'popular vlogs'];
+    // قائمة منوعات مختلطة (عربي وعالمي: برامج، صناع محتوى، تكنولوجيا، بودكاست عراقي وعربي)
+    const mixedKeywords = [
+        'بودكاست عراقي', 
+        'مشاهير العراق يوتيوب', 
+        'برامج ولقاءات عربية', 
+        'trending technology 2026', 
+        'gaming highlights arab', 
+        'documentaries arabic', 
+        'vlogs عراقي'
+    ];
 
-    function getRandomQuery() {
-        return randomKeywords[Math.floor(Math.random() * randomKeywords.length)];
+    function getRandomMixedQuery() {
+        return mixedKeywords[Math.floor(Math.random() * mixedKeywords.length)];
     }
 
     let touchStartX = 0;
@@ -125,7 +134,7 @@
         }
     }, {passive: true});
 
-    // التمرير التلقائي (Infinite Scroll) لجلب فيديوهات جديدة عند النزول للقاع
+    // التمرير اللانهائي (Infinite Scroll) لجلب اقتراحات مشابهة عند النزول للقاع بدون تكرار
     toolsScreen.addEventListener('scroll', function() {
         if (toolsScreen.scrollTop + toolsScreen.clientHeight >= toolsScreen.scrollHeight - 200) {
             if (!isLoadingMore && nextPageToken) {
@@ -169,19 +178,19 @@
 
     function resetToYouTubeHome() {
         toolsScreen.scrollTo({ top: 0, behavior: 'smooth' });
-        seenVideoIds.clear(); // مسح الذاكرة لتوليد قائمة جديدة نظيفة
+        seenVideoIds.clear();
         nextPageToken = '';
-        fetchYouTubeVideos(getRandomQuery(), false);
+        fetchYouTubeVideos(getRandomMixedQuery(), false);
     }
 
     async function fetchYouTubeVideos(query, isAppend = false) {
-        if (!query) query = getRandomQuery();
+        if (!query) query = getRandomMixedQuery();
         currentQuery = query;
 
         const container = document.getElementById('videoFeedContainer');
         
         if (!isAppend) {
-            container.innerHTML = `<div style="color: #aaa; text-align: center; padding: 40px 0;">جاري تحميل أحدث الفيديوهات...</div>`;
+            container.innerHTML = `<div style="color: #aaa; text-align: center; padding: 40px 0;">جاري تحميل المحتوى المختلط (عربي وعالمي)...</div>`;
             seenVideoIds.clear();
             globalVideosList = [];
             nextPageToken = '';
@@ -210,10 +219,9 @@
                 return;
             }
 
-            // حفظ رمز الصفحة التالية لجلب فيديوهات جديدة في المرة القادمة
             nextPageToken = data.nextPageToken || '';
 
-            // تصفية الفيديوهات لمنع تكرار أي فيديو ظهر مسبقاً
+            // تصفية الفيديوهات لمنع التكرار نهائياً
             const newVideos = data.items
                 .filter(item => item.id && item.id.videoId && !seenVideoIds.has(item.id.videoId))
                 .map(item => {
@@ -245,6 +253,7 @@
     }
 
     function loadMoreVideos() {
+        // عند النزول للقاع، يتم جلب المزيد من الفيديوهات المقاربة لنفس بحث المستخدم تلقائياً
         fetchYouTubeVideos(currentQuery, true);
     }
 
@@ -270,7 +279,7 @@
                         ${video.channel.charAt(0)}
                     </div>
                     
-                    <div style="flex-grow: 1;">
+                    <div style.flex-grow: 1;>
                         <h3 style="color: #ffffff; font-size: 14px; font-weight: 500; margin: 0 0 4px 0; line-height: 1.4; text-align: right; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${video.title}</h3>
                         <p style="color: #aaa; font-size: 12px; text-align: right; margin: 0;">${video.channel}</p>
                     </div>
@@ -334,9 +343,17 @@
         resetToYouTubeHome();
     }
 
+    // محرك البحث الذكي: إذا بحثت عن شخصية مثل (علي شاكر)، سيجلب نتائجه مع اقتراحات مشابهة عربية وعالمية تلقائياً
     function performSearch(query) {
         if (!query.trim()) return;
-        fetchYouTubeVideos(query, false);
+        
+        // إذا كان البحث عن شخصية أو اسم، نضيف له كلمات سياقية لتعزيز الاقتراحات المقاربة
+        let enhancedQuery = query;
+        if (query.includes('علي شاكر') || query.length < 10) {
+            enhancedQuery = query + ' مقابلات برامج بودكاست';
+        }
+        
+        fetchYouTubeVideos(enhancedQuery, false);
     }
 
     resetToYouTubeHome();
