@@ -73,24 +73,17 @@
         </div>
     </div>
 
-    <!-- 3. الشريط السفلي الثابت مع تأثير الوميض للضغط -->
+    <!-- 3. الشريط السفلي الثابت -->
     <div style="position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background-color: #0f0f0f; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-around; align-items: center; z-index: 999999; box-sizing: border-box;">
         
-        <!-- الرئيسية -->
         <div class="bottom-nav-btn" onclick="switchScreen('homeScreen', event); bottomRipple(this)" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 25%; height: 100%; cursor: pointer; color: #ffffff; border-radius: 12px; transition: background 0.2s;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-            </svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
         </div>
 
-        <!-- Shorts -->
         <div class="bottom-nav-btn" onclick="showToast('Shorts'); bottomRipple(this)" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 25%; height: 100%; cursor: pointer; color: #ffffff; border-radius: 12px; transition: background 0.2s;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M17.77 10.32l-1.2-.5L18 9.06c1.84-.96 2.53-3.23 1.56-5.06s-3.24-2.53-5.07-1.56L6 6.22C4.13 7.18 3.42 9.48 4.38 11.33c.53 1.02 1.45 1.7 2.53 1.94l1.2.5-1.43.76c-1.84.96-2.53 3.23-1.56 5.06 1 1.83 3.27 2.5 5.1 1.53l8.43-3.78c1.87-.96 2.58-3.26 1.62-5.11-.53-1.01-1.45-1.7-2.5-1.91zM10 14.5v-5l4.5 2.5L10 14.5z"/>
-            </svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.77 10.32l-1.2-.5L18 9.06c1.84-.96 2.53-3.23 1.56-5.06s-3.24-2.53-5.07-1.56L6 6.22C4.13 7.18 3.42 9.48 4.38 11.33c.53 1.02 1.45 1.7 2.53 1.94l1.2.5-1.43.76c-1.84.96-2.53 3.23-1.56 5.06 1 1.83 3.27 2.5 5.1 1.53l8.43-3.78c1.87-.96 2.58-3.26 1.62-5.11-.53-1.01-1.45-1.7-2.5-1.91zM10 14.5v-5l4.5 2.5L10 14.5z"/></svg>
         </div>
 
-        <!-- زر الزائد + (يفتح قائمة رفع الفيديو ويفتح الفيديوهات تلقائياً) -->
         <div class="bottom-nav-btn" onclick="openPlusMenu(); bottomRipple(this)" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 25%; height: 100%; cursor: pointer; color: #ffffff; border-radius: 12px; transition: background 0.2s;">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                 <circle cx="12" cy="12" r="10" stroke="#ffffff"/>
@@ -99,7 +92,6 @@
             </svg>
         </div>
 
-        <!-- الحساب -->
         <div class="bottom-nav-btn" onclick="openSettingsScreen(event); bottomRipple(this)" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 25%; height: 100%; cursor: pointer; color: #ffffff; border-radius: 12px; transition: background 0.2s;">
             <div style="width: 26px; height: 26px; border-radius: 50%; overflow: hidden; border: 1.5px solid #ffffff;">
                 <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;" alt="Profile">
@@ -110,7 +102,7 @@
 
 </div>
 
-<!-- 4. نافذة قائمة زر الزائد المعدلة بالكامل حسب طلبك -->
+<!-- 4. نافذة قائمة زر الزائد -->
 <div id="plusMenuModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000000; z-index: 9999999; flex-direction: column; justify-content: space-between; padding: 20px 16px; box-sizing: border-box;">
     
     <!-- الهيدر العلوي -->
@@ -125,22 +117,22 @@
             <span style="color: #ffffff; font-size: 15px; font-weight: bold;">تحميل فيديو من معرض الصور</span>
         </div>
 
-        <!-- الجهة اليمنى/الوسطى (أو اليسرى حسب رغبتك في اليمين): كلمة "الفيديوهات" مع السهم لأسفل في اليمين بجانبها -->
+        <!-- الجهة اليسرى: كلمة "الفيديوهات" وبجانبها السهم لأسفل، وعند الضغط تفتح القائمة السوداء عمودياً -->
         <div style="position: relative;">
             <div onclick="toggleAlbumsDropdown(event)" style="display: flex; align-items: center; gap: 6px; color: #ffffff; font-size: 14px; font-weight: bold; cursor: pointer; background: rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 12px;">
                 <span id="mediaDropdownTitle">الفيديوهات</span>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </div>
 
-            <!-- القائمة المنسدلة الصغيرة (الفيديوهات / الألبومات) -->
-            <div id="albumsDropdownMenu" style="display: none; position: absolute; top: 40px; right: 0; background: #1f242d; border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; overflow: hidden; z-index: 10; min-width: 120px; box-shadow: 0 4px 12px rgba(0,0,0,0.5);">
-                <div onclick="selectMediaType('videos')" style="padding: 10px 14px; color: #ffffff; font-size: 13px; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.08); transition: background 0.2s;" onmouseover="this.style.background='#343d50'" onmouseout="this.style.background='transparent'">الفيديوهات</div>
-                <div onclick="selectMediaType('albums')" style="padding: 10px 14px; color: #ffffff; font-size: 13px; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#343d50'" onmouseout="this.style.background='transparent'">الألبومات</div>
+            <!-- القائمة السوداء المنسدلة عمودياً (الفيديوهات / الألبومات) -->
+            <div id="albumsDropdownMenu" style="display: none; position: absolute; top: 40px; left: 0; background: #000000; border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; overflow: hidden; z-index: 10; min-width: 140px; box-shadow: 0 4px 15px rgba(0,0,0,0.9); flex-direction: column;">
+                <div onclick="selectMediaType('videos')" style="padding: 12px 16px; color: #ffffff; font-size: 13px; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.1); transition: background 0.2s;" onmouseover="this.style.background='#222222'" onmouseout="this.style.background='transparent'">الفيديوهات</div>
+                <div onclick="selectMediaType('albums')" style="padding: 12px 16px; color: #ffffff; font-size: 13px; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#222222'" onmouseout="this.style.background='transparent'">الألبومات</div>
             </div>
         </div>
     </div>
 
-    <!-- منطقة عرض الملفات والمشغل (تفتح تصفح الفيديوهات تلقائياً عند الضغط على زر +) -->
+    <!-- منطقة عرض الفيديو المختار تلقائياً -->
     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; text-align: center;">
         <input type="file" id="deviceVideoInput" accept="video/*" style="display: none;" onchange="handleVideoSelected(event)">
         
@@ -149,22 +141,18 @@
         </div>
     </div>
 
-    <!-- الشريط السفلي الأفقي المتحرك (قابل للتمرير بسلاسة يميناً ويساراً) -->
+    <!-- الشريط السفلي الأفقي المتحرك يميناً ويساراً بسلاسة تامة -->
     <div style="display: flex; gap: 12px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; direction: rtl; padding-bottom: 10px; align-items: center; width: 100%; box-sizing: border-box;" id="plusBottomCarousel">
-        <!-- زر فيديو -->
-        <div class="plus-tab-item active-plus-tab" onclick="selectPlusTab(this, 'video')" style="background: #ffffff; color: #000000; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: bold; cursor: pointer; flex-shrink: 0; transition: background 0.2s;">
+        <div class="plus-tab-item active-plus-tab" onclick="selectPlusTab(this, 'video')" style="flex-shrink: 0; background: #ffffff; color: #000000; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: bold; cursor: pointer; transition: background 0.2s;">
             فيديو
         </div>
-        <!-- زر Shorts -->
-        <div class="plus-tab-item" onclick="selectPlusTab(this, 'shorts')" style="background: #282f3d; color: #ffffff; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: 600; cursor: pointer; flex-shrink: 0; transition: background 0.2s;">
+        <div class="plus-tab-item" onclick="selectPlusTab(this, 'shorts')" style="flex-shrink: 0; background: #282f3d; color: #ffffff; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
             Shorts
         </div>
-        <!-- زر بث مباشر -->
-        <div class="plus-tab-item" onclick="selectPlusTab(this, 'live')" style="background: #282f3d; color: #ffffff; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: 600; cursor: pointer; flex-shrink: 0; transition: background 0.2s;">
+        <div class="plus-tab-item" onclick="selectPlusTab(this, 'live')" style="flex-shrink: 0; background: #282f3d; color: #ffffff; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
             بث مباشر
         </div>
-        <!-- زر منشور -->
-        <div class="plus-tab-item" onclick="selectPlusTab(this, 'post')" style="background: #282f3d; color: #ffffff; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: 600; cursor: pointer; flex-shrink: 0; transition: background 0.2s;">
+        <div class="plus-tab-item" onclick="selectPlusTab(this, 'post')" style="flex-shrink: 0; background: #282f3d; color: #ffffff; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
             منشور
         </div>
     </div>
@@ -173,15 +161,14 @@
 
 <!-- دوال البرمجة والتفاعل -->
 <script>
-    // فتح قائمة زر الزائد + وتفعيل اختيار الفيديوهات من الجهاز تلقائياً فوراً
+    // فتح زر الزائد وفتح استوديو الهاتف لاختيار الفيديوهات فوراً تلقائياً
     function openPlusMenu() {
         const modal = document.getElementById('plusMenuModal');
         if (modal) {
             modal.style.display = 'flex';
-            // فتح نافذة اختيار الفيديو من الجهاز تلقائياً فور فتح القائمة
             setTimeout(() => {
                 document.getElementById('deviceVideoInput').click();
-            }, 150);
+            }, 100);
         }
     }
 
@@ -191,7 +178,7 @@
         if (modal) modal.style.display = 'none';
     }
 
-    // إظهار/إخفاء القائمة المنسدلة الصغيرة (الفيديوهات / الألبومات)
+    // إظهار/إخفاء القائمة المنسدلة السوداء عمودياً
     function toggleAlbumsDropdown(event) {
         event.stopPropagation();
         const dropdown = document.getElementById('albumsDropdownMenu');
@@ -200,13 +187,12 @@
         }
     }
 
-    // اختيار الفيديوهات أو الألبومات
+    // اختيار الفيديوهات أو الألبومات من القائمة العمودية
     function selectMediaType(type) {
         const titleSpan = document.getElementById('mediaDropdownTitle');
         const dropdown = document.getElementById('albumsDropdownMenu');
         if (type === 'videos') {
             titleSpan.innerText = "الفيديوهات";
-            showToast('تم اختيار الفيديوهات');
             document.getElementById('deviceVideoInput').click();
         } else {
             titleSpan.innerText = "الألبومات";
@@ -221,7 +207,7 @@
         if (dropdown) dropdown.style.display = 'none';
     });
 
-    // اختيار الأزرار الأفقية المتحركة في الأسفل مع تأثير الوميض والضغط
+    // اختيار الأزرار الأفقية المتحركة في الأسفل مع الوميض
     function selectPlusTab(element, type) {
         element.style.backgroundColor = "rgba(255, 255, 255, 0.3)";
         setTimeout(() => {
@@ -249,7 +235,7 @@
         }
     }
 
-    // التعامل مع الفيديو المختار من جهاز المستخدم وعرضه
+    // التعامل مع الفيديو المختار وعرضه
     function handleVideoSelected(event) {
         const file = event.target.files[0];
         if (file) {
@@ -263,7 +249,7 @@
         }
     }
 
-    // دالة تبديل التبويبات العلوية وتثبيت الخط الأحمر
+    // دوال التنقل والتبويبات العلوية
     function switchYtTab(element) {
         element.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
         setTimeout(() => {
@@ -283,7 +269,6 @@
         if (activeIndicator) activeIndicator.style.background = "#ff0000";
     }
 
-    // تأثير الضغط للأزرار السفلية
     function bottomRipple(element) {
         element.style.backgroundColor = "rgba(255, 255, 255, 0.25)";
         setTimeout(() => {
@@ -298,7 +283,7 @@
         }, 200);
     }
 
-    // حركة إخفاء وإظهار الهيدر العلوي عند التمرير
+    // إخفاء وإظهار الهيدر العلوي عند التمرير
     (function() {
         let lastScrollTop = 0;
         const toolsScreen = document.getElementById('toolsScreen');
