@@ -1,4 +1,4 @@
- <!-- شاشة اليوتيوب الرئيسية (youtube.html) -->
+<!-- شاشة اليوتيوب الرئيسية (youtube.html) -->
 <div id="toolsScreen" class="screen-view" style="padding-bottom: 70px; background-color: #0f0f0f; position: relative; height: 100vh; overflow-y: auto;">
 
     <!-- 1. مشغل يوتيوب العلوي المباشر -->
@@ -46,16 +46,12 @@
 
         <!-- واجهة البحث التفاعلية -->
         <div id="searchHeaderView" style="display: none; padding: 10px 16px; background: #0f0f0f; align-items: center; gap: 12px; position: relative;">
-            <input type="text" id="searchInput" oninput="handleSearchInput(this.value)" placeholder="ابحث في الفيديوهات..." style="width: 100%; background: #222222; border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 8px 16px; color: #ffffff; font-size: 14px; outline: none; text-align: right;">
+            <input type="text" id="searchInput" placeholder="ابحث في الفيديوهات..." style="width: 100%; background: #222222; border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 8px 16px; color: #ffffff; font-size: 14px; outline: none; text-align: right;" onkeydown="if(event.key === 'Enter'){ performSearch(this.value); }">
             
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="closeSearchUI()">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
-
-            <!-- قائمة الاقتراحات المنسدلة للبحث -->
-            <div id="searchSuggestions" style="display: none; position: absolute; top: 50px; left: 16px; right: 16px; background: #1f1f1f; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); max-height: 220px; overflow-y: auto; z-index: 300; box-shadow: 0 8px 20px rgba(0,0,0,0.8); text-align: right;">
-            </div>
         </div>
 
         <!-- شريط التبويبات العلوي -->
@@ -70,28 +66,29 @@
         </div>
     </div>
 
-    <!-- 2. قائمة الفيديوهات (تجلب البيانات الحقيقية من السيرفر الآمن) -->
+    <!-- 2. قائمة الفيديوهات -->
     <div id="videoFeedContainer" style="padding: 16px; display: flex; flex-direction: column; gap: 20px;">
-        <div style="color: #aaa; text-align: center; padding: 40px 0;">جاري تحميل الفيديوهات الحقيقية...</div>
+        <div style="color: #aaa; text-align: center; padding: 40px 0;">جاري تحميل الفيديوهات...</div>
     </div>
 
     <!-- 3. الشريط السفلي الثابت -->
     <div style="position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background-color: #0f0f0f; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-around; align-items: center; z-index: 999999;">
-        <div style="cursor: pointer; color: #ffffff;"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
+        <div style="cursor: pointer; color: #ffffff;" onclick="switchScreen('homeScreen', event)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
         <div style="cursor: pointer; color: #ffffff;"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.77 10.32l-1.2-.5L18 9.06c1.84-.96 2.53-3.23 1.56-5.06s-3.24-2.53-5.07-1.56L6 6.22C4.13 7.18 3.42 9.48 4.38 11.33c.53 1.02 1.45 1.7 2.53 1.94l1.2.5-1.43.76c-1.84.96-2.53 3.23-1.56 5.06 1 1.83 3.27 2.5 5.1 1.53l8.43-3.78c1.87-.96 2.58-3.26 1.62-5.11-.53-1.01-1.45-1.7-2.5-1.91zM10 14.5v-5l4.5 2.5L10 14.5z"/></svg></div>
-        <div style="cursor: pointer; color: #ffffff;" onclick="openPlusMenu()"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
-        <div style="cursor: pointer; color: #ffffff;"><div style="width: 26px; height: 26px; border-radius: 50%; overflow: hidden; border: 1.5px solid #ffffff;"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;"></div></div>
+        <div style="cursor: pointer; color: #ffffff;" onclick="openSparkleDialog(event)"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
+        <div style="cursor: pointer; color: #ffffff;" onclick="openSettingsScreen(event)"><div style="width: 26px; height: 26px; border-radius: 50%; overflow: hidden; border: 1.5px solid #ffffff;"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;"></div></div>
     </div>
 
 </div>
 
 <!-- البرمجة والدوال التفاعلية -->
 <script>
-    let videosData = [];
+    let globalVideosList = [];
 
-    // دالة جلب الفيديوهات الحقيقية من مسار الفلاسك/فاست‌آبي الآمن
-    async function fetchRealYouTubeVideos(query = 'football highlights') {
+    async function fetchYouTubeVideos(query = 'football highlights') {
         const container = document.getElementById('videoFeedContainer');
+        container.innerHTML = `<div style="color: #aaa; text-align: center; padding: 40px 0;">جاري البحث...</div>`;
+        
         try {
             const response = await fetch(`/api/videos?query=${encodeURIComponent(query)}`);
             const data = await response.json();
@@ -101,18 +98,16 @@
                 return;
             }
 
-            videosData = data.items.map(item => ({
+            globalVideosList = data.items.map(item => ({
                 ytId: item.id.videoId,
                 title: item.snippet.title,
                 channel: item.snippet.channelTitle,
-                thumbnail: item.snippet.thumbnails.high.url,
-                duration: "10:00",
-                views: "مشاهدة جديدة"
+                thumbnail: item.snippet.thumbnails.high ? item.snippet.thumbnails.high.url : item.snippet.thumbnails.default.url
             }));
 
-            renderVideos(videosData);
+            renderVideos(globalVideosList);
         } catch (error) {
-            console.error('Error fetching videos:', error);
+            console.error('Error:', error);
             container.innerHTML = `<div style="color: #f87171; text-align: center; padding: 40px 0; direction: rtl;">حدث خطأ أثناء جلب الفيديوهات</div>`;
         }
     }
@@ -122,7 +117,7 @@
         container.innerHTML = '';
 
         if (list.length === 0) {
-            container.innerHTML = `<div style="color: #aaa; text-align: center; padding: 40px 0; direction: rtl;">لا توجد نتائج مطابقة للبحث</div>`;
+            container.innerHTML = `<div style="color: #aaa; text-align: center; padding: 40px 0; direction: rtl;">لا توجد نتائج مطابقة</div>`;
             return;
         }
 
@@ -135,7 +130,6 @@
                     <div style="width: 48px; height: 48px; background: rgba(255,0,0,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(255,0,0,0.5);">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff"><polygon points="8,5 19,12 8,19" /></svg>
                     </div>
-                    <span style="position: absolute; bottom: 8px; left: 8px; background: rgba(0,0,0,0.85); color: #fff; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">${video.duration}</span>
                 </div>
                 <div style="padding: 12px; display: flex; gap: 12px; align-items: flex-start; direction: rtl;">
                     <div style="width: 40px; height: 40px; border-radius: 50%; background: #ff0000; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: bold; flex-shrink: 0;">
@@ -143,7 +137,7 @@
                     </div>
                     <div style="flex-grow: 1;">
                         <h3 style="color: #ffffff; font-size: 14px; font-weight: 700; margin-bottom: 4px; line-height: 1.4; text-align: right;">${video.title}</h3>
-                        <p style="color: #aaa; font-size: 12px; text-align: right; margin: 0;">${video.channel} • ${video.views}</p>
+                        <p style="color: #aaa; font-size: 12px; text-align: right; margin: 0;">${video.channel}</p>
                     </div>
                 </div>
             `;
@@ -180,44 +174,14 @@
     function closeSearchUI() {
         document.getElementById('mainHeaderView').style.display = 'flex';
         document.getElementById('searchHeaderView').style.display = 'none';
-        document.getElementById('searchSuggestions').style.display = 'none';
-        renderVideos(videosData);
+        fetchYouTubeVideos('football highlights');
     }
 
-    function handleSearchInput(query) {
-        const suggestionsBox = document.getElementById('searchSuggestions');
-        if (!query.trim()) {
-            suggestionsBox.style.display = 'none';
-            renderVideos(videosData);
-            return;
-        }
-
-        const filtered = videosData.filter(v => 
-            v.title.toLowerCase().includes(query.toLowerCase()) || 
-            v.channel.toLowerCase().includes(query.toLowerCase())
-        );
-
-        renderVideos(filtered);
-
-        suggestionsBox.innerHTML = '';
-        if (filtered.length > 0) {
-            suggestionsBox.style.display = 'block';
-            filtered.slice(0, 6).forEach(item => {
-                const row = document.createElement('div');
-                row.style.cssText = "padding: 10px 14px; color: #fff; font-size: 13px; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.05);";
-                row.innerText = `${item.title} (${item.channel})`;
-                row.onclick = function() {
-                    document.getElementById('searchInput').value = item.title;
-                    suggestionsBox.style.display = 'none';
-                    renderVideos([item]);
-                };
-                suggestionsBox.appendChild(row);
-            });
-        } else {
-            suggestionsBox.style.display = 'none';
-        }
+    function performSearch(query) {
+        if (!query.trim()) return;
+        fetchYouTubeVideos(query);
     }
 
-    // جلب الفيديوهات الحقيقية تلقائياً عند تحميل الصفحة
-    fetchRealYouTubeVideos();
+    // جلب الفيديوهات أول ما تفتح الصفحة
+    fetchYouTubeVideos('football highlights');
 </script>
