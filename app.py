@@ -9,6 +9,9 @@ from security import sanitize_input  # استيراد دالة التنظيف ا
 app = FastAPI()
 db = init_firebase()
 
+# تعريف مفتاح يوتيوب بشكل آمن (يقرأ من متغيرات البيئة أو يستخدم المفتاح المباشر كقيمة افتراضية)
+YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY", "AIzaSyDuSWbvfNJiGk7sw3eO6xJpPPur5L_heqA")
+
 # ربط مجلد static لتقديم الملفات الثابتة
 if os.path.exists("static"):
     app.mount("/static", StaticFiles(directory="static"), name="static")
