@@ -90,7 +90,7 @@
             </svg>
         </div>
 
-        <!-- زر الزائد + -->
+        <!-- زر الزائد + (يفتح قائمة رفع الفيديو ويفتح الفيديوهات تلقائياً) -->
         <div class="bottom-nav-btn" onclick="openPlusMenu(); bottomRipple(this)" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 25%; height: 100%; cursor: pointer; color: #ffffff; border-radius: 12px; transition: background 0.2s;">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                 <circle cx="12" cy="12" r="10" stroke="#ffffff"/>
@@ -110,13 +110,13 @@
 
 </div>
 
-<!-- 4. نافذة قائمة زر الزائد بالتعديل الدقيق (علامة X فوق باليمين وتحتها عبارة تحميل فيديو) -->
+<!-- 4. نافذة قائمة زر الزائد المعدلة بالكامل حسب طلبك -->
 <div id="plusMenuModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000000; z-index: 9999999; flex-direction: column; justify-content: space-between; padding: 20px 16px; box-sizing: border-box;">
     
     <!-- الهيدر العلوي -->
     <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%; position: relative;">
         
-        <!-- الجهة اليمنى: علامة X بالطرف وفوق وتحتها عبارة تحميل فيديو من معرض الصور -->
+        <!-- الجهة اليمنى: علامة X فوق، وتحتها عبارة "تحميل فيديو من معرض الصور" -->
         <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 8px;">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="closePlusMenu()">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -125,7 +125,7 @@
             <span style="color: #ffffff; font-size: 15px; font-weight: bold;">تحميل فيديو من معرض الصور</span>
         </div>
 
-        <!-- الجهة اليسرى بالطرف: كلمة الفيديوهات مع سهم لأسفل والقائمة المنسدلة للألبومات -->
+        <!-- الجهة اليمنى/الوسطى (أو اليسرى حسب رغبتك في اليمين): كلمة "الفيديوهات" مع السهم لأسفل في اليمين بجانبها -->
         <div style="position: relative;">
             <div onclick="toggleAlbumsDropdown(event)" style="display: flex; align-items: center; gap: 6px; color: #ffffff; font-size: 14px; font-weight: bold; cursor: pointer; background: rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 12px;">
                 <span id="mediaDropdownTitle">الفيديوهات</span>
@@ -133,14 +133,14 @@
             </div>
 
             <!-- القائمة المنسدلة الصغيرة (الفيديوهات / الألبومات) -->
-            <div id="albumsDropdownMenu" style="display: none; position: absolute; top: 40px; left: 0; background: #1f242d; border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; overflow: hidden; z-index: 10; min-width: 120px; box-shadow: 0 4px 12px rgba(0,0,0,0.5);">
+            <div id="albumsDropdownMenu" style="display: none; position: absolute; top: 40px; right: 0; background: #1f242d; border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; overflow: hidden; z-index: 10; min-width: 120px; box-shadow: 0 4px 12px rgba(0,0,0,0.5);">
                 <div onclick="selectMediaType('videos')" style="padding: 10px 14px; color: #ffffff; font-size: 13px; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.08); transition: background 0.2s;" onmouseover="this.style.background='#343d50'" onmouseout="this.style.background='transparent'">الفيديوهات</div>
                 <div onclick="selectMediaType('albums')" style="padding: 10px 14px; color: #ffffff; font-size: 13px; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#343d50'" onmouseout="this.style.background='transparent'">الألبومات</div>
             </div>
         </div>
     </div>
 
-    <!-- منطقة عرض الملفات (تفتح استوديو الهاتف تلقائياً بدون كتابة في المنتصف) -->
+    <!-- منطقة عرض الملفات والمشغل (تفتح تصفح الفيديوهات تلقائياً عند الضغط على زر +) -->
     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; text-align: center;">
         <input type="file" id="deviceVideoInput" accept="video/*" style="display: none;" onchange="handleVideoSelected(event)">
         
@@ -149,8 +149,8 @@
         </div>
     </div>
 
-    <!-- الشريط السفلي الأفقي المتحرك (يمين ويسار بسلاسة) -->
-    <div style="display: flex; gap: 12px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; direction: rtl; padding-bottom: 10px; align-items: center; width: 100%;">
+    <!-- الشريط السفلي الأفقي المتحرك (قابل للتمرير بسلاسة يميناً ويساراً) -->
+    <div style="display: flex; gap: 12px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; direction: rtl; padding-bottom: 10px; align-items: center; width: 100%; box-sizing: border-box;" id="plusBottomCarousel">
         <!-- زر فيديو -->
         <div class="plus-tab-item active-plus-tab" onclick="selectPlusTab(this, 'video')" style="background: #ffffff; color: #000000; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: bold; cursor: pointer; flex-shrink: 0; transition: background 0.2s;">
             فيديو
@@ -171,16 +171,17 @@
 
 </div>
 
-<!-- دوال التفاعل والبرمجة بالكامل -->
+<!-- دوال البرمجة والتفاعل -->
 <script>
-    // فتح قائمة زر الزائد وفتح استوديو الجهاز تلقائياً
+    // فتح قائمة زر الزائد + وتفعيل اختيار الفيديوهات من الجهاز تلقائياً فوراً
     function openPlusMenu() {
         const modal = document.getElementById('plusMenuModal');
         if (modal) {
             modal.style.display = 'flex';
+            // فتح نافذة اختيار الفيديو من الجهاز تلقائياً فور فتح القائمة
             setTimeout(() => {
                 document.getElementById('deviceVideoInput').click();
-            }, 100);
+            }, 150);
         }
     }
 
@@ -199,7 +200,7 @@
         }
     }
 
-    // اختيار الفيديوهات أو الألبومات من القائمة المنسدلة
+    // اختيار الفيديوهات أو الألبومات
     function selectMediaType(type) {
         const titleSpan = document.getElementById('mediaDropdownTitle');
         const dropdown = document.getElementById('albumsDropdownMenu');
@@ -220,7 +221,7 @@
         if (dropdown) dropdown.style.display = 'none';
     });
 
-    // اختيار الأزرار الأفقية في الأسفل مع تأثير الضغط
+    // اختيار الأزرار الأفقية المتحركة في الأسفل مع تأثير الوميض والضغط
     function selectPlusTab(element, type) {
         element.style.backgroundColor = "rgba(255, 255, 255, 0.3)";
         setTimeout(() => {
@@ -248,7 +249,7 @@
         }
     }
 
-    // التعامل مع الفيديو المختار من جهاز المستخدم وتفعيله
+    // التعامل مع الفيديو المختار من جهاز المستخدم وعرضه
     function handleVideoSelected(event) {
         const file = event.target.files[0];
         if (file) {
