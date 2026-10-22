@@ -29,39 +29,38 @@
             </div>
         </div>
 
-        <!-- السطر الثاني: شريط التبويبات العلوي مع الخط الأحمر الثابت تحت الكلمة النشطة -->
+        <!-- السطر الثاني: شريط التبويبات العلوي -->
         <div style="display: flex; gap: 22px; padding: 8px 16px 12px 16px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; direction: rtl;" id="ytTabsContainer">
-            <div class="yt-top-tab active" onclick="switchYtTab(this)" style="color: #ffffff; font-size: 14px; font-weight: bold; position: relative; padding: 6px 10px; border-radius: 8px; cursor: pointer; transition: background 0.2s;">
+            <div class="yt-top-tab active" onclick="switchYtTab(this)" style="color: #ffffff; font-size: 14px; font-weight: bold; position: relative; padding: 6px 10px; border-radius: 8px; cursor: pointer;">
                 الصفحة الرئيسية
                 <div class="active-tab-indicator" style="position: absolute; bottom: 0; right: 10px; left: 10px; height: 2px; background: #ff0000; border-radius: 2px;"></div>
             </div>
-            <div class="yt-top-tab" onclick="switchYtTab(this)" style="color: #aaaaaa; font-size: 14px; font-weight: 500; position: relative; padding: 6px 10px; border-radius: 8px; cursor: pointer; transition: background 0.2s;">
+            <div class="yt-top-tab" onclick="switchYtTab(this)" style="color: #aaaaaa; font-size: 14px; font-weight: 500; position: relative; padding: 6px 10px; border-radius: 8px; cursor: pointer;">
                 الاشتراكات
                 <div class="active-tab-indicator" style="position: absolute; bottom: 0; right: 10px; left: 10px; height: 2px; background: transparent; border-radius: 2px;"></div>
             </div>
-            <div class="yt-top-tab" onclick="switchYtTab(this)" style="color: #aaaaaa; font-size: 14px; font-weight: 500; position: relative; padding: 6px 10px; border-radius: 8px; cursor: pointer; transition: background 0.2s;">
+            <div class="yt-top-tab" onclick="switchYtTab(this)" style="color: #aaaaaa; font-size: 14px; font-weight: 500; position: relative; padding: 6px 10px; border-radius: 8px; cursor: pointer;">
                 موسيقى
                 <div class="active-tab-indicator" style="position: absolute; bottom: 0; right: 10px; left: 10px; height: 2px; background: transparent; border-radius: 2px;"></div>
             </div>
-            <div class="yt-top-tab" onclick="switchYtTab(this)" style="color: #aaaaaa; font-size: 14px; font-weight: 500; position: relative; padding: 6px 10px; border-radius: 8px; cursor: pointer; transition: background 0.2s;">
+            <div class="yt-top-tab" onclick="switchYtTab(this)" style="color: #aaaaaa; font-size: 14px; font-weight: 500; position: relative; padding: 6px 10px; border-radius: 8px; cursor: pointer;">
                 مباشر
                 <div class="active-tab-indicator" style="position: absolute; bottom: 0; right: 10px; left: 10px; height: 2px; background: transparent; border-radius: 2px;"></div>
             </div>
-            <div class="yt-top-tab" onclick="switchYtTab(this)" style="color: #aaaaaa; font-size: 14px; font-weight: 500; position: relative; padding: 6px 10px; border-radius: 8px; cursor: pointer; transition: background 0.2s;">
+            <div class="yt-top-tab" onclick="switchYtTab(this)" style="color: #aaaaaa; font-size: 14px; font-weight: 500; position: relative; padding: 6px 10px; border-radius: 8px; cursor: pointer;">
                 المزيد
                 <div class="active-tab-indicator" style="position: absolute; bottom: 0; right: 10px; left: 10px; height: 2px; background: transparent; border-radius: 2px;"></div>
             </div>
         </div>
     </div>
 
-    <!-- 2. محتوى القائمة -->
+    <!-- 2. محتوى القائمة العادي -->
     <div style="padding: 16px; display: flex; flex-direction: column; gap: 18px;">
         <div style="background: #1f242d; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08);" onclick="showToast('جاري فتح الأداة...')">
             <div style="width: 100%; height: 180px; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%), url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=600&auto=format&fit=crop') center/cover; position: relative; display: flex; align-items: center; justify-content: center;">
-                <div style="width: 48px; height: 48px; background: rgba(255,0,0,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(255,0,0,0.5);">
+                <div style="width: 48px; height: 48px; background: rgba(255,0,0,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff"><polygon points="8,5 19,12 8,19" /></svg>
                 </div>
-                <span style="position: absolute; bottom: 8px; left: 8px; background: rgba(0,0,0,0.8); color: #fff; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">10:25</span>
             </div>
             <div style="padding: 12px; display: flex; gap: 12px; align-items: center;">
                 <div style="width: 38px; height: 38px; border-radius: 50%; background: #ff0000; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: bold; font-size: 15px; flex-shrink: 0;">🎬</div>
@@ -76,15 +75,16 @@
     <!-- 3. الشريط السفلي الثابت -->
     <div style="position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background-color: #0f0f0f; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-around; align-items: center; z-index: 999999; box-sizing: border-box;">
         
-        <div class="bottom-nav-btn" onclick="switchScreen('homeScreen', event); bottomRipple(this)" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 25%; height: 100%; cursor: pointer; color: #ffffff; border-radius: 12px; transition: background 0.2s;">
+        <div class="bottom-nav-btn" onclick="switchScreen('homeScreen', event); bottomRipple(this)" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 25%; height: 100%; cursor: pointer; color: #ffffff;">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
         </div>
 
-        <div class="bottom-nav-btn" onclick="showToast('Shorts'); bottomRipple(this)" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 25%; height: 100%; cursor: pointer; color: #ffffff; border-radius: 12px; transition: background 0.2s;">
+        <div class="bottom-nav-btn" onclick="showToast('Shorts'); bottomRipple(this)" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 25%; height: 100%; cursor: pointer; color: #ffffff;">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.77 10.32l-1.2-.5L18 9.06c1.84-.96 2.53-3.23 1.56-5.06s-3.24-2.53-5.07-1.56L6 6.22C4.13 7.18 3.42 9.48 4.38 11.33c.53 1.02 1.45 1.7 2.53 1.94l1.2.5-1.43.76c-1.84.96-2.53 3.23-1.56 5.06 1 1.83 3.27 2.5 5.1 1.53l8.43-3.78c1.87-.96 2.58-3.26 1.62-5.11-.53-1.01-1.45-1.7-2.5-1.91zM10 14.5v-5l4.5 2.5L10 14.5z"/></svg>
         </div>
 
-        <div class="bottom-nav-btn" onclick="openPlusMenu(); bottomRipple(this)" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 25%; height: 100%; cursor: pointer; color: #ffffff; border-radius: 12px; transition: background 0.2s;">
+        <!-- زر الزائد + -->
+        <div class="bottom-nav-btn" onclick="openPlusMenu(); bottomRipple(this)" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 25%; height: 100%; cursor: pointer; color: #ffffff;">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                 <circle cx="12" cy="12" r="10" stroke="#ffffff"/>
                 <line x1="12" y1="8" x2="12" y2="16" stroke="#ffffff"/>
@@ -92,7 +92,7 @@
             </svg>
         </div>
 
-        <div class="bottom-nav-btn" onclick="openSettingsScreen(event); bottomRipple(this)" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 25%; height: 100%; cursor: pointer; color: #ffffff; border-radius: 12px; transition: background 0.2s;">
+        <div class="bottom-nav-btn" onclick="openSettingsScreen(event); bottomRipple(this)" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 25%; height: 100%; cursor: pointer; color: #ffffff;">
             <div style="width: 26px; height: 26px; border-radius: 50%; overflow: hidden; border: 1.5px solid #ffffff;">
                 <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;" alt="Profile">
             </div>
@@ -102,7 +102,7 @@
 
 </div>
 
-<!-- 4. نافذة قائمة زر الزائد -->
+<!-- 4. شاشة الفيديوهات السوداء (تفتح كاملة عند الضغط على + بدون نوافذ منبثقة غريبة) -->
 <div id="plusMenuModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000000; z-index: 9999999; flex-direction: column; justify-content: space-between; padding: 20px 16px; box-sizing: border-box;">
     
     <!-- الهيدر العلوي -->
@@ -117,7 +117,7 @@
             <span style="color: #ffffff; font-size: 15px; font-weight: bold;">تحميل فيديو من معرض الصور</span>
         </div>
 
-        <!-- الجهة اليسرى: كلمة "الفيديوهات" وبجانبها السهم لأسفل، وعند الضغط تفتح القائمة السوداء عمودياً -->
+        <!-- الجهة اليسرى: كلمة "الفيديوهات" وفي الجهة اليمنى بجانبها السهم -->
         <div style="position: relative;">
             <div onclick="toggleAlbumsDropdown(event)" style="display: flex; align-items: center; gap: 6px; color: #ffffff; font-size: 14px; font-weight: bold; cursor: pointer; background: rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 12px;">
                 <span id="mediaDropdownTitle">الفيديوهات</span>
@@ -125,60 +125,55 @@
             </div>
 
             <!-- القائمة السوداء المنسدلة عمودياً (الفيديوهات / الألبومات) -->
-            <div id="albumsDropdownMenu" style="display: none; position: absolute; top: 40px; left: 0; background: #000000; border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; overflow: hidden; z-index: 10; min-width: 140px; box-shadow: 0 4px 15px rgba(0,0,0,0.9); flex-direction: column;">
-                <div onclick="selectMediaType('videos')" style="padding: 12px 16px; color: #ffffff; font-size: 13px; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.1); transition: background 0.2s;" onmouseover="this.style.background='#222222'" onmouseout="this.style.background='transparent'">الفيديوهات</div>
-                <div onclick="selectMediaType('albums')" style="padding: 12px 16px; color: #ffffff; font-size: 13px; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#222222'" onmouseout="this.style.background='transparent'">الألبومات</div>
+            <div id="albumsDropdownMenu" style="display: none; position: absolute; top: 40px; left: 0; background: #000000; border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; overflow: hidden; z-index: 10; min-width: 140px; box-shadow: 0 4px 15px rgba(0,0,0,0.9); flex-direction: column; text-align: right;">
+                <div onclick="selectMediaType('videos')" style="padding: 12px 16px; color: #ffffff; font-size: 13px; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.1);" onmouseover="this.style.background='#222222'" onmouseout="this.style.background='transparent'">الفيديوهات</div>
+                <div onclick="selectMediaType('albums')" style="padding: 12px 16px; color: #ffffff; font-size: 13px; cursor: pointer;" onmouseover="this.style.background='#222222'" onmouseout="this.style.background='transparent'">الألبومات</div>
             </div>
         </div>
     </div>
 
-    <!-- منطقة عرض الفيديو المختار تلقائياً -->
-    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; text-align: center;">
+    <!-- منطقة عرض الفيديوهات المباشرة -->
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; text-align: center; width: 100%;">
         <input type="file" id="deviceVideoInput" accept="video/*" style="display: none;" onchange="handleVideoSelected(event)">
         
-        <div id="selectedVideoPreviewContainer" style="display: none; width: 100%; max-width: 350px;">
-            <video id="videoPreviewElement" controls style="width: 100%; border-radius: 12px; max-height: 220px; background: #000;"></video>
+        <div id="videosGridContainer" style="width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; align-items: center;">
+            <div id="selectedVideoPreviewContainer" style="display: none; width: 100%;">
+                <video id="videoPreviewElement" controls style="width: 100%; border-radius: 12px; max-height: 250px; background: #000;"></video>
+            </div>
+            <button onclick="document.getElementById('deviceVideoInput').click()" style="background: #ff0000; color: #ffffff; border: none; padding: 12px 24px; border-radius: 24px; font-weight: bold; font-size: 14px; cursor: pointer;">اختر فيديو من الاستوديو</button>
         </div>
     </div>
 
-    <!-- الشريط السفلي الأفقي المتحرك يميناً ويساراً بسلاسة تامة -->
+    <!-- الشريط السفلي الأفقي المتحرك يميناً ويساراً بسلاسة -->
     <div style="display: flex; gap: 12px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; direction: rtl; padding-bottom: 10px; align-items: center; width: 100%; box-sizing: border-box;" id="plusBottomCarousel">
-        <div class="plus-tab-item active-plus-tab" onclick="selectPlusTab(this, 'video')" style="flex-shrink: 0; background: #ffffff; color: #000000; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: bold; cursor: pointer; transition: background 0.2s;">
+        <div class="plus-tab-item active-plus-tab" onclick="selectPlusTab(this, 'video')" style="flex-shrink: 0; background: #ffffff; color: #000000; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: bold; cursor: pointer;">
             فيديو
         </div>
-        <div class="plus-tab-item" onclick="selectPlusTab(this, 'shorts')" style="flex-shrink: 0; background: #282f3d; color: #ffffff; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
+        <div class="plus-tab-item" onclick="selectPlusTab(this, 'shorts')" style="flex-shrink: 0; background: #282f3d; color: #ffffff; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: 600; cursor: pointer;">
             Shorts
         </div>
-        <div class="plus-tab-item" onclick="selectPlusTab(this, 'live')" style="flex-shrink: 0; background: #282f3d; color: #ffffff; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
+        <div class="plus-tab-item" onclick="selectPlusTab(this, 'live')" style="flex-shrink: 0; background: #282f3d; color: #ffffff; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: 600; cursor: pointer;">
             بث مباشر
         </div>
-        <div class="plus-tab-item" onclick="selectPlusTab(this, 'post')" style="flex-shrink: 0; background: #282f3d; color: #ffffff; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
+        <div class="plus-tab-item" onclick="selectPlusTab(this, 'post')" style="flex-shrink: 0; background: #282f3d; color: #ffffff; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: 600; cursor: pointer;">
             منشور
         </div>
     </div>
 
 </div>
 
-<!-- دوال البرمجة والتفاعل -->
+<!-- دوال التفاعل والتحكم -->
 <script>
-    // فتح زر الزائد وفتح استوديو الهاتف لاختيار الفيديوهات فوراً تلقائياً
     function openPlusMenu() {
         const modal = document.getElementById('plusMenuModal');
-        if (modal) {
-            modal.style.display = 'flex';
-            setTimeout(() => {
-                document.getElementById('deviceVideoInput').click();
-            }, 100);
-        }
+        if (modal) modal.style.display = 'flex';
     }
 
-    // إغلاق نافذة زر الزائد
     function closePlusMenu() {
         const modal = document.getElementById('plusMenuModal');
         if (modal) modal.style.display = 'none';
     }
 
-    // إظهار/إخفاء القائمة المنسدلة السوداء عمودياً
     function toggleAlbumsDropdown(event) {
         event.stopPropagation();
         const dropdown = document.getElementById('albumsDropdownMenu');
@@ -187,7 +182,6 @@
         }
     }
 
-    // اختيار الفيديوهات أو الألبومات من القائمة العمودية
     function selectMediaType(type) {
         const titleSpan = document.getElementById('mediaDropdownTitle');
         const dropdown = document.getElementById('albumsDropdownMenu');
@@ -196,46 +190,30 @@
             document.getElementById('deviceVideoInput').click();
         } else {
             titleSpan.innerText = "الألبومات";
-            showToast('تم اختيار الألبومات');
         }
         if (dropdown) dropdown.style.display = 'none';
     }
 
-    // إغلاق القائمة المنسدلة عند النقر خارجها
     window.addEventListener('click', function() {
         const dropdown = document.getElementById('albumsDropdownMenu');
         if (dropdown) dropdown.style.display = 'none';
     });
 
-    // اختيار الأزرار الأفقية المتحركة في الأسفل مع الوميض
     function selectPlusTab(element, type) {
-        element.style.backgroundColor = "rgba(255, 255, 255, 0.3)";
-        setTimeout(() => {
-            element.style.backgroundColor = (type === 'video') ? "#ffffff" : "#282f3d";
-        }, 200);
-
         document.querySelectorAll('.plus-tab-item').forEach(tab => {
             tab.style.color = "#ffffff";
             tab.style.fontWeight = "600";
             tab.style.backgroundColor = "#282f3d";
         });
-
         element.style.color = "#000000";
         element.style.fontWeight = "bold";
         element.style.backgroundColor = "#ffffff";
 
         if (type === 'video') {
             document.getElementById('deviceVideoInput').click();
-        } else if (type === 'shorts') {
-            showToast('Shorts قريباً...');
-        } else if (type === 'live') {
-            showToast('بث مباشر قريباً...');
-        } else if (type === 'post') {
-            showToast('منشور قريباً...');
         }
     }
 
-    // التعامل مع الفيديو المختار وعرضه
     function handleVideoSelected(event) {
         const file = event.target.files[0];
         if (file) {
@@ -245,62 +223,29 @@
 
             videoElement.src = videoURL;
             previewContainer.style.display = 'block';
-            showToast('تم تحميل الفيديو بنجاح!');
         }
     }
 
-    // دوال التنقل والتبويبات العلوية
     function switchYtTab(element) {
-        element.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
-        setTimeout(() => {
-            element.style.backgroundColor = "transparent";
-        }, 200);
-
         document.querySelectorAll('.yt-top-tab').forEach(tab => {
             tab.style.color = "#aaaaaa";
             tab.style.fontWeight = "500";
-            let indicator = tab.querySelector('.active-tab-indicator');
-            if (indicator) indicator.style.background = "transparent";
+            let ind = tab.querySelector('.active-tab-indicator');
+            if (ind) ind.style.background = "transparent";
         });
-
         element.style.color = "#ffffff";
         element.style.fontWeight = "bold";
-        let activeIndicator = element.querySelector('.active-tab-indicator');
-        if (activeIndicator) activeIndicator.style.background = "#ff0000";
+        let activeInd = element.querySelector('.active-tab-indicator');
+        if (activeInd) activeInd.style.background = "#ff0000";
     }
 
     function bottomRipple(element) {
         element.style.backgroundColor = "rgba(255, 255, 255, 0.25)";
-        setTimeout(() => {
-            element.style.backgroundColor = "transparent";
-        }, 200);
+        setTimeout(() => { element.style.backgroundColor = "transparent"; }, 200);
     }
 
     function rippleEffect(element) {
         element.style.opacity = "0.4";
-        setTimeout(() => {
-            element.style.opacity = "1";
-        }, 200);
+        setTimeout(() => { element.style.opacity = "1"; }, 200);
     }
-
-    // إخفاء وإظهار الهيدر العلوي عند التمرير
-    (function() {
-        let lastScrollTop = 0;
-        const toolsScreen = document.getElementById('toolsScreen');
-        const ytHeader = document.getElementById('ytHeaderContainer');
-
-        if (toolsScreen && ytHeader) {
-            toolsScreen.addEventListener('scroll', function() {
-                let scrollTop = toolsScreen.scrollTop;
-                if (scrollTop > lastScrollTop && scrollTop > 50) {
-                    ytHeader.style.transform = 'translateY(-100%)';
-                    ytHeader.style.opacity = '0';
-                } else {
-                    ytHeader.style.transform = 'translateY(0)';
-                    ytHeader.style.opacity = '1';
-                }
-                lastScrollTop = scrollTop;
-            });
-        }
-    })();
 </script>
