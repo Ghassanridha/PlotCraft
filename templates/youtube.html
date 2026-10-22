@@ -1,11 +1,10 @@
 <!-- شاشة اليوتيوب الرئيسية (youtube.html) -->
 <div id="toolsScreen" class="screen-view" style="padding-bottom: 70px; background-color: #0f0f0f; position: relative; height: 100vh; overflow-y: auto;">
 
-    <!-- 1. مشغل يوتيوب العلوي الحقيقي (يشتغل فوراً عند النقر على الفيديو) -->
+    <!-- 1. مشغل يوتيوب العلوي -->
     <div id="activePlayerContainer" style="display: none; width: 100%; background: #000; position: sticky; top: 0; z-index: 200; border-bottom: 1px solid rgba(255,255,255,0.1);">
         <div style="position: relative; width: 100%; height: 215px; background: #000;">
             <iframe id="mainYouTubeEmbed" src="" style="width: 100%; height: 100%; border: none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <!-- زر إغلاق المشغل -->
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; top: 10px; left: 10px; cursor: pointer; background: rgba(0,0,0,0.8); border-radius: 50%; padding: 4px; z-index: 210;" onclick="closeActivePlayer()">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -19,12 +18,10 @@
         
         <div id="mainHeaderView" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px;">
             <div style="display: flex; align-items: center; gap: 18px;">
-                <!-- أيقونة البحث -->
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="openSearchUI()">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
-                <!-- الإشعارات -->
                 <div style="position: relative; cursor: pointer;">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
@@ -34,7 +31,6 @@
                 </div>
             </div>
 
-            <!-- اللوجو -->
             <div style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
                 <span style="color: #ffffff; font-weight: bold; font-size: 18px; font-family: Roboto, sans-serif;">YouTube</span>
                 <svg width="28" height="20" viewBox="0 0 24 24" fill="none">
@@ -44,37 +40,36 @@
             </div>
         </div>
 
-        <!-- واجهة البحث التفاعلية -->
+        <!-- واجهة البحث -->
         <div id="searchHeaderView" style="display: none; padding: 10px 16px; background: #0f0f0f; align-items: center; gap: 12px; position: relative;">
-            <input type="text" id="searchInput" oninput="handleSearchInput(this.value)" placeholder="ابحث عن قناة أو فيديو..." style="width: 100%; background: #222222; border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 8px 16px; color: #ffffff; font-size: 14px; outline: none; text-align: right;">
+            <input type="text" id="searchInput" oninput="handleSearchInput(this.value)" placeholder="ابحث في الفيديوهات..." style="width: 100%; background: #222222; border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 8px 16px; color: #ffffff; font-size: 14px; outline: none; text-align: right;">
             
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="closeSearchUI()">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
 
-            <!-- قائمة الاقتراحات المنسدلة للبحث -->
             <div id="searchSuggestions" style="display: none; position: absolute; top: 50px; left: 16px; right: 16px; background: #1f1f1f; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); max-height: 220px; overflow-y: auto; z-index: 300; box-shadow: 0 8px 20px rgba(0,0,0,0.8); text-align: right;">
             </div>
         </div>
 
-        <!-- شريط التبويبات العلوي -->
-        <div style="display: flex; gap: 22px; padding: 8px 16px 12px 16px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; direction: rtl;" id="ytTabsContainer">
-            <div class="yt-top-tab active" style="color: #ffffff; font-size: 14px; font-weight: bold; position: relative; padding: 6px 10px; cursor: pointer;">
+        <!-- التبويبات -->
+        <div style="display: flex; gap: 22px; padding: 8px 16px 12px 16px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; direction: rtl;">
+            <div style="color: #ffffff; font-size: 14px; font-weight: bold; position: relative; padding: 6px 10px; cursor: pointer;">
                 الصفحة الرئيسية
                 <div style="position: absolute; bottom: 0; right: 10px; left: 10px; height: 2px; background: #ff0000; border-radius: 2px;"></div>
             </div>
-            <div class="yt-top-tab" style="color: #aaaaaa; font-size: 14px; font-weight: 500; padding: 6px 10px; cursor: pointer;">الاشتراكات</div>
-            <div class="yt-top-tab" style="color: #aaaaaa; font-size: 14px; font-weight: 500; padding: 6px 10px; cursor: pointer;">موسيقى</div>
-            <div class="yt-top-tab" style="color: #aaaaaa; font-size: 14px; font-weight: 500; padding: 6px 10px; cursor: pointer;">مباشر</div>
+            <div style="color: #aaaaaa; font-size: 14px; font-weight: 500; padding: 6px 10px; cursor: pointer;">الاشتراكات</div>
+            <div style="color: #aaaaaa; font-size: 14px; font-weight: 500; padding: 6px 10px; cursor: pointer;">موسيقى</div>
+            <div style="color: #aaaaaa; font-size: 14px; font-weight: 500; padding: 6px 10px; cursor: pointer;">مباشر</div>
         </div>
     </div>
 
-    <!-- 2. قائمة الفيديوهات (بالأغلفة الأصلية والحقيقية لكل فيديو من يوتيوب) -->
+    <!-- 2. قائمة الفيديوهات التلقائية -->
     <div id="videoFeedContainer" style="padding: 16px; display: flex; flex-direction: column; gap: 20px;">
     </div>
 
-    <!-- 3. الشريط السفلي الثابت -->
+    <!-- 3. الشريط السفلي -->
     <div style="position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background-color: #0f0f0f; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-around; align-items: center; z-index: 999999;">
         <div style="cursor: pointer; color: #ffffff;"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
         <div style="cursor: pointer; color: #ffffff;"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.77 10.32l-1.2-.5L18 9.06c1.84-.96 2.53-3.23 1.56-5.06s-3.24-2.53-5.07-1.56L6 6.22C4.13 7.18 3.42 9.48 4.38 11.33c.53 1.02 1.45 1.7 2.53 1.94l1.2.5-1.43.76c-1.84.96-2.53 3.23-1.56 5.06 1 1.83 3.27 2.5 5.1 1.53l8.43-3.78c1.87-.96 2.58-3.26 1.62-5.11-.53-1.01-1.45-1.7-2.5-1.91zM10 14.5v-5l4.5 2.5L10 14.5z"/></svg></div>
@@ -84,80 +79,28 @@
 
 </div>
 
-<!-- دوال التشغيل بالأغلفة الأصلية -->
+<!-- البرمجة -->
 <script>
-    // قاعدة بيانات حقيقية تستخدم المعرفات الأصلية لفيديوهات مستر بيست والقنوات الأخرى (يجلب الغلاف الأصلي الحقيقي تلقائياً من يوتيوب)
-    const realChannelsVideos = [
-        { 
-            title: "أنفقت مليون دولار لاجتياز أخطر لعبة في العالم!", 
-            channel: "MrBeast", 
-            subscribers: "310M مشترك",
-            duration: "15:42", 
-            views: "145 مليون مشاهدة", 
-            ytId: "0e3GPea1Tyg",
-            channelAvatar: "https://yt3.googleusercontent.com/ytc/AIdro_n4g8xW1k7W2f2g2g2g2g2g2g2g2g2g2g=s88-c-k-c0x00ffffff-no-rj"
-        },
-        { 
-            title: "تحدي البقاء داخل منزل مصنوع بالكامل من الشوكولاتة", 
-            channel: "MrBeast", 
-            subscribers: "310M مشترك",
-            duration: "12:10", 
-            views: "98 مليون مشاهدة", 
-            ytId: "0a5ioHxTMp8",
-            channelAvatar: "https://yt3.googleusercontent.com/ytc/AIdro_n4g8xW1k7W2f2g2g2g2g2g2g2g2g2g2g=s88-c-k-c0x00ffffff-no-rj"
-        },
-        { 
-            title: "أقوى ملخصات مباريات دوري أبطال أوروبا التاريخية", 
-            channel: "beIN SPORTS", 
-            subscribers: "14M مشترك",
-            duration: "18:05", 
-            views: "4.2 مليون مشاهدة", 
-            ytId: "36YnV9STBqc",
-            channelAvatar: "https://yt3.googleusercontent.com/ytc/AIdro_mQZ8...=s88-c-k-c0x00ffffff-no-rj"
-        },
-        { 
-            title: "كيف تبدأ تعلم البرمجة وتصبح مطور واجهات احترافي في 2026", 
-            channel: "ElZero Web School", 
-            subscribers: "3.5M مشترك",
-            duration: "25:30", 
-            views: "850 ألف مشاهدة", 
-            ytId: "AKgVrm3MCoo",
-            channelAvatar: "https://yt3.googleusercontent.com/ytc/AIdro_n...=s88-c-k-c0x00ffffff-no-rj"
-        },
-        { 
-            title: "أسرار وخبايا لعبة PUBG Mobile وتحديثات الموسم الجديد القوية", 
-            channel: "PUBG MOBILE", 
-            subscribers: "12M مشترك",
-            duration: "14:20", 
-            views: "12 مليون مشاهدة", 
-            ytId: "6t-4Ge50g78",
-            channelAvatar: "https://yt3.googleusercontent.com/ytc/AIdro_n...=s88-c-k-c0x00ffffff-no-rj"
-        },
-        { 
-            title: "أفضل تجميعة PC احترافية للألعاب والمونتاج بأداء خارق", 
-            channel: "Tech Zone", 
-            subscribers: "1.8M مشترك",
-            duration: "20:15", 
-            views: "1.5 مليون مشاهدة", 
-            ytId: "8pD81vjjmdc",
-            channelAvatar: "https://yt3.googleusercontent.com/ytc/AIdro_n...=s88-c-k-c0x00ffffff-no-rj"
-        }
+    const dynamicVideosSource = [
+        { title: "أحدث التقنيات والاختراعات الذكية في العالم", channel: "Tech Insider", duration: "10:15", views: "12 مليون مشاهدة", ytId: "36YnV9STBqc" },
+        { title: "مغامرات شيقة وتحديات مذهلة بدون حدود", channel: "Adventure Pro", duration: "14:20", views: "45 مليون مشاهدة", ytId: "0e3GPea1Tyg" },
+        { title: "أفضل البرمجيات وتطوير واجهات المستخدم الحديثة", channel: "Code Master", duration: "22:10", views: "3.1 مليون مشاهدة", ytId: "AKgVrm3MCoo" },
+        { title: "ملخص وأهداف المباريات العالمية الكبرى", channel: "Goal Center", duration: "08:45", views: "8.5 مليون مشاهدة", ytId: "0a5ioHxTMp8" },
+        { title: "أقوى الأسرار والنصائح لعشاق الألعاب الإلكترونية", channel: "Gaming Zone", duration: "16:30", views: "19 مليون مشاهدة", ytId: "6t-4Ge50g78" },
+        { title: "جولة سريعة في أعظم عجائب الطبيعة حول العالم", channel: "Nature Live", duration: "12:50", views: "6.4 مليون مشاهدة", ytId: "8pD81vjjmdc" }
     ];
 
     let videosData = [];
-    for (let i = 1; i <= 6; i++) {
-        realChannelsVideos.forEach((v, index) => {
+    for (let i = 1; i <= 10; i++) {
+        dynamicVideosSource.forEach((v, index) => {
             videosData.push({
-                id: (i * 10) + index,
-                title: i === 1 ? v.title : `${v.title} (جزء ${i})`,
+                id: (i * 100) + index,
+                title: `${v.title} (${i})`,
                 channel: v.channel,
-                subscribers: v.subscribers,
                 duration: v.duration,
-                views: `${i * 2.5} مليون مشاهدة`,
+                views: `${i * 1.5} مليون مشاهدة`,
                 ytId: v.ytId,
-                // استخدام رابط الغلاف الأصلي الحقيقي مباشرة من يوتيوب بناءً على معرف الفيديو
-                thumbnail: `https://img.youtube.com/vi/${v.ytId}/hqdefault.jpg`,
-                channelAvatar: v.channelAvatar
+                thumbnail: `https://img.youtube.com/vi/${v.ytId}/hqdefault.jpg`
             });
         });
     }
@@ -167,7 +110,7 @@
         container.innerHTML = '';
 
         if (list.length === 0) {
-            container.innerHTML = `<div style="color: #aaa; text-align: center; padding: 40px 0; direction: rtl;">لا توجد نتائج مطابقة لبحثك</div>`;
+            container.innerHTML = `<div style="color: #aaa; text-align: center; padding: 40px 0; direction: rtl;">لا توجد نتائج مطابقة</div>`;
             return;
         }
 
@@ -176,16 +119,14 @@
             card.style.cssText = "background: #1f242d; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); cursor: pointer;";
             card.onclick = function() { playVideo(video); };
             card.innerHTML = `
-                <!-- غلاف الفيديو الأصلي الحقيقي المنشور من صانع المحتوى -->
                 <div style="width: 100%; height: 190px; background: url('${video.thumbnail}') center/cover no-repeat; position: relative; display: flex; align-items: center; justify-content: center;">
                     <div style="width: 48px; height: 48px; background: rgba(255,0,0,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(255,0,0,0.5);">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff"><polygon points="8,5 19,12 8,19" /></svg>
                     </div>
                     <span style="position: absolute; bottom: 8px; left: 8px; background: rgba(0,0,0,0.85); color: #fff; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">${video.duration}</span>
                 </div>
-                <!-- تفاصيل الفيديو واسم القناة الحقيقي -->
                 <div style="padding: 12px; display: flex; gap: 12px; align-items: flex-start; direction: rtl;">
-                    <div style="width: 40px; height: 40px; border-radius: 50%; background: #333; overflow: hidden; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: bold;">
+                    <div style="width: 40px; height: 40px; border-radius: 50%; background: #333; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: bold; flex-shrink: 0;">
                         ${video.channel.charAt(0)}
                     </div>
                     <div style="flex-grow: 1;">
@@ -205,7 +146,7 @@
 
         playerContainer.style.display = 'block';
         iframePlayer.src = `https://www.youtube.com/embed/${video.ytId}?autoplay=1`;
-        videoInfo.innerHTML = `${video.title}<br><span style="color: #aaa; font-size: 11px;">${video.channel} (${video.subscribers})</span>`;
+        videoInfo.innerHTML = `${video.title}<br><span style="color: #aaa; font-size: 11px;">${video.channel}</span>`;
         
         document.getElementById('toolsScreen').scrollTo({ top: 0, behavior: 'smooth' });
     }
