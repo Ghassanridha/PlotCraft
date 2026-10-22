@@ -90,7 +90,7 @@
             </svg>
         </div>
 
-        <!-- زر الزائد + (يفتح قائمة رفع الفيديو والتصميم الجديد) -->
+        <!-- زر الزائد + -->
         <div class="bottom-nav-btn" onclick="openPlusMenu(); bottomRipple(this)" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 25%; height: 100%; cursor: pointer; color: #ffffff; border-radius: 12px; transition: background 0.2s;">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                 <circle cx="12" cy="12" r="10" stroke="#ffffff"/>
@@ -110,62 +110,78 @@
 
 </div>
 
-<!-- 4. نافذة قائمة زر الزائد (المطابقة للتصميم المطلوب تماماً) -->
+<!-- 4. نافذة قائمة زر الزائد بالتعديل الدقيق (علامة X فوق باليمين وتحتها عبارة تحميل فيديو) -->
 <div id="plusMenuModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000000; z-index: 9999999; flex-direction: column; justify-content: space-between; padding: 20px 16px; box-sizing: border-box;">
     
-    <!-- زر الإغلاق X في الأعلى يمين -->
-    <div style="display: flex; justify-content: flex-end; align-items: center; width: 100%;">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="closePlusMenu()">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
+    <!-- الهيدر العلوي -->
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%; position: relative;">
+        
+        <!-- الجهة اليمنى: علامة X بالطرف وفوق وتحتها عبارة تحميل فيديو من معرض الصور -->
+        <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 8px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="closePlusMenu()">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+            <span style="color: #ffffff; font-size: 15px; font-weight: bold;">تحميل فيديو من معرض الصور</span>
+        </div>
+
+        <!-- الجهة اليسرى بالطرف: كلمة الفيديوهات مع سهم لأسفل والقائمة المنسدلة للألبومات -->
+        <div style="position: relative;">
+            <div onclick="toggleAlbumsDropdown(event)" style="display: flex; align-items: center; gap: 6px; color: #ffffff; font-size: 14px; font-weight: bold; cursor: pointer; background: rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 12px;">
+                <span id="mediaDropdownTitle">الفيديوهات</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+
+            <!-- القائمة المنسدلة الصغيرة (الفيديوهات / الألبومات) -->
+            <div id="albumsDropdownMenu" style="display: none; position: absolute; top: 40px; left: 0; background: #1f242d; border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; overflow: hidden; z-index: 10; min-width: 120px; box-shadow: 0 4px 12px rgba(0,0,0,0.5);">
+                <div onclick="selectMediaType('videos')" style="padding: 10px 14px; color: #ffffff; font-size: 13px; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.08); transition: background 0.2s;" onmouseover="this.style.background='#343d50'" onmouseout="this.style.background='transparent'">الفيديوهات</div>
+                <div onclick="selectMediaType('albums')" style="padding: 10px 14px; color: #ffffff; font-size: 13px; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#343d50'" onmouseout="this.style.background='transparent'">الألبومات</div>
+            </div>
+        </div>
     </div>
 
-    <!-- محتوى الشاشة (فارغ تماماً ونظيف بدون صور عشوائية، جاهز لرفع أو اختيار الفيديو) -->
+    <!-- منطقة عرض الملفات (تفتح استوديو الهاتف تلقائياً بدون كتابة في المنتصف) -->
     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; text-align: center;">
         <input type="file" id="deviceVideoInput" accept="video/*" style="display: none;" onchange="handleVideoSelected(event)">
         
-        <div id="selectedVideoPreviewContainer" style="display: none; width: 100%; max-width: 350px; margin-bottom: 20px;">
+        <div id="selectedVideoPreviewContainer" style="display: none; width: 100%; max-width: 350px;">
             <video id="videoPreviewElement" controls style="width: 100%; border-radius: 12px; max-height: 220px; background: #000;"></video>
-        </div>
-
-        <div id="uploadPromptText" style="color: #ffffff; font-size: 16px; font-weight: bold; cursor: pointer; background: rgba(255,255,255,0.1); padding: 12px 24px; border-radius: 20px; border: 1px dashed rgba(255,255,255,0.3);" onclick="document.getElementById('deviceVideoInput').click()">
-            اختر فيديو من جهازك 📁
         </div>
     </div>
 
-    <!-- الشريط السفلي الأفقي (يتحرك يمين ويسار: فيديو، Shorts، بث مباشر، منشور) -->
-    <div style="display: flex; flex-direction: column; gap: 15px; width: 100%;">
-        <div style="text-align: right; color: #ffffff; font-size: 14px; font-weight: bold; padding-right: 5px;" id="uploadPromptHeader">تحميل فيديو من معرض الصور</div>
-        
-        <div style="display: flex; gap: 14px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; direction: rtl; padding-bottom: 10px; align-items: center;" id="plusBottomTabs">
-            <!-- زر فيديو -->
-            <div class="plus-tab-item active-plus-tab" onclick="selectPlusTab(this, 'video')" style="background: #333333; color: #ffffff; padding: 8px 20px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; transition: background 0.2s;">
-                فيديو
-            </div>
-            <!-- زر Shorts -->
-            <div class="plus-tab-item" onclick="selectPlusTab(this, 'shorts')" style="background: transparent; color: #aaaaaa; padding: 8px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
-                Shorts
-            </div>
-            <!-- زر بث مباشر -->
-            <div class="plus-tab-item" onclick="selectPlusTab(this, 'live')" style="background: transparent; color: #aaaaaa; padding: 8px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
-                بث مباشر
-            </div>
-            <!-- زر منشور -->
-            <div class="plus-tab-item" onclick="selectPlusTab(this, 'post')" style="background: transparent; color: #aaaaaa; padding: 8px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
-                منشور
-            </div>
+    <!-- الشريط السفلي الأفقي المتحرك (يمين ويسار بسلاسة) -->
+    <div style="display: flex; gap: 12px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; direction: rtl; padding-bottom: 10px; align-items: center; width: 100%;">
+        <!-- زر فيديو -->
+        <div class="plus-tab-item active-plus-tab" onclick="selectPlusTab(this, 'video')" style="background: #ffffff; color: #000000; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: bold; cursor: pointer; flex-shrink: 0; transition: background 0.2s;">
+            فيديو
+        </div>
+        <!-- زر Shorts -->
+        <div class="plus-tab-item" onclick="selectPlusTab(this, 'shorts')" style="background: #282f3d; color: #ffffff; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: 600; cursor: pointer; flex-shrink: 0; transition: background 0.2s;">
+            Shorts
+        </div>
+        <!-- زر بث مباشر -->
+        <div class="plus-tab-item" onclick="selectPlusTab(this, 'live')" style="background: #282f3d; color: #ffffff; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: 600; cursor: pointer; flex-shrink: 0; transition: background 0.2s;">
+            بث مباشر
+        </div>
+        <!-- زر منشور -->
+        <div class="plus-tab-item" onclick="selectPlusTab(this, 'post')" style="background: #282f3d; color: #ffffff; padding: 9px 22px; border-radius: 22px; font-size: 13px; font-weight: 600; cursor: pointer; flex-shrink: 0; transition: background 0.2s;">
+            منشور
         </div>
     </div>
 
 </div>
 
-<!-- دوال التفاعل والتحكم بالقائمة وتأثيرات الضغط -->
+<!-- دوال التفاعل والبرمجة بالكامل -->
 <script>
-    // فتح نافذة زر الزائد
+    // فتح قائمة زر الزائد وفتح استوديو الجهاز تلقائياً
     function openPlusMenu() {
         const modal = document.getElementById('plusMenuModal');
-        if (modal) modal.style.display = 'flex';
+        if (modal) {
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                document.getElementById('deviceVideoInput').click();
+            }, 100);
+        }
     }
 
     // إغلاق نافذة زر الزائد
@@ -174,53 +190,74 @@
         if (modal) modal.style.display = 'none';
     }
 
-    // اختيار الأزرار الأفقية في قائمة الزائد مع تأثير الضغط
+    // إظهار/إخفاء القائمة المنسدلة الصغيرة (الفيديوهات / الألبومات)
+    function toggleAlbumsDropdown(event) {
+        event.stopPropagation();
+        const dropdown = document.getElementById('albumsDropdownMenu');
+        if (dropdown) {
+            dropdown.style.display = (dropdown.style.display === 'flex') ? 'none' : 'flex';
+        }
+    }
+
+    // اختيار الفيديوهات أو الألبومات من القائمة المنسدلة
+    function selectMediaType(type) {
+        const titleSpan = document.getElementById('mediaDropdownTitle');
+        const dropdown = document.getElementById('albumsDropdownMenu');
+        if (type === 'videos') {
+            titleSpan.innerText = "الفيديوهات";
+            showToast('تم اختيار الفيديوهات');
+            document.getElementById('deviceVideoInput').click();
+        } else {
+            titleSpan.innerText = "الألبومات";
+            showToast('تم اختيار الألبومات');
+        }
+        if (dropdown) dropdown.style.display = 'none';
+    }
+
+    // إغلاق القائمة المنسدلة عند النقر خارجها
+    window.addEventListener('click', function() {
+        const dropdown = document.getElementById('albumsDropdownMenu');
+        if (dropdown) dropdown.style.display = 'none';
+    });
+
+    // اختيار الأزرار الأفقية في الأسفل مع تأثير الضغط
     function selectPlusTab(element, type) {
-        // تأثير وميض اللون عند الضغط
-        element.style.backgroundColor = "rgba(255, 255, 255, 0.25)";
+        element.style.backgroundColor = "rgba(255, 255, 255, 0.3)";
         setTimeout(() => {
-            element.style.backgroundColor = (type === 'video') ? "#333333" : "transparent";
+            element.style.backgroundColor = (type === 'video') ? "#ffffff" : "#282f3d";
         }, 200);
 
-        // تحديث المظهر البصري للأزرار
         document.querySelectorAll('.plus-tab-item').forEach(tab => {
-            tab.style.color = "#aaaaaa";
+            tab.style.color = "#ffffff";
             tab.style.fontWeight = "600";
-            tab.style.backgroundColor = "transparent";
+            tab.style.backgroundColor = "#282f3d";
         });
 
-        element.style.color = "#ffffff";
+        element.style.color = "#000000";
         element.style.fontWeight = "bold";
-        element.style.backgroundColor = "#333333";
+        element.style.backgroundColor = "#ffffff";
 
-        // تنفيذ الوظيفة حسب الزر
         if (type === 'video') {
-            document.getElementById('uploadPromptHeader').innerText = "تحميل فيديو من معرض الصور";
             document.getElementById('deviceVideoInput').click();
         } else if (type === 'shorts') {
-            document.getElementById('uploadPromptHeader').innerText = "إنشاء فيديو Shorts جديد";
             showToast('Shorts قريباً...');
         } else if (type === 'live') {
-            document.getElementById('uploadPromptHeader').innerText = "بدء بث مباشر";
             showToast('بث مباشر قريباً...');
         } else if (type === 'post') {
-            document.getElementById('uploadPromptHeader').innerText = "إنشاء منشور جديد";
             showToast('منشور قريباً...');
         }
     }
 
-    // التعامل مع الفيديو المختار من جهاز المستخدم حصراً
+    // التعامل مع الفيديو المختار من جهاز المستخدم وتفعيله
     function handleVideoSelected(event) {
         const file = event.target.files[0];
         if (file) {
             const videoURL = URL.createObjectURL(file);
             const previewContainer = document.getElementById('selectedVideoPreviewContainer');
             const videoElement = document.getElementById('videoPreviewElement');
-            const promptText = document.getElementById('uploadPromptText');
 
             videoElement.src = videoURL;
             previewContainer.style.display = 'block';
-            promptText.style.display = 'none';
             showToast('تم تحميل الفيديو بنجاح!');
         }
     }
