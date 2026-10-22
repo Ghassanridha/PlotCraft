@@ -12,7 +12,6 @@
     <!-- الهيدر العلوي وشريط التصنيفات -->
     <div id="ytHeaderContainer" style="position: sticky; top: 0; z-index: 100; background-color: #0f0f0f; border-bottom: 1px solid rgba(255,255,255,0.08);">
         
-        <!-- صف اللوجو وأيقونات البحث والإشعارات -->
         <div id="mainHeaderView" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px;">
             <div style="display: flex; align-items: center; gap: 18px;">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="openSearchUI()">
@@ -42,9 +41,9 @@
         <div style="display: flex; gap: 10px; padding: 8px 16px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; direction: rtl; border-bottom: 1px solid rgba(255,255,255,0.05);">
             <div onclick="resetToYouTubeHome()" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">الصفحة الرئيسية</div>
             <div onclick="fetchYouTubeVideos('subscriptions', false)" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">الاشتراكات</div>
-            <div onclick="fetchYouTubeVideos('music', false)" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">موسيقى</div>
-            <div onclick="fetchYouTubeVideos('live stream', false)" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">مباشر</div>
-            <div onclick="fetchYouTubeVideos('trending podcasts', false)" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">المزيد</div>
+            <div onclick="fetchYouTubeVideos('music creator', false)" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">موسيقى</div>
+            <div onclick="fetchYouTubeVideos('live stream gaming', false)" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">مباشر</div>
+            <div onclick="fetchYouTubeVideos('trending viral videos', false)" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">المزيد</div>
         </div>
 
         <!-- واجهة البحث التفاعلية -->
@@ -58,14 +57,13 @@
         </div>
     </div>
 
-    <!-- 2. قائمة الفيديوهات (Full-Width) -->
+    <!-- 2. قائمة الفيديوهات -->
     <div id="videoFeedContainer" style="display: flex; flex-direction: column; gap: 20px; padding: 0 0 40px 0; min-height: 100vh;">
         <div style="color: #aaa; text-align: center; padding: 40px 0;">جاري تحميل الفيديوهات...</div>
     </div>
 
-    <!-- مؤشر تحميل إضافي عند التمرير لأسفل -->
     <div id="loadingMoreIndicator" style="display: none; text-align: center; padding: 15px; color: #aaa; font-size: 13px;">
-        جاري تحميل المزيد من الفيديوهات...
+        جاري تحميل المزيد من الفيديوهات الجديدة...
     </div>
 
     <!-- 3. شريط التنقل السفلي -->
@@ -75,7 +73,7 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         </div>
 
-        <div onclick="fetchYouTubeVideos('shorts', false)" style="color: #fff; font-size: 11px; cursor: pointer; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 3px;">
+        <div onclick="fetchYouTubeVideos('shorts viral', false)" style="color: #fff; font-size: 11px; cursor: pointer; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 3px;">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
         </div>
 
@@ -94,21 +92,21 @@
 <!-- البرمجة والدوال التفاعلية -->
 <script>
     let globalVideosList = [];
+    let seenVideoIds = new Set(); // مجموعة لمنع تكرار الفيديوهات نهائياً
     let isVideoPlaying = false;
     let isMiniPlayer = false;
     let currentQuery = '';
+    let nextPageToken = '';
     let isLoadingMore = false;
 
-    const randomKeywords = ['trending videos', 'technology 2026', 'gaming highlights', 'news', 'podcast', 'documentary', 'top movies'];
+    const randomKeywords = ['top creators 2026', 'viral tech videos', 'gaming streamers', 'new podcasts', 'documentaries hd', 'popular vlogs'];
 
     function getRandomQuery() {
         return randomKeywords[Math.floor(Math.random() * randomKeywords.length)];
     }
 
-    // إيماءات السحب من الأطراف فقط (Edge Swipe)
     let touchStartX = 0;
     const edgeThreshold = 40; 
-
     const toolsScreen = document.getElementById('toolsScreen');
 
     toolsScreen.addEventListener('touchstart', function(e) {
@@ -127,10 +125,10 @@
         }
     }, {passive: true});
 
-    // استشعار وصول المستخدم لنهاية السكرول لجلب المزيد تلقائياً (Infinite Scroll)
+    // التمرير التلقائي (Infinite Scroll) لجلب فيديوهات جديدة عند النزول للقاع
     toolsScreen.addEventListener('scroll', function() {
-        if (toolsScreen.scrollTop + toolsScreen.clientHeight >= toolsScreen.scrollHeight - 150) {
-            if (!isLoadingMore) {
+        if (toolsScreen.scrollTop + toolsScreen.clientHeight >= toolsScreen.scrollHeight - 200) {
+            if (!isLoadingMore && nextPageToken) {
                 loadMoreVideos();
             }
         }
@@ -171,6 +169,8 @@
 
     function resetToYouTubeHome() {
         toolsScreen.scrollTo({ top: 0, behavior: 'smooth' });
+        seenVideoIds.clear(); // مسح الذاكرة لتوليد قائمة جديدة نظيفة
+        nextPageToken = '';
         fetchYouTubeVideos(getRandomQuery(), false);
     }
 
@@ -181,8 +181,10 @@
         const container = document.getElementById('videoFeedContainer');
         
         if (!isAppend) {
-            container.innerHTML = `<div style="color: #aaa; text-align: center; padding: 40px 0;">جاري تحميل الفيديوهات...</div>`;
+            container.innerHTML = `<div style="color: #aaa; text-align: center; padding: 40px 0;">جاري تحميل أحدث الفيديوهات...</div>`;
+            seenVideoIds.clear();
             globalVideosList = [];
+            nextPageToken = '';
         } else {
             document.getElementById('loadingMoreIndicator').style.display = 'block';
         }
@@ -190,7 +192,12 @@
         isLoadingMore = true;
         
         try {
-            const response = await fetch(`/api/videos?query=${encodeURIComponent(query)}`);
+            let url = `/api/videos?query=${encodeURIComponent(query)}`;
+            if (isAppend && nextPageToken) {
+                url += `&pageToken=${nextPageToken}`;
+            }
+
+            const response = await fetch(url);
             const data = await response.json();
 
             document.getElementById('loadingMoreIndicator').style.display = 'none';
@@ -203,12 +210,21 @@
                 return;
             }
 
-            const newVideos = data.items.map(item => ({
-                ytId: item.id.videoId,
-                title: item.snippet.title,
-                channel: item.snippet.channelTitle,
-                thumbnail: item.snippet.thumbnails.high ? item.snippet.thumbnails.high.url : item.snippet.thumbnails.default.url
-            }));
+            // حفظ رمز الصفحة التالية لجلب فيديوهات جديدة في المرة القادمة
+            nextPageToken = data.nextPageToken || '';
+
+            // تصفية الفيديوهات لمنع تكرار أي فيديو ظهر مسبقاً
+            const newVideos = data.items
+                .filter(item => item.id && item.id.videoId && !seenVideoIds.has(item.id.videoId))
+                .map(item => {
+                    seenVideoIds.add(item.id.videoId);
+                    return {
+                        ytId: item.id.videoId,
+                        title: item.snippet.title,
+                        channel: item.snippet.channelTitle,
+                        thumbnail: item.snippet.thumbnails.high ? item.snippet.thumbnails.high.url : item.snippet.thumbnails.default.url
+                    };
+                });
 
             if (isAppend) {
                 globalVideosList = [...globalVideosList, ...newVideos];
@@ -229,7 +245,6 @@
     }
 
     function loadMoreVideos() {
-        // عند السحب للأسفل، يجلب دفعة جديدة عشوائية أو تابعة لنفس الكلمة
         fetchYouTubeVideos(currentQuery, true);
     }
 
