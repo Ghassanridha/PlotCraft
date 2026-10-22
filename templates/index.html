@@ -1677,7 +1677,8 @@
             }
 
             let navBar = document.getElementById('mainNavBar');
-            if (['sparkleDialogScreen', 'addCharacterScreen', 'storyDescriptionScreen', 'stepByStepScreen'].includes(screenId)) {
+            // إضافة toolsScreen لإخفاء شريط التنقل الرئيسي عند التواجد في شاشة اليوتيوب
+            if (['sparkleDialogScreen', 'addCharacterScreen', 'storyDescriptionScreen', 'stepByStepScreen', 'toolsScreen'].includes(screenId)) {
                 navBar.classList.add('hidden');
             } else {
                 navBar.classList.remove('hidden');
