@@ -1642,9 +1642,15 @@
                 <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="switchScreen('homeScreen', event); setActiveNav('navHome')">
                     <span>الرئيسية</span>
                 </a>
-                <a href="#" class="plotcraft-nav-item" id="navTools" onclick="switchScreen('toolsScreen', event); setActiveNav('navTools')">
-                    <span>الأدوات</span>
+                
+                <!-- زر اليوتيوب المستقل بدل الأدوات (مربع أحمر وبداخله مثلث وبدون اسم) -->
+                <a href="/youtube" id="navTools" style="text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 2px;">
+                    <svg width="28" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2" y="4" width="20" height="16" rx="4" fill="#FF0000" />
+                        <polygon points="10,8 16,12 10,16" fill="#FFFFFF" />
+                    </svg>
                 </a>
+
                 <a href="#" class="plotcraft-nav-item" id="navWorks" onclick="switchScreen('worksScreen', event); setActiveNav('navWorks')">
                     <span>الأعمال</span>
                 </a>
@@ -1663,7 +1669,6 @@
 
         window.switchScreen = function(screenId, event) {
             if (event) event.preventDefault();
-            document.querySelectorAll('.screen-view').class="screen-view"
             document.querySelectorAll('.screen-view').forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
             let navBar = document.getElementById('mainNavBar');
@@ -1676,12 +1681,12 @@
 
         window.setActiveNav = function(navId) {
             document.querySelectorAll('.plotcraft-nav-item').forEach(i => i.classList.remove('active'));
-            document.getElementById(navId).classList.add('active');
+            let targetNav = document.getElementById(navId);
+            if(targetNav) targetNav.classList.add('active');
         };
 
         window.openSparkleDialog = function(event) { if (event) event.stopPropagation(); showToast('إنشاء سريع'); };
         
-        // تعديل دالة الإعدادات لتفتح الشاشة المستقلة بدلاً من إظهار الكلمة فقط
         window.openSettingsScreen = function(event) {
             if (event) event.stopPropagation();
             const settingsScreen = document.getElementById('settingsScreen');
