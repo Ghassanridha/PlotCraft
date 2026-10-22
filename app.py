@@ -24,10 +24,15 @@ async def home(request: Request):
     # تمرير request أولاً لمطابقة تحديثات FastAPI وStarlette الحديثة
     return templates.TemplateResponse(request, "index.html")
 
-# مسار خاص لجلب فيديوهات اليوتيوب
+# مسار خاص لجلب فيديوهات اليوتيوب (محدث لدعم التمرير اللانهائي ومنع التكرار)
 @app.get("/api/videos")
-async def get_youtube_videos(query: str = "football"):
-    url = f"https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&q={query}&type=video&key={YOUTUBE_API_KEY}"
+async def get_youtube_videos(query: str = "trending", pageToken: str = ""):
+    url = f"https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q={query}&type=video&key={YOUTUBE_API_KEY}"
+    
+    # إضافة رمز الصفحة التالية للرابط إن وجد لجلب فيديوهات جديدة كلياً
+    if pageToken:
+        url += f"&pageToken={pageToken}"
+        
     try:
         response = requests.get(url)
         data = response.json()
