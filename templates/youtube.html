@@ -9,7 +9,7 @@
         <div id="activeVideoInfo" style="padding: 10px 16px; color: #fff; font-size: 14px; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.05); text-align: right;"></div>
     </div>
 
-    <!-- الهيدر العلوي وشريط التصنيفات (مطابق للصورة تماماً) -->
+    <!-- الهيدر العلوي وشريط التصنيفات (مطابق للصورة) -->
     <div id="ytHeaderContainer" style="position: sticky; top: 0; z-index: 100; background-color: #0f0f0f; border-bottom: 1px solid rgba(255,255,255,0.08);">
         
         <!-- صف اللوجو وأيقونات البحث والإشعارات -->
@@ -39,7 +39,7 @@
             </div>
         </div>
 
-        <!-- شريط التصنيفات (الصفحة الرئيسية، الاشتراكات، موسيقى، مباشر، المزيد)[span_2](start_span)[span_2](end_span) -->
+        <!-- شريط التصنيفات (الصفحة الرئيسية، الاشتراكات، موسيقى، مباشر، المزيد)[span_0](start_span)[span_0](end_span) -->
         <div style="display: flex; gap: 10px; padding: 8px 16px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; direction: rtl; border-bottom: 1px solid rgba(255,255,255,0.05);">
             <div onclick="fetchYouTubeVideos('football highlights')" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">الصفحة الرئيسية</div>
             <div onclick="fetchYouTubeVideos('subscriptions')" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">الاشتراكات</div>
@@ -59,15 +59,34 @@
         </div>
     </div>
 
-    <!-- 2. قائمة الفيديوهات بالتصميم وحجم العرض المطابق للصورة (Full-Width) -->
+    <!-- 2. قائمة الفيديوهات (Full-Width) -->
     <div id="videoFeedContainer" style="display: flex; flex-direction: column; gap: 20px; padding: 0;">
         <div style="color: #aaa; text-align: center; padding: 40px 0;">جاري تحميل الفيديوهات...</div>
     </div>
 
-    <!-- 3. شريط التنقل السفلي الثابت -->
-    <div style="position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background: #121212; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-around; align-items: center; z-index: 999;">
-        <div onclick="exitToHome()" style="color: #aaa; font-size: 13px; cursor: pointer; text-align: center;">الرئيسية</div>
-        <div style="color: #ff0000; font-size: 13px; cursor: pointer; text-align: center; font-weight: bold;">يوتيوب</div>
+    <!-- 3. شريط التنقل السفلي الجديد (مطابق لترتيب الصورة بالضبط: من اليمين [الرئيسية، شورتس/الفيديوهات، زر +, البروفايل])[span_1](start_span)[span_1](end_span) -->
+    <div style="position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background: #121212; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-around; align-items: center; z-index: 999; padding: 0 10px;">
+        
+        <!-- الأيقونة الأولى من اليمين: الرئيسية (بيت) -->
+        <div onclick="exitToHome()" style="color: #fff; font-size: 11px; cursor: pointer; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 3px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+
+        <!-- الأيقونة الثانية: الفيديوهات/الشورتس (أيقونة يوتيوب المربّعة بداخلها سهم كما في الصورة) -->
+        <div style="color: #fff; font-size: 11px; cursor: pointer; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 3px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </div>
+
+        <!-- الأيقونة الثالثة: زر الإضافة (+) الدائري في المنتصف -->
+        <div style="cursor: pointer; display: flex; align-items: center; justify-content: center;">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        </div>
+
+        <!-- الأيقونة الرابعة من اليمين (الأولى من اليسار): البروفايل الشخصي الدائري -->
+        <div style="width: 26px; height: 26px; border-radius: 50%; background: #333; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer; border: 1.5px solid #fff;">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" style="width: 100%; height: 100%; object-fit: cover;" alt="Profile">
+        </div>
+
     </div>
 
 </div>
@@ -166,7 +185,6 @@
 
         list.forEach(video => {
             const card = document.createElement('div');
-            // إزالة الحواف والحواف الدائرية لجعل الفيديو يأخذ عرض الشاشة بالكامل وبنسبة 16:9 كما في الصورة[span_3](start_span)[span_3](end_span)
             card.style.cssText = "background: #0f0f0f; width: 100%; cursor: pointer;";
             card.onclick = function() { playVideo(video); };
             card.innerHTML = `
@@ -174,7 +192,7 @@
                 <div style="width: 100%; aspect-ratio: 16/9; background: url('${video.thumbnail}') center/cover no-repeat; position: relative;">
                 </div>
                 
-                <!-- تفاصيل الفيديو (العنوان، الأيقونة، أزرار الخيارات) بنفس التنسيق بالصورة[span_4](start_span)[span_4](end_span) -->
+                <!-- تفاصيل الفيديو (العنوان، الأيقونة، أزرار الخيارات) -->
                 <div style="padding: 12px 14px; display: flex; gap: 12px; align-items: flex-start; direction: rtl;">
                     <!-- الأيقونة الدائرية للقناة -->
                     <div style="width: 36px; height: 36px; border-radius: 50%; background: #272727; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: bold; flex-shrink: 0; overflow: hidden; font-size: 14px;">
