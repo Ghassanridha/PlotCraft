@@ -1,4 +1,5 @@
 import os
+import requests
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -9,7 +10,7 @@ from security import sanitize_input  # استيراد دالة التنظيف ا
 app = FastAPI()
 db = init_firebase()
 
-# تعريف مفتاح يوتيوب بشكل آمن (يقرأ من متغيرات البيئة أو يستخدم المفتاح المباشر كقيمة افتراضية)
+# تعريف مفتاح يوتيوب بشكل آمن
 YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY", "AIzaSyDuSWbvfNJiGk7sw3eO6xJpPPur5L_heqA")
 
 # ربط مجلد static لتقديم الملفات الثابتة
@@ -22,6 +23,17 @@ templates = Jinja2Templates(directory="templates")
 async def home(request: Request):
     # تمرير request أولاً لمطابقة تحديثات FastAPI وStarlette الحديثة
     return templates.TemplateResponse(request, "index.html")
+
+# مسار خاص لجلب فيديوهات اليوتيوب
+@app.get("/api/videos")
+async def get_youtube_videos(query: str = "football"):
+    url = f"https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&q={query}&type=video&key={YOUTUBE_API_KEY}"
+    try:
+        response = requests.get(url)
+        data = response.json()
+        return JSONResponse(content=data)
+    except Exception as e:
+        return JSONResponse({"error": str(e)}, status_code=500)
 
 # مسار خاص لخدمة ملف manifest.json مباشرة لـ PWABuilder
 @app.get("/manifest.json")
