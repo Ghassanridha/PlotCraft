@@ -9,19 +9,27 @@
         <div id="activeVideoInfo" style="padding: 10px 16px; color: #fff; font-size: 14px; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.05); text-align: right;"></div>
     </div>
 
-    <!-- الهيدر العلوي وشريط البحث -->
+    <!-- الهيدر العلوي وشريط التصنيفات (مطابق للصورة تماماً) -->
     <div id="ytHeaderContainer" style="position: sticky; top: 0; z-index: 100; background-color: #0f0f0f; border-bottom: 1px solid rgba(255,255,255,0.08);">
         
+        <!-- صف اللوجو وأيقونات البحث والإشعارات -->
         <div id="mainHeaderView" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px;">
             <div style="display: flex; align-items: center; gap: 18px;">
-                <!-- أيقونة البحث -->
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="openSearchUI()">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
+                <!-- أيقونة الإشعارات مع نقطة التنبيه -->
+                <div style="position: relative; cursor: pointer;">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                    <span style="position: absolute; top: -3px; right: -5px; background: #ff0000; color: #fff; font-size: 10px; padding: 1px 4px; border-radius: 10px; font-weight: bold;">9+</span>
+                </div>
             </div>
 
-            <!-- اللوجو -->
+            <!-- لوجو يوتيوب -->
             <div style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
                 <span style="color: #ffffff; font-weight: bold; font-size: 18px; font-family: Roboto, sans-serif;">YouTube</span>
                 <svg width="28" height="20" viewBox="0 0 24 24" fill="none">
@@ -29,6 +37,15 @@
                     <polygon points="10,8 16,12 10,16" fill="#FFFFFF" />
                 </svg>
             </div>
+        </div>
+
+        <!-- شريط التصنيفات (الصفحة الرئيسية، الاشتراكات، موسيقى، مباشر، المزيد)[span_2](start_span)[span_2](end_span) -->
+        <div style="display: flex; gap: 10px; padding: 8px 16px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; direction: rtl; border-bottom: 1px solid rgba(255,255,255,0.05);">
+            <div onclick="fetchYouTubeVideos('football highlights')" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">الصفحة الرئيسية</div>
+            <div onclick="fetchYouTubeVideos('subscriptions')" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">الاشتراكات</div>
+            <div onclick="fetchYouTubeVideos('music')" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">موسيقى</div>
+            <div onclick="fetchYouTubeVideos('live stream')" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">مباشر</div>
+            <div onclick="fetchYouTubeVideos('trending')" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">المزيد</div>
         </div>
 
         <!-- واجهة البحث التفاعلية -->
@@ -42,8 +59,8 @@
         </div>
     </div>
 
-    <!-- 2. قائمة الفيديوهات -->
-    <div id="videoFeedContainer" style="padding: 16px; display: flex; flex-direction: column; gap: 20px;">
+    <!-- 2. قائمة الفيديوهات بالتصميم وحجم العرض المطابق للصورة (Full-Width) -->
+    <div id="videoFeedContainer" style="display: flex; flex-direction: column; gap: 20px; padding: 0;">
         <div style="color: #aaa; text-align: center; padding: 40px 0;">جاري تحميل الفيديوهات...</div>
     </div>
 
@@ -61,9 +78,9 @@
     let isVideoPlaying = false;
     let isMiniPlayer = false;
 
-    // إيماءات السحب من الأطراف فقط (Edge Swipe) حصراً
+    // إيماءات السحب من الأطراف فقط (Edge Swipe)
     let touchStartX = 0;
-    const edgeThreshold = 40; // مسافة البكسل من حافة الشاشة
+    const edgeThreshold = 40; 
 
     const toolsScreen = document.getElementById('toolsScreen');
 
@@ -75,7 +92,6 @@
         let touchEndX = e.changedTouches[0].clientX;
         let diffX = touchEndX - touchStartX;
 
-        // التحقق مما إذا بدأ اللمس من أطراف الشاشة حصراً (اليسار أو اليمين)
         let isFromLeftEdge = touchStartX <= edgeThreshold;
         let isFromRightEdge = touchStartX >= (window.innerWidth - edgeThreshold);
 
@@ -87,14 +103,11 @@
     function handleEdgeSwipe() {
         if (isVideoPlaying) {
             if (!isMiniPlayer) {
-                // السحب الأولى: تحويل الفيديو إلى مربع مصغر في أسفل اليمين
                 makeMiniPlayer();
             } else {
-                // السحب الثانية وهو مصغر: الخروج نهائياً من شاشة اليوتيوب للرئيسية
                 exitToHome();
             }
         } else {
-            // لا يوجد فيديو مشغل: السحب من الطرف يخرج فوراً للرئيسية
             exitToHome();
         }
     }
@@ -117,7 +130,7 @@
         container.style.boxShadow = '0 8px 24px rgba(0,0,0,0.8)';
         
         wrapper.style.height = '150px';
-        if (videoInfo) videoInfo.style.display = 'none'; // إخفاء العنوان لتصغير المربع بشكل مرتب
+        if (videoInfo) videoInfo.style.display = 'none';
     }
 
     async function fetchYouTubeVideos(query = 'football highlights') {
@@ -153,21 +166,30 @@
 
         list.forEach(video => {
             const card = document.createElement('div');
-            card.style.cssText = "background: #1f242d; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); cursor: pointer;";
+            // إزالة الحواف والحواف الدائرية لجعل الفيديو يأخذ عرض الشاشة بالكامل وبنسبة 16:9 كما في الصورة[span_3](start_span)[span_3](end_span)
+            card.style.cssText = "background: #0f0f0f; width: 100%; cursor: pointer;";
             card.onclick = function() { playVideo(video); };
             card.innerHTML = `
-                <div style="width: 100%; height: 190px; background: url('${video.thumbnail}') center/cover no-repeat; position: relative; display: flex; align-items: center; justify-content: center;">
-                    <div style="width: 48px; height: 48px; background: rgba(255,0,0,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(255,0,0,0.5);">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff"><polygon points="8,5 19,12 8,19" /></svg>
-                    </div>
+                <!-- صورة الفيديو بحجم كامل 16:9 مطابق للصورة -->
+                <div style="width: 100%; aspect-ratio: 16/9; background: url('${video.thumbnail}') center/cover no-repeat; position: relative;">
                 </div>
-                <div style="padding: 12px; display: flex; gap: 12px; align-items: flex-start; direction: rtl;">
-                    <div style="width: 40px; height: 40px; border-radius: 50%; background: #ff0000; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: bold; flex-shrink: 0;">
+                
+                <!-- تفاصيل الفيديو (العنوان، الأيقونة، أزرار الخيارات) بنفس التنسيق بالصورة[span_4](start_span)[span_4](end_span) -->
+                <div style="padding: 12px 14px; display: flex; gap: 12px; align-items: flex-start; direction: rtl;">
+                    <!-- الأيقونة الدائرية للقناة -->
+                    <div style="width: 36px; height: 36px; border-radius: 50%; background: #272727; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: bold; flex-shrink: 0; overflow: hidden; font-size: 14px;">
                         ${video.channel.charAt(0)}
                     </div>
+                    
+                    <!-- عنوان الفيديو واسم القناة -->
                     <div style="flex-grow: 1;">
-                        <h3 style="color: #ffffff; font-size: 14px; font-weight: 700; margin-bottom: 4px; line-height: 1.4; text-align: right;">${video.title}</h3>
+                        <h3 style="color: #ffffff; font-size: 14px; font-weight: 500; margin: 0 0 4px 0; line-height: 1.4; text-align: right; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${video.title}</h3>
                         <p style="color: #aaa; font-size: 12px; text-align: right; margin: 0;">${video.channel}</p>
+                    </div>
+
+                    <!-- زر الثلاث نقاط للخيارات -->
+                    <div style="color: #aaa; padding: 2px; cursor: pointer;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
                     </div>
                 </div>
             `;
