@@ -9,7 +9,7 @@
         <div id="activeVideoInfo" style="padding: 10px 16px; color: #fff; font-size: 14px; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.05); text-align: right;"></div>
     </div>
 
-    <!-- الهيدر العلوي وشريط التصنيفات (يختفي بالكامل عند تشغيل الفيديو) -->
+    <!-- الهيدر العلوي وشريط التصنيفات -->
     <div id="ytHeaderContainer" style="position: sticky; top: 0; z-index: 100; background-color: #0f0f0f; border-bottom: 1px solid rgba(255,255,255,0.08);">
         
         <div id="mainHeaderView" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px;">
@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <!-- شريط التصنيفات بأسمائه الجديدة -->
+        <!-- شريط التصنيفات المعدل -->
         <div style="display: flex; gap: 10px; padding: 8px 16px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; direction: rtl; border-bottom: 1px solid rgba(255,255,255,0.05);">
             <div onclick="resetToYouTubeHome()" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">الصفحة الرئيسية</div>
             <div onclick="fetchYouTubeVideos('الاشتراكات يوتيوب', false)" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">الاشتراكات</div>
@@ -66,7 +66,7 @@
         جاري جلب المزيد من الاقتراحات والفيديوهات المقاربة...
     </div>
 
-    <!-- 3. شريط التنقل السفلي (يختفي تماماً عند تشغيل الفيديو) -->
+    <!-- 3. شريط التنقل السفلي -->
     <div id="bottomNavBar" style="position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background: #121212; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-around; align-items: center; z-index: 999; padding: 0 10px; transition: all 0.3s ease;">
         
         <div onclick="resetToYouTubeHome()" style="color: #fff; font-size: 11px; cursor: pointer; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 3px;">
@@ -183,7 +183,6 @@
         wrapper.style.height = '150px';
         if (videoInfo) videoInfo.style.display = 'none';
 
-        // إعادة إظهار الأشرطة عند تحويل الفيديو لمشغل مصغر
         document.getElementById('ytHeaderContainer').style.display = 'block';
         document.getElementById('bottomNavBar').style.display = 'flex';
     }
@@ -362,7 +361,6 @@
             videoInfo.innerHTML = `${video.title}<br><span style="color: #aaa; font-size: 11px;">${video.channel}</span>`;
         }
 
-        // إخفاء الهيدر (البحث، الجرس، اللوجو والتصنيفات) والشريط السفلي فور تشغيل الفيديو
         document.getElementById('ytHeaderContainer').style.display = 'none';
         document.getElementById('bottomNavBar').style.display = 'none';
 
@@ -378,7 +376,6 @@
         iframePlayer.src = '';
         playerContainer.style.display = 'none';
 
-        // إعادة إظهار الأشرطة عند الخروج
         document.getElementById('ytHeaderContainer').style.display = 'block';
         document.getElementById('bottomNavBar').style.display = 'flex';
 
