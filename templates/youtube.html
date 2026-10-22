@@ -1,290 +1,57 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>YouTube</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    body {
-      background-color: #0f0f0f;
-      color: #ffffff;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      padding-bottom: 60px;
-      overflow-x: hidden;
-    }
-
-    /* الشريط العلوي */
-    .yt-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 16px;
-      background-color: #0f0f0f;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .yt-header-right, .yt-header-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .yt-back-btn {
-      background: none;
-      border: none;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      padding: 4px;
-    }
-
-    .yt-logo {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .yt-logo-text {
-      font-weight: bold;
-      font-size: 18px;
-      letter-spacing: -0.5px;
-    }
-
-    .yt-icon-btn {
-      background: none;
-      border: none;
-      color: #ffffff;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      position: relative;
-    }
-
-    .yt-badge {
-      position: absolute;
-      top: -3px;
-      left: -4px;
-      background-color: #cc0000;
-      color: #ffffff;
-      font-size: 9px;
-      font-weight: bold;
-      padding: 1px 4px;
-      border-radius: 10px;
-    }
-
-    /* شريط التبويبات الأفقي */
-    .yt-tabs {
-      display: flex;
-      gap: 8px;
-      padding: 10px 16px;
-      overflow-x: auto;
-      border-bottom: 1px solid #272727;
-      white-space: nowrap;
-      scrollbar-width: none;
-    }
-
-    .yt-tabs::-webkit-scrollbar { display: none; }
-
-    .yt-tab {
-      background-color: #272727;
-      color: #ffffff;
-      border: none;
-      padding: 6px 14px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 500;
-    }
-
-    .yt-tab.active {
-      background-color: #ffffff;
-      color: #0f0f0f;
-      font-weight: bold;
-    }
-
-    /* المحتوى */
-    .yt-content { padding: 12px 0; }
-
-    .placeholder-box { background-color: #272727; border-radius: 12px; }
-    .placeholder-circle { background-color: #272727; border-radius: 50%; }
-    .placeholder-text { background-color: #272727; border-radius: 4px; height: 14px; margin-bottom: 6px; }
-    .placeholder-text.short { width: 50%; }
-
-    /* كارت الإعلان المفرغ */
-    .yt-ad-card {
-      background-color: #161616;
-      margin: 0 12px 16px 12px;
-      border-radius: 14px;
-      padding: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-    .yt-ad-media { width: 100%; height: 170px; margin-bottom: 12px; }
-    .yt-ad-actions { display: flex; gap: 10px; margin-top: 12px; }
-    .yt-btn { flex: 1; padding: 10px; border-radius: 20px; border: none; font-weight: bold; font-size: 13px; cursor: pointer; }
-    .yt-btn-primary { background-color: #ffffff; color: #0f0f0f; }
-    .yt-btn-secondary { background-color: #272727; color: #ffffff; }
-
-    /* كارت الفيديو المفرغ */
-    .yt-video-card { margin-bottom: 20px; }
-    .yt-thumbnail { width: 100%; height: 210px; position: relative; }
-    .yt-time-badge { position: absolute; bottom: 8px; left: 8px; background: rgba(0, 0, 0, 0.8); color: #ffffff; font-size: 11px; padding: 2px 5px; border-radius: 4px; }
-    .yt-video-meta { display: flex; gap: 12px; padding: 12px 16px; }
-    .yt-avatar { width: 38px; height: 38px; flex-shrink: 0; }
-    .yt-video-info { flex-grow: 1; }
-
-    /* الشريط السفلي المخصص لليوتيوب */
-    .yt-bottom-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 56px;
-      background-color: #0f0f0f;
-      border-top: 1px solid #272727;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      z-index: 100;
-    }
-
-    .yt-nav-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: #aaaaaa;
-      font-size: 10px;
-      gap: 3px;
-      text-decoration: none;
-    }
-
-    .yt-nav-btn.active { color: #ffffff; }
-    .yt-user-avatar { width: 22px; height: 22px; background-color: #272727; border-radius: 50%; }
-  </style>
-</head>
-<body>
-
-  <!-- الشريط العلوي لليوتيوب -->
-  <header class="yt-header">
-    <div class="yt-header-right">
-      <!-- زر السهم للعودة إلى الصفحة الرئيسية -->
-      <a href="/" class="yt-back-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
-          <line x1="19" y1="12" x2="5" y2="12"></line>
-          <polyline points="12 19 5 12 12 5"></polyline>
-        </svg>
-      </a>
-      <div class="yt-logo">
-        <svg width="28" height="20" viewBox="0 0 24 24">
-          <rect x="2" y="4" width="20" height="16" rx="4" fill="#FF0000"/>
-          <polygon points="10,8 16,12 10,16" fill="#FFFFFF"/>
-        </svg>
-        <span class="yt-logo-text">YouTube</span>
-      </div>
-    </div>
-
-    <div class="yt-header-left">
-      <button class="yt-icon-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" width="22" height="22">
-          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-        </svg>
-        <span class="yt-badge">+9</span>
-      </button>
-      <button class="yt-icon-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" width="22" height="22">
-          <circle cx="11" cy="11" r="8"/>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-      </button>
-    </div>
-  </header>
-
-  <!-- شريط التبويبات -->
-  <nav class="yt-tabs">
-    <button class="yt-tab active">الصفحة الرئيسية</button>
-    <button class="yt-tab">الاشتراكات</button>
-    <button class="yt-tab">موسيقى</button>
-    <button class="yt-tab">مباشر</button>
-    <button class="yt-tab">المزيد</button>
-  </nav>
-
-  <!-- محتوى التصميم المفرغ (Skeleton) -->
-  <main class="yt-content">
-    <!-- كارت إعلان مفرغ -->
-    <div class="yt-ad-card">
-      <div class="yt-ad-media placeholder-box"></div>
-      <div class="yt-ad-details">
-        <div class="yt-ad-title placeholder-text"></div>
-        <div class="yt-ad-subtext placeholder-text short"></div>
-        <div class="yt-ad-actions">
-          <button class="yt-btn yt-btn-primary">اشتراك</button>
-          <button class="yt-btn yt-btn-secondary">مشاهدة</button>
+<!-- شاشة اليوتيوب والأدوات (تظهر فقط كقائمة كاملة عند الضغط على الزر الصغير) -->
+<div id="toolsScreen" class="screen-view">
+    
+    <!-- الشريط العلوي للقائمة -->
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #0f0f0f; border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <svg width="24" height="20" viewBox="0 0 24 24">
+                <rect x="2" y="4" width="20" height="16" rx="4" fill="#FF0000"/>
+                <polygon points="10,8 16,12 10,16" fill="#FFFFFF"/>
+            </svg>
+            <span style="color: #ffffff; font-weight: bold; font-size: 16px;">YouTube</span>
         </div>
-      </div>
+        <div style="color: #ffffff; font-size: 13px; font-weight: 600;">قائمة الأدوات</div>
     </div>
 
-    <!-- كارت فيديو مفرغ 1 -->
-    <div class="yt-video-card">
-      <div class="yt-thumbnail placeholder-box">
-        <span class="yt-time-badge">--:--</span>
-      </div>
-      <div class="yt-video-meta">
-        <div class="yt-avatar placeholder-circle"></div>
-        <div class="yt-video-info">
-          <div class="yt-title placeholder-text"></div>
-          <div class="yt-subinfo placeholder-text short"></div>
+    <!-- أقسام وتصنيفات القائمة -->
+    <div style="display: flex; gap: 8px; padding: 10px 16px; overflow-x: auto; background: #0f0f0f;">
+        <div style="background: #ffffff; color: #000; padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: bold;">الكل</div>
+        <div style="background: rgba(255,255,255,0.1); color: #fff; padding: 6px 14px; border-radius: 8px; font-size: 12px;">الموسيقى</div>
+        <div style="background: rgba(255,255,255,0.1); color: #fff; padding: 6px 14px; border-radius: 8px; font-size: 12px;">الألعاب</div>
+        <div style="background: rgba(255,255,255,0.1); color: #fff; padding: 6px 14px; border-radius: 8px; font-size: 12px;">مباشر</div>
+    </div>
+
+    <!-- محتوى قائمة الفيديوهات المفرغة (Skeleton) -->
+    <div style="padding: 16px; display: flex; flex-direction: column; gap: 16px;">
+        
+        <!-- عنصر 1 في القائمة -->
+        <div style="background: #282f3d; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05);">
+            <div style="width: 100%; height: 160px; background: #343d50; position: relative;">
+                <span style="position: absolute; bottom: 8px; left: 8px; background: rgba(0,0,0,0.8); color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 4px;">10:25</span>
+            </div>
+            <div style="padding: 12px; display: flex; gap: 10px;">
+                <div style="width: 36px; height: 36px; border-radius: 50%; background: #343d50; flex-shrink: 0;"></div>
+                <div style="flex-grow: 1;">
+                    <div style="height: 12px; background: #343d50; border-radius: 4px; margin-bottom: 6px; width: 85%;"></div>
+                    <div style="height: 10px; background: #343d50; border-radius: 4px; width: 50%;"></div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <!-- كارت فيديو مفرغ 2 -->
-    <div class="yt-video-card">
-      <div class="yt-thumbnail placeholder-box">
-        <span class="yt-time-badge">--:--</span>
-      </div>
-      <div class="yt-video-meta">
-        <div class="yt-avatar placeholder-circle"></div>
-        <div class="yt-video-info">
-          <div class="yt-title placeholder-text"></div>
-          <div class="yt-subinfo placeholder-text short"></div>
+        <!-- عنصر 2 في القائمة -->
+        <div style="background: #282f3d; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05);">
+            <div style="width: 100%; height: 160px; background: #343d50; position: relative;">
+                <span style="position: absolute; bottom: 8px; left: 8px; background: rgba(0,0,0,0.8); color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 4px;">04:12</span>
+            </div>
+            <div style="padding: 12px; display: flex; gap: 10px;">
+                <div style="width: 36px; height: 36px; border-radius: 50%; background: #343d50; flex-shrink: 0;"></div>
+                <div style="flex-grow: 1;">
+                    <div style="height: 12px; background: #343d50; border-radius: 4px; margin-bottom: 6px; width: 70%;"></div>
+                    <div style="height: 10px; background: #343d50; border-radius: 4px; width: 40%;"></div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </main>
 
-  <!-- الشريط السفلي لتطبيق اليوتيوب -->
-  <footer class="yt-bottom-bar">
-    <div class="yt-nav-btn active">
-      <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-      <span>الرئيسية</span>
     </div>
-    <div class="yt-nav-btn">
-      <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
-      <span>Shorts</span>
-    </div>
-    <div class="yt-nav-btn">
-      <svg viewBox="0 0 24 24" fill="currentColor" width="26" height="26"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-    </div>
-    <div class="yt-nav-btn">
-      <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M4 6h16v2H4zm2 4h12v2H6zm3 4h6v2H9z"/></svg>
-      <span>الاشتراكات</span>
-    </div>
-    <div class="yt-nav-btn">
-      <div class="yt-user-avatar"></div>
-      <span>أنت</span>
-    </div>
-  </footer>
 
-</body>
-</html>
+</div>
