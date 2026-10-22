@@ -1,12 +1,16 @@
 <!-- شاشة اليوتيوب (youtube.html) -->
 <div id="toolsScreen" class="screen-view" style="padding-bottom: 70px; background-color: #0f0f0f; position: relative; height: 100vh; overflow-y: auto;">
 
-    <!-- 1. مشغل يوتيوب العلوي المباشر (أو المصغر لاحقاً) -->
-    <div id="activePlayerContainer" style="display: none; width: 100%; background: #000; position: sticky; top: 0; z-index: 200; border-bottom: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;">
-        <div id="playerWrapper" style="position: relative; width: 100%; height: 215px; background: #000; transition: all 0.3s ease;">
+    <!-- 1. مشغل يوتيوب العلوي المباشر -->
+    <div id="activePlayerContainer" style="display: none; width: 100%; background: #000; position: sticky; top: 0; z-index: 200; border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <div style="position: relative; width: 100%; height: 215px; background: #000;">
             <iframe id="mainYouTubeEmbed" src="" style="width: 100%; height: 100%; border: none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
-        <div id="activeVideoInfo" style="padding: 10px 16px; color: #fff; font-size: 14px; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.05); text-align: right;"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; background: #000; border-bottom: 1px solid rgba(255,255,255,0.05);">
+            <div id="activeVideoInfo" style="color: #fff; font-size: 14px; font-weight: bold; text-align: right; flex-grow: 1;"></div>
+            <!-- زر إغلاق الفيديو العادي -->
+            <button onclick="closeActivePlayer()" style="background: #ff0000; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px;">إغلاق الفيديو</button>
+        </div>
     </div>
 
     <!-- الهيدر العلوي وشريط البحث -->
@@ -47,10 +51,10 @@
         <div style="color: #aaa; text-align: center; padding: 40px 0;">جاري تحميل الفيديوهات...</div>
     </div>
 
-    <!-- 3. شريط التنقل السفلي الثابت (لضمان عدم اختفائه) -->
+    <!-- 3. شريط التنقل السفلي (الموجود مسبقاً في مشروعك) -->
     <div style="position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background: #121212; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-around; align-items: center; z-index: 999;">
-        <div onclick="exitToHome()" style="color: #fff; font-size: 13px; cursor: pointer; text-align: center;">الرئيسية</div>
-        <div style="color: #ff0000; font-size: 13px; cursor: pointer; text-align: center; font-weight: bold;">يوتيوب</div>
+        <div onclick="switchScreen('home')" style="color: #aaa; font-size: 13px; cursor: pointer; text-align: center;">الرئيسية</div>
+        <div onclick="switchScreen('tools')" style="color: #ff0000; font-size: 13px; cursor: pointer; text-align: center; font-weight: bold;">يوتيوب</div>
     </div>
 
 </div>
@@ -58,69 +62,6 @@
 <!-- البرمجة والدوال التفاعلية -->
 <script>
     let globalVideosList = [];
-    let isVideoPlaying = false;
-    let isMiniPlayer = false;
-
-    // إيماءات السحب من الأطراف فقط (Edge Swipe)
-    let touchStartX = 0;
-    let touchStartY = 0;
-    const edgeThreshold = 35; // المسافة من حافة الشاشة بالبكسل
-
-    const toolsScreen = document.getElementById('toolsScreen');
-
-    toolsScreen.addEventListener('touchstart', function(e) {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-    }, {passive: true});
-
-    toolsScreen.addEventListener('touchend', function(e) {
-        let touchEndX = e.changedTouches[0].clientX;
-        let diffX = touchEndX - touchStartX;
-
-        // التحقق مما إذا بدأ اللمس من أطراف الشاشة حصراً (اليسار أو اليمين)
-        let isFromLeftEdge = touchStartX <= edgeThreshold;
-        let isFromRightEdge = touchStartX >= (window.innerWidth - edgeThreshold);
-
-        if ((isFromLeftEdge || isFromRightEdge) && Math.abs(diffX) > 60) {
-            handleEdgeSwipe();
-        }
-    }, {passive: true});
-
-    function handleEdgeSwipe() {
-        if (isVideoPlaying) {
-            if (!isMiniPlayer) {
-                // السحب الأولى والفيديو مكبر -> تحويله إلى مربع مصغر بأسفل اليمين
-                makeMiniPlayer();
-            } else {
-                // السحب الثانية وهو مصغر -> إغلاق الفيديو والخروج نهائياً من اليوتيوب
-                exitToHome();
-            }
-        } else {
-            // لا يوجد فيديو مشغل -> الخروج فوراً من القائمة
-            exitToHome();
-        }
-    }
-
-    function makeMiniPlayer() {
-        isMiniPlayer = true;
-        const container = document.getElementById('activePlayerContainer');
-        const wrapper = document.getElementById('playerWrapper');
-        const info = document.getElementById('activeVideoInfo');
-        
-        container.style.position = 'fixed';
-        container.style.bottom = '70px';
-        container.style.right = '16px';
-        container.style.left = 'auto';
-        container.style.top = 'auto';
-        container.style.width = '280px';
-        container.style.zIndex = '9999';
-        container.style.borderRadius = '12px';
-        container.style.overflow = 'hidden';
-        container.style.boxShadow = '0 8px 24px rgba(0,0,0,0.7)';
-        
-        wrapper.style.height = '150px';
-        info.style.display = 'none'; // إخفاء العنوان لتصغير المربع بشكل أنيق
-    }
 
     async function fetchYouTubeVideos(query = 'football highlights') {
         const container = document.getElementById('videoFeedContainer');
@@ -178,42 +119,22 @@
     }
 
     function playVideo(video) {
-        isVideoPlaying = true;
-        isMiniPlayer = false;
-
         const playerContainer = document.getElementById('activePlayerContainer');
-        const wrapper = document.getElementById('playerWrapper');
         const iframePlayer = document.getElementById('mainYouTubeEmbed');
         const videoInfo = document.getElementById('activeVideoInfo');
 
-        playerContainer.style.position = 'sticky';
-        playerContainer.style.top = '0';
-        playerContainer.style.width = '100%';
         playerContainer.style.display = 'block';
-        playerContainer.style.borderRadius = '0';
-        wrapper.style.height = '215px';
-        info.style.display = 'block';
-
         iframePlayer.src = `https://www.youtube.com/embed/${video.ytId}?autoplay=1`;
         videoInfo.innerHTML = `${video.title}<br><span style="color: #aaa; font-size: 11px;">${video.channel}</span>`;
         
         document.getElementById('toolsScreen').scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function exitToHome() {
-        isVideoPlaying = false;
-        isMiniPlayer = false;
+    function closeActivePlayer() {
         const playerContainer = document.getElementById('activePlayerContainer');
         const iframePlayer = document.getElementById('mainYouTubeEmbed');
         iframePlayer.src = '';
         playerContainer.style.display = 'none';
-
-        // دالة الانتقال للرئيسية (يمكن ربطها بدوال التنقل الرئيسية عندك بالمشروع مثل switchScreen('home'))
-        if (typeof switchScreen === 'function') {
-            switchScreen('home');
-        } else {
-            console.log("تم الخروج إلى الواجهة الرئيسية");
-        }
     }
 
     function openSearchUI() {
