@@ -1,362 +1,51 @@
-<!-- ==================== HTML: زر اليوتيوب في الشريط السفلي ==================== -->
-<button class="nav-item" id="youtube-trigger-btn" onclick="openYouTubeSection()">
-  <!-- أيقونة مربع وبداخله مثلث تشغيل (شعار يوتيوب) -->
-  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="2" y="4" width="20" height="16" rx="4" fill="#FF0000" />
-    <polygon points="10,8 16,12 10,16" fill="#FFFFFF" />
-  </svg>
-  <span>يوتيوب</span>
-</button>
-
-<!-- ==================== HTML: نافذة اليوتيوب المباشرة ==================== -->
-<div id="youtube-overlay-screen" class="youtube-screen-container hidden">
-  <!-- الشريط العلوي -->
-  <header class="yt-header">
-    <div class="yt-header-left">
-      <!-- زر إغلاق / العودة للرئيسية -->
-      <button class="yt-back-btn" onclick="closeYouTubeSection()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M19 12H5M12 19l-7-7 7-7"/>
-        </svg>
-      </button>
-      <div class="yt-logo">
-        <svg class="yt-play-icon" viewBox="0 0 24 24">
-          <rect x="2" y="4" width="20" height="16" rx="4" fill="#FF0000"/>
-          <polygon points="10,8 16,12 10,16" fill="#FFFFFF"/>
-        </svg>
-        <span class="yt-logo-text">YouTube</span>
-      </div>
+<!-- شاشة قائمة اليوتيوب (بدون أي شعار نهائياً) -->
+<div id="toolsScreen" class="screen-view">
+    
+    <!-- هيدر القائمة -->
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; background: #0f0f0f; border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 10;">
+        <span style="color: #ffffff; font-weight: bold; font-size: 16px;">قائمة اليوتيوب</span>
+        <span style="color: #cbd5e1; font-size: 12px;">الأدوات</span>
     </div>
-    <div class="yt-header-right">
-      <button class="yt-icon-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-        </svg>
-        <span class="yt-badge">+9</span>
-      </button>
-      <button class="yt-icon-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8"/>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-      </button>
+
+    <!-- شريط التصنيفات الأفقي -->
+    <div style="display: flex; gap: 8px; padding: 10px 16px; overflow-x: auto; background: #0f0f0f; border-bottom: 1px solid #272727; white-space: nowrap; scrollbar-width: none;">
+        <div style="background: #ffffff; color: #0f0f0f; padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: bold;">الكل</div>
+        <div style="background: #272727; color: #ffffff; padding: 6px 14px; border-radius: 8px; font-size: 12px;">الموسيقى</div>
+        <div style="background: #272727; color: #ffffff; padding: 6px 14px; border-radius: 8px; font-size: 12px;">الألعاب</div>
+        <div style="background: #272727; color: #ffffff; padding: 6px 14px; border-radius: 8px; font-size: 12px;">مباشر</div>
     </div>
-  </header>
 
-  <!-- شريط التبويبات الأفقي -->
-  <nav class="yt-tabs">
-    <button class="yt-tab active">الصفحة الرئيسية</button>
-    <button class="yt-tab">الاشتراكات</button>
-    <button class="yt-tab">موسيقى</button>
-    <button class="yt-tab">مباشر</button>
-    <button class="yt-tab">المزيد</button>
-  </nav>
-
-  <!-- محتوى الفيديوهات المفرغة (Skeleton UI) -->
-  <main class="yt-content">
-    <!-- بطاقة إعلان مفرغة -->
-    <div class="yt-ad-card">
-      <div class="yt-ad-media placeholder-box"></div>
-      <div class="yt-ad-details">
-        <div class="yt-ad-title placeholder-text"></div>
-        <div class="yt-ad-subtext placeholder-text short"></div>
-        <div class="yt-ad-actions">
-          <button class="yt-btn yt-btn-primary">اشتراك</button>
-          <button class="yt-btn yt-btn-secondary">مشاهدة</button>
+    <!-- محتوى قائمة الفيديوهات والتصميم -->
+    <div style="padding: 16px; display: flex; flex-direction: column; gap: 16px;">
+        
+        <!-- عنصر قائمة 1 -->
+        <div style="background: #282f3d; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05);">
+            <div style="width: 100%; height: 160px; background: #343d50; position: relative;">
+                <span style="position: absolute; bottom: 8px; left: 8px; background: rgba(0,0,0,0.8); color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 4px;">10:25</span>
+            </div>
+            <div style="padding: 12px; display: flex; gap: 10px;">
+                <div style="width: 36px; height: 36px; border-radius: 50%; background: #343d50; flex-shrink: 0;"></div>
+                <div style="flex-grow: 1;">
+                    <div style="height: 12px; background: #343d50; border-radius: 4px; margin-bottom: 6px; width: 85%;"></div>
+                    <div style="height: 10px; background: #343d50; border-radius: 4px; width: 50%;"></div>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <!-- عنصر قائمة 2 -->
+        <div style="background: #282f3d; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05);">
+            <div style="width: 100%; height: 160px; background: #343d50; position: relative;">
+                <span style="position: absolute; bottom: 8px; left: 8px; background: rgba(0,0,0,0.8); color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 4px;">04:12</span>
+            </div>
+            <div style="padding: 12px; display: flex; gap: 10px;">
+                <div style="width: 36px; height: 36px; border-radius: 50%; background: #343d50; flex-shrink: 0;"></div>
+                <div style="flex-grow: 1;">
+                    <div style="height: 12px; background: #343d50; border-radius: 4px; margin-bottom: 6px; width: 70%;"></div>
+                    <div style="height: 10px; background: #343d50; border-radius: 4px; width: 40%;"></div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <!-- قائمة كروت فيديوهات مفرغة -->
-    <div class="yt-video-card">
-      <div class="yt-thumbnail placeholder-box">
-        <span class="yt-time-badge">--:--</span>
-      </div>
-      <div class="yt-video-meta">
-        <div class="yt-avatar placeholder-circle"></div>
-        <div class="yt-video-info">
-          <div class="yt-title placeholder-text"></div>
-          <div class="yt-subinfo placeholder-text short"></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="yt-video-card">
-      <div class="yt-thumbnail placeholder-box">
-        <span class="yt-time-badge">--:--</span>
-      </div>
-      <div class="yt-video-meta">
-        <div class="yt-avatar placeholder-circle"></div>
-        <div class="yt-video-info">
-          <div class="yt-title placeholder-text"></div>
-          <div class="yt-subinfo placeholder-text short"></div>
-        </div>
-      </div>
-    </div>
-  </main>
 </div>
-
-
-<!-- ==================== CSS: التنسيقات والأنماط ==================== -->
-<style>
-  /* إخفاء الصفحة بشكل افتراضي */
-  .youtube-screen-container.hidden {
-    display: none !important;
-  }
-
-  /* تنسيق شاشة اليوتيوب الكاملة */
-  .youtube-screen-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #0f0f0f;
-    color: #ffffff;
-    z-index: 99999; /* يظهر فوق كل شيء */
-    overflow-y: auto;
-    direction: rtl;
-    font-family: system-ui, -apple-system, sans-serif;
-  }
-
-  /* الشريط العلوي */
-  .yt-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 16px;
-    background-color: #0f0f0f;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
-
-  .yt-header-left, .yt-header-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .yt-back-btn, .yt-icon-btn {
-    background: none;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 4px;
-    position: relative;
-  }
-
-  .yt-back-btn stroke, .yt-icon-btn stroke {
-    stroke: #ffffff;
-  }
-
-  .yt-back-btn svg, .yt-icon-btn svg {
-    width: 24px;
-    height: 24px;
-  }
-
-  .yt-logo {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .yt-play-icon {
-    width: 28px;
-    height: 20px;
-  }
-
-  .yt-logo-text {
-    font-weight: bold;
-    font-size: 18px;
-    letter-spacing: -0.5px;
-  }
-
-  .yt-badge {
-    position: absolute;
-    top: 0px;
-    right: -2px;
-    background-color: #cc0000;
-    color: white;
-    font-size: 10px;
-    font-weight: bold;
-    padding: 1px 4px;
-    border-radius: 10px;
-  }
-
-  /* التبويبات الأفقي */
-  .yt-tabs {
-    display: flex;
-    gap: 8px;
-    padding: 8px 16px;
-    overflow-x: auto;
-    border-bottom: 1px solid #272727;
-    white-space: nowrap;
-  }
-
-  .yt-tabs::-webkit-scrollbar {
-    display: none;
-  }
-
-  .yt-tab {
-    background-color: #272727;
-    color: #fff;
-    border: none;
-    padding: 6px 14px;
-    border-radius: 8px;
-    font-size: 13px;
-    cursor: pointer;
-  }
-
-  .yt-tab.active {
-    background-color: #ffffff;
-    color: #0f0f0f;
-    font-weight: bold;
-  }
-
-  /* القوالب المفرغة Skeleton Placeholders */
-  .yt-content {
-    padding: 12px 0;
-  }
-
-  .placeholder-box {
-    background-color: #272727;
-    border-radius: 12px;
-  }
-
-  .placeholder-circle {
-    background-color: #272727;
-    border-radius: 50%;
-  }
-
-  .placeholder-text {
-    background-color: #272727;
-    border-radius: 4px;
-    height: 14px;
-    margin-bottom: 6px;
-  }
-
-  .placeholder-text.short {
-    width: 60%;
-  }
-
-  /* كارت الإعلان المفرغ */
-  .yt-ad-card {
-    background-color: #161616;
-    margin: 0 12px 16px 12px;
-    border-radius: 12px;
-    padding: 12px;
-  }
-
-  .yt-ad-media {
-    width: 100%;
-    height: 180px;
-    margin-bottom: 12px;
-  }
-
-  .yt-ad-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 12px;
-  }
-
-  .yt-btn {
-    flex: 1;
-    padding: 10px;
-    border-radius: 20px;
-    border: none;
-    font-weight: bold;
-    font-size: 14px;
-    cursor: pointer;
-  }
-
-  .yt-btn-primary {
-    background-color: #ffffff;
-    color: #0f0f0f;
-  }
-
-  .yt-btn-secondary {
-    background-color: #272727;
-    color: #ffffff;
-  }
-
-  /* كارت الفيديو المفرغ */
-  .yt-video-card {
-    margin-bottom: 20px;
-  }
-
-  .yt-thumbnail {
-    width: 100%;
-    height: 200px;
-    position: relative;
-  }
-
-  .yt-time-badge {
-    position: absolute;
-    bottom: 8px;
-    left: 8px;
-    background: rgba(0, 0, 0, 0.8);
-    color: #fff;
-    font-size: 11px;
-    padding: 2px 4px;
-    border-radius: 4px;
-  }
-
-  .yt-video-meta {
-    display: flex;
-    gap: 12px;
-    padding: 12px;
-  }
-
-  .yt-avatar {
-    width: 36px;
-    height: 36px;
-    flex-shrink: 0;
-  }
-
-  .yt-video-info {
-    flex-grow: 1;
-  }
-
-  /* حركات إخفاء القائمة السفلى */
-  .nav-bar.hidden-nav, footer.hidden-nav, .bottom-navigation.hidden-nav {
-    display: none !important;
-  }
-</style>
-
-
-<!-- ==================== JavaScript: تحكم الظهور والإخفاء ==================== -->
-<script>
-  function openYouTubeSection() {
-    // 1. إظهار شاشة اليوتيوب
-    const ytScreen = document.getElementById('youtube-overlay-screen');
-    if (ytScreen) {
-      ytScreen.classList.remove('hidden');
-    }
-
-    // 2. إخفاء الشريط السفلي بالكامل (الذي يحتوي زر اليوتيوب والأزرار الأخرى)
-    // يرجى استبدال '.bottom-navigation' باسم الكلاس أو الـ ID الخاص بالشريط السفلي في موقعك
-    const bottomNav = document.querySelector('.bottom-navigation') || document.querySelector('footer') || document.querySelector('.nav-bar');
-    if (bottomNav) {
-      bottomNav.classList.add('hidden-nav');
-    }
-  }
-
-  function closeYouTubeSection() {
-    // 1. إخفاء شاشة اليوتيوب
-    const ytScreen = document.getElementById('youtube-overlay-screen');
-    if (ytScreen) {
-      ytScreen.classList.add('hidden');
-    }
-
-    // 2. إرجاع الشريط السفلي للظهور مجدداً
-    const bottomNav = document.querySelector('.bottom-navigation') || document.querySelector('footer') || document.querySelector('.nav-bar');
-    if (bottomNav) {
-      bottomNav.classList.remove('hidden-nav');
-    }
-  }
-</script>
