@@ -147,7 +147,7 @@
                 <div style="display: flex; align-items: center; gap: 18px;">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="googleSignOut()" title="تسجيل الخروج">
                         <circle cx="12" cy="12" r="3"></circle>
-                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09A1.65 1.65 0 0 0 1.51 1z"></path>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
                     </svg>
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="openSearchUI()">
                         <circle cx="11" cy="11" r="8"></circle>
@@ -380,12 +380,13 @@
             
             let existingAcc = savedAccounts.find(acc => acc.email === userEmail);
             if (!existingAcc) {
+                // افتراضياً أول مرة نضيفه، نفترض أن لديه قناة إذا كان اسمه موجوداً أو نسأله، هنا سنفترض إذا لم يكن لديه قناة مسجلة مسبقاً نسجله بدون قناة أو بقناة افتراضية
                 savedAccounts.push({
                     email: userEmail,
                     name: defaultName,
                     handle: defaultHandle,
                     picture: userPicture,
-                    hasChannel: true
+                    hasChannel: true // الإيميل المسجل عبر جوجل غالباً لديه حساب
                 });
                 localStorage.setItem('plotcraft_all_accounts', JSON.stringify(savedAccounts));
             }
@@ -414,6 +415,7 @@
 
     function addNewAccountPrompt() {
         closeAccountsModal();
+        // إظهار نافذة تسجيل الدخول لإضافة إيميل جديد
         document.getElementById('unauthState').style.display = 'block';
         document.getElementById('authState').style.display = 'none';
     }
@@ -583,13 +585,8 @@
         isLoadingMore = true;
         
         try {
-            // ضع مفتاح يوتيوب الحقيقي الخاص بك هنا
-            const API_KEY = 'AIzaSy_YOUR_REAL_YOUTUBE_API_KEY';
-            let url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${encodeURIComponent(query)}&type=video&key=${API_KEY}`;
-            
-            if (isAppend && nextPageToken) {
-                url += `&pageToken=${nextPageToken}`;
-            }
+            let url = `/api/videos?query=${encodeURIComponent(query)}`;
+            if (isAppend && nextPageToken) url += `&pageToken=${nextPageToken}`;
 
             const response = await fetch(url);
             const data = await response.json();
