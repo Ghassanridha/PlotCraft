@@ -147,7 +147,7 @@
                 <div style="display: flex; align-items: center; gap: 18px;">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="googleSignOut()" title="تسجيل الخروج">
                         <circle cx="12" cy="12" r="3"></circle>
-                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l-.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
                     </svg>
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="openSearchUI()">
                         <circle cx="11" cy="11" r="8"></circle>
@@ -162,14 +162,14 @@
                     </div>
                 </div>
 
-                <!-- زر الحسابات في اليمين (يفتح قائمة اختيار الحسابات) -->
+                <!-- زر الحسابات في اليمين -->
                 <div onclick="openAccountsModal()" style="display: flex; align-items: center; gap: 6px; background: #1f1f1f; border: 1px solid rgba(255,255,255,0.1); padding: 7px 14px; border-radius: 20px; cursor: pointer;">
                     <span style="color: #fff; font-size: 13px; font-weight: 500;">الحسابات</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
                 </div>
             </div>
 
-            <!-- معلومات المستخدم: الصورة في اليمين والاسم والمعرف في اليسار -->
+            <!-- معلومات المستخدم -->
             <div style="display: flex; justify-content: flex-start; align-items: center; gap: 16px; padding: 20px 0 16px 0; direction: rtl;">
                 <img id="loggedInUserImg" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.1); flex-shrink: 0;">
                 <div style="text-align: right;">
@@ -200,7 +200,6 @@
 
                 <div style="display: flex; flex-direction: column; gap: 18px;">
                     
-                    <!-- 1. Watch later -->
                     <div style="display: flex; align-items: center; cursor: pointer;">
                         <div style="width: 110px; height: 65px; border-radius: 12px; background: #ffffff; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -214,7 +213,6 @@
                         </div>
                     </div>
 
-                    <!-- 2. فيديوهاتك -->
                     <div style="display: flex; align-items: center; cursor: pointer;">
                         <div style="width: 110px; height: 65px; border-radius: 12px; background: #1a1a1a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.1);">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -224,7 +222,6 @@
                         </div>
                     </div>
 
-                    <!-- 3. فيديوهات Shorts المحفوظة -->
                     <div style="display: flex; align-items: center; cursor: pointer;">
                         <div style="width: 110px; height: 65px; border-radius: 12px; background: #2b1810; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="#ff4444"><path d="M17.77 10.32l-1.2-.5L18 9.06c1.84-.96 2.53-3.23 1.56-5.06s-3.24-2.53-5.07-1.56L6 6.94c-1.29.68-2.07 2.04-2 3.49.07 1.42.93 2.67 2.22 3.25l1.2.51-1.43.76c-1.84.96-2.53 3.23-1.56 5.06s3.24 2.53 5.07 1.56l8.43-4.5c1.29-.68 2.07-2.04 2-3.49-.07-1.42-.93-2.67-2.22-3.25zM10 14.5v-5l4.5 2.5-4.5 2.5z"/></svg>
@@ -234,7 +231,6 @@
                         </div>
                     </div>
 
-                    <!-- 4. فيديوهات أعجبتني -->
                     <div style="display: flex; align-items: center; cursor: pointer;">
                         <div style="width: 110px; height: 65px; border-radius: 12px; background: #222; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.08);">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
@@ -244,7 +240,6 @@
                         </div>
                     </div>
 
-                    <!-- 5. عمليات التنزيل -->
                     <div style="display: flex; align-items: center; cursor: pointer;">
                         <div style="width: 110px; height: 65px; border-radius: 12px; background: #222; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.08);">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -262,7 +257,7 @@
 
     </div>
 
-    <!-- نافذة اختيار الحسابات أو إنشاء قناة -->
+    <!-- نافذة اختيار الحسابات -->
     <div id="accountsModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000000; align-items: center; justify-content: center; padding: 20px;">
         <div style="background: #1f242d; border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; width: 100%; max-width: 400px; padding: 24px; display: flex; flex-direction: column; gap: 16px; direction: rtl;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -270,22 +265,20 @@
                 <span onclick="closeAccountsModal()" style="color: #fff; font-size: 18px; cursor: pointer; font-weight: bold;">✕</span>
             </div>
             
-            <div id="accountsListContainer" style="display: flex; flex-direction: column; gap: 10px; max-height: 250px; overflow-y: auto;">
-                <!-- قائمة الإيميلات والحسابات تظهر هنا -->
-            </div>
+            <div id="accountsListContainer" style="display: flex; flex-direction: column; gap: 10px; max-height: 250px; overflow-y: auto;"></div>
 
             <button onclick="addNewAccountPrompt()" style="background: #3b82f6; color: #fff; border: none; padding: 12px; border-radius: 12px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 5px;">إضافة حساب / إيميل جديد</button>
         </div>
     </div>
 
-    <!-- نافذة إنشاء قناة جديدة للإيميل الذي ليس لديه قناة -->
+    <!-- نافذة إنشاء قناة جديدة -->
     <div id="createChannelModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000001; align-items: center; justify-content: center; padding: 20px;">
         <div style="background: #1f242d; border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; width: 100%; max-width: 400px; padding: 24px; display: flex; flex-direction: column; gap: 16px; direction: rtl;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <h3 style="color: #fff; font-size: 18px; margin: 0;">إنشاء قناة جديدة</h3>
                 <span onclick="closeCreateChannelModal()" style="color: #fff; font-size: 18px; cursor: pointer; font-weight: bold;">✕</span>
             </div>
-            <p style="color: #aaa; font-size: 13px; margin: 0;">هذا البريد الإلكتروني لا يمتلك قناة. يرجى إدخال اسم القناة والمعرف (يمكن استخدام كتابة فقط أو مختلط مع أرقام).</p>
+            <p style="color: #aaa; font-size: 13px; margin: 0;">هذا البريد الإلكتروني لا يمتلك قناة. يرجى إدخال اسم القناة والمعرف.</p>
             
             <div style="display: flex; flex-direction: column; gap: 6px;">
                 <label style="color: #fff; font-size: 13px;">اسم القناة</label>
@@ -324,6 +317,9 @@
     </div>
 
 </div>
+
+<!-- استدعاء ملف الإعدادات الخارجي الآمن -->
+<script src="../config.js"></script>
 
 <!-- البرمجة والدوال التفاعلية -->
 <script>
@@ -380,13 +376,12 @@
             
             let existingAcc = savedAccounts.find(acc => acc.email === userEmail);
             if (!existingAcc) {
-                // افتراضياً أول مرة نضيفه، نفترض أن لديه قناة إذا كان اسمه موجوداً أو نسأله، هنا سنفترض إذا لم يكن لديه قناة مسجلة مسبقاً نسجله بدون قناة أو بقناة افتراضية
                 savedAccounts.push({
                     email: userEmail,
                     name: defaultName,
                     handle: defaultHandle,
                     picture: userPicture,
-                    hasChannel: true // الإيميل المسجل عبر جوجل غالباً لديه حساب
+                    hasChannel: true
                 });
                 localStorage.setItem('plotcraft_all_accounts', JSON.stringify(savedAccounts));
             }
@@ -415,7 +410,6 @@
 
     function addNewAccountPrompt() {
         closeAccountsModal();
-        // إظهار نافذة تسجيل الدخول لإضافة إيميل جديد
         document.getElementById('unauthState').style.display = 'block';
         document.getElementById('authState').style.display = 'none';
     }
@@ -585,7 +579,9 @@
         isLoadingMore = true;
         
         try {
-            let url = `/api/videos?query=${encodeURIComponent(query)}`;
+            // سحب المفتاح بأمان من ملف config.js الخارجي
+            const API_KEY = (typeof YOUTUBE_CONFIG !== 'undefined') ? YOUTUBE_CONFIG.API_KEY : '';
+            let url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${encodeURIComponent(query)}&type=video&key=${API_KEY}`;
             if (isAppend && nextPageToken) url += `&pageToken=${nextPageToken}`;
 
             const response = await fetch(url);
