@@ -21,12 +21,12 @@
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
+                <!-- زر الإشعارات بدون رقم أو شارة حمراء -->
                 <div style="position: relative; cursor: pointer;">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                         <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
                     </svg>
-                    <span style="position: absolute; top: -3px; right: -5px; background: #ff0000; color: #fff; font-size: 10px; padding: 1px 4px; border-radius: 10px; font-weight: bold;">9+</span>
                 </div>
             </div>
 
@@ -153,17 +153,17 @@
                         <circle cx="11" cy="11" r="8"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                     </svg>
+                    <!-- زر الإشعارات بدون شارة حمراء -->
                     <div style="position: relative; cursor: pointer;">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                             <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
                         </svg>
-                        <span style="position: absolute; top: -3px; right: -5px; background: #ff0000; color: #fff; font-size: 10px; padding: 1px 4px; border-radius: 10px; font-weight: bold;">9+</span>
                     </div>
                 </div>
 
-                <!-- زر الحسابات في اليمين -->
-                <div style="display: flex; align-items: center; gap: 6px; background: #1f1f1f; border: 1px solid rgba(255,255,255,0.1); padding: 7px 14px; border-radius: 20px; cursor: pointer;">
+                <!-- زر الحسابات في اليمين (يفتح قائمة اختيار الحسابات) -->
+                <div onclick="openAccountsModal()" style="display: flex; align-items: center; gap: 6px; background: #1f1f1f; border: 1px solid rgba(255,255,255,0.1); padding: 7px 14px; border-radius: 20px; cursor: pointer;">
                     <span style="color: #fff; font-size: 13px; font-weight: 500;">الحسابات</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
                 </div>
@@ -262,6 +262,45 @@
 
     </div>
 
+    <!-- نافذة اختيار الحسابات أو إنشاء قناة -->
+    <div id="accountsModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000000; align-items: center; justify-content: center; padding: 20px;">
+        <div style="background: #1f242d; border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; width: 100%; max-width: 400px; padding: 24px; display: flex; flex-direction: column; gap: 16px; direction: rtl;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="color: #fff; font-size: 18px; margin: 0;">اختر الحساب</h3>
+                <span onclick="closeAccountsModal()" style="color: #fff; font-size: 18px; cursor: pointer; font-weight: bold;">✕</span>
+            </div>
+            
+            <div id="accountsListContainer" style="display: flex; flex-direction: column; gap: 10px; max-height: 250px; overflow-y: auto;">
+                <!-- قائمة الإيميلات والحسابات تظهر هنا -->
+            </div>
+
+            <button onclick="addNewAccountPrompt()" style="background: #3b82f6; color: #fff; border: none; padding: 12px; border-radius: 12px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 5px;">إضافة حساب / إيميل جديد</button>
+        </div>
+    </div>
+
+    <!-- نافذة إنشاء قناة جديدة للإيميل الذي ليس لديه قناة -->
+    <div id="createChannelModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000001; align-items: center; justify-content: center; padding: 20px;">
+        <div style="background: #1f242d; border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; width: 100%; max-width: 400px; padding: 24px; display: flex; flex-direction: column; gap: 16px; direction: rtl;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="color: #fff; font-size: 18px; margin: 0;">إنشاء قناة جديدة</h3>
+                <span onclick="closeCreateChannelModal()" style="color: #fff; font-size: 18px; cursor: pointer; font-weight: bold;">✕</span>
+            </div>
+            <p style="color: #aaa; font-size: 13px; margin: 0;">هذا البريد الإلكتروني لا يمتلك قناة. يرجى إدخال اسم القناة والمعرف (يمكن استخدام كتابة فقط أو مختلط مع أرقام).</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+                <label style="color: #fff; font-size: 13px;">اسم القناة</label>
+                <input type="text" id="newChannelName" placeholder="مثال: قناة غسان" style="background: #282f3d; border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; padding: 10px; color: #fff; outline: none; font-size: 14px;">
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+                <label style="color: #fff; font-size: 13px;">معرف القناة (Handle)</label>
+                <input type="text" id="newChannelHandle" placeholder="مثال: @ghassan123" style="background: #282f3d; border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; padding: 10px; color: #fff; outline: none; font-size: 14px;">
+            </div>
+
+            <button onclick="submitNewChannel()" style="background: #ffffff; color: #1f242d; border: none; padding: 12px; border-radius: 12px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 5px;">إنشاء القناة وتسجيل الدخول</button>
+        </div>
+    </div>
+
     <!-- 4. شريط التنقل السفلي الثابت -->
     <div id="bottomNavBar" style="position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background: #0f0f0f; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-around; align-items: center; z-index: 999999; padding: 0 10px; transition: all 0.3s ease;">
         
@@ -296,6 +335,7 @@
     let currentQuery = '';
     let nextPageToken = '';
     let isLoadingMore = false;
+    let pendingEmailForChannel = '';
 
     const mixedKeywords = ['بودكاست عراقي مشهور', 'مشاهير العراق يوتيوب', 'برامج ولقاءات عربية', 'trending technology 2026', 'gaming highlights arab', 'documentaries arabic'];
     const fallbackKeywords = ['بودكاست عراقي مشهور', 'برامج عربية مشهورة', 'تكنولوجيا 2026'];
@@ -323,7 +363,7 @@
         if (savedUser) {
             try {
                 const user = JSON.parse(savedUser);
-                applyUserSession(user.name, user.email, user.picture);
+                applyUserSession(user.name, user.handle, user.picture);
             } catch(e) {}
         }
     }
@@ -331,25 +371,123 @@
     function handleGoogleSignIn(response) {
         try {
             const payload = parseJwt(response.credential);
-            const userName = payload.name || 'مستخدم جديد';
-            const userEmail = payload.email || '';
+            const userEmail = payload.email || 'user@gmail.com';
             const userPicture = payload.picture || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100';
+            const defaultName = payload.name || 'مستخدم جديد';
+            const defaultHandle = '@' + userEmail.split('@')[0];
 
-            localStorage.setItem('plotcraft_user_session', JSON.stringify({
-                name: userName,
-                email: userEmail,
-                picture: userPicture
-            }));
+            let savedAccounts = JSON.parse(localStorage.getItem('plotcraft_all_accounts') || '[]');
+            
+            let existingAcc = savedAccounts.find(acc => acc.email === userEmail);
+            if (!existingAcc) {
+                // افتراضياً أول مرة نضيفه، نفترض أن لديه قناة إذا كان اسمه موجوداً أو نسأله، هنا سنفترض إذا لم يكن لديه قناة مسجلة مسبقاً نسجله بدون قناة أو بقناة افتراضية
+                savedAccounts.push({
+                    email: userEmail,
+                    name: defaultName,
+                    handle: defaultHandle,
+                    picture: userPicture,
+                    hasChannel: true // الإيميل المسجل عبر جوجل غالباً لديه حساب
+                });
+                localStorage.setItem('plotcraft_all_accounts', JSON.stringify(savedAccounts));
+            }
 
-            applyUserSession(userName, userEmail, userPicture);
+            selectAccount(userEmail);
         } catch (e) {
             console.error('Login Error:', e);
         }
     }
 
-    function applyUserSession(name, email, picture) {
-        const handle = email ? '@' + email.split('@')[0] : '@user';
+    function selectAccount(email) {
+        let savedAccounts = JSON.parse(localStorage.getItem('plotcraft_all_accounts') || '[]');
+        let acc = savedAccounts.find(a => a.email === email);
+        if (acc) {
+            if (!acc.hasChannel) {
+                pendingEmailForChannel = email;
+                document.getElementById('createChannelModal').style.display = 'flex';
+                return;
+            }
 
+            localStorage.setItem('plotcraft_user_session', JSON.stringify(acc));
+            applyUserSession(acc.name, acc.handle, acc.picture);
+            closeAccountsModal();
+        }
+    }
+
+    function addNewAccountPrompt() {
+        closeAccountsModal();
+        // إظهار نافذة تسجيل الدخول لإضافة إيميل جديد
+        document.getElementById('unauthState').style.display = 'block';
+        document.getElementById('authState').style.display = 'none';
+    }
+
+    function submitNewChannel() {
+        const nameVal = document.getElementById('newChannelName').value.trim();
+        const handleVal = document.getElementById('newChannelHandle').value.trim();
+
+        if (!nameVal || !handleVal) {
+            alert('يرجى ملء اسم القناة والمعرف');
+            return;
+        }
+
+        let savedAccounts = JSON.parse(localStorage.getItem('plotcraft_all_accounts') || '[]');
+        let accIndex = savedAccounts.findIndex(a => a.email === pendingEmailForChannel);
+
+        if (accIndex !== -1) {
+            savedAccounts[accIndex].name = nameVal;
+            savedAccounts[accIndex].handle = handleVal.startsWith('@') ? handleVal : '@' + handleVal;
+            savedAccounts[accIndex].hasChannel = true;
+        } else {
+            savedAccounts.push({
+                email: pendingEmailForChannel || 'user@gmail.com',
+                name: nameVal,
+                handle: handleVal.startsWith('@') ? handleVal : '@' + handleVal,
+                picture: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100',
+                hasChannel: true
+            });
+        }
+
+        localStorage.setItem('plotcraft_all_accounts', JSON.stringify(savedAccounts));
+        selectAccount(pendingEmailForChannel);
+        document.getElementById('createChannelModal').style.display = 'none';
+    }
+
+    function closeCreateChannelModal() {
+        document.getElementById('createChannelModal').style.display = 'none';
+    }
+
+    function openAccountsModal() {
+        const modal = document.getElementById('accountsModal');
+        const container = document.getElementById('accountsListContainer');
+        container.innerHTML = '';
+
+        let savedAccounts = JSON.parse(localStorage.getItem('plotcraft_all_accounts') || '[]');
+        
+        if (savedAccounts.length === 0) {
+            container.innerHTML = '<p style="color: #aaa; font-size: 13px; text-align: center;">لا توجد حسابات مسجلة.</p>';
+        } else {
+            savedAccounts.forEach(acc => {
+                const item = document.createElement('div');
+                item.style.cssText = "display: flex; align-items: center; gap: 12px; background: #282f3d; padding: 10px; border-radius: 12px; cursor: pointer;";
+                item.onclick = function() { selectAccount(acc.email); };
+                item.innerHTML = `
+                    <img src="${acc.picture}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                    <div style="flex-grow: 1; text-align: right;">
+                        <h4 style="color: #fff; font-size: 14px; margin: 0 0 2px 0;">${acc.name}</h4>
+                        <p style="color: #aaa; font-size: 11px; margin: 0;">${acc.email}</p>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        modal.style.display = 'flex';
+    }
+
+    function closeAccountsModal() {
+        document.getElementById('accountsModal').style.display = 'none';
+    }
+
+    function applyUserSession(name, handle, picture) {
         document.getElementById('userProfileImg').src = picture;
         document.getElementById('loggedInUserImg').src = picture;
         document.getElementById('loggedInUserName').innerText = name;
@@ -425,30 +563,6 @@
             if (!isLoadingMore && nextPageToken) loadMoreVideos();
         }
     });
-
-    function makeMiniPlayer() {
-        isMiniPlayer = true;
-        const container = document.getElementById('activePlayerContainer');
-        const wrapper = document.getElementById('playerWrapper');
-        const videoInfo = document.getElementById('activeVideoInfo');
-        
-        container.style.position = 'fixed';
-        container.style.bottom = '70px';
-        container.style.right = '16px';
-        container.style.left = 'auto';
-        container.style.top = 'auto';
-        container.style.width = '280px';
-        container.style.zIndex = '9999';
-        container.style.borderRadius = '12px';
-        container.style.overflow = 'hidden';
-        container.style.boxShadow = '0 8px 24px rgba(0,0,0,0.8)';
-        
-        wrapper.style.height = '150px';
-        if (videoInfo) videoInfo.style.display = 'none';
-
-        document.getElementById('ytHeaderContainer').style.display = 'block';
-        document.getElementById('bottomNavBar').style.display = 'flex';
-    }
 
     function resetToYouTubeHome() {
         toolsScreen.scrollTo({ top: 0, behavior: 'smooth' });
