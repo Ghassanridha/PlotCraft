@@ -37,13 +37,46 @@
             </div>
         </div>
 
-        <!-- شريط التصنيفات المعدل -->
-        <div style="display: flex; gap: 10px; padding: 8px 16px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; direction: rtl; border-bottom: 1px solid rgba(255,255,255,0.05);">
-            <div onclick="resetToYouTubeHome()" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">الصفحة الرئيسية</div>
-            <div onclick="fetchYouTubeVideos('الاشتراكات يوتيوب', false)" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">الاشتراكات</div>
-            <div onclick="fetchYouTubeVideos('أغاني وموسيقى مشهورة', false)" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">موسيقى</div>
-            <div onclick="fetchYouTubeVideos('بث مباشر يوتيوب', false)" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">مباشر</div>
-            <div onclick="fetchYouTubeVideos('منوعات وبرامج متنوعة', false)" style="color: #fff; background: #272727; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer;">المزيد</div>
+        <!-- شريط التصنيفات مع تصميم الخط الأحمر الثابت وتأثير النقر -->
+        <style>
+            .yt-chip {
+                color: #fff;
+                background: #272727;
+                padding: 6px 14px;
+                border-radius: 8px;
+                font-size: 13px;
+                font-weight: 500;
+                cursor: pointer;
+                position: relative;
+                transition: background 0.2s ease;
+                white-space: nowrap;
+            }
+            .yt-chip::after {
+                content: '';
+                position: absolute;
+                bottom: -8px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 0;
+                height: 2px;
+                background-color: #ff0000;
+                transition: width 0.25s ease;
+            }
+            .yt-chip.active-chip::after {
+                width: 70%;
+            }
+            .yt-chip.clicked-flash {
+                background: #ffffff !important;
+                color: #000000 !important;
+            }
+        </style>
+
+        <div style="display: flex; gap: 10px; padding: 8px 16px; overflow-x: auto; scrollbar-width: none; direction: rtl; border-bottom: 1px solid rgba(255,255,255,0.05);">
+            <div class="yt-chip active-chip" onclick="selectChip(this); resetToYouTubeHome();">الصفحة الرئيسية</div>
+            <div class="yt-chip" onclick="selectChip(this); fetchYouTubeVideos('الاشتراكات يوتيوب', false);">الاشتراكات</div>
+            <div class="yt-chip" onclick="selectChip(this); fetchYouTubeVideos('أغاني وموسيقى مشهورة', false);">موسيقى</div>
+            <div class="yt-chip" onclick="selectChip(this); fetchYouTubeVideos('بث مباشر يوتيوب', false);">مباشر</div>
+            <div class="yt-chip" onclick="selectChip(this); fetchYouTubeVideos('منوعات وبرامج متنوعة', false);">المزيد</div>
         </div>
 
         <!-- واجهة البحث التفاعلية -->
@@ -121,6 +154,20 @@
 
     function getRandomFallbackQuery() {
         return fallbackKeywords[Math.floor(Math.random() * fallbackKeywords.length)];
+    }
+
+    // دالة لتفعيل تأثير الضغط المؤقت (أبيض على أسود) وانتقال الخط الأحمر الثابت
+    function selectChip(element) {
+        document.querySelectorAll('.yt-chip').forEach(chip => {
+            chip.classList.remove('active-chip');
+        });
+        element.classList.add('active-chip');
+
+        // تأثير اللمعة البيضاء ثواني ثم تختفي
+        element.classList.add('clicked-flash');
+        setTimeout(() => {
+            element.classList.remove('clicked-flash');
+        }, 300);
     }
 
     let touchStartX = 0;
