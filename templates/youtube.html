@@ -140,10 +140,10 @@
         <!-- الحالة بعد تسجيل الدخول بنجاح -->
         <div id="authState" style="display: none; width: 100%;">
             
-            <!-- الهيدر العلوي (مثبت باتجاه LTR قسري لضمان بقاء الأيقونات باليسار وزر الحسابات باليمين) -->
+            <!-- الهيدر العلوي: الأيقونات باليسار وزر الحسابات باليمين -->
             <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.05); direction: ltr;">
                 
-                <!-- الأيقونات (الإعدادات، البحث، الإشعارات) في اليسار -->
+                <!-- الأيقونات في اليسار -->
                 <div style="display: flex; align-items: center; gap: 18px;">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="googleSignOut()" title="تسجيل الخروج">
                         <circle cx="12" cy="12" r="3"></circle>
@@ -169,13 +169,9 @@
                 </div>
             </div>
 
-            <!-- معلومات المستخدم: الصورة في اليمين تماماً والاسم والمعرف بجانبها نحو اليسار -->
+            <!-- معلومات المستخدم: الصورة في اليمين والاسم والمعرف في اليسار -->
             <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 0 16px 0; direction: ltr;">
-                
-                <!-- جهة اليمين: الصورة الشخصية الدائرية -->
                 <img id="loggedInUserImg" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.1); flex-shrink: 0;">
-
-                <!-- جهة اليسار: الاسم والمعرف -->
                 <div style="text-align: right;">
                     <h2 id="loggedInUserName" style="color: #fff; font-size: 19px; font-weight: bold; margin: 0 0 4px 0;">جاري التحميل...</h2>
                     <p id="loggedInUserHandle" style="color: #aaa; font-size: 13px; margin: 0;">@user</p>
@@ -198,7 +194,7 @@
                 </div>
             </div>
 
-            <!-- قسم المكتبة العمودي المنسق مع ضبط القوالب باليمين -->
+            <!-- قسم المكتبة العمودي -->
             <div style="direction: rtl;">
                 <h3 style="color: #fff; font-size: 18px; font-weight: bold; margin-bottom: 16px; text-align: right;">المكتبة</h3>
 
@@ -422,27 +418,13 @@
         });
     }
 
-    let touchStartX = 0;
     const toolsScreen = document.getElementById('toolsScreen');
-
-    toolsScreen.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, {passive: true});
-    toolsScreen.addEventListener('touchend', function(e) {
-        let touchEndX = e.changedTouches[0].clientX;
-        if (Math.abs(touchEndX - touchStartX) > 50) handleEdgeSwipe();
-    }, {passive: true});
 
     toolsScreen.addEventListener('scroll', function() {
         if (toolsScreen.scrollTop + toolsScreen.clientHeight >= toolsScreen.scrollHeight - 300) {
             if (!isLoadingMore && nextPageToken) loadMoreVideos();
         }
     });
-
-    function handleEdgeSwipe() {
-        if (isVideoPlaying) {
-            if (!isMiniPlayer) makeMiniPlayer();
-            else exitToHomeApp();
-        } else exitToHomeApp();
-    }
 
     function makeMiniPlayer() {
         isMiniPlayer = true;
