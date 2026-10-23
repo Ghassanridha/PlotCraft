@@ -27,13 +27,13 @@
                 </div>
             </div>
 
-            <!-- لوجو يوتيوب -->
-            <div style="display: flex; align-items: center; gap: 5px; cursor: pointer;" onclick="resetToYouTubeHome()">
-                <span style="color: #ffffff; font-weight: bold; font-size: 18px; font-family: Roboto, sans-serif;">YouTube</span>
-                <svg width="28" height="20" viewBox="0 0 24 24" fill="none">
-                    <rect x="2" y="4" width="20" height="16" rx="4" fill="#FF0000" />
-                    <polygon points="10,8 16,12 10,16" fill="#FFFFFF" />
+            <!-- زر لوجو يوتيوب المتناسق -->
+            <div style="display: flex; align-items: center; gap: 6px; cursor: pointer; padding: 4px 8px; border-radius: 8px; transition: background 0.2s;" onclick="resetToYouTubeHome()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                    <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#ffffff"></polygon>
                 </svg>
+                <span style="color: #ffffff; font-weight: 600; font-size: 16px; font-family: Roboto, sans-serif; letter-spacing: -0.3px;">YouTube</span>
             </div>
         </div>
 
@@ -184,9 +184,10 @@
         }
     }, {passive: true});
 
+    // معالج التمرير التلقائي المحسّن لجلب المزيد من الفيديوهات بلا توقف
     toolsScreen.addEventListener('scroll', function() {
-        if (toolsScreen.scrollTop + toolsScreen.clientHeight >= toolsScreen.scrollHeight - 200) {
-            if (!isLoadingMore && nextPageToken) {
+        if (toolsScreen.scrollTop + toolsScreen.clientHeight >= toolsScreen.scrollHeight - 300) {
+            if (!isLoadingMore) {
                 loadMoreVideos();
             }
         }
@@ -239,14 +240,13 @@
         if (!query) query = getRandomMixedQuery();
         currentQuery = query;
 
-        const container = document.getElementById('videoFeedContainer');
-        
         if (!isAppend) {
             seenVideoIds.clear();
             globalVideosList = [];
             nextPageToken = '';
         }
 
+        if (isLoadingMore) return;
         isLoadingMore = true;
         
         try {
@@ -267,6 +267,10 @@
                         return;
                     }
                     loadCachedVideosOrEmpty();
+                } else {
+                    // إذا انتهت صفحات الـ API الحالية أثناء التمرير، ننتقل تلقائياً لكلمة عشوائية أخرى لجلب فيديوهات جديدة بلا توقف
+                    nextPageToken = '';
+                    fetchYouTubeVideos(getRandomMixedQuery(), true, true);
                 }
                 return;
             }
@@ -284,6 +288,11 @@
                         thumbnail: item.snippet.thumbnails.high ? item.snippet.thumbnails.high.url : item.snippet.thumbnails.default.url
                     };
                 });
+
+            if (newVideos.length === 0 && isAppend) {
+                fetchYouTubeVideos(getRandomMixedQuery(), true, true);
+                return;
+            }
 
             if (newVideos.length === 0 && !isAppend && !isRetryWithFallback) {
                 fetchYouTubeVideos(getRandomFallbackQuery(), false, true);
