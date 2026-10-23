@@ -91,13 +91,9 @@
     </div>
 
     <!-- 2. قائمة الفيديوهات -->
-    <div id="videoFeedContainer" style="display: flex; flex-direction: column; gap: 20px; padding: 0 0 40px 0; min-height: 100vh;">
-        <div style="color: #aaa; text-align: center; padding: 40px 0;">جاري تحميل المحتوى...</div>
-    </div>
+    <div id="videoFeedContainer" style="display: flex; flex-direction: column; gap: 20px; padding: 0 0 40px 0; min-height: 100vh;"></div>
 
-    <div id="loadingMoreIndicator" style="display: none; text-align: center; padding: 15px; color: #aaa; font-size: 13px;">
-        جاري جلب المزيد من الاقتراحات والفيديوهات المقاربة...
-    </div>
+    <div id="loadingMoreIndicator" style="display: none; text-align: center; padding: 15px; color: #aaa; font-size: 13px;"></div>
 
     <!-- 3. شريط التنقل السفلي -->
     <div id="bottomNavBar" style="position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background: #121212; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-around; align-items: center; z-index: 999; padding: 0 10px; transition: all 0.3s ease;">
@@ -156,14 +152,12 @@
         return fallbackKeywords[Math.floor(Math.random() * fallbackKeywords.length)];
     }
 
-    // دالة لتفعيل تأثير الضغط المؤقت (أبيض على أسود) وانتقال الخط الأحمر الثابت
     function selectChip(element) {
         document.querySelectorAll('.yt-chip').forEach(chip => {
             chip.classList.remove('active-chip');
         });
         element.classList.add('active-chip');
 
-        // تأثير اللمعة البيضاء ثواني ثم تختفي
         element.classList.add('clicked-flash');
         setTimeout(() => {
             element.classList.remove('clicked-flash');
@@ -248,12 +242,9 @@
         const container = document.getElementById('videoFeedContainer');
         
         if (!isAppend) {
-            container.innerHTML = `<div style="color: #aaa; text-align: center; padding: 40px 0;">جاري تحميل المحتوى...</div>`;
             seenVideoIds.clear();
             globalVideosList = [];
             nextPageToken = '';
-        } else {
-            document.getElementById('loadingMoreIndicator').style.display = 'block';
         }
 
         isLoadingMore = true;
@@ -267,7 +258,6 @@
             const response = await fetch(url);
             const data = await response.json();
 
-            document.getElementById('loadingMoreIndicator').style.display = 'none';
             isLoadingMore = false;
 
             if (!data.items || data.items.length === 0) {
@@ -311,7 +301,6 @@
 
         } catch (error) {
             console.error('Error:', error);
-            document.getElementById('loadingMoreIndicator').style.display = 'none';
             isLoadingMore = false;
             if (!isAppend) {
                 loadCachedVideosOrEmpty();
@@ -344,7 +333,6 @@
         } catch(e) {
             console.error('Cache Load Error:', e);
         }
-        container.innerHTML = `<div style="color: #aaa; text-align: center; padding: 40px 0; direction: rtl;">جاري تحديث المحتوى... يرجى إعادة المحاولة</div>`;
     }
 
     function loadMoreVideos() {
