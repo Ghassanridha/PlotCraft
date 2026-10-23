@@ -147,7 +147,7 @@
                 <div style="display: flex; align-items: center; gap: 18px;">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="googleSignOut()" title="تسجيل الخروج">
                         <circle cx="12" cy="12" r="3"></circle>
-                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l-.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
                     </svg>
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="openSearchUI()">
                         <circle cx="11" cy="11" r="8"></circle>
@@ -262,16 +262,16 @@
 
     </div>
 
-    <!-- نافذة اختيار الحسابات أو إنشاء قناة -->
+    <!-- نافذة عرض جميع الحسابات والإيميلات -->
     <div id="accountsModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000000; align-items: center; justify-content: center; padding: 20px;">
         <div style="background: #1f242d; border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; width: 100%; max-width: 400px; padding: 24px; display: flex; flex-direction: column; gap: 16px; direction: rtl;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h3 style="color: #fff; font-size: 18px; margin: 0;">اختر الحساب</h3>
+                <h3 style="color: #fff; font-size: 18px; margin: 0;">جميع الحسابات</h3>
                 <span onclick="closeAccountsModal()" style="color: #fff; font-size: 18px; cursor: pointer; font-weight: bold;">✕</span>
             </div>
             
             <div id="accountsListContainer" style="display: flex; flex-direction: column; gap: 10px; max-height: 250px; overflow-y: auto;">
-                <!-- قائمة الإيميلات والحسابات تظهر هنا -->
+                <!-- يتم توليد قائمة جميع الحسابات هنا ديناميكياً -->
             </div>
 
             <button onclick="addNewAccountPrompt()" style="background: #3b82f6; color: #fff; border: none; padding: 12px; border-radius: 12px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 5px;">إضافة حساب / إيميل جديد</button>
@@ -285,7 +285,7 @@
                 <h3 style="color: #fff; font-size: 18px; margin: 0;">إنشاء قناة جديدة</h3>
                 <span onclick="closeCreateChannelModal()" style="color: #fff; font-size: 18px; cursor: pointer; font-weight: bold;">✕</span>
             </div>
-            <p style="color: #aaa; font-size: 13px; margin: 0;">هذا البريد الإلكتروني لا يمتلك قناة. يرجى إدخال اسم القناة والمعرف (يمكن استخدام كتابة فقط أو مختلط مع أرقام).</p>
+            <p style="color: #aaa; font-size: 13px; margin: 0;">هذا البريد الإلكتروني لا يمتلك قناة. يرجى إدخال اسم القناة والمعرف (كتابة فقط أو مختلط مع أرقام).</p>
             
             <div style="display: flex; flex-direction: column; gap: 6px;">
                 <label style="color: #fff; font-size: 13px;">اسم القناة</label>
@@ -380,13 +380,13 @@
             
             let existingAcc = savedAccounts.find(acc => acc.email === userEmail);
             if (!existingAcc) {
-                // افتراضياً أول مرة نضيفه، نفترض أن لديه قناة إذا كان اسمه موجوداً أو نسأله، هنا سنفترض إذا لم يكن لديه قناة مسجلة مسبقاً نسجله بدون قناة أو بقناة افتراضية
+                // التحقق ما إذا كان الحساب يمتلك قناة مسبقاً أم لا
                 savedAccounts.push({
                     email: userEmail,
                     name: defaultName,
                     handle: defaultHandle,
                     picture: userPicture,
-                    hasChannel: true // الإيميل المسجل عبر جوجل غالباً لديه حساب
+                    hasChannel: true 
                 });
                 localStorage.setItem('plotcraft_all_accounts', JSON.stringify(savedAccounts));
             }
@@ -403,6 +403,7 @@
         if (acc) {
             if (!acc.hasChannel) {
                 pendingEmailForChannel = email;
+                closeAccountsModal();
                 document.getElementById('createChannelModal').style.display = 'flex';
                 return;
             }
@@ -415,7 +416,6 @@
 
     function addNewAccountPrompt() {
         closeAccountsModal();
-        // إظهار نافذة تسجيل الدخول لإضافة إيميل جديد
         document.getElementById('unauthState').style.display = 'block';
         document.getElementById('authState').style.display = 'none';
     }
