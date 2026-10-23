@@ -2,7 +2,7 @@
 // 5. قسم البرامج والوظائف التفاعلية JavaScript (مؤمن ومحدث مع Firebase)
 // ==========================================
 
-// استيراد مكتبات Firebase (التوثيق، التطبيق، وتحليل البيانات)
+// استيراد مكتبات Firebase (التوثيق، التطبيق، قاعدة البيانات، وتحليل البيانات)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
 import { 
@@ -12,6 +12,7 @@ import {
     GoogleAuthProvider, 
     signInWithPopup 
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
 // إعدادات Firebase الخاصة بمشروعك
 const firebaseConfig = {
@@ -28,13 +29,36 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app); // تفعيل نظام المصادقة
+const db = getDatabase(app); // تفعيل قاعدة البيانات الحية
 
-// دالة تثبيت وحفظ معرف المستخدم (UID) محلياً بعد التسجيل
-function saveUserSession(userId) {
-    if (userId) {
-        localStorage.setItem('plotcraft_user_uid', userId);
-        console.log("تم تثبيت وحفظ معرف المستخدم بنجاح:", userId);
-    }
+// دالة تثبيت وحفظ بيانات المستخدم كاملة (البريد، المعرف، الاسم، الصورة، والـ UID)
+function saveUserToDatabase(user) {
+    if (!user) return;
+
+    const userEmail = user.email || '';
+    const userHandle = userEmail ? '@' + userEmail.split('@')[0] : '@user_' + user.uid.substring(0, 5);
+    const userName = user.displayName || userEmail.split('@')[0] || 'مخرج PlotCraft';
+    const userPicture = user.photoURL || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100';
+
+    const userData = {
+        uid: user.uid,
+        name: userName,
+        email: userEmail,
+        handle: userHandle,       // المعرف المستخرج تلقائياً من الإيميل
+        picture: userPicture,
+        lastLogin: Date.now()
+    };
+
+    // حفظ البيانات في مسار users/{uid} داخل Realtime Database
+    set(ref(db, 'users/' + user.uid), userData)
+        .then(() => {
+            console.log("✅ تم حفظ البريد والمعرف والبيانات في قاعدة البيانات بنجاح");
+            localStorage.setItem('plotcraft_user_session', JSON.stringify(userData));
+            localStorage.setItem('plotcraft_user_uid', user.uid);
+        })
+        .catch((error) => {
+            console.error("❌ خطأ في حفظ بيانات المستخدم:", error);
+        });
 }
 
 // دالة التنقل بين الشاشات
@@ -91,7 +115,7 @@ window.handleRegister = function() {
     createUserWithEmailAndPassword(auth, email, pass)
         .then((userCredential) => {
             let user = userCredential.user;
-            saveUserSession(user.uid);
+            saveUserToDatabase(user); // حفظ بيانات الحساب والمعرف في القاعدة
             alert("✅ تم إنشاء الحساب بنجاح!");
             switchScreen('mainDashboardScreen');
         })
@@ -125,7 +149,7 @@ window.handleExistingLogin = function() {
     signInWithEmailAndPassword(auth, email, pass)
         .then((userCredential) => {
             let user = userCredential.user;
-            saveUserSession(user.uid);
+            saveUserToDatabase(user); // تحديث وتثبيت البيانات في القاعدة
             alert("مرحباً بك مجدداً! تم تسجيل الدخول بنجاح.");
             switchScreen('mainDashboardScreen');
         })
@@ -141,7 +165,7 @@ window.handleGoogleLogin = function() {
     signInWithPopup(auth, provider)
         .then((result) => {
             let user = result.user;
-            saveUserSession(user.uid);
+            saveUserToDatabase(user); // حفظ البريد والمعرف والصورة الخاصة بجوجل في القاعدة
             alert("✅ تم تسجيل الدخول بواسطة جوجل بنجاح!");
             switchScreen('mainDashboardScreen');
         })
