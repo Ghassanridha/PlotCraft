@@ -4,8 +4,8 @@
     <!-- استدعاء مكتبة تسجيل الدخول الرسمية من جوجل -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-    <!-- 1. مشغل يوتيوب العلوي المباشر مع دعم السحب المباشر بدون خطوط -->
-    <div id="activePlayerContainer" style="display: none; width: 100%; background: #000; position: sticky; top: 0; z-index: 200; border-bottom: 1px solid rgba(255,255,255,0.1); transition: transform 0.25s ease, width 0.25s ease, height 0.25s ease, bottom 0.25s ease, right 0.25s ease; touch-action: none;">
+    <!-- 1. مشغل يوتيوب العلوي المباشر مع دعم السحب المباشر -->
+    <div id="activePlayerContainer" style="display: none; width: 100%; background: #000; position: sticky; top: 0; z-index: 200; border-bottom: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease; touch-action: none;">
         
         <div id="playerWrapper" style="position: relative; width: 100%; height: 215px; background: #000;">
             <iframe id="mainYouTubeEmbed" src="" style="width: 100%; height: 100%; border: none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -148,7 +148,7 @@
                 <div style="display: flex; align-items: center; gap: 18px;">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="googleSignOut()" title="تسجيل الخروج">
                         <circle cx="12" cy="12" r="3"></circle>
-                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06-.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
                     </svg>
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="openSearchUI()">
                         <circle cx="11" cy="11" r="8"></circle>
@@ -360,7 +360,7 @@
         initPlayerGestures();
     });
 
-    // برمجة السحب المباشر (Swipe Down لتصغير الفيديو، وSwipe Up لتكبيره)
+    // برمجة السحب المباشر من على الفيديو (بدون خطوط وبسلاسة تامة)
     function initPlayerGestures() {
         const playerContainer = document.getElementById('activePlayerContainer');
         let startY = 0;
@@ -370,29 +370,29 @@
         playerContainer.addEventListener('touchstart', (e) => {
             startY = e.touches[0].clientY;
             isDragging = true;
-        });
+        }, {passive: true});
 
         playerContainer.addEventListener('touchmove', (e) => {
             if (!isDragging) return;
             currentY = e.touches[0].clientY;
             let diff = currentY - startY;
 
-            if (!isMiniPlayer && diff > 40) {
-                // سحب للأفل -> تحويل لمشغل مصغر
+            if (!isMiniPlayer && diff > 50) {
+                // سحب نحو الأسفل -> تصغير الفيديو
                 makeMiniPlayer();
                 isDragging = false;
-            } else if (isMiniPlayer && diff < -40) {
-                // سحب للأعلى -> تكبير المشغل للحجم الطبيعي
+            } else if (isMiniPlayer && diff < -50) {
+                // سحب نحو الأعلى -> تكبير الفيديو للحجم الطبيعي
                 expandPlayer();
                 isDragging = false;
             }
-        });
+        }, {passive: true});
 
         playerContainer.addEventListener('touchend', () => {
             isDragging = false;
         });
 
-        // دعم النقر على المشغل المصغر لتكبريه أيضاً
+        // النقر على المشغل المصغر لتكبيره أيضاً
         playerContainer.addEventListener('click', (e) => {
             if (isMiniPlayer) {
                 expandPlayer();
@@ -772,7 +772,6 @@
         playerContainer.style.display = 'block';
         playerContainer.style.borderRadius = '0';
         playerContainer.style.boxShadow = 'none';
-        containerZIndex = '200';
         
         wrapper.style.height = '215px';
         if (videoInfo) videoInfo.style.display = 'block';
