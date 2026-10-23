@@ -140,13 +140,11 @@
         <!-- الحالة بعد تسجيل الدخول بنجاح -->
         <div id="authState" style="display: none; width: 100%;">
             
-            <!-- الهيدر العلوي الخاص بالملف الشخصي -->
-            <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.05);">
-                <div style="display: flex; align-items: center; gap: 16px;">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="googleSignOut()">
-                        <circle cx="12" cy="12" r="3"></circle>
-                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                    </svg>
+            <!-- الهيدر العلوي الخاص بالملف الشخصي (مطابق تماماً للصورة: الإعدادات، البحث، الإشعارات يسار - الحسابات يمين) -->
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                
+                <!-- الجهة اليسار: الإعدادات، البحث، الإشعارات -->
+                <div style="display: flex; align-items: center; gap: 18px;">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="openSearchUI()">
                         <circle cx="11" cy="11" r="8"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -158,21 +156,30 @@
                         </svg>
                         <span style="position: absolute; top: -3px; right: -5px; background: #ff0000; color: #fff; font-size: 10px; padding: 1px 4px; border-radius: 10px; font-weight: bold;">9+</span>
                     </div>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="googleSignOut()" title="تسجيل الخروج">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
                 </div>
 
-                <div style="display: flex; align-items: center; gap: 4px; background: #1f1f1f; padding: 6px 12px; border-radius: 20px; cursor: pointer;">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                <!-- الجهة اليمين: زر الحسابات مع السهم -->
+                <div style="display: flex; align-items: center; gap: 6px; background: #1f1f1f; border: 1px solid rgba(255,255,255,0.1); padding: 7px 14px; border-radius: 20px; cursor: pointer;">
                     <span style="color: #fff; font-size: 13px; font-weight: 500;">الحسابات</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
                 </div>
             </div>
 
-            <!-- معلومات ملف المستخدم العلوي (الاستلام والتصميم المباشر) -->
+            <!-- معلومات ملف المستخدم العلوي (الصورة باليمين والاسم باليسار تماماً كالصورة) -->
             <div style="display: flex; align-items: center; justify-content: space-between; padding: 20px 0 16px 0;">
+                
+                <!-- الجهة اليسار: الاسم والـ Handle -->
                 <div style="text-align: right;">
-                    <h2 id="loggedInUserName" style="color: #fff; font-size: 20px; font-weight: bold; margin: 0 0 4px 0;">جاري التحميل...</h2>
+                    <h2 id="loggedInUserName" style="color: #fff; font-size: 19px; font-weight: bold; margin: 0 0 4px 0;">جاري التحميل...</h2>
                     <p id="loggedInUserHandle" style="color: #aaa; font-size: 13px; margin: 0;">@user</p>
                 </div>
-                <img id="loggedInUserImg" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.1);">
+
+                <!-- الجهة اليمين: الصورة الشخصية الدائرية -->
+                <img id="loggedInUserImg" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.1); flex-shrink: 0;">
             </div>
 
             <!-- زر مشاهدة القناة فقط -->
@@ -285,11 +292,11 @@
 
 </div>
 
-<!-- البرمجة والدوال التفاعلية المحدثة للتثبيت والمشاهدة الحقيقية -->
+<!-- البرمجة والدوال التفاعلية -->
 <script>
     let globalVideosList = [];
     let seenVideoIds = new Set();
-    let userHistoryVideos = []; // السجل المباشر
+    let userHistoryVideos = [];
     let isVideoPlaying = false;
     let isMiniPlayer = false;
     let currentQuery = '';
@@ -312,7 +319,6 @@
     function openProfileScreen() { document.getElementById('profilePageScreen').style.display = 'block'; }
     function closeProfileScreen() { document.getElementById('profilePageScreen').style.display = 'none'; }
 
-    // التأكد التلقائي من الحساب المحفوظ لاستمرار تسجيل الدخول
     window.addEventListener('load', function() {
         checkSavedUserSession();
         loadHistoryFromStorage();
@@ -324,9 +330,7 @@
             try {
                 const user = JSON.parse(savedUser);
                 applyUserSession(user.name, user.email, user.picture);
-            } catch(e) {
-                console.error(e);
-            }
+            } catch(e) {}
         }
     }
 
@@ -337,7 +341,6 @@
             const userEmail = payload.email || '';
             const userPicture = payload.picture || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100';
 
-            // حفظ الجلسة دائماً في التخزين المحلي
             localStorage.setItem('plotcraft_user_session', JSON.stringify({
                 name: userName,
                 email: userEmail,
@@ -378,10 +381,9 @@
         document.getElementById('authState').style.display = 'none';
     }
 
-    // حفظ واسترجاع سجل المشاهدة للفيديوهات الحقيقية
     function addToHistory(video) {
         userHistoryVideos = userHistoryVideos.filter(v => v.ytId !== video.ytId);
-        userHistoryVideos.unshift(video); // إضافة الجديد في البداية
+        userHistoryVideos.unshift(video);
         localStorage.setItem('plotcraft_yt_history', JSON.stringify(userHistoryVideos));
         renderHistoryUI();
     }
@@ -574,7 +576,6 @@
         isVideoPlaying = true;
         isMiniPlayer = false;
 
-        // إضافة الفيديو المحقق للسجل فوراً عند المشاهدة
         addToHistory(video);
 
         const playerContainer = document.getElementById('activePlayerContainer');
