@@ -5,11 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PlotCraft UI</title>
     <link rel="manifest" href="/manifest.json">
-    
-    <!-- كود إثبات الملكية الخاص بـ Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1526777303515460"
-         crossorigin="anonymous"></script>
-
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         * {
@@ -1632,7 +1627,7 @@
             </div>
         </div>
 
-        <!-- استدعاء ملف youtube.html -->
+        <!-- تم تغيير أداة الاستدعاء هنا لتستدعي ملف youtube.html بدلاً من tools_screen.html -->
         {% include 'youtube.html' %}
 
         <!-- تضمين مكون نافذة الاشتراكات المستقل -->
@@ -1648,7 +1643,7 @@
                     <span>الرئيسية</span>
                 </a>
                 
-                <!-- زر اليوتيوب المباشر المدمج -->
+                <!-- زر اليوتيوب المباشر المدمج الصحيح الذي يفتح toolsScreen بدون خطأ Not Found -->
                 <a href="#" class="plotcraft-nav-item" id="navTools" onclick="switchScreen('toolsScreen', event); setActiveNav('navTools')" style="text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 2px;">
                     <svg width="28" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="2" y="4" width="20" height="16" rx="4" fill="#FF0000" />
@@ -1682,6 +1677,7 @@
             }
 
             let navBar = document.getElementById('mainNavBar');
+            // إضافة toolsScreen لإخفاء شريط التنقل الرئيسي عند التواجد في شاشة اليوتيوب
             if (['sparkleDialogScreen', 'addCharacterScreen', 'storyDescriptionScreen', 'stepByStepScreen', 'toolsScreen'].includes(screenId)) {
                 navBar.classList.add('hidden');
             } else {
@@ -1713,6 +1709,7 @@
         };
     </script>
 
+    <!-- استدعاء ملف الـ Javascript المستقل للترقية والاشتراكات -->
     <script src="/static/subscription.js"></script>
 </body>
 </html>
