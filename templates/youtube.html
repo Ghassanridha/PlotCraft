@@ -4,9 +4,12 @@
     <!-- استدعاء مكتبة تسجيل الدخول الرسمية من جوجل -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-    <!-- 1. مشغل يوتيوب العلوي المباشر مع دعم السحب المباشر -->
-    <div id="activePlayerContainer" style="display: none; width: 100%; background: #000; position: sticky; top: 0; z-index: 200; border-bottom: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease; touch-action: none;">
+    <!-- 1. مشغل يوتيوب العلوي المباشر مع دعم السحب والتحريك الحر بالصمغ/اللمس -->
+    <div id="activePlayerContainer" style="display: none; width: 100%; background: #000; position: sticky; top: 0; z-index: 200; border-bottom: 1px solid rgba(255,255,255,0.1); transition: width 0.25s ease, height 0.25s ease, border-radius 0.25s ease;">
         
+        <!-- طبقة لمس شفافة فوق الفيديو للتحكم بالسحب والإفلات بكل سلاسة بدون أي خطوط -->
+        <div id="playerTouchOverlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 250; background: transparent; cursor: pointer;"></div>
+
         <div id="playerWrapper" style="position: relative; width: 100%; height: 215px; background: #000;">
             <iframe id="mainYouTubeEmbed" src="" style="width: 100%; height: 100%; border: none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
@@ -357,46 +360,65 @@
     window.addEventListener('load', function() {
         checkSavedUserSession();
         loadHistoryFromStorage();
-        initPlayerGestures();
+        initPlayerDragAndDrop();
     });
 
-    // برمجة السحب المباشر من على الفيديو (بدون خطوط وبسلاسة تامة)
-    function initPlayerGestures() {
-        const playerContainer = document.getElementById('activePlayerContainer');
-        let startY = 0;
-        let currentY = 0;
+    // برمجة سحب وتحريك المشغل الحر (Draggable & Swipable Mini-Player)
+    function initPlayerDragAndDrop() {
+        const overlay = document.getElementById('playerTouchOverlay');
+        const container = document.getElementById('activePlayerContainer');
+        
+        let startX = 0, startY = 0;
+        let initialX = 0, initialY = 0;
         let isDragging = false;
+        let hasMoved = false;
 
-        playerContainer.addEventListener('touchstart', (e) => {
+        overlay.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
             startY = e.touches[0].clientY;
+            hasMoved = false;
+            
+            const rect = container.getBoundingClientRect();
+            initialX = rect.left;
+            initialY = rect.top;
             isDragging = true;
         }, {passive: true});
 
-        playerContainer.addEventListener('touchmove', (e) => {
+        overlay.addEventListener('touchmove', (e) => {
             if (!isDragging) return;
-            currentY = e.touches[0].clientY;
-            let diff = currentY - startY;
+            let currentX = e.touches[0].clientX;
+            let currentY = e.touches[0].clientY;
+            
+            let deltaX = currentX - startX;
+            let deltaY = currentY - startY;
 
-            if (!isMiniPlayer && diff > 50) {
-                // سحب نحو الأسفل -> تصغير الفيديو
+            if (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10) {
+                hasMoved = true;
+            }
+
+            if (!isMiniPlayer && deltaY > 50) {
+                // سحب للأفل -> تحويل لمشغل مصغر حر
                 makeMiniPlayer();
                 isDragging = false;
-            } else if (isMiniPlayer && diff < -50) {
-                // سحب نحو الأعلى -> تكبير الفيديو للحجم الطبيعي
-                expandPlayer();
-                isDragging = false;
+                return;
+            }
+
+            if (isMiniPlayer) {
+                // تحريك حر للمشغل المصغر بأصبعك في أي مكان (يمين، يسار، أعلى، أسفل)
+                container.style.position = 'fixed';
+                container.style.left = (initialX + deltaX) + 'px';
+                container.style.top = (initialY + deltaY) + 'px';
+                container.style.bottom = 'auto';
+                container.style.right = 'auto';
             }
         }, {passive: true});
 
-        playerContainer.addEventListener('touchend', () => {
-            isDragging = false;
-        });
-
-        // النقر على المشغل المصغر لتكبيره أيضاً
-        playerContainer.addEventListener('click', (e) => {
-            if (isMiniPlayer) {
+        overlay.addEventListener('touchend', (e) => {
+            if (isDragging && isMiniPlayer && !hasMoved) {
+                // إذا تم النقر عليه بدون تحريك كبير -> يكبر ويعود لمكانه الطبيعي
                 expandPlayer();
             }
+            isDragging = false;
         });
     }
 
@@ -411,13 +433,13 @@
         container.style.right = '16px';
         container.style.left = 'auto';
         container.style.top = 'auto';
-        container.style.width = '240px';
+        container.style.width = '200px';
         container.style.zIndex = '999999';
-        container.style.borderRadius = '12px';
+        container.style.borderRadius = '10px';
         container.style.overflow = 'hidden';
-        container.style.boxShadow = '0 8px 24px rgba(0,0,0,0.8)';
+        container.style.boxShadow = '0 8px 24px rgba(0,0,0,0.9)';
         
-        wrapper.style.height = '135px';
+        wrapper.style.height = '112px';
         if (videoInfo) videoInfo.style.display = 'none';
 
         document.getElementById('ytHeaderContainer').style.display = 'block';
@@ -432,6 +454,7 @@
 
         container.style.position = 'sticky';
         container.style.top = '0';
+        container.style.left = 'auto';
         container.style.right = 'auto';
         container.style.bottom = 'auto';
         container.style.width = '100%';
@@ -766,6 +789,7 @@
 
         playerContainer.style.position = 'sticky';
         playerContainer.style.top = '0';
+        playerContainer.style.left = 'auto';
         playerContainer.style.right = 'auto';
         playerContainer.style.bottom = 'auto';
         playerContainer.style.width = '100%';
