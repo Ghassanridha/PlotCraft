@@ -106,7 +106,7 @@
     <div id="loadingMoreIndicator" style="display: none; text-align: center; padding: 15px; color: #aaa; font-size: 13px;"></div>
 
     <!-- 3. واجهة الملف الشخصي الكاملة -->
-    <div id="profilePageScreen" class="no-scrollbar" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: #0f0f0f; z-index: 99999; padding: 16px 16px 80px 16px; box-sizing: border-box; overflow-y: auto; direction: rtl;">
+    <div id="profilePageScreen" class="no-scrollbar" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: #0f0f0f; z-index: 99999; padding: 16px 16px 80px 16px; box-sizing: border-box; overflow-y: auto;">
         
         <!-- الحالة قبل تسجيل الدخول -->
         <div id="unauthState" style="width: 100%; max-width: 320px; margin: 80px auto 0 auto; text-align: center;">
@@ -140,11 +140,15 @@
         <!-- الحالة بعد تسجيل الدخول بنجاح -->
         <div id="authState" style="display: none; width: 100%;">
             
-            <!-- الهيدر العلوي الخاص بالملف الشخصي (مطابق تماماً للصورة: الإعدادات، البحث، الإشعارات يسار - الحسابات يمين) -->
-            <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+            <!-- الهيدر العلوي (معكوس البرمجة ليتوسط المكان الصحيح بعد دوران المتصفح) -->
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.05); direction: rtl;">
                 
-                <!-- الجهة اليسار: الإعدادات، البحث، الإشعارات -->
+                <!-- تم وضع عناصر الإعدادات والبحث والإشعارات أولاً لكي يستقروا في اليسار -->
                 <div style="display: flex; align-items: center; gap: 18px;">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="googleSignOut()" title="تسجيل الخروج">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="openSearchUI()">
                         <circle cx="11" cy="11" r="8"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -156,29 +160,25 @@
                         </svg>
                         <span style="position: absolute; top: -3px; right: -5px; background: #ff0000; color: #fff; font-size: 10px; padding: 1px 4px; border-radius: 10px; font-weight: bold;">9+</span>
                     </div>
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;" onclick="googleSignOut()" title="تسجيل الخروج">
-                        <circle cx="12" cy="12" r="3"></circle>
-                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                    </svg>
                 </div>
 
-                <!-- الجهة اليمين: زر الحسابات مع السهم -->
+                <!-- زر الحسابات باليمين -->
                 <div style="display: flex; align-items: center; gap: 6px; background: #1f1f1f; border: 1px solid rgba(255,255,255,0.1); padding: 7px 14px; border-radius: 20px; cursor: pointer;">
-                    <span style="color: #fff; font-size: 13px; font-weight: 500;">الحسابات</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                    <span style="color: #fff; font-size: 13px; font-weight: 500;">الحسابات</span>
                 </div>
             </div>
 
-            <!-- معلومات ملف المستخدم العلوي (الصورة باليمين والاسم باليسار تماماً كالصورة) -->
-            <div style="display: flex; align-items: center; justify-content: space-between; padding: 20px 0 16px 0;">
+            <!-- معلومات المستخدم: الصورة باليمين والاسم بالليسار -->
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 20px 0 16px 0; direction: rtl;">
                 
-                <!-- الجهة اليسار: الاسم والـ Handle -->
+                <!-- الاسم والـ Handle باليسار -->
                 <div style="text-align: right;">
                     <h2 id="loggedInUserName" style="color: #fff; font-size: 19px; font-weight: bold; margin: 0 0 4px 0;">جاري التحميل...</h2>
                     <p id="loggedInUserHandle" style="color: #aaa; font-size: 13px; margin: 0;">@user</p>
                 </div>
 
-                <!-- الجهة اليمين: الصورة الشخصية الدائرية -->
+                <!-- الصورة الشخصية باليمين -->
                 <img id="loggedInUserImg" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.1); flex-shrink: 0;">
             </div>
 
@@ -187,27 +187,25 @@
                 <button style="width: 100%; background: #f1f1f1; color: #0f0f0f; border: none; padding: 9px 0; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer;">مشاهدة القناة</button>
             </div>
 
-            <!-- قسم السجلّ الديناميكي (المحفوظات الفعلية للمستخدم) -->
-            <div style="margin-bottom: 28px;">
+            <!-- قسم السجلّ الديناميكي -->
+            <div style="margin-bottom: 28px; direction: rtl;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                     <span style="color: #fff; font-size: 18px; font-weight: bold; cursor: pointer;">السجلّ ‹</span>
                 </div>
 
-                <!-- حاوية الفيديوهات المشاهدة المحفوظة - الترتيب الأفقي المضبوط لليمين -->
-                <div id="historyFeedContainer" class="no-scrollbar" style="display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; direction: rtl;">
-                    <!-- يتم توليد الفيديوهات هنا تلقائياً عند المشاهدة -->
+                <div id="historyFeedContainer" class="no-scrollbar" style="display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px;">
                     <p id="emptyHistoryMsg" style="color: #666; font-size: 13px; margin: 10px 0;">لم تقم بمشاهدة أي فيديو بعد.</p>
                 </div>
             </div>
 
             <!-- قسم المكتبة العمودي المنسق مع ضبط القوالب باليمين -->
-            <div>
+            <div style="direction: rtl;">
                 <h3 style="color: #fff; font-size: 18px; font-weight: bold; margin-bottom: 16px; text-align: right;">المكتبة</h3>
 
                 <div style="display: flex; flex-direction: column; gap: 18px;">
                     
                     <!-- 1. Watch later -->
-                    <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; direction: rtl;">
+                    <div style="display: flex; align-items: center; cursor: pointer;">
                         <div style="width: 110px; height: 65px; border-radius: 12px; background: #ffffff; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="12" cy="12" r="10"></circle>
@@ -221,7 +219,7 @@
                     </div>
 
                     <!-- 2. فيديوهاتك -->
-                    <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; direction: rtl;">
+                    <div style="display: flex; align-items: center; cursor: pointer;">
                         <div style="width: 110px; height: 65px; border-radius: 12px; background: #1a1a1a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.1);">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                         </div>
@@ -231,7 +229,7 @@
                     </div>
 
                     <!-- 3. فيديوهات Shorts المحفوظة -->
-                    <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; direction: rtl;">
+                    <div style="display: flex; align-items: center; cursor: pointer;">
                         <div style="width: 110px; height: 65px; border-radius: 12px; background: #2b1810; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="#ff4444"><path d="M17.77 10.32l-1.2-.5L18 9.06c1.84-.96 2.53-3.23 1.56-5.06s-3.24-2.53-5.07-1.56L6 6.94c-1.29.68-2.07 2.04-2 3.49.07 1.42.93 2.67 2.22 3.25l1.2.51-1.43.76c-1.84.96-2.53 3.23-1.56 5.06s3.24 2.53 5.07 1.56l8.43-4.5c1.29-.68 2.07-2.04 2-3.49-.07-1.42-.93-2.67-2.22-3.25zM10 14.5v-5l4.5 2.5-4.5 2.5z"/></svg>
                         </div>
@@ -241,7 +239,7 @@
                     </div>
 
                     <!-- 4. فيديوهات أعجبتني -->
-                    <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; direction: rtl;">
+                    <div style="display: flex; align-items: center; cursor: pointer;">
                         <div style="width: 110px; height: 65px; border-radius: 12px; background: #222; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.08);">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
                         </div>
@@ -251,7 +249,7 @@
                     </div>
 
                     <!-- 5. عمليات التنزيل -->
-                    <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; direction: rtl;">
+                    <div style="display: flex; align-items: center; cursor: pointer;">
                         <div style="width: 110px; height: 65px; border-radius: 12px; background: #222; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.08);">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                         </div>
@@ -283,7 +281,7 @@
             <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
         </div>
 
-        <!-- زر الملف الشخصي (الصورة الدائرية) -->
+        <!-- زر الملف الشخصي -->
         <div onclick="openProfileScreen()" style="width: 26px; height: 26px; border-radius: 50%; background: #333; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer; border: 1.5px solid #fff;">
             <img id="userProfileImg" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" style="width: 100%; height: 100%; object-fit: cover;" alt="Profile">
         </div>
