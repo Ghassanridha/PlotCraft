@@ -508,7 +508,8 @@
         document.getElementById('ytHeaderContainer').style.display = 'none';
         document.getElementById('bottomNavBar').style.display = 'none';
 
-        iframePlayer.src = `https://www.youtube.com/embed/${video.ytId}?autoplay=1`;
+        // التعديل الاحترافي لإخفاء الاقتراحات وتقليل شعار يوتيوب
+        iframePlayer.src = `https://www.youtube.com/embed/${video.ytId}?autoplay=1&modestbranding=1&rel=0&controls=1`;
         toolsScreen.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
