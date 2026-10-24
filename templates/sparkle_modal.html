@@ -1,11 +1,11 @@
 <!-- ملف الأداة المنفصل: sparkle_modal.html -->
 <div id="sparkleDialogScreen" class="screen-view">
-    <!-- الشريط العلوي: علامة الإكس أقصى اليمين، واسم التطبيق بالمنتصف، وزر الترقية أقصى اليسار مع التتاج على يمينه -->
+    <!-- الشريط العلوي: زر الإغلاق صغير أقصى اليمين، اسم التطبيق بالمنتصف، وزر الترقية صغير أقصى اليسار مع التاج المصغر -->
     <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 20px;">
-        <div style="cursor: pointer; color: #fff; font-size: 18px; background: rgba(255,255,255,0.1); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;" onclick="playClickSound(); closeSparkleDialog()">✕</div>
-        <div class="brand-title" style="transform: translateX(-15px);">Plotcraft</div>
-        <div class="upgrade-badge" onclick="playClickSound(); openSubscriptionModal()" style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
-            <span style="font-size: 12px; filter: brightness(0) invert(1);">👑</span>
+        <div style="cursor: pointer; color: #fff; font-size: 14px; background: rgba(255,255,255,0.1); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;" onclick="playClickSound(); closeSparkleDialog()">✕</div>
+        <div class="brand-title" style="transform: translateX(-35px); font-size: 18px;">Plotcraft</div>
+        <div class="upgrade-badge" onclick="playClickSound(); openSubscriptionModal()" style="display: flex; align-items: center; gap: 4px; padding: 5px 12px; font-size: 12px; border-radius: 20px; cursor: pointer;">
+            <span style="font-size: 10px; filter: brightness(0) invert(1);">👑</span>
             <span>ترقية</span>
         </div>
     </div>
