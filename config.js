@@ -1,3 +1,0 @@
-const YOUTUBE_CONFIG = {
-    API_KEY: 'AIzaSyB4EvmJ8UJ12U3T3iW9iFzHPTPgXzV4Wnw'
-};
