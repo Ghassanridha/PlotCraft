@@ -579,7 +579,7 @@
         isLoadingMore = true;
         
         try {
-            // سحب المفتاح من ملف config.js الخارجي
+            // سحب المفتاح بأمان من ملف config.js الخارجي
             const API_KEY = (typeof YOUTUBE_CONFIG !== 'undefined') ? YOUTUBE_CONFIG.API_KEY : '';
             let url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${encodeURIComponent(query)}&type=video&key=${API_KEY}`;
             if (isAppend && nextPageToken) url += `&pageToken=${nextPageToken}`;
