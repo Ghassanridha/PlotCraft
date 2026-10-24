@@ -1,10 +1,10 @@
 <!-- ملف الأداة المنفصل: sparkle_modal.html -->
 <div id="sparkleDialogScreen" class="screen-view">
-    <!-- الشريط العلوي: زر الإغلاق صغير أقصى اليمين، اسم التطبيق مع ضبط حرفي tc فوق الدائرة، وزر الترقية صغير أقصى اليسار -->
-    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 20px;">
+    <!-- الشريط العلوي: زر الإغلاق أقصى اليمين، اسم التطبيق بالمنتصف، وزر الترقية أقصى اليسار -->
+    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 20px; padding: 0 4px;">
         <div style="cursor: pointer; color: #fff; font-size: 14px; background: rgba(255,255,255,0.1); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;" onclick="playClickSound(); closeSparkleDialog()">✕</div>
-        <div class="brand-title" style="transform: translateX(-12px); font-size: 18px;">Plotcraft</div>
-        <div class="upgrade-badge" onclick="playClickSound(); openSubscriptionModal()" style="display: flex; align-items: center; gap: 4px; padding: 5px 12px; font-size: 12px; border-radius: 20px; cursor: pointer;">
+        <div class="brand-title" style="transform: translateX(-10px); font-size: 18px;">Plotcraft</div>
+        <div class="upgrade-badge" onclick="playClickSound(); openSubscriptionModal()" style="display: flex; align-items: center; gap: 4px; padding: 5px 10px; font-size: 12px; border-radius: 20px; cursor: pointer;">
             <span style="font-size: 10px; filter: brightness(0) invert(1);">👑</span>
             <span>ترقية</span>
         </div>
@@ -29,16 +29,17 @@
                 <div style="color: #94a3b8; font-size: 11px;">صور مرجعية للشخصيات 0/2</div>
             </div>
 
-            <textarea placeholder="صف القصة التي تريد إنشاءها..." style="width: 100%; height: 50px; background: transparent; border: none; color: #ffffff; font-size: 13px; outline: none; resize: none; line-height: 1.4;"></textarea>
+            <textarea id="storyDescriptionInput" placeholder="صف القصة التي تريد إنشاءها..." style="width: 100%; height: 50px; background: transparent; border: none; color: #ffffff; font-size: 13px; outline: none; resize: none; line-height: 1.4;"></textarea>
 
             <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 8px;">
-                <div style="color: #94a3b8; font-size: 11px;">0/5000</div>
+                <div style="color: #94a3b8; font-size: 11px;" id="charCountDisplay">0/5000</div>
                 <div style="display: flex; gap: 6px;">
                     <div style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 10px; color: #fff; font-size: 11px; display: flex; align-items: center; gap: 4px; cursor: pointer;" onclick="playClickSound(); showToast('إدخال صوتي')">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
                         <span>إدخال صوتي</span>
                     </div>
-                    <div style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 10px; color: #fff; font-size: 11px; display: flex; align-items: center; gap: 4px; cursor: pointer;" onclick="playClickSound(); showToast('إلهام القصة')">
+                    <!-- زر الإلهام المحدث لإدراج النص المطلوب مباشرة -->
+                    <div style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 10px; color: #fff; font-size: 11px; display: flex; align-items: center; gap: 4px; cursor: pointer;" onclick="playClickSound(); insertInspirationText()">
                         <span>✨ إلهام</span>
                     </div>
                 </div>
@@ -126,6 +127,22 @@
             }
             let navBar = document.getElementById('mainNavBar');
             if (navBar) navBar.classList.remove('hidden');
+        };
+    }
+
+    // وظيفة إدراج النص المطلوب عند الضغط على زر إلهام
+    if (typeof insertInspirationText === 'undefined') {
+        window.insertInspirationText = function() {
+            const textarea = document.getElementById('storyDescriptionInput');
+            const counter = document.getElementById('charCountDisplay');
+            if (textarea) {
+                const textToInsert = "A bizarre murder pulls two mismatched partners into the case. As clues peel back layer by layer, the truth proves darker than imagined, with a hook left at the end of every episode closing in on the mastermind. Requirements: strong suspense, per-episode reversals, tight logic and tense atmosphere.";
+                textarea.value = textToInsert;
+                if (counter) {
+                    counter.innerText = textToInsert.length + "/5000";
+                }
+                showToast('تمت إضافة إلهام القصة بنجاح');
+            }
         };
     }
 </script>
