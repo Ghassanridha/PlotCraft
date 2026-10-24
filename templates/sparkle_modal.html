@@ -1,7 +1,7 @@
 <!-- ملف الأداة المنفصل: sparkle_modal.html -->
 <div id="sparkleDialogScreen" class="screen-view">
-    <!-- الشريط العلوي: زر الإغلاق ملتصق تماماً بأقصى اليمين، اسم التطبيق بالمنتصف، وزر الترقية ملتصق تماماً بأقصى اليسار -->
-    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 20px; padding: 0 10px; flex-shrink: 0;">
+    <!-- الشريط العلوي: زر الإغلاق ملتصق تماماً بأقصى اليمين، اسم التطبيق بالمنتصف، وزر الترقية ملتصق تماماً بأقصى اليسار بدون فراغات -->
+    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 20px; padding: 0; flex-shrink: 0;">
         <div style="cursor: pointer; color: #fff; font-size: 14px; background: rgba(255,255,255,0.1); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;" onclick="playClickSound(); closeSparkleDialog()">✕</div>
         <div class="brand-title" style="transform: translateX(-5px); font-size: 18px;">Plotcraft</div>
         <div class="upgrade-badge" onclick="playClickSound(); openSubscriptionModal()" style="display: flex; align-items: center; gap: 4px; padding: 5px 10px; font-size: 12px; border-radius: 20px; cursor: pointer; flex-shrink: 0;">
@@ -63,14 +63,14 @@
             </div>
         </div>
 
-        <!-- زر استمرار مع تمديد المستطيل ليتصل بالطرفين وثبات كلمة استمرار، مع تنبيه الأسود فوقه بجهة اليمين -->
-        <div style="width: 100%; max-width: 440px; margin-top: 10px; flex-shrink: 0; position: display;">
-            <!-- مستطيل التنبيه الأسود الصغير يظهر فوق زر استمرار بجهة اليمين -->
-            <div id="validationWarningBox" style="display: none; position: absolute; bottom: 65px; right: 15px; background: #000000; color: #ffffff; font-size: 11px; padding: 5px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 4px 12px rgba(0,0,0,0.6); z-index: 10; white-space: nowrap;">
+        <!-- زر استمرار بحجم أصغر مع مسافة من اليمين واليسار، ومستطيل التنبيه فوقه بجهة اليمين -->
+        <div style="width: 100%; max-width: 440px; margin-top: 10px; flex-shrink: 0; position: relative; padding: 0 16px;">
+            <!-- مستطيل التنبيه الأسود يظهر فوق زر استمرار بجهة اليمين -->
+            <div id="validationWarningBox" style="display: none; position: absolute; bottom: 55px; right: 20px; background: #000000; color: #ffffff; font-size: 11px; padding: 5px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 4px 12px rgba(0,0,0,0.6); z-index: 10; white-space: nowrap;">
                 يرجى إدخال التوجيه أولاً
             </div>
             
-            <button style="width: 100%; background: #ffffff; color: #0b0f19; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 24px; border: none; cursor: pointer; text-align: center; box-shadow: 0 4px 20px rgba(255,255,255,0.2);" onclick="playClickSound(); handleContinueClick()">استمرار</button>
+            <button style="width: 100%; background: #ffffff; color: #0b0f19; font-size: 15px; font-weight: 700; padding: 12px; border-radius: 22px; border: none; cursor: pointer; text-align: center; box-shadow: 0 4px 20px rgba(255,255,255,0.2);" onclick="playClickSound(); handleContinueClick()">استمرار</button>
         </div>
     </div>
 </div>
@@ -173,7 +173,6 @@
         };
     }
 
-    // دالة التحقق وإظهار المستطيل الأسود فوق زر الاستمرار بجهة اليمين
     if (typeof handleContinueClick === 'undefined') {
         window.handleContinueClick = function() {
             const textarea = document.getElementById('storyDescriptionInput');
