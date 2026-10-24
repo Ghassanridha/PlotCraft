@@ -1398,50 +1398,67 @@
         }
         .register-modal-overlay.show { display: flex; }
 
-        /* تنسيق شريط التنقل السفلي المطابق تماماً للصورة الجديدة ومن اليمين لليسار */
+        /* تنسيق شريط التنقل السفلي والزر المنفصل بالطرف الأيمن بحجم متناسق 100% */
         .plotcraft-nav-bar {
             position: absolute;
             bottom: 0; left: 0; width: 100%;
             background-color: transparent;
-            padding: 8px 16px 16px 16px;
+            padding: 8px 12px 16px 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             z-index: 1000;
             box-sizing: border-box;
+            direction: rtl;
         }
         .plotcraft-nav-bar.hidden {
             display: none !important;
         }
-        
-        /* الحاوية الكبسولية السوداء الكبيرة المانعة للتداخل من اليمين لليسار */
-        .plotcraft-nav-pill {
-            background-color: rgba(20, 24, 33, 0.85);
+
+        /* الزر المربع المنفصل أقصى اليمين تماماً وبحجم متناسق */
+        .plotcraft-nav-square {
+            background-color: rgba(20, 24, 33, 0.92);
             backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 40px;
+            border-radius: 20px;
+            width: 48px;
+            height: 48px;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            padding: 6px 10px;
-            flex-grow: 1;
-            direction: rtl;
+            flex-shrink: 0;
+            cursor: pointer;
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
-        /* عناصر القائمة (من اليمين لليسار: الصفحة الرئيسية، الأدوات، الأعمال) */
+        /* الكبسولة السوداء المحتوية باقي الأزرار الثلاثة بالترتيب (الرئيسية -> الأدوات -> الأعمال) */
+        .plotcraft-nav-pill {
+            background-color: rgba(20, 24, 33, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 35px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 4px 8px;
+            flex-grow: 1;
+            height: 48px;
+        }
+
         .plotcraft-nav-item {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
             color: #94a3b8;
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 500;
             text-decoration: none;
             cursor: pointer;
             white-space: nowrap;
-            padding: 8px 14px;
-            border-radius: 30px;
+            padding: 6px 10px;
+            border-radius: 20px;
             transition: all 0.2s ease;
         }
 
@@ -1449,22 +1466,6 @@
             color: #ffffff;
             font-weight: 700;
             background-color: rgba(255, 255, 255, 0.15);
-        }
-
-        /* الزر المربع المنفصل في أقصى اليمين تماماً كما في الصورة */
-        .plotcraft-nav-square {
-            background-color: rgba(20, 24, 33, 0.85);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 22px;
-            width: 52px;
-            height: 52px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-shrink: 0;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
 
         .settings-dropdown-menu {
@@ -1653,35 +1654,35 @@
         <!-- تضمين شاشة الإعدادات والملف الشخصي المستقلة -->
         {% include 'settings_screen.html' %}
 
-        <!-- شريط التنقل السفلي الجديد بالترتيب المطلوب (من اليمين لليسار) -->
+        <!-- شريط التنقل السفلي الكامل والمتناسق -->
         <div class="plotcraft-nav-bar" id="mainNavBar">
-            <!-- الكبسولة التي تضم الأزرار الثلاثة من اليمين لليسار -->
-            <div class="plotcraft-nav-pill">
-                <!-- 1. الصفحة الرئيسية (بجانب الزر المنفصل مباشرة من جهة اليمين) -->
-                <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="switchScreen('homeScreen', event); setActiveNav('navHome')">
-                    <span>الصفحة الرئيسية</span>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                </a>
-
-                <!-- 2. الأدوات (بجانب الصفحة الرئيسية) -->
-                <a href="#" class="plotcraft-nav-item" id="navTools" onclick="switchScreen('toolsScreen', event); setActiveNav('navTools')">
-                    <span>الأدوات</span>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"></path></svg>
-                </a>
-
-                <!-- 3. الأعمال (في الطرف الأيسر داخل الكبسولة) -->
-                <a href="#" class="plotcraft-nav-item" id="navWorks" onclick="switchScreen('worksScreen', event); setActiveNav('navWorks')">
-                    <span>الأعمال</span>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-                </a>
+            <!-- 1. الزر المربع المنفصل أقصى اليمين -->
+            <div class="plotcraft-nav-square" onclick="openSparkleDialog(event)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="6" width="14" height="12" rx="2"></rect>
+                    <polygon points="22 8 16 12 22 16 22 8"></polygon>
+                </svg>
             </div>
 
-            <!-- الزر المربع المنفصل في أقصى اليمين -->
-            <div class="plotcraft-nav-square" onclick="openSparkleDialog(event)">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14v-4z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <rect x="3" y="6" width="12" height="12" rx="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+            <!-- 2. الكبسولة المحتوية على الأزرار الثلاثة من اليمين لليسار -->
+            <div class="plotcraft-nav-pill">
+                <!-- الصفحة الرئيسية -->
+                <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="switchScreen('homeScreen', event); setActiveNav('navHome')">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    <span>الصفحة الرئيسية</span>
+                </a>
+
+                <!-- الأدوات -->
+                <a href="#" class="plotcraft-nav-item" id="navTools" onclick="switchScreen('toolsScreen', event); setActiveNav('navTools')">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"></path></svg>
+                    <span>الأدوات</span>
+                </a>
+
+                <!-- الأعمال -->
+                <a href="#" class="plotcraft-nav-item" id="navWorks" onclick="switchScreen('worksScreen', event); setActiveNav('navWorks')">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    <span>الأعمال</span>
+                </a>
             </div>
         </div>
     </div>
