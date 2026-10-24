@@ -63,9 +63,14 @@
             </div>
         </div>
 
-        <!-- زر استمرار بحجم صغير ومناسب -->
-        <div style="width: 100%; max-width: 440px; margin-top: 10px; flex-shrink: 0; display: flex; justify-content: center;">
-            <button style="width: 180px; background: #ffffff; color: #0b0f19; font-size: 14px; font-weight: 700; padding: 10px 20px; border-radius: 20px; border: none; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(255,255,255,0.2);" onclick="playClickSound(); handleContinueClick()">استمرار</button>
+        <!-- زر استمرار مع تمديد المستطيل ليتصل بالطرفين وثبات كلمة استمرار، مع تنبيه الأسود فوقه بجهة اليمين -->
+        <div style="width: 100%; max-width: 440px; margin-top: 10px; flex-shrink: 0; position: display;">
+            <!-- مستطيل التنبيه الأسود الصغير يظهر فوق زر استمرار بجهة اليمين -->
+            <div id="validationWarningBox" style="display: none; position: absolute; bottom: 65px; right: 15px; background: #000000; color: #ffffff; font-size: 11px; padding: 5px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 4px 12px rgba(0,0,0,0.6); z-index: 10; white-space: nowrap;">
+                يرجى إدخال التوجيه أولاً
+            </div>
+            
+            <button style="width: 100%; background: #ffffff; color: #0b0f19; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 24px; border: none; cursor: pointer; text-align: center; box-shadow: 0 4px 20px rgba(255,255,255,0.2);" onclick="playClickSound(); handleContinueClick()">استمرار</button>
         </div>
     </div>
 </div>
@@ -168,13 +173,21 @@
         };
     }
 
-    // دالة التحقق عند الضغط على زر استمرار لإظهار مستطيل التنبيه الأسود الصغير إذا كان الوصف فارغاً
+    // دالة التحقق وإظهار المستطيل الأسود فوق زر الاستمرار بجهة اليمين
     if (typeof handleContinueClick === 'undefined') {
         window.handleContinueClick = function() {
             const textarea = document.getElementById('storyDescriptionInput');
+            const warningBox = document.getElementById('validationWarningBox');
+            
             if (textarea && textarea.value.trim() === "") {
-                showToast("يرجى إدخال التوجيه أولاً");
+                if (warningBox) {
+                    warningBox.style.display = 'block';
+                    setTimeout(() => {
+                        warningBox.style.display = 'none';
+                    }, 2500);
+                }
             } else {
+                if (warningBox) warningBox.style.display = 'none';
                 showToast("جاري البدء...");
             }
         };
