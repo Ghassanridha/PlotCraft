@@ -579,14 +579,26 @@
         isLoadingMore = true;
         
         try {
-            // سحب المفتاح بأمان من ملف config.js الخارجي
-            const API_KEY = (typeof YOUTUBE_CONFIG !== 'undefined') ? YOUTUBE_CONFIG.API_KEY : '';
+            // سحب المفتاح بأمان من ملف config.js الخارجي مع التحقق
+            const API_KEY = (typeof YOUTUBE_CONFIG !== 'undefined' && YOUTUBE_CONFIG.API_KEY) ? YOUTUBE_CONFIG.API_KEY : '';
+            
+            if (!API_KEY) {
+                console.error("YouTube API Key is missing in config.js");
+                isLoadingMore = false;
+                return;
+            }
+
             let url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${encodeURIComponent(query)}&type=video&key=${API_KEY}`;
             if (isAppend && nextPageToken) url += `&pageToken=${nextPageToken}`;
 
             const response = await fetch(url);
             const data = await response.json();
             isLoadingMore = false;
+
+            if (data.error) {
+                console.error('YouTube API Error:', data.error.message);
+                return;
+            }
 
             if (!data.items || data.items.length === 0) {
                 if (!isAppend && !isRetryWithFallback) {
@@ -619,7 +631,7 @@
             }
 
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Fetch Error:', error);
             isLoadingMore = false;
         }
     }
