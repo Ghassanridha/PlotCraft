@@ -1,26 +1,27 @@
 <!-- ملف الأداة المنفصل: sparkle_modal.html -->
 <div id="sparkleDialogScreen" class="screen-view">
-    <!-- الشريط العلوي: زر الإغلاق أقصى اليمين، اسم التطبيق بالمنتصف، وزر الترقية أقصى اليسار -->
-    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 20px; padding: 0 4px;">
-        <div style="cursor: pointer; color: #fff; font-size: 14px; background: rgba(255,255,255,0.1); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;" onclick="playClickSound(); closeSparkleDialog()">✕</div>
-        <div class="brand-title" style="transform: translateX(-10px); font-size: 18px;">Plotcraft</div>
-        <div class="upgrade-badge" onclick="playClickSound(); openSubscriptionModal()" style="display: flex; align-items: center; gap: 4px; padding: 5px 10px; font-size: 12px; border-radius: 20px; cursor: pointer;">
+    <!-- الشريط العلوي: زر الإغلاق ملتصق أقصى اليمين، اسم التطبيق بالمنتصف، وزر الترقية ملتصق أقصى اليسار -->
+    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 20px; padding: 0;">
+        <div style="cursor: pointer; color: #fff; font-size: 14px; background: rgba(255,255,255,0.1); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;" onclick="playClickSound(); closeSparkleDialog()">✕</div>
+        <div class="brand-title" style="transform: translateX(-5px); font-size: 18px;">Plotcraft</div>
+        <div class="upgrade-badge" onclick="playClickSound(); openSubscriptionModal()" style="display: flex; align-items: center; gap: 4px; padding: 5px 10px; font-size: 12px; border-radius: 20px; cursor: pointer; flex-shrink: 0;">
             <span style="font-size: 10px; filter: brightness(0) invert(1);">👑</span>
             <span>ترقية</span>
         </div>
     </div>
 
-    <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; margin-top: 5px; flex-grow: 1; overflow-y: auto; padding-bottom: 30px;">
-        <div style="width: 75px; height: 75px; background: linear-gradient(135deg, #e0f2fe 0%, #3b82f6 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 25px rgba(59,130,246,0.5); position: relative; margin-bottom: 5px;">
+    <!-- الواجهة قابلة للتمرير بالكامل لضمان عدم اختفاء المحتوى عند تمدد المربع -->
+    <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; margin-top: 5px; flex-grow: 1; overflow-y: auto; padding-bottom: 40px; width: 100%;">
+        <div style="width: 75px; height: 75px; background: linear-gradient(135deg, #e0f2fe 0%, #3b82f6 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 25px rgba(59,130,246,0.5); position: relative; margin-bottom: 5px; flex-shrink: 0;">
             <svg width="38" height="38" viewBox="0 0 24 24" fill="#1f242d"><path d="M12 2L14.39 8.26L21 9.27L16 14.14L17.18 20.74L12 17.77L6.82 20.74L8 14.14L3 9.27L9.61 8.26L12 2Z"/></svg>
             <div style="position: absolute; bottom: 2px; right: 2px; width: 16px; height: 16px; background: #fff; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);"></div>
         </div>
 
-        <div style="color: #ffffff; font-size: 20px; font-weight: 700; line-height: 1.4;">طاب مساؤك، أيها المخرج</div>
-        <div style="color: #cbd5e1; font-size: 13px; font-weight: 400; margin-bottom: 10px;">سلّم القصة التي تدور في ذهنك إلى Plotcraft</div>
+        <div style="color: #ffffff; font-size: 20px; font-weight: 700; line-height: 1.4; flex-shrink: 0;">طاب مساؤك، أيها المخرج</div>
+        <div style="color: #cbd5e1; font-size: 13px; font-weight: 400; margin-bottom: 10px; flex-shrink: 0;">سلّم القصة التي تدور في ذهنك إلى Plotcraft</div>
 
-        <!-- مربع الوصف المصغر -->
-        <div style="width: 100%; max-width: 440px; background: rgba(30, 36, 50, 0.85); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.15); border-radius: 18px; padding: 12px; display: flex; flex-direction: column; gap: 10px; text-align: right; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        <!-- مربع الوصف مع الإطار الملون وتمدد تلقائي للأسفل -->
+        <div style="width: 100%; max-width: 440px; background: rgba(30, 36, 50, 0.85); backdrop-filter: blur(15px); border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 12px; text-align: right; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; border: 1.5px solid transparent; background-image: linear-gradient(rgba(30, 36, 50, 0.85), rgba(30, 36, 50, 0.85)), linear-gradient(135deg, #ffffff 0%, #1e40af 50%, #000000 100%); background-origin: border-box; background-clip: padding-box, border-box; flex-shrink: 0;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 5px 10px; border-radius: 10px; color: #fff; font-size: 11px; font-weight: 600; cursor: pointer;" onclick="playClickSound(); showToast('إضافة صورة شخصية')">
                     <span>إضافة</span>
@@ -29,7 +30,8 @@
                 <div style="color: #94a3b8; font-size: 11px;">صور مرجعية للشخصيات 0/2</div>
             </div>
 
-            <textarea id="storyDescriptionInput" placeholder="صف القصة التي تريد إنشاءها..." style="width: 100%; height: 50px; background: transparent; border: none; color: #ffffff; font-size: 13px; outline: none; resize: none; line-height: 1.4;"></textarea>
+            <!-- textarea يتمدد تلقائياً للأسفل بحسب النص -->
+            <textarea id="storyDescriptionInput" placeholder="صف القصة التي تريد إنشاءها..." oninput="autoResizeTextarea(this)" style="width: 100%; min-height: 50px; height: 50px; background: transparent; border: none; color: #ffffff; font-size: 13px; outline: none; resize: none; line-height: 1.5; overflow-y: hidden;"></textarea>
 
             <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 8px;">
                 <div style="color: #94a3b8; font-size: 11px;" id="charCountDisplay">0/5000</div>
@@ -38,7 +40,6 @@
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
                         <span>إدخال صوتي</span>
                     </div>
-                    <!-- زر الإلهام المحدث لإدراج النص المطلوب مباشرة -->
                     <div style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 10px; color: #fff; font-size: 11px; display: flex; align-items: center; gap: 4px; cursor: pointer;" onclick="playClickSound(); insertInspirationText()">
                         <span>✨ إلهام</span>
                     </div>
@@ -47,7 +48,7 @@
         </div>
 
         <!-- صور نوع القصة بالحجم الطبيعي الأصلي -->
-        <div style="width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 10px; margin-top: 5px; text-align: right;">
+        <div style="width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 10px; margin-top: 5px; text-align: right; flex-shrink: 0;">
             <div style="color: #ffffff; font-size: 14px; font-weight: 700;">نوع القصة</div>
             <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none;">
                 <div style="min-width: 100px; height: 130px; border-radius: 14px; background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.9) 100%), #1f242d; border: 2px solid #3b82f6; position: relative; display: flex; flex-direction: column; justify-content: flex-end; padding: 10px; cursor: pointer;" onclick="playClickSound()">
@@ -63,7 +64,7 @@
             </div>
         </div>
 
-        <div style="width: 100%; max-width: 440px; margin-top: 10px;">
+        <div style="width: 100%; max-width: 440px; margin-top: 10px; flex-shrink: 0;">
             <button style="width: 100%; background: #ffffff; color: #0b0f19; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 24px; border: none; cursor: pointer; text-align: center; box-shadow: 0 4px 20px rgba(255,255,255,0.2);" onclick="playClickSound(); showToast('جاري البدء...')">استمرار</button>
         </div>
     </div>
@@ -130,7 +131,19 @@
         };
     }
 
-    // وظيفة إدراج النص المطلوب عند الضغط على زر إلهام
+    // وظيفة تمدد مربع الوصف تلقائياً للأسفل عند الكتابة وتصغيره عند التمحيص
+    if (typeof autoResizeTextarea === 'undefined') {
+        window.autoResizeTextarea = function(el) {
+            el.style.height = '50px';
+            el.style.height = (el.scrollHeight) + 'px';
+            const counter = document.getElementById('charCountDisplay');
+            if (counter) {
+                counter.innerText = el.value.length + "/5000";
+            }
+        };
+    }
+
+    // وظيفة إدراج النص المطلوب عند الضغط على زر إلهام وتحديث الارتفاع
     if (typeof insertInspirationText === 'undefined') {
         window.insertInspirationText = function() {
             const textarea = document.getElementById('storyDescriptionInput');
@@ -138,9 +151,7 @@
             if (textarea) {
                 const textToInsert = "A bizarre murder pulls two mismatched partners into the case. As clues peel back layer by layer, the truth proves darker than imagined, with a hook left at the end of every episode closing in on the mastermind. Requirements: strong suspense, per-episode reversals, tight logic and tense atmosphere.";
                 textarea.value = textToInsert;
-                if (counter) {
-                    counter.innerText = textToInsert.length + "/5000";
-                }
+                autoResizeTextarea(textarea);
                 showToast('تمت إضافة إلهام القصة بنجاح');
             }
         };
