@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <!-- الحاوية الرئيسية: تثبت تماماً بدون سكرول إذا كان الوصف فارغاً، وتتفعيل فقط عند الحاجة -->
+    <!-- الحاوية الرئيسية -->
     <div id="sparkleMainContainer" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; margin-top: 5px; flex-grow: 1; overflow-y: hidden; padding-bottom: 20px; width: 100%;">
         <div style="width: 75px; height: 75px; background: linear-gradient(135deg, #e0f2fe 0%, #3b82f6 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 25px rgba(59,130,246,0.5); position: relative; margin-bottom: 5px; flex-shrink: 0;">
             <svg width="38" height="38" viewBox="0 0 24 24" fill="#1f242d"><path d="M12 2L14.39 8.26L21 9.27L16 14.14L17.18 20.74L12 17.77L6.82 20.74L8 14.14L3 9.27L9.61 8.26L12 2Z"/></svg>
@@ -20,7 +20,7 @@
         <div style="color: #ffffff; font-size: 20px; font-weight: 700; line-height: 1.4; flex-shrink: 0;">طاب مساؤك، أيها المخرج</div>
         <div style="color: #cbd5e1; font-size: 13px; font-weight: 400; margin-bottom: 10px; flex-shrink: 0;">سلّم القصة التي تدور في ذهنك إلى Plotcraft</div>
 
-        <!-- مربع الوصف مع الإطار الملون بدقة -->
+        <!-- مربع الوصف مع الإطار الملون -->
         <div style="width: 100%; max-width: 440px; background: rgba(30, 36, 50, 0.85); backdrop-filter: blur(15px); border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 12px; text-align: right; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; border: 1.5px solid transparent; background-image: linear-gradient(rgba(30, 36, 50, 0.85), rgba(30, 36, 50, 0.85)), linear-gradient(135deg, #ffffff 0%, #1e40af 50%, #000000 100%); background-origin: border-box; background-clip: padding-box, border-box; flex-shrink: 0;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 5px 10px; border-radius: 10px; color: #fff; font-size: 11px; font-weight: 600; cursor: pointer;" onclick="playClickSound(); showToast('إضافة صورة شخصية')">
@@ -30,7 +30,6 @@
                 <div style="color: #94a3b8; font-size: 11px;">صور مرجعية للشخصيات 0/2</div>
             </div>
 
-            <!-- textarea يتمدد ويقلص ديناميكياً -->
             <textarea id="storyDescriptionInput" placeholder="صف القصة التي تريد إنشاءها..." oninput="autoResizeTextarea(this)" style="width: 100%; min-height: 50px; height: 50px; background: transparent; border: none; color: #ffffff; font-size: 13px; outline: none; resize: none; line-height: 1.5; overflow-y: hidden;"></textarea>
 
             <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 8px;">
@@ -64,8 +63,9 @@
             </div>
         </div>
 
-        <div style="width: 100%; max-width: 440px; margin-top: 10px; flex-shrink: 0;">
-            <button style="width: 100%; background: #ffffff; color: #0b0f19; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 24px; border: none; cursor: pointer; text-align: center; box-shadow: 0 4px 20px rgba(255,255,255,0.2);" onclick="playClickSound(); showToast('جاري البدء...')">استمرار</button>
+        <!-- زر استمرار بحجم صغير ومناسب -->
+        <div style="width: 100%; max-width: 440px; margin-top: 10px; flex-shrink: 0; display: flex; justify-content: center;">
+            <button style="width: 180px; background: #ffffff; color: #0b0f19; font-size: 14px; font-weight: 700; padding: 10px 20px; border-radius: 20px; border: none; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(255,255,255,0.2);" onclick="playClickSound(); handleContinueClick()">استمرار</button>
         </div>
     </div>
 </div>
@@ -81,7 +81,7 @@
         display: flex;
         flex-direction: column;
         padding: 20px 10px;
-        overflow: hidden; /* يمنع ظهور السكرول العام بالكامل عندما يكون المحتوى ثابتاً */
+        overflow: hidden;
     }
     #sparkleDialogScreen.screen-view.active {
         transform: translateY(0);
@@ -133,7 +133,6 @@
         };
     }
 
-    // وظيفة تمدد مربع الوصف والتحكم الذكي بالسكرول عند الكتابة أو المسح
     if (typeof autoResizeTextarea === 'undefined') {
         window.autoResizeTextarea = function(el) {
             el.style.height = '50px';
@@ -146,7 +145,6 @@
                 counter.innerText = el.value.length + "/5000";
             }
 
-            // تفعيل السكرول فقط إذا كتب المستخدم نصاً طويلاً، وإغلاقه تماماً إذا كان الوصف فارغاً لتثبيت الشاشة
             if (container) {
                 if (el.value.trim().length > 0) {
                     container.style.overflowY = 'auto';
@@ -166,6 +164,18 @@
                 textarea.value = textToInsert;
                 autoResizeTextarea(textarea);
                 showToast('تمت إضافة إلهام القصة بنجاح');
+            }
+        };
+    }
+
+    // دالة التحقق عند الضغط على زر استمرار لإظهار مستطيل التنبيه الأسود الصغير إذا كان الوصف فارغاً
+    if (typeof handleContinueClick === 'undefined') {
+        window.handleContinueClick = function() {
+            const textarea = document.getElementById('storyDescriptionInput');
+            if (textarea && textarea.value.trim() === "") {
+                showToast("يرجى إدخال التوجيه أولاً");
+            } else {
+                showToast("جاري البدء...");
             }
         };
     }
