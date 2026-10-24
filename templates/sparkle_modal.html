@@ -1,9 +1,9 @@
 <!-- ملف الأداة المنفصل: sparkle_modal.html -->
 <div id="sparkleDialogScreen" class="screen-view">
-    <!-- الشريط العلوي: زر الإغلاق ملتصق أقصى اليمين، اسم التطبيق بالمنتصف، وزر الترقية ملتصق أقصى اليسار -->
-    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 20px; padding: 0;">
+    <!-- الشريط العلوي: زر الإغلاق أقصى اليمين، اسم التطبيق بالمنتصف، وزر الترقية أقصى اليسار -->
+    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 20px; padding: 0 4px;">
         <div style="cursor: pointer; color: #fff; font-size: 14px; background: rgba(255,255,255,0.1); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;" onclick="playClickSound(); closeSparkleDialog()">✕</div>
-        <div class="brand-title" style="transform: translateX(-5px); font-size: 18px;">Plotcraft</div>
+        <div class="brand-title" style="transform: translateX(-10px); font-size: 18px;">Plotcraft</div>
         <div class="upgrade-badge" onclick="playClickSound(); openSubscriptionModal()" style="display: flex; align-items: center; gap: 4px; padding: 5px 10px; font-size: 12px; border-radius: 20px; cursor: pointer;">
             <span style="font-size: 10px; filter: brightness(0) invert(1);">👑</span>
             <span>ترقية</span>
@@ -19,8 +19,8 @@
         <div style="color: #ffffff; font-size: 20px; font-weight: 700; line-height: 1.4;">طاب مساؤك، أيها المخرج</div>
         <div style="color: #cbd5e1; font-size: 13px; font-weight: 400; margin-bottom: 10px;">سلّم القصة التي تدور في ذهنك إلى Plotcraft</div>
 
-        <!-- مربع الوصف المرتفع مع الإطار الملون بدقة -->
-        <div style="width: 100%; max-width: 440px; background: rgba(30, 36, 50, 0.85); backdrop-filter: blur(15px); border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 12px; text-align: right; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; border: 1.5px solid transparent; background-image: linear-gradient(rgba(30, 36, 50, 0.85), rgba(30, 36, 50, 0.85)), linear-gradient(135deg, #ffffff 0%, #1e40af 50%, #000000 100%); background-origin: border-box; background-clip: padding-box, border-box;">
+        <!-- مربع الوصف المصغر -->
+        <div style="width: 100%; max-width: 440px; background: rgba(30, 36, 50, 0.85); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.15); border-radius: 18px; padding: 12px; display: flex; flex-direction: column; gap: 10px; text-align: right; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 5px 10px; border-radius: 10px; color: #fff; font-size: 11px; font-weight: 600; cursor: pointer;" onclick="playClickSound(); showToast('إضافة صورة شخصية')">
                     <span>إضافة</span>
@@ -29,8 +29,7 @@
                 <div style="color: #94a3b8; font-size: 11px;">صور مرجعية للشخصيات 0/2</div>
             </div>
 
-            <!-- تم زيادة الارتفاع ليكون مربعاً مريحاً يتيح الكتابة بشكل عمودي ومرتب -->
-            <textarea id="storyDescriptionInput" placeholder="صف القصة التي تريد إنشاءها..." style="width: 100%; height: 110px; background: transparent; border: none; color: #ffffff; font-size: 13px; outline: none; resize: none; line-height: 1.6;"></textarea>
+            <textarea id="storyDescriptionInput" placeholder="صف القصة التي تريد إنشاءها..." style="width: 100%; height: 50px; background: transparent; border: none; color: #ffffff; font-size: 13px; outline: none; resize: none; line-height: 1.4;"></textarea>
 
             <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 8px;">
                 <div style="color: #94a3b8; font-size: 11px;" id="charCountDisplay">0/5000</div>
@@ -39,6 +38,7 @@
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
                         <span>إدخال صوتي</span>
                     </div>
+                    <!-- زر الإلهام المحدث لإدراج النص المطلوب مباشرة -->
                     <div style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 10px; color: #fff; font-size: 11px; display: flex; align-items: center; gap: 4px; cursor: pointer;" onclick="playClickSound(); insertInspirationText()">
                         <span>✨ إلهام</span>
                     </div>
@@ -130,6 +130,7 @@
         };
     }
 
+    // وظيفة إدراج النص المطلوب عند الضغط على زر إلهام
     if (typeof insertInspirationText === 'undefined') {
         window.insertInspirationText = function() {
             const textarea = document.getElementById('storyDescriptionInput');
