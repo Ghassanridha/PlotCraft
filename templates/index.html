@@ -1651,8 +1651,8 @@
                     <span>الرئيسية</span>
                 </a>
                 
-                <!-- زر اليوتيوب المباشر المدمج -->
-                <a href="#" class="plotcraft-nav-item" id="navTools" onclick="switchScreen('toolsScreen', event); setActiveNav('navTools')" style="text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 2px;">
+                <!-- زر اليوتيوب المباشر المدمج (مع تفعيل دالة الجلب فور الضغط) -->
+                <a href="#" class="plotcraft-nav-item" id="navTools" onclick="switchScreen('toolsScreen', event); setActiveNav('navTools'); if(typeof resetToYouTubeHome === 'function') resetToYouTubeHome();" style="text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 2px;">
                     <svg width="28" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="2" y="4" width="20" height="16" rx="4" fill="#FF0000" />
                         <polygon points="10,8 16,12 10,16" fill="#FFFFFF" />
