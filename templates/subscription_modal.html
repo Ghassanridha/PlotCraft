@@ -1,0 +1,320 @@
+<div class="subscription-modal-overlay hidden" id="subscriptionModal">
+    <div class="subscription-modal-box">
+        <button class="sub-modal-close-btn" onclick="closeSubscriptionModal()">✕</button>
+
+        <div class="sub-hero-section"></div>
+
+        <div class="sub-features-row">
+            <div class="sub-feature-item">
+                <div class="sub-feature-icon">✨</div>
+                <span>نص AI</span>
+            </div>
+            <div class="sub-feature-item">
+                <div class="sub-feature-icon">🎬</div>
+                <span>القصة المصورة</span>
+            </div>
+            <div class="sub-feature-item">
+                <div class="sub-feature-icon">🎥</div>
+                <span>لقطة AI</span>
+            </div>
+            <div class="sub-feature-item">
+                <div class="sub-feature-icon">✂️</div>
+                <span>مونتاج AI</span>
+            </div>
+        </div>
+
+        <div class="plans-list">
+            <div class="plan-card" onclick="selectPlan(this)">
+                <div class="plan-top">
+                    <span class="plan-price">$US 9.99<br><small>أسبوع</small></span>
+                    <div class="plan-info-right">
+                        <span class="plan-name">PlotCraft Pro Weekly</span>
+                        <span class="plan-desc">Credits / Week, Try AI Drama 500 Creation</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan-card selected" onclick="selectPlan(this)">
+                <span class="best-value-tag">رائج</span>
+                <div class="plan-top">
+                    <span class="plan-price">$US 29.99<br><small>شهر</small></span>
+                    <div class="plan-info-right">
+                        <span class="plan-name">PlotCraft Pro Monthly</span>
+                        <span class="plan-desc">Credits / Month, Ideal for regular 1800 creators</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan-card" onclick="selectPlan(this)">
+                <div class="plan-top">
+                    <span class="plan-price">$US 69.99<br><small>سنة</small></span>
+                    <div class="plan-info-right">
+                        <span class="plan-name">PlotCraft Pro Annual</span>
+                        <span class="plan-desc">5000 Credits / Year, Ideal for professional creators</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sub-auto-renew-note">
+            <span>🔒 تجديد تلقائي، يمكن الإلغاء في أي وقت</span>
+        </div>
+
+        <button class="action-main-btn glow-btn" onclick="confirmSubscription()">اشتراك</button>
+
+        <div class="sub-footer-links">
+            <a href="#" onclick="event.preventDefault();">استعادة</a>
+            <span>|</span>
+            <a href="#" onclick="event.preventDefault();">شروط الاستخدام</a>
+            <span>|</span>
+            <a href="#" onclick="event.preventDefault();">الخصوصية</a>
+        </div>
+    </div>
+</div>
+
+<style>
+.subscription-modal-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.82);
+    z-index: 999999;
+    padding: 0;
+    box-sizing: border-box;
+    direction: rtl;
+}
+
+.subscription-modal-overlay.hidden {
+    display: none !important;
+}
+
+.subscription-modal-box {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: #0f131d;
+    border-radius: 0;
+    overflow: hidden;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: none;
+}
+
+.sub-modal-close-btn {
+    position: absolute;
+    top: 28px;
+    left: 22px;
+    background: rgba(255,255,255,0.12);
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.sub-hero-section {
+    position: relative;
+    width: 100%;
+    height: 42vh;
+    min-height: 260px;
+    background:
+        linear-gradient(180deg, rgba(10, 14, 20, 0.18), rgba(10, 14, 20, 0.78) 70%, rgba(15,19,29,1)),
+        url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/main/Gh.jpg') center center / cover no-repeat;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 18px;
+    box-sizing: border-box;
+}
+
+.sub-features-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    width: calc(100% - 24px);
+    margin: 18px auto 8px auto;
+}
+
+.sub-feature-item {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    min-height: 78px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    padding: 8px 6px;
+    box-sizing: border-box;
+}
+
+.sub-feature-icon {
+    font-size: 22px;
+    margin-bottom: 4px;
+}
+
+.sub-feature-item span {
+    font-size: 11px;
+    color: #dfe7f3;
+    font-weight: 600;
+}
+
+.plans-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: calc(100% - 24px);
+    margin: 8px auto 0 auto;
+}
+
+.plan-card {
+    position: relative;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+    padding: 16px 14px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.plan-card.selected {
+    background: rgba(59,130,246,0.18);
+    border-color: #3b82f6;
+    box-shadow: inset 0 0 0 1px rgba(59,130,246,0.4);
+}
+
+.plan-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.plan-price {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
+    text-align: center;
+    min-width: 92px;
+    line-height: 1.2;
+}
+
+.plan-price small {
+    font-size: 10px;
+    color: #aab7c8;
+    font-weight: 500;
+}
+
+.plan-info-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+.plan-name {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.plan-desc {
+    color: #aab7c8;
+    font-size: 11px;
+    line-height: 1.4;
+    margin-top: 2px;
+}
+
+.best-value-tag {
+    position: absolute;
+    top: -8px;
+    right: 18px;
+    background: linear-gradient(135deg, #3b82f6, #ec4899);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+.sub-auto-renew-note {
+    width: calc(100% - 24px);
+    margin: 4px auto 0 auto;
+    text-align: center;
+    color: #aab7c8;
+    font-size: 11px;
+}
+
+.action-main-btn.glow-btn {
+    width: calc(100% - 24px);
+    margin: 8px auto 0 auto;
+    background: linear-gradient(135deg, #ffe1f0 0%, #ffffff 100%);
+    color: #0f131d;
+    font-size: 18px;
+    font-weight: 800;
+    padding: 16px 14px;
+    border: none;
+    border-radius: 22px;
+    cursor: pointer;
+    box-shadow: 0 0 30px rgba(255,255,255,0.18);
+}
+
+.sub-footer-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    margin-top: 10px;
+    padding-bottom: 20px;
+    color: #aab7c8;
+    font-size: 11px;
+}
+
+.sub-footer-links a {
+    color: #aab7c8;
+    text-decoration: none;
+}
+
+.sub-footer-links span {
+    color: #58657a;
+}
+</style>
+
+<script>
+function openSubscriptionModal() {
+    document.getElementById('subscriptionModal').classList.remove('hidden');
+}
+
+function closeSubscriptionModal() {
+    document.getElementById('subscriptionModal').classList.add('hidden');
+}
+
+function selectPlan(el) {
+    document.querySelectorAll('.plan-card').forEach(card => card.classList.remove('selected'));
+    el.classList.add('selected');
+}
+
+function confirmSubscription() {
+    if (typeof showToast === 'function') {
+        showToast('جاري التوجيه لبوابة الدفع...');
+    }
+    setTimeout(() => {
+        closeSubscriptionModal();
+    }, 1200);
+}
+  </script>
