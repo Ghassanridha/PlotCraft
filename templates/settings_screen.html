@@ -15,10 +15,7 @@
         .settings-screen {
             display: none;
             position: fixed;
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background-color: #1f242d;
             z-index: 99999;
             flex-direction: column;
@@ -26,10 +23,7 @@
             padding: 20px;
             box-sizing: border-box;
         }
-        
-        .settings-screen.active { 
-            display: flex !important; 
-        }
+        .settings-screen.active { display: flex !important; }
 
         .settings-top-bar {
             display: flex;
@@ -50,20 +44,11 @@
             background: rgba(255, 255, 255, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: #fff;
-            width: 36px;
-            height: 36px;
+            width: 36px; height: 36px;
             border-radius: 50%;
             font-size: 18px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.2s;
-            outline: none;
-            text-decoration: none;
-        }
-        .settings-close-btn:active {
-            transform: scale(0.95);
+            display: flex; align-items: center; justify-content: center;
         }
         .settings-upgrade-badge {
             background: rgba(255, 255, 255, 0.15);
@@ -72,7 +57,6 @@
             padding: 6px 16px;
             border-radius: 20px;
             font-size: 13px;
-            font-weight: 500;
             cursor: pointer;
         }
 
@@ -82,211 +66,121 @@
             align-items: center;
             gap: 16px;
             margin-bottom: 20px;
-            position: relative;
         }
-        
         .profile-avatar-box {
-            width: 60px;
-            height: 60px;
+            width: 60px; height: 60px;
             border-radius: 50%;
             overflow: hidden;
             border: 2px solid rgba(255,255,255,0.25);
             background: #111827;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             flex-shrink: 0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
         }
         .profile-avatar-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 100%; height: 100%; object-fit: cover;
         }
-
         .profile-info-group {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 6px;
+            display: flex; flex-direction: column; gap: 6px;
         }
         .profile-name-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            display: flex; align-items: center; gap: 10px;
         }
         .profile-name-text {
-            color: #ffffff;
-            font-size: 19px;
-            font-weight: 700;
-            white-space: nowrap;
+            color: #ffffff; font-size: 19px; font-weight: 700;
         }
         .profile-edit-pencil {
-            cursor: pointer;
-            width: 26px;
-            height: 26px;
+            cursor: pointer; width: 26px; height: 26px;
             background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.25);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
         }
-        .profile-edit-pencil svg {
-            width: 13px;
-            height: 13px;
-            fill: #ffffff;
-        }
-
+        .profile-edit-pencil svg { width: 13px; height: 13px; fill: #ffffff; }
         .profile-id-row {
-            display: flex;
-            align-items: center;
-            gap: 6px;
             background: #282f3d;
             border: 1px solid rgba(255,255,255,0.1);
-            padding: 4px 10px;
-            border-radius: 12px;
-            color: #cbd5e1;
-            font-size: 12px;
-            cursor: pointer;
+            padding: 4px 10px; border-radius: 12px;
+            color: #cbd5e1; font-size: 12px; cursor: pointer;
         }
 
         .pro-banner-card {
             background: linear-gradient(135deg, rgba(30, 35, 50, 0.9), rgba(15, 20, 35, 0.95));
             border: 1.5px solid rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            padding: 16px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            border-radius: 20px; padding: 16px; margin-bottom: 20px;
+            display: flex; flex-direction: column; gap: 10px;
         }
-        .pro-banner-title {
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: 700;
-        }
-        .pro-banner-desc { 
-            color: #cbd5e1; 
-            font-size: 12px; 
-        }
+        .pro-banner-title { color: #ffffff; font-size: 16px; font-weight: 700; }
+        .pro-banner-desc { color: #cbd5e1; font-size: 12px; }
         .pro-banner-btn {
-            background: #3b82f6;
-            color: #ffffff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 14px;
-            font-size: 13px;
-            font-weight: 700;
-            width: fit-content;
-            cursor: pointer;
+            background: #3b82f6; color: #ffffff; border: none;
+            padding: 8px 16px; border-radius: 14px; font-size: 13px; font-weight: 700;
+            width: fit-content; cursor: pointer;
         }
 
         .settings-group-box {
             background: #282f3d;
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            padding: 6px 16px;
-            margin-bottom: 16px;
-            display: flex;
-            flex-direction: column;
+            border-radius: 20px; padding: 6px 16px; margin-bottom: 16px;
         }
         .settings-item-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 10px;
-            margin: 0 -10px;
-            border-radius: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 14px 10px; margin: 0 -10px; border-radius: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05); cursor: pointer;
         }
-        .settings-item-row:last-child { 
-            border-bottom: none; 
-        }
+        .settings-item-row:last-child { border-bottom: none; }
         .settings-item-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: 600;
+            display: flex; align-items: center; gap: 12px; color: #ffffff; font-size: 15px; font-weight: 600;
         }
-        .menu-icon svg { 
-            width: 18px; 
-            height: 18px; 
-            fill: #94a3b8; 
-        }
-        .settings-item-left { 
-            color: #cbd5e1; 
-            font-size: 14px; 
-            display: flex; 
-            align-items: center; 
-            gap: 6px; 
-        }
+        .menu-icon svg { width: 18px; height: 18px; fill: #94a3b8; }
+        .settings-item-left { color: #cbd5e1; font-size: 14px; }
 
         .settings-modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 999999;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-            box-sizing: border-box;
-            overflow-y: auto;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); z-index: 999999;
+            align-items: center; justify-content: center; padding: 15px; box-sizing: border-box;
         }
-        .settings-modal-overlay.show { 
-            display: flex !important; 
-        }
+        .settings-modal-overlay.show { display: flex !important; }
         .settings-modal-box {
-            background: #1f242d;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 24px;
-            width: 100%;
-            max-width: 420px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            max-height: 90vh;
-            overflow-y: auto;
+            background: #1f242d; border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 24px; width: 100%; max-width: 420px; padding: 20px;
+            display: flex; flex-direction: column; gap: 14px; box-sizing: border-box;
         }
 
-        /* نافذة الاشتراكات الجديدة */
+        /* نافذة الاشتراكات المصممة من الصفر نظيفة وبدون أي تداخل أو تكرار */
         .subscription-full-screen {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background-color: #1f242d;
             z-index: 1000000;
             flex-direction: column;
             overflow-y: auto;
             box-sizing: border-box;
         }
-        .subscription-full-screen.show {
-            display: flex !important;
-        }
+        .subscription-full-screen.show { display: flex !important; }
 
-        /* صندوق الغلاف العلوي */
-        .sub-hero-box {
+        .sub-hero-image-container {
             position: relative;
             width: 100%;
-            height: 250px;
-            background: linear-gradient(180deg, rgba(31,36,45,0) 50%, #1f242d 100%),
-                        url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/e9d979a5cd2603553ecf01adf38ac1dcb55de1e0/Gh.jpg') center top/cover no-repeat;
+            height: 280px;
+            background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/e9d979a5cd2603553ecf01adf38ac1dcb55de1e0/Gh.jpg') center top / cover no-repeat;
             display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            padding: 20px;
+            justify-content: flex-end;
+            align-items: flex-start;
+            padding: 16px;
             box-sizing: border-box;
-            flex-shrink: 0;
+        }
+        .sub-hero-overlay-gradient {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 120px;
+            background: linear-gradient(180deg, transparent 0%, #1f242d 100%);
+        }
+        .sub-close-circle {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff; width: 36px; height: 36px;
+            border-radius: 50%; cursor: pointer; font-size: 18px;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 2;
         }
     </style>
 </head>
@@ -294,33 +188,30 @@
 
     <div class="settings-screen" id="settingsScreen">
         <div class="settings-top-bar">
-            <button class="settings-close-btn" onclick="closeSettingsScreen(event)" title="رجوع">‹</button>
+            <button class="settings-close-btn" onclick="closeSettingsScreen(event)">‹</button>
             <div class="settings-title">الإعدادات</div>
             <button class="settings-upgrade-badge" onclick="openSubscriptionModal()">ترقية</button>
         </div>
 
         <div class="profile-header-card">
             <div class="profile-avatar-box">
-                <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/e9d979a5cd2603553ecf01adf38ac1dcb55de1e0/Gh.jpg" alt="الصورة الشخصية">
+                <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/e9d979a5cd2603553ecf01adf38ac1dcb55de1e0/Gh.jpg" alt="صورة">
             </div>
-            
             <div class="profile-info-group">
                 <div class="profile-name-row">
                     <span class="profile-name-text" id="displayUserName">NewUser</span>
-                    <span class="profile-edit-pencil" onclick="openNameEditModal()" title="تعديل الاسم">
+                    <span class="profile-edit-pencil" onclick="openNameEditModal()">
                         <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
                     </span>
                 </div>
-                <div class="profile-id-row" onclick="copyUserIdToClipboard()" title="انقر لنسخ المعرف">
+                <div class="profile-id-row" onclick="copyUserIdToClipboard()">
                     <span id="displayUniqueId">8492041</span>
                 </div>
             </div>
         </div>
 
         <div class="pro-banner-card">
-            <div class="pro-banner-top">
-                <div class="pro-banner-title">افتح PlotCraft Pro</div>
-            </div>
+            <div class="pro-banner-title">افتح PlotCraft Pro</div>
             <div class="pro-banner-desc">حول كل فكرة إلى فيلم مكتمل</div>
             <button class="pro-banner-btn" onclick="openSubscriptionModal()">عرض خطط Pro ←</button>
         </div>
@@ -331,7 +222,7 @@
                     <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
                     <span>سجل النقاط</span>
                 </div>
-                <div class="settings-item-left"><span>›</span></div>
+                <div class="settings-item-left">›</div>
             </div>
         </div>
 
@@ -354,28 +245,28 @@
         </div>
     </div>
 
-    <!-- نافذة خطط الاشتراكات (PlotCraft Pro) بعد تنظيف النصوص المكررة تماماً -->
+    <!-- نافذة الاشتراكات الجديدة كلياً من الصفر (بدون أي تكرار أو تداخل) -->
     <div class="subscription-full-screen" id="subscriptionModalOverlay">
-        <!-- 1. صندوق الغلاف العلوي مع زر الإغلاق -->
-        <div class="sub-hero-box">
-            <div style="display: flex; justify-content: flex-end; width: 100%;">
-                <button onclick="closeSubscriptionModal()" style="background: rgba(255,255,255,0.15); border: none; color: #fff; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; font-weight: bold; font-size: 16px; display: flex; align-items: center; justify-content: center;">✕</button>
-            </div>
+        
+        <!-- صورة الغلاف العلوية مع زر الإغلاق والتدرج -->
+        <div class="sub-hero-image-container">
+            <div class="sub-hero-overlay-gradient"></div>
+            <button class="sub-close-circle" onclick="closeSubscriptionModal()">✕</button>
         </div>
 
-        <!-- 2. محتوى تفاصيل الاشتراكات والباقات بدون أي تكرار -->
-        <div style="max-width: 480px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; padding: 0 20px 30px 20px; box-sizing: border-box;">
+        <!-- محتوى النافذة بالأسفل -->
+        <div style="max-width: 480px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; padding: 0 20px 40px 20px; box-sizing: border-box; z-index: 3;">
             
             <div style="text-align: right; margin-top: -10px;">
-                <div style="font-size: 22px; font-weight: 800; background: linear-gradient(135deg, #fff 0%, #a855f7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">PLOTCRAFT PRO</div>
-                <div style="font-size: 16px; font-weight: 700; color: #fff; margin-top: 4px;">حوّل خيالك إلى بلوت كرافت</div>
+                <div style="font-size: 24px; font-weight: 800; background: linear-gradient(135deg, #fff 0%, #a855f7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">PLOTCRAFT PRO</div>
+                <div style="font-size: 17px; font-weight: 700; color: #fff; margin-top: 4px;">حوْل خيالك إلى بلوت كرافت</div>
                 <div style="font-size: 12px; color: #94a3b8; margin-top: 2px;">ترجم أفكارك إلى مشاهد نابضة بالحياة</div>
             </div>
 
-            <!-- أشرطة ومربعات الميزات مع الأيقونات -->
-            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center; margin-top: 5px;">
+            <!-- أربع مربعات الميزات مع أيقوناتها -->
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center; margin-top: 4px;">
                 <div style="background: #161b22; padding: 12px 4px; border-radius: 12px; font-size: 11px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; align-items: center; gap: 6px;">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
                     <span>نص AI</span>
                 </div>
                 <div style="background: #161b22; padding: 12px 4px; border-radius: 12px; font-size: 11px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; align-items: center; gap: 6px;">
@@ -392,8 +283,8 @@
                 </div>
             </div>
 
-            <!-- بطاقة أسبوعي -->
-            <div class="pricing-card" data-plan="weekly" data-price="$US 9.99" onclick="selectPlan(this)" style="background: #161b22; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s; margin-top: 5px;">
+            <!-- الباقات الثلاثة -->
+            <div class="pricing-card" data-plan="weekly" data-price="$US 9.99" onclick="selectPlan(this)" style="background: #161b22; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; margin-top: 4px;">
                 <div>
                     <div style="font-size: 15px; font-weight: 700; color: #fff;">PlotCraft Pro Weekly</div>
                     <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">500 Credits / Week, Try AI Drama Creation</div>
@@ -404,8 +295,7 @@
                 </div>
             </div>
 
-            <!-- بطاقة شهري (المحددة افتراضياً كـ "رائج") -->
-            <div class="pricing-card active" data-plan="monthly" data-price="$US 29.99" onclick="selectPlan(this)" style="background: #161b22; border: 2px solid #3b82f6; border-radius: 16px; padding: 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; position: relative; transition: 0.2s;">
+            <div class="pricing-card active" data-plan="monthly" data-price="$US 29.99" onclick="selectPlan(this)" style="background: #161b22; border: 2px solid #3b82f6; border-radius: 16px; padding: 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; position: relative;">
                 <div style="position: absolute; top: -10px; right: 16px; background: #3b82f6; color: #fff; font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 8px;">رائج</div>
                 <div>
                     <div style="font-size: 15px; font-weight: 700; color: #fff;">PlotCraft Pro Monthly</div>
@@ -417,8 +307,7 @@
                 </div>
             </div>
 
-            <!-- بطاقة سنوي -->
-            <div class="pricing-card" data-plan="annual" data-price="$US 69.99" onclick="selectPlan(this)" style="background: #161b22; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s;">
+            <div class="pricing-card" data-plan="annual" data-price="$US 69.99" onclick="selectPlan(this)" style="background: #161b22; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
                 <div>
                     <div style="font-size: 15px; font-weight: 700; color: #fff;">PlotCraft Pro Annual</div>
                     <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">5000 Credits / Year, Ideal for professional creators</div>
@@ -429,23 +318,20 @@
                 </div>
             </div>
 
-            <!-- ملاحظة التجديد -->
-            <div style="text-align: center; font-size: 11px; color: #64748b; margin-top: 5px;">
+            <div style="text-align: center; font-size: 11px; color: #64748b; margin-top: 2px;">
                 <span>🔒 تجديد تلقائي، يمكن الإلغاء في أي وقت</span>
             </div>
 
-            <!-- زر الاشتراك الفعلي -->
-            <button onclick="handleSubscription()" style="width: 100%; background: #ffffff; color: #0b0f19; font-size: 16px; font-weight: 800; padding: 16px; border-radius: 20px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(255,255,255,0.15); text-align: center; margin-top: 10px;">
+            <button onclick="handleSubscription()" style="width: 100%; background: #ffffff; color: #0b0f19; font-size: 16px; font-weight: 800; padding: 16px; border-radius: 20px; border: none; cursor: pointer; text-align: center; margin-top: 6px;">
                 اشتراك
             </button>
 
-            <!-- روابط أسفل النافذة -->
-            <div style="display: flex; justify-content: center; gap: 14px; font-size: 12px; color: #94a3b8; margin-top: 10px;">
-                <span style="cursor: pointer;" onclick="alert('جاري استعادة المشتريات...')">استعادة</span>
+            <div style="display: flex; justify-content: center; gap: 14px; font-size: 12px; color: #94a3b8; margin-top: 8px;">
+                <span style="cursor: pointer;" onclick="alert('استعادة')">استعادة</span>
                 <span>|</span>
                 <span style="cursor: pointer;" onclick="alert('شروط الاستخدام')">شروط الاستخدام</span>
                 <span>|</span>
-                <span style="cursor: pointer;" onclick="alert('سياسة الخصوصية')">الخصوصية</span>
+                <span style="cursor: pointer;" onclick="alert('الخصوصية')">الخصوصية</span>
             </div>
         </div>
     </div>
@@ -463,20 +349,12 @@
     </div>
 
     <script>
-        function openSettingsScreen() {
-            document.getElementById('settingsScreen').classList.add('active');
-        }
-
-        function closeSettingsScreen(event) {
-            if (event) event.stopPropagation();
-            document.getElementById('settingsScreen').classList.remove('active');
-        }
+        function openSettingsScreen() { document.getElementById('settingsScreen').classList.add('active'); }
+        function closeSettingsScreen(event) { if (event) event.stopPropagation(); document.getElementById('settingsScreen').classList.remove('active'); }
 
         document.addEventListener("DOMContentLoaded", function() {
             const savedName = localStorage.getItem('plotcraft_username');
-            if (savedName) {
-                document.getElementById('displayUserName').innerText = savedName;
-            }
+            if (savedName) { document.getElementById('displayUserName').innerText = savedName; }
         });
 
         function openNameEditModal() { document.getElementById('nameEditModalOverlay').classList.add('show'); }
@@ -499,11 +377,7 @@
             }
         }
 
-        let selectedPlanData = {
-            plan: 'monthly',
-            price: '$US 29.99'
-        };
-
+        let selectedPlanData = { plan: 'monthly', price: '$US 29.99' };
         function selectPlan(element) {
             document.querySelectorAll('.pricing-card').forEach(card => {
                 card.style.border = '1px solid rgba(255,255,255,0.1)';
@@ -511,26 +385,16 @@
             });
             element.style.border = '2px solid #3b82f6';
             element.style.background = '#1a2333';
-
             selectedPlanData.plan = element.getAttribute('data-plan');
             selectedPlanData.price = element.getAttribute('data-price');
         }
 
-        function handleSubscription() {
-            alert('جاري توجيهك لبوابة الدفع للباقة: ' + selectedPlanData.price);
-        }
-
+        function handleSubscription() { alert('جاري توجيهك لبوابة الدفع للباقة: ' + selectedPlanData.price); }
         function openSubscriptionModal() { document.getElementById('subscriptionModalOverlay').classList.add('show'); }
         function closeSubscriptionModal() { document.getElementById('subscriptionModalOverlay').classList.remove('show'); }
-
         function openLoginModal() { document.getElementById('loginModalOverlay').classList.add('show'); }
         function closeLoginModal() { document.getElementById('loginModalOverlay').classList.remove('show'); }
-
-        function closeOnOutside(event, modalId) {
-            if (event.target.id === modalId) {
-                document.getElementById(modalId).classList.remove('show');
-            }
-        }
+        function closeOnOutside(event, modalId) { if (event.target.id === modalId) { document.getElementById(modalId).classList.remove('show'); } }
     </script>
 </body>
 </html>
