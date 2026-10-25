@@ -91,14 +91,14 @@
             font-weight: 700;
         }
 
-        /* زر الإعدادات العلوي في أقصى اليسار لكل الشاشات */
+        /* زر الإعدادات العلوي في أقصى اليسار يحمل شعار Gh2.jpg */
         .top-settings-btn {
             background: rgba(20, 24, 33, 0.85);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 50%;
-            width: 38px;
-            height: 38px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -169,7 +169,6 @@
             padding: 20px 20px 10px 20px;
             width: 100%;
             flex-shrink: 0;
-            flex-direction: row-reverse; /* لجعل العنوان يمين وزر الإعدادات يسار تماماً */
         }
 
         .works-screen-title {
@@ -1044,7 +1043,7 @@
         }
         .register-modal-overlay.show { display: flex; }
 
-        /* تنسيق شريط التنقل السفلي والأزرار السفلية المكبرة قليلاً فقط */
+        /* تنسيق شريط التنقل السفلي */
         .plotcraft-nav-bar {
             position: absolute;
             bottom: 0; left: 0; width: 100%;
@@ -1062,7 +1061,7 @@
             display: none !important;
         }
 
-        /* الزر المنفصل الدائري مكبر قليلاً بشكل متناسق ويحمل صورة Gh2.jpg */
+        /* الزر المنفصل الدائري في أقصى اليمين مع شعار Gh2.jpg */
         .plotcraft-nav-square {
             background-color: rgba(20, 24, 33, 0.95);
             backdrop-filter: blur(16px);
@@ -1085,7 +1084,6 @@
             object-fit: cover;
         }
 
-        /* الكبسولة السوداء المحتوية على الأزرار الثلاثة مكبرة الارتفاع قليلاً */
         .plotcraft-nav-pill {
             background-color: rgba(20, 24, 33, 0.92);
             backdrop-filter: blur(16px);
@@ -1099,7 +1097,6 @@
             height: 50px;
         }
 
-        /* الأزرار الثلاثة الداخلية مكبرة بشكل بسيط (حجم الخط والأيقونة) */
         .plotcraft-nav-item {
             display: flex;
             align-items: center;
@@ -1159,11 +1156,12 @@
         <div id="homeScreen" class="screen-view active">
             <div class="hero-box">
                 <div class="top-header">
-                    <!-- زر الإعدادات في أقصى اليسار للواجهة الرئيسية -->
+                    <!-- اسم التطبيق في اليمين -->
+                    <div class="brand-title">PlotCraft</div>
+                    <!-- زر الإعدادات في أقصى اليسار يحمل Gh2.jpg -->
                     <div class="top-settings-btn" onclick="openSettingsScreen()">
                         <img src="Gh2.jpg" alt="الإعدادات">
                     </div>
-                    <div class="brand-title">PlotCraft</div>
                 </div>
                 <div class="welcome-section">
                     <h1>مساء الخير، أيها المخرج<br>أي قصة سنصنع اليوم؟</h1>
@@ -1174,8 +1172,9 @@
         <!-- شاشة الأعمال -->
         <div id="worksScreen" class="screen-view">
             <div class="works-top-header">
+                <!-- عنوان الأعمال في اليمين -->
                 <div class="works-screen-title">الأعمال</div>
-                <!-- زر الإعدادات في أقصى اليسار لشاشة الأعمال -->
+                <!-- زر الإعدادات في أقصى اليسار يحمل Gh2.jpg -->
                 <div class="top-settings-btn" onclick="openSettingsScreen()">
                     <img src="Gh2.jpg" alt="الإعدادات">
                 </div>
@@ -1193,10 +1192,12 @@
             </div>
         </div>
 
-        <!-- شاشة الأدوات (Tools Screen) مع زر الإعدادات في أقصى اليسار -->
+        <!-- شاشة الأدوات -->
         <div id="toolsScreen" class="screen-view">
-            <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 20px 10px 20px; width: 100%; flex-shrink: 0; flex-direction: row-reverse;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 20px 10px 20px; width: 100%; flex-shrink: 0;">
+                <!-- عنوان الأدوات في اليمين -->
                 <div style="color: #ffffff; font-size: 20px; font-weight: 700;">الأدوات</div>
+                <!-- زر الإعدادات في أقصى اليسار يحمل Gh2.jpg -->
                 <div class="top-settings-btn" onclick="openSettingsScreen()">
                     <img src="Gh2.jpg" alt="الإعدادات">
                 </div>
@@ -1214,12 +1215,12 @@
 
         <!-- شريط التنقل السفلي -->
         <div class="plotcraft-nav-bar" id="mainNavBar">
-            <!-- 1. الزر المنفصل الدائري يحمل شعار Gh2.jpg في أقصى اليمين -->
+            <!-- 1. الزر المنفصل الدائري في أقصى اليمين يحمل Gh2.jpg -->
             <div class="plotcraft-nav-square" onclick="openSparkleDialog(event)">
                 <img src="Gh2.jpg" alt="Logo">
             </div>
 
-            <!-- 2. الكبسولة المحتوية على الأزرار الثلاثة المكبرة قليلاً من اليمين لليسار -->
+            <!-- 2. الكبسولة المحتوية على الأزرار الثلاثة -->
             <div class="plotcraft-nav-pill">
                 <!-- الصفحة الرئيسية -->
                 <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="switchScreen('homeScreen', event); setActiveNav('navHome')">
@@ -1280,7 +1281,6 @@
             element.classList.add('active');
         };
 
-        // دالة فتح شاشة الإعدادات عبر الزر العلوي اليساري
         function openSettingsScreen() {
             const settingsEl = document.getElementById('settingsScreen');
             if (settingsEl) {
