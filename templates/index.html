@@ -91,7 +91,7 @@
             font-weight: 700;
         }
 
-        /* زر الإعدادات العلوي في أقصى اليسار يحمل شعار Gh2.jpg */
+        /* زر الإعدادات العلوي في أقصى اليسار مع معالجة مظهر الصورة لتظهر كاملة وغير مشوهة */
         .top-settings-btn {
             background: rgba(20, 24, 33, 0.85);
             backdrop-filter: blur(12px);
@@ -110,7 +110,8 @@
         .top-settings-btn img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain; /* منع قص وتشوه الصورة */
+            background-color: #111;
         }
 
         .welcome-section {
@@ -1061,7 +1062,7 @@
             display: none !important;
         }
 
-        /* الزر المنفصل الدائري في أقصى اليمين مع شعار Gh2.jpg */
+        /* الزر المنفصل الدائري في أقصى اليمين بالتصميم الأصلي القديم */
         .plotcraft-nav-square {
             background-color: rgba(20, 24, 33, 0.95);
             backdrop-filter: blur(16px);
@@ -1078,10 +1079,53 @@
             overflow: hidden;
             position: relative;
         }
-        .plotcraft-nav-square img {
+
+        /* الشعار الأصلي القديم للزر السفلي */
+        .nav-logo-icon {
+            width: 30px;
+            height: 30px;
+            position: relative;
+            background: linear-gradient(135deg, #1e3a8a 0%, #60a5fa 100%);
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-logo-icon::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -6px;
+            width: 14px;
+            height: 14px;
+            background: #ffffff;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            filter: drop-shadow(0 0 3px rgba(255,255,255,0.8));
+        }
+        .nav-logo-play {
+            width: 0;
+            height: 0;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-left: 8px solid #0b0f19;
+            margin-right: -2px;
+        }
+        .nav-logo-stripes {
+            position: absolute;
+            right: 2px;
+            top: 3px;
+            bottom: 3px;
+            width: 3px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+        .nav-logo-stripes span {
+            display: block;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: 2px;
+            background: #000000;
+            transform: skewX(-20deg);
         }
 
         .plotcraft-nav-pill {
@@ -1158,7 +1202,7 @@
                 <div class="top-header">
                     <!-- اسم التطبيق في اليمين -->
                     <div class="brand-title">PlotCraft</div>
-                    <!-- زر الإعدادات في أقصى اليسار يحمل Gh2.jpg -->
+                    <!-- زر الإعدادات في أقصى اليسار يحمل Gh2.jpg دون تشويه -->
                     <div class="top-settings-btn" onclick="openSettingsScreen()">
                         <img src="Gh2.jpg" alt="الإعدادات">
                     </div>
@@ -1174,7 +1218,7 @@
             <div class="works-top-header">
                 <!-- عنوان الأعمال في اليمين -->
                 <div class="works-screen-title">الأعمال</div>
-                <!-- زر الإعدادات في أقصى اليسار يحمل Gh2.jpg -->
+                <!-- زر الإعدادات في أقصى اليسار يحمل Gh2.jpg دون تشويه -->
                 <div class="top-settings-btn" onclick="openSettingsScreen()">
                     <img src="Gh2.jpg" alt="الإعدادات">
                 </div>
@@ -1197,7 +1241,7 @@
             <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 20px 10px 20px; width: 100%; flex-shrink: 0;">
                 <!-- عنوان الأدوات في اليمين -->
                 <div style="color: #ffffff; font-size: 20px; font-weight: 700;">الأدوات</div>
-                <!-- زر الإعدادات في أقصى اليسار يحمل Gh2.jpg -->
+                <!-- زر الإعدادات في أقصى اليسار يحمل Gh2.jpg دون تشويه -->
                 <div class="top-settings-btn" onclick="openSettingsScreen()">
                     <img src="Gh2.jpg" alt="الإعدادات">
                 </div>
@@ -1215,9 +1259,16 @@
 
         <!-- شريط التنقل السفلي -->
         <div class="plotcraft-nav-bar" id="mainNavBar">
-            <!-- 1. الزر المنفصل الدائري في أقصى اليمين يحمل Gh2.jpg -->
+            <!-- 1. الزر المنفصل الدائري في أقصى اليمين بالتصميم الأصلي القديم -->
             <div class="plotcraft-nav-square" onclick="openSparkleDialog(event)">
-                <img src="Gh2.jpg" alt="Logo">
+                <div class="nav-logo-icon">
+                    <div class="nav-logo-play"></div>
+                    <div class="nav-logo-stripes">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
             </div>
 
             <!-- 2. الكبسولة المحتوية على الأزرار الثلاثة -->
