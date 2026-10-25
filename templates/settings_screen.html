@@ -256,7 +256,7 @@
             overflow-y: auto;
         }
 
-        /* نافذة الاشتراكات الجديدة المطابقة تماماً للصورة الثانية مع صورة الغلاف والأيقونات */
+        /* نافذة الاشتراكات الجديدة بالشكل النظيف والمرتب تماماً */
         .subscription-full-screen {
             display: none;
             position: fixed;
@@ -274,16 +274,16 @@
             display: flex !important;
         }
 
-        /* قسم الهيرو العلوي لنافذة الاشتراكات */
+        /* قسم الهيرو العلوي مع التدرج وصورة الغلاف بدون تداخل */
         .sub-hero-box {
             position: relative;
             width: 100%;
-            height: 240px;
-            background: linear-gradient(180deg, rgba(31,36,45,0.1) 40%, #1f242d 100%),
+            height: 250px;
+            background: linear-gradient(180deg, rgba(31,36,45,0) 50%, #1f242d 100%),
                         url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/e9d979a5cd2603553ecf01adf38ac1dcb55de1e0/Gh.jpg') center top/cover no-repeat;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-start;
             padding: 20px;
             box-sizing: border-box;
             flex-shrink: 0;
@@ -354,25 +354,25 @@
         </div>
     </div>
 
-    <!-- نافذة خطط الاشتراكات (PlotCraft Pro) المطابقة تماماً للصورة الثانية مع الغلاف والأيقونات -->
+    <!-- نافذة خطط الاشتراكات (PlotCraft Pro) بدون أي تداخل وبشكل نظيف تماماً -->
     <div class="subscription-full-screen" id="subscriptionModalOverlay">
-        <!-- 1. صندوق الغلاف العلوي للصورة -->
+        <!-- 1. صندوق الغلاف العلوي للصورة مع زر الإغلاق -->
         <div class="sub-hero-box">
             <div style="display: flex; justify-content: flex-end; width: 100%;">
                 <button onclick="closeSubscriptionModal()" style="background: rgba(255,255,255,0.15); border: none; color: #fff; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; font-weight: bold; font-size: 16px; display: flex; align-items: center; justify-content: center;">✕</button>
             </div>
         </div>
 
-        <!-- 2. محتوى تفاصيل الاشتراكات والباقات أسفل الغلاف -->
+        <!-- 2. محتوى تفاصيل الاشتراكات والباقات بدون أي تكرار أو تداخل -->
         <div style="max-width: 480px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; padding: 0 20px 30px 20px; box-sizing: border-box;">
             
             <div style="text-align: right; margin-top: -10px;">
                 <div style="font-size: 22px; font-weight: 800; background: linear-gradient(135deg, #fff 0%, #a855f7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">PLOTCRAFT PRO</div>
-                <div style="font-size: 16px; font-weight: 700; color: #fff; margin-top: 4px;">حوْل خيالك إلى بلوت كرافت</div>
+                <div style="font-size: 16px; font-weight: 700; color: #fff; margin-top: 4px;">حوّل خيالك إلى بلوت كرافت</div>
                 <div style="font-size: 12px; color: #94a3b8; margin-top: 2px;">ترجم أفكارك إلى مشاهد نابضة بالحياة</div>
             </div>
 
-            <!-- أشرطة ومربعات الميزات مع الأيقونات المطابقة -->
+            <!-- أشرطة ومربعات الميزات مع الأيقونات -->
             <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center; margin-top: 5px;">
                 <div style="background: #161b22; padding: 12px 4px; border-radius: 12px; font-size: 11px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; align-items: center; gap: 6px;">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
