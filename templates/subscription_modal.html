@@ -1,355 +1,41 @@
-<!-- نافذة الاشتراكات والترقية المستقلة فقط -->
+<!-- نافذة الاشتراكات والترقية المستقلة -->
 <div class="subscription-modal-overlay hidden" id="subscriptionModal">
     <div class="subscription-modal-box">
-        
-        <!-- زر الإغلاق -->
-        <button class="sub-modal-close-btn" onclick="closeSubscriptionModal()">✕</button>
-
-        <!-- الهيدر مع صورتك الحقيقية -->
-        <div class="sub-hero-section">
-            <div class="sub-hero-content">
-                <div class="sub-hero-title">PLOTCRAFT PRO</div>
-                <div class="sub-hero-subtitle-1">حوّل خيالك إلى بلوت كرافت</div>
-                <div class="sub-hero-subtitle-2">ترجم أفكارك إلى مشاهد نابضة بالحياة</div>
-            </div>
-        </div>
-
-        <!-- شريط المميزات الأربعة -->
-        <div class="sub-features-row">
-            <div class="sub-feature-item">
-                <div class="sub-feature-icon">✨</div>
-                <span>نص AI</span>
-            </div>
-            <div class="sub-feature-item">
-                <div class="sub-feature-icon">🎬</div>
-                <span>القصة المصورة</span>
-            </div>
-            <div class="sub-feature-item">
-                <div class="sub-feature-icon">🎥</div>
-                <span>لقطة AI</span>
-            </div>
-            <div class="sub-feature-item">
-                <div class="sub-feature-icon">✂️</div>
-                <span>مونتاج AI</span>
-            </div>
+        <div class="sub-modal-header">
+            <div class="sub-modal-title">PlotCraft PRO</div>
+            <button class="sub-modal-close-x" onclick="closeSubscriptionModal()">✕</button>
         </div>
         
-        <!-- قائمة الباقات والخطط -->
         <div class="plans-list">
             <!-- الخطة الأسبوعية -->
-            <div class="plan-card" data-plan="weekly" onclick="selectPlan(this)">
+            <div class="plan-card" onclick="selectPlan(this)">
                 <div class="plan-top">
-                    <div class="plan-info-right">
-                        <span class="plan-name">Plotcraft Pro Weekly</span>
-                        <span class="plan-desc">Credits / Week , Try AI Drama 500 Creation</span>
-                    </div>
-                    <div class="plan-price-left">
-                        <span class="price-amount">$US 9.99</span>
-                        <span class="price-period">أسبوع</span>
-                    </div>
+                    <span class="plan-name">PlotCraft Pro Weekly</span>
+                    <span class="plan-price">$US 9.99 / أسبوع</span>
                 </div>
+                <div class="plan-desc">Credits / Week , Try AI PlotCraft 500 Creation</div>
             </div>
 
-            <!-- الخطة الشهرية (رائج) -->
-            <div class="plan-card selected" data-plan="monthly" onclick="selectPlan(this)">
-                <span class="best-value-tag">رائج</span>
+            <!-- الخطة الشهرية -->
+            <div class="plan-card selected" onclick="selectPlan(this)">
+                <span class="new-tag">رائج</span>
                 <div class="plan-top">
-                    <div class="plan-info-right">
-                        <span class="plan-name">Plotcraft Pro Monthly</span>
-                        <span class="plan-desc">Credits / Month, Ideal for regular 1800 creators</span>
-                    </div>
-                    <div class="plan-price-left">
-                        <span class="price-amount">$US 29.99</span>
-                        <span class="price-period">شهر</span>
-                    </div>
+                    <span class="plan-name">PlotCraft Pro Monthly</span>
+                    <span class="plan-price">$US 29.99 / شهر</span>
                 </div>
+                <div class="plan-desc">Credits / Month, Ideal for regular 1800 creators</div>
             </div>
 
             <!-- الخطة السنوية -->
-            <div class="plan-card" data-plan="annual" onclick="selectPlan(this)">
+            <div class="plan-card" onclick="selectPlan(this)">
                 <div class="plan-top">
-                    <div class="plan-info-right">
-                        <span class="plan-name">Plotcraft Pro Annual</span>
-                        <span class="plan-desc">5000 Credits / Year, Ideal for professional creators</span>
-                    </div>
-                    <div class="plan-price-left">
-                        <span class="price-amount">$US 69.99</span>
-                        <span class="price-period">سنة</span>
-                    </div>
+                    <span class="plan-name">PlotCraft Pro Annual</span>
+                    <span class="plan-price">$US 69.99 / سنة</span>
                 </div>
+                <div class="plan-desc">5000 Credits / Year, Ideal for professional creators</div>
             </div>
         </div>
 
-        <!-- ملاحظة التجديد التلقائي -->
-        <div class="sub-auto-renew-note">
-            <span>🛡️ تجديد تلقائي، يمكن الإلغاء في أي وقت</span>
-        </div>
-
-        <!-- زر الاشتراك الرئيسي -->
-        <button class="action-main-btn glow-btn" onclick="confirmSubscription()">اشتراك</button>
-
-        <!-- الروابط السفلية -->
-        <div class="sub-footer-links">
-            <a href="#" onclick="event.preventDefault();">استعادة</a>
-            <span>|</span>
-            <a href="#" onclick="event.preventDefault();">شروط الاستخدام</a>
-            <span>|</span>
-            <a href="#" onclick="event.preventDefault();">الخصوصية</a>
-        </div>
-
+        <button class="action-main-btn" onclick="confirmSubscription()">اشتراك</button>
     </div>
 </div>
-
-<style>
-    .subscription-modal-overlay {
-        display: flex;
-        position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0, 0, 0, 0.92);
-        z-index: 999999;
-        align-items: center;
-        justify-content: center;
-        padding: 12px;
-        box-sizing: border-box;
-    }
-    .subscription-modal-overlay.hidden { display: none !important; }
-
-    .subscription-modal-box {
-        background: #121620;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 28px;
-        width: 100%;
-        max-width: 420px;
-        height: 100%;
-        max-height: 840px;
-        overflow-y: auto;
-        overflow-x: hidden;
-        padding: 16px 16px 20px 16px;
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-        position: relative;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.95);
-        direction: rtl;
-        box-sizing: border-box;
-        scrollbar-width: none;
-    }
-    .subscription-modal-box::-webkit-scrollbar { display: none; }
-
-    .sub-modal-close-btn {
-        position: absolute;
-        top: 14px;
-        left: 14px;
-        background: rgba(255, 255, 255, 0.12);
-        border: none;
-        color: #ffffff;
-        font-size: 13px;
-        cursor: pointer;
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10;
-    }
-
-    .sub-hero-section {
-        position: relative;
-        width: 100%;
-        min-height: 210px;
-        background: linear-gradient(180deg, rgba(18,22,32,0.1) 0%, rgba(18,22,32,0.85) 85%, #121620 100%),
-                    url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/bd7d5834e07f2e57166e302a205ae5f9a75ad46d/Gh.jpg') center center/cover no-repeat;
-        border-radius: 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        align-items: center;
-        text-align: center;
-        padding: 14px;
-        flex-shrink: 0;
-    }
-    .sub-hero-title {
-        color: #b8a5e6;
-        font-size: 22px;
-        font-weight: 900;
-        letter-spacing: 1.5px;
-        margin-bottom: 6px;
-        text-shadow: 0 2px 10px rgba(0,0,0,0.9);
-    }
-    .sub-hero-subtitle-1 {
-        color: #ffffff;
-        font-size: 17px;
-        font-weight: 800;
-        margin-bottom: 2px;
-    }
-    .sub-hero-subtitle-2 {
-        color: #94a3b8;
-        font-size: 13px;
-        font-weight: 500;
-    }
-
-    .sub-features-row {
-        display: flex;
-        gap: 8px;
-        width: 100%;
-        flex-shrink: 0;
-    }
-    .sub-feature-item {
-        flex: 1;
-        background: #1c2230;
-        border: 1px solid rgba(255,255,255,0.05);
-        border-radius: 14px;
-        padding: 10px 4px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 6px;
-    }
-    .sub-feature-icon {
-        font-size: 16px;
-    }
-    .sub-feature-item span {
-        color: #cbd5e1;
-        font-size: 11px;
-        font-weight: 600;
-        white-space: nowrap;
-    }
-
-    .plans-list {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        flex-shrink: 0;
-    }
-    .plan-card {
-        background: #1c2230;
-        border: 1.5px solid rgba(255, 255, 255, 0.08);
-        border-radius: 18px;
-        padding: 14px 16px;
-        cursor: pointer;
-        position: relative;
-        transition: 0.2s;
-    }
-    .plan-card.selected {
-        border-color: #3b82f6;
-        background: #222a3d;
-        box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
-    }
-
-    .plan-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-    }
-
-    .plan-info-right {
-        display: flex;
-        flex-direction: column;
-        text-align: right;
-    }
-    .plan-name {
-        color: #ffffff;
-        font-size: 15px;
-        font-weight: 700;
-        margin-bottom: 3px;
-    }
-    .plan-desc {
-        color: #94a3b8;
-        font-size: 11px;
-        line-height: 1.3;
-    }
-
-    .plan-price-left {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        text-align: left;
-    }
-    .price-amount {
-        color: #ffffff;
-        font-size: 15px;
-        font-weight: 800;
-    }
-    .price-period {
-        color: #94a3b8;
-        font-size: 11px;
-        margin-top: 2px;
-    }
-
-    .best-value-tag {
-        position: absolute;
-        top: -9px;
-        right: 14px;
-        background: #3b82f6;
-        color: #ffffff;
-        font-size: 10px;
-        padding: 2px 10px;
-        border-radius: 8px;
-        font-weight: 700;
-        z-index: 5;
-    }
-
-    .sub-auto-renew-note {
-        text-align: center;
-        color: #94a3b8;
-        font-size: 11px;
-        margin-top: 2px;
-    }
-
-    .action-main-btn.glow-btn {
-        width: 100%;
-        background: #ffffff;
-        color: #000000;
-        font-size: 17px;
-        font-weight: 800;
-        padding: 14px;
-        border-radius: 20px;
-        border: none;
-        cursor: pointer;
-        text-align: center;
-        box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
-        flex-shrink: 0;
-        transition: 0.2s;
-    }
-    .action-main-btn.glow-btn:active {
-        transform: scale(0.98);
-        background: #e2e8f0;
-    }
-
-    .sub-footer-links {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 14px;
-        margin-top: 4px;
-        flex-shrink: 0;
-    }
-    .sub-footer-links a {
-        color: #94a3b8;
-        font-size: 12px;
-        text-decoration: none;
-    }
-    .sub-footer-links span {
-        color: #475569;
-        font-size: 11px;
-    }
-</style>
-
-<script>
-    function selectPlan(element) {
-        document.querySelectorAll('.plan-card').forEach(card => {
-            card.classList.remove('selected');
-        });
-        element.classList.add('selected');
-    }
-
-    function confirmSubscription() {
-        const selectedPlan = document.querySelector('.plan-card.selected');
-        if (selectedPlan) {
-            const planType = selectedPlan.getAttribute('data-plan');
-            console.log("Selected plan:", planType);
-        }
-    }
-</script>
