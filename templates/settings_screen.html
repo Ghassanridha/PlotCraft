@@ -230,26 +230,30 @@
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.85);
             z-index: 999999;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 15px;
             box-sizing: border-box;
+            overflow-y: auto;
         }
         .settings-modal-overlay.show { 
             display: flex !important; 
         }
         .settings-modal-box {
-            background: #282f3d;
+            background: #1f242d;
             border: 1px solid rgba(255,255,255,0.15);
             border-radius: 24px;
             width: 100%;
-            max-width: 340px;
+            max-width: 420px;
             padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 14px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            max-height: 90vh;
+            overflow-y: auto;
         }
     </style>
 </head>
@@ -305,10 +309,11 @@
         </div>
     </div>
 
+    <!-- نافذة تعديل الاسم -->
     <div class="settings-modal-overlay" id="nameEditModalOverlay" onclick="closeOnOutside(event, 'nameEditModalOverlay')">
         <div class="settings-modal-box">
             <h3 style="color:#fff; font-size:16px; margin:0;">تعديل الاسم</h3>
-            <input type="text" id="nameEditInput" style="width:100%; padding:10px; border-radius:10px; border:1px solid #444; background:#1f242d; color:#fff; box-sizing: border-box;" placeholder="أدخل اسمك الجديد">
+            <input type="text" id="nameEditInput" style="width:100%; padding:10px; border-radius:10px; border:1px solid #444; background:#161b22; color:#fff; box-sizing: border-box;" placeholder="أدخل اسمك الجديد">
             <div style="display:flex; gap:10px; justify-content: flex-end;">
                 <button onclick="closeNameEditModal()" style="padding:8px 16px; border-radius:8px; border:none; background:#444; color:#fff; cursor:pointer;">إلغاء</button>
                 <button onclick="saveNewName()" style="padding:8px 16px; border-radius:8px; border:none; background:#3b82f6; color:#fff; cursor:pointer;">حفظ</button>
@@ -316,24 +321,88 @@
         </div>
     </div>
 
+    <!-- نافذة خطط الاشتراكات الاحترافية (PlotCraft Pro) المطابقة لتصميمك -->
     <div class="settings-modal-overlay" id="subscriptionModalOverlay" onclick="closeOnOutside(event, 'subscriptionModalOverlay')">
-        <div class="settings-modal-box">
-            <h3 style="color:#fff; font-size:18px; margin:0; text-align:center;">خطط PlotCraft Pro</h3>
-            <p style="color:#cbd5e1; font-size:13px; text-align:center; margin:0;">احصل على ميزات غير محدودة لصناعة أفلامك.</p>
-            <div style="background: #1f242d; padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); color: #fff; text-align: center;">
-                <strong>الاشتراك الشهري الاحترافي</strong>
-                <div style="color: #3b82f6; font-size: 16px; margin-top: 5px;">$9.99 / شهرياً</div>
+        <div class="settings-modal-box" style="max-width: 440px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <div style="font-size: 18px; font-weight: 800; background: linear-gradient(135deg, #fff 0%, #a855f7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">PLOTCRAFT PRO</div>
+                <button onclick="closeSubscriptionModal()" style="background: rgba(255,255,255,0.1); border: none; color: #fff; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold;">✕</button>
             </div>
-            <div style="display:flex; gap:10px; justify-content: center; margin-top: 5px;">
-                <button onclick="closeSubscriptionModal()" style="padding:8px 16px; border-radius:8px; border:none; background:#444; color:#fff; cursor:pointer; width:100%;">إغلاق</button>
+            
+            <div style="font-size: 14px; font-weight: 700; color: #fff;">حوّل خيالك إلى بلوت كرافت</div>
+            <div style="font-size: 11px; color: #94a3b8; margin-top: -6px;">ترجم أفكارك إلى مشاهد نابضة بالحياة</div>
+
+            <!-- أشرطة الميزات -->
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; text-align: center;">
+                <div style="background: #161b22; padding: 8px 2px; border-radius: 10px; font-size: 10px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.05);">نص AI</div>
+                <div style="background: #161b22; padding: 8px 2px; border-radius: 10px; font-size: 10px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.05);">القصة المصورة</div>
+                <div style="background: #161b22; padding: 8px 2px; border-radius: 10px; font-size: 10px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.05);">لقطة AI</div>
+                <div style="background: #161b22; padding: 8px 2px; border-radius: 10px; font-size: 10px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.05);">مونتاج AI</div>
+            </div>
+
+            <!-- بطاقة أسبوعي -->
+            <div class="pricing-card" data-plan="weekly" data-price="$US 9.99" onclick="selectPlan(this)" style="background: #161b22; border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s;">
+                <div>
+                    <div style="font-size: 14px; font-weight: 700; color: #fff;">PlotCraft Pro Weekly</div>
+                    <div style="font-size: 10px; color: #94a3b8; margin-top: 2px;">500 Credits / Week, Try AI Drama Creation</div>
+                </div>
+                <div style="text-align: left;">
+                    <div style="font-size: 14px; font-weight: 800; color: #fff;">$US 9.99</div>
+                    <div style="font-size: 10px; color: #94a3b8;">أسبوع</div>
+                </div>
+            </div>
+
+            <!-- بطاقة شهري (المحددة افتراضياً كـ "رائج") -->
+            <div class="pricing-card active" data-plan="monthly" data-price="$US 29.99" onclick="selectPlan(this)" style="background: #161b22; border: 2px solid #3b82f6; border-radius: 14px; padding: 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; position: relative; transition: 0.2s;">
+                <div style="position: absolute; top: -9px; right: 14px; background: #3b82f6; color: #fff; font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 8px;">رائج</div>
+                <div>
+                    <div style="font-size: 14px; font-weight: 700; color: #fff;">PlotCraft Pro Monthly</div>
+                    <div style="font-size: 10px; color: #94a3b8; margin-top: 2px;">1800 Credits / Month, Ideal for regular creators</div>
+                </div>
+                <div style="text-align: left;">
+                    <div style="font-size: 14px; font-weight: 800; color: #fff;">$US 29.99</div>
+                    <div style="font-size: 10px; color: #94a3b8;">شهر</div>
+                </div>
+            </div>
+
+            <!-- بطاقة سنوي -->
+            <div class="pricing-card" data-plan="annual" data-price="$US 69.99" onclick="selectPlan(this)" style="background: #161b22; border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s;">
+                <div>
+                    <div style="font-size: 14px; font-weight: 700; color: #fff;">PlotCraft Pro Annual</div>
+                    <div style="font-size: 10px; color: #94a3b8; margin-top: 2px;">5000 Credits / Year, Ideal for professional creators</div>
+                </div>
+                <div style="text-align: left;">
+                    <div style="font-size: 14px; font-weight: 800; color: #fff;">$US 69.99</div>
+                    <div style="font-size: 10px; color: #94a3b8;">سنة</div>
+                </div>
+            </div>
+
+            <!-- ملاحظة التجديد -->
+            <div style="text-align: center; font-size: 10px; color: #64748b;">
+                <span>🔒 تجديد تلقائي، يمكن الإلغاء في أي وقت</span>
+            </div>
+
+            <!-- زر الاشتراك الفعلي -->
+            <button onclick="handleSubscription()" style="width: 100%; background: #ffffff; color: #0b0f19; font-size: 15px; font-weight: 800; padding: 14px; border-radius: 20px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(255,255,255,0.15); text-align: center;">
+                اشتراك
+            </button>
+
+            <!-- روابط أسفل النافذة -->
+            <div style="display: flex; justify-content: center; gap: 12px; font-size: 11px; color: #94a3b8;">
+                <span style="cursor: pointer;" onclick="alert('جاري استعادة المشتريات...')">استعادة</span>
+                <span>|</span>
+                <span style="cursor: pointer;" onclick="alert('شروط الاستخدام')">شروط الاستخدام</span>
+                <span>|</span>
+                <span style="cursor: pointer;" onclick="alert('سياسة الخصوصية')">الخصوصية</span>
             </div>
         </div>
     </div>
 
+    <!-- نافذة تسجيل الدخول -->
     <div class="settings-modal-overlay" id="loginModalOverlay" onclick="closeOnOutside(event, 'loginModalOverlay')">
         <div class="settings-modal-box">
             <h3 style="color:#fff; font-size:18px; margin:0; text-align:center;">تسجيل الدخول</h3>
-            <input type="email" placeholder="البريد الإلكتروني" style="width:100%; padding:10px; border-radius:10px; border:1px solid #444; background:#1f242d; color:#fff; box-sizing: border-box;">
+            <input type="email" placeholder="البريد الإلكتروني" style="width:100%; padding:10px; border-radius:10px; border:1px solid #444; background:#161b22; color:#fff; box-sizing: border-box;">
             <div style="display:flex; gap:10px; justify-content: flex-end;">
                 <button onclick="closeLoginModal()" style="padding:8px 16px; border-radius:8px; border:none; background:#444; color:#fff; cursor:pointer;">إلغاء</button>
                 <button onclick="alert('تم تسجيل الدخول بنجاح'); closeLoginModal();" style="padding:8px 16px; border-radius:8px; border:none; background:#3b82f6; color:#fff; cursor:pointer;">دخول</button>
@@ -376,6 +445,28 @@
                 navigator.clipboard.writeText(idText);
                 alert('تم نسخ المعرف: ' + idText);
             }
+        }
+
+        // تفاعل واجهة الاشتراكات الجديدة
+        let selectedPlanData = {
+            plan: 'monthly',
+            price: '$US 29.99'
+        };
+
+        function selectPlan(element) {
+            document.querySelectorAll('.pricing-card').forEach(card => {
+                card.style.border = '1px solid rgba(255,255,255,0.1)';
+                card.style.background = '#161b22';
+            });
+            element.style.border = '2px solid #3b82f6';
+            element.style.background = '#1a2333';
+
+            selectedPlanData.plan = element.getAttribute('data-plan');
+            selectedPlanData.price = element.getAttribute('data-price');
+        }
+
+        function handleSubscription() {
+            alert('جاري توجيهك لبوابة الدفع للباقة: ' + selectedPlanData.price);
         }
 
         function openSubscriptionModal() { document.getElementById('subscriptionModalOverlay').classList.add('show'); }
