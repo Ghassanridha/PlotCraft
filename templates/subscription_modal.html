@@ -2,17 +2,19 @@
 <div class="subscription-modal-overlay hidden" id="subscriptionModal">
     <div class="subscription-modal-box">
         
-        <!-- زر الإغلاق العلوي -->
+        <!-- زر الإغلاق -->
         <button class="sub-modal-close-btn" onclick="closeSubscriptionModal()">✕</button>
 
-        <!-- قسم الغلاف الرأسي (الهيدر مع الصورة والعنوان) -->
+        <!-- الهيدر والصورة الرئيسية -->
         <div class="sub-hero-section">
-            <div class="sub-hero-title">PLOTCRAFT PRO</div>
-            <div class="sub-hero-subtitle-1">حوّل خيالك إلى بلوت كرافت</div>
-            <div class="sub-hero-subtitle-2">ترجم أفكارك إلى مشاهد نابضة بالحياة</div>
+            <div class="sub-hero-content">
+                <div class="sub-hero-title">PLOTCRAFT PRO</div>
+                <div class="sub-hero-subtitle-1">حوّل خيالك إلى بلوت كرافت</div>
+                <div class="sub-hero-subtitle-2">ترجم أفكارك إلى مشاهد نابضة بالحياة</div>
+            </div>
         </div>
 
-        <!-- شريط المميزات الأربعة الأفقية -->
+        <!-- شريط الأيقونات والأدوات الأربعة -->
         <div class="sub-features-row">
             <div class="sub-feature-item">
                 <div class="sub-feature-icon">✨</div>
@@ -32,15 +34,18 @@
             </div>
         </div>
         
-        <!-- قائمة الخطط والباقات -->
+        <!-- قائمة الباقات والخطط -->
         <div class="plans-list">
             <!-- الخطة الأسبوعية -->
             <div class="plan-card" onclick="selectPlan(this)">
                 <div class="plan-top">
-                    <span class="plan-price">$US 9.99<br><small>أسبوع</small></span>
+                    <div class="plan-price-left">
+                        <span class="price-amount">$US 9.99</span>
+                        <span class="price-period">أسبوع</span>
+                    </div>
                     <div class="plan-info-right">
-                        <span class="plan-name">PlotCraft Pro Weekly</span>
-                        <span class="plan-desc">Credits / Week, Try AI Drama 500 Creation</span>
+                        <span class="plan-name">Plotcraft Pro Weekly</span>
+                        <span class="plan-desc">Credits / Week , Try AI Drama 500 Creation</span>
                     </div>
                 </div>
             </div>
@@ -49,9 +54,12 @@
             <div class="plan-card selected" onclick="selectPlan(this)">
                 <span class="best-value-tag">رائج</span>
                 <div class="plan-top">
-                    <span class="plan-price">$US 29.99<br><small>شهر</small></span>
+                    <div class="plan-price-left">
+                        <span class="price-amount">$US 29.99</span>
+                        <span class="price-period">شهر</span>
+                    </div>
                     <div class="plan-info-right">
-                        <span class="plan-name">PlotCraft Pro Monthly</span>
+                        <span class="plan-name">Plotcraft Pro Monthly</span>
                         <span class="plan-desc">Credits / Month, Ideal for regular 1800 creators</span>
                     </div>
                 </div>
@@ -60,10 +68,13 @@
             <!-- الخطة السنوية -->
             <div class="plan-card" onclick="selectPlan(this)">
                 <div class="plan-top">
-                    <span class="plan-price">$US 69.99<br><small>سنة</small></span>
+                    <div class="plan-price-left">
+                        <span class="price-amount">$US 69.99</span>
+                        <span class="price-period">سنة</span>
+                    </div>
                     <div class="plan-info-right">
-                        <span class="plan-name">PlotCraft Pro Annual</span>
-                        <span class="plan-desc">5000 Credits / Year, Ideal for professional creators</span>
+                        <span class="plan-name">Plotcraft Pro Annual</span>
+                        <span class="plan-desc">5000Credits / Year, Ideal for professional creators</span>
                     </div>
                 </div>
             </div>
@@ -71,13 +82,13 @@
 
         <!-- ملاحظة التجديد التلقائي -->
         <div class="sub-auto-renew-note">
-            <span>🔒 تجديد تلقائي، يمكن الإلغاء في أي وقت</span>
+            <span>تجديد تلقائي، يمكن الإلغاء في أي وقت 🛡️</span>
         </div>
 
-        <!-- زر الاشتراك الرئيسي المضيء -->
+        <!-- زر الاشتراك الرئيسي -->
         <button class="action-main-btn glow-btn" onclick="confirmSubscription()">اشتراك</button>
 
-        <!-- الروابط السفلية (استعادة | شروط الاستخدام | الخصوصية) -->
+        <!-- الروابط السفلية -->
         <div class="sub-footer-links">
             <a href="#" onclick="event.preventDefault();">استعادة</a>
             <span>|</span>
@@ -90,103 +101,96 @@
 </div>
 
 <style>
-    /* تنسيقات CSS الخاصة بنافذة الاشتراك المتجاوبة والآمنة للويب والتطبيق */
     .subscription-modal-overlay {
         display: flex;
         position: fixed;
         top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0, 0, 0, 0.85);
+        background: rgba(0, 0, 0, 0.88);
         z-index: 999999;
         align-items: center;
         justify-content: center;
-        padding: 10px;
+        padding: 12px;
         box-sizing: border-box;
     }
     .subscription-modal-overlay.hidden { display: none !important; }
 
     .subscription-modal-box {
-        background: #0f131d;
-        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: #121620;
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 28px;
         width: 100%;
         max-width: 420px;
         height: 100%;
-        max-height: 820px;
+        max-height: 840px;
         overflow-y: auto;
         overflow-x: hidden;
-        padding: 20px 16px 24px 16px;
+        padding: 16px 16px 20px 16px;
         display: flex;
         flex-direction: column;
         gap: 14px;
         position: relative;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.95);
         direction: rtl;
         box-sizing: border-box;
-        scrollbar-width: none; /* إخفاء شريط التمرير للتوثيق المظهر النظيف */
+        scrollbar-width: none;
     }
     .subscription-modal-box::-webkit-scrollbar { display: none; }
 
-    /* زر الإغلاق */
     .sub-modal-close-btn {
         position: absolute;
-        top: 16px;
-        left: 16px; /* لأن الواجهة RTL */
-        background: rgba(255, 255, 255, 0.1);
+        top: 14px;
+        left: 14px;
+        background: rgba(255, 255, 255, 0.12);
         border: none;
         color: #ffffff;
-        font-size: 14px;
+        font-size: 13px;
         cursor: pointer;
-        width: 30px;
-        height: 30px;
+        width: 28px;
+        height: 28px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 10;
-        transition: 0.2s;
     }
-    .sub-modal-close-btn:active { transform: scale(0.9); }
 
-    /* قسم الهيدر والصورة */
+    /* الهيدر مع الصورة والجملة */
     .sub-hero-section {
         position: relative;
         width: 100%;
-        min-height: 150px;
-        background: linear-gradient(180deg, rgba(11,15,25,0.1) 0%, rgba(15,19,29,0.9) 80%, #0f131d 100%),
-                    url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1080&auto=format&fit=crop') center/cover no-repeat;
+        min-height: 180px;
+        background: linear-gradient(180deg, rgba(18,22,32,0.1) 0%, rgba(18,22,32,0.95) 85%, #121620 100%),
+                    url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1080&auto=format&fit=crop') center top/cover no-repeat;
         border-radius: 20px;
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
         align-items: center;
         text-align: center;
-        padding: 16px 10px;
-        margin-top: 10px;
-        border: 1px solid rgba(255,255,255,0.08);
+        padding: 12px;
         flex-shrink: 0;
     }
     .sub-hero-title {
-        color: #ffffff;
-        font-size: 18px;
-        font-weight: 800;
-        letter-spacing: 1px;
-        margin-bottom: 4px;
-        text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+        color: #b8a5e6;
+        font-size: 22px;
+        font-weight: 900;
+        letter-spacing: 1.5px;
+        margin-bottom: 6px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.9);
     }
     .sub-hero-subtitle-1 {
         color: #ffffff;
-        font-size: 13px;
-        font-weight: 700;
-        text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+        font-size: 17px;
+        font-weight: 800;
+        margin-bottom: 2px;
     }
     .sub-hero-subtitle-2 {
         color: #94a3b8;
-        font-size: 11px;
-        margin-top: 2px;
-        text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+        font-size: 13px;
+        font-weight: 500;
     }
 
-    /* شريط المميزات الأربعة */
+    /* صف الأيقونات والأدوات */
     .sub-features-row {
         display: flex;
         gap: 8px;
@@ -195,22 +199,21 @@
     }
     .sub-feature-item {
         flex: 1;
-        background: #1a202c;
-        border: 1px solid rgba(255,255,255,0.06);
-        border-radius: 12px;
-        padding: 8px 4px;
+        background: #1c2230;
+        border: 1px solid rgba(255,255,255,0.05);
+        border-radius: 14px;
+        padding: 10px 4px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 4px;
-        text-align: center;
+        gap: 6px;
     }
     .sub-feature-icon {
-        font-size: 14px;
+        font-size: 16px;
     }
     .sub-feature-item span {
         color: #cbd5e1;
-        font-size: 10px;
+        font-size: 11px;
         font-weight: 600;
         white-space: nowrap;
     }
@@ -219,76 +222,79 @@
     .plans-list {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 12px;
         flex-shrink: 0;
     }
     .plan-card {
-        background: #1a202c;
-        border: 1.5px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        padding: 12px 14px;
+        background: #1c2230;
+        border: 1.5px solid rgba(255, 255, 255, 0.08);
+        border-radius: 18px;
+        padding: 14px 16px;
         cursor: pointer;
-        transition: 0.2s;
         position: relative;
+        transition: 0.2s;
     }
     .plan-card.selected {
         border-color: #3b82f6;
-        background: #232a3b;
-        box-shadow: 0 0 15px rgba(59, 130, 246, 0.25);
+        background: #222a3d;
+        box-shadow: 0 0 0 1px #3b82f6;
     }
+
     .plan-top {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 10px;
+        width: 100%;
     }
+
+    /* القسم الأيمن: اسم الباقة والتفاصيل */
     .plan-info-right {
         display: flex;
         flex-direction: column;
         text-align: right;
-        flex-grow: 1;
     }
     .plan-name {
         color: #ffffff;
-        font-size: 13px;
+        font-size: 15px;
         font-weight: 700;
-        margin-bottom: 2px;
+        margin-bottom: 3px;
     }
     .plan-desc {
         color: #94a3b8;
-        font-size: 10px;
+        font-size: 11px;
         line-height: 1.3;
     }
-    .plan-price {
-        background: rgba(255, 255, 255, 0.08);
-        padding: 6px 10px;
-        border-radius: 10px;
-        color: #ffffff;
-        font-size: 12px;
-        font-weight: 700;
-        text-align: center;
-        white-space: nowrap;
-        border: 1px solid rgba(255,255,255,0.08);
+
+    /* القسم الأيسر: السعر والمدة */
+    .plan-price-left {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
     }
-    .plan-price small {
-        font-size: 9px;
+    .price-amount {
+        color: #ffffff;
+        font-size: 15px;
+        font-weight: 800;
+    }
+    .price-period {
         color: #94a3b8;
-        font-weight: normal;
+        font-size: 11px;
+        margin-top: 2px;
     }
 
-    /* الوسوم (مثل رائج) */
+    /* شارة رائج أقصى اليمين */
     .best-value-tag {
         position: absolute;
-        top: -8px;
+        top: -9px;
         right: 14px;
-        background: linear-gradient(135deg, #3b82f6, #ec4899);
-        color: #fff;
-        font-size: 9px;
-        padding: 2px 8px;
-        border-radius: 6px;
+        background: #3b82f6;
+        color: #ffffff;
+        font-size: 10px;
+        padding: 2px 10px;
+        border-radius: 8px;
         font-weight: 700;
         z-index: 5;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.4);
     }
 
     /* ملاحظة التجديد */
@@ -296,28 +302,28 @@
         text-align: center;
         color: #94a3b8;
         font-size: 11px;
-        margin: -2px 0;
+        margin-top: 2px;
     }
 
-    /* زر الاشتراك المضيء */
+    /* زر الاشتراك الأبيض المضيء */
     .action-main-btn.glow-btn {
         width: 100%;
-        background: linear-gradient(135deg, #e2e8f0 0%, #ffffff 100%);
-        color: #0f131d;
-        font-size: 15px;
+        background: #ffffff;
+        color: #000000;
+        font-size: 17px;
         font-weight: 800;
         padding: 14px;
         border-radius: 20px;
         border: none;
         cursor: pointer;
         text-align: center;
-        box-shadow: 0 4px 20px rgba(255, 255, 255, 0.25);
-        transition: 0.2s;
+        box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
         flex-shrink: 0;
+        transition: 0.2s;
     }
     .action-main-btn.glow-btn:active {
         transform: scale(0.98);
-        background: #cbd5e1;
+        background: #e2e8f0;
     }
 
     /* الروابط السفلية */
@@ -325,21 +331,17 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 12px;
-        margin-top: 2px;
+        gap: 14px;
+        margin-top: 4px;
         flex-shrink: 0;
     }
     .sub-footer-links a {
         color: #94a3b8;
-        font-size: 11px;
+        font-size: 12px;
         text-decoration: none;
-        transition: color 0.2s;
-    }
-    .sub-footer-links a:hover {
-        color: #ffffff;
     }
     .sub-footer-links span {
         color: #475569;
-        font-size: 10px;
+        font-size: 11px;
     }
 </style>
