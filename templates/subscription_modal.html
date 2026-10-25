@@ -5,7 +5,7 @@
         <!-- زر الإغلاق -->
         <button class="sub-modal-close-btn" onclick="closeSubscriptionModal()">✕</button>
 
-        <!-- الهيدر مع صورتك الحقيقية الممتدة بملء المساحة -->
+        <!-- الهيدر مع صورتك الحقيقية -->
         <div class="sub-hero-section">
             <div class="sub-hero-content">
                 <div class="sub-hero-title">PLOTCRAFT PRO</div>
@@ -34,7 +34,7 @@
             </div>
         </div>
         
-        <!-- قائمة الباقات والخطط التفاعلية -->
+        <!-- قائمة الباقات والخطط -->
         <div class="plans-list">
             <!-- الخطة الأسبوعية -->
             <div class="plan-card" data-plan="weekly" onclick="selectPlan(this)">
@@ -154,7 +154,6 @@
         z-index: 10;
     }
 
-    /* الهيدر مع صورتك الحقيقية */
     .sub-hero-section {
         position: relative;
         width: 100%;
@@ -190,7 +189,6 @@
         font-weight: 500;
     }
 
-    /* شريط المميزات الأربعة */
     .sub-features-row {
         display: flex;
         gap: 8px;
@@ -218,7 +216,6 @@
         white-space: nowrap;
     }
 
-    /* قائمة الباقات */
     .plans-list {
         display: flex;
         flex-direction: column;
@@ -234,7 +231,6 @@
         position: relative;
         transition: 0.2s;
     }
-    /* تأثير الباقة المحددة */
     .plan-card.selected {
         border-color: #3b82f6;
         background: #222a3d;
@@ -342,13 +338,10 @@
 </style>
 
 <script>
-    /* دالة تفعيل واختيار الباقات التفاعلية */
     function selectPlan(element) {
-        // إزالة التحديد عن كل الباقات
         document.querySelectorAll('.plan-card').forEach(card => {
             card.classList.remove('selected');
         });
-        // إضافة التحديد للباقة المضغطوة حالياً
         element.classList.add('selected');
     }
 
@@ -356,10 +349,7 @@
         const selectedPlan = document.querySelector('.plan-card.selected');
         if (selectedPlan) {
             const planType = selectedPlan.getAttribute('data-plan');
-            alert("تم اختيار الباقة بنجاح: " + planType);
-            // هنا تقدر تربطها بمسار الدفع أو الفلاسك الفعلي لاحقاً
-        } else {
-            alert("يرجى اختيار باقة أولاً.");
+            console.log("Selected plan:", planType);
         }
     }
 </script>
