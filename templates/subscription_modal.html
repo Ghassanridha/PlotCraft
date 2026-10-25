@@ -5,7 +5,7 @@
         <!-- زر الإغلاق -->
         <button class="sub-modal-close-btn" onclick="closeSubscriptionModal()">✕</button>
 
-        <!-- الهيدر والصورة بكامل التوسع -->
+        <!-- الهيدر مع صورتك الحقيقية الممتدة بملء المساحة -->
         <div class="sub-hero-section">
             <div class="sub-hero-content">
                 <div class="sub-hero-title">PLOTCRAFT PRO</div>
@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        <!-- شريط الأيقونات والأدوات الأربعة -->
+        <!-- شريط المميزات الأربعة -->
         <div class="sub-features-row">
             <div class="sub-feature-item">
                 <div class="sub-feature-icon">✨</div>
@@ -34,47 +34,47 @@
             </div>
         </div>
         
-        <!-- قائمة الباقات والخطط -->
+        <!-- قائمة الباقات والخطط التفاعلية -->
         <div class="plans-list">
             <!-- الخطة الأسبوعية -->
-            <div class="plan-card" onclick="selectPlan(this)">
+            <div class="plan-card" data-plan="weekly" onclick="selectPlan(this)">
                 <div class="plan-top">
-                    <div class="plan-price-left">
-                        <span class="price-amount">$US 9.99</span>
-                        <span class="price-period">أسبوع</span>
-                    </div>
                     <div class="plan-info-right">
                         <span class="plan-name">Plotcraft Pro Weekly</span>
                         <span class="plan-desc">Credits / Week , Try AI Drama 500 Creation</span>
+                    </div>
+                    <div class="plan-price-left">
+                        <span class="price-amount">$US 9.99</span>
+                        <span class="price-period">أسبوع</span>
                     </div>
                 </div>
             </div>
 
             <!-- الخطة الشهرية (رائج) -->
-            <div class="plan-card selected" onclick="selectPlan(this)">
+            <div class="plan-card selected" data-plan="monthly" onclick="selectPlan(this)">
                 <span class="best-value-tag">رائج</span>
                 <div class="plan-top">
-                    <div class="plan-price-left">
-                        <span class="price-amount">$US 29.99</span>
-                        <span class="price-period">شهر</span>
-                    </div>
                     <div class="plan-info-right">
                         <span class="plan-name">Plotcraft Pro Monthly</span>
                         <span class="plan-desc">Credits / Month, Ideal for regular 1800 creators</span>
+                    </div>
+                    <div class="plan-price-left">
+                        <span class="price-amount">$US 29.99</span>
+                        <span class="price-period">شهر</span>
                     </div>
                 </div>
             </div>
 
             <!-- الخطة السنوية -->
-            <div class="plan-card" onclick="selectPlan(this)">
+            <div class="plan-card" data-plan="annual" onclick="selectPlan(this)">
                 <div class="plan-top">
+                    <div class="plan-info-right">
+                        <span class="plan-name">Plotcraft Pro Annual</span>
+                        <span class="plan-desc">5000 Credits / Year, Ideal for professional creators</span>
+                    </div>
                     <div class="plan-price-left">
                         <span class="price-amount">$US 69.99</span>
                         <span class="price-period">سنة</span>
-                    </div>
-                    <div class="plan-info-right">
-                        <span class="plan-name">Plotcraft Pro Annual</span>
-                        <span class="plan-desc">5000Credits / Year, Ideal for professional creators</span>
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@
 
         <!-- ملاحظة التجديد التلقائي -->
         <div class="sub-auto-renew-note">
-            <span>تجديد تلقائي، يمكن الإلغاء في أي وقت 🛡️</span>
+            <span>🛡️ تجديد تلقائي، يمكن الإلغاء في أي وقت</span>
         </div>
 
         <!-- زر الاشتراك الرئيسي -->
@@ -154,7 +154,7 @@
         z-index: 10;
     }
 
-    /* الهيدر: تم دمج الرابط المباشر لصورتك هنا وتوسيعها بانسجام */
+    /* الهيدر مع صورتك الحقيقية */
     .sub-hero-section {
         position: relative;
         width: 100%;
@@ -190,7 +190,7 @@
         font-weight: 500;
     }
 
-    /* صف الأيقونات والأدوات */
+    /* شريط المميزات الأربعة */
     .sub-features-row {
         display: flex;
         gap: 8px;
@@ -234,10 +234,11 @@
         position: relative;
         transition: 0.2s;
     }
+    /* تأثير الباقة المحددة */
     .plan-card.selected {
         border-color: #3b82f6;
         background: #222a3d;
-        box-shadow: 0 0 0 1px #3b82f6;
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
     }
 
     .plan-top {
@@ -267,7 +268,7 @@
     .plan-price-left {
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: flex-end;
         text-align: left;
     }
     .price-amount {
@@ -339,3 +340,26 @@
         font-size: 11px;
     }
 </style>
+
+<script>
+    /* دالة تفعيل واختيار الباقات التفاعلية */
+    function selectPlan(element) {
+        // إزالة التحديد عن كل الباقات
+        document.querySelectorAll('.plan-card').forEach(card => {
+            card.classList.remove('selected');
+        });
+        // إضافة التحديد للباقة المضغطوة حالياً
+        element.classList.add('selected');
+    }
+
+    function confirmSubscription() {
+        const selectedPlan = document.querySelector('.plan-card.selected');
+        if (selectedPlan) {
+            const planType = selectedPlan.getAttribute('data-plan');
+            alert("تم اختيار الباقة بنجاح: " + planType);
+            // هنا تقدر تربطها بمسار الدفع أو الفلاسك الفعلي لاحقاً
+        } else {
+            alert("يرجى اختيار باقة أولاً.");
+        }
+    }
+</script>
