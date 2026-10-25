@@ -1196,8 +1196,8 @@
                 <div class="top-header">
                     <!-- اسم التطبيق في اليمين -->
                     <div class="brand-title">PlotCraft</div>
-                    <!-- زر الإعدادات مصغر ومسحوب لأقصى اليسار مع رابط الصورة الصحيح -->
-                    <div class="top-settings-btn" onclick="openSettingsScreen()">
+                    <!-- زر الإعدادات مصغر ومسحوب لأقصى اليسار مع رابط الصورة الصحيح ودالة الاهتزاز -->
+                    <div class="top-settings-btn" onclick="vibrateDevice(); openSettingsScreen()">
                         <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات">
                     </div>
                 </div>
@@ -1212,8 +1212,8 @@
             <div class="works-top-header">
                 <!-- عنوان الأعمال في اليمين -->
                 <div class="works-screen-title">الأعمال</div>
-                <!-- زر الإعدادات مصغر ومسحوب لأقصى اليسار مع رابط الصورة الصحيح -->
-                <div class="top-settings-btn" onclick="openSettingsScreen()">
+                <!-- زر الإعدادات مصغر ومسحوب لأقصى اليسار مع رابط الصورة الصحيح ودالة الاهتزاز -->
+                <div class="top-settings-btn" onclick="vibrateDevice(); openSettingsScreen()">
                     <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات">
                 </div>
             </div>
@@ -1235,8 +1235,8 @@
             <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px 16px 10px 16px; width: 100%; flex-shrink: 0;">
                 <!-- عنوان الأدوات في اليمين -->
                 <div style="color: #ffffff; font-size: 20px; font-weight: 700;">الأدوات</div>
-                <!-- زر الإعدادات مصغر ومسحوب لأقصى اليسار مع رابط الصورة الصحيح -->
-                <div class="top-settings-btn" onclick="openSettingsScreen()">
+                <!-- زر الإعدادات مصغر ومسحوب لأقصى اليسار مع رابط الصورة الصحيح ودالة الاهتزاز -->
+                <div class="top-settings-btn" onclick="vibrateDevice(); openSettingsScreen()">
                     <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات">
                 </div>
             </div>
@@ -1253,8 +1253,8 @@
 
         <!-- شريط التنقل السفلي -->
         <div class="plotcraft-nav-bar" id="mainNavBar">
-            <!-- 1. الزر المنفصل الدائري في أقصى اليمين بالتصميم الأصلي القديم -->
-            <div class="plotcraft-nav-square" onclick="openSparkleDialog(event)">
+            <!-- 1. الزر المنفصل الدائري في أقصى اليمين بالتصميم الأصلي القديم (مع الاهتزاز) -->
+            <div class="plotcraft-nav-square" onclick="vibrateDevice(); openSparkleDialog(event)">
                 <div class="nav-logo-icon">
                     <div class="nav-logo-play"></div>
                     <div class="nav-logo-stripes">
@@ -1267,20 +1267,20 @@
 
             <!-- 2. الكبسولة المحتوية على الأزرار الثلاثة -->
             <div class="plotcraft-nav-pill">
-                <!-- الصفحة الرئيسية -->
-                <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="switchScreen('homeScreen', event); setActiveNav('navHome')">
+                <!-- الصفحة الرئيسية (مع الاهتزاز) -->
+                <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="vibrateDevice(); switchScreen('homeScreen', event); setActiveNav('navHome')">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                     <span>الصفحة الرئيسية</span>
                 </a>
 
-                <!-- الأدوات -->
-                <a href="#" class="plotcraft-nav-item" id="navTools" onclick="switchScreen('toolsScreen', event); setActiveNav('navTools')">
+                <!-- الأدوات (مع الاهتزاز) -->
+                <a href="#" class="plotcraft-nav-item" id="navTools" onclick="vibrateDevice(); switchScreen('toolsScreen', event); setActiveNav('navTools')">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"></path></svg>
                     <span>الأدوات</span>
                 </a>
 
-                <!-- الأعمال -->
-                <a href="#" class="plotcraft-nav-item" id="navWorks" onclick="switchScreen('worksScreen', event); setActiveNav('navWorks')">
+                <!-- الأعمال (مع الاهتزاز) -->
+                <a href="#" class="plotcraft-nav-item" id="navWorks" onclick="vibrateDevice(); switchScreen('worksScreen', event); setActiveNav('navWorks')">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
                     <span>الأعمال</span>
                 </a>
@@ -1289,6 +1289,13 @@
     </div>
 
     <script>
+        // دالة الاهتزاز للزر (تعتمد على دعم المتصفح والهاتف)
+        window.vibrateDevice = function() {
+            if ("vibrate" in navigator) {
+                navigator.vibrate(50); // اهتزاز خفيف لمدة 50 ميلي ثانية
+            }
+        };
+
         window.showToast = function(message) {
             const toast = document.getElementById('toastNotification');
             toast.innerText = message;
@@ -1308,7 +1315,6 @@
             }
 
             let navBar = document.getElementById('mainNavBar');
-            // تم تحديث الشروط لكي تبقى الأزرار السفلية ظاهرة في شاشة الأدوات وكل الشاشات الأساسية
             if (['sparkleDialogScreen', 'addCharacterScreen', 'storyDescriptionScreen', 'stepByStepScreen'].includes(screenId)) {
                 navBar.classList.add('hidden');
             } else {
