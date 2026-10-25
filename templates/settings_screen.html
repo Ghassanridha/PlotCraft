@@ -74,7 +74,6 @@
             font-size: 13px;
             font-weight: 500;
             cursor: pointer;
-            border: none;
         }
 
         .profile-header-card {
@@ -255,6 +254,25 @@
             max-height: 90vh;
             overflow-y: auto;
         }
+
+        /* تعديل نافذة الاشتراكات لتأخذ طول وعرض الشاشة بالكامل وبشكل احترافي */
+        .subscription-full-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1f242d;
+            z-index: 1000000;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 24px 20px;
+            box-sizing: border-box;
+        }
+        .subscription-full-screen.show {
+            display: flex !important;
+        }
     </style>
 </head>
 <body>
@@ -321,74 +339,74 @@
         </div>
     </div>
 
-    <!-- نافذة خطط الاشتراكات الاحترافية (PlotCraft Pro) المطابقة لتصميمك -->
-    <div class="settings-modal-overlay" id="subscriptionModalOverlay" onclick="closeOnOutside(event, 'subscriptionModalOverlay')">
-        <div class="settings-modal-box" style="max-width: 440px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                <div style="font-size: 18px; font-weight: 800; background: linear-gradient(135deg, #fff 0%, #a855f7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">PLOTCRAFT PRO</div>
-                <button onclick="closeSubscriptionModal()" style="background: rgba(255,255,255,0.1); border: none; color: #fff; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold;">✕</button>
+    <!-- نافذة خطط الاشتراكات الاحترافية (PlotCraft Pro) على طول وعرض الشاشة بالكامل -->
+    <div class="subscription-full-screen" id="subscriptionModalOverlay">
+        <div style="max-width: 480px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; flex-grow: 1; padding-bottom: 30px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: 5px;">
+                <div style="font-size: 20px; font-weight: 800; background: linear-gradient(135deg, #fff 0%, #a855f7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">PLOTCRAFT PRO</div>
+                <button onclick="closeSubscriptionModal()" style="background: rgba(255,255,255,0.1); border: none; color: #fff; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; font-weight: bold; font-size: 16px; display: flex; align-items: center; justify-content: center;">✕</button>
             </div>
             
-            <div style="font-size: 14px; font-weight: 700; color: #fff;">حوّل خيالك إلى بلوت كرافت</div>
-            <div style="font-size: 11px; color: #94a3b8; margin-top: -6px;">ترجم أفكارك إلى مشاهد نابضة بالحياة</div>
+            <div style="font-size: 16px; font-weight: 700; color: #fff;">حوّل خيالك إلى بلوت كرافت</div>
+            <div style="font-size: 12px; color: #94a3b8; margin-top: -8px;">ترجم أفكارك إلى مشاهد نابضة بالحياة</div>
 
             <!-- أشرطة الميزات -->
-            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; text-align: center;">
-                <div style="background: #161b22; padding: 8px 2px; border-radius: 10px; font-size: 10px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.05);">نص AI</div>
-                <div style="background: #161b22; padding: 8px 2px; border-radius: 10px; font-size: 10px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.05);">القصة المصورة</div>
-                <div style="background: #161b22; padding: 8px 2px; border-radius: 10px; font-size: 10px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.05);">لقطة AI</div>
-                <div style="background: #161b22; padding: 8px 2px; border-radius: 10px; font-size: 10px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.05);">مونتاج AI</div>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center; margin-top: 5px;">
+                <div style="background: #161b22; padding: 10px 4px; border-radius: 12px; font-size: 11px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.08);">نص AI</div>
+                <div style="background: #161b22; padding: 10px 4px; border-radius: 12px; font-size: 11px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.08);">القصة المصورة</div>
+                <div style="background: #161b22; padding: 10px 4px; border-radius: 12px; font-size: 11px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.08);">لقطة AI</div>
+                <div style="background: #161b22; padding: 10px 4px; border-radius: 12px; font-size: 11px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.08);">مونتاج AI</div>
             </div>
 
             <!-- بطاقة أسبوعي -->
-            <div class="pricing-card" data-plan="weekly" data-price="$US 9.99" onclick="selectPlan(this)" style="background: #161b22; border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s;">
+            <div class="pricing-card" data-plan="weekly" data-price="$US 9.99" onclick="selectPlan(this)" style="background: #161b22; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s; margin-top: 5px;">
                 <div>
-                    <div style="font-size: 14px; font-weight: 700; color: #fff;">PlotCraft Pro Weekly</div>
-                    <div style="font-size: 10px; color: #94a3b8; margin-top: 2px;">500 Credits / Week, Try AI Drama Creation</div>
+                    <div style="font-size: 15px; font-weight: 700; color: #fff;">PlotCraft Pro Weekly</div>
+                    <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">500 Credits / Week, Try AI Drama Creation</div>
                 </div>
                 <div style="text-align: left;">
-                    <div style="font-size: 14px; font-weight: 800; color: #fff;">$US 9.99</div>
-                    <div style="font-size: 10px; color: #94a3b8;">أسبوع</div>
+                    <div style="font-size: 15px; font-weight: 800; color: #fff;">$US 9.99</div>
+                    <div style="font-size: 11px; color: #94a3b8;">أسبوع</div>
                 </div>
             </div>
 
             <!-- بطاقة شهري (المحددة افتراضياً كـ "رائج") -->
-            <div class="pricing-card active" data-plan="monthly" data-price="$US 29.99" onclick="selectPlan(this)" style="background: #161b22; border: 2px solid #3b82f6; border-radius: 14px; padding: 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; position: relative; transition: 0.2s;">
-                <div style="position: absolute; top: -9px; right: 14px; background: #3b82f6; color: #fff; font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 8px;">رائج</div>
+            <div class="pricing-card active" data-plan="monthly" data-price="$US 29.99" onclick="selectPlan(this)" style="background: #161b22; border: 2px solid #3b82f6; border-radius: 16px; padding: 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; position: relative; transition: 0.2s;">
+                <div style="position: absolute; top: -10px; right: 16px; background: #3b82f6; color: #fff; font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 8px;">رائج</div>
                 <div>
-                    <div style="font-size: 14px; font-weight: 700; color: #fff;">PlotCraft Pro Monthly</div>
-                    <div style="font-size: 10px; color: #94a3b8; margin-top: 2px;">1800 Credits / Month, Ideal for regular creators</div>
+                    <div style="font-size: 15px; font-weight: 700; color: #fff;">PlotCraft Pro Monthly</div>
+                    <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">1800 Credits / Month, Ideal for regular creators</div>
                 </div>
                 <div style="text-align: left;">
-                    <div style="font-size: 14px; font-weight: 800; color: #fff;">$US 29.99</div>
-                    <div style="font-size: 10px; color: #94a3b8;">شهر</div>
+                    <div style="font-size: 15px; font-weight: 800; color: #fff;">$US 29.99</div>
+                    <div style="font-size: 11px; color: #94a3b8;">شهر</div>
                 </div>
             </div>
 
             <!-- بطاقة سنوي -->
-            <div class="pricing-card" data-plan="annual" data-price="$US 69.99" onclick="selectPlan(this)" style="background: #161b22; border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s;">
+            <div class="pricing-card" data-plan="annual" data-price="$US 69.99" onclick="selectPlan(this)" style="background: #161b22; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s;">
                 <div>
-                    <div style="font-size: 14px; font-weight: 700; color: #fff;">PlotCraft Pro Annual</div>
-                    <div style="font-size: 10px; color: #94a3b8; margin-top: 2px;">5000 Credits / Year, Ideal for professional creators</div>
+                    <div style="font-size: 15px; font-weight: 700; color: #fff;">PlotCraft Pro Annual</div>
+                    <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">5000 Credits / Year, Ideal for professional creators</div>
                 </div>
                 <div style="text-align: left;">
-                    <div style="font-size: 14px; font-weight: 800; color: #fff;">$US 69.99</div>
-                    <div style="font-size: 10px; color: #94a3b8;">سنة</div>
+                    <div style="font-size: 15px; font-weight: 800; color: #fff;">$US 69.99</div>
+                    <div style="font-size: 11px; color: #94a3b8;">سنة</div>
                 </div>
             </div>
 
             <!-- ملاحظة التجديد -->
-            <div style="text-align: center; font-size: 10px; color: #64748b;">
+            <div style="text-align: center; font-size: 11px; color: #64748b; margin-top: 5px;">
                 <span>🔒 تجديد تلقائي، يمكن الإلغاء في أي وقت</span>
             </div>
 
             <!-- زر الاشتراك الفعلي -->
-            <button onclick="handleSubscription()" style="width: 100%; background: #ffffff; color: #0b0f19; font-size: 15px; font-weight: 800; padding: 14px; border-radius: 20px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(255,255,255,0.15); text-align: center;">
+            <button onclick="handleSubscription()" style="width: 100%; background: #ffffff; color: #0b0f19; font-size: 16px; font-weight: 800; padding: 16px; border-radius: 20px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(255,255,255,0.15); text-align: center; margin-top: 10px;">
                 اشتراك
             </button>
 
             <!-- روابط أسفل النافذة -->
-            <div style="display: flex; justify-content: center; gap: 12px; font-size: 11px; color: #94a3b8;">
+            <div style="display: flex; justify-content: center; gap: 14px; font-size: 12px; color: #94a3b8; margin-top: 10px;">
                 <span style="cursor: pointer;" onclick="alert('جاري استعادة المشتريات...')">استعادة</span>
                 <span>|</span>
                 <span style="cursor: pointer;" onclick="alert('شروط الاستخدام')">شروط الاستخدام</span>
