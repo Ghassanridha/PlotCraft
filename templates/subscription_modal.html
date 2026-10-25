@@ -5,7 +5,7 @@
         <!-- زر الإغلاق -->
         <button class="sub-modal-close-btn" onclick="closeSubscriptionModal()">✕</button>
 
-        <!-- الهيدر والصورة الرئيسية -->
+        <!-- الهيدر والصورة بكامل التوسع -->
         <div class="sub-hero-section">
             <div class="sub-hero-content">
                 <div class="sub-hero-title">PLOTCRAFT PRO</div>
@@ -154,20 +154,20 @@
         z-index: 10;
     }
 
-    /* الهيدر مع الصورة والجملة */
+    /* الهيدر: تم دمج الرابط المباشر لصورتك هنا وتوسيعها بانسجام */
     .sub-hero-section {
         position: relative;
         width: 100%;
-        min-height: 180px;
-        background: linear-gradient(180deg, rgba(18,22,32,0.1) 0%, rgba(18,22,32,0.95) 85%, #121620 100%),
-                    url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1080&auto=format&fit=crop') center top/cover no-repeat;
+        min-height: 210px;
+        background: linear-gradient(180deg, rgba(18,22,32,0.1) 0%, rgba(18,22,32,0.85) 85%, #121620 100%),
+                    url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/bd7d5834e07f2e57166e302a205ae5f9a75ad46d/Gh.jpg') center center/cover no-repeat;
         border-radius: 20px;
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
         align-items: center;
         text-align: center;
-        padding: 12px;
+        padding: 14px;
         flex-shrink: 0;
     }
     .sub-hero-title {
@@ -247,7 +247,6 @@
         width: 100%;
     }
 
-    /* القسم الأيمن: اسم الباقة والتفاصيل */
     .plan-info-right {
         display: flex;
         flex-direction: column;
@@ -265,7 +264,6 @@
         line-height: 1.3;
     }
 
-    /* القسم الأيسر: السعر والمدة */
     .plan-price-left {
         display: flex;
         flex-direction: column;
@@ -283,7 +281,6 @@
         margin-top: 2px;
     }
 
-    /* شارة رائج أقصى اليمين */
     .best-value-tag {
         position: absolute;
         top: -9px;
@@ -297,7 +294,6 @@
         z-index: 5;
     }
 
-    /* ملاحظة التجديد */
     .sub-auto-renew-note {
         text-align: center;
         color: #94a3b8;
@@ -305,7 +301,6 @@
         margin-top: 2px;
     }
 
-    /* زر الاشتراك الأبيض المضيء */
     .action-main-btn.glow-btn {
         width: 100%;
         background: #ffffff;
@@ -326,7 +321,6 @@
         background: #e2e8f0;
     }
 
-    /* الروابط السفلية */
     .sub-footer-links {
         display: flex;
         justify-content: center;
