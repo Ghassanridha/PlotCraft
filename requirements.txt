@@ -1,4 +1,5 @@
-fastapi
+Fastapi
 uvicorn
 jinja2
+firebase-admin
 pydantic
