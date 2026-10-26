@@ -414,7 +414,7 @@
     <!-- حاوية استدعاء نافذة الاشتراكات المستقلة -->
     <div id="subscriptionModalWrapper"></div>
 
-    <!-- ⚡ دوائر البرمجة التفاعلية الأساسية فقط -->
+    <!-- ⚡ دوائر البرمجة التفاعلية الأساسية -->
     <script>
         window.vibrateDevice = function() {
             if ("vibrate" in navigator) {
@@ -460,6 +460,30 @@
             if (event) event.preventDefault();
             showToast('تم النقر على إنشاء قصة');
         }
+
+        /* 👑 دوال التحكم بنافذة الاشتراكات */
+        window.openSubscription = function() {
+            const modal = document.getElementById('subscriptionModal');
+            if (modal) {
+                modal.style.display = 'flex';
+            } else {
+                showToast('جاري تحميل نافذة الاشتراكات...');
+            }
+        };
+
+        window.closeSubscription = function() {
+            const modal = document.getElementById('subscriptionModal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        };
+
+        window.selectPlan = function(cardElement) {
+            document.querySelectorAll('#subscriptionModal .plan-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            cardElement.classList.add('active');
+        };
 
         // استدعاء ملف نافذة الاشتراكات المستقل تلقائياً من مجلد templates
         fetch('templates/subscription_modal.html')
