@@ -1,0 +1,175 @@
+<!-- ملف نافذة الاشتراكات الجديد (settings_screen.html أو subscription_modal.html) -->
+<div class="subscription-full-screen" id="subscriptionModalOverlay">
+    
+    <!-- الصورة الرئيسية (البانر) في الأعلى وزر الإغلاق -->
+    <div class="sub-hero-image-container">
+        <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/ec9da0e286f63eeabed9d411cce650d0aa7da5e3/Gh3.jpg" class="sub-hero-img-tag" alt="PlotCraft Pro">
+        <button class="sub-close-circle" onclick="vibrateDevice(); closeSubscriptionModal()">✕</button>
+    </div>
+
+    <!-- محتوى الباقات والتفاصيل -->
+    <div class="sub-content-container">
+        
+        <div style="text-align: right;">
+            <div style="font-size: 20px; font-weight: 800; background: linear-gradient(135deg, #fff 0%, #a855f7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">PLOTCRAFT PRO</div>
+            <div style="font-size: 11px; color: #94a3b8; margin-top: 2px;">ترجم أفكارك إلى مشاهد سينمائية نابضة بالحياة</div>
+        </div>
+
+        <!-- 4 مربعات الميزات -->
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; text-align: center;">
+            <div style="background: #161b22; padding: 8px 4px; border-radius: 10px; font-size: 10px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.08);">نص AI</div>
+            <div style="background: #161b22; padding: 8px 4px; border-radius: 10px; font-size: 10px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.08);">القصة</div>
+            <div style="background: #161b22; padding: 8px 4px; border-radius: 10px; font-size: 10px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.08);">لقطة AI</div>
+            <div style="background: #161b22; padding: 8px 4px; border-radius: 10px; font-size: 10px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.08);">مونتاج</div>
+        </div>
+
+        <!-- الباقة الأسبوعية -->
+        <div class="pricing-card" data-plan="weekly" data-price="$US 9.99" onclick="vibrateDevice(); selectPlan(this)">
+            <div>
+                <div style="font-size: 13px; font-weight: 700; color: #fff;">PlotCraft Pro Weekly</div>
+                <div style="font-size: 10px; color: #94a3b8;">500 Credits / Week</div>
+            </div>
+            <div style="text-align: left;">
+                <div style="font-size: 13px; font-weight: 800; color: #fff;">$US 9.99</div>
+                <div style="font-size: 9px; color: #94a3b8;">أسبوع</div>
+            </div>
+        </div>
+
+        <!-- الباقة الشهرية (رائج) -->
+        <div class="pricing-card active" data-plan="monthly" data-price="$US 29.99" onclick="vibrateDevice(); selectPlan(this)" style="position: relative;">
+            <div style="position: absolute; top: -8px; right: 14px; background: #3b82f6; color: #fff; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 6px;">رائج</div>
+            <div>
+                <div style="font-size: 13px; font-weight: 700; color: #fff;">PlotCraft Pro Monthly</div>
+                <div style="font-size: 10px; color: #94a3b8;">1800 Credits / Month</div>
+            </div>
+            <div style="text-align: left;">
+                <div style="font-size: 13px; font-weight: 800; color: #fff;">$US 29.99</div>
+                <div style="font-size: 9px; color: #94a3b8;">شهر</div>
+            </div>
+        </div>
+
+        <!-- الباقة السنوية -->
+        <div class="pricing-card" data-plan="annual" data-price="$US 69.99" onclick="vibrateDevice(); selectPlan(this)">
+            <div>
+                <div style="font-size: 13px; font-weight: 700; color: #fff;">PlotCraft Pro Annual</div>
+                <div style="font-size: 10px; color: #94a3b8;">5000 Credits / Year</div>
+            </div>
+            <div style="text-align: left;">
+                <div style="font-size: 13px; font-weight: 800; color: #fff;">$US 69.99</div>
+                <div style="font-size: 9px; color: #94a3b8;">سنة</div>
+            </div>
+        </div>
+
+        <div style="text-align: center; font-size: 10px; color: #64748b;">
+            <span>🔒 تجديد تلقائي، يمكن الإلغاء في أي وقت</span>
+        </div>
+
+        <!-- زر الاشتراك -->
+        <button onclick="vibrateDevice(); handleSubscription()" style="width: 100%; background: #ffffff; color: #0b0f19; font-size: 14px; font-weight: 800; padding: 12px; border-radius: 14px; border: none; cursor: pointer; text-align: center;">
+            اشتراك
+        </button>
+
+        <!-- روابط سفليّة -->
+        <div style="display: flex; justify-content: center; gap: 10px; font-size: 10px; color: #94a3b8; padding-bottom: 2px;">
+            <span style="cursor: pointer;" onclick="vibrateDevice(); alert('استعادة')">استعادة</span>
+            <span>|</span>
+            <span style="cursor: pointer;" onclick="vibrateDevice(); alert('شروط الاستخدام')">شروط الاستخدام</span>
+            <span>|</span>
+            <span style="cursor: pointer;" onclick="vibrateDevice(); alert('الخصوصية')">الخصوصية</span>
+        </div>
+    </div>
+</div>
+
+<style>
+    .subscription-full-screen {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background-color: #1f242d;
+        z-index: 1000000;
+        flex-direction: column;
+        box-sizing: border-box;
+        overflow-y: auto;
+    }
+    .subscription-full-screen.show {
+        display: flex !important;
+    }
+    .sub-hero-image-container {
+        position: relative;
+        width: 100%;
+        height: 180px;
+        background: #111827;
+        flex-shrink: 0;
+    }
+    .sub-hero-img-tag {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    .sub-close-circle {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: rgba(0, 0, 0, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #fff; width: 32px; height: 32px;
+        border-radius: 50%; cursor: pointer; font-size: 16px;
+        display: flex; align-items: center; justify-content: center;
+        z-index: 10;
+    }
+    .sub-content-container {
+        max-width: 480px;
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 14px 16px;
+        box-sizing: border-box;
+    }
+    .pricing-card {
+        background: #161b22;
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 14px;
+        padding: 10px 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .pricing-card.active {
+        border: 2px solid #3b82f6;
+        background: #1a2333;
+    }
+</style>
+
+<script>
+    let selectedPlanData = { plan: 'monthly', price: '$US 29.99' };
+
+    function selectPlan(element) {
+        document.querySelectorAll('.pricing-card').forEach(card => {
+            card.classList.remove('active');
+            card.style.border = '1px solid rgba(255,255,255,0.1)';
+            card.style.background = '#161b22';
+        });
+        element.classList.add('active');
+        element.style.border = '2px solid #3b82f6';
+        element.style.background = '#1a2333';
+        selectedPlanData.plan = element.getAttribute('data-plan');
+        selectedPlanData.price = element.getAttribute('data-price');
+    }
+
+    function handleSubscription() {
+        alert('جاري توجيهك لبوابة الدفع للباقة: ' + selectedPlanData.price);
+    }
+
+    function openSubscriptionModal() {
+        document.getElementById('subscriptionModalOverlay').classList.add('show');
+    }
+
+    function closeSubscriptionModal() {
+        document.getElementById('subscriptionModalOverlay').classList.remove('show');
+    }
+</script>
