@@ -1,98 +1,25 @@
-<!-- نافذة الإشتراكات (subscription-modal.html) -->
+<!-- 1. التنسيقات CSS -->
 <style>
-    /* تنسيقات نافذة الاشتراكات Modal */
-    .modal-overlay {
-        display: none;
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        backdrop-filter: blur(8px);
-        z-index: 99999;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-    }
-
-    .modal-container {
-        background: #191e28;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 24px;
-        padding: 24px 20px;
-        width: 100%;
-        max-width: 380px;
-        text-align: center;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-        position: relative;
-    }
-
-    .plan-card {
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 16px;
-        padding: 14px 16px;
-        margin-bottom: 12px;
-        text-align: right;
-        position: relative;
-        cursor: pointer;
-        transition: all 0.2s ease;
-    }
-
-    .plan-card.active {
-        border-color: #3b82f6;
-        background: rgba(59, 130, 246, 0.1);
-    }
-
-    .plan-card .price {
-        color: #fff;
-        font-size: 16px;
-        font-weight: 700;
-        margin-bottom: 4px;
-    }
-
-    .plan-card .details {
-        color: #94a3b8;
-        font-size: 12px;
-    }
-
-    .plan-card .badge {
-        position: absolute;
-        left: 12px;
-        top: 14px;
-        background: #3b82f6;
-        color: #fff;
-        font-size: 10px;
-        padding: 3px 8px;
-        border-radius: 10px;
-        font-weight: 700;
-    }
-
-    .subscribe-btn {
-        width: 100%;
-        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-        color: #fff;
-        border: none;
-        padding: 14px;
-        border-radius: 16px;
-        font-size: 15px;
-        font-weight: 700;
-        margin-top: 10px;
-        cursor: pointer;
-        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
-        transition: transform 0.2s;
-    }
-
-    .subscribe-btn:active {
-        transform: scale(0.98);
-    }
-
-    .footer-links {
-        color: #64748b;
-        font-size: 11px;
-        margin-top: 16px;
-    }
+.modal-overlay {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; z-index: 9999;
+}
+.modal-container {
+    background: #1a1d23; padding: 25px; border-radius: 20px; width: 90%; max-width: 400px;
+    text-align: center; color: white; border: 1px solid #333;
+}
+.plan-card {
+    background: #252a34; padding: 15px; margin: 10px 0; border-radius: 12px; cursor: pointer; border: 2px solid transparent; text-align: left;
+}
+.plan-card.active { border-color: #3b82f6; }
+.subscribe-btn {
+    width: 100%; padding: 15px; border-radius: 50px; border: none; background: #fff; font-weight: bold; cursor: pointer; margin-top: 20px;
+}
+.badge { background: #3b82f6; font-size: 10px; padding: 2px 8px; border-radius: 5px; float: right; }
+.footer-links { margin-top: 20px; color: #666; font-size: 12px; }
 </style>
 
+<!-- 2. الهيكل HTML -->
 <div id="subscriptionModal" class="modal-overlay">
     <div class="modal-container">
         <h2 style="color: #fff; margin: 10px 0;">PLOTCRAFT PRO</h2>
@@ -122,19 +49,14 @@
     </div>
 </div>
 
+<!-- 3. البرمجة JS -->
 <script>
     function openSubscription() {
-        const modal = document.getElementById('subscriptionModal');
-        if (modal) {
-            modal.style.display = 'flex';
+        document.getElementById('subscriptionModal').style.display = 'flex';
+    }
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('subscriptionModal')) {
+            document.getElementById('subscriptionModal').style.display = 'none';
         }
     }
-
-    // إغلاق النافذة عند الضغط خارجها
-    window.addEventListener('click', function(event) {
-        const modal = document.getElementById('subscriptionModal');
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
 </script>
