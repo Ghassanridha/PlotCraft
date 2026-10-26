@@ -1,0 +1,140 @@
+<!-- نافذة الإشتراكات (subscription-modal.html) -->
+<style>
+    /* تنسيقات نافذة الاشتراكات Modal */
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(8px);
+        z-index: 99999;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .modal-container {
+        background: #191e28;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        padding: 24px 20px;
+        width: 100%;
+        max-width: 380px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        position: relative;
+    }
+
+    .plan-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 14px 16px;
+        margin-bottom: 12px;
+        text-align: right;
+        position: relative;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .plan-card.active {
+        border-color: #3b82f6;
+        background: rgba(59, 130, 246, 0.1);
+    }
+
+    .plan-card .price {
+        color: #fff;
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    .plan-card .details {
+        color: #94a3b8;
+        font-size: 12px;
+    }
+
+    .plan-card .badge {
+        position: absolute;
+        left: 12px;
+        top: 14px;
+        background: #3b82f6;
+        color: #fff;
+        font-size: 10px;
+        padding: 3px 8px;
+        border-radius: 10px;
+        font-weight: 700;
+    }
+
+    .subscribe-btn {
+        width: 100%;
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        color: #fff;
+        border: none;
+        padding: 14px;
+        border-radius: 16px;
+        font-size: 15px;
+        font-weight: 700;
+        margin-top: 10px;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+        transition: transform 0.2s;
+    }
+
+    .subscribe-btn:active {
+        transform: scale(0.98);
+    }
+
+    .footer-links {
+        color: #64748b;
+        font-size: 11px;
+        margin-top: 16px;
+    }
+</style>
+
+<div id="subscriptionModal" class="modal-overlay">
+    <div class="modal-container">
+        <h2 style="color: #fff; margin: 10px 0;">PLOTCRAFT PRO</h2>
+        <p style="color: #ccc; margin-bottom: 20px;">حوّل خيالك إلى بلوت كرافت</p>
+
+        <div class="plan-card">
+            <div class="price">US 9.99$ <span style="font-size: 12px; color: #888;">/ أسبوع</span></div>
+            <div class="details">PlotCraft Pro Weekly</div>
+        </div>
+        
+        <div class="plan-card active">
+            <span class="badge">رائج</span>
+            <div class="price">US 29.99$ <span style="font-size: 12px; color: #888;">/ شهر</span></div>
+            <div class="details">PlotCraft Pro Monthly</div>
+        </div>
+        
+        <div class="plan-card">
+            <div class="price">US 69.99$ <span style="font-size: 12px; color: #888;">/ سنة</span></div>
+            <div class="details">PlotCraft Pro Annual</div>
+        </div>
+
+        <button class="subscribe-btn" onclick="alert('تم الطلب!')">اشترك</button>
+        
+        <div class="footer-links">
+            استعادة | شروط الاستخدام | الخصوصية
+        </div>
+    </div>
+</div>
+
+<script>
+    function openSubscription() {
+        const modal = document.getElementById('subscriptionModal');
+        if (modal) {
+            modal.style.display = 'flex';
+        }
+    }
+
+    // إغلاق النافذة عند الضغط خارجها
+    window.addEventListener('click', function(event) {
+        const modal = document.getElementById('subscriptionModal');
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+</script>
