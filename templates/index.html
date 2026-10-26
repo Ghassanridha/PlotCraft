@@ -6,10 +6,9 @@
     <title>PlotCraft UI</title>
     <link rel="manifest" href="/manifest.json">
     
-    <!-- استدعاء ملف التكوينات والمفاتيح السرية (Config) -->
     <script src="config.js"></script>
-
     <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
     <style>
         * {
             box-sizing: border-box;
@@ -22,7 +21,6 @@
         html, body {
             width: 100%;
             height: 100%;
-            max-height: 850px;
             background-color: #0b0f19;
             overflow: hidden;
             position: relative;
@@ -33,7 +31,6 @@
             flex-direction: column;
             width: 100%;
             height: 100%;
-            max-height: 850px;
             position: relative;
             overflow: hidden;
             background-color: #0b0f19;
@@ -59,14 +56,11 @@
             background-color: #0b0f19;
         }
 
-        #sparkleDialogScreen.screen-view {
-            background-color: #0b0f19;
-        }
-
+        /* الهيدر العلوي */
         .hero-box {
             position: relative;
             width: 100%;
-            min-height: 35vh;
+            min-height: 30vh;
             background: linear-gradient(180deg, rgba(11,15,25,0.2) 0%, rgba(11,15,25,0.8) 75%, #0b0f19 100%),
                         url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1080&auto=format&fit=crop') center/cover no-repeat;
             border-bottom-left-radius: 35px;
@@ -91,14 +85,13 @@
             font-weight: 700;
         }
 
-        /* زر الإعدادات العلوي مصغر ومسحوب لأقصى اليسار تماماً مع هوامش دقيقة */
         .top-settings-btn {
             background: rgba(20, 24, 33, 0.85);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 50%;
-            width: 34px;
-            height: 34px;
+            width: 38px;
+            height: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -106,7 +99,6 @@
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             flex-shrink: 0;
-            margin-left: -4px;
         }
         .top-settings-btn img {
             width: 100%;
@@ -126,6 +118,7 @@
             text-shadow: 0 2px 8px rgba(0,0,0,0.6);
         }
 
+        /* التنبيهات Toast */
         .toast-notification {
             position: fixed;
             top: 25px;
@@ -152,22 +145,12 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        #worksScreen {
-            display: none;
-            flex-direction: column;
-            height: 100%;
-            padding: 0;
-            align-items: stretch;
-        }
-        #worksScreen.active {
-            display: flex;
-        }
-
+        /* شاشات الأعمال والأدوات */
         .works-top-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 16px 10px 16px;
+            padding: 16px;
             width: 100%;
             flex-shrink: 0;
         }
@@ -209,7 +192,6 @@
             border-radius: 25px;
             cursor: pointer;
             transition: all 0.2s ease;
-            user-select: none;
         }
 
         .works-tab.active {
@@ -225,22 +207,6 @@
             justify-content: center;
             flex-grow: 1;
             text-align: center;
-            margin-top: 10px;
-        }
-
-        .works-box-icon {
-            width: 90px;
-            height: 90px;
-            margin-bottom: 24px;
-            opacity: 0.8;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23cbd5e1" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>') no-repeat center;
-            background-size: contain;
-        }
-
-        .works-empty-text-sub {
-            color: #cbd5e1;
-            font-size: 13px;
-            margin-bottom: 35px;
         }
 
         .works-create-btn {
@@ -250,11 +216,10 @@
             color: #1f242d;
             font-size: 14px;
             font-weight: 700;
-            padding: 10px 16px;
+            padding: 12px 16px;
             border-radius: 14px;
             border: none;
             cursor: pointer;
-            text-align: center;
             box-shadow: 0 4px 15px rgba(255,255,255,0.15);
             transition: 0.2s;
         }
@@ -263,781 +228,7 @@
             background: #e2e8f0;
         }
 
-        .step-container {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            height: 100%;
-            overflow-y: auto;
-        }
-
-        .ai-assistant-card {
-            background: #282f3d;
-            border: 1px solid #343d50;
-            border-radius: 16px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .ai-header-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .ai-title {
-            color: #ff2a85;
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-        .ai-badge-circle {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, #ff2a85, #7928ca);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 11px;
-            box-shadow: 0 2px 8px rgba(255,42,133,0.4);
-        }
-
-        .ai-desc {
-            color: #cbd5e1;
-            font-size: 12px;
-            line-height: 1.5;
-        }
-
-        .story-setup-box {
-            background: #282f3d;
-            border: 1px solid #343d50;
-            border-radius: 16px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .setup-header-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .setup-main-title {
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: 700;
-        }
-
-        .counter-badge {
-            background-color: #343d50;
-            color: #cbd5e1;
-            padding: 3px 10px;
-            border-radius: 10px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        .setup-subtitle {
-            color: #ffffff;
-            font-size: 11px;
-            font-weight: 700;
-        }
-
-        .setup-row-item {
-            background: #343d50;
-            border-radius: 12px;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .setup-row-header-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-
-        .item-info h4 {
-            color: #ffffff;
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 2px;
-        }
-
-        .item-info p {
-            color: #cbd5e1;
-            font-size: 11px;
-        }
-
-        .action-add-btn {
-            background: rgba(255, 255, 255, 0.12);
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .action-add-btn:active {
-            transform: scale(0.95);
-            background: rgba(255, 255, 255, 0.25);
-        }
-
-        .char-controls-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .change-btn-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            color: #ffffff;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .change-btn-wrapper svg {
-            width: 14px;
-            height: 14px;
-            fill: #ffffff;
-        }
-        .close-x-btn {
-            color: #ffffff;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-left: 2px;
-        }
-
-        .edit-story-btn-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: #ffffff;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .edit-story-btn-wrapper svg {
-            width: 14px;
-            height: 14px;
-            fill: #ffffff;
-        }
-
-        .char-added-preview-box {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-top: 4px;
-            padding-top: 8px;
-            border-top: 1px solid rgba(255,255,255,0.08);
-        }
-        .char-added-img {
-            width: 48px;
-            height: 48px;
-            border-radius: 10px;
-            object-fit: cover;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        .char-added-name {
-            color: #ffffff;
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-        .add-second-char-btn {
-            background: #282f3d;
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 12px;
-            padding: 12px 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            margin-top: -4px;
-            transition: 0.2s;
-        }
-        .add-second-char-btn:active {
-            background: #343d50;
-        }
-        .add-second-char-text {
-            color: #ffffff;
-            font-size: 13px;
-            font-weight: 700;
-        }
-        .add-second-char-icon-box {
-            width: 24px;
-            height: 24px;
-            background: #141a29;
-            border: 1px solid #1e293b;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .add-second-char-icon-box svg {
-            width: 12px;
-            height: 12px;
-            fill: #3b82f6;
-        }
-
-        .next-step-btn {
-            background: #ffffff !important;
-            color: #0b0f19 !important;
-            font-size: 16px;
-            font-weight: 700;
-            padding: 14px;
-            border-radius: 24px;
-            border: none;
-            cursor: pointer;
-            display: none;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 6px 20px rgba(255,255,255,0.15);
-            transition: 0.2s;
-        }
-        .next-step-btn.show {
-            display: block;
-        }
-        .next-step-btn:active {
-            background: #e2e8f0 !important;
-            transform: scale(0.98);
-        }
-
-        #storyDescriptionScreen {
-            display: none;
-            flex-direction: column;
-            height: 100%;
-            background-color: #1f242d;
-            padding: 20px;
-            position: relative;
-        }
-        #storyDescriptionScreen.active {
-            display: flex;
-        }
-        .story-desc-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            margin-bottom: 20px;
-            flex-shrink: 0;
-        }
-        .story-desc-title {
-            color: #ffffff;
-            font-size: 18px;
-            font-weight: 700;
-        }
-        .story-desc-back {
-            background: none;
-            border: none;
-            color: #ffffff;
-            font-size: 18px;
-            cursor: pointer;
-        }
-        .story-textarea {
-            width: 100%;
-            height: 300px;
-            background: #282f3d;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px;
-            padding: 16px;
-            color: #ffffff;
-            font-size: 15px;
-            outline: none;
-            resize: vertical;
-            line-height: 1.6;
-        }
-        .story-textarea::placeholder {
-            color: #cbd5e1;
-        }
-
-        .story-save-btn-wrapper {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            z-index: 99;
-        }
-        .story-save-btn {
-            background: rgba(255, 255, 255, 0.08);
-            color: rgba(255, 255, 255, 0.25);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            font-size: 15px;
-            font-weight: 700;
-            padding: 14px;
-            border-radius: 24px;
-            width: 100%;
-            max-width: 420px;
-            margin: 0 auto;
-            display: block;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            cursor: not-allowed;
-            transition: 0.3s;
-        }
-        .story-save-btn.active-save {
-            background: #ffffff !important;
-            color: #0b0f19 !important;
-            border: 1px solid #ffffff !important;
-            cursor: pointer;
-            box-shadow: 0 6px 20px rgba(255,255,255,0.25);
-        }
-        .story-save-btn.active-save:active {
-            background: #e2e8f0 !important;
-            transform: scale(0.98);
-        }
-
-        #addCharacterScreen {
-            display: none;
-            flex-direction: column;
-            height: 100%;
-            padding: 20px;
-            position: relative;
-            overflow-y: auto;
-        }
-        #addCharacterScreen.active {
-            display: flex;
-        }
-        .add-char-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            margin-bottom: 20px;
-            flex-shrink: 0;
-        }
-        .add-char-title {
-            color: #ffffff;
-            font-size: 18px;
-            font-weight: 700;
-        }
-        .add-char-back {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .char-main-card {
-            background: #282f3d;
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 20px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-        .char-section-label {
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: 700;
-        }
-        
-        .char-big-upload-box {
-            background: #343d50;
-            border: 1px dashed rgba(255,255,255,0.2);
-            border-radius: 16px;
-            height: 180px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            position: relative;
-            overflow: hidden;
-        }
-        .char-big-upload-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            background-color: #000;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        
-        .remove-big-img {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0,0,0,0.7);
-            color: #fff;
-            border: none;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-        }
-
-        .char-thumbs-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            width: 100%;
-        }
-
-        .char-add-role-box {
-            width: 55px;
-            height: 55px;
-            border-radius: 12px;
-            background: #343d50;
-            border: 1.5px dashed rgba(255,255,255,0.4);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #cbd5e1;
-            font-size: 18px;
-            cursor: pointer;
-            flex-shrink: 0;
-            gap: 2px;
-            transition: 0.2s;
-        }
-        .char-add-role-box:active { background: #3f4b63; }
-        .char-add-role-text { font-size: 10px; }
-
-        .char-thumbs-scroll {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding-bottom: 4px;
-            scrollbar-width: none;
-            flex-grow: 1;
-        }
-        .char-thumbs-scroll::-webkit-scrollbar { display: none; }
-        
-        .char-thumb-item {
-            width: 55px;
-            height: 55px;
-            border-radius: 12px;
-            object-fit: cover;
-            border: 1.5px solid rgba(255,255,255,0.15);
-            cursor: pointer;
-            flex-shrink: 0;
-            display: block;
-            transition: transform 0.2s;
-        }
-        .char-thumb-item:active { transform: scale(0.95); }
-
-        .char-name-input {
-            width: 100%;
-            background: #343d50;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 14px;
-            padding: 14px;
-            color: #ffffff;
-            font-size: 14px;
-            outline: none;
-        }
-        .char-name-input::placeholder { color: #cbd5e1; }
-
-        .char-submit-btn-wrapper {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            z-index: 20;
-        }
-        .char-submit-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #3b82f6 0%, #ec4899 100%);
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: 700;
-            padding: 16px;
-            border-radius: 24px;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
-            transition: 0.3s;
-        }
-        .char-submit-btn.disabled {
-            background: #343d50 !important;
-            color: #cbd5e1 !important;
-            cursor: not-allowed;
-            box-shadow: none;
-            opacity: 0.6;
-        }
-
-        .source-modal {
-            display: flex;
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 99999;
-            align-items: flex-end;
-            justify-content: center;
-        }
-        .source-modal.hidden { display: none; }
-        
-        .source-modal-content {
-            background: #1f242d;
-            border-top-left-radius: 28px;
-            border-top-right-radius: 28px;
-            border: 1px solid rgba(255,255,255,0.12);
-            width: 100%;
-            max-width: 480px;
-            padding: 20px 20px 35px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            position: relative;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
-        }
-
-        .source-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            margin-bottom: 5px;
-        }
-
-        .source-modal-title {
-            color: #ffffff;
-            font-size: 17px;
-            font-weight: 700;
-        }
-
-        .source-modal-close {
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-            border: none;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        .source-info-banner {
-            background: rgba(40, 47, 61, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 14px;
-            padding: 12px 14px;
-            color: #cbd5e1;
-            font-size: 12px;
-            line-height: 1.5;
-            text-align: right;
-        }
-
-        .source-images-row {
-            display: flex;
-            gap: 12px;
-            width: 100%;
-        }
-
-        .source-img-card {
-            flex: 1;
-            background: #282f3d;
-            border-radius: 16px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .source-img-frame {
-            width: 100%;
-            height: 150px;
-            position: relative;
-            background-color: #000;
-        }
-
-        .source-img-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .source-img-caption {
-            padding: 10px 8px;
-            font-size: 11px;
-            font-weight: 600;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-
-        .source-img-caption.bad {
-            color: #f87171;
-            background: rgba(248, 113, 113, 0.08);
-        }
-
-        .source-img-caption.good {
-            color: #4ade80;
-            background: rgba(74, 222, 128, 0.08);
-        }
-
-        .source-buttons-row {
-            display: flex;
-            gap: 12px;
-            width: 100%;
-            margin-top: 5px;
-        }
-
-        .source-btn {
-            flex: 1;
-            border-radius: 16px;
-            padding: 14px 10px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            border: none;
-            transition: 0.2s;
-        }
-
-        .source-btn.dark-white {
-            background: #282f3d;
-            color: #ffffff;
-            border: 1px solid rgba(255,255,255,0.15);
-        }
-
-        .source-btn.bright-white {
-            background: #ffffff;
-            color: #1f242d;
-        }
-
-        .login-modal-overlay {
-            display: none;
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 99999;
-            align-items: flex-end;
-            justify-content: center;
-        }
-        .login-modal-overlay.show { display: flex; }
-        .login-modal-content {
-            background: #1f242d;
-            border-top-left-radius: 28px;
-            border-top-right-radius: 28px;
-            border: 1px solid rgba(255,255,255,0.12);
-            width: 100%;
-            max-width: 480px;
-            padding: 24px 20px 40px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            position: relative;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
-        }
-        .login-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-        .login-modal-title {
-            color: #ffffff;
-            font-size: 18px;
-            font-weight: 700;
-            text-align: center;
-            width: 100%;
-        }
-        
-        .login-close-x-btn {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            color: #ffffff;
-            font-size: 13px;
-            font-weight: bold;
-            cursor: pointer;
-            background: rgba(255, 255, 255, 0.1);
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-        }
-
-        .auth-input-field {
-            width: 100%;
-            background: #282f3d;
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 12px;
-            padding: 12px;
-            color: #ffffff;
-            font-size: 13px;
-            outline: none;
-        }
-        .auth-input-field::placeholder { color: rgba(255, 255, 255, 0.4); }
-
-        .auth-main-btn {
-            width: 100%;
-            background: #ffffff;
-            color: #1f242d;
-            border: none;
-            border-radius: 12px;
-            padding: 12px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(255,255,255,0.15);
-            transition: 0.2s;
-        }
-
-        .small-link-btn {
-            color: #3b82f6;
-            font-size: 12px;
-            font-weight: 600;
-            text-align: center;
-            cursor: pointer;
-            margin-top: 4px;
-            display: inline-block;
-        }
-
-        .register-modal-overlay {
-            display: none;
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 100000;
-            align-items: flex-end;
-            justify-content: center;
-        }
-        .register-modal-overlay.show { display: flex; }
-
+        /* شريط التنقل السفلي */
         .plotcraft-nav-bar {
             position: absolute;
             bottom: 0; left: 0; width: 100%;
@@ -1050,9 +241,6 @@
             z-index: 1000;
             box-sizing: border-box;
             direction: rtl;
-        }
-        .plotcraft-nav-bar.hidden {
-            display: none !important;
         }
 
         .plotcraft-nav-square {
@@ -1068,31 +256,18 @@
             flex-shrink: 0;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            overflow: hidden;
-            position: relative;
         }
 
         .nav-logo-icon {
             width: 30px;
             height: 30px;
-            position: relative;
             background: linear-gradient(135deg, #1e3a8a 0%, #60a5fa 100%);
             border-radius: 7px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .nav-logo-icon::before {
-            content: '';
-            position: absolute;
-            top: -3px;
-            left: -6px;
-            width: 14px;
-            height: 14px;
-            background: #ffffff;
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            filter: drop-shadow(0 0 3px rgba(255,255,255,0.8));
-        }
+
         .nav-logo-play {
             width: 0;
             height: 0;
@@ -1100,23 +275,6 @@
             border-bottom: 6px solid transparent;
             border-left: 8px solid #0b0f19;
             margin-right: -2px;
-        }
-        .nav-logo-stripes {
-            position: absolute;
-            right: 2px;
-            top: 3px;
-            bottom: 3px;
-            width: 3px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-        }
-        .nav-logo-stripes span {
-            display: block;
-            width: 100%;
-            height: 2px;
-            background: #000000;
-            transform: skewX(-20deg);
         }
 
         .plotcraft-nav-pill {
@@ -1157,37 +315,15 @@
             font-weight: 700;
             background-color: rgba(255, 255, 255, 0.15);
         }
-
-        .webview-screen {
-            display: none;
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #ffffff;
-            z-index: 1000000;
-            flex-direction: column;
-        }
-        .webview-screen.active { display: flex; }
-        
-        .terms-content-container {
-            width: 100%;
-            height: 100%;
-            background: #ffffff;
-            color: #000000;
-            padding: 24px 20px;
-            overflow-y: auto;
-            font-size: 15px;
-            line-height: 1.8;
-            text-align: right;
-            direction: rtl;
-        }
     </style>
 </head>
 <body>
 
     <div class="app-shell" id="appShellContainer">
+        <!-- عنصر الإشعارات -->
         <div class="toast-notification" id="toastNotification"></div>
 
-        <!-- شاشة الرئيسية -->
+        <!-- 1️⃣ شاشة الرئيسية -->
         <div id="homeScreen" class="screen-view active">
             <div class="hero-box">
                 <div class="top-header">
@@ -1202,7 +338,7 @@
             </div>
         </div>
 
-        <!-- شاشة الأعمال -->
+        <!-- 2️⃣ شاشة الأعمال -->
         <div id="worksScreen" class="screen-view">
             <div class="works-top-header">
                 <div class="works-screen-title">الأعمال</div>
@@ -1216,17 +352,16 @@
                     <div class="works-tab" onclick="switchWorksTab(this)">مكتبة الوسائط</div>
                 </div>
                 <div class="works-empty-content">
-                    <div class="works-box-icon"></div>
-                    <div class="works-empty-text-sub">ستظهر هنا مشاريع القصة الخاصة بك.</div>
+                    <div style="color: #cbd5e1; font-size: 14px; margin-bottom: 25px;">ستظهر هنا مشاريع القصة الخاصة بك.</div>
                     <button class="works-create-btn" onclick="openSparkleDialog(event)">إنشاء قصة</button>
                 </div>
             </div>
         </div>
 
-        <!-- شاشة الأدوات -->
+        <!-- 3️⃣ شاشة الأدوات -->
         <div id="toolsScreen" class="screen-view">
-            <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px 16px 10px 16px; width: 100%; flex-shrink: 0;">
-                <div style="color: #ffffff; font-size: 20px; font-weight: 700;">الأدوات</div>
+            <div class="works-top-header">
+                <div class="works-screen-title">الأعمال والأدوات</div>
                 <div class="top-settings-btn" onclick="vibrateDevice(); openSettingsScreen()">
                     <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات">
                 </div>
@@ -1236,44 +371,40 @@
             </div>
         </div>
 
-        <!-- تضمين الأداة الجديدة المستقلة (Sparkle Modal) -->
+        <!-- 📦 تضمين القوالب الفرعية المستقلة -->
         {% include 'sparkle_modal.html' %}
-
-        <!-- استدعاء ملف الإعدادات/الاشتراكات الجديد -->
         {% include 'settings_screen.html' %}
 
-        <!-- شريط التنقل السفلي -->
+        <!-- 🔘 شريط التنقل السفلي الأنيق -->
         <div class="plotcraft-nav-bar" id="mainNavBar">
+            <!-- زر الإنشاء الدائري -->
             <div class="plotcraft-nav-square" onclick="vibrateDevice(); openSparkleDialog(event)">
                 <div class="nav-logo-icon">
                     <div class="nav-logo-play"></div>
-                    <div class="nav-logo-stripes">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
                 </div>
             </div>
 
+            <!-- أزرار القائمة الثلاثية -->
             <div class="plotcraft-nav-pill">
                 <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="vibrateDevice(); switchScreen('homeScreen', event); setActiveNav('navHome')">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                     <span>الصفحة الرئيسية</span>
                 </a>
 
                 <a href="#" class="plotcraft-nav-item" id="navTools" onclick="vibrateDevice(); switchScreen('toolsScreen', event); setActiveNav('navTools')">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"></path></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"></path></svg>
                     <span>الأدوات</span>
                 </a>
 
                 <a href="#" class="plotcraft-nav-item" id="navWorks" onclick="vibrateDevice(); switchScreen('worksScreen', event); setActiveNav('navWorks')">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
                     <span>الأعمال</span>
                 </a>
             </div>
         </div>
     </div>
 
+    <!-- ⚡ دوائر البرمجة التفاعلية -->
     <script>
         window.vibrateDevice = function() {
             if ("vibrate" in navigator) {
@@ -1283,27 +414,20 @@
 
         window.showToast = function(message) {
             const toast = document.getElementById('toastNotification');
-            toast.innerText = message;
-            toast.classList.add('show');
-            setTimeout(() => { toast.classList.remove('show'); }, 1500);
+            if (toast) {
+                toast.innerText = message;
+                toast.classList.add('show');
+                setTimeout(() => { toast.classList.remove('show'); }, 1500);
+            }
         };
 
         window.switchScreen = function(screenId, event) {
             if (event) event.preventDefault();
-            document.querySelectorAll('.screen-view').forEach(s => {
-                if(s.id !== 'sparkleDialogScreen') s.classList.remove('active');
-            });
+            document.querySelectorAll('.screen-view').forEach(s => s.classList.remove('active'));
             
             const targetScreen = document.getElementById(screenId);
             if (targetScreen) {
                 targetScreen.classList.add('active');
-            }
-
-            let navBar = document.getElementById('mainNavBar');
-            if (['sparkleDialogScreen', 'addCharacterScreen', 'storyDescriptionScreen', 'stepByStepScreen'].includes(screenId)) {
-                navBar.classList.add('hidden');
-            } else {
-                navBar.classList.remove('hidden');
             }
         };
 
@@ -1319,11 +443,19 @@
         };
 
         function openSettingsScreen() {
-            // استدعاء دالة فتح نافذة الاشتراكات الجديدة الموجودة في الملف المستقل
             if (typeof openSubscriptionModal === 'function') {
                 openSubscriptionModal();
             } else {
-                alert('تم الضغط على الإعدادات');
+                showToast('الإعدادات والاشتراكات قيد التحميل...');
+            }
+        }
+
+        function openSparkleDialog(event) {
+            if (event) event.preventDefault();
+            if (typeof openSparkleModal === 'function') {
+                openSparkleModal();
+            } else {
+                showToast('نافذة إنشاء القصة قيد التحميل...');
             }
         }
     </script>
