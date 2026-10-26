@@ -1239,6 +1239,9 @@
         <!-- تضمين الأداة الجديدة المستقلة (Sparkle Modal) -->
         {% include 'sparkle_modal.html' %}
 
+        <!-- استدعاء ملف الإعدادات/الاشتراكات الجديد -->
+        {% include 'settings_screen.html' %}
+
         <!-- شريط التنقل السفلي -->
         <div class="plotcraft-nav-bar" id="mainNavBar">
             <div class="plotcraft-nav-square" onclick="vibrateDevice(); openSparkleDialog(event)">
@@ -1316,7 +1319,12 @@
         };
 
         function openSettingsScreen() {
-            alert('تم الضغط على الإعدادات');
+            // استدعاء دالة فتح نافذة الاشتراكات الجديدة الموجودة في الملف المستقل
+            if (typeof openSubscriptionModal === 'function') {
+                openSubscriptionModal();
+            } else {
+                alert('تم الضغط على الإعدادات');
+            }
         }
     </script>
 </body>
