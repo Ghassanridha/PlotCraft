@@ -82,6 +82,13 @@
             font-weight: 700;
         }
 
+        /* حاوية أداة الإعدادات والزر بجانبها */
+        .top-left-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
         .top-settings-btn {
             background: rgba(20, 24, 33, 0.85);
             backdrop-filter: blur(12px);
@@ -324,11 +331,16 @@
         <div id="homeScreen" class="screen-view active">
             <div class="hero-box">
                 <div class="top-header">
+                    <!-- العنوان على اليمين -->
                     <div class="brand-title">PlotCraft</div>
-                    <!-- زر الترقية إلى Pro المضاف بجانب زر الإعدادات -->
-                    <button onclick="openSubscription()" style="background: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 16px; font-weight: bold; cursor: pointer; font-size: 12px; margin-left: 8px;">الترقية إلى Pro</button>
-                    <div class="top-settings-btn" onclick="vibrateDevice(); openSettingsScreen()">
-                        <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات">
+                    
+                    <!-- الأيقونة وزر الترقية مجتمعين على اليسار بجانب الروبوت -->
+                    <div class="top-left-actions">
+                        <button onclick="openSubscription()" style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; border: none; padding: 7px 14px; border-radius: 20px; font-weight: 700; cursor: pointer; font-size: 11px; box-shadow: 0 4px 12px rgba(37,99,235,0.4); white-space: nowrap;">الترقية إلى Pro</button>
+                        
+                        <div class="top-settings-btn" onclick="vibrateDevice(); openSettingsScreen()">
+                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات">
+                        </div>
                     </div>
                 </div>
                 <div class="welcome-section">
