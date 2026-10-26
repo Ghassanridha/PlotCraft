@@ -1,0 +1,43 @@
+<div class="subscription-full-screen" id="subscriptionModalOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 99999; flex-direction: column; justify-content: flex-end; overflow-y: auto;">
+    <div class="subscription-modal-content" style="background: #1f242d; border-top-left-radius: 28px; border-top-right-radius: 28px; border: 1px solid rgba(255,255,255,0.12); width: 100%; max-width: 480px; margin: 0 auto; padding: 24px 20px 40px 20px; display: flex; flex-direction: column; gap: 20px; position: relative; box-shadow: 0 -10px 30px rgba(0,0,0,0.8);">
+        
+        <!-- زر الإغلاق -->
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div style="color: #ffffff; font-size: 18px; font-weight: 700;">إدارة الاشتراكات والترقية</div>
+            <button onclick="closeSubscriptionModal()" style="background: rgba(255, 255, 255, 0.1); color: #ffffff; border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer;">✕</button>
+        </div>
+
+        <!-- محتوى باقات الاشتراكات -->
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="background: #282f3d; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+                <div style="color: #ffffff; font-size: 16px; font-weight: 700;">الباقة الشهريـة</div>
+                <div style="color: #cbd5e1; font-size: 13px;">استمتع بتوليد غير محدود للقصص ومقاطع الفيديو بجودة عالية.</div>
+                <button onclick="showToast('تم اختيار الباقة الشهرية')" style="margin-top: 8px; background: #ffffff; color: #1f242d; border: none; border-radius: 12px; padding: 12px; font-weight: 700; cursor: pointer;">ترقية الآن</button>
+            </div>
+
+            <div style="background: #282f3d; border: 1px solid #3b82f6; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 8px; position: relative;">
+                <div style="position: absolute; top: -10px; right: 16px; background: #3b82f6; color: #ffffff; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 10px;">الأكثر طلباً</div>
+                <div style="color: #ffffff; font-size: 16px; font-weight: 700;">الباقة السنويـة</div>
+                <div style="color: #cbd5e1; font-size: 13px;">توفير أكثر من 40% مع ميزات المخرجين المحترفين الحصرية.</div>
+                <button onclick="showToast('تم اختيار الباقة السنوية')" style="margin-top: 8px; background: #3b82f6; color: #ffffff; border: none; border-radius: 12px; padding: 12px; font-weight: 700; cursor: pointer;">ترقية سنوية</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function openSubscriptionModal() {
+        const modal = document.getElementById('subscriptionModalOverlay');
+        if (modal) {
+            modal.style.display = 'flex';
+        }
+    }
+
+    function closeSubscriptionModal() {
+        const modal = document.getElementById('subscriptionModalOverlay');
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    }
+</script>
