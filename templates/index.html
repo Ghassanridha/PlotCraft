@@ -6,9 +6,6 @@
     <title>PlotCraft UI</title>
     <link rel="manifest" href="/manifest.json">
     
-    <script src="config.js"></script>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    
     <style>
         * {
             box-sizing: border-box;
@@ -371,10 +368,6 @@
             </div>
         </div>
 
-        <!-- 📦 تضمين القوالب الفرعية المستقلة -->
-        {% include 'sparkle_modal.html' %}
-        {% include 'settings_screen.html' %}
-
         <!-- 🔘 شريط التنقل السفلي الأنيق -->
         <div class="plotcraft-nav-bar" id="mainNavBar">
             <!-- زر الإنشاء الدائري -->
@@ -404,7 +397,7 @@
         </div>
     </div>
 
-    <!-- ⚡ دوائر البرمجة التفاعلية -->
+    <!-- ⚡ دوائر البرمجة التفاعلية الأساسية فقط -->
     <script>
         window.vibrateDevice = function() {
             if ("vibrate" in navigator) {
@@ -443,20 +436,12 @@
         };
 
         function openSettingsScreen() {
-            if (typeof openSubscriptionModal === 'function') {
-                openSubscriptionModal();
-            } else {
-                showToast('الإعدادات والاشتراكات قيد التحميل...');
-            }
+            showToast('تم النقر على الإعدادات');
         }
 
         function openSparkleDialog(event) {
             if (event) event.preventDefault();
-            if (typeof openSparkleModal === 'function') {
-                openSparkleModal();
-            } else {
-                showToast('نافذة إنشاء القصة قيد التحميل...');
-            }
+            showToast('تم النقر على إنشاء قصة');
         }
     </script>
 </body>
