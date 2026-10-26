@@ -50,6 +50,15 @@
             cursor: pointer;
             display: flex; align-items: center; justify-content: center;
         }
+        .settings-upgrade-badge {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+        }
 
         .profile-header-card {
             display: flex;
@@ -93,6 +102,20 @@
             color: #cbd5e1; font-size: 12px; cursor: pointer;
         }
 
+        .pro-banner-card {
+            background: linear-gradient(135deg, rgba(30, 35, 50, 0.9), rgba(15, 20, 35, 0.95));
+            border: 1.5px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px; padding: 16px; margin-bottom: 20px;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .pro-banner-title { color: #ffffff; font-size: 16px; font-weight: 700; }
+        .pro-banner-desc { color: #cbd5e1; font-size: 12px; }
+        .pro-banner-btn {
+            background: #3b82f6; color: #ffffff; border: none;
+            padding: 8px 16px; border-radius: 14px; font-size: 13px; font-weight: 700;
+            width: fit-content; cursor: pointer;
+        }
+
         .settings-group-box {
             background: #282f3d;
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -121,15 +144,53 @@
             border-radius: 24px; width: 100%; max-width: 420px; padding: 20px;
             display: flex; flex-direction: column; gap: 14px; box-sizing: border-box;
         }
+
+        /* نافذة التصميم الجديد النظيف والصافي تماماً */
+        .subscription-full-screen {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #1f242d;
+            z-index: 1000000;
+            flex-direction: column;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+        .subscription-full-screen.show { display: flex !important; }
+
+        .sub-hero-image-container {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/ec9da0e286f63eeabed9d411cce650d0aa7da5e3/Gh3.jpg') center top / cover no-repeat;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-start;
+            padding: 16px;
+            box-sizing: border-box;
+        }
+        .sub-hero-overlay-gradient {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 120px;
+            background: linear-gradient(180deg, transparent 0%, #1f242d 100%);
+        }
+        .sub-close-circle {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff; width: 36px; height: 36px;
+            border-radius: 50%; cursor: pointer; font-size: 18px;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 2;
+        }
     </style>
 </head>
 <body>
 
     <div class="settings-screen" id="settingsScreen">
         <div class="settings-top-bar">
-            <button class="settings-close-btn" onclick="closeSettingsScreen(event)">‹</button>
+            <button class="settings-close-btn" onclick="triggerHaptic(); closeSettingsScreen(event)">‹</button>
             <div class="settings-title">الإعدادات</div>
-            <div style="width: 36px;"></div>
+            <button class="settings-upgrade-badge" onclick="triggerHaptic(); openSubscriptionModal()">ترقية</button>
         </div>
 
         <div class="profile-header-card">
@@ -139,18 +200,24 @@
             <div class="profile-info-group">
                 <div class="profile-name-row">
                     <span class="profile-name-text" id="displayUserName">NewUser</span>
-                    <span class="profile-edit-pencil" onclick="openNameEditModal()">
+                    <span class="profile-edit-pencil" onclick="triggerHaptic(); openNameEditModal()">
                         <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
                     </span>
                 </div>
-                <div class="profile-id-row" onclick="copyUserIdToClipboard()">
+                <div class="profile-id-row" onclick="triggerHaptic(); copyUserIdToClipboard()">
                     <span id="displayUniqueId">8492041</span>
                 </div>
             </div>
         </div>
 
+        <div class="pro-banner-card">
+            <div class="pro-banner-title">افتح PlotCraft Pro</div>
+            <div class="pro-banner-desc">حول كل فكرة إلى فيلم مكتمل</div>
+            <button class="pro-banner-btn" onclick="triggerHaptic(); openSubscriptionModal()">عرض خطط Pro ←</button>
+        </div>
+
         <div class="settings-group-box">
-            <div class="settings-item-row" onclick="alert('سجل النقاط')">
+            <div class="settings-item-row" onclick="triggerHaptic(); alert('سجل النقاط')">
                 <div class="settings-item-right">
                     <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
                     <span>سجل النقاط</span>
@@ -160,9 +227,22 @@
         </div>
 
         <div class="settings-group-box" style="margin-top: auto;">
-            <div class="settings-item-row" onclick="openLoginModal()" style="justify-content: center; color: #60a5fa;">
+            <div class="settings-item-row" onclick="triggerHaptic(); openLoginModal()" style="justify-content: center; color: #60a5fa;">
                 <span style="font-weight: bold;">تسجيل الدخول / إنشاء حساب</span>
             </div>
+        </div>
+    </div>
+
+    <!-- نافذة التصميم الجديد (عرض الصورة بالصورة الصافية Gh3.jpg) -->
+    <div class="subscription-full-screen" id="subscriptionModalOverlay">
+        <div class="sub-hero-image-container">
+            <div class="sub-hero-overlay-gradient"></div>
+            <button class="sub-close-circle" onclick="triggerHaptic(); closeSubscriptionModal()">✕</button>
+        </div>
+        <div style="max-width: 480px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; padding: 20px; box-sizing: border-box; text-align: center;">
+            <div style="font-size: 24px; font-weight: 800; color: #fff;">PLOTCRAFT PRO</div>
+            <div style="font-size: 15px; color: #cbd5e1;">التصميم الجديد متصل بنجاح وبأعلى وضوح</div>
+            <button onclick="triggerHaptic(); closeSubscriptionModal()" style="background: #3b82f6; color: #fff; padding: 14px; border-radius: 14px; border: none; font-weight: bold; cursor: pointer;">تم</button>
         </div>
     </div>
 
@@ -172,8 +252,8 @@
             <h3 style="color:#fff; font-size:16px; margin:0;">تعديل الاسم</h3>
             <input type="text" id="nameEditInput" style="width:100%; padding:10px; border-radius:10px; border:1px solid #444; background:#161b22; color:#fff; box-sizing: border-box;" placeholder="أدخل اسمك الجديد">
             <div style="display:flex; gap:10px; justify-content: flex-end;">
-                <button onclick="closeNameEditModal()" style="padding:8px 16px; border-radius:8px; border:none; background:#444; color:#fff; cursor:pointer;">إلغاء</button>
-                <button onclick="saveNewName()" style="padding:8px 16px; border-radius:8px; border:none; background:#3b82f6; color:#fff; cursor:pointer;">حفظ</button>
+                <button onclick="triggerHaptic(); closeNameEditModal()" style="padding:8px 16px; border-radius:8px; border:none; background:#444; color:#fff; cursor:pointer;">إلغاء</button>
+                <button onclick="triggerHaptic(); saveNewName()" style="padding:8px 16px; border-radius:8px; border:none; background:#3b82f6; color:#fff; cursor:pointer;">حفظ</button>
             </div>
         </div>
     </div>
@@ -184,13 +264,17 @@
             <h3 style="color:#fff; font-size:18px; margin:0; text-align:center;">تسجيل الدخول</h3>
             <input type="email" placeholder="البريد الإلكتروني" style="width:100%; padding:10px; border-radius:10px; border:1px solid #444; background:#161b22; color:#fff; box-sizing: border-box;">
             <div style="display:flex; gap:10px; justify-content: flex-end;">
-                <button onclick="closeLoginModal()" style="padding:8px 16px; border-radius:8px; border:none; background:#444; color:#fff; cursor:pointer;">إلغاء</button>
-                <button onclick="alert('تم تسجيل الدخول بنجاح'); closeLoginModal();" style="padding:8px 16px; border-radius:8px; border:none; background:#3b82f6; color:#fff; cursor:pointer;">دخول</button>
+                <button onclick="triggerHaptic(); closeLoginModal()" style="padding:8px 16px; border-radius:8px; border:none; background:#444; color:#fff; cursor:pointer;">إلغاء</button>
+                <button onclick="triggerHaptic(); alert('تم تسجيل الدخول بنجاح'); closeLoginModal();" style="padding:8px 16px; border-radius:8px; border:none; background:#3b82f6; color:#fff; cursor:pointer;">دخول</button>
             </div>
         </div>
     </div>
 
     <script>
+        function triggerHaptic() {
+            if (navigator.vibrate) { navigator.vibrate(50); }
+        }
+
         function openSettingsScreen() { document.getElementById('settingsScreen').classList.add('active'); }
         function closeSettingsScreen(event) { if (event) event.stopPropagation(); document.getElementById('settingsScreen').classList.remove('active'); }
 
@@ -219,6 +303,8 @@
             }
         }
 
+        function openSubscriptionModal() { document.getElementById('subscriptionModalOverlay').classList.add('show'); }
+        function closeSubscriptionModal() { document.getElementById('subscriptionModalOverlay').classList.remove('show'); }
         function openLoginModal() { document.getElementById('loginModalOverlay').classList.add('show'); }
         function closeLoginModal() { document.getElementById('loginModalOverlay').classList.remove('show'); }
         function closeOnOutside(event, modalId) { if (event.target.id === modalId) { document.getElementById(modalId).classList.remove('show'); } }
