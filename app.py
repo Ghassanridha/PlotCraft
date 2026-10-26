@@ -1,16 +1,14 @@
 import os
-import requests
 import firebase_admin
 from firebase_admin import credentials, firestore
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from security import sanitize_input  # استيراد دالة التنظيف الآمنة
 
 app = FastAPI()
 
-# تهيئة Firebase مباشرة بشكل آمن ومتوافق مع Render بدون الحاجة لملف config.py
+# تهيئة Firebase مباشرة بشكل آمن ومتوافق مع Render
 db = None
 try:
     if not firebase_admin._apps:
@@ -31,52 +29,21 @@ try:
 except Exception as e:
     print(f"Firebase Init Error: {e}")
 
-# تعريف مفتاح يوتيوب بشكل آمن
-YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY", "AIzaSyDuSWbvfNJiGk7sw3eO6xJpPPur5L_heqA")
-
-# ربط مجلد static لتقديم الملفات الثابتة
+# ربط مجلد الملفات الثابتة
 if os.path.exists("static"):
     app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")
 
+# المسار الرئيسي لخدمة واجهة index.html
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
     return templates.TemplateResponse(request, "index.html")
 
-# مسار خاص لجلب فيديوهات اليوتيوب
-@app.get("/api/videos")
-async def get_youtube_videos(query: str = "trending", pageToken: str = ""):
-    url = f"https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q={query}&type=video&key={YOUTUBE_API_KEY}"
-    
-    if pageToken:
-        url += f"&pageToken={pageToken}"
-        
-    try:
-        response = requests.get(url)
-        data = response.json()
-        return JSONResponse(content=data)
-    except Exception as e:
-        return JSONResponse({"error": str(e)}, status_code=500)
-
-# مسار لخدمة manifest.json لـ PWABuilder
+# مسار لخدمة manifest.json
 @app.get("/manifest.json")
 async def get_manifest():
     return FileResponse("static/manifest.json", media_type="application/json")
-
-@app.post("/save")
-async def save(request: Request):
-    if db is None:
-        return JSONResponse({"error": "Firebase غير متصل"}, status_code=500)
-    
-    try:
-        raw_data = await request.json()
-    except Exception:
-        raw_data = {}
-        
-    data = sanitize_input(raw_data)
-    db.collection('users').add(data)
-    return {"status": "saved"}
 
 if __name__ == "__main__":
     import uvicorn
