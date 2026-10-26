@@ -40,7 +40,17 @@
             text-align: center;
             flex-grow: 1;
         }
-        .settings-close-btn, .settings-upgrade-badge {
+        .settings-close-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .settings-upgrade-badge {
             background: rgba(255, 255, 255, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: #fff;
@@ -48,13 +58,6 @@
             border-radius: 20px;
             font-size: 13px;
             cursor: pointer;
-        }
-        .settings-close-btn {
-            width: 36px; height: 36px;
-            padding: 0;
-            border-radius: 50%;
-            font-size: 18px;
-            display: flex; align-items: center; justify-content: center;
         }
 
         .profile-header-card {
@@ -73,10 +76,18 @@
             display: flex; align-items: center; justify-content: center;
             flex-shrink: 0;
         }
-        .profile-avatar-box img { width: 100%; height: 100%; object-fit: cover; }
-        .profile-info-group { display: flex; flex-direction: column; gap: 6px; }
-        .profile-name-row { display: flex; align-items: center; gap: 10px; }
-        .profile-name-text { color: #ffffff; font-size: 19px; font-weight: 700; }
+        .profile-avatar-box img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .profile-info-group {
+            display: flex; flex-direction: column; gap: 6px;
+        }
+        .profile-name-row {
+            display: flex; align-items: center; gap: 10px;
+        }
+        .profile-name-text {
+            color: #ffffff; font-size: 19px; font-weight: 700;
+        }
         .profile-edit-pencil {
             cursor: pointer; width: 26px; height: 26px;
             background: rgba(255, 255, 255, 0.12);
@@ -116,11 +127,25 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.05); cursor: pointer;
         }
         .settings-item-row:last-child { border-bottom: none; }
-        .settings-item-right { display: flex; align-items: center; gap: 12px; color: #ffffff; font-size: 15px; font-weight: 600; }
+        .settings-item-right {
+            display: flex; align-items: center; gap: 12px; color: #ffffff; font-size: 15px; font-weight: 600;
+        }
         .menu-icon svg { width: 18px; height: 18px; fill: #94a3b8; }
         .settings-item-left { color: #cbd5e1; font-size: 14px; }
 
-        /* نافذة الاشتراكات المفصولة (تضم الباقة العلوية فقط بدون أي عناصر مكررة) */
+        .settings-modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); z-index: 999999;
+            align-items: center; justify-content: center; padding: 15px; box-sizing: border-box;
+        }
+        .settings-modal-overlay.show { display: flex !important; }
+        .settings-modal-box {
+            background: #1f242d; border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 24px; width: 100%; max-width: 420px; padding: 20px;
+            display: flex; flex-direction: column; gap: 14px; box-sizing: border-box;
+        }
+
+        /* نافذة الاشتراكات المرتبطة بزر الترقية بالتصميم الصافي والأزرار الحية */
         .subscription-full-screen {
             display: none;
             position: fixed;
@@ -143,9 +168,15 @@
             box-sizing: border-box;
             flex-shrink: 0;
         }
-        .sub-hero-img-tag { width: 100%; height: auto; display: block; }
+        .sub-hero-img-tag {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
         .sub-close-circle {
-            position: absolute; top: 16px; left: 16px;
+            position: absolute;
+            top: 16px;
+            left: 16px;
             background: rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: #fff; width: 36px; height: 36px;
@@ -159,15 +190,21 @@
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 16px;
             padding: 16px;
-            display: flex; justify-content: space-between; align-items: center;
-            cursor: pointer; transition: all 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
-        .pricing-card.active { border: 2px solid #3b82f6; background: #1a2333; }
+        .pricing-card.active {
+            border: 2px solid #3b82f6;
+            background: #1a2333;
+        }
     </style>
 </head>
 <body>
 
-    <!-- شاشة الإعدادات -->
+    <!-- شاشة الإعدادات الرئيسية -->
     <div class="settings-screen active" id="settingsScreen">
         <div class="settings-top-bar">
             <button class="settings-close-btn" onclick="triggerHaptic(); closeSettingsScreen(event)">‹</button>
@@ -182,6 +219,9 @@
             <div class="profile-info-group">
                 <div class="profile-name-row">
                     <span class="profile-name-text" id="displayUserName">NewUser</span>
+                    <span class="profile-edit-pencil" onclick="triggerHaptic(); openNameEditModal()">
+                        <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                    </span>
                 </div>
                 <div class="profile-id-row" onclick="triggerHaptic(); copyUserIdToClipboard()">
                     <span id="displayUniqueId">8492041</span>
@@ -204,9 +244,15 @@
                 <div class="settings-item-left">›</div>
             </div>
         </div>
+
+        <div class="settings-group-box" style="margin-top: auto;">
+            <div class="settings-item-row" onclick="triggerHaptic(); openLoginModal()" style="justify-content: center; color: #60a5fa;">
+                <span style="font-weight: bold;">تسجيل الدخول / إنشاء حساب</span>
+            </div>
+        </div>
     </div>
 
-    <!-- نافذة الاشتراكات العلوية الواحدة والواضحة فقط -->
+    <!-- نافذة الاشتراكات المرتبطة بزر الترقية (تظهر فقط عند الضغط على زر الترقية أو البانر) -->
     <div class="subscription-full-screen" id="subscriptionModalOverlay">
         
         <div class="sub-hero-image-container">
@@ -222,26 +268,31 @@
                 <div style="font-size: 12px; color: #94a3b8; margin-top: 2px;">ترجم أفكارك إلى مشاهد نابضة بالحياة</div>
             </div>
 
+            <!-- أربع مربعات الميزات مع أيقوناتها -->
             <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center; margin-top: 4px;">
                 <div style="background: #161b22; padding: 12px 4px; border-radius: 12px; font-size: 11px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
                     <span>نص AI</span>
                 </div>
                 <div style="background: #161b22; padding: 12px 4px; border-radius: 12px; font-size: 11px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
                     <span>القصة المصورة</span>
                 </div>
                 <div style="background: #161b22; padding: 12px 4px; border-radius: 12px; font-size: 11px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
                     <span>لقطة AI</span>
                 </div>
                 <div style="background: #161b22; padding: 12px 4px; border-radius: 12px; font-size: 11px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 10v6M2 10v6M6.5 12h11M12 6.5v11"></path></svg>
                     <span>مونتاج AI</span>
                 </div>
             </div>
 
-            <!-- الباقات الثلاثة المتاحة للاختيار -->
+            <!-- الباقات الثلاثة التفاعلية الحية -->
             <div class="pricing-card" data-plan="weekly" data-price="$US 9.99" onclick="triggerHaptic(); selectPlan(this)">
                 <div>
                     <div style="font-size: 15px; font-weight: 700; color: #fff;">PlotCraft Pro Weekly</div>
-                    <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">500 Credits / Week</div>
+                    <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">500 Credits / Week, Try AI Drama Creation</div>
                 </div>
                 <div style="text-align: left;">
                     <div style="font-size: 15px; font-weight: 800; color: #fff;">$US 9.99</div>
@@ -253,7 +304,7 @@
                 <div style="position: absolute; top: -10px; right: 16px; background: #3b82f6; color: #fff; font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 8px;">رائج</div>
                 <div>
                     <div style="font-size: 15px; font-weight: 700; color: #fff;">PlotCraft Pro Monthly</div>
-                    <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">1800 Credits / Month</div>
+                    <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">1800 Credits / Month, Ideal for regular creators</div>
                 </div>
                 <div style="text-align: left;">
                     <div style="font-size: 15px; font-weight: 800; color: #fff;">$US 29.99</div>
@@ -264,12 +315,16 @@
             <div class="pricing-card" data-plan="annual" data-price="$US 69.99" onclick="triggerHaptic(); selectPlan(this)">
                 <div>
                     <div style="font-size: 15px; font-weight: 700; color: #fff;">PlotCraft Pro Annual</div>
-                    <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">5000 Credits / Year</div>
+                    <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">5000 Credits / Year, Ideal for professional creators</div>
                 </div>
                 <div style="text-align: left;">
                     <div style="font-size: 15px; font-weight: 800; color: #fff;">$US 69.99</div>
                     <div style="font-size: 11px; color: #94a3b8;">سنة</div>
                 </div>
+            </div>
+
+            <div style="text-align: center; font-size: 11px; color: #64748b; margin-top: 2px;">
+                <span>🔒 تجديد تلقائي، يمكن الإلغاء في أي وقت</span>
             </div>
 
             <button onclick="triggerHaptic(); handleSubscription()" style="width: 100%; background: #ffffff; color: #0b0f19; font-size: 16px; font-weight: 800; padding: 16px; border-radius: 20px; border: none; cursor: pointer; text-align: center; margin-top: 6px;">
@@ -286,13 +341,62 @@
         </div>
     </div>
 
+    <!-- نافذة تعديل الاسم -->
+    <div class="settings-modal-overlay" id="nameEditModalOverlay" onclick="closeOnOutside(event, 'nameEditModalOverlay')">
+        <div class="settings-modal-box">
+            <h3 style="color:#fff; font-size:16px; margin:0;">تعديل الاسم</h3>
+            <input type="text" id="nameEditInput" style="width:100%; padding:10px; border-radius:10px; border:1px solid #444; background:#161b22; color:#fff; box-sizing: border-box;" placeholder="أدخل اسمك الجديد">
+            <div style="display:flex; gap:10px; justify-content: flex-end;">
+                <button onclick="triggerHaptic(); closeNameEditModal()" style="padding:8px 16px; border-radius:8px; border:none; background:#444; color:#fff; cursor:pointer;">إلغاء</button>
+                <button onclick="triggerHaptic(); saveNewName()" style="padding:8px 16px; border-radius:8px; border:none; background:#3b82f6; color:#fff; cursor:pointer;">حفظ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة تسجيل الدخول -->
+    <div class="settings-modal-overlay" id="loginModalOverlay" onclick="closeOnOutside(event, 'loginModalOverlay')">
+        <div class="settings-modal-box">
+            <h3 style="color:#fff; font-size:18px; margin:0; text-align:center;">تسجيل الدخول</h3>
+            <input type="email" placeholder="البريد الإلكتروني" style="width:100%; padding:10px; border-radius:10px; border:1px solid #444; background:#161b22; color:#fff; box-sizing: border-box;">
+            <div style="display:flex; gap:10px; justify-content: flex-end;">
+                <button onclick="triggerHaptic(); closeLoginModal()" style="padding:8px 16px; border-radius:8px; border:none; background:#444; color:#fff; cursor:pointer;">إلغاء</button>
+                <button onclick="triggerHaptic(); alert('تم تسجيل الدخول بنجاح'); closeLoginModal();" style="padding:8px 16px; border-radius:8px; border:none; background:#3b82f6; color:#fff; cursor:pointer;">دخول</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         function triggerHaptic() {
             if (navigator.vibrate) { navigator.vibrate(50); }
         }
 
-        function openSubscriptionModal() { document.getElementById('subscriptionModalOverlay').classList.add('show'); }
-        function closeSubscriptionModal() { document.getElementById('subscriptionModalOverlay').classList.remove('show'); }
+        function openSettingsScreen() { document.getElementById('settingsScreen').classList.add('active'); }
+        function closeSettingsScreen(event) { if (event) event.stopPropagation(); document.getElementById('settingsScreen').classList.remove('active'); }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const savedName = localStorage.getItem('plotcraft_username');
+            if (savedName) { document.getElementById('displayUserName').innerText = savedName; }
+        });
+
+        function openNameEditModal() { document.getElementById('nameEditModalOverlay').classList.add('show'); }
+        function closeNameEditModal() { document.getElementById('nameEditModalOverlay').classList.remove('show'); }
+        function saveNewName() {
+            const input = document.getElementById('nameEditInput');
+            if (input && input.value.trim() !== '') {
+                const newName = input.value.trim();
+                document.getElementById('displayUserName').innerText = newName;
+                localStorage.setItem('plotcraft_username', newName);
+                closeNameEditModal();
+            }
+        }
+
+        function copyUserIdToClipboard() {
+            const idText = document.getElementById('displayUniqueId')?.innerText;
+            if (idText && navigator.clipboard) {
+                navigator.clipboard.writeText(idText);
+                alert('تم نسخ المعرف: ' + idText);
+            }
+        }
 
         let selectedPlanData = { plan: 'monthly', price: '$US 29.99' };
         function selectPlan(element) {
@@ -308,7 +412,12 @@
             selectedPlanData.price = element.getAttribute('data-price');
         }
 
-        function handleSubscription() { alert('جاري التوجيه للباقة المختارة: ' + selectedPlanData.price); }
+        function handleSubscription() { alert('جاري توجيهك لبوابة الدفع للباقة: ' + selectedPlanData.price); }
+        function openSubscriptionModal() { document.getElementById('subscriptionModalOverlay').classList.add('show'); }
+        function closeSubscriptionModal() { document.getElementById('subscriptionModalOverlay').classList.remove('show'); }
+        function openLoginModal() { document.getElementById('loginModalOverlay').classList.add('show'); }
+        function closeLoginModal() { document.getElementById('loginModalOverlay').classList.remove('show'); }
+        function closeOnOutside(event, modalId) { if (event.target.id === modalId) { document.getElementById(modalId).classList.remove('show'); } }
     </script>
 </body>
 </html>
