@@ -77,7 +77,8 @@
             flex-shrink: 0;
         }
         .profile-avatar-box img {
-            width: 100%; height: 100%; object-fit: cover;
+            width: 100%; height: 100%;
+            object-fit: cover;
         }
         .profile-info-group {
             display: flex; flex-direction: column; gap: 6px;
@@ -145,7 +146,7 @@
             display: flex; flex-direction: column; gap: 14px; box-sizing: border-box;
         }
 
-        /* نافذة الاشتراكات المرتبطة بزر الترقية بالتصميم الصافي والأزرار الحية */
+        /* نافذة الاشتراكات: القسم العلوي فقط وبدون تمرير */
         .subscription-full-screen {
             display: none;
             position: fixed;
@@ -153,7 +154,7 @@
             background-color: #1f242d;
             z-index: 1000000;
             flex-direction: column;
-            overflow-y: auto;
+            overflow: hidden;
             box-sizing: border-box;
         }
         .subscription-full-screen.show { display: flex !important; }
@@ -183,22 +184,6 @@
             border-radius: 50%; cursor: pointer; font-size: 18px;
             display: flex; align-items: center; justify-content: center;
             z-index: 2;
-        }
-
-        .pricing-card {
-            background: #161b22;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px;
-            padding: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .pricing-card.active {
-            border: 2px solid #3b82f6;
-            background: #1a2333;
         }
     </style>
 </head>
@@ -252,7 +237,7 @@
         </div>
     </div>
 
-    <!-- نافذة الاشتراكات المرتبطة بزر الترقية (تظهر فقط عند الضغط على زر الترقية أو البانر) -->
+    <!-- نافذة الاشتراكات: القسم العلوي فقط -->
     <div class="subscription-full-screen" id="subscriptionModalOverlay">
         
         <div class="sub-hero-image-container">
@@ -268,7 +253,7 @@
                 <div style="font-size: 12px; color: #94a3b8; margin-top: 2px;">ترجم أفكارك إلى مشاهد نابضة بالحياة</div>
             </div>
 
-            <!-- أربع مربعات الميزات مع أيقوناتها -->
+            <!-- أربع مربعات الميزات -->
             <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center; margin-top: 4px;">
                 <div style="background: #161b22; padding: 12px 4px; border-radius: 12px; font-size: 11px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; align-items: center; gap: 6px;">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
@@ -286,57 +271,6 @@
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 10v6M2 10v6M6.5 12h11M12 6.5v11"></path></svg>
                     <span>مونتاج AI</span>
                 </div>
-            </div>
-
-            <!-- الباقات الثلاثة التفاعلية الحية -->
-            <div class="pricing-card" data-plan="weekly" data-price="$US 9.99" onclick="triggerHaptic(); selectPlan(this)">
-                <div>
-                    <div style="font-size: 15px; font-weight: 700; color: #fff;">PlotCraft Pro Weekly</div>
-                    <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">500 Credits / Week, Try AI Drama Creation</div>
-                </div>
-                <div style="text-align: left;">
-                    <div style="font-size: 15px; font-weight: 800; color: #fff;">$US 9.99</div>
-                    <div style="font-size: 11px; color: #94a3b8;">أسبوع</div>
-                </div>
-            </div>
-
-            <div class="pricing-card active" data-plan="monthly" data-price="$US 29.99" onclick="triggerHaptic(); selectPlan(this)" style="position: relative;">
-                <div style="position: absolute; top: -10px; right: 16px; background: #3b82f6; color: #fff; font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 8px;">رائج</div>
-                <div>
-                    <div style="font-size: 15px; font-weight: 700; color: #fff;">PlotCraft Pro Monthly</div>
-                    <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">1800 Credits / Month, Ideal for regular creators</div>
-                </div>
-                <div style="text-align: left;">
-                    <div style="font-size: 15px; font-weight: 800; color: #fff;">$US 29.99</div>
-                    <div style="font-size: 11px; color: #94a3b8;">شهر</div>
-                </div>
-            </div>
-
-            <div class="pricing-card" data-plan="annual" data-price="$US 69.99" onclick="triggerHaptic(); selectPlan(this)">
-                <div>
-                    <div style="font-size: 15px; font-weight: 700; color: #fff;">PlotCraft Pro Annual</div>
-                    <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">5000 Credits / Year, Ideal for professional creators</div>
-                </div>
-                <div style="text-align: left;">
-                    <div style="font-size: 15px; font-weight: 800; color: #fff;">$US 69.99</div>
-                    <div style="font-size: 11px; color: #94a3b8;">سنة</div>
-                </div>
-            </div>
-
-            <div style="text-align: center; font-size: 11px; color: #64748b; margin-top: 2px;">
-                <span>🔒 تجديد تلقائي، يمكن الإلغاء في أي وقت</span>
-            </div>
-
-            <button onclick="triggerHaptic(); handleSubscription()" style="width: 100%; background: #ffffff; color: #0b0f19; font-size: 16px; font-weight: 800; padding: 16px; border-radius: 20px; border: none; cursor: pointer; text-align: center; margin-top: 6px;">
-                اشتراك
-            </button>
-
-            <div style="display: flex; justify-content: center; gap: 14px; font-size: 12px; color: #94a3b8; margin-top: 8px;">
-                <span style="cursor: pointer;" onclick="triggerHaptic(); alert('استعادة')">استعادة</span>
-                <span>|</span>
-                <span style="cursor: pointer;" onclick="triggerHaptic(); alert('شروط الاستخدام')">شروط الاستخدام</span>
-                <span>|</span>
-                <span style="cursor: pointer;" onclick="triggerHaptic(); alert('الخصوصية')">الخصوصية</span>
             </div>
         </div>
     </div>
@@ -398,21 +332,6 @@
             }
         }
 
-        let selectedPlanData = { plan: 'monthly', price: '$US 29.99' };
-        function selectPlan(element) {
-            document.querySelectorAll('.pricing-card').forEach(card => {
-                card.classList.remove('active');
-                card.style.border = '1px solid rgba(255,255,255,0.1)';
-                card.style.background = '#161b22';
-            });
-            element.classList.add('active');
-            element.style.border = '2px solid #3b82f6';
-            element.style.background = '#1a2333';
-            selectedPlanData.plan = element.getAttribute('data-plan');
-            selectedPlanData.price = element.getAttribute('data-price');
-        }
-
-        function handleSubscription() { alert('جاري توجيهك لبوابة الدفع للباقة: ' + selectedPlanData.price); }
         function openSubscriptionModal() { document.getElementById('subscriptionModalOverlay').classList.add('show'); }
         function closeSubscriptionModal() { document.getElementById('subscriptionModalOverlay').classList.remove('show'); }
         function openLoginModal() { document.getElementById('loginModalOverlay').classList.add('show'); }
