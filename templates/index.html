@@ -325,6 +325,8 @@
             <div class="hero-box">
                 <div class="top-header">
                     <div class="brand-title">PlotCraft</div>
+                    <!-- زر الترقية إلى Pro المضاف بجانب زر الإعدادات -->
+                    <button onclick="openSubscription()" style="background: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 16px; font-weight: bold; cursor: pointer; font-size: 12px; margin-left: 8px;">الترقية إلى Pro</button>
                     <div class="top-settings-btn" onclick="vibrateDevice(); openSettingsScreen()">
                         <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات">
                     </div>
@@ -397,6 +399,9 @@
         </div>
     </div>
 
+    <!-- حاوية استدعاء نافذة الاشتراكات المستقلة -->
+    <div id="subscriptionModalWrapper"></div>
+
     <!-- ⚡ دوائر البرمجة التفاعلية الأساسية فقط -->
     <script>
         window.vibrateDevice = function() {
@@ -443,6 +448,21 @@
             if (event) event.preventDefault();
             showToast('تم النقر على إنشاء قصة');
         }
+
+        // استدعاء ملف نافذة الاشتراكات المستقل تلقائياً من مجلد templates
+        fetch('templates/subscription_modal.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('تعذر تحميل ملف الاشتراكات');
+                }
+                return response.text();
+            })
+            .then(htmlContent => {
+                document.getElementById('subscriptionModalWrapper').innerHTML = htmlContent;
+            })
+            .catch(error => {
+                console.error('خطأ في استدعاء ملف الاشتراكات:', error);
+            });
     </script>
 </body>
 </html>
