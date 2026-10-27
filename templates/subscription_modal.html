@@ -1,72 +1,252 @@
-<div id="subscriptionModal" class="modal-overlay">
-    <!-- أضفنا زر إغلاق وهمي أو صريح في الأعلى يمين التصميم ليتم النقر عليه للإغلاق، أو انقر على الخلفية -->
-    <button class="close-btn-overlay" onclick="closeSubscription(event)" ontouchstart="closeSubscription(event)">&times;</button>
-    <div class="modal-container"></div>
+<div id="subscriptionModal" class="modal-overlay" style="display: flex;">
+    <div class="sub-wrapper">
+        
+        <!-- زر إغلاق (X) في أعلى اليمين -->
+        <button class="close-modal-btn" onclick="closeSubscription()" ontouchstart="closeSubscription()">&times;</button>
+
+        <div class="sub-header">
+            <div class="sub-title">PLOTCRAFT PRO</div>
+            <div class="sub-desc">حول خيالك إلى بلوت كرافت، ترجم أفكارك إلى مشاهد نابضة بالحياة</div>
+        </div>
+
+        <div class="plans-list">
+            <!-- باقة الأسبوع -->
+            <div class="plan-card" onclick="choosePlan(this)" ontouchstart="choosePlan(this)">
+                <div class="plan-info">
+                    <h3>PlotCraft Pro Weekly</h3>
+                    <p>Credits / Week, Try AI Drama Creation 500</p>
+                </div>
+                <div class="plan-pricing">
+                    <div class="price">US 9.99$</div>
+                    <div class="period">أسبوع</div>
+                </div>
+            </div>
+
+            <!-- باقة الشهر (مفعلة افتراضياً) -->
+            <div class="plan-card active" onclick="choosePlan(this)" ontouchstart="choosePlan(this)">
+                <div class="plan-badge">رائج</div>
+                <div class="plan-info">
+                    <h3>PlotCraft Pro Monthly</h3>
+                    <p>Credits / Month, Ideal for regular creators 1800</p>
+                </div>
+                <div class="plan-pricing">
+                    <div class="price">US 29.99$</div>
+                    <div class="period">شهر</div>
+                </div>
+            </div>
+
+            <!-- باقة السنة -->
+            <div class="plan-card" onclick="choosePlan(this)" ontouchstart="choosePlan(this)">
+                <div class="plan-info">
+                    <h3>PlotCraft Pro Annual</h3>
+                    <p>Credits / Year, Ideal for professional creators 5000</p>
+                </div>
+                <div class="plan-pricing">
+                    <div class="price">US 69.99$</div>
+                    <div class="period">سنة</div>
+                </div>
+            </div>
+        </div>
+
+        <button class="subscribe-btn" onclick="executeSubscribe()" ontouchstart="executeSubscribe()">اشتراك</button>
+        
+        <div class="footer-note">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+            تجديد تلقائي، يمكن الإلغاء في أي وقت
+        </div>
+
+    </div>
 </div>
 
 <style>
-.modal-overlay {
-    display: none; 
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100vw; 
-    height: 100vh;
-    background: #0b0f19; 
-    z-index: 999999;
-    direction: rtl;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    pointer-events: auto !important;
-}
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: linear-gradient(180deg, rgba(11,15,25,0.85) 0%, rgba(11,15,25,0.95) 100%),
+                    url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/54a585f45b13b52a057d4ffeafc29915b9d2ab0c/Gh3.jpg') center/cover no-repeat;
+        z-index: 999999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow-y: auto;
+        padding: 16px;
+        direction: rtl;
+        pointer-events: auto !important;
+    }
 
-/* زر إغلاق أنيق وشفاف في أعلى اليمين ليتمكن المستخدم من الخروج متى ما أراد */
-.close-btn-overlay {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: rgba(0, 0, 0, 0.6);
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    font-size: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 1000000;
-    pointer-events: auto !important;
-    touch-action: manipulation;
-}
+    .sub-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 420px;
+        background: rgba(13, 17, 29, 0.92);
+        backdrop-filter: blur(16px);
+        border-radius: 24px;
+        padding: 24px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        margin: auto;
+        pointer-events: auto !important;
+    }
 
-.modal-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    max-width: 100vw;
-    max-height: 100vh;
-    border-radius: 0;
-    border: none;
-    margin: 0;
-    padding: 0;
-    background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/54a585f45b13b52a057d4ffeafc29915b9d2ab0c/Gh3.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    box-sizing: border-box;
-    pointer-events: auto !important;
-}
+    .close-modal-btn {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        color: #ffffff;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        font-size: 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 50;
+        touch-action: manipulation;
+        pointer-events: auto !important;
+    }
+
+    .close-modal-btn:active {
+        transform: scale(0.9);
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    .sub-header {
+        text-align: center;
+        margin-bottom: 22px;
+        margin-top: 6px;
+    }
+
+    .sub-title {
+        font-size: 24px;
+        font-weight: 800;
+        background: linear-gradient(90deg, #c084fc, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 6px;
+    }
+
+    .sub-desc {
+        font-size: 12px;
+        color: #9ca3af;
+        line-height: 1.4;
+    }
+
+    .plans-list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-bottom: 20px;
+    }
+
+    .plan-card {
+        position: relative;
+        background: #141a29;
+        border: 2px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        touch-action: manipulation;
+        pointer-events: auto !important;
+    }
+
+    .plan-card:active {
+        transform: scale(0.98);
+    }
+
+    /* الباقة المفعلة باللون الأزرق والإضاءة مثل الصورة بالضبط */
+    .plan-card.active {
+        border-color: #3b82f6 !important;
+        background: #162035 !important;
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+    }
+
+    .plan-badge {
+        position: absolute;
+        top: -11px;
+        left: 16px;
+        background: #3b82f6;
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: bold;
+        padding: 2px 10px;
+        border-radius: 10px;
+    }
+
+    .plan-info h3 {
+        font-size: 15px;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 4px;
+    }
+
+    .plan-info p {
+        font-size: 10px;
+        color: #9ca3af;
+    }
+
+    .plan-pricing {
+        text-align: left;
+    }
+
+    .plan-pricing .price {
+        font-size: 16px;
+        font-weight: 800;
+        color: #ffffff;
+    }
+
+    .plan-pricing .period {
+        font-size: 11px;
+        color: #9ca3af;
+        margin-top: 2px;
+    }
+
+    .subscribe-btn {
+        width: 100%;
+        height: 50px;
+        background: #ffffff;
+        color: #000000;
+        border: none;
+        border-radius: 30px;
+        font-size: 16px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.1s;
+        touch-action: manipulation;
+        pointer-events: auto !important;
+        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+    }
+
+    .subscribe-btn:active {
+        transform: scale(0.97);
+        background: #e5e7eb;
+    }
+
+    .footer-note {
+        text-align: center;
+        font-size: 11px;
+        color: #9ca3af;
+        margin-top: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+    }
 </style>
 
 <script>
     if (typeof window.closeSubscription === 'undefined') {
-        window.closeSubscription = function(event) {
-            if (event) event.stopPropagation(); // منع انتقال الحدث للحاويات الأخرى
+        window.closeSubscription = function() {
             if (window.navigator && window.navigator.vibrate) {
                 try { window.navigator.vibrate(30); } catch (e) {}
             }
@@ -74,6 +254,26 @@
             if (modal) {
                 modal.style.display = 'none';
             }
+        };
+    }
+
+    if (typeof window.choosePlan === 'undefined') {
+        window.choosePlan = function(cardElement) {
+            if (window.navigator && window.navigator.vibrate) {
+                try { window.navigator.vibrate(40); } catch (e) {}
+            }
+            const allCards = document.querySelectorAll('.plan-card');
+            allCards.forEach(card => card.classList.remove('active'));
+            cardElement.classList.add('active');
+        };
+    }
+
+    if (typeof window.executeSubscribe === 'undefined') {
+        window.executeSubscribe = function() {
+            if (window.navigator && window.navigator.vibrate) {
+                try { window.navigator.vibrate(60); } catch (e) {}
+            }
+            alert("تم إرسال طلب الاشتراك بنجاح!");
         };
     }
 </script>
