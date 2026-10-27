@@ -16,8 +16,9 @@
 
 .modal-container {
     background: #0b0f19;
+    /* تم استبدال الخلفية بصورتك الأصلية بالضبط */
     background-image: linear-gradient(180deg, rgba(11,15,25,0.4) 0%, rgba(11,15,25,0.95) 50%, #0b0f19 100%),
-                url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1080&auto=format&fit=crop');
+                url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1080&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     padding: 20px;
@@ -281,7 +282,6 @@
 </div>
 
 <script>
-    // اختيار الخطة وتفعيلها
     function selectPlan(cardElement) {
         document.querySelectorAll('.plan-card').forEach(card => {
             card.classList.remove('active');
@@ -289,7 +289,6 @@
         cardElement.classList.add('active');
     }
 
-    // إغلاق النافذة عند النقر خارج الـ Container
     document.getElementById('subscriptionModal').onclick = function(event) {
         if (event.target === this) {
             closeSubscription();
