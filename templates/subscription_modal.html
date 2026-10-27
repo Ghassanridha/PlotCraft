@@ -4,7 +4,7 @@
         <!-- زر إغلاق (X) -->
         <button class="close-modal-btn" onclick="closeSubscription()" ontouchstart="closeSubscription()">&times;</button>
 
-        <!-- حاوية الباقات - مصفوفة ومثبتة فوق التصميم -->
+        <!-- حاوية الباقات - مرفوعة أكثر للأعلى لتوفير مساحة في الأسفل -->
         <div class="plans-list-absolute">
             <!-- باقة الأسبوع -->
             <div class="plan-card" onclick="choosePlan(this)" ontouchstart="choosePlan(this)">
@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        <!-- المنطقة السفلية: التجديد + زر الاشتراك + الروابط (مثبتة من الأسفل) -->
+        <!-- المنطقة السفلية: التجديد + زر الاشتراك + الروابط (ظاهرة بالكامل دون اختفاء) -->
         <div class="bottom-fixed-area">
             <div class="footer-note">
                 <span>تجديد تلقائي، يمكن الإلغاء في أي وقت</span>
@@ -78,7 +78,6 @@
         direction: rtl;
         margin: 0;
         padding: 0;
-        /* إلغاء التمرير تماماً لمنع الحركة للأعلى والأسفل */
         overflow: hidden !important;
         touch-action: none !important;
         pointer-events: auto !important;
@@ -87,16 +86,16 @@
     .modal-absolute-container {
         position: relative;
         width: 100%;
-        height: 100vh; /* ارتفاع ثابت 100% للشاشة */
+        height: 100vh;
         box-sizing: border-box;
-        background: linear-gradient(180deg, rgba(11,15,25,0) 0%, rgba(11,15,25,0.3) 30%, rgba(11,15,25,0.85) 50%, #0b0f19 100%);
+        background: linear-gradient(180deg, rgba(11,15,25,0) 0%, rgba(11,15,25,0.3) 25%, rgba(11,15,25,0.85) 45%, #0b0f19 100%);
         overflow: hidden;
         pointer-events: auto !important;
     }
 
     .close-modal-btn {
         position: absolute;
-        top: 25px;
+        top: 20px;
         right: 20px;
         background: rgba(0, 0, 0, 0.6);
         color: #ffffff;
@@ -116,14 +115,14 @@
 
     .plans-list-absolute {
         position: absolute;
-        top: 335px;
+        top: 300px; /* تم رفع الباقات قليلاً لتصبح قريبة من الأزرار العلوية */
         left: 50%;
         transform: translateX(-50%);
         width: 92%;
         max-width: 420px;
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 12px; /* تقليل المسافة الفاصلة بين الباقات قليلاً لتلائم المساحة الثابتة */
         pointer-events: auto !important;
     }
 
@@ -132,8 +131,8 @@
         background: rgba(20, 26, 41, 0.94);
         backdrop-filter: blur(12px);
         border: 2px solid rgba(255, 255, 255, 0.1);
-        border-radius: 18px;
-        padding: 18px 18px;
+        border-radius: 16px;
+        padding: 14px 16px; /* تقليل الحشوة الداخلية قليلاً لتناسب الشاشة بثبات */
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -155,25 +154,25 @@
 
     .plan-badge {
         position: absolute;
-        top: -11px;
+        top: -10px;
         left: 18px;
         background: #3b82f6;
         color: #ffffff;
-        font-size: 11px;
+        font-size: 10px;
         font-weight: bold;
-        padding: 2px 10px;
+        padding: 2px 9px;
         border-radius: 10px;
     }
 
     .plan-info h3 {
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 700;
         color: #ffffff;
-        margin-bottom: 4px;
+        margin-bottom: 3px;
     }
 
     .plan-info p {
-        font-size: 11px;
+        font-size: 10px;
         color: #9ca3af;
     }
 
@@ -182,21 +181,21 @@
     }
 
     .plan-pricing .price {
-        font-size: 16px;
+        font-size: 15px;
         font-weight: 800;
         color: #ffffff;
     }
 
     .plan-pricing .period {
-        font-size: 11px;
+        font-size: 10px;
         color: #9ca3af;
         margin-top: 2px;
     }
 
-    /* تثبيت الأزرار السفلية من أسفل الشاشة لحمايتها من الخروج أو التمرير */
+    /* تثبيت الأزرار والكتابات السفلية في أسفل النافذة تماماً مع مساحة مريحة */
     .bottom-fixed-area {
         position: absolute;
-        bottom: 20px;
+        bottom: 15px;
         left: 50%;
         transform: translateX(-50%);
         width: 92%;
@@ -209,9 +208,9 @@
 
     .footer-note {
         text-align: center;
-        font-size: 12px;
+        font-size: 11px;
         color: #9ca3af;
-        margin-bottom: 12px;
+        margin-bottom: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -220,12 +219,12 @@
 
     .subscribe-btn {
         width: 100%;
-        height: 54px;
+        height: 50px;
         background: #ffffff;
         color: #000000;
         border: none;
         border-radius: 30px;
-        font-size: 18px;
+        font-size: 17px;
         font-weight: 800;
         cursor: pointer;
         transition: background 0.2s, transform 0.1s;
@@ -244,9 +243,9 @@
         justify-content: center;
         align-items: center;
         gap: 12px;
-        font-size: 12px;
+        font-size: 11px;
         color: #9ca3af;
-        margin-top: 14px;
+        margin-top: 10px;
     }
 
     .bottom-links .dot {
