@@ -1,11 +1,11 @@
 <div id="subscriptionModal" class="modal-overlay">
-    <div class="modal-wrapper-exact">
+    <div class="modal-absolute-container">
         
-        <!-- زر إغلاق (X) في أعلى اليمين -->
+        <!-- زر إغلاق (X) المطابق للصورة -->
         <button class="close-modal-btn" onclick="closeSubscription()" ontouchstart="closeSubscription()">&times;</button>
 
-        <!-- حاوية الباقات (تصعد للأعلى لتتطابق تماماً مع مكانها في التصميم البصري) -->
-        <div class="plans-list">
+        <!-- حاوية الباقات المرفوعة للأعلى تماماً لتطابق الصورة البصرية -->
+        <div class="plans-list-absolute">
             <!-- باقة الأسبوع -->
             <div class="plan-card" onclick="choosePlan(this)" ontouchstart="choosePlan(this)">
                 <div class="plan-info">
@@ -18,7 +18,7 @@
                 </div>
             </div>
 
-            <!-- باقة الشهر (مفعلة بالإطار الأزرق والشارة) -->
+            <!-- باقة الشهر -->
             <div class="plan-card active" onclick="choosePlan(this)" ontouchstart="choosePlan(this)">
                 <div class="plan-badge">رائج</div>
                 <div class="plan-info">
@@ -44,22 +44,22 @@
             </div>
         </div>
 
-        <!-- عبارة التجديد التلقائي -->
-        <div class="footer-note">
-            <span>تجديد تلقائي، يمكن الإلغاء في أي وقت</span>
-            <svg width="12" height="12" fill="#fbbf24" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
-        </div>
+        <!-- عبارة التجديد التلقائي وزر الاشتراك والروابط السفلية -->
+        <div class="bottom-fixed-area">
+            <div class="footer-note">
+                <span>تجديد تلقائي، يمكن الإلغاء في أي وقت</span>
+                <svg width="12" height="12" fill="#fbbf24" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+            </div>
 
-        <!-- زر اشتراك الأبيض الكبير -->
-        <button class="subscribe-btn" onclick="executeSubscribe()" ontouchstart="executeSubscribe()">اشتراك</button>
+            <button class="subscribe-btn" onclick="executeSubscribe()" ontouchstart="executeSubscribe()">اشتراك</button>
 
-        <!-- روابط أسفل الشاشة (استعادة | شروط الاستخدام | الخصوصية) -->
-        <div class="bottom-links">
-            <span>استعادة</span>
-            <span class="dot">|</span>
-            <span>شروط الاستخدام</span>
-            <span class="dot">|</span>
-            <span>الخصوصية</span>
+            <div class="bottom-links">
+                <span>استعادة</span>
+                <span class="dot">|</span>
+                <span>شروط الاستخدام</span>
+                <span class="dot">|</span>
+                <span>الخصوصية</span>
+            </div>
         </div>
 
     </div>
@@ -73,7 +73,7 @@
         left: 0; 
         width: 100vw; 
         height: 100vh;
-        /* الخلفية هي صورتك الأصلية بالكامل لتبقى واضحة في الأعلى */
+        /* الخلفية الأصلية واضحة في الأعلى تماماً */
         background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/54a585f45b13b52a057d4ffeafc29915b9d2ab0c/Gh3.jpg') center/cover no-repeat;
         z-index: 999999;
         direction: rtl;
@@ -83,31 +83,27 @@
         pointer-events: auto !important;
     }
 
-    .modal-wrapper-exact {
+    .modal-absolute-container {
         position: relative;
         width: 100%;
         min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        /* تقليل الهوامش والسحب للأعلى لتظهر الباقات في مكانها الصحيح تماماً وتظهر الروابط بالأسفل */
-        padding: 10px 16px 15px 16px;
         box-sizing: border-box;
-        background: linear-gradient(180deg, rgba(11,15,25,0) 0%, rgba(11,15,25,0.65) 20%, rgba(11,15,25,0.92) 40%, #0b0f19 90%);
+        /* تدرج خلفية خفيف يترك القسم العلوي صافياً وواضحاً */
+        background: linear-gradient(180deg, rgba(11,15,25,0) 0%, rgba(11,15,25,0.4) 25%, rgba(11,15,25,0.92) 45%, #0b0f19 100%);
         pointer-events: auto !important;
     }
 
     .close-modal-btn {
         position: absolute;
-        top: 15px;
+        top: 25px;
         right: 20px;
         background: rgba(0, 0, 0, 0.6);
         color: #ffffff;
         border: 1px solid rgba(255, 255, 255, 0.25);
-        width: 34px;
-        height: 34px;
+        width: 36px;
+        height: 36px;
         border-radius: 50%;
-        font-size: 18px;
+        font-size: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -122,23 +118,27 @@
         background: rgba(255, 255, 255, 0.2);
     }
 
-    .plans-list {
+    /* سحب الباقات للأعلى لتنطبق تماماً فوق الباقات البصرية في الصورة */
+    .plans-list-absolute {
+        position: absolute;
+        top: 245px; /* رفعناها للأعلى لتستقر تماماً فوق باقة الأسبوع البصرية */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 420px;
         display: flex;
         flex-direction: column;
-        gap: 8px; /* تقليل المسافات بين الباقات لتصعد للأعلى وتتطابق مع الصورة */
-        width: 100%;
-        max-width: 420px;
-        margin: 0 auto 8px auto;
+        gap: 12px;
         pointer-events: auto !important;
     }
 
     .plan-card {
         position: relative;
-        background: rgba(20, 26, 41, 0.90);
+        background: rgba(20, 26, 41, 0.92);
         backdrop-filter: blur(12px);
         border: 2px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        padding: 11px 14px; /* تصغير الارتفاع قليلاً لتتطابق مع صورتك تماماً */
+        border-radius: 18px;
+        padding: 14px 16px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -152,33 +152,34 @@
         transform: scale(0.98);
     }
 
+    /* الباقة المختارة تضيء بالأزرق الفخم */
     .plan-card.active {
         border-color: #3b82f6 !important;
         background: rgba(22, 32, 53, 0.98) !important;
-        box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        box-shadow: 0 0 18px rgba(59, 130, 246, 0.5);
     }
 
     .plan-badge {
         position: absolute;
-        top: -9px;
+        top: -10px;
         left: 16px;
         background: #3b82f6;
         color: #ffffff;
         font-size: 10px;
         font-weight: bold;
-        padding: 1px 8px;
-        border-radius: 8px;
+        padding: 2px 9px;
+        border-radius: 10px;
     }
 
     .plan-info h3 {
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 700;
         color: #ffffff;
-        margin-bottom: 2px;
+        margin-bottom: 3px;
     }
 
     .plan-info p {
-        font-size: 9px;
+        font-size: 10px;
         color: #9ca3af;
     }
 
@@ -187,7 +188,7 @@
     }
 
     .plan-pricing .price {
-        font-size: 14px;
+        font-size: 15px;
         font-weight: 800;
         color: #ffffff;
     }
@@ -198,11 +199,25 @@
         margin-top: 1px;
     }
 
+    /* تثبيت عناصر الأسفل (التجديد، زر الاشتراك، الروابط) في مكانها الصحيح أسفل الباقات */
+    .bottom-fixed-area {
+        position: absolute;
+        top: 615px; /* تحت باقة السنة مباشرة */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 420px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        pointer-events: auto !important;
+    }
+
     .footer-note {
         text-align: center;
-        font-size: 10px;
+        font-size: 11px;
         color: #9ca3af;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -211,20 +226,18 @@
 
     .subscribe-btn {
         width: 100%;
-        max-width: 420px;
-        height: 48px; /* ارتفاع متناسق لا يغطي الشاشة بأكملها */
-        margin: 0 auto 10px auto;
+        height: 52px;
         background: #ffffff;
         color: #000000;
         border: none;
         border-radius: 30px;
-        font-size: 16px;
+        font-size: 17px;
         font-weight: 800;
         cursor: pointer;
         transition: background 0.2s, transform 0.1s;
         touch-action: manipulation;
         pointer-events: auto !important;
-        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.25);
     }
 
     .subscribe-btn:active {
@@ -236,10 +249,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 10px;
-        font-size: 10px;
+        gap: 12px;
+        font-size: 11px;
         color: #9ca3af;
-        margin-bottom: 5px;
+        margin-top: 12px;
     }
 
     .bottom-links .dot {
