@@ -13,7 +13,6 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* نافذة منبثقة تغطي الشاشة بالكامل وتمنع الخربطة */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -40,7 +39,6 @@
             margin: auto;
         }
 
-        /* العناوين */
         .sub-header {
             text-align: center;
             margin-bottom: 24px;
@@ -61,7 +59,6 @@
             color: #9ca3af;
         }
 
-        /* حاوية الباقات */
         .plans-list {
             display: flex;
             flex-direction: column;
@@ -69,7 +66,6 @@
             margin-bottom: 24px;
         }
 
-        /* تصميم كارت الباقة المفردة */
         .plan-card {
             position: relative;
             background: #141a29;
@@ -88,8 +84,8 @@
             transform: scale(0.98);
         }
 
-        /* حالة الباقة النشطة (الإطار الأزرق والإضاءة) */
-        .plan-card.selected {
+        /* الكلاس الفعّال الموحد */
+        .plan-card.active {
             border-color: #3b82f6 !important;
             background: #162035 !important;
             box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
@@ -135,7 +131,6 @@
             margin-top: 2px;
         }
 
-        /* زر الاشتراك */
         .subscribe-btn {
             width: 100%;
             height: 52px;
@@ -172,13 +167,11 @@
     <div class="modal-overlay">
         <div class="sub-wrapper">
             
-            <!-- الترويسة -->
             <div class="sub-header">
                 <div class="sub-title">PLOTCRAFT PRO</div>
                 <div class="sub-desc">اختر الباقة المناسبة وفعل مميزات الذكاء الاصطناعي</div>
             </div>
 
-            <!-- الباقات -->
             <div class="plans-list">
                 
                 <!-- باقة الأسبوع -->
@@ -193,8 +186,8 @@
                     </div>
                 </div>
 
-                <!-- باقة الشهر (مفعلة افتراضياً) -->
-                <div class="plan-card selected" onclick="choosePlan(this)" ontouchstart="choosePlan(this)">
+                <!-- باقة الشهر (مفعلة افتراضياً بكلاس active) -->
+                <div class="plan-card active" onclick="choosePlan(this)" ontouchstart="choosePlan(this)">
                     <div class="plan-badge">رائج</div>
                     <div class="plan-info">
                         <h3>PlotCraft Pro Monthly</h3>
@@ -220,7 +213,6 @@
 
             </div>
 
-            <!-- زر الاشتراك -->
             <button class="subscribe-btn" onclick="executeSubscribe()" ontouchstart="executeSubscribe()">اشتراك</button>
             
             <div class="footer-note">
@@ -236,9 +228,12 @@
             if (window.navigator && window.navigator.vibrate) {
                 try { window.navigator.vibrate(40); } catch (e) {}
             }
+            // إزالة الكلاس active عن جميع الباقات
             const allCards = document.querySelectorAll('.plan-card');
-            allCards.forEach(card => card.classList.remove('selected'));
-            cardElement.classList.add('selected');
+            allCards.forEach(card => card.classList.remove('active'));
+
+            // إضافة الكلاس active للباقة المنقور عليها لتتحول للون الأزرق والإضاءة فوراً
+            cardElement.classList.add('active');
         }
 
         function executeSubscribe() {
