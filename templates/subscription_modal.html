@@ -26,26 +26,95 @@
     border: none;
     margin: 0;
     padding: 0;
-    /* عرض تصميمك الأصلي بالكامل بملء الشاشة وبدون أي إضافات فوقه */
     background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/54a585f45b13b52a057d4ffeafc29915b9d2ab0c/Gh3.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     box-sizing: border-box;
+}
+
+/* طبقة الباقات الشفافة فوق الصورة الأصلية */
+.interactive-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* للسماح بالنقر فقط على العناصر المحددة بالأسفل */
+}
+
+/* خصائص الباقات التفاعلية الشفافة */
+.plan-box {
+    position: absolute;
+    left: 5%;
+    width: 90%;
+    height: 90px; /* ارتفاع تقريبي يغطي الباقة في الصورة */
     cursor: pointer;
+    pointer-events: auto; /* تفعيل النقر هنا فقط */
+    border: 2px solid transparent;
+    border-radius: 16px;
+    transition: all 0.2s ease;
+}
+
+/* أماكن الباقات بالضبط بناءً على التصميم (تستطيع تعديل الـ top حسب صورتك) */
+.weekly-plan { top: 48%; }
+.monthly-plan { top: 60%; }
+.annual-plan { top: 72%; }
+
+/* زر الاشتراك في الأسفل */
+.subscribe-btn-box {
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+    width: 90%;
+    height: 65px;
+    cursor: pointer;
+    pointer-events: auto;
+    border-radius: 30px;
+}
+
+/* شكل الإطار الأزرق عند تفعيل الباقة */
+.plan-box.active {
+    border-color: #3b82f6;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+    background: rgba(59, 130, 246, 0.05); /* إضاءة خفيفة جداً لا تغطي التصميم */
 }
 </style>
 
 <div id="subscriptionModal" class="modal-overlay">
-    <div class="modal-container" onclick="closeSubscription()"></div>
+    <div class="modal-container">
+        <!-- طبقة تفاعلية شفافة تحتوي فقط على الباقات وزر الاشتراك دون تغطية التصميم -->
+        <div class="interactive-layer">
+            <div class="plan-box weekly-plan" onclick="selectPlan(this)"></div>
+            <div class="plan-box monthly-plan active" onclick="selectPlan(this)"></div>
+            <div class="plan-box annual-plan" onclick="selectPlan(this)"></div>
+            <div class="subscribe-btn-box" onclick="handleSubscribe()"></div>
+        </div>
+    </div>
 </div>
 
 <script>
-    // دالة إغلاق النافذة عند النقر عليها (أو اربطها بالزر الخاص بك)
-    function closeSubscription() {
-        const modal = document.getElementById('subscriptionModal');
-        if (modal) {
-            modal.style.display = 'none';
+    // دالة اختيار الباقة مع هزة خفيفة وتغيير الإطار الأزرق
+    function selectPlan(element) {
+        // تشغيل هزة خفيفة للموبايل (مدة 40 ميلي ثانية)
+        if (navigator.vibrate) {
+            navigator.vibrate(40);
         }
+
+        // إزالة التحديد عن جميع الباقات
+        const plans = document.querySelectorAll('.plan-box');
+        plans.forEach(p => p.classList.remove('active'));
+
+        // إضافة التحديد للباقة التي ضغط عليها المستخدم
+        element.classList.add('active');
+    }
+
+    // دالة زر الاشتراك
+    function handleSubscribe() {
+        if (navigator.vibrate) {
+            navigator.vibrate(50);
+        }
+        alert("تم استلام طلب الاشتراك للباقة المحددة!");
+        // هنا يمكنك ربط عملية الانتقال لصفحة الدفع أو إغلاق النافذة
     }
 </script>
