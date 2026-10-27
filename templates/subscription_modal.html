@@ -4,7 +4,7 @@
         <!-- زر إغلاق (X) -->
         <button class="close-modal-btn" onclick="closeSubscription()" ontouchstart="closeSubscription()">&times;</button>
 
-        <!-- حاوية الباقات - مرفوعة أكثر للأعلى لتوفير مساحة في الأسفل -->
+        <!-- حاوية الباقات - في مكانها الحالي المضبوط تماماً -->
         <div class="plans-list-absolute">
             <!-- باقة الأسبوع -->
             <div class="plan-card" onclick="choosePlan(this)" ontouchstart="choosePlan(this)">
@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        <!-- المنطقة السفلية: التجديد + زر الاشتراك + الروابط (ظاهرة بالكامل دون اختفاء) -->
+        <!-- المنطقة السفلية: مرفوعة قليلاً للأعلى لتظهر روابط الاستعادة والخصوصية بوضوح تام -->
         <div class="bottom-fixed-area">
             <div class="footer-note">
                 <span>تجديد تلقائي، يمكن الإلغاء في أي وقت</span>
@@ -115,14 +115,14 @@
 
     .plans-list-absolute {
         position: absolute;
-        top: 300px; /* تم رفع الباقات قليلاً لتصبح قريبة من الأزرار العلوية */
+        top: 300px;
         left: 50%;
         transform: translateX(-50%);
         width: 92%;
         max-width: 420px;
         display: flex;
         flex-direction: column;
-        gap: 12px; /* تقليل المسافة الفاصلة بين الباقات قليلاً لتلائم المساحة الثابتة */
+        gap: 12px;
         pointer-events: auto !important;
     }
 
@@ -132,7 +132,7 @@
         backdrop-filter: blur(12px);
         border: 2px solid rgba(255, 255, 255, 0.1);
         border-radius: 16px;
-        padding: 14px 16px; /* تقليل الحشوة الداخلية قليلاً لتناسب الشاشة بثبات */
+        padding: 14px 16px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -192,10 +192,10 @@
         margin-top: 2px;
     }
 
-    /* تثبيت الأزرار والكتابات السفلية في أسفل النافذة تماماً مع مساحة مريحة */
+    /* رفع المنطقة السفلية قليلاً للأعلى (bottom: 38px) لتظهر الروابط بالكامل بوضوح وبدون حركة */
     .bottom-fixed-area {
         position: absolute;
-        bottom: 15px;
+        bottom: 38px;
         left: 50%;
         transform: translateX(-50%);
         width: 92%;
