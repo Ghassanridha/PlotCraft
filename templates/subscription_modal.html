@@ -26,92 +26,26 @@
     border: none;
     margin: 0;
     padding: 0;
-    /* خلفية استوديو سينمائية نقية بدون كتابات أو أزرار مطبوعة */
-    background: linear-gradient(180deg, rgba(11,15,25,0.2) 0%, rgba(11,15,25,0.8) 75%, #0b0f19 100%),
-                url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1080&auto=format&fit=crop');
+    /* عرض تصميمك الأصلي بالكامل بملء الشاشة وبدون أي إضافات فوقه */
+    background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/54a585f45b13b52a057d4ffeafc29915b9d2ab0c/Gh3.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
     box-sizing: border-box;
-}
-
-.bottom-action-box {
-    width: 100%;
-    padding: 25px 20px 40px 20px;
-    background: linear-gradient(180deg, transparent 0%, rgba(11, 15, 25, 0.85) 40%, #0b0f19 100%);
-    box-sizing: border-box;
-    text-align: center;
-}
-
-.auto-renew-note {
-    font-size: 12px;
-    color: #cbd5e1;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.9);
-}
-
-.subscribe-btn {
-    width: 100%;
-    max-width: 450px;
-    padding: 16px;
-    border-radius: 28px;
-    border: none;
-    background: #ffffff;
-    color: #0b0f19;
-    font-size: 16px;
-    font-weight: 800;
     cursor: pointer;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
-    transition: transform 0.1s ease;
-}
-
-.subscribe-btn:active {
-    transform: scale(0.98);
-}
-
-.footer-links {
-    margin-top: 15px;
-    color: #94a3b8;
-    font-size: 12px;
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.9);
-}
-
-.footer-links span {
-    cursor: pointer;
-}
-.footer-links span:hover {
-    color: #ffffff;
 }
 </style>
 
 <div id="subscriptionModal" class="modal-overlay">
-    <div class="modal-container">
-        
-        <div class="bottom-action-box">
-            <div class="auto-renew-note">
-                🔒 تجديد تلقائي، يمكن الإلغاء في أي وقت
-            </div>
-
-            <button class="subscribe-btn" onclick="showToast('تم الطلب بنجاح!')">اشتراك</button>
-            
-            <div class="footer-links">
-                <span onclick="showToast('استعادة المشتريات')">استعادة</span>
-                <span>|</span>
-                <span onclick="showToast('شروط الاستخدام')">شروط الاستخدام</span>
-                <span>|</span>
-                <span onclick="showToast('سياسة الخصوصية')">الخصوصية</span>
-            </div>
-        </div>
-
-    </div>
+    <div class="modal-container" onclick="closeSubscription()"></div>
 </div>
+
+<script>
+    // دالة إغلاق النافذة عند النقر عليها (أو اربطها بالزر الخاص بك)
+    function closeSubscription() {
+        const modal = document.getElementById('subscriptionModal');
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    }
+</script>
