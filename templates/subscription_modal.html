@@ -21,6 +21,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
+    /* خلفية الصورة بدون الباقات السفلية أو مع إخفاء الجزء السفلي */
     background: #0b0f19;
     box-sizing: border-box;
     display: flex;
@@ -30,11 +31,11 @@
     overflow-y: auto;
 }
 
-/* رأس النافذة */
+/* العنوان العلوي والشعار مأخوذ من تصميمك */
 .modal-header {
     text-align: center;
-    margin-top: 15px;
-    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 25px;
 }
 
 .modal-title {
@@ -50,7 +51,7 @@
     font-size: 13px;
 }
 
-/* حاوية الباقات */
+/* حاوية الباقات الاحترافية المطابقة لتصميمك الأصلي تماماً */
 .plans-container {
     width: 100%;
     max-width: 450px;
@@ -62,28 +63,30 @@
 
 .plan-card {
     position: relative;
-    background: rgba(18, 24, 38, 0.95);
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    background: rgba(18, 24, 38, 0.85);
+    border: 2px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
     padding: 16px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: all 0.2s ease;
     box-sizing: border-box;
-    z-index: 1000;
-    touch-action: manipulation;
 }
 
-/* لون الإطار الأزرق عند تحديد الباقة */
+.plan-card:hover {
+    border-color: rgba(59, 130, 246, 0.5);
+}
+
+/* الباقة المختارة (تتخذ الإطار الأزرق المضيء مثل صورتك) */
 .plan-card.active {
-    border-color: #3b82f6 !important;
-    background: rgba(24, 34, 56, 0.98) !important;
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    border-color: #3b82f6;
+    background: rgba(24, 34, 56, 0.95);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.25);
 }
 
-/* شارة رائج للباقة الشهرية */
+/* شارة رائج (Badge) للباقة الشهرية تماماً مثل تصميمك */
 .badge-popular {
     position: absolute;
     top: -10px;
@@ -101,14 +104,13 @@
     display: flex;
     flex-direction: column;
     text-align: right;
-    pointer-events: none;
 }
 
 .plan-name {
     color: #ffffff;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 700;
-    margin-bottom: 3px;
+    margin-bottom: 4px;
 }
 
 .plan-desc {
@@ -120,12 +122,11 @@
     display: flex;
     flex-direction: column;
     text-align: left;
-    pointer-events: none;
 }
 
 .plan-price {
     color: #ffffff;
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 800;
 }
 
@@ -135,14 +136,19 @@
     text-align: left;
 }
 
+/* ملاحظة التجديد التلقائي */
 .auto-renew-note {
     color: #cbd5e1;
     font-size: 11px;
     text-align: center;
     margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
 }
 
-/* زر الاشتراك */
+/* زر الاشتراك السفلي المطابق تماماً لتصميمك */
 .subscribe-btn {
     width: 100%;
     max-width: 450px;
@@ -157,14 +163,13 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     transition: transform 0.1s ease;
     margin-bottom: 15px;
-    z-index: 1000;
-    touch-action: manipulation;
 }
 
 .subscribe-btn:active {
-    transform: scale(0.97);
+    transform: scale(0.98);
 }
 
+/* روابط الفوتر */
 .footer-links {
     color: #94a3b8;
     font-size: 11px;
@@ -177,19 +182,25 @@
 .footer-links span {
     cursor: pointer;
 }
+.footer-links span:hover {
+    color: #ffffff;
+}
 </style>
 
 <div id="subscriptionModal" class="modal-overlay">
     <div class="modal-container">
         
+        <!-- رأس النافذة -->
         <div class="modal-header">
             <div class="modal-title">PLOTCRAFT PRO</div>
             <div class="modal-subtitle">حول خيالك إلى بلوت كرافت، ترجم أفكارك إلى مشاهد نابضة بالحياة</div>
         </div>
 
+        <!-- الباقات الثلاث التفاعلية الحقيقية (بديلة للباقات الثابتة) -->
         <div class="plans-container">
-            <!-- الأسبوعية -->
-            <div id="weeklyCard" class="plan-card" onclick="window.selectPlan('weekly')" ontouchstart="window.selectPlan('weekly')">
+            
+            <!-- الباقة الأسبوعية -->
+            <div id="weeklyCard" class="plan-card" onclick="selectPlan('weekly')">
                 <div class="plan-info">
                     <span class="plan-name">PlotCraft Pro Weekly</span>
                     <span class="plan-desc">Credits / Week, Try AI Drama Creation 500</span>
@@ -200,8 +211,8 @@
                 </div>
             </div>
 
-            <!-- الشهرية -->
-            <div id="monthlyCard" class="plan-card active" onclick="window.selectPlan('monthly')" ontouchstart="window.selectPlan('monthly')">
+            <!-- الباقة الشهرية (مفعلة افتراضياً ومرفقة بشارة رائج) -->
+            <div id="monthlyCard" class="plan-card active" onclick="selectPlan('monthly')">
                 <div class="badge-popular">رائج</div>
                 <div class="plan-info">
                     <span class="plan-name">PlotCraft Pro Monthly</span>
@@ -213,8 +224,8 @@
                 </div>
             </div>
 
-            <!-- السنوية -->
-            <div id="annualCard" class="plan-card" onclick="window.selectPlan('annual')" ontouchstart="window.selectPlan('annual')">
+            <!-- الباقة السنوية -->
+            <div id="annualCard" class="plan-card" onclick="selectPlan('annual')">
                 <div class="plan-info">
                     <span class="plan-name">PlotCraft Pro Annual</span>
                     <span class="plan-desc">Credits / Year, Ideal for professional creators 5000</span>
@@ -224,55 +235,57 @@
                     <span class="plan-period">سنة</span>
                 </div>
             </div>
+
         </div>
 
+        <!-- ملاحظة التجديد -->
         <div class="auto-renew-note">
             🔒 تجديد تلقائي، يمكن الإلغاء في أي وقت
         </div>
 
-        <button class="subscribe-btn" onclick="window.handleSubscribe()" ontouchstart="window.handleSubscribe()">اشتراك</button>
+        <!-- زر الاشتراك -->
+        <button class="subscribe-btn" onclick="handleSubscribe()">اشتراك</button>
 
+        <!-- روابط الفوتر -->
         <div class="footer-links">
-            <span onclick="if(typeof showToast==='function') showToast('استعادة المشتريات')">استعادة</span>
+            <span onclick="showToast('استعادة المشتريات')">استعادة</span>
             <span>|</span>
-            <span onclick="if(typeof showToast==='function') showToast('شروط الاستخدام')">شروط الاستخدام</span>
+            <span onclick="showToast('شروط الاستخدام')">شروط الاستخدام</span>
             <span>|</span>
-            <span onclick="if(typeof showToast==='function') showToast('سياسة الخصوصية')">الخصوصية</span>
+            <span onclick="showToast('سياسة الخصوصية')">الخصوصية</span>
         </div>
 
     </div>
 </div>
 
 <script>
-    window.activePlan = 'monthly';
+    let activePlan = 'monthly';
 
-    window.selectPlan = function(planType) {
-        window.activePlan = planType;
+    function selectPlan(planType) {
+        activePlan = planType;
         
-        const weekly = document.getElementById('weeklyCard');
-        const monthly = document.getElementById('monthlyCard');
-        const annual = document.getElementById('annualCard');
+        // إزالة التنشيط عن الكل
+        document.getElementById('weeklyCard').classList.remove('active');
+        document.getElementById('monthlyCard').classList.remove('active');
+        document.getElementById('annualCard').classList.remove('active');
+        
+        // تنشيط الباقة المطلوبة
+        document.getElementById(planType + 'Card').classList.add('active');
+        
+        // اهتزاز خفيف بالهاتف
+        if (navigator.vibrate) navigator.vibrate(25);
+        playTapSound();
+    }
 
-        if(weekly) weekly.classList.remove('active');
-        if(monthly) monthly.classList.remove('active');
-        if(annual) annual.classList.remove('active');
-        
-        const target = document.getElementById(planType + 'Card');
-        if(target) target.classList.add('active');
-        
-        if (navigator.vibrate) navigator.vibrate(30);
-        window.playTapSound();
-    };
-
-    window.handleSubscribe = function() {
+    function handleSubscribe() {
         if (navigator.vibrate) navigator.vibrate([40, 30, 40]);
-        window.playTapSound();
+        playTapSound();
         if (typeof showToast === 'function') {
-            showToast('تم اختيار باقة: ' + window.activePlan);
+            showToast('جاري معالجة الاشتراك باقة: ' + activePlan);
         }
-    };
+    }
 
-    window.playTapSound = function() {
+    function playTapSound() {
         try {
             const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             const osc = audioCtx.createOscillator();
@@ -287,5 +300,5 @@
             osc.start();
             osc.stop(audioCtx.currentTime + 0.04);
         } catch(e) {}
-    };
+    }
 </script>
