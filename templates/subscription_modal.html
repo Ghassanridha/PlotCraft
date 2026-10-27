@@ -8,8 +8,9 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+/* تم تعديل display ليكون block لضمان ظهور النافذة وقابليتها للنقر */
 .modal-overlay {
-    display: none; 
+    display: block !important; 
     position: fixed; 
     top: 0; 
     left: 0; 
@@ -29,13 +30,14 @@
     color: #ffffff;
     display: flex;
     flex-direction: column;
-    padding: 20px 16px 30px 16px;
+    padding: 24px 16px 30px 16px;
 }
 
-/* العنوان الرئيسي */
+/* العناوين الرئيسية */
 .header-titles {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
+    margin-top: 10px;
 }
 
 .main-title {
@@ -65,7 +67,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .feature-item {
@@ -78,7 +80,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    pointer-events: none;
+    pointer-events: none; /* إلغاء التفاعل عن الأيقونات العلوية */
 }
 
 .feature-icon {
@@ -94,12 +96,12 @@
     font-weight: 500;
 }
 
-/* قسم الباقات */
+/* قسم الباقات التفاعلية */
 .plans-container {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-bottom: 20px;
+    gap: 14px;
+    margin-bottom: 24px;
 }
 
 .plan-card {
@@ -113,12 +115,14 @@
     align-items: center;
     cursor: pointer;
     transition: all 0.2s ease;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
-/* الباقة النشطة (اللون الأزرق والإضاءة) */
+/* الباقة النشطة عند النقر (الحدود الزرقاء والخلفية المضيئة) */
 .plan-card.active {
-    border-color: #3b82f6;
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.35);
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
     background: #162035;
 }
 
@@ -166,7 +170,7 @@
     margin-top: 2px;
 }
 
-/* التذييل وزر الاشتراك */
+/* زر الاشتراك والتذييل */
 .footer-section {
     display: flex;
     flex-direction: column;
@@ -200,12 +204,12 @@
 }
 
 .subscribe-btn:active {
-    transform: scale(0.98);
-    background: #f3f4f6;
+    transform: scale(0.97);
+    background: #e5e7eb;
 }
 </style>
 
-<div id="subscriptionModal" class="modal-overlay" style="display: block;">
+<div id="subscriptionModal" class="modal-overlay">
     <div class="modal-container">
         
         <!-- العناوين -->
@@ -215,7 +219,7 @@
             <div class="sub-title-2">ترجم أفكارك إلى مشاهد نابضة بالحياة</div>
         </div>
 
-        <!-- الأيقونات الأربعة (غير تفاعلية) -->
+        <!-- الأيقونات الأربعة (ثابتة وغير تفاعلية) -->
         <div class="features-grid">
             <div class="feature-item">
                 <svg class="feature-icon" fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
@@ -235,7 +239,7 @@
             </div>
         </div>
 
-        <!-- الباقات الثلاث قابلة للنقر فوراً -->
+        <!-- الباقات الثلاث القابلة للنقر -->
         <div class="plans-container">
             <!-- باقة الأسبوع -->
             <div class="plan-card" onclick="selectPlan(this)">
@@ -249,7 +253,7 @@
                 </div>
             </div>
 
-            <!-- باقة الشهر (مفعلة افتراضياً) -->
+            <!-- باقة الشهر (محددة مسبقاً) -->
             <div class="plan-card active" onclick="selectPlan(this)">
                 <div class="badge-tag">رائج</div>
                 <div class="plan-right">
@@ -275,7 +279,7 @@
             </div>
         </div>
 
-        <!-- زر الاشتراك -->
+        <!-- التذييل وزر الاشتراك -->
         <div class="footer-section">
             <div class="auto-renew-text">
                 <svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
@@ -288,33 +292,26 @@
 </div>
 
 <script>
-    // دالة اختيار الباقة مع الاهتزاز الفوري
+    // دالة التبديل بين الباقات مع الاهتزاز
     function selectPlan(element) {
-        if (navigator.vibrate) {
-            navigator.vibrate(40); // اهتزاز خفيف لمدة 40 ميلي ثانية
+        // تشغيل اهتزاز الهاتف
+        if (window.navigator && window.navigator.vibrate) {
+            window.navigator.vibrate(40);
         }
 
-        // إزالة الإطار الأزرق عن الباقات الأخرى
+        // إزالة اللون الأزرق والإضاءة عن كل الباقات
         const plans = document.querySelectorAll('.plan-card');
-        plans.forEach(plan => plan.classList.remove('active'));
+        plans.forEach(p => p.classList.remove('active'));
 
-        // إضافة الإطار الأزرق للباقة المختارة
+        // إضافة الإطار الأزرق للباقة التي تم الضغط عليها
         element.classList.add('active');
     }
 
     // دالة زر الاشتراك
     function handleSubscribe() {
-        if (navigator.vibrate) {
-            navigator.vibrate(60);
+        if (window.navigator && window.navigator.vibrate) {
+            window.navigator.vibrate(60);
         }
-        closeSubscription();
-    }
-
-    // دالة الإغلاق
-    function closeSubscription() {
-        const modal = document.getElementById('subscriptionModal');
-        if (modal) {
-            modal.style.display = 'none';
-        }
+        alert("تم اختيار الباقة بنجاح!");
     }
 </script>
