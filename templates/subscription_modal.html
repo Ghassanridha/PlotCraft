@@ -1,5 +1,7 @@
 <div id="subscriptionModal" class="modal-overlay">
-    <div class="modal-container" onclick="closeSubscription()" ontouchstart="closeSubscription()"></div>
+    <!-- أضفنا زر إغلاق وهمي أو صريح في الأعلى يمين التصميم ليتم النقر عليه للإغلاق، أو انقر على الخلفية -->
+    <button class="close-btn-overlay" onclick="closeSubscription(event)" ontouchstart="closeSubscription(event)">&times;</button>
+    <div class="modal-container"></div>
 </div>
 
 <style>
@@ -19,6 +21,27 @@
     pointer-events: auto !important;
 }
 
+/* زر إغلاق أنيق وشفاف في أعلى اليمين ليتمكن المستخدم من الخروج متى ما أراد */
+.close-btn-overlay {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000000;
+    pointer-events: auto !important;
+    touch-action: manipulation;
+}
+
 .modal-container {
     position: absolute;
     top: 0;
@@ -36,15 +59,14 @@
     background-position: center;
     background-repeat: no-repeat;
     box-sizing: border-box;
-    cursor: pointer;
     pointer-events: auto !important;
-    touch-action: manipulation;
 }
 </style>
 
 <script>
     if (typeof window.closeSubscription === 'undefined') {
-        window.closeSubscription = function() {
+        window.closeSubscription = function(event) {
+            if (event) event.stopPropagation(); // منع انتقال الحدث للحاويات الأخرى
             if (window.navigator && window.navigator.vibrate) {
                 try { window.navigator.vibrate(30); } catch (e) {}
             }
