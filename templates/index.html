@@ -461,44 +461,15 @@
             showToast('تم النقر على إنشاء قصة');
         }
 
-        /* 👑 دوال التحكم بنافذة الاشتراكات */
+        // تشغيل ملف الاشتراكات المستقل عند الضغط
         window.openSubscription = function() {
-            const modal = document.getElementById('subscriptionModal');
-            if (modal) {
-                modal.style.display = 'flex';
-            } else {
-                showToast('جاري تحميل نافذة الاشتراكات...');
-            }
+            fetch('templates/subscription_modal.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('subscriptionModalWrapper').innerHTML = html;
+                })
+                .catch(err => console.error(err));
         };
-
-        window.closeSubscription = function() {
-            const modal = document.getElementById('subscriptionModal');
-            if (modal) {
-                modal.style.display = 'none';
-            }
-        };
-
-        window.selectPlan = function(cardElement) {
-            document.querySelectorAll('#subscriptionModal .plan-card').forEach(card => {
-                card.classList.remove('active');
-            });
-            cardElement.classList.add('active');
-        };
-
-        // استدعاء ملف نافذة الاشتراكات المستقل تلقائياً من مجلد templates
-        fetch('templates/subscription_modal.html')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('تعذر تحميل ملف الاشتراكات');
-                }
-                return response.text();
-            })
-            .then(htmlContent => {
-                document.getElementById('subscriptionModalWrapper').innerHTML = htmlContent;
-            })
-            .catch(error => {
-                console.error('خطأ في استدعاء ملف الاشتراكات:', error);
-            });
     </script>
 </body>
 </html>
