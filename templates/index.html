@@ -461,14 +461,30 @@
             showToast('تم النقر على إنشاء قصة');
         }
 
-        // تشغيل ملف الاشتراكات المستقل عند الضغط
+        // تشغيل ملف الاشتراكات المستقل عبر السيرفر
         window.openSubscription = function() {
-            fetch('templates/subscription_modal.html')
-                .then(response => response.text())
+            const existingModal = document.getElementById('subscriptionModal');
+            if (existingModal) {
+                existingModal.style.display = 'flex';
+                return;
+            }
+
+            fetch('/templates/subscription_modal.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('فشل جلب ملف الاشتراكات من السيرفر');
+                    return response.text();
+                })
                 .then(html => {
                     document.getElementById('subscriptionModalWrapper').innerHTML = html;
+                    const loadedModal = document.getElementById('subscriptionModal');
+                    if (loadedModal) {
+                        loadedModal.style.display = 'flex';
+                    }
                 })
-                .catch(err => console.error(err));
+                .catch(err => {
+                    console.error(err);
+                    showToast('تعذر فتح نافذة الاشتراكات');
+                });
         };
     </script>
 </body>
