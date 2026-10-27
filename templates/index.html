@@ -475,7 +475,18 @@
                     return response.text();
                 })
                 .then(html => {
-                    document.getElementById('subscriptionModalWrapper').innerHTML = html;
+                    const wrapper = document.getElementById('subscriptionModalWrapper');
+                    wrapper.innerHTML = html;
+                    
+                    // إعادة تنفيذ السكربتات المضمنة في HTML لجلب الدوال للذاكرة
+                    const scripts = wrapper.querySelectorAll('script');
+                    scripts.forEach(oldScript => {
+                        const newScript = document.createElement('script');
+                        Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                        newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+                        oldScript.parentNode.replaceChild(newScript, oldScript);
+                    });
+
                     const loadedModal = document.getElementById('subscriptionModal');
                     if (loadedModal) {
                         loadedModal.style.display = 'flex';
