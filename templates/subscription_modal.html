@@ -33,160 +33,144 @@
     box-sizing: border-box;
 }
 
-/* طبقات التفاعل الشفافة فوق الباقات وزر الاشتراك الموجود في صورتك */
+/* طبقة تفاعلية شفافة فوق الصورة */
 .interactive-layer {
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
+    box-sizing: border-box;
 }
 
-/* مساحة الباقة الأسبوعية */
+/* الفئات الخاصة بالباقات الشفافة القابلة للنقر */
+.plan-spot {
+    position: absolute;
+    left: 6%;
+    width: 88%;
+    border: 2.5px solid transparent;
+    border-radius: 18px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
+}
+
+/* الباقة الأسبوعية */
 .plan-spot-weekly {
-    position: absolute;
-    top: 48%;
-    left: 5%;
-    width: 90%;
-    height: 10%;
-    border: 2px solid transparent;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    top: 48.5%;
+    height: 10.5%;
 }
 
-/* مساحة الباقة الشهرية */
+/* الباقة الشهرية */
 .plan-spot-monthly {
-    position: absolute;
-    top: 60%;
-    left: 5%;
-    width: 90%;
-    height: 10%;
-    border: 2px solid transparent;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    top: 60.5%;
+    height: 10.5%;
 }
 
-/* مساحة الباقة السنوية */
+/* الباقة السنوية */
 .plan-spot-annual {
-    position: absolute;
-    top: 72%;
-    left: 5%;
-    width: 90%;
-    height: 10%;
-    border: 2px solid transparent;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    top: 72.5%;
+    height: 10.5%;
 }
 
-/* شكل الإطار النشط (يطابق لون الباقة الزرقاء بالصورة) */
+/* إطار التحديد الأزرق المضيء للباقة المختارة */
 .plan-spot.active {
-    border-color: #3b82f6;
-    background: rgba(59, 130, 246, 0.15);
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+    border-color: #3b82f6 !important;
+    background: rgba(59, 130, 246, 0.12);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.4), inset 0 0 10px rgba(59, 130, 246, 0.2);
 }
 
-/* مساحة زر الاشتراك السفلي */
+/* زر الاشتراك السفلي المصغر والمبتعد عن الحواف من اليمين واليسار */
 .subscribe-spot {
     position: absolute;
-    bottom: 8%;
+    bottom: 7.5%;
     left: 8%;
+    right: 8%;
     width: 84%;
-    height: 7%;
+    height: 6.5%;
     cursor: pointer;
     border-radius: 30px;
+    background: rgba(255, 255, 255, 0.01); /* لضمان استلام لمس الشاشة */
+    transition: transform 0.1s ease;
 }
 
 .subscribe-spot:active {
-    transform: scale(0.98);
+    transform: scale(0.97);
 }
 </style>
 
 <div id="subscriptionModal" class="modal-overlay">
     <div class="modal-container">
         
-        <!-- مساحات النقر التفاعلية المطابقة لصورتك -->
+        <!-- الطبقة التفاعلية مع الباقات وزر الاشتراك -->
         <div class="interactive-layer">
-            <!-- الباقة الأسبوعية -->
-            <div id="weeklyPlan" class="plan-spot plan-spot-weekly" onclick="selectPlan('weekly')"></div>
+            <div id="weeklyPlan" class="plan-spot plan-spot-weekly" onclick="selectPlan('weekly', event)"></div>
+            <div id="monthlyPlan" class="plan-spot plan-spot-monthly active" onclick="selectPlan('monthly', event)"></div>
+            <div id="annualPlan" class="plan-spot plan-spot-annual" onclick="selectPlan('annual', event)"></div>
             
-            <!-- الباقة الشهرية (افتراضياً مفعلة كـ رائج) -->
-            <div id="monthlyPlan" class="plan-spot plan-spot-monthly active" onclick="selectPlan('monthly')"></div>
-            
-            <!-- الباقة السنوية -->
-            <div id="annualPlan" class="plan-spot plan-spot-annual" onclick="selectPlan('annual')"></div>
-            
-            <!-- زر الاشتراك السفلي -->
-            <div class="subscribe-spot" onclick="handleSubscribe()"></div>
+            <div class="subscribe-spot" onclick="handleSubscribe(event)"></div>
         </div>
 
     </div>
 </div>
 
 <script>
-    let selectedPlanType = 'monthly';
+    let currentSelectedPlan = 'monthly';
 
-    function selectPlan(planType) {
-        selectedPlanType = planType;
+    function selectPlan(planType, event) {
+        if(event) event.stopPropagation();
+        currentSelectedPlan = planType;
         
-        // إزالة التفعيل من الكل
-        document.getElementById('weeklyPlan').classList.remove('active');
-        document.getElementById('monthlyPlan').classList.remove('active');
-        document.getElementById('annualPlan').classList.remove('active');
+        // إزالة التحديد السابق
+        document.querySelectorAll('.plan-spot').forEach(el => el.classList.remove('active'));
         
-        // تفعيل الباقة المختارة
-        if(planType === 'weekly') {
-            document.getElementById('weeklyPlan').classList.add('active');
-        } else if(planType === 'monthly') {
-            document.getElementById('monthlyPlan').classList.add('active');
-        } else if(planType === 'annual') {
-            document.getElementById('annualPlan').classList.add('active');
+        // تفعيل الباقة المطلوبة
+        const target = document.getElementById(planType + 'Plan');
+        if(target) {
+            target.classList.add('active');
         }
         
-        // اهتزاز خفيف جداً عند اختيار الباقة
+        // اهتزاز الموبايل عند تحديد الباقة
         if (navigator.vibrate) {
-            navigator.vibrate(30);
+            navigator.vibrate(25);
         }
     }
 
-    function handleSubscribe() {
-        // اهتزاز خفيف عند النقر على زر الاشتراك
+    function handleSubscribe(event) {
+        if(event) event.stopPropagation();
+
+        // اهتزاز الموبايل عند الضغط على زر الاشتراك
         if (navigator.vibrate) {
-            navigator.vibrate([50, 30, 50]); // نبضتان خفيفتان للإحساس بالاهتزاز
+            navigator.vibrate([40, 30, 40]);
         }
         
-        // تشغيل صوت تفاعلي خفيف (اختياري عبر Web Audio API)
+        // تشغيل صوت النقر التفاعلي
         playClickSound();
-        
-        // تنفيذ عملية الاشتراك أو إظهار رسالة النجاح
+
+        // تنفيذ طلب الاشتراك
         if (typeof showToast === 'function') {
-            showToast('جاري معالجة اشتراكك (' + selectedPlanType + ')...');
+            showToast('تم اختيار باقة: ' + currentSelectedPlan);
         }
     }
 
-    // توليد صوت نقرة خفيف وبسيط برمجياً بدون الحاجة لملف صوت خارجي
     function playClickSound() {
         try {
             const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
             
-            oscillator.type = 'sine';
-            oscillator.frequency.setValueAtTime(400, audioCtx.currentTime); // تردد الصوت
-            oscillator.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.05);
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(500, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(1000, audioCtx.currentTime + 0.04);
             
-            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+            gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.04);
             
-            oscillator.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
             
-            oscillator.start();
-            oscillator.stop(audioCtx.currentTime + 0.05);
-        } catch(e) {
-            // المتصفح قد يمنع الصوت تلقائياً حتى يتم تفاعل المستخدم
-        }
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.04);
+        } catch(e) {}
     }
 </script>
