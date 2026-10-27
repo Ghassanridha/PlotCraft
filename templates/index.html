@@ -461,53 +461,7 @@
             showToast('تم النقر على إنشاء قصة');
         }
 
-        // ==========================================
-        // الدوال العامة للباقات والاشتراك (لضمان عملها 100%)
-        // ==========================================
-        window.activePlan = 'monthly';
-
-        window.selectPlan = function(planType) {
-            window.activePlan = planType;
-            
-            const weekly = document.getElementById('weeklyCard');
-            const monthly = document.getElementById('monthlyCard');
-            const annual = document.getElementById('annualCard');
-
-            if(weekly) weekly.classList.remove('active');
-            if(monthly) monthly.classList.remove('active');
-            if(annual) annual.classList.remove('active');
-            
-            const target = document.getElementById(planType + 'Card');
-            if(target) target.classList.add('active');
-            
-            if (navigator.vibrate) navigator.vibrate(30);
-            window.playTapSound();
-        };
-
-        window.handleSubscribe = function() {
-            if (navigator.vibrate) navigator.vibrate([40, 30, 40]);
-            window.playTapSound();
-            showToast('تم اختيار باقة: ' + window.activePlan);
-        };
-
-        window.playTapSound = function() {
-            try {
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(500, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + 0.04);
-                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.04);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.04);
-            } catch(e) {}
-        };
-
-        // تشغيل ملف الاشتراكات المستقل عبر السيرفر مع تفعيل السكربتات الداخلية
+        // تشغيل ملف الاشتراكات المستقل عبر السيرفر
         window.openSubscription = function() {
             const existingModal = document.getElementById('subscriptionModal');
             if (existingModal) {
@@ -521,20 +475,7 @@
                     return response.text();
                 })
                 .then(html => {
-                    const wrapper = document.getElementById('subscriptionModalWrapper');
-                    wrapper.innerHTML = html;
-                    
-                    // تشغيل أي سكربت موجود داخل الـ HTML المجلب تلقائياً
-                    wrapper.querySelectorAll('script').forEach(oldScript => {
-                        const newScript = document.createElement('script');
-                        if (oldScript.src) {
-                            newScript.src = oldScript.src;
-                        } else {
-                            newScript.textContent = oldScript.textContent;
-                        }
-                        document.body.appendChild(newScript);
-                    });
-
+                    document.getElementById('subscriptionModalWrapper').innerHTML = html;
                     const loadedModal = document.getElementById('subscriptionModal');
                     if (loadedModal) {
                         loadedModal.style.display = 'flex';
