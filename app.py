@@ -29,9 +29,13 @@ try:
 except Exception as e:
     print(f"Firebase Init Error: {e}")
 
-# ربط مجلد الملفات الثابتة
+# ربط مجلد الملفات الثابتة (static)
 if os.path.exists("static"):
     app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# ربط مجلد القوالب (templates) لتمكين الـ fetch من جلب القوالب المستقلة مثل نافذة الاشتراكات
+if os.path.exists("templates"):
+    app.mount("/templates", StaticFiles(directory="templates"), name="templates")
 
 templates = Jinja2Templates(directory="templates")
 
