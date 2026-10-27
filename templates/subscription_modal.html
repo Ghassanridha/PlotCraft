@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        <!-- المنطقة السفلية: التجديد + زر الاشتراك + الروابط القابلة للنقر -->
+        <!-- المنطقة السفلية -->
         <div class="bottom-fixed-area">
             <div class="footer-note">
                 <span>تجديد تلقائي، يمكن الإلغاء في أي وقت</span>
@@ -289,12 +289,23 @@
         };
     }
 
+    // متغير لمنع تكرار فتح التنبيه أكثر من مرة في نفس اللحظة
+    let isSubscribing = false;
+
     if (typeof window.executeSubscribe === 'undefined') {
         window.executeSubscribe = function() {
+            if (isSubscribing) return;
+            isSubscribing = true;
+
             if (window.navigator && window.navigator.vibrate) {
                 try { window.navigator.vibrate(60); } catch (e) {}
             }
-            alert("تم إرسال طلب الاشتراك بنجاح!");
+
+            // استخدام setTimeout لضمان انتهاء الحدث تماماً قبل إظهار التنبيه
+            setTimeout(() => {
+                alert("تم إرسال طلب الاشتراك بنجاح!");
+                isSubscribing = false;
+            }, 50);
         };
     }
 
@@ -303,13 +314,15 @@
             if (window.navigator && window.navigator.vibrate) {
                 try { window.navigator.vibrate(30); } catch (e) {}
             }
-            if (type === 'restore') {
-                alert("جاري استعادة المشتريات...");
-            } else if (type === 'terms') {
-                alert("فتح شروط الاستخدام...");
-            } else if (type === 'privacy') {
-                alert("فتح سياسة الخصوصية...");
-            }
+            setTimeout(() => {
+                if (type === 'restore') {
+                    alert("جاري استعادة المشتريات...");
+                } else if (type === 'terms') {
+                    alert("فتح شروط الاستخدام...");
+                } else if (type === 'privacy') {
+                    alert("فتح سياسة الخصوصية...");
+                }
+            }, 50);
         };
     }
 </script>
