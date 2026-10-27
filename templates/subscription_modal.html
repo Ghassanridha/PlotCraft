@@ -20,67 +20,43 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    max-width: 100vw;
-    max-height: 100vh;
-    border-radius: 0;
-    border: none;
-    margin: 0;
-    padding: 0;
     background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/54a585f45b13b52a057d4ffeafc29915b9d2ab0c/Gh3.jpg');
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
-    box-sizing: border-box;
 }
 
-/* طبقة تفاعلية شفافة فوق الصورة */
+/* الطبقة الشفافة لتفعيل النقر فوق الباقات وزر الاشتراك الموجودة في تصميمك */
 .interactive-layer {
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
-    box-sizing: border-box;
 }
 
-/* الفئات الخاصة بالباقات الشفافة القابلة للنقر */
 .plan-spot {
     position: absolute;
     left: 6%;
     width: 88%;
-    border: 2.5px solid transparent;
+    height: 10.5%;
+    border: 2px solid transparent;
     border-radius: 18px;
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    box-sizing: border-box;
+    transition: all 0.2s ease;
 }
 
-/* الباقة الأسبوعية */
-.plan-spot-weekly {
-    top: 48.5%;
-    height: 10.5%;
-}
+/* أماكن الباقات الثلاث بدقة لتطابق صورتك تماماً */
+.plan-spot-weekly { top: 48.5%; }
+.plan-spot-monthly { top: 60.5%; }
+.plan-spot-annual { top: 72.5%; }
 
-/* الباقة الشهرية */
-.plan-spot-monthly {
-    top: 60.5%;
-    height: 10.5%;
-}
-
-/* الباقة السنوية */
-.plan-spot-annual {
-    top: 72.5%;
-    height: 10.5%;
-}
-
-/* إطار التحديد الأزرق المضيء للباقة المختارة */
+/* لون الإطار الأزرق عند اختيار الباقة */
 .plan-spot.active {
-    border-color: #3b82f6 !important;
-    background: rgba(59, 130, 246, 0.12);
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.4), inset 0 0 10px rgba(59, 130, 246, 0.2);
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.15);
 }
 
-/* زر الاشتراك السفلي المصغر والمبتعد عن الحواف من اليمين واليسار */
+/* مساحة النقر لزر الاشتراك السفلي */
 .subscribe-spot {
     position: absolute;
     bottom: 7.5%;
@@ -89,86 +65,49 @@
     width: 84%;
     height: 6.5%;
     cursor: pointer;
-    border-radius: 30px;
-    background: rgba(255, 255, 255, 0.01); /* لضمان استلام لمس الشاشة */
-    transition: transform 0.1s ease;
-}
-
-.subscribe-spot:active {
-    transform: scale(0.97);
 }
 </style>
 
 <div id="subscriptionModal" class="modal-overlay">
     <div class="modal-container">
-        
-        <!-- الطبقة التفاعلية مع الباقات وزر الاشتراك -->
         <div class="interactive-layer">
-            <div id="weeklyPlan" class="plan-spot plan-spot-weekly" onclick="selectPlan('weekly', event)"></div>
-            <div id="monthlyPlan" class="plan-spot plan-spot-monthly active" onclick="selectPlan('monthly', event)"></div>
-            <div id="annualPlan" class="plan-spot plan-spot-annual" onclick="selectPlan('annual', event)"></div>
-            
-            <div class="subscribe-spot" onclick="handleSubscribe(event)"></div>
+            <div id="weeklyPlan" class="plan-spot plan-spot-weekly" onclick="selectPlan('weekly')"></div>
+            <div id="monthlyPlan" class="plan-spot plan-spot-monthly active" onclick="selectPlan('monthly')"></div>
+            <div id="annualPlan" class="plan-spot plan-spot-annual" onclick="selectPlan('annual')"></div>
+            <div class="subscribe-spot" onclick="handleSubscribe()"></div>
         </div>
-
     </div>
 </div>
 
 <script>
-    let currentSelectedPlan = 'monthly';
-
-    function selectPlan(planType, event) {
-        if(event) event.stopPropagation();
-        currentSelectedPlan = planType;
-        
-        // إزالة التحديد السابق
+    function selectPlan(planType) {
         document.querySelectorAll('.plan-spot').forEach(el => el.classList.remove('active'));
+        document.getElementById(planType + 'Plan').classList.add('active');
         
-        // تفعيل الباقة المطلوبة
-        const target = document.getElementById(planType + 'Plan');
-        if(target) {
-            target.classList.add('active');
-        }
-        
-        // اهتزاز الموبايل عند تحديد الباقة
-        if (navigator.vibrate) {
-            navigator.vibrate(25);
-        }
+        // اهتزاز خفيف عند الضغط
+        if (navigator.vibrate) navigator.vibrate(25);
+        playTapSound();
     }
 
-    function handleSubscribe(event) {
-        if(event) event.stopPropagation();
-
-        // اهتزاز الموبايل عند الضغط على زر الاشتراك
-        if (navigator.vibrate) {
-            navigator.vibrate([40, 30, 40]);
-        }
-        
-        // تشغيل صوت النقر التفاعلي
-        playClickSound();
-
-        // تنفيذ طلب الاشتراك
-        if (typeof showToast === 'function') {
-            showToast('تم اختيار باقة: ' + currentSelectedPlan);
-        }
+    function handleSubscribe() {
+        if (navigator.vibrate) navigator.vibrate(40);
+        playTapSound();
+        if (typeof showToast === 'function') showToast('جاري تنفيذ الاشتراك...');
     }
 
-    function playClickSound() {
+    // صوت نقرة تفاعلي بسيط وخفيف
+    function playTapSound() {
         try {
             const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
-            
             osc.type = 'sine';
             osc.frequency.setValueAtTime(500, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(1000, audioCtx.currentTime + 0.04);
-            
-            gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + 0.04);
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.04);
-            
             osc.connect(gain);
             gain.connect(audioCtx.destination);
-            
             osc.start();
             osc.stop(audioCtx.currentTime + 0.04);
         } catch(e) {}
