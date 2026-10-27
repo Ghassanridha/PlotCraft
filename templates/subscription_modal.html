@@ -2,12 +2,12 @@
     <div class="modal-absolute-container">
         
         <!-- زر إغلاق (X) -->
-        <button class="close-modal-btn" onclick="closeSubscription()" ontouchstart="closeSubscription()">&times;</button>
+        <button class="close-modal-btn" onclick="closeSubscription()">×</button>
 
         <!-- حاوية الباقات -->
         <div class="plans-list-absolute">
             <!-- باقة الأسبوع -->
-            <div class="plan-card" onclick="choosePlan(this)" ontouchstart="choosePlan(this)">
+            <div class="plan-card" onclick="choosePlan(this)">
                 <div class="plan-info">
                     <h3>PlotCraft Pro Weekly</h3>
                     <p>Credits / Week, Try AI Drama Creation 500</p>
@@ -19,7 +19,7 @@
             </div>
 
             <!-- باقة الشهر -->
-            <div class="plan-card active" onclick="choosePlan(this)" ontouchstart="choosePlan(this)">
+            <div class="plan-card active" onclick="choosePlan(this)">
                 <div class="plan-badge">رائج</div>
                 <div class="plan-info">
                     <h3>PlotCraft Pro Monthly</h3>
@@ -32,7 +32,7 @@
             </div>
 
             <!-- باقة السنة -->
-            <div class="plan-card" onclick="choosePlan(this)" ontouchstart="choosePlan(this)">
+            <div class="plan-card" onclick="choosePlan(this)">
                 <div class="plan-info">
                     <h3>PlotCraft Pro Annual</h3>
                     <p>Credits / Year, Ideal for professional creators 5000</p>
@@ -51,7 +51,7 @@
                 <svg width="12" height="12" fill="#fbbf24" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
             </div>
 
-            <button class="subscribe-btn" onclick="executeSubscribe()" ontouchstart="executeSubscribe()">اشتراك</button>
+            <button class="subscribe-btn" onclick="executeSubscribe()">اشتراك</button>
 
             <!-- روابط قابلة للنقر -->
             <div class="bottom-links">
@@ -110,7 +110,6 @@
         justify-content: center;
         cursor: pointer;
         z-index: 100000;
-        touch-action: manipulation;
         pointer-events: auto !important;
     }
 
@@ -139,7 +138,6 @@
         align-items: center;
         cursor: pointer;
         transition: all 0.2s ease;
-        touch-action: manipulation;
         pointer-events: auto !important;
     }
 
@@ -228,7 +226,6 @@
         font-weight: 800;
         cursor: pointer;
         transition: background 0.2s, transform 0.1s;
-        touch-action: manipulation;
         pointer-events: auto !important;
         box-shadow: 0 4px 15px rgba(255, 255, 255, 0.25);
     }
@@ -253,7 +250,6 @@
         text-decoration: none;
         cursor: pointer;
         transition: color 0.2s;
-        touch-action: manipulation;
     }
 
     .bottom-links a:active {
@@ -268,9 +264,6 @@
 <script>
     if (typeof window.closeSubscription === 'undefined') {
         window.closeSubscription = function() {
-            if (window.navigator && window.navigator.vibrate) {
-                try { window.navigator.vibrate(30); } catch (e) {}
-            }
             const modal = document.getElementById('subscriptionModal');
             if (modal) {
                 modal.style.display = 'none';
@@ -280,49 +273,28 @@
 
     if (typeof window.choosePlan === 'undefined') {
         window.choosePlan = function(cardElement) {
-            if (window.navigator && window.navigator.vibrate) {
-                try { window.navigator.vibrate(40); } catch (e) {}
-            }
             const allCards = document.querySelectorAll('.plan-card');
             allCards.forEach(card => card.classList.remove('active'));
             cardElement.classList.add('active');
         };
     }
 
-    // متغير لمنع تكرار فتح التنبيه أكثر من مرة في نفس اللحظة
-    let isSubscribing = false;
-
     if (typeof window.executeSubscribe === 'undefined') {
         window.executeSubscribe = function() {
-            if (isSubscribing) return;
-            isSubscribing = true;
-
-            if (window.navigator && window.navigator.vibrate) {
-                try { window.navigator.vibrate(60); } catch (e) {}
-            }
-
-            // استخدام setTimeout لضمان انتهاء الحدث تماماً قبل إظهار التنبيه
-            setTimeout(() => {
-                alert("تم إرسال طلب الاشتراك بنجاح!");
-                isSubscribing = false;
-            }, 50);
+            // تنفيذ الحدث بنقرة واحدة مباشرة بدون تكرار أو تنبيه مزعج
+            console.log("تم النقر على زر الاشتراك");
         };
     }
 
     if (typeof window.handleLink === 'undefined') {
         window.handleLink = function(type) {
-            if (window.navigator && window.navigator.vibrate) {
-                try { window.navigator.vibrate(30); } catch (e) {}
+            if (type === 'restore') {
+                console.log("استعادة المشتريات");
+            } else if (type === 'terms') {
+                console.log("شروط الاستخدام");
+            } else if (type === 'privacy') {
+                console.log("سياسة الخصوصية");
             }
-            setTimeout(() => {
-                if (type === 'restore') {
-                    alert("جاري استعادة المشتريات...");
-                } else if (type === 'terms') {
-                    alert("فتح شروط الاستخدام...");
-                } else if (type === 'privacy') {
-                    alert("فتح سياسة الخصوصية...");
-                }
-            }, 50);
         };
     }
 </script>
