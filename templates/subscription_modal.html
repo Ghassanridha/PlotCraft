@@ -4,7 +4,7 @@
         <!-- زر إغلاق (X) -->
         <button class="close-modal-btn" onclick="closeSubscription()" ontouchstart="closeSubscription()">&times;</button>
 
-        <!-- حاوية الباقات - مصفوفة بالمقاسات والارتفاعات المضبوطة بدقة فوق التصميم -->
+        <!-- حاوية الباقات - مصفوفة ومثبتة فوق التصميم -->
         <div class="plans-list-absolute">
             <!-- باقة الأسبوع -->
             <div class="plan-card" onclick="choosePlan(this)" ontouchstart="choosePlan(this)">
@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        <!-- المنطقة السفلية: التجديد + زر الاشتراك + الروابط -->
+        <!-- المنطقة السفلية: التجديد + زر الاشتراك + الروابط (مثبتة من الأسفل) -->
         <div class="bottom-fixed-area">
             <div class="footer-note">
                 <span>تجديد تلقائي، يمكن الإلغاء في أي وقت</span>
@@ -73,22 +73,24 @@
         left: 0; 
         width: 100vw; 
         height: 100vh;
-        /* تم استبدال الرابط بالصورة الجديدة المباشرة المطلوبة */
         background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/0f1d146fbd9d2334aa927340f811c68891749269/Gh.jpg') center/cover no-repeat;
         z-index: 999999;
         direction: rtl;
         margin: 0;
         padding: 0;
-        overflow-y: auto;
+        /* إلغاء التمرير تماماً لمنع الحركة للأعلى والأسفل */
+        overflow: hidden !important;
+        touch-action: none !important;
         pointer-events: auto !important;
     }
 
     .modal-absolute-container {
         position: relative;
         width: 100%;
-        min-height: 100vh;
+        height: 100vh; /* ارتفاع ثابت 100% للشاشة */
         box-sizing: border-box;
         background: linear-gradient(180deg, rgba(11,15,25,0) 0%, rgba(11,15,25,0.3) 30%, rgba(11,15,25,0.85) 50%, #0b0f19 100%);
+        overflow: hidden;
         pointer-events: auto !important;
     }
 
@@ -191,9 +193,10 @@
         margin-top: 2px;
     }
 
+    /* تثبيت الأزرار السفلية من أسفل الشاشة لحمايتها من الخروج أو التمرير */
     .bottom-fixed-area {
         position: absolute;
-        top: 720px;
+        bottom: 20px;
         left: 50%;
         transform: translateX(-50%);
         width: 92%;
@@ -201,7 +204,6 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding-bottom: 25px;
         pointer-events: auto !important;
     }
 
