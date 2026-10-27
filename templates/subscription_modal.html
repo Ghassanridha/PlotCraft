@@ -4,7 +4,7 @@
         <!-- زر إغلاق (X) -->
         <button class="close-modal-btn" onclick="closeSubscription()" ontouchstart="closeSubscription()">&times;</button>
 
-        <!-- حاوية الباقات - في مكانها الحالي المضبوط تماماً -->
+        <!-- حاوية الباقات -->
         <div class="plans-list-absolute">
             <!-- باقة الأسبوع -->
             <div class="plan-card" onclick="choosePlan(this)" ontouchstart="choosePlan(this)">
@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        <!-- المنطقة السفلية: مرفوعة قليلاً للأعلى لتظهر روابط الاستعادة والخصوصية بوضوح تام -->
+        <!-- المنطقة السفلية: مرفوعة بمسافة كافية ليظهر زر الاشتراك والروابط بوضوح تם -->
         <div class="bottom-fixed-area">
             <div class="footer-note">
                 <span>تجديد تلقائي، يمكن الإلغاء في أي وقت</span>
@@ -192,10 +192,10 @@
         margin-top: 2px;
     }
 
-    /* رفع المنطقة السفلية قليلاً للأعلى (bottom: 38px) لتظهر الروابط بالكامل بوضوح وبدون حركة */
+    /* رفع المنطقة السفلية إلى 75px لضمان ظهور زر الاشتراك والروابط بالكامل ودون اختفاء */
     .bottom-fixed-area {
         position: absolute;
-        bottom: 38px;
+        bottom: 75px;
         left: 50%;
         transform: translateX(-50%);
         width: 92%;
