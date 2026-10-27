@@ -1,270 +1,244 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PlotCraft Pro</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
+<div id="subscriptionModal" class="modal-overlay" style="display: flex; pointer-events: auto !important;">
+    <div class="sub-wrapper" style="pointer-events: auto !important;">
+        
+        <!-- زر إغلاق (X) في أعلى اليمين -->
+        <button class="close-modal-btn" onclick="closeSubscription()" ontouchstart="closeSubscription()" style="pointer-events: auto !important; touch-action: manipulation;">&times;</button>
 
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #0b0f19;
-            z-index: 999999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow-y: auto;
-            padding: 16px;
-        }
-
-        .sub-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 420px;
-            background: #0d111d;
-            border-radius: 24px;
-            padding: 24px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            margin: auto;
-        }
-
-        /* زر الإغلاق (X) في أعلى اليمين تماماً */
-        .close-modal-btn {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: rgba(255, 255, 255, 0.08);
-            border: none;
-            color: #ffffff;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            font-size: 18px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background 0.2s;
-            z-index: 10;
-        }
-
-        .close-modal-btn:active {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(0.95);
-        }
-
-        .sub-header {
-            text-align: center;
-            margin-bottom: 24px;
-            margin-top: 8px;
-        }
-
-        .sub-title {
-            font-size: 26px;
-            font-weight: 800;
-            background: linear-gradient(90deg, #c084fc, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 6px;
-            letter-spacing: 0.5px;
-        }
-
-        .sub-desc {
-            font-size: 13px;
-            color: #9ca3af;
-        }
-
-        .plans-list {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin-bottom: 24px;
-        }
-
-        .plan-card {
-            position: relative;
-            background: #141a29;
-            border: 2px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            touch-action: manipulation;
-        }
-
-        .plan-card:active {
-            transform: scale(0.98);
-        }
-
-        /* الكلاس الفعّال الموحد */
-        .plan-card.active {
-            border-color: #3b82f6 !important;
-            background: #162035 !important;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
-        }
-
-        .plan-badge {
-            position: absolute;
-            top: -11px;
-            left: 16px;
-            background: #3b82f6;
-            color: #ffffff;
-            font-size: 11px;
-            font-weight: bold;
-            padding: 2px 10px;
-            border-radius: 10px;
-        }
-
-        .plan-info h3 {
-            font-size: 16px;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 4px;
-        }
-
-        .plan-info p {
-            font-size: 11px;
-            color: #9ca3af;
-        }
-
-        .plan-pricing {
-            text-align: left;
-        }
-
-        .plan-pricing .price {
-            font-size: 17px;
-            font-weight: 800;
-            color: #ffffff;
-        }
-
-        .plan-pricing .period {
-            font-size: 11px;
-            color: #9ca3af;
-            margin-top: 2px;
-        }
-
-        .subscribe-btn {
-            width: 100%;
-            height: 52px;
-            background: #ffffff;
-            color: #000000;
-            border: none;
-            border-radius: 30px;
-            font-size: 17px;
-            font-weight: 800;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.1s;
-            touch-action: manipulation;
-        }
-
-        .subscribe-btn:active {
-            transform: scale(0.97);
-            background: #e5e7eb;
-        }
-
-        .footer-note {
-            text-align: center;
-            font-size: 12px;
-            color: #9ca3af;
-            margin-top: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-    </style>
-</head>
-<body>
-
-    <div id="subscriptionModal" class="modal-overlay">
-        <div class="sub-wrapper">
-            
-            <!-- زر إغلاق (X) في أعلى اليمين -->
-            <button class="close-modal-btn" onclick="closeSubscription()" ontouchstart="closeSubscription()">&times;</button>
-
-            <div class="sub-header">
-                <div class="sub-title">PLOTCRAFT PRO</div>
-                <div class="sub-desc">اختر الباقة المناسبة وفعل مميزات الذكاء الاصطناعي</div>
-            </div>
-
-            <div class="plans-list">
-                
-                <!-- باقة الأسبوع -->
-                <div class="plan-card" onclick="choosePlan(this)" ontouchstart="choosePlan(this)">
-                    <div class="plan-info">
-                        <h3>PlotCraft Pro Weekly</h3>
-                        <p>Credits / Week, Try AI Drama Creation 500</p>
-                    </div>
-                    <div class="plan-pricing">
-                        <div class="price">US 9.99$</div>
-                        <div class="period">أسبوع</div>
-                    </div>
-                </div>
-
-                <!-- باقة الشهر (مفعلة افتراضياً بكلاس active) -->
-                <div class="plan-card active" onclick="choosePlan(this)" ontouchstart="choosePlan(this)">
-                    <div class="plan-badge">رائج</div>
-                    <div class="plan-info">
-                        <h3>PlotCraft Pro Monthly</h3>
-                        <p>Credits / Month, Ideal for regular creators 1800</p>
-                    </div>
-                    <div class="plan-pricing">
-                        <div class="price">US 29.99$</div>
-                        <div class="period">شهر</div>
-                    </div>
-                </div>
-
-                <!-- باقة السنة -->
-                <div class="plan-card" onclick="choosePlan(this)" ontouchstart="choosePlan(this)">
-                    <div class="plan-info">
-                        <h3>PlotCraft Pro Annual</h3>
-                        <p>Credits / Year, Ideal for professional creators 5000</p>
-                    </div>
-                    <div class="plan-pricing">
-                        <div class="price">US 69.99$</div>
-                        <div class="period">سنة</div>
-                    </div>
-                </div>
-
-            </div>
-
-            <button class="subscribe-btn" onclick="executeSubscribe()" ontouchstart="executeSubscribe()">اشتراك</button>
-            
-            <div class="footer-note">
-                <svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
-                تجديد تلقائي، يمكن الإلغاء في أي وقت
-            </div>
-
+        <div class="sub-header">
+            <div class="sub-title">PLOTCRAFT PRO</div>
+            <div class="sub-desc">اختر الباقة المناسبة وفعل مميزات الذكاء الاصطناعي</div>
         </div>
+
+        <div class="plans-list">
+            <!-- باقة الأسبوع -->
+            <div class="plan-card" onclick="choosePlan(this)" ontouchstart="choosePlan(this)">
+                <div class="plan-info">
+                    <h3>PlotCraft Pro Weekly</h3>
+                    <p>Credits / Week, Try AI Drama Creation 500</p>
+                </div>
+                <div class="plan-pricing">
+                    <div class="price">US 9.99$</div>
+                    <div class="period">أسبوع</div>
+                </div>
+            </div>
+
+            <!-- باقة الشهر -->
+            <div class="plan-card active" onclick="choosePlan(this)" ontouchstart="choosePlan(this)">
+                <div class="plan-badge">رائج</div>
+                <div class="plan-info">
+                    <h3>PlotCraft Pro Monthly</h3>
+                    <p>Credits / Month, Ideal for regular creators 1800</p>
+                </div>
+                <div class="plan-pricing">
+                    <div class="price">US 29.99$</div>
+                    <div class="period">شهر</div>
+                </div>
+            </div>
+
+            <!-- باقة السنة -->
+            <div class="plan-card" onclick="choosePlan(this)" ontouchstart="choosePlan(this)">
+                <div class="plan-info">
+                    <h3>PlotCraft Pro Annual</h3>
+                    <p>Credits / Year, Ideal for professional creators 5000</p>
+                </div>
+                <div class="plan-pricing">
+                    <div class="price">US 69.99$</div>
+                    <div class="period">سنة</div>
+                </div>
+            </div>
+        </div>
+
+        <button class="subscribe-btn" onclick="executeSubscribe()" ontouchstart="executeSubscribe()" style="pointer-events: auto !important; touch-action: manipulation;">اشتراك</button>
+        
+        <div class="footer-note">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+            تجديد تلقائي، يمكن الإلغاء في أي وقت
+        </div>
+
     </div>
+</div>
 
-    <script>
-        function choosePlan(cardElement) {
-            if (window.navigator && window.navigator.vibrate) {
-                try { window.navigator.vibrate(40); } catch (e) {}
-            }
-            const allCards = document.querySelectorAll('.plan-card');
-            allCards.forEach(card => card.classList.remove('active'));
-            cardElement.classList.add('active');
-        }
+<style>
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(11, 15, 25, 0.92);
+        z-index: 999999;
+        justify-content: center;
+        align-items: center;
+        overflow-y: auto;
+        padding: 16px;
+        pointer-events: auto !important;
+    }
 
-        function closeSubscription() {
+    .sub-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 420px;
+        background: #0d111d;
+        border-radius: 24px;
+        padding: 24px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        margin: auto;
+        pointer-events: auto !important;
+    }
+
+    .close-modal-btn {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        color: #ffffff;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        font-size: 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 50;
+        touch-action: manipulation;
+    }
+
+    .close-modal-btn:active {
+        transform: scale(0.9);
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    .sub-header {
+        text-align: center;
+        margin-bottom: 22px;
+        margin-top: 6px;
+    }
+
+    .sub-title {
+        font-size: 26px;
+        font-weight: 800;
+        background: linear-gradient(90deg, #c084fc, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 6px;
+    }
+
+    .sub-desc {
+        font-size: 13px;
+        color: #9ca3af;
+    }
+
+    .plans-list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-bottom: 20px;
+    }
+
+    .plan-card {
+        position: relative;
+        background: #141a29;
+        border: 2px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        touch-action: manipulation;
+        pointer-events: auto !important;
+    }
+
+    .plan-card:active {
+        transform: scale(0.98);
+    }
+
+    .plan-card.active {
+        border-color: #3b82f6 !important;
+        background: #162035 !important;
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+    }
+
+    .plan-badge {
+        position: absolute;
+        top: -11px;
+        left: 16px;
+        background: #3b82f6;
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: bold;
+        padding: 2px 10px;
+        border-radius: 10px;
+    }
+
+    .plan-info h3 {
+        font-size: 16px;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 4px;
+    }
+
+    .plan-info p {
+        font-size: 11px;
+        color: #9ca3af;
+    }
+
+    .plan-pricing {
+        text-align: left;
+    }
+
+    .plan-pricing .price {
+        font-size: 17px;
+        font-weight: 800;
+        color: #ffffff;
+    }
+
+    .plan-pricing .period {
+        font-size: 11px;
+        color: #9ca3af;
+        margin-top: 2px;
+    }
+
+    .subscribe-btn {
+        width: 100%;
+        height: 52px;
+        background: #ffffff;
+        color: #000000;
+        border: none;
+        border-radius: 30px;
+        font-size: 17px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.1s;
+        touch-action: manipulation;
+        pointer-events: auto !important;
+    }
+
+    .subscribe-btn:active {
+        transform: scale(0.97);
+        background: #e5e7eb;
+    }
+
+    .footer-note {
+        text-align: center;
+        font-size: 12px;
+        color: #9ca3af;
+        margin-top: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+    }
+</style>
+
+<script>
+    if (typeof window.closeSubscription === 'undefined') {
+        window.closeSubscription = function() {
             if (window.navigator && window.navigator.vibrate) {
                 try { window.navigator.vibrate(30); } catch (e) {}
             }
@@ -272,14 +246,26 @@
             if (modal) {
                 modal.style.display = 'none';
             }
-        }
+        };
+    }
 
-        function executeSubscribe() {
+    if (typeof window.choosePlan === 'undefined') {
+        window.choosePlan = function(cardElement) {
+            if (window.navigator && window.navigator.vibrate) {
+                try { window.navigator.vibrate(40); } catch (e) {}
+            }
+            const allCards = document.querySelectorAll('.plan-card');
+            allCards.forEach(card => card.classList.remove('active'));
+            cardElement.classList.add('active');
+        };
+    }
+
+    if (typeof window.executeSubscribe === 'undefined') {
+        window.executeSubscribe = function() {
             if (window.navigator && window.navigator.vibrate) {
                 try { window.navigator.vibrate(60); } catch (e) {}
             }
             alert("تم إرسال طلب الاشتراك بنجاح!");
-        }
-    </script>
-</body>
-</html>
+        };
+    }
+</script>
