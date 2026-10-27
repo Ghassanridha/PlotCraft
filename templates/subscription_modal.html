@@ -1,317 +1,72 @@
-<style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-}
-
-/* تم تعديل display ليكون block لضمان ظهور النافذة وقابليتها للنقر */
-.modal-overlay {
-    display: block !important; 
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100vw; 
-    height: 100vh;
-    background: #0b0f19; 
-    z-index: 99999;
-    direction: rtl;
-    overflow-y: auto;
-}
-
-.modal-container {
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
-    background: #0d111d;
-    color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    padding: 24px 16px 30px 16px;
-}
-
-/* العناوين الرئيسية */
-.header-titles {
-    text-align: center;
-    margin-bottom: 24px;
-    margin-top: 10px;
-}
-
-.main-title {
-    font-size: 26px;
-    font-weight: 800;
-    background: linear-gradient(90deg, #c084fc, #a855f7);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: 1px;
-    margin-bottom: 6px;
-}
-
-.sub-title-1 {
-    font-size: 18px;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 4px;
-}
-
-.sub-title-2 {
-    font-size: 13px;
-    color: #9ca3af;
-}
-
-/* الأيقونات الأربع العلوية - ثابتة وغير قابلة للنقر */
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    margin-bottom: 24px;
-}
-
-.feature-item {
-    background: #141a29;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 14px;
-    padding: 12px 6px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    pointer-events: none; /* إلغاء التفاعل عن الأيقونات العلوية */
-}
-
-.feature-icon {
-    width: 22px;
-    height: 22px;
-    margin-bottom: 6px;
-    stroke: #ffffff;
-}
-
-.feature-text {
-    font-size: 11px;
-    color: #e5e7eb;
-    font-weight: 500;
-}
-
-/* قسم الباقات التفاعلية */
-.plans-container {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    margin-bottom: 24px;
-}
-
-.plan-card {
-    position: relative;
-    background: #141a29;
-    border: 2px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    -webkit-user-select: none;
-    user-select: none;
-}
-
-/* الباقة النشطة عند النقر (الحدود الزرقاء والخلفية المضيئة) */
-.plan-card.active {
-    border-color: #3b82f6 !important;
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
-    background: #162035;
-}
-
-.badge-tag {
-    position: absolute;
-    top: -11px;
-    left: 16px;
-    background: #3b82f6;
-    color: #ffffff;
-    font-size: 11px;
-    font-weight: bold;
-    padding: 2px 10px;
-    border-radius: 10px;
-}
-
-.plan-right {
-    text-align: right;
-}
-
-.plan-title {
-    font-size: 16px;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 4px;
-}
-
-.plan-desc {
-    font-size: 11px;
-    color: #9ca3af;
-}
-
-.plan-left {
-    text-align: left;
-}
-
-.plan-price {
-    font-size: 17px;
-    font-weight: 800;
-    color: #ffffff;
-}
-
-.plan-period {
-    font-size: 11px;
-    color: #9ca3af;
-    margin-top: 2px;
-}
-
-/* زر الاشتراك والتذييل */
-.footer-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    margin-top: auto;
-}
-
-.auto-renew-text {
-    font-size: 12px;
-    color: #9ca3af;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.subscribe-btn {
-    width: 100%;
-    height: 52px;
-    background: #ffffff;
-    color: #000000;
-    border: none;
-    border-radius: 30px;
-    font-size: 17px;
-    font-weight: 800;
-    cursor: pointer;
-    transition: transform 0.1s ease, background 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.subscribe-btn:active {
-    transform: scale(0.97);
-    background: #e5e7eb;
-}
-</style>
-
-<div id="subscriptionModal" class="modal-overlay">
-    <div class="modal-container">
+<div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #0b0f19; z-index: 99999; direction: rtl; overflow-y: auto; font-family: sans-serif; display: flex; justify-content: center; align-items: center;">
+    <div style="width: 100%; max-width: 420px; background: #0d111d; color: #ffffff; padding: 24px; box-sizing: border-box; border-radius: 20px;">
         
-        <!-- العناوين -->
-        <div class="header-titles">
-            <div class="main-title">PLOTCRAFT PRO</div>
-            <div class="sub-title-1">حول خيالك إلى بلوت كرافت</div>
-            <div class="sub-title-2">ترجم أفكارك إلى مشاهد نابضة بالحياة</div>
+        <!-- العنوان -->
+        <div style="text-align: center; margin-bottom: 24px;">
+            <div style="font-size: 24px; font-weight: 800; color: #c084fc; margin-bottom: 6px;">PlotCraft Pro</div>
+            <div style="font-size: 14px; color: #9ca3af;">اختر الباقة المناسبة لك واستمتع بالمميزات</div>
         </div>
 
-        <!-- الأيقونات الأربعة (ثابتة وغير تفاعلية) -->
-        <div class="features-grid">
-            <div class="feature-item">
-                <svg class="feature-icon" fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
-                <span class="feature-text">مونتاج AI</span>
+        <!-- الباقات الجديدة كلياً -->
+        <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px;">
+            
+            <!-- باقة أسبوعية -->
+            <div class="new-plan-box" onclick="selectNewPlan(this)" style="background: #141a29; border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s;">
+                <div>
+                    <div style="font-size: 16px; font-weight: 700; color: #fff;">باقة أسبوعية</div>
+                    <div style="font-size: 11px; color: #9ca3af;">تجارب سريعة ومميزات كاملة</div>
+                </div>
+                <div style="text-align: left;">
+                    <div style="font-size: 16px; font-weight: 800; color: #fff;">9.99$</div>
+                    <div style="font-size: 11px; color: #9ca3af;">أسبوع</div>
+                </div>
             </div>
-            <div class="feature-item">
-                <svg class="feature-icon" fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
-                <span class="feature-text">لقطة AI</span>
+
+            <!-- باقة شهرية (مفعلة افتراضياً للإختبار) -->
+            <div class="new-plan-box active-box" onclick="selectNewPlan(this)" style="background: #162035; border: 2px solid #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); border-radius: 14px; padding: 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s;">
+                <div>
+                    <div style="font-size: 16px; font-weight: 700; color: #fff;">باقة شهرية (رائج)</div>
+                    <div style="font-size: 11px; color: #9ca3af;">الخيار الأفضل للمبدعين</div>
+                </div>
+                <div style="text-align: left;">
+                    <div style="font-size: 16px; font-weight: 800; color: #fff;">29.99$</div>
+                    <div style="font-size: 11px; color: #9ca3af;">شهر</div>
+                </div>
             </div>
-            <div class="feature-item">
-                <svg class="feature-icon" fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>
-                <span class="feature-text">القصة المصورة</span>
+
+            <!-- باقة سنوية -->
+            <div class="new-plan-box" onclick="selectNewPlan(this)" style="background: #141a29; border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s;">
+                <div>
+                    <div style="font-size: 16px; font-weight: 700; color: #fff;">باقة سنوية</div>
+                    <div style="font-size: 11px; color: #9ca3af;">توفير عالي واستخدام غير محدود</div>
+                </div>
+                <div style="text-align: left;">
+                    <div style="font-size: 16px; font-weight: 800; color: #fff;">69.99$</div>
+                    <div style="font-size: 11px; color: #9ca3af;">سنة</div>
+                </div>
             </div>
-            <div class="feature-item">
-                <svg class="feature-icon" fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
-                <span class="feature-text">نص AI</span>
-            </div>
+
         </div>
 
-        <!-- الباقات الثلاث القابلة للنقر -->
-        <div class="plans-container">
-            <!-- باقة الأسبوع -->
-            <div class="plan-card" onclick="selectPlan(this)">
-                <div class="plan-right">
-                    <div class="plan-title">PlotCraft Pro Weekly</div>
-                    <div class="plan-desc">Credits / Week, Try AI Drama Creation 500</div>
-                </div>
-                <div class="plan-left">
-                    <div class="plan-price">US 9.99$</div>
-                    <div class="plan-period">أسبوع</div>
-                </div>
-            </div>
-
-            <!-- باقة الشهر (محددة مسبقاً) -->
-            <div class="plan-card active" onclick="selectPlan(this)">
-                <div class="badge-tag">رائج</div>
-                <div class="plan-right">
-                    <div class="plan-title">PlotCraft Pro Monthly</div>
-                    <div class="plan-desc">Credits / Month, Ideal for regular creators 1800</div>
-                </div>
-                <div class="plan-left">
-                    <div class="plan-price">US 29.99$</div>
-                    <div class="plan-period">شهر</div>
-                </div>
-            </div>
-
-            <!-- باقة السنة -->
-            <div class="plan-card" onclick="selectPlan(this)">
-                <div class="plan-right">
-                    <div class="plan-title">PlotCraft Pro Annual</div>
-                    <div class="plan-desc">Credits / Year, Ideal for professional creators 5000</div>
-                </div>
-                <div class="plan-left">
-                    <div class="plan-price">US 69.99$</div>
-                    <div class="plan-period">سنة</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- التذييل وزر الاشتراك -->
-        <div class="footer-section">
-            <div class="auto-renew-text">
-                <svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
-                تجديد تلقائي، يمكن الإلغاء في أي وقت
-            </div>
-            <button class="subscribe-btn" onclick="handleSubscribe()">اشتراك</button>
-        </div>
+        <!-- زر الاشتراك -->
+        <button onclick="alert('تم النقر على زر الاشتراك بنجاح!')" style="width: 100%; height: 50px; background: #ffffff; color: #000000; border: none; border-radius: 25px; font-size: 16px; font-weight: 800; cursor: pointer;">اشتراك الآن</button>
 
     </div>
 </div>
 
 <script>
-    // دالة التبديل بين الباقات مع الاهتزاز
-    function selectPlan(element) {
-        // تشغيل اهتزاز الهاتف
-        if (window.navigator && window.navigator.vibrate) {
-            window.navigator.vibrate(40);
-        }
+    function selectNewPlan(element) {
+        // إزالة التحديد عن كل الباقات
+        const allBoxes = document.querySelectorAll('.new-plan-box');
+        allBoxes.forEach(box => {
+            box.style.borderColor = "rgba(255, 255, 255, 0.1)";
+            box.style.background = "#141a29";
+            box.style.boxShadow = "none";
+        });
 
-        // إزالة اللون الأزرق والإضاءة عن كل الباقات
-        const plans = document.querySelectorAll('.plan-card');
-        plans.forEach(p => p.classList.remove('active'));
-
-        // إضافة الإطار الأزرق للباقة التي تم الضغط عليها
-        element.classList.add('active');
-    }
-
-    // دالة زر الاشتراك
-    function handleSubscribe() {
-        if (window.navigator && window.navigator.vibrate) {
-            window.navigator.vibrate(60);
-        }
-        alert("تم اختيار الباقة بنجاح!");
+        // تحديد الباقة الحالية باللون الأزرق والإضاءة
+        element.style.borderColor = "#3b82f6";
+        element.style.background = "#162035";
+        element.style.boxShadow = "0 0 15px rgba(59, 130, 246, 0.4)";
     }
 </script>
