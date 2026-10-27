@@ -461,7 +461,7 @@
             showToast('تم النقر على إنشاء قصة');
         }
 
-        // تشغيل ملف الاشتراكات المستقل عبر السيرفر
+        // تم تعديل مسار الجلب هنا ليتوافق مع مسار Flask السليم
         window.openSubscription = function() {
             const existingModal = document.getElementById('subscriptionModal');
             if (existingModal) {
@@ -469,7 +469,7 @@
                 return;
             }
 
-            fetch('/templates/subscription_modal.html')
+            fetch('/subscription-modal')
                 .then(response => {
                     if (!response.ok) throw new Error('فشل جلب ملف الاشتراكات من السيرفر');
                     return response.text();
