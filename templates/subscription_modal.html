@@ -26,7 +26,9 @@
     border: none;
     margin: 0;
     padding: 0;
-    background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/54a585f45b13b52a057d4ffeafc29915b9d2ab0c/Gh3.jpg');
+    /* خلفية استوديو سينمائية نقية بدون كتابات أو أزرار مطبوعة */
+    background: linear-gradient(180deg, rgba(11,15,25,0.2) 0%, rgba(11,15,25,0.8) 75%, #0b0f19 100%),
+                url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1080&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -38,8 +40,8 @@
 
 .bottom-action-box {
     width: 100%;
-    padding: 25px 20px 35px 20px;
-    background: linear-gradient(180deg, transparent 0%, rgba(11, 15, 25, 0.8) 45%, #0b0f19 100%);
+    padding: 25px 20px 40px 20px;
+    background: linear-gradient(180deg, transparent 0%, rgba(11, 15, 25, 0.85) 40%, #0b0f19 100%);
     box-sizing: border-box;
     text-align: center;
 }
@@ -95,7 +97,6 @@
 <div id="subscriptionModal" class="modal-overlay">
     <div class="modal-container">
         
-        <!-- الجزء السفلي: زر واحد فقط وعبارة تجديد واحدة بدون تكرار -->
         <div class="bottom-action-box">
             <div class="auto-renew-note">
                 🔒 تجديد تلقائي، يمكن الإلغاء في أي وقت
