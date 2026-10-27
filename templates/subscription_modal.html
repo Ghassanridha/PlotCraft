@@ -4,7 +4,7 @@
         <!-- زر إغلاق (X) في أعلى اليمين -->
         <button class="close-modal-btn" onclick="closeSubscription()" ontouchstart="closeSubscription()">&times;</button>
 
-        <!-- حاوية الباقات تماماً مثل تصميمك -->
+        <!-- حاوية الباقات (تصعد للأعلى لتتطابق تماماً مع مكانها في التصميم البصري) -->
         <div class="plans-list">
             <!-- باقة الأسبوع -->
             <div class="plan-card" onclick="choosePlan(this)" ontouchstart="choosePlan(this)">
@@ -53,12 +53,12 @@
         <!-- زر اشتراك الأبيض الكبير -->
         <button class="subscribe-btn" onclick="executeSubscribe()" ontouchstart="executeSubscribe()">اشتراك</button>
 
-        <!-- الروابط السفلية المطلوبة تماماً كما في صورتك -->
+        <!-- روابط أسفل الشاشة (استعادة | شروط الاستخدام | الخصوصية) -->
         <div class="bottom-links">
             <span>استعادة</span>
-            <span>|</span>
+            <span class="dot">|</span>
             <span>شروط الاستخدام</span>
-            <span>|</span>
+            <span class="dot">|</span>
             <span>الخصوصية</span>
         </div>
 
@@ -89,25 +89,25 @@
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: flex-end; /* جعل المحتوى يبدأ من الأسفل ليغطي مكان الباقات ويترك الأعلى مكشوفاً */
-        padding: 20px 16px 25px 16px;
+        justify-content: flex-end;
+        /* تقليل الهوامش والسحب للأعلى لتظهر الباقات في مكانها الصحيح تماماً وتظهر الروابط بالأسفل */
+        padding: 10px 16px 15px 16px;
         box-sizing: border-box;
-        /* خلفية متدرجة تبدأ شفافة تماماً في الأعلى لتظهر الصورة بوضوح، وتغمق عند الباقات */
-        background: linear-gradient(180deg, rgba(11,15,25,0) 0%, rgba(11,15,25,0.75) 30%, rgba(11,15,25,0.95) 50%, #0b0f19 100%);
+        background: linear-gradient(180deg, rgba(11,15,25,0) 0%, rgba(11,15,25,0.65) 20%, rgba(11,15,25,0.92) 40%, #0b0f19 90%);
         pointer-events: auto !important;
     }
 
     .close-modal-btn {
         position: absolute;
-        top: 25px;
+        top: 15px;
         right: 20px;
         background: rgba(0, 0, 0, 0.6);
         color: #ffffff;
         border: 1px solid rgba(255, 255, 255, 0.25);
-        width: 36px;
-        height: 36px;
+        width: 34px;
+        height: 34px;
         border-radius: 50%;
-        font-size: 20px;
+        font-size: 18px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -125,20 +125,20 @@
     .plans-list {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 8px; /* تقليل المسافات بين الباقات لتصعد للأعلى وتتطابق مع الصورة */
         width: 100%;
         max-width: 420px;
-        margin: 0 auto 12px auto;
+        margin: 0 auto 8px auto;
         pointer-events: auto !important;
     }
 
     .plan-card {
         position: relative;
-        background: rgba(20, 26, 41, 0.88);
+        background: rgba(20, 26, 41, 0.90);
         backdrop-filter: blur(12px);
         border: 2px solid rgba(255, 255, 255, 0.1);
-        border-radius: 18px;
-        padding: 14px 16px;
+        border-radius: 16px;
+        padding: 11px 14px; /* تصغير الارتفاع قليلاً لتتطابق مع صورتك تماماً */
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -152,34 +152,33 @@
         transform: scale(0.98);
     }
 
-    /* الباقة المختارة تضيء بالأزرق الفخم تماماً مثل صورتك */
     .plan-card.active {
         border-color: #3b82f6 !important;
-        background: rgba(22, 32, 53, 0.96) !important;
-        box-shadow: 0 0 18px rgba(59, 130, 246, 0.5);
+        background: rgba(22, 32, 53, 0.98) !important;
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
     }
 
     .plan-badge {
         position: absolute;
-        top: -10px;
+        top: -9px;
         left: 16px;
         background: #3b82f6;
         color: #ffffff;
         font-size: 10px;
         font-weight: bold;
-        padding: 2px 9px;
-        border-radius: 10px;
+        padding: 1px 8px;
+        border-radius: 8px;
     }
 
     .plan-info h3 {
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 700;
         color: #ffffff;
-        margin-bottom: 3px;
+        margin-bottom: 2px;
     }
 
     .plan-info p {
-        font-size: 10px;
+        font-size: 9px;
         color: #9ca3af;
     }
 
@@ -188,7 +187,7 @@
     }
 
     .plan-pricing .price {
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 800;
         color: #ffffff;
     }
@@ -201,9 +200,9 @@
 
     .footer-note {
         text-align: center;
-        font-size: 11px;
+        font-size: 10px;
         color: #9ca3af;
-        margin-bottom: 12px;
+        margin-bottom: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -213,19 +212,19 @@
     .subscribe-btn {
         width: 100%;
         max-width: 420px;
-        height: 52px;
-        margin: 0 auto 15px auto;
+        height: 48px; /* ارتفاع متناسق لا يغطي الشاشة بأكملها */
+        margin: 0 auto 10px auto;
         background: #ffffff;
         color: #000000;
         border: none;
         border-radius: 30px;
-        font-size: 17px;
+        font-size: 16px;
         font-weight: 800;
         cursor: pointer;
         transition: background 0.2s, transform 0.1s;
         touch-action: manipulation;
         pointer-events: auto !important;
-        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.25);
+        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
     }
 
     .subscribe-btn:active {
@@ -237,10 +236,14 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 12px;
-        font-size: 11px;
+        gap: 10px;
+        font-size: 10px;
         color: #9ca3af;
-        margin-top: 2px;
+        margin-bottom: 5px;
+    }
+
+    .bottom-links .dot {
+        color: #4b5563;
     }
 </style>
 
