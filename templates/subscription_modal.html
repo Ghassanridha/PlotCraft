@@ -4,7 +4,7 @@
         <!-- زر إغلاق (X) -->
         <button class="close-modal-btn" onclick="closeSubscription()" ontouchstart="closeSubscription()">&times;</button>
 
-        <!-- حاوية الباقات - مصفوفة بدقة لتغطي الباقات البصرية بالكامل -->
+        <!-- حاوية الباقات - مصفوفة بدقة لتتطابق مع الصورة الجديدة -->
         <div class="plans-list-absolute">
             <!-- باقة الأسبوع -->
             <div class="plan-card" onclick="choosePlan(this)" ontouchstart="choosePlan(this)">
@@ -73,7 +73,8 @@
         left: 0; 
         width: 100vw; 
         height: 100vh;
-        background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/54a585f45b13b52a057d4ffeafc29915b9d2ab0c/Gh3.jpg') center/cover no-repeat;
+        /* تم استبدال الصورة القديمة بالصورة الجديدة المحدثة */
+        background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/refs/heads/main/Gh3.jpg') center/cover no-repeat;
         z-index: 999999;
         direction: rtl;
         margin: 0;
@@ -111,17 +112,16 @@
         pointer-events: auto !important;
     }
 
-    /* إنزال الباقات وتكبير حجمها والمسافات بينها لتغطي الصورة خلفها تماماً */
     .plans-list-absolute {
         position: absolute;
-        top: 335px; /* تم التنزيل من 245px إلى 335px ليطابق مكان باقة الأسبوع */
+        top: 335px;
         left: 50%;
         transform: translateX(-50%);
         width: 92%;
         max-width: 420px;
         display: flex;
         flex-direction: column;
-        gap: 16px; /* زيادة المسافة بين الباقات لتنطبق على كل باقة خلفها */
+        gap: 16px;
         pointer-events: auto !important;
     }
 
@@ -131,7 +131,7 @@
         backdrop-filter: blur(12px);
         border: 2px solid rgba(255, 255, 255, 0.1);
         border-radius: 18px;
-        padding: 18px 18px; /* تكبير الارتفاع الداخلي */
+        padding: 18px 18px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -191,10 +191,9 @@
         margin-top: 2px;
     }
 
-    /* إنزال زر الاشتراك والروابط السفلية لتكون تحت باقة السنة تماماً */
     .bottom-fixed-area {
         position: absolute;
-        top: 720px; /* تم إنزاله ليكون أسفل باقة السنة مباشرة */
+        top: 720px;
         left: 50%;
         transform: translateX(-50%);
         width: 92%;
