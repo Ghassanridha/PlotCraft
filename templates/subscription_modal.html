@@ -1,39 +1,5 @@
 <style>
-.modal-overlay {
-    display: none; 
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100vw; 
-    height: 100vh;
-    background: #0b0f19; 
-    z-index: 99999;
-    direction: rtl;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-
-.modal-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/54a585f45b13b52a057d4ffeafc29915b9d2ab0c/Gh3.jpg');
-    background-size: cover;
-    background-position: center;
-}
-
-/* الطبقة الشفافة لتفعيل النقر فوق الباقات وزر الاشتراك الموجودة في تصميمك */
-.interactive-layer {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-}
-
+/* جعل المربعات الشفافة تستجيب للمس فوراً */
 .plan-spot {
     position: absolute;
     left: 6%;
@@ -42,74 +8,13 @@
     border: 2px solid transparent;
     border-radius: 18px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    background: rgba(255, 255, 255, 0.001); /* خرق للشفافية المطلقة لضمان استقبال اللمس */
+    z-index: 100;
 }
 
-/* أماكن الباقات الثلاث بدقة لتطابق صورتك تماماً */
-.plan-spot-weekly { top: 48.5%; }
-.plan-spot-monthly { top: 60.5%; }
-.plan-spot-annual { top: 72.5%; }
-
-/* لون الإطار الأزرق عند اختيار الباقة */
+/* لون الإطار الأزرق عند تحديد الباقة */
 .plan-spot.active {
-    border-color: #3b82f6;
-    background: rgba(59, 130, 246, 0.15);
-}
-
-/* مساحة النقر لزر الاشتراك السفلي */
-.subscribe-spot {
-    position: absolute;
-    bottom: 7.5%;
-    left: 8%;
-    right: 8%;
-    width: 84%;
-    height: 6.5%;
-    cursor: pointer;
+    border-color: #3b82f6 !important;
+    background: rgba(59, 130, 246, 0.15) !important;
 }
 </style>
-
-<div id="subscriptionModal" class="modal-overlay">
-    <div class="modal-container">
-        <div class="interactive-layer">
-            <div id="weeklyPlan" class="plan-spot plan-spot-weekly" onclick="selectPlan('weekly')"></div>
-            <div id="monthlyPlan" class="plan-spot plan-spot-monthly active" onclick="selectPlan('monthly')"></div>
-            <div id="annualPlan" class="plan-spot plan-spot-annual" onclick="selectPlan('annual')"></div>
-            <div class="subscribe-spot" onclick="handleSubscribe()"></div>
-        </div>
-    </div>
-</div>
-
-<script>
-    function selectPlan(planType) {
-        document.querySelectorAll('.plan-spot').forEach(el => el.classList.remove('active'));
-        document.getElementById(planType + 'Plan').classList.add('active');
-        
-        // اهتزاز خفيف عند الضغط
-        if (navigator.vibrate) navigator.vibrate(25);
-        playTapSound();
-    }
-
-    function handleSubscribe() {
-        if (navigator.vibrate) navigator.vibrate(40);
-        playTapSound();
-        if (typeof showToast === 'function') showToast('جاري تنفيذ الاشتراك...');
-    }
-
-    // صوت نقرة تفاعلي بسيط وخفيف
-    function playTapSound() {
-        try {
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(500, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + 0.04);
-            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.04);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.04);
-        } catch(e) {}
-    }
-</script>
