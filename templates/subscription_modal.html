@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        <!-- المنطقة السفلية: مرفوعة بمسافة كافية ليظهر زر الاشتراك والروابط بوضوح تם -->
+        <!-- المنطقة السفلية: التجديد + زر الاشتراك + الروابط القابلة للنقر -->
         <div class="bottom-fixed-area">
             <div class="footer-note">
                 <span>تجديد تلقائي، يمكن الإلغاء في أي وقت</span>
@@ -53,12 +53,13 @@
 
             <button class="subscribe-btn" onclick="executeSubscribe()" ontouchstart="executeSubscribe()">اشتراك</button>
 
+            <!-- روابط قابلة للنقر -->
             <div class="bottom-links">
-                <span>استعادة</span>
+                <a href="#" onclick="handleLink('restore'); return false;">استعادة</a>
                 <span class="dot">|</span>
-                <span>شروط الاستخدام</span>
+                <a href="#" onclick="handleLink('terms'); return false;">شروط الاستخدام</a>
                 <span class="dot">|</span>
-                <span>الخصوصية</span>
+                <a href="#" onclick="handleLink('privacy'); return false;">الخصوصية</a>
             </div>
         </div>
 
@@ -192,7 +193,6 @@
         margin-top: 2px;
     }
 
-    /* رفع المنطقة السفلية إلى 75px لضمان ظهور زر الاشتراك والروابط بالكامل ودون اختفاء */
     .bottom-fixed-area {
         position: absolute;
         bottom: 75px;
@@ -244,8 +244,20 @@
         align-items: center;
         gap: 12px;
         font-size: 11px;
-        color: #9ca3af;
         margin-top: 10px;
+        pointer-events: auto !important;
+    }
+
+    .bottom-links a {
+        color: #9ca3af;
+        text-decoration: none;
+        cursor: pointer;
+        transition: color 0.2s;
+        touch-action: manipulation;
+    }
+
+    .bottom-links a:active {
+        color: #ffffff;
     }
 
     .bottom-links .dot {
@@ -283,6 +295,21 @@
                 try { window.navigator.vibrate(60); } catch (e) {}
             }
             alert("تم إرسال طلب الاشتراك بنجاح!");
+        };
+    }
+
+    if (typeof window.handleLink === 'undefined') {
+        window.handleLink = function(type) {
+            if (window.navigator && window.navigator.vibrate) {
+                try { window.navigator.vibrate(30); } catch (e) {}
+            }
+            if (type === 'restore') {
+                alert("جاري استعادة المشتريات...");
+            } else if (type === 'terms') {
+                alert("فتح شروط الاستخدام...");
+            } else if (type === 'privacy') {
+                alert("فتح سياسة الخصوصية...");
+            }
         };
     }
 </script>
