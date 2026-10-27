@@ -29,105 +29,77 @@
     color: #ffffff;
     display: flex;
     flex-direction: column;
-    padding-bottom: 30px;
+    padding: 20px 16px 30px 16px;
 }
 
-/* القسم العلوي: الصورة والخلفية */
-.hero-header {
-    position: relative;
-    width: 100%;
-    height: 320px;
-    background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/54a585f45b13b52a057d4ffeafc29915b9d2ab0c/Gh3.jpg') no-repeat center top;
-    background-size: cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    padding-bottom: 20px;
-}
-
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(13, 17, 29, 0.2) 0%, rgba(13, 17, 29, 0.95) 100%);
-}
-
-.title-container {
-    position: relative;
-    z-index: 2;
+/* العنوان الرئيسي */
+.header-titles {
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .main-title {
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 800;
     background: linear-gradient(90deg, #c084fc, #a855f7);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     letter-spacing: 1px;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
 }
 
 .sub-title-1 {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     color: #ffffff;
     margin-bottom: 4px;
 }
 
 .sub-title-2 {
-    font-size: 14px;
-    color: #d1d5db;
-    opacity: 0.9;
+    font-size: 13px;
+    color: #9ca3af;
 }
 
-/* الأيقونات الأربع العلوية - غير تفاعلية ثابتة */
+/* الأيقونات الأربع العلوية - ثابتة وغير قابلة للنقر */
 .features-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
-    padding: 0 16px;
-    margin-top: -15px;
-    position: relative;
-    z-index: 3;
+    margin-bottom: 20px;
 }
 
 .feature-item {
-    background: rgba(22, 28, 45, 0.85);
+    background: #141a29;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(10px);
     border-radius: 14px;
-    padding: 14px 6px;
+    padding: 12px 6px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    pointer-events: none; /* غير قابلة للنقر كما طلبت */
+    pointer-events: none;
 }
 
 .feature-icon {
-    width: 24px;
-    height: 24px;
-    margin-bottom: 8px;
+    width: 22px;
+    height: 22px;
+    margin-bottom: 6px;
     stroke: #ffffff;
 }
 
 .feature-text {
-    font-size: 12px;
+    font-size: 11px;
     color: #e5e7eb;
     font-weight: 500;
 }
 
 /* قسم الباقات */
 .plans-container {
-    padding: 20px 16px 0 16px;
     display: flex;
     flex-direction: column;
     gap: 12px;
+    margin-bottom: 20px;
 }
 
 .plan-card {
@@ -140,7 +112,7 @@
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.2s ease;
 }
 
 /* الباقة النشطة (اللون الأزرق والإضاءة) */
@@ -167,14 +139,14 @@
 }
 
 .plan-title {
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 700;
     color: #ffffff;
     margin-bottom: 4px;
 }
 
 .plan-desc {
-    font-size: 12px;
+    font-size: 11px;
     color: #9ca3af;
 }
 
@@ -183,24 +155,24 @@
 }
 
 .plan-price {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 800;
     color: #ffffff;
 }
 
 .plan-period {
-    font-size: 12px;
+    font-size: 11px;
     color: #9ca3af;
     margin-top: 2px;
 }
 
-/* تذييل النافذة وزر الاشتراك */
+/* التذييل وزر الاشتراك */
 .footer-section {
-    padding: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 16px;
+    margin-top: auto;
 }
 
 .auto-renew-text {
@@ -213,12 +185,12 @@
 
 .subscribe-btn {
     width: 100%;
-    height: 54px;
+    height: 52px;
     background: #ffffff;
     color: #000000;
     border: none;
     border-radius: 30px;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 800;
     cursor: pointer;
     transition: transform 0.1s ease, background 0.2s ease;
@@ -236,14 +208,11 @@
 <div id="subscriptionModal" class="modal-overlay" style="display: block;">
     <div class="modal-container">
         
-        <!-- القسم العلوي وصورتك الرسمية -->
-        <div class="hero-header">
-            <div class="hero-overlay"></div>
-            <div class="title-container">
-                <div class="main-title">PLOTCRAFT PRO</div>
-                <div class="sub-title-1">حول خيالك إلى بلوت كرافت</div>
-                <div class="sub-title-2">ترجم أفكارك إلى مشاهد ناعمة بالحياة</div>
-            </div>
+        <!-- العناوين -->
+        <div class="header-titles">
+            <div class="main-title">PLOTCRAFT PRO</div>
+            <div class="sub-title-1">حول خيالك إلى بلوت كرافت</div>
+            <div class="sub-title-2">ترجم أفكارك إلى مشاهد نابضة بالحياة</div>
         </div>
 
         <!-- الأيقونات الأربعة (غير تفاعلية) -->
@@ -266,7 +235,7 @@
             </div>
         </div>
 
-        <!-- الباقات الثلاث القابلة للنقر برمجياً -->
+        <!-- الباقات الثلاث قابلة للنقر فوراً -->
         <div class="plans-container">
             <!-- باقة الأسبوع -->
             <div class="plan-card" onclick="selectPlan(this)">
@@ -280,7 +249,7 @@
                 </div>
             </div>
 
-            <!-- باقة الشهر (مفعلة أوتوماتيكياً افتراضياً باللون الأزرق) -->
+            <!-- باقة الشهر (مفعلة افتراضياً) -->
             <div class="plan-card active" onclick="selectPlan(this)">
                 <div class="badge-tag">رائج</div>
                 <div class="plan-right">
@@ -306,7 +275,7 @@
             </div>
         </div>
 
-        <!-- التذييل وزر الاشتراك -->
+        <!-- زر الاشتراك -->
         <div class="footer-section">
             <div class="auto-renew-text">
                 <svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
@@ -319,32 +288,29 @@
 </div>
 
 <script>
-    // دالة التبديل بين الباقات مع اهتزاز لمسي خفيف
+    // دالة اختيار الباقة مع الاهتزاز الفوري
     function selectPlan(element) {
-        // اهتزاز لمسي قصير للموبايل (40 ميلي ثانية)
         if (navigator.vibrate) {
-            navigator.vibrate(40);
+            navigator.vibrate(40); // اهتزاز خفيف لمدة 40 ميلي ثانية
         }
 
-        // إزالة اللون الأزرق والإضاءة عن كل الباقات
+        // إزالة الإطار الأزرق عن الباقات الأخرى
         const plans = document.querySelectorAll('.plan-card');
         plans.forEach(plan => plan.classList.remove('active'));
 
-        // إعطاء اللون الأزرق والإضاءة للباقة التي ضغطت عليها فوراً
+        // إضافة الإطار الأزرق للباقة المختارة
         element.classList.add('active');
     }
 
-    // دالة النقر على زر الاشتراك
+    // دالة زر الاشتراك
     function handleSubscribe() {
         if (navigator.vibrate) {
             navigator.vibrate(60);
         }
-        
-        // إغلاق النافذة المنبثقة أو تنفيذ الدفع
         closeSubscription();
     }
 
-    // دالة إغلاق النافذة
+    // دالة الإغلاق
     function closeSubscription() {
         const modal = document.getElementById('subscriptionModal');
         if (modal) {
