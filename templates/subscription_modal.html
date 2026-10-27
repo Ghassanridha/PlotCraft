@@ -1,62 +1,298 @@
-<!-- 1. التنسيقات CSS -->
 <style>
 .modal-overlay {
-    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; z-index: 9999;
+    display: none; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: rgba(11, 15, 25, 0.85); 
+    backdrop-filter: blur(10px);
+    justify-content: center; 
+    align-items: center; 
+    z-index: 9999;
+    direction: rtl;
 }
+
 .modal-container {
-    background: #1a1d23; padding: 25px; border-radius: 20px; width: 90%; max-width: 400px;
-    text-align: center; color: white; border: 1px solid #333;
+    background: #0b0f19;
+    background-image: linear-gradient(180deg, rgba(11,15,25,0.4) 0%, rgba(11,15,25,0.95) 50%, #0b0f19 100%),
+                url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1080&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    border-radius: 28px;
+    width: 92%;
+    max-width: 420px;
+    max-height: 90vh;
+    overflow-y: auto;
+    text-align: center;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+    box-sizing: border-box;
 }
+
+.modal-title {
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 800;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+}
+
+.modal-subtitle {
+    color: #cbd5e1;
+    font-size: 13px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+/* شبكة المميزات الأربعة */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.feature-box {
+    background: rgba(20, 24, 33, 0.75);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 12px 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.feature-icon {
+    width: 24px;
+    height: 24px;
+    fill: #ffffff;
+}
+
+.feature-text {
+    font-size: 11px;
+    color: #e2e8f0;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* بطاقات الخطط */
 .plan-card {
-    background: #252a34; padding: 15px; margin: 10px 0; border-radius: 12px; cursor: pointer; border: 2px solid transparent; text-align: left;
+    background: rgba(20, 24, 33, 0.75);
+    backdrop-filter: blur(12px);
+    padding: 14px 16px;
+    margin: 10px 0;
+    border-radius: 16px;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    transition: all 0.2s ease;
+    text-align: right;
 }
-.plan-card.active { border-color: #3b82f6; }
+
+.plan-card.active {
+    border-color: #3b82f6;
+    background: rgba(30, 41, 59, 0.85);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+}
+
+.plan-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.plan-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.plan-desc {
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+.plan-price-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+}
+
+.price {
+    font-size: 16px;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.price span {
+    font-size: 11px;
+    color: #94a3b8;
+    font-weight: normal;
+}
+
+.badge {
+    position: absolute;
+    top: -10px;
+    right: 16px;
+    background: #3b82f6;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+/* زر الاشتراكات والشروط */
+.auto-renew-note {
+    font-size: 11px;
+    color: #94a3b8;
+    margin: 15px 0 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
 .subscribe-btn {
-    width: 100%; padding: 15px; border-radius: 50px; border: none; background: #fff; font-weight: bold; cursor: pointer; margin-top: 20px;
+    width: 100%;
+    padding: 14px;
+    border-radius: 24px;
+    border: none;
+    background: #ffffff;
+    color: #0b0f19;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(255,255,255,0.2);
+    transition: transform 0.1s ease;
 }
-.badge { background: #3b82f6; font-size: 10px; padding: 2px 8px; border-radius: 5px; float: right; }
-.footer-links { margin-top: 20px; color: #666; font-size: 12px; }
+
+.subscribe-btn:active {
+    transform: scale(0.98);
+}
+
+.footer-links {
+    margin-top: 15px;
+    color: #64748b;
+    font-size: 11px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.footer-links span {
+    cursor: pointer;
+}
+.footer-links span:hover {
+    color: #94a3b8;
+}
 </style>
 
-<!-- 2. الهيكل HTML -->
 <div id="subscriptionModal" class="modal-overlay">
     <div class="modal-container">
-        <h2 style="color: #fff; margin: 10px 0;">PLOTCRAFT PRO</h2>
-        <p style="color: #ccc; margin-bottom: 20px;">حوّل خيالك إلى بلوت كرافت</p>
+        
+        <!-- العنوان -->
+        <div class="modal-title">PLOTCRAFT PRO</div>
+        <div class="modal-subtitle">حول خيالك إلى بلوت كرافت<br>ترجم أفكارك إلى مشاهد نابضة بالحياة</div>
 
-        <div class="plan-card">
-            <div class="price">US 9.99$ <span style="font-size: 12px; color: #888;">/ أسبوع</span></div>
-            <div class="details">PlotCraft Pro Weekly</div>
+        <!-- المميزات الأربعة -->
+        <div class="features-grid">
+            <div class="feature-box">
+                <svg class="feature-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 5h2v5h-2z"/></svg>
+                <span class="feature-text">نص AI</span>
+            </div>
+            <div class="feature-box">
+                <svg class="feature-icon" viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+                <span class="feature-text">القصة المصورة</span>
+            </div>
+            <div class="feature-box">
+                <svg class="feature-icon" viewBox="0 0 24 24"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/></svg>
+                <span class="feature-text">لقطة AI</span>
+            </div>
+            <div class="feature-box">
+                <svg class="feature-icon" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                <span class="feature-text">مونتاج AI</span>
+            </div>
+        </div>
+
+        <!-- الخطط الثلاث -->
+        <div class="plan-card" onclick="selectPlan(this)">
+            <div class="plan-info">
+                <div class="plan-title">PlotCraft Pro Weekly</div>
+                <div class="plan-desc">Credits / Week, Try AI Drama Creation 500</div>
+            </div>
+            <div class="plan-price-box">
+                <div class="price">US 9.99$</div>
+                <span>أسبوع</span>
+            </div>
         </div>
         
-        <div class="plan-card active">
+        <div class="plan-card active" onclick="selectPlan(this)">
             <span class="badge">رائج</span>
-            <div class="price">US 29.99$ <span style="font-size: 12px; color: #888;">/ شهر</span></div>
-            <div class="details">PlotCraft Pro Monthly</div>
+            <div class="plan-info">
+                <div class="plan-title">PlotCraft Pro Monthly</div>
+                <div class="plan-desc">Credits / Month, Ideal for regular creators 1800</div>
+            </div>
+            <div class="plan-price-box">
+                <div class="price">US 29.99$</div>
+                <span>شهر</span>
+            </div>
         </div>
         
-        <div class="plan-card">
-            <div class="price">US 69.99$ <span style="font-size: 12px; color: #888;">/ سنة</span></div>
-            <div class="details">PlotCraft Pro Annual</div>
+        <div class="plan-card" onclick="selectPlan(this)">
+            <div class="plan-info">
+                <div class="plan-title">PlotCraft Pro Annual</div>
+                <div class="plan-desc">Credits / Year, Ideal for professional creators 5000</div>
+            </div>
+            <div class="plan-price-box">
+                <div class="price">US 69.99$</div>
+                <span>سنة</span>
+            </div>
         </div>
 
-        <button class="subscribe-btn" onclick="alert('تم الطلب!')">اشترك</button>
+        <!-- ملاحظة التجديد -->
+        <div class="auto-renew-note">
+            🔒 تجديد تلقائي، يمكن الإلغاء في أي وقت
+        </div>
+
+        <!-- زر الاشتراك -->
+        <button class="subscribe-btn" onclick="showToast('تم الطلب بنجاح!')">اشتراك</button>
         
+        <!-- روابط الفوتر -->
         <div class="footer-links">
-            استعادة | شروط الاستخدام | الخصوصية
+            <span onclick="showToast('استعادة المشتريات')">استعادة</span>
+            <span>|</span>
+            <span onclick="showToast('شروط الاستخدام')">شروط الاستخدام</span>
+            <span>|</span>
+            <span onclick="showToast('سياسة الخصوصية')">الخصوصية</span>
         </div>
     </div>
 </div>
 
-<!-- 3. البرمجة JS -->
 <script>
-    function openSubscription() {
-        document.getElementById('subscriptionModal').style.display = 'flex';
+    // اختيار الخطة وتفعيلها
+    function selectPlan(cardElement) {
+        document.querySelectorAll('.plan-card').forEach(card => {
+            card.classList.remove('active');
+        });
+        cardElement.classList.add('active');
     }
-    window.onclick = function(event) {
-        if (event.target == document.getElementById('subscriptionModal')) {
-            document.getElementById('subscriptionModal').style.display = 'none';
+
+    // إغلاق النافذة عند النقر خارج الـ Container
+    document.getElementById('subscriptionModal').onclick = function(event) {
+        if (event.target === this) {
+            closeSubscription();
         }
-    }
+    };
 </script>
