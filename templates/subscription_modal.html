@@ -1,3 +1,8 @@
+<!-- ================= زر الترقية الرئيسي (مضاف له الخصائص ليعمل من أول نقرة فوراً) ================= -->
+<!-- (يمكنك وضعه في المكان المخصص له في صفحتك الرئيسية) -->
+<button id="upgradeBtn" class="upgrade-action-btn" onclick="openSubscription()">الترقية الآن</button>
+
+
 <!-- ================= 1. نافذة الاشتراكات ================= -->
 <div id="subscriptionModal" class="modal-overlay">
     <div class="modal-absolute-container">
@@ -98,10 +103,27 @@
 
 
 <style>
-    /* إلغاء تأخير النقرة في كل الأزرار والعناصر لتستجيب من اللمسة الأولى فوراً */
-    button, a, .plan-card {
+    /* القضاء على تأخير النقر في أزرار الـ (×) وزر الترقية وكل أزرار الصفحة استجابةً فورية */
+    button, a, .plan-card, #upgradeBtn {
         touch-action: manipulation !important;
         -webkit-tap-highlight-color: transparent;
+    }
+
+    /* تنسيق زر الترقية النموذجي (يمكنك تعديل المظهر حسب تصميمك) */
+    .upgrade-action-btn {
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        color: #ffffff;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 25px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        transition: transform 0.1s ease;
+    }
+    .upgrade-action-btn:active {
+        transform: scale(0.96);
     }
 
     /* ================= 1. نافذة الاشتراكات ================= */
@@ -324,25 +346,13 @@
 <script>
     let isUserLoggedIn = false; 
 
-    // فتح النافذة فوراً من اللمسة الأولى (باستخدام touchstart و click معاً للاستجابة الصاروخية)
+    // فتح نافذة الاشتراكات فوراً وبنفس سرعة زر الإغلاق (×)
     function openSubscription() {
         const modal = document.getElementById('subscriptionModal');
         if (modal) {
             modal.classList.add('show');
         }
     }
-
-    // ربط زر الترقية في صفحتك بحدث اللمس السريع
-    document.addEventListener("DOMContentLoaded", function() {
-        const upgradeBtn = document.getElementById('upgradeBtn'); 
-        if (upgradeBtn) {
-            upgradeBtn.addEventListener('click', openSubscription);
-            upgradeBtn.addEventListener('touchstart', function(e) {
-                e.preventDefault();
-                openSubscription();
-            }, { passive: false });
-        }
-    });
 
     function closeSubscription() {
         const modal = document.getElementById('subscriptionModal');
