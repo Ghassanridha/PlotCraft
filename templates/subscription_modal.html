@@ -70,7 +70,7 @@
     <div class="auth-modal-container">
         
         <div class="auth-bottom-card">
-            <!-- الهيدر مع ضبط مسافة العنوان للداخل -->
+            
             <div class="auth-header">
                 <h2>تسجيل الدخول إلى Plotcraft</h2>
                 <button class="inline-close-btn" onclick="closeAuthModal()">&times;</button>
@@ -103,13 +103,11 @@
 
 
 <style>
-    /* القضاء على تأخير النقر في أزرار الـ (×) وزر الترقية وكل أزرار الصفحة استجابةً فورية */
     button, a, .plan-card, #upgradeBtn {
         touch-action: manipulation !important;
         -webkit-tap-highlight-color: transparent;
     }
 
-    /* تنسيق زر الترقية النموذجي */
     .upgrade-action-btn {
         background: linear-gradient(135deg, #3b82f6, #1d4ed8);
         color: #ffffff;
@@ -126,7 +124,6 @@
         transform: scale(0.96);
     }
 
-    /* ================= 1. نافذة الاشتراكات ================= */
     .modal-overlay {
         display: block; 
         position: fixed; 
@@ -221,8 +218,6 @@
     .bottom-links a { color: #9ca3af; text-decoration: none; }
     .bottom-links .dot { color: #4b5563; }
 
-
-    /* ================= 2. نافذة تسجيل الدخول ================= */
     .auth-modal-overlay {
         display: block;
         position: fixed;
@@ -266,22 +261,21 @@
         transform: translateY(-40px);
     }
 
-    /* هيدر نافذة تسجيل الدخول المُعدل (العنوان مسحوب للداخل واليسار قليلاً، وعلامة (×) في أقصى اليمين) */
     .auth-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 4px;
         width: 100%;
-        position: relative;
     }
 
+    /* سحب السطر ليكون نحو المنتصف قليلاً وبشكل مرتب */
     .auth-header h2 {
         color: #ffffff !important;
         font-size: 16px !important;
         font-weight: 700 !important;
         margin: 0 !important;
-        margin-right: 15px; /* سحب السطر للداخل نحو النص قليلاً ليكون مرتباً وفوق زر Google */
+        margin-right: 45px; 
     }
 
     .inline-close-btn {
@@ -294,7 +288,6 @@
         padding: 0 !important;
         line-height: 1 !important;
         opacity: 1 !important;
-        margin-left: 5px;
     }
 
     .inline-close-btn:active { opacity: 0.6; }
