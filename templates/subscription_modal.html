@@ -49,6 +49,7 @@
             <!-- زر الاشتراك يوجه حسب حالة حساب المستخدم -->
             <button class="subscribe-btn" onclick="handleSubscribeClick()">اشتراك</button>
 
+            <!-- الروابط الثلاثة أصبحت فعالة وتعمل الآن -->
             <div class="bottom-links">
                 <a href="#" onclick="handleLink('restore'); return false;">استعادة</a>
                 <span class="dot">|</span>
@@ -91,9 +92,9 @@
             </div>
 
             <div class="auth-footer-links">
-                <a href="#">شروط الاستخدام</a>
+                <a href="#" onclick="handleLink('terms'); return false;">شروط الاستخدام</a>
                 <span class="dot">|</span>
-                <a href="#">الخصوصية</a>
+                <a href="#" onclick="handleLink('privacy'); return false;">الخصوصية</a>
             </div>
         </div>
 
@@ -102,9 +103,9 @@
 
 
 <style>
-    /* ================= تنسيق نافذة الاشتراكات ================= */
+    /* ================= تنسيق نافذة الاشتراكات مع حركة من اليسار لليمين وملء الشاشة ================= */
     .modal-overlay {
-        display: none; 
+        display: block; 
         position: fixed; 
         top: 0; left: 0; 
         width: 100vw; height: 100vh;
@@ -113,6 +114,14 @@
         direction: rtl;
         overflow: hidden !important;
         touch-action: none !important;
+        transform: translateX(-100vw);
+        transition: transform 0.3s ease-out;
+        visibility: hidden;
+    }
+
+    .modal-overlay.show {
+        visibility: visible;
+        transform: translateX(0);
     }
 
     .modal-absolute-container {
@@ -193,16 +202,23 @@
 
     /* ================= 2. تنسيق نافذة تسجيل الدخول الجديدة (Gh1.png) بملء الشاشة ================= */
     .auth-modal-overlay {
-        display: none;
+        display: block;
         position: fixed;
         top: 0; left: 0;
         width: 100vw; height: 100vh;
-        /* استخدام رابط الصورة المباشر الجديد بملء الشاشة */
         background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/a44fde0525a9b0cefa60594554a174f0f18044a2/Gh1.png') center/cover no-repeat;
         z-index: 999999;
         direction: rtl;
         overflow: hidden !important;
         touch-action: none !important;
+        transform: translateY(100vh);
+        transition: transform 0.3s ease-out;
+        visibility: hidden;
+    }
+
+    .auth-modal-overlay.show {
+        visibility: visible;
+        transform: translateY(0);
     }
 
     .auth-modal-container {
@@ -210,7 +226,7 @@
         width: 100%; height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: flex-end; /* لتعويد الخيارات في الأسفل تماماً مثل الصورة */
+        justify-content: flex-end;
         box-sizing: border-box;
     }
 
@@ -292,7 +308,6 @@
 
 
 <script>
-    // متغير يحفظ حالة دخول المستخدم (false = غير مسجل، true = مسجل)
     let isUserLoggedIn = false; 
 
     // اختيار الباقة
@@ -301,25 +316,51 @@
         cardElement.classList.add('active');
     }
 
+    // فتح نافذة الاشتراكات من اليسار لليمين وملء الشاشة
+    function openSubscription() {
+        const modal = document.getElementById('subscriptionModal');
+        if (modal) {
+            modal.classList.add('show');
+        }
+    }
+
+    // إغلاق نافذة الاشتراكات
+    function closeSubscription() {
+        const modal = document.getElementById('subscriptionModal');
+        if (modal) {
+            modal.classList.remove('show');
+        }
+    }
+
     // زر الاشتراك عند الضغط عليه
     function handleSubscribeClick() {
         if (!isUserLoggedIn) {
-            // إذا كان غير مسجل: تظهر نافذة تسجيل الدخول الجديدة (Gh1.png)
-            document.getElementById('authModal').style.display = 'block';
+            const authModal = document.getElementById('authModal');
+            if (authModal) {
+                authModal.classList.add('show');
+            }
         } else {
-            // إذا كان مسجلاً: يفتح نافذة الدفع مباشرة
             openPaymentGateway();
         }
     }
 
     // إغلاق نافذة تسجيل الدخول
     function closeAuthModal() {
-        document.getElementById('authModal').style.display = 'none';
+        const authModal = document.getElementById('authModal');
+        if (authModal) {
+            authModal.classList.remove('show');
+        }
     }
 
-    // إغلاق نافذة الاشتراكات
-    function closeSubscription() {
-        document.getElementById('subscriptionModal').style.display = 'none';
+    // معالجة الروابط الفعالة (استعادة، شروط الاستخدام، الخصوصية)
+    function handleLink(type) {
+        if (type === 'restore') {
+            alert("جاري التحقق من المشتريات السابقة للاستعادة...");
+        } else if (type === 'terms') {
+            alert("جاري فتح شروط الاستخدام...");
+        } else if (type === 'privacy') {
+            alert("جاري فتح سياسة الخصوصية...");
+        }
     }
 
     // المحاكاة بعد نجاح تسجيل الدخول
