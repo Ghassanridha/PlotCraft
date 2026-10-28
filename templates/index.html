@@ -108,29 +108,6 @@
             object-fit: cover;
         }
 
-        /* زر الترقية المصمم بأسلوب الأزرار السريعة */
-        .upgrade-pill-btn {
-            background: rgba(20, 24, 33, 0.85);
-            backdrop-filter: blur(12px);
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 6px 14px;
-            border-radius: 16px;
-            font-weight: 600;
-            font-size: 12px;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-            white-space: nowrap;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.2s ease;
-        }
-        .upgrade-pill-btn:active {
-            transform: scale(0.95);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
         .welcome-section {
             margin-top: 15px;
         }
@@ -351,10 +328,7 @@
                     <div class="brand-title">PlotCraft</div>
                     
                     <div class="top-left-actions">
-                        <!-- زر الترقية المستقل الجديد -->
-                        <div class="upgrade-pill-btn" id="upgradeBtnNew">
-                            <span>ترقيه</span>
-                        </div>
+                        <button onclick="openSubscription()" ontouchstart="openSubscription()" style="background: rgba(20, 24, 33, 0.85); backdrop-filter: blur(12px); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); padding: 6px 12px; border-radius: 16px; font-weight: 600; cursor: pointer; font-size: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); white-space: nowrap; pointer-events: auto !important; touch-action: manipulation;">ترقيه</button>
                         
                         <div class="top-settings-btn" onclick="vibrateDevice(); openSettingsScreen()">
                             <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات">
@@ -475,7 +449,7 @@
             showToast('تم النقر على إنشاء قصة');
         }
 
-        /* دالة جلب النافذة المستقلة وفتحها فوراً */
+        /* دالة جلب وإظهار ملف الاشتراكات المستقل مع تفعيل اللمس بداخله فوراً */
         window.openSubscription = function() {
             const existingModal = document.getElementById('subscriptionModal');
             if (existingModal) {
@@ -492,6 +466,7 @@
                     const wrapper = document.getElementById('subscriptionModalWrapper');
                     wrapper.innerHTML = html;
                     
+                    // استخراج وتنفيذ أكواد الـ JavaScript الموجودة داخل الملف المستقل لضمان عمل الأزرار
                     const scripts = wrapper.querySelectorAll('script');
                     scripts.forEach(script => {
                         const newScript = document.createElement('script');
@@ -509,39 +484,6 @@
                     showToast('تعذر فتح نافذة الاشتراكات');
                 });
         };
-
-        /* ✅ أداة الاستدعاء المبكر (Pre-fetcher): تضمن جلب النافذة المستقلة في الخلفية فور تشغيل التطبيق لتفتح من أول ضغطة بلا أي انتظار */
-        window.addEventListener('DOMContentLoaded', () => {
-            // جلب النافذة المستقلة مسبقاً بصمت وخلف الكواليس
-            fetch('/subscription-modal')
-                .then(response => response.text())
-                .then(html => {
-                    const wrapper = document.getElementById('subscriptionModalWrapper');
-                    if (wrapper && !document.getElementById('subscriptionModal')) {
-                        wrapper.innerHTML = html;
-                        const scripts = wrapper.querySelectorAll('script');
-                        scripts.forEach(script => {
-                            const newScript = document.createElement('script');
-                            newScript.text = script.innerHTML;
-                            document.body.appendChild(newScript);
-                        });
-                        const loadedModal = document.getElementById('subscriptionModal');
-                        if (loadedModal) {
-                            loadedModal.style.display = 'none'; // إخفاء النافذة لحين الضغط عليها
-                        }
-                    }
-                }).catch(e => console.log('Background fetch ready'));
-
-            // ربط زر الترقية الجديد بأداة الفتح الفوري
-            const upgradeBtnNew = document.getElementById('upgradeBtnNew');
-            if (upgradeBtnNew) {
-                upgradeBtnNew.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    vibrateDevice();
-                    openSubscription();
-                });
-            }
-        });
     </script>
 </body>
 </html>
