@@ -328,7 +328,8 @@
                     <div class="brand-title">PlotCraft</div>
                     
                     <div class="top-left-actions">
-                        <button onclick="openSubscription()" ontouchstart="openSubscription()" style="background: rgba(20, 24, 33, 0.85); backdrop-filter: blur(12px); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); padding: 6px 12px; border-radius: 16px; font-weight: 600; cursor: pointer; font-size: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); white-space: nowrap; pointer-events: auto !important; touch-action: manipulation;">ترقيه</button>
+                        <!-- زر الترقية الآن يعمل بنقرة واحدة مثل باقي الأزرار تماماً -->
+                        <button onclick="openSubscription()" style="background: rgba(20, 24, 33, 0.85); backdrop-filter: blur(12px); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); padding: 6px 12px; border-radius: 16px; font-weight: 600; cursor: pointer; font-size: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); white-space: nowrap;">ترقيه</button>
                         
                         <div class="top-settings-btn" onclick="vibrateDevice(); openSettingsScreen()">
                             <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات">
@@ -449,7 +450,7 @@
             showToast('تم النقر على إنشاء قصة');
         }
 
-        /* دالة جلب وإظهار ملف الاشتراكات المستقل مع تفعيل الاستجابة الفورية من أول نقرة */
+        /* دالة جلب وإظهار ملف الاشتراكات المستقل */
         window.openSubscription = function() {
             const existingModal = document.getElementById('subscriptionModal');
             if (existingModal) {
@@ -466,7 +467,6 @@
                     const wrapper = document.getElementById('subscriptionModalWrapper');
                     wrapper.innerHTML = html;
                     
-                    // استخراج وتنفيذ أكواد الـ JavaScript الموجودة داخل الملف المستقل لضمان عمل الأزرار
                     const scripts = wrapper.querySelectorAll('script');
                     scripts.forEach(script => {
                         const newScript = document.createElement('script');
@@ -484,26 +484,6 @@
                     showToast('تعذر فتح نافذة الاشتراكات');
                 });
         };
-
-        // تفعيل الاستجابة المباشرة لزر الترقية من أول نقرة عبر اللمس والماوس لمنع أي تأخير على الأجهزة اللمسية
-        document.addEventListener('DOMContentLoaded', () => {
-            const upgradeBtn = document.querySelector('.top-left-actions button');
-            if (upgradeBtn) {
-                let isOpened = false;
-                const triggerOpen = (e) => {
-                    e.preventDefault();
-                    if (isOpened) return;
-                    isOpened = true;
-                    openSubscription();
-                    setTimeout(() => { isOpened = false; }, 300);
-                };
-                upgradeBtn.addEventListener('pointerdown', triggerOpen, { passive: false });
-                upgradeBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    openSubscription();
-                });
-            }
-        });
     </script>
 </body>
 </html>
