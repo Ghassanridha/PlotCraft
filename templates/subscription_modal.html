@@ -46,7 +46,6 @@
                 <svg width="12" height="12" fill="#fbbf24" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
             </div>
 
-            <!-- زر الاشتراك يوجه حسب حالة حساب المستخدم -->
             <button class="subscribe-btn" onclick="handleSubscribeClick()">اشتراك</button>
 
             <div class="bottom-links">
@@ -62,14 +61,12 @@
 </div>
 
 
-<!-- ================= 2. نافذة تسجيل الدخول الجديدة (Auth Modal) بملء الشاشة ================= -->
+<!-- ================= 2. نافذة تسجيل الدخول الجديدة (Auth Modal) المحدثة ================= -->
 <div id="authModal" class="auth-modal-overlay">
     <div class="auth-modal-container">
         
-        <!-- زر إغلاق النافذة -->
         <button class="auth-close-btn" onclick="closeAuthModal()">&times;</button>
 
-        <!-- كارد خيارات تسجيل الدخول الموضعة في الأسفل مثل الصورة -->
         <div class="auth-bottom-card">
             <div class="auth-header">
                 <h2>تسجيل الدخول إلى Plotcraft</h2>
@@ -90,10 +87,11 @@
                 <a href="#" onclick="handleRegister(); return false;">اشتراك</a>
             </div>
 
+            <!-- روابط شروط الاستخدام والخصوصية ظاهرة بالأسفل بوضوح -->
             <div class="auth-footer-links">
-                <a href="#">شروط الاستخدام</a>
+                <a href="#" onclick="handleLink('terms'); return false;">شروط الاستخدام</a>
                 <span class="dot">|</span>
-                <a href="#">الخصوصية</a>
+                <a href="#" onclick="handleLink('privacy'); return false;">الخصوصية</a>
             </div>
         </div>
 
@@ -191,13 +189,12 @@
     .bottom-links .dot { color: #4b5563; }
 
 
-    /* ================= 2. تنسيق نافذة تسجيل الدخول الجديدة (Gh1.png) بملء الشاشة ================= */
+    /* ================= 2. تنسيق نافذة تسجيل الدخول المحدثة لرفع العناصر ================= */
     .auth-modal-overlay {
         display: none;
         position: fixed;
         top: 0; left: 0;
         width: 100vw; height: 100vh;
-        /* استخدام رابط الصورة المباشر الجديد بملء الشاشة */
         background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/a44fde0525a9b0cefa60594554a174f0f18044a2/Gh1.png') center/cover no-repeat;
         z-index: 999999;
         direction: rtl;
@@ -210,7 +207,7 @@
         width: 100%; height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: flex-end; /* لتعويد الخيارات في الأسفل تماماً مثل الصورة */
+        justify-content: flex-end;
         box-sizing: border-box;
     }
 
@@ -228,28 +225,29 @@
         backdrop-filter: blur(16px);
         border-top-left-radius: 24px;
         border-top-right-radius: 24px;
-        padding: 24px 20px 30px 20px;
+        /* تقليل الحشوة السفلية ورفع العناصر للأعلى بشكل متناسق */
+        padding: 18px 20px 22px 20px;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
-        gap: 14px;
+        gap: 10px;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .auth-header h2 {
         color: #ffffff;
-        font-size: 18px;
+        font-size: 17px;
         font-weight: 700;
         text-align: center;
-        margin: 0 0 10px 0;
+        margin: 0 0 4px 0;
     }
 
     .auth-btn {
         width: 100%;
-        height: 48px;
-        border-radius: 24px;
+        height: 44px;
+        border-radius: 22px;
         border: none;
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 600;
         display: flex;
         align-items: center;
@@ -266,9 +264,9 @@
 
     .auth-switch {
         text-align: center;
-        font-size: 13px;
+        font-size: 12px;
         color: #9ca3af;
-        margin-top: 4px;
+        margin-top: 2px;
     }
 
     .auth-switch a {
@@ -278,51 +276,46 @@
         font-weight: 600;
     }
 
+    /* تنسيق سطر شروط الاستخدام والخصوصية في الأسفل تماماً */
     .auth-footer-links {
         display: flex;
         justify-content: center;
-        gap: 12px;
+        align-items: center;
+        gap: 10px;
         font-size: 11px;
         color: #6b7280;
-        margin-top: 8px;
+        margin-top: 4px;
     }
 
     .auth-footer-links a { color: #6b7280; text-decoration: none; }
+    .auth-footer-links .dot { color: #4b5563; }
 </style>
 
 
 <script>
-    // متغير يحفظ حالة دخول المستخدم (false = غير مسجل، true = مسجل)
     let isUserLoggedIn = false; 
 
-    // اختيار الباقة
     function choosePlan(cardElement) {
         document.querySelectorAll('.plan-card').forEach(card => card.classList.remove('active'));
         cardElement.classList.add('active');
     }
 
-    // زر الاشتراك عند الضغط عليه
     function handleSubscribeClick() {
         if (!isUserLoggedIn) {
-            // إذا كان غير مسجل: تظهر نافذة تسجيل الدخول الجديدة (Gh1.png)
             document.getElementById('authModal').style.display = 'block';
         } else {
-            // إذا كان مسجلاً: يفتح نافذة الدفع مباشرة
             openPaymentGateway();
         }
     }
 
-    // إغلاق نافذة تسجيل الدخول
     function closeAuthModal() {
         document.getElementById('authModal').style.display = 'none';
     }
 
-    // إغلاق نافذة الاشتراكات
     function closeSubscription() {
         document.getElementById('subscriptionModal').style.display = 'none';
     }
 
-    // المحاكاة بعد نجاح تسجيل الدخول
     function loginWithGoogle() {
         isUserLoggedIn = true;
         closeAuthModal();
@@ -337,7 +330,6 @@
         openPaymentGateway();
     }
 
-    // نافذة الدفع
     function openPaymentGateway() {
         alert("جاري فتح نافذة الدفع لتأكيد الاشتراك...");
     }
