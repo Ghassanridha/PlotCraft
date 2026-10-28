@@ -70,7 +70,7 @@
     <div class="auth-modal-container">
         
         <div class="auth-bottom-card">
-            <!-- الهيدر المعدل: علامة (×) بأقصى اليمين بلون أبيض غامق، والعنوان مسحوب لليسار مع مسافة -->
+            <!-- الهيدر مع ضبط مسافة العنوان للداخل -->
             <div class="auth-header">
                 <h2>تسجيل الدخول إلى Plotcraft</h2>
                 <button class="inline-close-btn" onclick="closeAuthModal()">&times;</button>
@@ -266,35 +266,35 @@
         transform: translateY(-40px);
     }
 
+    /* هيدر نافذة تسجيل الدخول المُعدل (العنوان مسحوب للداخل واليسار قليلاً، وعلامة (×) في أقصى اليمين) */
     .auth-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 2px;
+        margin-bottom: 4px;
+        width: 100%;
         position: relative;
-        flex-direction: row-reverse; /* لضمان تمركز الـ (×) أقصى اليمين والعنوان لليسار */
     }
 
     .auth-header h2 {
-        color: #ffffff;
-        font-size: 16px;
-        font-weight: 700;
-        margin: 0;
-        margin-left: auto; /* يدفع العنوان لليسار ويترك مسافة فاصلة */
-        padding-left: 15px;
+        color: #ffffff !important;
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        margin: 0 !important;
+        margin-right: 15px; /* سحب السطر للداخل نحو النص قليلاً ليكون مرتباً وفوق زر Google */
     }
 
     .inline-close-btn {
-        background: transparent;
-        border: none;
-        color: #ffffff; /* لون أبيض غامق وواضح */
-        font-size: 28px;
-        font-weight: 400;
-        cursor: pointer;
-        padding: 0;
-        line-height: 1;
-        opacity: 1;
-        margin-right: 0; /* في أقصى اليمين تماماً */
+        background: transparent !important;
+        border: none !important;
+        color: #ffffff !important;
+        font-size: 28px !important;
+        font-weight: 400 !important;
+        cursor: pointer !important;
+        padding: 0 !important;
+        line-height: 1 !important;
+        opacity: 1 !important;
+        margin-left: 5px;
     }
 
     .inline-close-btn:active { opacity: 0.6; }
