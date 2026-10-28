@@ -49,7 +49,6 @@
             <!-- زر الاشتراك يوجه حسب حالة حساب المستخدم -->
             <button class="subscribe-btn" onclick="handleSubscribeClick()">اشتراك</button>
 
-            <!-- الروابط الثلاثة أصبحت فعالة وتعمل الآن -->
             <div class="bottom-links">
                 <a href="#" onclick="handleLink('restore'); return false;">استعادة</a>
                 <span class="dot">|</span>
@@ -67,13 +66,11 @@
 <div id="authModal" class="auth-modal-overlay">
     <div class="auth-modal-container">
         
-        <!-- زر إغلاق النافذة -->
-        <button class="auth-close-btn" onclick="closeAuthModal()">&times;</button>
-
-        <!-- كارد خيارات تسجيل الدخول الموضعة في الأسفل مثل الصورة -->
         <div class="auth-bottom-card">
+            <!-- الهيدر مع علامة (×) بدقة مقابيل العنوان وبدون خلفية وبلون أبيض غامق -->
             <div class="auth-header">
                 <h2>تسجيل الدخول إلى Plotcraft</h2>
+                <button class="inline-close-btn" onclick="closeAuthModal()">&times;</button>
             </div>
 
             <button class="auth-btn google-btn" onclick="loginWithGoogle()">
@@ -103,7 +100,7 @@
 
 
 <style>
-    /* ================= تنسيق نافذة الاشتراكات مع حركة من اليسار لليمين وملء الشاشة ================= */
+    /* ================= تنسيق نافذة الاشتراكات ================= */
     .modal-overlay {
         display: block; 
         position: fixed; 
@@ -200,7 +197,7 @@
     .bottom-links .dot { color: #4b5563; }
 
 
-    /* ================= 2. تنسيق نافذة تسجيل الدخول الجديدة (Gh1.png) بملء الشاشة ================= */
+    /* ================= 2. تنسيق نافذة تسجيل الدخول (رفع الأزرار + علامة (×) مقابيل العنوان) ================= */
     .auth-modal-overlay {
         display: block;
         position: fixed;
@@ -230,42 +227,60 @@
         box-sizing: border-box;
     }
 
-    .auth-close-btn {
-        position: absolute; top: 20px; right: 20px;
-        background: rgba(0, 0, 0, 0.5); color: #ffffff;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        width: 36px; height: 36px; border-radius: 50%;
-        font-size: 20px; cursor: pointer; z-index: 100001;
-    }
-
     .auth-bottom-card {
         width: 100%;
         background: rgba(18, 22, 33, 0.95);
         backdrop-filter: blur(16px);
         border-top-left-radius: 24px;
         border-top-right-radius: 24px;
-        padding: 24px 20px 30px 20px;
+        padding: 20px 20px 20px 20px; /* تقليل البادينغ السفلي لرفع العناصر ولمنع التداخل */
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
-        gap: 14px;
+        gap: 10px; /* تقليل المسافات قليلاً لرفع الأزرار للأعلى */
         border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .auth-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 4px;
+        position: relative;
     }
 
     .auth-header h2 {
         color: #ffffff;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 700;
+        margin: 0 auto;
         text-align: center;
-        margin: 0 0 10px 0;
     }
+
+    /* زر الـ (×) بدون خلفية، بلون أبيض غامق، ومقابيل العنوان في أقصى اليمين */
+    .inline-close-btn {
+        background: transparent;
+        border: none;
+        color: #d1d5db; /* لون أبيض غامق / رمادي فاتح واضح */
+        font-size: 26px;
+        font-weight: 400;
+        cursor: pointer;
+        padding: 0;
+        line-height: 1;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .inline-close-btn:active { opacity: 0.6; }
 
     .auth-btn {
         width: 100%;
-        height: 48px;
-        border-radius: 24px;
+        height: 44px; /* تصغير طفيف لارتفاع الأزرار لترتفع للأعلى */
+        border-radius: 22px;
         border: none;
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 600;
         display: flex;
         align-items: center;
@@ -282,9 +297,9 @@
 
     .auth-switch {
         text-align: center;
-        font-size: 13px;
+        font-size: 12px;
         color: #9ca3af;
-        margin-top: 4px;
+        margin-top: 2px;
     }
 
     .auth-switch a {
@@ -297,26 +312,26 @@
     .auth-footer-links {
         display: flex;
         justify-content: center;
-        gap: 12px;
+        align-items: center;
+        gap: 10px;
         font-size: 11px;
         color: #6b7280;
-        margin-top: 8px;
+        margin-top: 4px;
     }
 
     .auth-footer-links a { color: #6b7280; text-decoration: none; }
+    .auth-footer-links .dot { color: #4b5563; }
 </style>
 
 
 <script>
     let isUserLoggedIn = false; 
 
-    // اختيار الباقة
     function choosePlan(cardElement) {
         document.querySelectorAll('.plan-card').forEach(card => card.classList.remove('active'));
         cardElement.classList.add('active');
     }
 
-    // فتح نافذة الاشتراكات من اليسار لليمين وملء الشاشة
     function openSubscription() {
         const modal = document.getElementById('subscriptionModal');
         if (modal) {
@@ -324,7 +339,6 @@
         }
     }
 
-    // إغلاق نافذة الاشتراكات
     function closeSubscription() {
         const modal = document.getElementById('subscriptionModal');
         if (modal) {
@@ -332,7 +346,6 @@
         }
     }
 
-    // زر الاشتراك عند الضغط عليه
     function handleSubscribeClick() {
         if (!isUserLoggedIn) {
             const authModal = document.getElementById('authModal');
@@ -344,7 +357,6 @@
         }
     }
 
-    // إغلاق نافذة تسجيل الدخول
     function closeAuthModal() {
         const authModal = document.getElementById('authModal');
         if (authModal) {
@@ -352,7 +364,6 @@
         }
     }
 
-    // معالجة الروابط الفعالة (استعادة، شروط الاستخدام، الخصوصية)
     function handleLink(type) {
         if (type === 'restore') {
             alert("جاري التحقق من المشتريات السابقة للاستعادة...");
@@ -363,7 +374,6 @@
         }
     }
 
-    // المحاكاة بعد نجاح تسجيل الدخول
     function loginWithGoogle() {
         isUserLoggedIn = true;
         closeAuthModal();
@@ -378,7 +388,6 @@
         openPaymentGateway();
     }
 
-    // نافذة الدفع
     function openPaymentGateway() {
         alert("جاري فتح نافذة الدفع لتأكيد الاشتراك...");
     }
