@@ -449,7 +449,7 @@
             showToast('تم النقر على إنشاء قصة');
         }
 
-        /* دالة جلب وإظهار ملف الاشتراكات المستقل مع تفعيل اللمس بداخله فوراً */
+        /* دالة جلب وإظهار ملف الاشتراكات المستقل مع تفعيل الاستجابة الفورية من أول نقرة */
         window.openSubscription = function() {
             const existingModal = document.getElementById('subscriptionModal');
             if (existingModal) {
@@ -484,6 +484,26 @@
                     showToast('تعذر فتح نافذة الاشتراكات');
                 });
         };
+
+        // تفعيل الاستجابة المباشرة لزر الترقية من أول نقرة عبر اللمس والماوس لمنع أي تأخير على الأجهزة اللمسية
+        document.addEventListener('DOMContentLoaded', () => {
+            const upgradeBtn = document.querySelector('.top-left-actions button');
+            if (upgradeBtn) {
+                let isOpened = false;
+                const triggerOpen = (e) => {
+                    e.preventDefault();
+                    if (isOpened) return;
+                    isOpened = true;
+                    openSubscription();
+                    setTimeout(() => { isOpened = false; }, 300);
+                };
+                upgradeBtn.addEventListener('pointerdown', triggerOpen, { passive: false });
+                upgradeBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openSubscription();
+                });
+            }
+        });
     </script>
 </body>
 </html>
