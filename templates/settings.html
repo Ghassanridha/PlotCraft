@@ -17,14 +17,14 @@
             overflow: hidden;
         }
 
-        /* حاوية الشاشة كاملة مع رابط التصميم الجديد Gh9.jpg */
+        /* ضبط احتواء الخلفية بالكامل داخل الشاشة لضمان عدم اختفاء أي عنصر بالسفل */
         .settings-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/239150b4deb7b6c70dfc415ab8b68789e2a5576c/Gh9.jpg') center/cover no-repeat;
+            background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/239150b4deb7b6c70dfc415ab8b68789e2a5576c/Gh9.jpg') center/100% 100% no-repeat;
             z-index: 999999;
             direction: rtl;
             transform: translateX(-100vw);
@@ -52,7 +52,7 @@
             z-index: 50;
         }
 
-        /* 🟢 زر السهم الجديد (نظيف ومستقل) */
+        /* زر السهم */
         .btn-back {
             top: 15px;
             right: 15px;
@@ -61,7 +61,7 @@
             z-index: 100;
         }
 
-        /* 🟢 زر الترقية الجديد (نظيف ومستقل) */
+        /* زر الترقية */
         .btn-upgrade {
             top: 15px;
             left: 15px;
@@ -139,10 +139,7 @@
     <div id="settingsScreen" class="settings-screen">
         <div class="click-overlay-container">
             
-            <!-- زر السهم (يخرج من القائمة) -->
             <div class="clickable-area btn-back" onclick="closeSettingsScreen()"></div>
-            
-            <!-- زر الترقية (يفتح نافذة الاشتراكات) -->
             <div class="clickable-area btn-upgrade" onclick="openSubscriptionModal()"></div>
             
             <a href="#" class="clickable-area banner-link" onclick="handleAction('banner'); return false;"></a>
