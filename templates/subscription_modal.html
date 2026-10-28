@@ -70,6 +70,7 @@
     <div class="auth-modal-container">
         
         <div class="auth-bottom-card">
+            <!-- الهيدر المعدل: علامة (×) بأقصى اليمين بلون أبيض غامق، والعنوان مسحوب لليسار مع مسافة -->
             <div class="auth-header">
                 <h2>تسجيل الدخول إلى Plotcraft</h2>
                 <button class="inline-close-btn" onclick="closeAuthModal()">&times;</button>
@@ -102,7 +103,7 @@
 
 
 <style>
-    /* القضاء على تأخير النقر للأزرار استجابةً فورية */
+    /* القضاء على تأخير النقر في أزرار الـ (×) وزر الترقية وكل أزرار الصفحة استجابةً فورية */
     button, a, .plan-card, #upgradeBtn {
         touch-action: manipulation !important;
         -webkit-tap-highlight-color: transparent;
@@ -271,7 +272,7 @@
         align-items: center;
         margin-bottom: 2px;
         position: relative;
-        padding-left: 35px; /* ترك مساحة كافية لزر الإغلاق في أقصى اليمين وسحب النص لليسار */
+        flex-direction: row-reverse; /* لضمان تمركز الـ (×) أقصى اليمين والعنوان لليسار */
     }
 
     .auth-header h2 {
@@ -279,26 +280,24 @@
         font-size: 16px;
         font-weight: 700;
         margin: 0;
+        margin-left: auto; /* يدفع العنوان لليسار ويترك مسافة فاصلة */
+        padding-left: 15px;
     }
 
-    /* زر علامة (×) أبيض غامق وبارز في أقصى اليمين تماماً */
     .inline-close-btn {
-        position: absolute;
-        left: 0; /* في الـ RTL تعني أقصى اليمين */
-        top: 50%;
-        transform: translateY(-50%);
         background: transparent;
         border: none;
-        color: #ffffff; /* أبيض غامق صافي */
-        font-size: 26px;
-        font-weight: 500;
+        color: #ffffff; /* لون أبيض غامق وواضح */
+        font-size: 28px;
+        font-weight: 400;
         cursor: pointer;
-        padding: 0 5px;
+        padding: 0;
         line-height: 1;
         opacity: 1;
+        margin-right: 0; /* في أقصى اليمين تماماً */
     }
 
-    .inline-close-btn:active { opacity: 0.7; }
+    .inline-close-btn:active { opacity: 0.6; }
 
     .auth-btn {
         width: 100%;
