@@ -50,21 +50,24 @@
         .clickable-area {
             position: absolute;
             cursor: pointer;
+            z-index: 10;
         }
 
-        /* الأزرار الأصلية كما هي تماماً بدون أي تعديل لمواقعها */
+        /* 🟢 فصل تام ومحدد لزر الرجوع وزر الترقية في الأعلى لعدم التداخل الاستجابي */
         .btn-back {
-            top: 15px;
-            left: 15px;
+            top: 12px;
+            left: 12px;
             width: 45px;
             height: 45px;
+            z-index: 20; /* ضمان الاستجابة الفورية المستقلة */
         }
 
         .btn-upgrade {
-            top: 15px;
-            right: 15px;
+            top: 12px;
+            right: 12px;
             width: 90px;
             height: 38px;
+            z-index: 20; /* ضمان الاستجابة الفورية المستقلة وتجنب أي تداخل */
         }
 
         .banner-link {
@@ -123,7 +126,7 @@
             height: 55px;
         }
 
-        /* الزر الأخير (مسح الذاكرة المؤقتة) تم تصعيده للأعلى ليصبح تحت زر الإعدادات مباشرة */
+        /* الزر الأخير (مسح الذاكرة المؤقتة) تحت خيار الإعدادات الفرعية تماماً */
         .link-clear-cache {
             top: 545px;
             left: 4%;
@@ -137,6 +140,7 @@
     <div id="settingsScreen" class="settings-screen">
         <div class="click-overlay-container">
             
+            <!-- أزرار الترويسة العلوية المستقلة تماماً -->
             <div class="clickable-area btn-back" onclick="closeSettingsScreen()"></div>
             <div class="clickable-area btn-upgrade" onclick="openSubscriptionModal()"></div>
             
@@ -175,6 +179,8 @@
         }
 
         function openSubscriptionModal() {
+            // إغلاق شاشة الإعدادات أولاً ثم فتح نافذة الترقية بسلاسة
+            closeSettingsScreen();
             if (typeof openSubscription === "function") {
                 openSubscription();
             } else {
