@@ -1,5 +1,4 @@
-<!-- ================= زر الترقية الرئيسي (مضاف له الخصائص ليعمل من أول نقرة فوراً) ================= -->
-<!-- (يمكنك وضعه في المكان المخصص له في صفحتك الرئيسية) -->
+<!-- ================= زر الترقية الرئيسي ================= -->
 <button id="upgradeBtn" class="upgrade-action-btn" onclick="openSubscription()">الترقية الآن</button>
 
 
@@ -103,13 +102,13 @@
 
 
 <style>
-    /* القضاء على تأخير النقر في أزرار الـ (×) وزر الترقية وكل أزرار الصفحة استجابةً فورية */
+    /* القضاء على تأخير النقر للأزرار استجابةً فورية */
     button, a, .plan-card, #upgradeBtn {
         touch-action: manipulation !important;
         -webkit-tap-highlight-color: transparent;
     }
 
-    /* تنسيق زر الترقية النموذجي (يمكنك تعديل المظهر حسب تصميمك) */
+    /* تنسيق زر الترقية النموذجي */
     .upgrade-action-btn {
         background: linear-gradient(135deg, #3b82f6, #1d4ed8);
         color: #ffffff;
@@ -271,6 +270,8 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 2px;
+        position: relative;
+        padding-left: 35px; /* ترك مساحة كافية لزر الإغلاق في أقصى اليمين وسحب النص لليسار */
     }
 
     .auth-header h2 {
@@ -280,19 +281,24 @@
         margin: 0;
     }
 
+    /* زر علامة (×) أبيض غامق وبارز في أقصى اليمين تماماً */
     .inline-close-btn {
+        position: absolute;
+        left: 0; /* في الـ RTL تعني أقصى اليمين */
+        top: 50%;
+        transform: translateY(-50%);
         background: transparent;
         border: none;
-        color: #ffffff;
-        font-size: 24px;
-        font-weight: 300;
+        color: #ffffff; /* أبيض غامق صافي */
+        font-size: 26px;
+        font-weight: 500;
         cursor: pointer;
-        padding: 0;
+        padding: 0 5px;
         line-height: 1;
-        opacity: 0.9;
+        opacity: 1;
     }
 
-    .inline-close-btn:active { opacity: 1; }
+    .inline-close-btn:active { opacity: 0.7; }
 
     .auth-btn {
         width: 100%;
@@ -346,7 +352,6 @@
 <script>
     let isUserLoggedIn = false; 
 
-    // فتح نافذة الاشتراكات فوراً وبنفس سرعة زر الإغلاق (×)
     function openSubscription() {
         const modal = document.getElementById('subscriptionModal');
         if (modal) {
