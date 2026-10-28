@@ -17,7 +17,6 @@
             overflow: hidden;
         }
 
-        /* حاوية الشاشة كاملة مع صورة الخلفية الأصلية الثابتة تماماً */
         .settings-screen {
             position: fixed;
             top: 0;
@@ -38,7 +37,6 @@
             transform: translateX(0);
         }
 
-        /* الطبقة الشفافة لتغطية النقاط */
         .click-overlay-container {
             position: relative;
             width: 100%;
@@ -50,25 +48,25 @@
         .clickable-area {
             position: absolute;
             cursor: pointer;
-            z-index: 10;
+            z-index: 50; /* رفع طبقة التفاعل لضمان الاستجابة الفورية */
         }
 
-        /* 🟢 زر السهم (في أعلى اليمين للإغلاق والخروج من القائمة) */
+        /* 🟢 زر السهم (في أعلى اليمين) لإغلاق القائمة والخروج منها حصرياً */
         .btn-back {
-            top: 12px;
-            right: 12px;
-            width: 45px;
-            height: 45px;
-            z-index: 20;
+            top: 10px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+            z-index: 100;
         }
 
-        /* 🟢 زر الترقية (في أعلى اليسار لفتح نافذة الاشتراكات فوراً من أول نقرة) */
+        /* 🟢 زر الترقية (في أعلى اليسار) لفتح نافذة الاشتراكات حصرياً من أول نقرة */
         .btn-upgrade {
-            top: 12px;
-            left: 12px;
-            width: 90px;
-            height: 38px;
-            z-index: 20;
+            top: 10px;
+            left: 10px;
+            width: 100px;
+            height: 45px;
+            z-index: 100;
         }
 
         .banner-link {
@@ -127,7 +125,6 @@
             height: 55px;
         }
 
-        /* الزر الأخير (مسح الذاكرة المؤقتة) تحت خيار الإعدادات الفرعية تماماً */
         .link-clear-cache {
             top: 545px;
             left: 4%;
@@ -141,10 +138,10 @@
     <div id="settingsScreen" class="settings-screen">
         <div class="click-overlay-container">
             
-            <!-- زر السهم في أعلى اليمين يغلق القائمة ويخرج منها -->
+            <!-- زر السهم (أعلى اليمين) لإغلاق القائمة والخروج -->
             <div class="clickable-area btn-back" onclick="closeSettingsScreen()"></div>
             
-            <!-- زر الترقية في أعلى اليسار يفتح نافذة الاشتراكات فقط -->
+            <!-- زر الترقية (أعلى اليسار) لفتح نافذة الاشتراكات فوراً -->
             <div class="clickable-area btn-upgrade" onclick="openSubscriptionModal()"></div>
             
             <a href="#" class="clickable-area banner-link" onclick="handleAction('banner'); return false;"></a>
@@ -163,13 +160,6 @@
     </div>
 
     <script>
-        function openSettingsScreen() {
-            const screen = document.getElementById('settingsScreen');
-            if (screen) {
-                screen.classList.add('show');
-            }
-        }
-
         function closeSettingsScreen() {
             const screen = document.getElementById('settingsScreen');
             if (screen) {
@@ -182,6 +172,7 @@
         }
 
         function openSubscriptionModal() {
+            // إغلاق قائمة الإعدادات أولاً أو فتح النافذة مباشرة حسب رغبتك
             if (typeof openSubscription === "function") {
                 openSubscription();
             } else {
