@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الإعدادات - PlotCraft</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        /* حاوية الشاشة كاملة مع صورة الخلفية البصرية */
+        .settings-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/317aa8b2426f2a85f0427ea31c7b44605df108d0/Gh5.jpg') center/cover no-repeat;
+            z-index: 999999;
+            direction: rtl;
+            transform: translateX(-100vw); /* إخفاء جهة اليسار */
+            transition: transform 0.3s ease-out;
+            visibility: hidden;
+        }
+
+        .settings-screen.show {
+            visibility: visible;
+            transform: translateX(0); /* الانزلاق من اليسار لليمين */
+        }
+
+        /* الطبقة الشفافة غير المرئية لتغطية النقاط والتفاعل معها */
+        .click-overlay-container {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            height: 100vh;
+            margin: 0 auto;
+        }
+
+        /* النقر الشفاف فوق الأزرار لربطها بالروابط والأوامر */
+        .clickable-area {
+            position: absolute;
+            cursor: pointer;
+            /* background: rgba(255, 0, 0, 0.2);  يمكنك تفعيل هذا السطر مؤقتاً لتحديد الأماكن بدقة ثم إخفاؤه */
+        }
+
+        /* مواضع المناطق القابلة للنقر المطابقة للصورة */
+        
+        /* زر الرجوع (السهم العلوي) */
+        .btn-back {
+            top: 15px;
+            left: 15px;
+            width: 45px;
+            height: 45px;
+        }
+
+        /* زر ترقية (التاج العلوي) */
+        .btn-upgrade {
+            top: 15px;
+            right: 15px;
+            width: 90px;
+            height: 38px;
+        }
+
+        /* كارت العرض العليوي */
+        .banner-link {
+            top: 70px;
+            left: 4%;
+            width: 92%;
+            height: 130px;
+        }
+
+        /* سجل النقاط */
+        .link-points {
+            top: 215px;
+            left: 4%;
+            width: 92%;
+            height: 55px;
+        }
+
+        /* التعليقات */
+        .link-feedback {
+            top: 275px;
+            left: 4%;
+            width: 92%;
+            height: 55px;
+        }
+
+        /* مفتاح الإشعارات */
+        .toggle-notifications {
+            top: 350px;
+            right: 15px;
+            width: 50px;
+            height: 30px;
+        }
+
+        /* اللغة */
+        .link-language {
+            top: 395px;
+            left: 4%;
+            width: 92%;
+            height: 55px;
+        }
+
+        /* انضم إلينا */
+        .link-join {
+            top: 455px;
+            left: 4%;
+            width: 92%;
+            height: 55px;
+        }
+
+        /* اتصل بنا */
+        .link-contact {
+            top: 515px;
+            left: 4%;
+            width: 92%;
+            height: 55px;
+        }
+
+        /* الإعدادات الفرعية */
+        .link-sub-settings {
+            top: 590px;
+            left: 4%;
+            width: 92%;
+            height: 55px;
+        }
+
+        /* مسح الذاكرة المؤقتة */
+        .link-clear-cache {
+            top: 650px;
+            left: 4%;
+            width: 92%;
+            height: 55px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- نافذة الإعدادات البصرية القابلة للنقر -->
+    <div id="settingsScreen" class="settings-screen">
+        <div class="click-overlay-container">
+            
+            <!-- أزرار وشفافات النقر للربط -->
+            <div class="clickable-area btn-back" onclick="closeSettingsScreen()"></div>
+            <div class="clickable-area btn-upgrade" onclick="openSubscriptionModal()"></div>
+            
+            <a href="#" class="clickable-area banner-link" onclick="handleAction('banner'); return false;"></a>
+            <a href="#" class="clickable-area link-points" onclick="handleAction('points'); return false;"></a>
+            <a href="#" class="clickable-area link-feedback" onclick="handleAction('feedback'); return false;"></a>
+            
+            <div class="clickable-area toggle-notifications" onclick="toggleNotifications()"></div>
+            
+            <a href="#" class="clickable-area link-language" onclick="handleAction('language'); return false;"></a>
+            <a href="#" class="clickable-area link-join" onclick="handleAction('join'); return false;"></a>
+            <a href="#" class="clickable-area link-contact" onclick="handleAction('contact'); return false;"></a>
+            <a href="#" class="clickable-area link-sub-settings" onclick="handleAction('settings'); return false;"></a>
+            <a href="#" class="clickable-area link-clear-cache" onclick="clearCacheAction()"></a>
+
+        </div>
+    </div>
+
+    <script>
+        // دالة فتح نافذة الإعدادات من زر خارجي
+        function openSettingsScreen() {
+            const screen = document.getElementById('settingsScreen');
+            if (screen) {
+                screen.classList.add('show');
+            }
+        }
+
+        // دالة إغلاق النافذة والانزلاق لليسار
+        function closeSettingsScreen() {
+            const screen = document.getElementById('settingsScreen');
+            if (screen) {
+                screen.classList.remove('show');
+            }
+        }
+
+        // الاستجابة للنقر على الخيارات
+        function handleAction(type) {
+            console.log("تم الضغط على: " + type);
+            // يمكنك تغيير الأوامر هنا لتوجيه المستخدم للروابط التي تريدها
+        }
+
+        function openSubscriptionModal() {
+            if (typeof openSubscription === "function") {
+                openSubscription(); // فتح نافذة الاشتراكات المجهزة سابقاً
+            } else {
+                alert("فتح نافذة الترقية والاشتراك");
+            }
+        }
+
+        function toggleNotifications() {
+            alert("تم تغيير حالة الإشعارات");
+        }
+
+        function clearCacheAction() {
+            alert("تم مسح الذاكرة المؤقتة بنجاح!");
+        }
+    </script>
+</body>
+</html>
