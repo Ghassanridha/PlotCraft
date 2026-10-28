@@ -44,10 +44,15 @@ templates = Jinja2Templates(directory="templates")
 async def home(request: Request):
     return templates.TemplateResponse(request, "index.html")
 
-# ⭐ أضف هذا المسار الجديد هنا لكي يعمل زر الترقية وجلب نافذة الاشتراكات بنجاح
+# مسار لجلب نافذة الاشتراكات
 @app.get("/subscription-modal", response_class=HTMLResponse)
 async def subscription_modal(request: Request):
     return templates.TemplateResponse(request, "subscription_modal.html")
+
+# ⭐ مسار لجلب نافذة الإعدادات المستقلة (settings.html)
+@app.get("/settings", response_class=HTMLResponse)
+async def settings_page(request: Request):
+    return templates.TemplateResponse(request, "settings.html")
 
 # مسار لخدمة manifest.json
 @app.get("/manifest.json")
