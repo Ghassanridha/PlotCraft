@@ -17,7 +17,7 @@
             overflow: hidden;
         }
 
-        /* حاوية الشاشة كاملة مع صورة الخلفية البصرية */
+        /* حاوية الشاشة كاملة مع صورة الخلفية الأصلية الثابتة تماماً */
         .settings-screen {
             position: fixed;
             top: 0;
@@ -27,17 +27,18 @@
             background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/317aa8b2426f2a85f0427ea31c7b44605df108d0/Gh5.jpg') center/cover no-repeat;
             z-index: 999999;
             direction: rtl;
-            transform: translateX(-100vw); /* إخفاء جهة اليسار */
+            transform: translateX(-100vw);
             transition: transform 0.3s ease-out;
             visibility: hidden;
+            overflow: hidden;
         }
 
         .settings-screen.show {
             visibility: visible;
-            transform: translateX(0); /* الانزلاق من اليسار لليمين */
+            transform: translateX(0);
         }
 
-        /* الطبقة الشفافة غير المرئية لتغطية النقاط والتفاعل معها */
+        /* الطبقة الشفافة لتغطية النقاط */
         .click-overlay-container {
             position: relative;
             width: 100%;
@@ -46,16 +47,12 @@
             margin: 0 auto;
         }
 
-        /* النقر الشفاف فوق الأزرار لربطها بالروابط والأوامر */
         .clickable-area {
             position: absolute;
             cursor: pointer;
-            /* background: rgba(255, 0, 0, 0.2);  يمكنك تفعيل هذا السطر مؤقتاً لتحديد الأماكن بدقة ثم إخفاؤه */
         }
 
-        /* مواضع المناطق القابلة للنقر المطابقة للصورة */
-        
-        /* زر الرجوع (السهم العلوي) */
+        /* الأزرار الأصلية كما هي تماماً بدون أي تعديل لمواقعها */
         .btn-back {
             top: 15px;
             left: 15px;
@@ -63,7 +60,6 @@
             height: 45px;
         }
 
-        /* زر ترقية (التاج العلوي) */
         .btn-upgrade {
             top: 15px;
             right: 15px;
@@ -71,7 +67,6 @@
             height: 38px;
         }
 
-        /* كارت العرض العلوي */
         .banner-link {
             top: 70px;
             left: 4%;
@@ -79,7 +74,6 @@
             height: 130px;
         }
 
-        /* سجل النقاط */
         .link-points {
             top: 215px;
             left: 4%;
@@ -87,7 +81,6 @@
             height: 55px;
         }
 
-        /* التعليقات */
         .link-feedback {
             top: 275px;
             left: 4%;
@@ -95,7 +88,6 @@
             height: 55px;
         }
 
-        /* مفتاح الإشعارات */
         .toggle-notifications {
             top: 350px;
             right: 15px;
@@ -103,7 +95,6 @@
             height: 30px;
         }
 
-        /* اللغة */
         .link-language {
             top: 395px;
             left: 4%;
@@ -111,7 +102,6 @@
             height: 55px;
         }
 
-        /* انضم إلينا */
         .link-join {
             top: 455px;
             left: 4%;
@@ -119,7 +109,6 @@
             height: 55px;
         }
 
-        /* اتصل بنا */
         .link-contact {
             top: 515px;
             left: 4%;
@@ -127,17 +116,16 @@
             height: 55px;
         }
 
-        /* الإعدادات الفرعية */
         .link-sub-settings {
-            top: 575px;
+            top: 590px;
             left: 4%;
             width: 92%;
             height: 55px;
         }
 
-        /* مسح الذاكرة المؤقتة (تم رفعه للأعلى بشكل ممتاز لتجنب الاختفاء) */
+        /* الزر الأخير (مسح الذاكرة المؤقتة) تم رفعه وحده للأعلى ليكون قريبًا تحت زر الإعدادات وظاهراً تماماً */
         .link-clear-cache {
-            top: 535px;
+            top: 648px;
             left: 4%;
             width: 92%;
             height: 55px;
@@ -146,11 +134,9 @@
 </head>
 <body>
 
-    <!-- نافذة الإعدادات البصرية القابلة للنقر -->
     <div id="settingsScreen" class="settings-screen">
         <div class="click-overlay-container">
             
-            <!-- أزرار وشفافات النقر للربط -->
             <div class="clickable-area btn-back" onclick="closeSettingsScreen()"></div>
             <div class="clickable-area btn-upgrade" onclick="openSubscriptionModal()"></div>
             
@@ -170,7 +156,6 @@
     </div>
 
     <script>
-        // دالة فتح نافذة الإعدادات من زر خارجي
         function openSettingsScreen() {
             const screen = document.getElementById('settingsScreen');
             if (screen) {
@@ -178,7 +163,6 @@
             }
         }
 
-        // دالة إغلاق النافذة والانزلاق لليسار
         function closeSettingsScreen() {
             const screen = document.getElementById('settingsScreen');
             if (screen) {
@@ -186,14 +170,13 @@
             }
         }
 
-        // الاستجابة للنقر على الخيارات
         function handleAction(type) {
             console.log("تم الضغط على: " + type);
         }
 
         function openSubscriptionModal() {
             if (typeof openSubscription === "function") {
-                openSubscription(); // فتح نافذة الاشتراكات المجهزة سابقاً
+                openSubscription();
             } else {
                 alert("فتح نافذة الترقية والاشتراك");
             }
