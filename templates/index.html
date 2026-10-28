@@ -108,6 +108,7 @@
             object-fit: cover;
         }
 
+        /* زر الترقية المصمم بأسلوب الأزرار السريعة */
         .upgrade-pill-btn {
             background: rgba(20, 24, 33, 0.85);
             backdrop-filter: blur(12px);
@@ -350,6 +351,7 @@
                     <div class="brand-title">PlotCraft</div>
                     
                     <div class="top-left-actions">
+                        <!-- زر الترقية المستقل الجديد -->
                         <div class="upgrade-pill-btn" id="upgradeBtnNew">
                             <span>ترقيه</span>
                         </div>
@@ -473,7 +475,7 @@
             showToast('تم النقر على إنشاء قصة');
         }
 
-        /* دالة فتح نافذة الاشتراكات (تفتح فوراً إن كانت جاهزة، أو تجلبها إذا لم تُجلب بعد) */
+        /* دالة جلب النافذة المستقلة وفتحها فوراً */
         window.openSubscription = function() {
             const existingModal = document.getElementById('subscriptionModal');
             if (existingModal) {
@@ -508,9 +510,9 @@
                 });
         };
 
-        /* ✅ الحل الجذري: جلب نافذة الاشتراكات مسبقاً في الخلفية بمجرد تحميل الصفحة لضمان عملها من أول نقرة تماماً مثل باقي الأزرار */
+        /* ✅ أداة الاستدعاء المبكر (Pre-fetcher): تضمن جلب النافذة المستقلة في الخلفية فور تشغيل التطبيق لتفتح من أول ضغطة بلا أي انتظار */
         window.addEventListener('DOMContentLoaded', () => {
-            // تحميل النافذة مسبقاً بصمت
+            // جلب النافذة المستقلة مسبقاً بصمت وخلف الكواليس
             fetch('/subscription-modal')
                 .then(response => response.text())
                 .then(html => {
@@ -525,12 +527,12 @@
                         });
                         const loadedModal = document.getElementById('subscriptionModal');
                         if (loadedModal) {
-                            loadedModal.style.display = 'none'; // إخفاؤها لحين الضغط عليها
+                            loadedModal.style.display = 'none'; // إخفاء النافذة لحين الضغط عليها
                         }
                     }
-                }).catch(e => console.log('Preload ready'));
+                }).catch(e => console.log('Background fetch ready'));
 
-            // ربط زر الترقية الجديد بحدث النقر السريع
+            // ربط زر الترقية الجديد بأداة الفتح الفوري
             const upgradeBtnNew = document.getElementById('upgradeBtnNew');
             if (upgradeBtnNew) {
                 upgradeBtnNew.addEventListener('click', (e) => {
