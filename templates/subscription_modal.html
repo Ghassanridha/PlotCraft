@@ -1,4 +1,4 @@
-<!-- ================= 1. نافذة الاشتراكات (Subscription Modal) ================= -->
+<!-- ================= 1. نافذة الاشتراكات (تنزل وتدخل من اليسار بملء الشاشة) ================= -->
 <div id="subscriptionModal" class="modal-overlay">
     <div class="modal-absolute-container">
         
@@ -61,7 +61,7 @@
 </div>
 
 
-<!-- ================= 2. نافذة تسجيل الدخول المحدثة (مرفوعة للأعلى بقوة) ================= -->
+<!-- ================= 2. نافذة تسجيل الدخول (تصعد من الأسفل للأعلى بملء الشاشة) ================= -->
 <div id="authModal" class="auth-modal-overlay">
     <div class="auth-modal-container">
         
@@ -87,7 +87,7 @@
                 <a href="#" onclick="handleRegister(); return false;">اشتراك</a>
             </div>
 
-            <!-- شروط الاستخدام والخصوصية في الأسفل تماماً وبشكل ظاهر جداً -->
+            <!-- شروط الاستخدام والخصوصية في الأسفل -->
             <div class="auth-footer-links">
                 <a href="#" onclick="handleLink('terms'); return false;">شروط الاستخدام</a>
                 <span class="dot">|</span>
@@ -100,7 +100,7 @@
 
 
 <style>
-    /* ================= تنسيق نافذة الاشتراكات ================= */
+    /* ================= 1. نافذة الاشتراكات: تنزلق من اليسار لليمين ================= */
     .modal-overlay {
         display: none; 
         position: fixed; 
@@ -111,6 +111,14 @@
         direction: rtl;
         overflow: hidden !important;
         touch-action: none !important;
+        /* الحركة من اليسار */
+        transform: translateX(-100%);
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-overlay.show {
+        display: block;
+        transform: translateX(0);
     }
 
     .modal-absolute-container {
@@ -189,7 +197,7 @@
     .bottom-links .dot { color: #4b5563; }
 
 
-    /* ================= 2. تنسيق نافذة تسجيل الدخول المحدثة (رفع محتوى الكارد للأعلى) ================= */
+    /* ================= 2. نافذة تسجيل الدخول: تصعد من الأسفل للأعلى بملء الشاشة ================= */
     .auth-modal-overlay {
         display: none;
         position: fixed;
@@ -217,15 +225,19 @@
         backdrop-filter: blur(16px);
         border-top-left-radius: 24px;
         border-top-right-radius: 24px;
-        /* حشوة سفليّة مرتفعة لتوفير مساحة أمان فوق شريط التصفّح على الموبايل */
         padding: 16px 20px 45px 20px;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
         gap: 12px;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
-        /* دفع الحاوية نفسها للأعلى مسافة إضافية */
-        transform: translateY(-25px);
+        transform: translateY(100%);
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* عندما تفتح نافذة تسجيل الدخول، تصعد الكارد من الأسفل بسلاسة */
+    .auth-modal-overlay.show .auth-bottom-card {
+        transform: translateY(0);
     }
 
     .auth-header {
@@ -310,25 +322,42 @@
 <script>
     let isUserLoggedIn = false; 
 
+    // دالة لفتح نافذة الاشتراكات (تأتي من اليسار)
+    function openSubscription() {
+        const modal = document.getElementById('subscriptionModal');
+        modal.style.display = 'block';
+        setTimeout(() => modal.classList.add('show'), 10);
+    }
+
+    // دالة لإغلاق نافذة الاشتراكات
+    function closeSubscription() {
+        const modal = document.getElementById('subscriptionModal');
+        modal.classList.remove('show');
+        setTimeout(() => modal.style.display = 'none', 350);
+    }
+
     function choosePlan(cardElement) {
         document.querySelectorAll('.plan-card').forEach(card => card.classList.remove('active'));
         cardElement.classList.add('active');
     }
 
+    // زر الاشتراك مع فحص حالة تسجيل الدخول
     function handleSubscribeClick() {
         if (!isUserLoggedIn) {
-            document.getElementById('authModal').style.display = 'block';
+            // إذا لم يكن مسجلاً: تظهر نافذة تسجيل الدخول تصعد من الأسفل
+            const authModal = document.getElementById('authModal');
+            authModal.style.display = 'block';
+            setTimeout(() => authModal.classList.add('show'), 10);
         } else {
             openPaymentGateway();
         }
     }
 
+    // إغلاق نافذة تسجيل الدخول
     function closeAuthModal() {
-        document.getElementById('authModal').style.display = 'none';
-    }
-
-    function closeSubscription() {
-        document.getElementById('subscriptionModal').style.display = 'none';
+        const authModal = document.getElementById('authModal');
+        authModal.classList.remove('show');
+        setTimeout(() => authModal.style.display = 'none', 400);
     }
 
     function loginWithGoogle() {
