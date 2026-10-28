@@ -61,7 +61,7 @@
 </div>
 
 
-<!-- ================= 2. نافذة تسجيل الدخول (الأزرار مرفوعة للأعلى لتظهر الشروط والخصوصية) ================= -->
+<!-- ================= 2. نافذة تسجيل الدخول (الأزرار مرفوعة للأعلى بقوة) ================= -->
 <div id="authModal" class="auth-modal-overlay">
     <div class="auth-modal-container">
         
@@ -86,7 +86,7 @@
                 <a href="#" onclick="handleRegister(); return false;">اشتراك</a>
             </div>
 
-            <!-- روابط شروط الاستخدام والخصوصية ظاهرة بالأسفل تماماً وبشكل مريح -->
+            <!-- روابط شروط الاستخدام والخصوصية بارزة وواضحة جداً في الأسفل -->
             <div class="auth-footer-links">
                 <a href="#" onclick="handleLink('terms'); return false;">شروط الاستخدام</a>
                 <span class="dot">|</span>
@@ -196,7 +196,7 @@
     .bottom-links .dot { color: #4b5563; }
 
 
-    /* ================= 2. نافذة تسجيل الدخول (تم رفع الأزرار للأعلى وظهرت الشروط) ================= */
+    /* ================= 2. نافذة تسجيل الدخول (تم رفع الأزرار والمحتوى للأعلى بقوة) ================= */
     .auth-modal-overlay {
         display: block;
         position: fixed;
@@ -232,15 +232,15 @@
         backdrop-filter: blur(16px);
         border-top-left-radius: 24px;
         border-top-right-radius: 24px;
-        /* تقليص الحشوة السفلية ورفع المحتوى للأعلى بمسافة مريحة */
-        padding: 16px 20px 28px 20px;
+        /* رفع المحتوى للأعلى بقوة عبر زيادة الحشوة العلوية وتقليل مساحات الأسفل */
+        padding: 20px 20px 35px 20px;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
         gap: 10px;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
-        /* دفع الكارد ككل مسافة إضافية نحو الأعلى لضمان ظهور الشروط */
-        transform: translateY(-12px);
+        /* سحب الكارد بالكامل نحو الأعلى بمسافة واضحة */
+        transform: translateY(-40px);
     }
 
     .auth-header {
@@ -312,7 +312,7 @@
         gap: 10px;
         font-size: 11px;
         color: #6b7280;
-        margin-top: 4px;
+        margin-top: 6px;
     }
 
     .auth-footer-links a { color: #6b7280; text-decoration: none; }
