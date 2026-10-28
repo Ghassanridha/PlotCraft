@@ -46,7 +46,6 @@
                 <svg width="12" height="12" fill="#fbbf24" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
             </div>
 
-            <!-- زر الاشتراك يوجه حسب حالة حساب المستخدم -->
             <button class="subscribe-btn" onclick="handleSubscribeClick()">اشتراك</button>
 
             <div class="bottom-links">
@@ -67,7 +66,6 @@
     <div class="auth-modal-container">
         
         <div class="auth-bottom-card">
-            <!-- الهيدر مع علامة (×) بدقة مقابيل العنوان وبدون خلفية وبلون أبيض غامق -->
             <div class="auth-header">
                 <h2>تسجيل الدخول إلى Plotcraft</h2>
                 <button class="inline-close-btn" onclick="closeAuthModal()">&times;</button>
@@ -197,7 +195,7 @@
     .bottom-links .dot { color: #4b5563; }
 
 
-    /* ================= 2. تنسيق نافذة تسجيل الدخول (رفع الأزرار + علامة (×) مقابيل العنوان) ================= */
+    /* ================= 2. تنسيق نافذة تسجيل الدخول (رفع الأزرار للأعلى أكثر) ================= */
     .auth-modal-overlay {
         display: block;
         position: fixed;
@@ -233,11 +231,11 @@
         backdrop-filter: blur(16px);
         border-top-left-radius: 24px;
         border-top-right-radius: 24px;
-        padding: 20px 20px 20px 20px; /* تقليل البادينغ السفلي لرفع العناصر ولمنع التداخل */
+        padding: 16px 20px 16px 20px; /* تقليص الحشوة لرفع محتوى الكارد للأعلى أكثر */
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
-        gap: 10px; /* تقليل المسافات قليلاً لرفع الأزرار للأعلى */
+        gap: 8px; /* تقليص المسافات لرفع العناصر */
         border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
@@ -245,7 +243,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 4px;
+        margin-bottom: 2px;
         position: relative;
     }
 
@@ -257,11 +255,10 @@
         text-align: center;
     }
 
-    /* زر الـ (×) بدون خلفية، بلون أبيض غامق، ومقابيل العنوان في أقصى اليمين */
     .inline-close-btn {
         background: transparent;
         border: none;
-        color: #d1d5db; /* لون أبيض غامق / رمادي فاتح واضح */
+        color: #d1d5db;
         font-size: 26px;
         font-weight: 400;
         cursor: pointer;
@@ -277,8 +274,8 @@
 
     .auth-btn {
         width: 100%;
-        height: 44px; /* تصغير طفيف لارتفاع الأزرار لترتفع للأعلى */
-        border-radius: 22px;
+        height: 42px; /* تقليص طفيف لارتفاع الأزرار لترتفع للأعلى */
+        border-radius: 21px;
         border: none;
         font-size: 14px;
         font-weight: 600;
@@ -316,7 +313,7 @@
         gap: 10px;
         font-size: 11px;
         color: #6b7280;
-        margin-top: 4px;
+        margin-top: 2px;
     }
 
     .auth-footer-links a { color: #6b7280; text-decoration: none; }
