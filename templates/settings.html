@@ -48,24 +48,24 @@
         .clickable-area {
             position: absolute;
             cursor: pointer;
-            z-index: 50; /* رفع طبقة التفاعل لضمان الاستجابة الفورية */
+            z-index: 50;
         }
 
-        /* 🟢 زر السهم (في أعلى اليمين) لإغلاق القائمة والخروج منها حصرياً */
+        /* 🟢 1. زر السهم (في أقصى اليمين تماماً) - مخصص للخروج فقط ومحدد بدقة لكي لا يتداخل */
         .btn-back {
-            top: 10px;
-            right: 10px;
-            width: 50px;
-            height: 50px;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
             z-index: 100;
         }
 
-        /* 🟢 زر الترقية (في أعلى اليسار) لفتح نافذة الاشتراكات حصرياً من أول نقرة */
+        /* 🟢 2. زر الترقية (بعيداً عن السهم في الجهة اليسرى من الترويسة) - مخصص لفتح الاشتراكات فقط */
         .btn-upgrade {
-            top: 10px;
-            left: 10px;
-            width: 100px;
-            height: 45px;
+            top: 15px;
+            left: 15px;
+            width: 85px;
+            height: 38px;
             z-index: 100;
         }
 
@@ -138,10 +138,10 @@
     <div id="settingsScreen" class="settings-screen">
         <div class="click-overlay-container">
             
-            <!-- زر السهم (أعلى اليمين) لإغلاق القائمة والخروج -->
+            <!-- زر السهم (في اليمين تماماً) للخروج حصرياً -->
             <div class="clickable-area btn-back" onclick="closeSettingsScreen()"></div>
             
-            <!-- زر الترقية (أعلى اليسار) لفتح نافذة الاشتراكات فوراً -->
+            <!-- زر الترقية (في اليسار) لفتح الاشتراكات حصرياً -->
             <div class="clickable-area btn-upgrade" onclick="openSubscriptionModal()"></div>
             
             <a href="#" class="clickable-area banner-link" onclick="handleAction('banner'); return false;"></a>
@@ -172,7 +172,7 @@
         }
 
         function openSubscriptionModal() {
-            // إغلاق قائمة الإعدادات أولاً أو فتح النافذة مباشرة حسب رغبتك
+            // فتح نافذة الاشتراكات عند النقر على زر الترقية حصرياً
             if (typeof openSubscription === "function") {
                 openSubscription();
             } else {
