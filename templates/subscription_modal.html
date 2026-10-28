@@ -98,17 +98,22 @@
 
 
 <style>
+    /* إلغاء تأخير النقرة في كل الأزرار والعناصر لتستجيب من اللمسة الأولى فوراً */
+    button, a, .plan-card {
+        touch-action: manipulation !important;
+        -webkit-tap-highlight-color: transparent;
+    }
+
     /* ================= 1. نافذة الاشتراكات ================= */
     .modal-overlay {
         display: block; 
         position: fixed; 
         top: 0; left: 0; 
         width: 100vw; height: 100vh;
-        background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/0f1d146fbd9d2334aa927340f811c68891749269/Gh.jpg') center/cover no-repeat;
+        background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/a44fde0525a9b0cefa60594554a174f0f18044a2/Gh1.png') center/cover no-repeat;
         z-index: 99999;
         direction: rtl;
         overflow: hidden !important;
-        touch-action: none !important;
         transform: translateX(-100vw);
         transition: transform 0.2s ease-out;
         visibility: hidden;
@@ -132,7 +137,6 @@
         border: 1px solid rgba(255, 255, 255, 0.25);
         width: 36px; height: 36px; border-radius: 50%;
         font-size: 20px; cursor: pointer; z-index: 100000;
-        touch-action: manipulation;
     }
 
     .plans-list-absolute {
@@ -150,7 +154,6 @@
         border-radius: 16px; padding: 14px 16px;
         display: flex; justify-content: space-between; align-items: center;
         cursor: pointer; transition: all 0.2s ease;
-        touch-action: manipulation;
     }
 
     .plan-card.active {
@@ -190,11 +193,10 @@
         border: none; border-radius: 30px;
         font-size: 17px; font-weight: 800; cursor: pointer;
         box-shadow: 0 4px 15px rgba(255, 255, 255, 0.25);
-        touch-action: manipulation;
     }
 
     .bottom-links { display: flex; gap: 12px; font-size: 11px; margin-top: 10px; }
-    .bottom-links a { color: #9ca3af; text-decoration: none; touch-action: manipulation; }
+    .bottom-links a { color: #9ca3af; text-decoration: none; }
     .bottom-links .dot { color: #4b5563; }
 
 
@@ -208,7 +210,6 @@
         z-index: 999999;
         direction: rtl;
         overflow: hidden !important;
-        touch-action: none !important;
         transform: translateY(100vh);
         transition: transform 0.2s ease-out;
         visibility: hidden;
@@ -267,7 +268,6 @@
         padding: 0;
         line-height: 1;
         opacity: 0.9;
-        touch-action: manipulation;
     }
 
     .inline-close-btn:active { opacity: 1; }
@@ -285,7 +285,6 @@
         gap: 10px;
         cursor: pointer;
         transition: transform 0.1s ease;
-        touch-action: manipulation;
     }
 
     .auth-btn:active { transform: scale(0.98); }
@@ -305,7 +304,6 @@
         text-decoration: none;
         margin-right: 4px;
         font-weight: 600;
-        touch-action: manipulation;
     }
 
     .auth-footer-links {
@@ -318,7 +316,7 @@
         margin-top: 6px;
     }
 
-    .auth-footer-links a { color: #6b7280; text-decoration: none; touch-action: manipulation; }
+    .auth-footer-links a { color: #6b7280; text-decoration: none; }
     .auth-footer-links .dot { color: #4b5563; }
 </style>
 
@@ -326,7 +324,7 @@
 <script>
     let isUserLoggedIn = false; 
 
-    // ربط زر الترقية في تطبيقك بهذا الحدث ليفتح فوراً من أول ضغطة
+    // فتح النافذة فوراً من اللمسة الأولى (باستخدام touchstart و click معاً للاستجابة الصاروخية)
     function openSubscription() {
         const modal = document.getElementById('subscriptionModal');
         if (modal) {
@@ -334,9 +332,9 @@
         }
     }
 
-    // تفعيل الاستجابة الفورية باللمس والنقر معاً لزر الترقية الرئيسي
+    // ربط زر الترقية في صفحتك بحدث اللمس السريع
     document.addEventListener("DOMContentLoaded", function() {
-        const upgradeBtn = document.getElementById('upgradeBtn'); // تأكد أن زر الترقية لديك يحمل هذا الـ ID أو استبدله بالselector الخاص بك
+        const upgradeBtn = document.getElementById('upgradeBtn'); 
         if (upgradeBtn) {
             upgradeBtn.addEventListener('click', openSubscription);
             upgradeBtn.addEventListener('touchstart', function(e) {
