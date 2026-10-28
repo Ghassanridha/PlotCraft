@@ -2,13 +2,13 @@
 <button id="upgradeBtn" class="upgrade-action-btn" onclick="openSubscription()">الترقية الآن</button>
 
 
-<!-- ================= 1. نافذة الاشتراكات مع التصميم الجديد ================= -->
+<!-- ================= 1. نافذة الاشتراكات مع خلفيتك الجديدة (Gh.jpg) ================= -->
 <div id="subscriptionModal" class="modal-overlay">
     <div class="modal-absolute-container">
         
         <button class="close-modal-btn" onclick="closeSubscription()">&times;</button>
 
-        <!-- الهيدر الجديد المدمج في الأعلى (الصورة + العنوان + الأزرار الأربعة) -->
+        <!-- الهيدر المدمج مع خلفية صورتك الجديدة Gh.jpg -->
         <div class="modal-header-banner">
             <div class="modal-banner-content">
                 <div class="modal-banner-title">PLOTCRAFT PRO</div>
@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        <!-- الباقات تظهر في المكان الفارغ أسفل الأزرار بمسافات مرتبة -->
+        <!-- الباقات مرتبة تحت الأزرار بمسافات مضبوطة -->
         <div class="plans-list-absolute">
             <div class="plan-card" onclick="choosePlan(this)">
                 <div class="plan-info">
@@ -99,7 +99,6 @@
     <div class="auth-modal-container">
         
         <div class="auth-bottom-card">
-            <!-- الهيدر مع جعل العنوان في المنتصف تماماً وفوق زر Google -->
             <div class="auth-header">
                 <h2>تسجيل الدخول إلى Plotcraft</h2>
                 <button class="inline-close-btn" onclick="closeAuthModal()">&times;</button>
@@ -155,7 +154,7 @@
         transform: scale(0.96);
     }
 
-    /* ================= 1. نافذة الاشتراكات مع التصميم الجديد ================= */
+    /* ================= 1. نافذة الاشتراكات ================= */
     .modal-overlay {
         display: block; 
         position: fixed; 
@@ -183,13 +182,13 @@
         overflow-x: hidden;
     }
 
-    /* تنسيق الهيدر الجديد المدمج */
+    /* الهيدر مع رابط خلفيتك الجديدة Gh.jpg المباشر */
     .modal-header-banner {
         position: relative;
         width: 100%;
         min-height: 42vh;
         background: linear-gradient(180deg, rgba(11,15,25,0.1) 0%, rgba(11,15,25,0.85) 80%, #0b0f19 100%),
-                    url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1080&auto=format&fit=crop') center/cover no-repeat;
+                    url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/d4ca31960ae2fdd89111cb43ed6e94096bcd3ccd/Gh.jpg') center/cover no-repeat;
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
@@ -230,7 +229,7 @@
         margin-bottom: 14px;
     }
 
-    /* صف الأزرار الأربعة تماماً مثل الصورة المطلوبة */
+    /* صف الأزرار الأربعة */
     .feature-badges-row {
         display: flex;
         justify-content: center;
@@ -269,7 +268,7 @@
         font-size: 20px; cursor: pointer; z-index: 100000;
     }
 
-    /* الباقات تظهر بمسافات مرتبة تحت الأزرار بمسافة قليلة */
+    /* الباقات تظهر بمسافات مرتبة تحت الأزرار */
     .plans-list-absolute {
         position: relative;
         width: 92%; max-width: 420px;
@@ -375,7 +374,6 @@
         transform: translateY(-40px);
     }
 
-    /* الهيدر مع تمركز العنوان في المنتصف تماماً وفوق زر Google */
     .auth-header {
         display: flex;
         justify-content: space-between;
@@ -388,14 +386,14 @@
         color: #ffffff;
         font-size: 16px;
         font-weight: 700;
-        margin: 0 auto; /* تمركز العنوان في المنتصف تماماً فوق زر Google */
+        margin: 0 auto;
         text-align: center;
     }
 
     .inline-close-btn {
         background: transparent;
         border: none;
-        color: #ffffff; /* لون أبيض غامق وواضح */
+        color: #ffffff;
         font-size: 28px;
         font-weight: 400;
         cursor: pointer;
@@ -403,7 +401,7 @@
         line-height: 1;
         opacity: 1;
         position: absolute;
-        right: 0; /* في أقصى اليمين تماماً */
+        right: 0;
         top: 50%;
         transform: translateY(-50%);
     }
