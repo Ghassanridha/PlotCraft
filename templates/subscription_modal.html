@@ -1,42 +1,9 @@
-<!-- ================= زر الترقية الرئيسي ================= -->
-<button id="upgradeBtn" class="upgrade-action-btn" onclick="openSubscription()">الترقية الآن</button>
-
-
-<!-- ================= 1. نافذة الاشتراكات مع خلفيتك الجديدة (Gh.jpg) ================= -->
+<!-- ================= 1. نافذة الاشتراكات (Subscription Modal) ================= -->
 <div id="subscriptionModal" class="modal-overlay">
     <div class="modal-absolute-container">
         
         <button class="close-modal-btn" onclick="closeSubscription()">&times;</button>
 
-        <!-- الهيدر المدمج مع خلفية صورتك الجديدة Gh.jpg -->
-        <div class="modal-header-banner">
-            <div class="modal-banner-content">
-                <div class="modal-banner-title">PLOTCRAFT PRO</div>
-                <div class="modal-banner-subtitle">حول خيالك إلى بلوت كرافت</div>
-                <div class="modal-banner-desc">ترجم أفكارك إلى مشاهد نابضة بالحياة</div>
-                
-                <div class="feature-badges-row">
-                    <div class="feature-badge-item">
-                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                        <span>مونتاج AI</span>
-                    </div>
-                    <div class="feature-badge-item">
-                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                        <span>لقطة AI</span>
-                    </div>
-                    <div class="feature-badge-item">
-                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                        <span>القصة المصورة</span>
-                    </div>
-                    <div class="feature-badge-item">
-                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                        <span>نص AI</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- الباقات مرتبة تحت الأزرار بمسافات مضبوطة -->
         <div class="plans-list-absolute">
             <div class="plan-card" onclick="choosePlan(this)">
                 <div class="plan-info">
@@ -79,6 +46,7 @@
                 <svg width="12" height="12" fill="#fbbf24" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
             </div>
 
+            <!-- زر الاشتراك يوجه حسب حالة حساب المستخدم -->
             <button class="subscribe-btn" onclick="handleSubscribeClick()">اشتراك</button>
 
             <div class="bottom-links">
@@ -94,14 +62,17 @@
 </div>
 
 
-<!-- ================= 2. نافذة تسجيل الدخول ================= -->
+<!-- ================= 2. نافذة تسجيل الدخول الجديدة (Auth Modal) بملء الشاشة ================= -->
 <div id="authModal" class="auth-modal-overlay">
     <div class="auth-modal-container">
         
+        <!-- زر إغلاق النافذة -->
+        <button class="auth-close-btn" onclick="closeAuthModal()">&times;</button>
+
+        <!-- كارد خيارات تسجيل الدخول الموضعة في الأسفل مثل الصورة -->
         <div class="auth-bottom-card">
             <div class="auth-header">
                 <h2>تسجيل الدخول إلى Plotcraft</h2>
-                <button class="inline-close-btn" onclick="closeAuthModal()">&times;</button>
             </div>
 
             <button class="auth-btn google-btn" onclick="loginWithGoogle()">
@@ -120,9 +91,9 @@
             </div>
 
             <div class="auth-footer-links">
-                <a href="#" onclick="handleLink('terms'); return false;">شروط الاستخدام</a>
+                <a href="#">شروط الاستخدام</a>
                 <span class="dot">|</span>
-                <a href="#" onclick="handleLink('privacy'); return false;">الخصوصية</a>
+                <a href="#">الخصوصية</a>
             </div>
         </div>
 
@@ -131,149 +102,39 @@
 
 
 <style>
-    /* القضاء على تأخير النقر في أزرار الـ (×) وزر الترقية وكل أزرار الصفحة استجابةً فورية */
-    button, a, .plan-card, #upgradeBtn {
-        touch-action: manipulation !important;
-        -webkit-tap-highlight-color: transparent;
-    }
-
-    /* تنسيق زر الترقية النموذجي */
-    .upgrade-action-btn {
-        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-        color: #ffffff;
-        border: none;
-        padding: 12px 24px;
-        border-radius: 25px;
-        font-size: 16px;
-        font-weight: 700;
-        cursor: pointer;
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-        transition: transform 0.1s ease;
-    }
-    .upgrade-action-btn:active {
-        transform: scale(0.96);
-    }
-
-    /* ================= 1. نافذة الاشتراكات ================= */
+    /* ================= تنسيق نافذة الاشتراكات ================= */
     .modal-overlay {
-        display: block; 
+        display: none; 
         position: fixed; 
         top: 0; left: 0; 
         width: 100vw; height: 100vh;
-        background: #0b0f19;
+        background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/0f1d146fbd9d2334aa927340f811c68891749269/Gh.jpg') center/cover no-repeat;
         z-index: 99999;
         direction: rtl;
         overflow: hidden !important;
-        transform: translateX(-100vw);
-        transition: transform 0.2s ease-out;
-        visibility: hidden;
-    }
-
-    .modal-overlay.show {
-        visibility: visible;
-        transform: translateX(0);
+        touch-action: none !important;
     }
 
     .modal-absolute-container {
         position: relative;
         width: 100%; height: 100vh;
-        background: #0b0f19;
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-
-    /* الهيدر مع رابط خلفيتك الجديدة Gh.jpg المباشر */
-    .modal-header-banner {
-        position: relative;
-        width: 100%;
-        min-height: 42vh;
-        background: linear-gradient(180deg, rgba(11,15,25,0.1) 0%, rgba(11,15,25,0.85) 80%, #0b0f19 100%),
-                    url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/d4ca31960ae2fdd89111cb43ed6e94096bcd3ccd/Gh.jpg') center/cover no-repeat;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        padding: 20px 16px 15px 16px;
-        box-sizing: border-box;
-        border-bottom-left-radius: 30px;
-        border-bottom-right-radius: 30px;
-    }
-
-    .modal-banner-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        width: 100%;
-    }
-
-    .modal-banner-title {
-        color: #a78bfa;
-        font-size: 22px;
-        font-weight: 800;
-        letter-spacing: 1px;
-        margin-bottom: 4px;
-        text-shadow: 0 2px 10px rgba(0,0,0,0.6);
-    }
-
-    .modal-banner-subtitle {
-        color: #ffffff;
-        font-size: 15px;
-        font-weight: 700;
-        margin-bottom: 2px;
-        text-shadow: 0 2px 6px rgba(0,0,0,0.6);
-    }
-
-    .modal-banner-desc {
-        color: #9ca3af;
-        font-size: 11px;
-        margin-bottom: 14px;
-    }
-
-    /* صف الأزرار الأربعة */
-    .feature-badges-row {
-        display: flex;
-        justify-content: center;
-        gap: 8px;
-        width: 100%;
-        max-width: 420px;
-    }
-
-    .feature-badge-item {
-        flex: 1;
-        background: rgba(20, 24, 33, 0.85);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: 14px;
-        padding: 10px 4px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-        color: #ffffff;
-        font-size: 10px;
-        font-weight: 600;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    }
-
-    .feature-badge-item svg {
-        stroke: #94a3b8;
+        background: linear-gradient(180deg, rgba(11,15,25,0) 0%, rgba(11,15,25,0.3) 25%, rgba(11,15,25,0.85) 45%, #0b0f19 100%);
+        overflow: hidden;
     }
 
     .close-modal-btn {
-        position: absolute; top: 16px; right: 16px;
+        position: absolute; top: 20px; right: 20px;
         background: rgba(0, 0, 0, 0.6); color: #fff;
         border: 1px solid rgba(255, 255, 255, 0.25);
         width: 36px; height: 36px; border-radius: 50%;
         font-size: 20px; cursor: pointer; z-index: 100000;
     }
 
-    /* الباقات تظهر بمسافات مرتبة تحت الأزرار */
     .plans-list-absolute {
-        position: relative;
+        position: absolute; top: 300px; left: 50%;
+        transform: translateX(-50%);
         width: 92%; max-width: 420px;
-        margin: 14px auto 0 auto;
-        display: flex; flex-direction: column; gap: 10px;
+        display: flex; flex-direction: column; gap: 12px;
     }
 
     .plan-card {
@@ -281,7 +142,7 @@
         background: rgba(20, 26, 41, 0.94);
         backdrop-filter: blur(12px);
         border: 2px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px; padding: 12px 16px;
+        border-radius: 16px; padding: 14px 16px;
         display: flex; justify-content: space-between; align-items: center;
         cursor: pointer; transition: all 0.2s ease;
     }
@@ -299,16 +160,16 @@
         padding: 2px 9px; border-radius: 10px;
     }
 
-    .plan-info h3 { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 2px; }
-    .plan-info p { font-size: 9px; color: #9ca3af; }
+    .plan-info h3 { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+    .plan-info p { font-size: 10px; color: #9ca3af; }
     .plan-pricing { text-align: left; }
-    .plan-pricing .price { font-size: 14px; font-weight: 800; color: #fff; }
-    .plan-pricing .period { font-size: 9px; color: #9ca3af; margin-top: 1px; }
+    .plan-pricing .price { font-size: 15px; font-weight: 800; color: #fff; }
+    .plan-pricing .period { font-size: 10px; color: #9ca3af; margin-top: 2px; }
 
     .bottom-fixed-area {
-        position: relative; 
+        position: absolute; bottom: 75px; left: 50%;
+        transform: translateX(-50%);
         width: 92%; max-width: 420px;
-        margin: 15px auto 30px auto;
         display: flex; flex-direction: column; align-items: center;
     }
 
@@ -318,10 +179,10 @@
     }
 
     .subscribe-btn {
-        width: 100%; height: 48px;
+        width: 100%; height: 50px;
         background: #ffffff; color: #000;
         border: none; border-radius: 30px;
-        font-size: 16px; font-weight: 800; cursor: pointer;
+        font-size: 17px; font-weight: 800; cursor: pointer;
         box-shadow: 0 4px 15px rgba(255, 255, 255, 0.25);
     }
 
@@ -330,24 +191,18 @@
     .bottom-links .dot { color: #4b5563; }
 
 
-    /* ================= 2. نافذة تسجيل الدخول ================= */
+    /* ================= 2. تنسيق نافذة تسجيل الدخول الجديدة (Gh1.png) بملء الشاشة ================= */
     .auth-modal-overlay {
-        display: block;
+        display: none;
         position: fixed;
         top: 0; left: 0;
         width: 100vw; height: 100vh;
+        /* استخدام رابط الصورة المباشر الجديد بملء الشاشة */
         background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/a44fde0525a9b0cefa60594554a174f0f18044a2/Gh1.png') center/cover no-repeat;
         z-index: 999999;
         direction: rtl;
         overflow: hidden !important;
-        transform: translateY(100vh);
-        transition: transform 0.2s ease-out;
-        visibility: hidden;
-    }
-
-    .auth-modal-overlay.show {
-        visibility: visible;
-        transform: translateY(0);
+        touch-action: none !important;
     }
 
     .auth-modal-container {
@@ -355,65 +210,46 @@
         width: 100%; height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: flex-end;
+        justify-content: flex-end; /* لتعويد الخيارات في الأسفل تماماً مثل الصورة */
         box-sizing: border-box;
+    }
+
+    .auth-close-btn {
+        position: absolute; top: 20px; right: 20px;
+        background: rgba(0, 0, 0, 0.5); color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        width: 36px; height: 36px; border-radius: 50%;
+        font-size: 20px; cursor: pointer; z-index: 100001;
     }
 
     .auth-bottom-card {
         width: 100%;
-        background: rgba(18, 22, 33, 0.96);
+        background: rgba(18, 22, 33, 0.95);
         backdrop-filter: blur(16px);
         border-top-left-radius: 24px;
         border-top-right-radius: 24px;
-        padding: 20px 20px 35px 20px;
+        padding: 24px 20px 30px 20px;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 14px;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
-        transform: translateY(-40px);
-    }
-
-    .auth-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 2px;
-        position: relative;
     }
 
     .auth-header h2 {
         color: #ffffff;
-        font-size: 16px;
+        font-size: 18px;
         font-weight: 700;
-        margin: 0 auto;
         text-align: center;
+        margin: 0 0 10px 0;
     }
-
-    .inline-close-btn {
-        background: transparent;
-        border: none;
-        color: #ffffff;
-        font-size: 28px;
-        font-weight: 400;
-        cursor: pointer;
-        padding: 0;
-        line-height: 1;
-        opacity: 1;
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    .inline-close-btn:active { opacity: 0.6; }
 
     .auth-btn {
         width: 100%;
-        height: 42px;
-        border-radius: 21px;
+        height: 48px;
+        border-radius: 24px;
         border: none;
-        font-size: 14px;
+        font-size: 15px;
         font-weight: 600;
         display: flex;
         align-items: center;
@@ -430,9 +266,9 @@
 
     .auth-switch {
         text-align: center;
-        font-size: 12px;
+        font-size: 13px;
         color: #9ca3af;
-        margin-top: 2px;
+        margin-top: 4px;
     }
 
     .auth-switch a {
@@ -445,52 +281,48 @@
     .auth-footer-links {
         display: flex;
         justify-content: center;
-        align-items: center;
-        gap: 10px;
+        gap: 12px;
         font-size: 11px;
         color: #6b7280;
-        margin-top: 6px;
+        margin-top: 8px;
     }
 
     .auth-footer-links a { color: #6b7280; text-decoration: none; }
-    .auth-footer-links .dot { color: #4b5563; }
 </style>
 
 
 <script>
+    // متغير يحفظ حالة دخول المستخدم (false = غير مسجل، true = مسجل)
     let isUserLoggedIn = false; 
 
-    function openSubscription() {
-        const modal = document.getElementById('subscriptionModal');
-        if (modal) {
-            modal.classList.add('show');
-        }
-    }
-
-    function closeSubscription() {
-        const modal = document.getElementById('subscriptionModal');
-        modal.classList.remove('show');
-    }
-
+    // اختيار الباقة
     function choosePlan(cardElement) {
         document.querySelectorAll('.plan-card').forEach(card => card.classList.remove('active'));
         cardElement.classList.add('active');
     }
 
+    // زر الاشتراك عند الضغط عليه
     function handleSubscribeClick() {
         if (!isUserLoggedIn) {
-            const authModal = document.getElementById('authModal');
-            authModal.classList.add('show');
+            // إذا كان غير مسجل: تظهر نافذة تسجيل الدخول الجديدة (Gh1.png)
+            document.getElementById('authModal').style.display = 'block';
         } else {
+            // إذا كان مسجلاً: يفتح نافذة الدفع مباشرة
             openPaymentGateway();
         }
     }
 
+    // إغلاق نافذة تسجيل الدخول
     function closeAuthModal() {
-        const authModal = document.getElementById('authModal');
-        authModal.classList.remove('show');
+        document.getElementById('authModal').style.display = 'none';
     }
 
+    // إغلاق نافذة الاشتراكات
+    function closeSubscription() {
+        document.getElementById('subscriptionModal').style.display = 'none';
+    }
+
+    // المحاكاة بعد نجاح تسجيل الدخول
     function loginWithGoogle() {
         isUserLoggedIn = true;
         closeAuthModal();
@@ -505,6 +337,7 @@
         openPaymentGateway();
     }
 
+    // نافذة الدفع
     function openPaymentGateway() {
         alert("جاري فتح نافذة الدفع لتأكيد الاشتراك...");
     }
