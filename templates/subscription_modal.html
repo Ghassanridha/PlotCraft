@@ -61,7 +61,7 @@
 </div>
 
 
-<!-- ================= 2. نافذة تسجيل الدخول المحدثة (أزرار مرفوعة للأعلى بمسافة كافية) ================= -->
+<!-- ================= 2. نافذة تسجيل الدخول المحدثة (مرفوعة للأعلى بقوة) ================= -->
 <div id="authModal" class="auth-modal-overlay">
     <div class="auth-modal-container">
         
@@ -189,7 +189,7 @@
     .bottom-links .dot { color: #4b5563; }
 
 
-    /* ================= 2. تنسيق نافذة تسجيل الدخول المحدثة (رفع الأزرار للأعلى) ================= */
+    /* ================= 2. تنسيق نافذة تسجيل الدخول المحدثة (رفع محتوى الكارد للأعلى) ================= */
     .auth-modal-overlay {
         display: none;
         position: fixed;
@@ -217,13 +217,15 @@
         backdrop-filter: blur(16px);
         border-top-left-radius: 24px;
         border-top-right-radius: 24px;
-        /* زيادة الحشوة لرفع الأزرار للأعلى وترك مساحة مريحة بالأسفل */
-        padding: 16px 20px 28px 20px;
+        /* حشوة سفليّة مرتفعة لتوفير مساحة أمان فوق شريط التصفّح على الموبايل */
+        padding: 16px 20px 45px 20px;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
         gap: 12px;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
+        /* دفع الحاوية نفسها للأعلى مسافة إضافية */
+        transform: translateY(-25px);
     }
 
     .auth-header {
@@ -297,7 +299,7 @@
         gap: 10px;
         font-size: 11px;
         color: #6b7280;
-        margin-top: 6px;
+        margin-top: 4px;
     }
 
     .auth-footer-links a { color: #6b7280; text-decoration: none; }
