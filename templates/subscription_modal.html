@@ -61,7 +61,7 @@
 </div>
 
 
-<!-- ================= 2. نافذة تسجيل الدخول (ترتفع فوراً وسريعاً) ================= -->
+<!-- ================= 2. نافذة تسجيل الدخول (الأزرار مرفوعة للأعلى لتظهر الشروط والخصوصية) ================= -->
 <div id="authModal" class="auth-modal-overlay">
     <div class="auth-modal-container">
         
@@ -86,6 +86,7 @@
                 <a href="#" onclick="handleRegister(); return false;">اشتراك</a>
             </div>
 
+            <!-- روابط شروط الاستخدام والخصوصية ظاهرة بالأسفل تماماً وبشكل مريح -->
             <div class="auth-footer-links">
                 <a href="#" onclick="handleLink('terms'); return false;">شروط الاستخدام</a>
                 <span class="dot">|</span>
@@ -195,7 +196,7 @@
     .bottom-links .dot { color: #4b5563; }
 
 
-    /* ================= 2. نافذة تسجيل الدخول السريعة والانسيابية ================= */
+    /* ================= 2. نافذة تسجيل الدخول (تم رفع الأزرار للأعلى وظهرت الشروط) ================= */
     .auth-modal-overlay {
         display: block;
         position: fixed;
@@ -231,12 +232,15 @@
         backdrop-filter: blur(16px);
         border-top-left-radius: 24px;
         border-top-right-radius: 24px;
-        padding: 16px 20px 45px 20px;
+        /* تقليص الحشوة السفلية ورفع المحتوى للأعلى بمسافة مريحة */
+        padding: 16px 20px 28px 20px;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 10px;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
+        /* دفع الكارد ككل مسافة إضافية نحو الأعلى لضمان ظهور الشروط */
+        transform: translateY(-12px);
     }
 
     .auth-header {
@@ -269,8 +273,8 @@
 
     .auth-btn {
         width: 100%;
-        height: 44px;
-        border-radius: 22px;
+        height: 42px;
+        border-radius: 21px;
         border: none;
         font-size: 14px;
         font-weight: 600;
@@ -319,13 +323,11 @@
 <script>
     let isUserLoggedIn = false; 
 
-    // إظهار نافذة الاشتراكات مباشرة بسلاسة
     function openSubscription() {
         const modal = document.getElementById('subscriptionModal');
         modal.classList.add('show');
     }
 
-    // إغلاق نافذة الاشتراكات
     function closeSubscription() {
         const modal = document.getElementById('subscriptionModal');
         modal.classList.remove('show');
@@ -336,7 +338,6 @@
         cardElement.classList.add('active');
     }
 
-    // النقر على اشتراك وإظهار النافذة فوراً
     function handleSubscribeClick() {
         if (!isUserLoggedIn) {
             const authModal = document.getElementById('authModal');
@@ -346,7 +347,6 @@
         }
     }
 
-    // إغلاق نافذة تسجيل الدخول فوراً
     function closeAuthModal() {
         const authModal = document.getElementById('authModal');
         authModal.classList.remove('show');
