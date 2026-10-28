@@ -328,7 +328,8 @@
                     <div class="brand-title">PlotCraft</div>
                     
                     <div class="top-left-actions">
-                        <button onclick="openSubscription()" ontouchstart="openSubscription()" style="background: rgba(20, 24, 33, 0.85); backdrop-filter: blur(12px); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); padding: 6px 12px; border-radius: 16px; font-weight: 600; cursor: pointer; font-size: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); white-space: nowrap; pointer-events: auto !important; touch-action: manipulation;">ترقيه</button>
+                        <!-- زر الترقية يستجيب فوراً من النقرة الأولى -->
+                        <button onclick="openSubscription()" style="background: rgba(20, 24, 33, 0.85); backdrop-filter: blur(12px); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); padding: 6px 12px; border-radius: 16px; font-weight: 600; cursor: pointer; font-size: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); white-space: nowrap; touch-action: manipulation; -webkit-tap-highlight-color: transparent;">ترقيه</button>
                         
                         <div class="top-settings-btn" onclick="vibrateDevice(); openSettingsScreen()">
                             <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات">
@@ -449,14 +450,11 @@
             showToast('تم النقر على إنشاء قصة');
         }
 
-        /* دالة جلب وإظهار ملف الاشتراكات المستقل مع تفعيل اللمس بداخله فوراً */
-        window.openSubscription = function() {
-            const existingModal = document.getElementById('subscriptionModal');
-            if (existingModal) {
-                existingModal.style.display = 'flex';
-                return;
-            }
+        /* 🚀 تحسين استدعاء نافذة الاشتراكات مسبقاً (Pre-fetch) لتفتح من أول نقرة فوراً وبدون أي تأخير */
+        let isSubscriptionLoaded = false;
 
+        function preloadSubscriptionModal() {
+            if (isSubscriptionLoaded) return;
             fetch('/subscription-modal')
                 .then(response => {
                     if (!response.ok) throw new Error('فشل جلب ملف الاشتراكات');
@@ -466,23 +464,38 @@
                     const wrapper = document.getElementById('subscriptionModalWrapper');
                     wrapper.innerHTML = html;
                     
-                    // استخراج وتنفيذ أكواد الـ JavaScript الموجودة داخل الملف المستقل لضمان عمل الأزرار
+                    // تشغيل السكريبتات الخاصة بالنافذة
                     const scripts = wrapper.querySelectorAll('script');
                     scripts.forEach(script => {
                         const newScript = document.createElement('script');
                         newScript.text = script.innerHTML;
                         document.body.appendChild(newScript);
                     });
-
-                    const loadedModal = document.getElementById('subscriptionModal');
-                    if (loadedModal) {
-                        loadedModal.style.display = 'flex';
-                    }
+                    isSubscriptionLoaded = true;
                 })
-                .catch(err => {
-                    console.error(err);
-                    showToast('تعذر فتح نافذة الاشتراكات');
-                });
+                .catch(err => console.error(err));
+        }
+
+        // جلب النافذة في الخلفية بمجرد تحميل الصفحة لتكون جاهزة فوراً
+        window.addEventListener('DOMContentLoaded', preloadSubscriptionModal);
+
+        window.openSubscription = function() {
+            const loadedModal = document.getElementById('subscriptionModal');
+            if (loadedModal) {
+                loadedModal.style.display = 'flex';
+                // تفعيل الانميشن الخاص بالظهور إن وجد
+                setTimeout(() => loadedModal.classList.add('show'), 10);
+            } else {
+                // حل احتياطي في حال لم تكتمل التحميلة الخلفية بعد
+                preloadSubscriptionModal();
+                setTimeout(() => {
+                    const m = document.getElementById('subscriptionModal');
+                    if(m) {
+                        m.style.display = 'flex';
+                        m.classList.add('show');
+                    }
+                }, 300);
+            }
         };
     </script>
 </body>
