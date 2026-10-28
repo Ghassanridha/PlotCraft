@@ -108,7 +108,6 @@
             object-fit: cover;
         }
 
-        /* تم إعادة بناء زر الترقية الجديد كلياً بنفس فلسفة أزرار الأدوات والأعمال السريعة */
         .upgrade-pill-btn {
             background: rgba(20, 24, 33, 0.85);
             backdrop-filter: blur(12px);
@@ -351,7 +350,6 @@
                     <div class="brand-title">PlotCraft</div>
                     
                     <div class="top-left-actions">
-                        <!-- زر الترقية الجديد كلياً، مبني بخصائص أزرار التنقل تماماً -->
                         <div class="upgrade-pill-btn" id="upgradeBtnNew">
                             <span>ترقيه</span>
                         </div>
@@ -475,7 +473,7 @@
             showToast('تم النقر على إنشاء قصة');
         }
 
-        /* دالة جلب وإظهار ملف الاشتراكات */
+        /* دالة فتح نافذة الاشتراكات (تفتح فوراً إن كانت جاهزة، أو تجلبها إذا لم تُجلب بعد) */
         window.openSubscription = function() {
             const existingModal = document.getElementById('subscriptionModal');
             if (existingModal) {
@@ -510,8 +508,29 @@
                 });
         };
 
-        /* ربط زر الترقية الجديد تماماً مثل أزرار الأعمال والأدوات عبر EventListener نظيف يعمل من أول نقرة */
-        document.addEventListener('DOMContentLoaded', () => {
+        /* ✅ الحل الجذري: جلب نافذة الاشتراكات مسبقاً في الخلفية بمجرد تحميل الصفحة لضمان عملها من أول نقرة تماماً مثل باقي الأزرار */
+        window.addEventListener('DOMContentLoaded', () => {
+            // تحميل النافذة مسبقاً بصمت
+            fetch('/subscription-modal')
+                .then(response => response.text())
+                .then(html => {
+                    const wrapper = document.getElementById('subscriptionModalWrapper');
+                    if (wrapper && !document.getElementById('subscriptionModal')) {
+                        wrapper.innerHTML = html;
+                        const scripts = wrapper.querySelectorAll('script');
+                        scripts.forEach(script => {
+                            const newScript = document.createElement('script');
+                            newScript.text = script.innerHTML;
+                            document.body.appendChild(newScript);
+                        });
+                        const loadedModal = document.getElementById('subscriptionModal');
+                        if (loadedModal) {
+                            loadedModal.style.display = 'none'; // إخفاؤها لحين الضغط عليها
+                        }
+                    }
+                }).catch(e => console.log('Preload ready'));
+
+            // ربط زر الترقية الجديد بحدث النقر السريع
             const upgradeBtnNew = document.getElementById('upgradeBtnNew');
             if (upgradeBtnNew) {
                 upgradeBtnNew.addEventListener('click', (e) => {
