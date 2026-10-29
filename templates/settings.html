@@ -18,7 +18,6 @@
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
-        /* حاوية الشاشة مع الخلفية */
         .settings-screen {
             position: fixed;
             top: 0;
@@ -52,14 +51,14 @@
             z-index: 50;
         }
 
-        /* علامة X الصغيرة الشفافة بدون خلفية بلون أبيض غامق (مكان السهم القديم) */
+        /* زر X الصغير الشفاف بدون خلفية بلون أبيض غامق أعلى اليمين */
         .btn-close-x {
             position: absolute;
             top: 18px;
             right: 18px;
             background: transparent;
             border: none;
-            color: #d1d5db; /* أبيض غامق / رمادي فاتح */
+            color: #9ca3af; /* أبيض غامق / رمادي */
             font-size: 22px;
             font-weight: 300;
             cursor: pointer;
@@ -72,7 +71,7 @@
             color: #ffffff;
         }
 
-        /* باقي مناطق النقر الشفافة للتصميم */
+        /* أماكن الأزرار بدقة حسب التصميم */
         .banner-link {
             top: 70px;
             left: 4%;
@@ -94,13 +93,13 @@
             height: 55px;
         }
 
-        /* زر الإشعارات التفاعلي */
+        /* زر الإشعارات الخاص بالتشغيل (أزرق) والإطفاء (أبيض/رمادي) */
         .toggle-notifications {
             top: 350px;
             right: 15px;
             width: 50px;
             height: 30px;
-            background: rgba(255, 255, 255, 0.2);
+            background: #d1d5db; /* أبيض/رمادي عند الإطفاء */
             border-radius: 15px;
             cursor: pointer;
             transition: background 0.3s;
@@ -108,7 +107,7 @@
             z-index: 50;
         }
         .toggle-notifications.active {
-            background: #3b82f6; /* لون أزرق عند التفعيل */
+            background: #3b82f6; /* أزرق عند التشغيل */
         }
 
         .link-language {
@@ -146,7 +145,7 @@
             height: 55px;
         }
 
-        /* تنسيقات النوافذ المنبثقة للتفاعل */
+        /* تصميم النوافذ المنبثقة للتفاعل */
         .craft-modal {
             position: fixed;
             top: 0;
@@ -186,15 +185,24 @@
             color: #3b82f6;
         }
 
+        /* قائمة اللغات العمودية الحقيقية */
+        .lang-list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
         .lang-option {
             padding: 12px;
             background: #27272a;
-            margin-bottom: 8px;
             border-radius: 10px;
             cursor: pointer;
             transition: background 0.2s;
             text-align: center;
             font-weight: bold;
+            color: #fff;
         }
 
         .lang-option:hover {
@@ -219,33 +227,44 @@
     <div id="settingsScreen" class="settings-screen show">
         <div class="click-overlay-container">
             
-            <!-- زر X الصغير الشفاف بدون خلفية بلون أبيض غامق -->
+            <!-- زر إغلاق X الصغير الشفاف بلون أبيض غامق -->
             <button class="btn-close-x" onclick="closeSettingsScreen()" title="إغلاق">&times;</button>
             
-            <!-- باقي مناطق النقر -->
+            <!-- زر تسجيل الدخول / البانر -->
             <a href="#" class="clickable-area banner-link" onclick="handleAction('banner'); return false;"></a>
+            
+            <!-- زر النقاط -->
             <a href="#" class="clickable-area link-points" onclick="handleAction('points'); return false;"></a>
+            
+            <!-- زر الآراء والمقترحات -->
             <a href="#" class="clickable-area link-feedback" onclick="handleAction('feedback'); return false;"></a>
             
-            <!-- زر الإشعارات التفاعلي (يتغير للأزرق عند النقر) -->
+            <!-- زر الإشعارات (أزرق عند التشغيل، أبيض/رمادي عند الإطفاء) - بدون أي تداخلات -->
             <div id="notifToggle" class="toggle-notifications" onclick="toggleNotifications()"></div>
             
+            <!-- زر اللغة (يفتح قائمة عمودية باللغات الحقيقية) -->
             <a href="#" class="clickable-area link-language" onclick="handleAction('language'); return false;"></a>
+            
+            <!-- زر انضمام إلينا (يحول إلى تلغرام مباشرة بدون أي تنبيهات) -->
             <a href="#" class="clickable-area link-join" onclick="handleAction('join'); return false;"></a>
+            
+            <!-- زر اتصل بنا (يفتح البريد الإلكتروني) -->
             <a href="#" class="clickable-area link-contact" onclick="handleAction('contact'); return false;"></a>
+            
+            <!-- الإعدادات الفرعية -->
             <a href="#" class="clickable-area link-sub-settings" onclick="handleAction('sub-settings'); return false;"></a>
-            <a href="#" class="clickable-area link-clear-cache" onclick="clearCacheAction()"></a>
+            
+            <!-- زر مسح الذاكرة المؤقتة (ينفذ المسح ويعرض رسالة النجاح الخاصة به فقط) -->
+            <a href="#" class="clickable-area link-clear-cache" onclick="clearCacheAction(); return false;"></a>
 
         </div>
     </div>
 
-    <!-- نافذة منبثقة عامة -->
+    <!-- نافذة منبثقة عامة لعرض القوائم -->
     <div id="dynamicModal" class="craft-modal">
         <div class="craft-modal-content" id="modalBoxDir">
             <h3 id="modalTitle">العنوان</h3>
-            <div id="modalBody">
-                <!-- المحتوى الديناميكي -->
-            </div>
+            <div id="modalBody"></div>
             <button class="craft-btn-close" id="closeModalBtn" onclick="closeDynamicModal()">إغلاق</button>
         </div>
     </div>
@@ -253,7 +272,6 @@
     <script>
         let currentLang = 'ar';
 
-        // قواميس الترجمة لتغيير لغة التطبيق بالكامل
         const translations = {
             ar: {
                 pageTitle: "الإعدادات - PlotCraft",
@@ -262,10 +280,8 @@
                 pointsAlert: "عرض رصيد النقاط والمكافآت",
                 feedbackAlert: "فتح نافذة الآراء والمقترحات",
                 subSettingsAlert: "فتح الإعدادات الفرعية",
-                notifOn: "تم تفعيل الإشعارات بنجاح",
-                notifOff: "تم إيقاف الإشعارات",
                 langTitle: "اختر لغة التطبيق",
-                cacheSuccess: "تم بنجاح حذف ملفات المشاريع التالفة وتفريغ الذاكرة المؤقتة!"
+                cacheSuccess: "تم مسح الذاكرة المؤقتة بنجاح"
             },
             en: {
                 pageTitle: "Settings - PlotCraft",
@@ -274,10 +290,8 @@
                 pointsAlert: "Displaying points and rewards",
                 feedbackAlert: "Opening feedback window",
                 subSettingsAlert: "Opening sub-settings",
-                notifOn: "Notifications enabled successfully",
-                notifOff: "Notifications disabled",
                 langTitle: "Select App Language",
-                cacheSuccess: "Corrupted project files and cache cleared successfully!"
+                cacheSuccess: "Cache cleared successfully"
             }
         };
 
@@ -289,7 +303,7 @@
         }
 
         function openDynamicModal(title, htmlContent) {
-            document.getElementById('modalTitleinnerText' || 'modalTitle').innerText = title;
+            document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalBody').innerHTML = htmlContent;
             document.getElementById('dynamicModal').classList.add('active');
         }
@@ -298,13 +312,10 @@
             document.getElementById('dynamicModal').classList.remove('active');
         }
 
-        // تفاعل زر الإشعارات (يصبح أزرق عند التفعيل)
+        // زر الإشعارات: خاص باللون الأزرق عند التشغيل والأبيض/الرمادي عند الإطفاء حصرياً
         function toggleNotifications() {
             const toggle = document.getElementById('notifToggle');
             toggle.classList.toggle('active');
-            const isActive = toggle.classList.contains('active');
-            const msg = isActive ? translations[currentLang].notifOn : translations[currentLang].notifOff;
-            console.log(msg);
         }
 
         function handleAction(type) {
@@ -320,17 +331,20 @@
                 alert(t.feedbackAlert);
             } 
             else if (type === 'language') {
-                // عرض قائمة اللغات العالمية والعربية
+                // عرض قائمة اللغات الحقيقية بشكل عمودي تماماً
                 let langHtml = `
-                    <div class="lang-option" onclick="changeLanguage('ar')">العربية (Arabic)</div>
-                    <div class="lang-option" onclick="changeLanguage('en')">English (الإنجليزية)</div>
-                    <div class="lang-option" onclick="changeLanguage('fr')">Français (الفرنسية)</div>
-                    <div class="lang-option" onclick="changeLanguage('es')">Español (الإسبانية)</div>
+                    <div class="lang-list-container">
+                        <div class="lang-option" onclick="changeLanguage('ar')">العربية (Arabic)</div>
+                        <div class="lang-option" onclick="changeLanguage('en')">English (الإنجليزية)</div>
+                        <div class="lang-option" onclick="changeLanguage('fr')">Français (الفرنسية)</div>
+                        <div class="lang-option" onclick="changeLanguage('es')">Español (الإسبانية)</div>
+                        <div class="lang-option" onclick="changeLanguage('de')">Deutsch (الألمانية)</div>
+                    </div>
                 `;
                 openDynamicModal(t.langTitle, langHtml);
             } 
             else if (type === 'join') {
-                // يحول المستخدم إلى تلغرام
+                // يحول المستخدم إلى تلغرام مباشرة بدون أي تنبيهات
                 window.open('https://t.me/', '_blank');
             } 
             else if (type === 'contact') {
@@ -357,7 +371,7 @@
                 htmlTag.setAttribute('dir', 'ltr');
                 htmlTag.setAttribute('lang', lang);
                 modalDir.style.textAlign = 'left';
-                alert("Language changed successfully to " + lang.toUpperCase());
+                alert("Language changed successfully");
             }
 
             document.getElementById('pageTitle').innerText = translations[lang] ? translations[lang].pageTitle : "Settings - PlotCraft";
@@ -365,13 +379,11 @@
             closeDynamicModal();
         }
 
-        // مسح الذاكرة المؤقتة وحذف ملفات المشاريع التالفة
+        // مسح الذاكرة المؤقتة مع رسالة النجاح المخصصة حصرياً لهذا الزر
         function clearCacheAction() {
             const t = translations[currentLang];
-            // محاكاة حذف ملفات الكاش والمشاريع التالفة محلياً
-            localStorage.removeItem('corrupted_projects');
             localStorage.removeItem('temp_cache');
-            console.log("Cache cleared and corrupted project files deleted.");
+            localStorage.removeItem('corrupted_projects');
             alert(t.cacheSuccess);
         }
     </script>
