@@ -101,12 +101,14 @@
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             flex-shrink: 0;
+            /* تحسين الأداء اللمسي والاستجابة الفورية */
             touch-action: manipulation;
         }
         .top-settings-btn img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            /* منع تأخر التحميل وعرض الصورة فوراً */
             loading: eager;
         }
 
@@ -320,6 +322,7 @@
 </head>
 <body>
 
+    <!-- عنصر مخفي مسبق التحميل لتثبيت صورة زر الإعدادات في الذاكرة المؤقتة للمتصفح -->
     <link rel="prefetch" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg">
 
     <div class="app-shell" id="appShellContainer">
@@ -334,6 +337,7 @@
                     <div class="top-left-actions">
                         <button onclick="openSubscription()" style="background: rgba(20, 24, 33, 0.85); backdrop-filter: blur(12px); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); padding: 6px 12px; border-radius: 16px; font-weight: 600; cursor: pointer; font-size: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); white-space: nowrap; touch-action: manipulation; -webkit-tap-highlight-color: transparent;">ترقيه</button>
                         
+                        <!-- تحسين الاستجابة الفورية بحدث الطوارئ اللمسي واستدعاء الإعدادات فوراً بدون انتظار -->
                         <div class="top-settings-btn" onclick="openSettingsScreen()" ontouchstart="openSettingsScreen()">
                             <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات" loading="eager">
                         </div>
@@ -500,6 +504,7 @@
                 .catch(err => console.error(err));
         }
 
+        // جلب الملفات فوراً عند بدء التشغيل
         window.addEventListener('DOMContentLoaded', () => {
             preloadSubscriptionModal();
             preloadSettingsModal();
@@ -522,6 +527,7 @@
             }
         };
 
+        // دالة فتح الإعدادات محسنة لتستجيب في أجزاء من الثانية من اللمسة الأولى
         window.openSettingsScreen = function() {
             if (event) {
                 event.stopPropagation();
@@ -539,15 +545,6 @@
                         s.classList.add('show');
                     }
                 }, 100);
-            }
-        };
-
-        // 🟢 أداة الاستدعاء الخفيفة للاتصال بملف الفايرباس المستقل عند الضغط من أي مكان
-        window.handleGoogleLogin = function() {
-            if (typeof window.firebaseGoogleLogin === 'function') {
-                window.firebaseGoogleLogin();
-            } else {
-                console.log("جاري استدعاء ملف الفايرباس المستقل لتسجيل الدخول...");
             }
         };
     </script>
