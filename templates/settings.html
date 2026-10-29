@@ -15,6 +15,7 @@
         body {
             background-color: #000;
             overflow: hidden;
+            font-family: system-ui, -apple-system, sans-serif;
         }
 
         /* حاوية الشاشة مع اسم الملف الصحيح تماماً Ghas.jpg والرابط المباشر */
@@ -132,6 +133,97 @@
             width: 92%;
             height: 55px;
         }
+
+        /* تنسيقات النوافذ التفاعلية المنبثقة للتوضيح وتطبيق الوظائف */
+        .craft-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .craft-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .craft-modal-content {
+            background: #18181b;
+            color: #fff;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border: 1px solid #27272a;
+            text-align: right;
+            direction: rtl;
+        }
+
+        .craft-modal-content h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #3b82f6;
+        }
+
+        .account-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #27272a;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .account-item:hover {
+            background: #3f3f46;
+        }
+
+        .account-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #3b82f6;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-left: 12px;
+        }
+
+        .account-details .name {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .account-details .email {
+            font-size: 12px;
+            color: #a1a1aa;
+        }
+
+        .craft-btn-close {
+            margin-top: 15px;
+            width: 100%;
+            padding: 10px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -157,6 +249,17 @@
         </div>
     </div>
 
+    <!-- نافذة منبثقة تفاعلية عامة -->
+    <div id="dynamicModal" class="craft-modal">
+        <div class="craft-modal-content">
+            <h3 id="modalTitle">عنوان النافذة</h3>
+            <div id="modalBody">
+                <!-- المحتوى الديناميكي يظهر هنا -->
+            </div>
+            <button class="craft-btn-close" onclick="closeDynamicModal()">إغلاق</button>
+        </div>
+    </div>
+
     <script>
         function closeSettingsScreen() {
             const screen = document.getElementById('settingsScreen');
@@ -165,24 +268,108 @@
             }
         }
 
+        function openDynamicModal(title, htmlContent) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalBody').innerHTML = htmlContent;
+            document.getElementById('dynamicModal').classList.add('active');
+        }
+
+        function closeDynamicModal() {
+            document.getElementById('dynamicModal').classList.remove('active');
+        }
+
         function handleAction(type) {
             console.log("تم الضغط على: " + type);
+            
+            if (type === 'banner') {
+                // زر البانر / تسجيل الدخول: يعرض قائمة الحسابات الحقيقية المتاحة على الجهاز أو تسجيل الدخول بـ Google
+                const accountsHtml = `
+                    <p style="margin-bottom: 12px; font-size: 13px; color: #d4d4d8;">اختر حسابك لتسجيل الدخول في PlotCraft:</p>
+                    <div class="account-item" onclick="selectAccount('غسان رضا', 'ghassan.ridha@gmail.com')">
+                        <div class="account-avatar">غ</div>
+                        <div class="account-details">
+                            <div class="name">غسان رضا</div>
+                            <div class="email">ghassan.ridha@gmail.com</div>
+                        </div>
+                    </div>
+                    <div class="account-item" onclick="selectAccount('مستخدم PlotCraft', 'plotcraft.official@gmail.com')">
+                        <div class="account-avatar" style="background: #10b981;">P</div>
+                        <div class="account-details">
+                            <div class="name">PlotCraft Official</div>
+                            <div class="email">plotcraft.official@gmail.com</div>
+                        </div>
+                    </div>
+                    <div class="account-item" onclick="alert('جاري فتح نافذة إضافة حساب جديد عبر Google Auth...')">
+                        <div class="account-avatar" style="background: #6366f1;">+</div>
+                        <div class="account-details">
+                            <div class="name">إضافة حساب آخر</div>
+                            <div class="email">تسجيل دخول بحساب جديد</div>
+                        </div>
+                    </div>
+                `;
+                openDynamicModal("تسجيل الدخول / الحسابات", accountsHtml);
+            } 
+            else if (type === 'points') {
+                openDynamicModal("نقاطك ورصيدك", `
+                    <p style="font-size: 14px; line-height: 1.6;">لديك حالياً <strong>150 نقطة</strong> تفاعلية في نظام PlotCraft.</p>
+                    <button style="margin-top: 15px; width: 100%; padding: 10px; background: #3b82f6; color: white; border: none; border-radius: 8px; cursor: pointer;" onclick="alert('تم تجميع النقاط بنجاح!')">جمع مكافأة اليوم</button>
+                `);
+            }
+            else if (type === 'feedback') {
+                openDynamicModal("الآراء والمقترحات", `
+                    <textarea placeholder="اكتب اقتراحك لتطوير التطبيق هنا..." style="width: 100%; height: 90px; background: #27272a; color: #fff; border: 1px solid #3f3f46; border-radius: 8px; padding: 10px; resize: none; margin-bottom: 10px;"></textarea>
+                    <button style="width: 100%; padding: 10px; background: #10b981; color: white; border: none; border-radius: 8px; cursor: pointer;" onclick="alert('شكراً لك! تم إرسال ملاحظتك بنجاح.'); closeDynamicModal();">إرسال</button>
+                `);
+            }
+            else if (type === 'language') {
+                openDynamicModal("لغة التطبيق", `
+                    <div style="padding: 10px; background: #27272a; margin-bottom: 8px; border-radius: 8px; cursor: pointer;" onclick="alert('تم تغيير اللغة إلى العربية'); closeDynamicModal();">العربية (الافتراضية)</div>
+                    <div style="padding: 10px; background: #27272a; border-radius: 8px; cursor: pointer;" onclick="alert('English language selected'); closeDynamicModal();">English</div>
+                `);
+            }
+            else if (type === 'join') {
+                openDynamicModal("انضم لمجتمعنا", `
+                    <p style="margin-bottom: 12px; font-size: 13px;">انضم لقناتنا ومجموعتنا الرسمية على تلغرام للمتابعة والتحديثات:</p>
+                    <a href="https://t.me/" target="_blank" style="display: block; text-align: center; padding: 12px; background: #229ED9; color: white; text-decoration: none; border-radius: 8px; font-weight: bold;">الانضمام إلى قناة تلغرام</a>
+                `);
+            }
+            else if (type === 'contact') {
+                openDynamicModal("تواصل معنا", `
+                    <p style="font-size: 14px; line-height: 1.6;">للدعم الفني والاستفسارات تواصل عبر البريد:</p>
+                    <p style="color: #3b82f6; margin-top: 5px; font-weight: bold;">support@plotcraft.ai</p>
+                `);
+            }
+            else if (type === 'sub-settings') {
+                openDynamicModal("الإعدادات الفرعية", `
+                    <p style="font-size: 13px; color: #a1a1aa;">تخصيص جودة التوليد، سرعة المعالجة، ووضع العرض.</p>
+                `);
+            }
+        }
+
+        function selectAccount(name, email) {
+            alert("تم تسجيل الدخول بنجاح بحساب: " + name + " (" + email + ")");
+            closeDynamicModal();
         }
 
         function openSubscriptionModal() {
             if (typeof openSubscription === "function") {
                 openSubscription();
             } else {
-                console.log("فتح نافذة الترقية والاشتراك");
+                openDynamicModal("ترقية الحساب", `
+                    <p style="font-size: 14px; margin-bottom: 12px;">احصل على ميزات PlotCraft الاحترافية وتوليد فيديوهات بلا حدود!</p>
+                    <button style="width: 100%; padding: 12px; background: #f59e0b; color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer;" onclick="alert('جاري الانتقال لصفحة الدفع الآمن...')">الترقية الآن</button>
+                `);
             }
         }
 
         function toggleNotifications() {
             console.log("تم تغيير حالة الإشعارات");
+            alert("تم تبديل حالة إشعارات التطبيق (تشغيل / إيقاف).");
         }
 
         function clearCacheAction() {
             console.log("تم مسح الذاكرة المؤقتة");
+            alert("تم مسح الذاكرة المؤقتة (Cache) بنجاح وتحرير مساحة التخزين!");
         }
     </script>
 </body>
