@@ -232,4 +232,193 @@
 
     .auth-modal-container {
         position: relative;
+        width: 100%; height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        box-sizing: border-box;
+    }
+
+    .auth-bottom-card {
         width: 100%;
+        max-width: 480px;
+        margin: 0 auto;
+        background: rgba(18, 22, 33, 0.95);
+        backdrop-filter: blur(16px);
+        border-top-left-radius: 24px;
+        border-top-right-radius: 24px;
+        padding: 16px 20px 16px 20px; 
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 10px; 
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        transform: translateY(-55px);
+    }
+
+    .auth-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2px;
+        position: relative;
+    }
+
+    .auth-header h2 {
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 700;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .inline-close-btn {
+        background: transparent;
+        border: none;
+        color: #d1d5db;
+        font-size: 26px;
+        font-weight: 400;
+        cursor: pointer;
+        padding: 0;
+        line-height: 1;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .inline-close-btn:active { opacity: 0.6; }
+
+    .auth-btn {
+        width: 100%;
+        height: 44px; 
+        border-radius: 22px;
+        border: none;
+        font-size: 14px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        cursor: pointer;
+        transition: transform 0.1s ease;
+    }
+
+    .auth-btn:active { transform: scale(0.98); }
+
+    .google-btn { background: #ffffff; color: #000000; }
+    .email-btn { background: #2a3142; color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.1); }
+
+    .auth-switch {
+        text-align: center;
+        font-size: 12px;
+        color: #9ca3af;
+        margin-top: 2px;
+    }
+
+    .auth-switch a {
+        color: #3b82f6;
+        text-decoration: none;
+        margin-right: 4px;
+        font-weight: 600;
+    }
+
+    .auth-footer-links {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        font-size: 11px;
+        color: #6b7280;
+        margin-top: 2px;
+    }
+
+    .auth-footer-links a { color: #6b7280; text-decoration: none; }
+    .auth-footer-links .dot { color: #4b5563; }
+</style>
+
+
+<script>
+    import { GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    let isUserLoggedIn = false; 
+
+    function choosePlan(cardElement) {
+        document.querySelectorAll('.plan-card').forEach(card => card.classList.remove('active'));
+        cardElement.classList.add('active');
+    }
+
+    function openSubscription() {
+        const modal = document.getElementById('subscriptionModal');
+        if (modal) {
+            modal.classList.add('show');
+        }
+    }
+
+    function closeSubscription() {
+        const modal = document.getElementById('subscriptionModal');
+        if (modal) {
+            modal.classList.remove('show');
+        }
+    }
+
+    function handleSubscribeClick() {
+        if (!isUserLoggedIn) {
+            const authModal = document.getElementById('authModal');
+            if (authModal) {
+                authModal.classList.add('show');
+            }
+        } else {
+            openPaymentGateway();
+        }
+    }
+
+    function closeAuthModal() {
+        const authModal = document.getElementById('authModal');
+        if (authModal) {
+            authModal.classList.remove('show');
+        }
+    }
+
+    function handleLink(type) {
+        if (type === 'restore') {
+            alert("جاري التحقق من المشتريات السابقة للاستعادة...");
+        } else if (type === 'terms') {
+            alert("جاري فتح شروط الاستخدام...");
+        } else if (type === 'privacy') {
+            alert("جاري فتح سياسة الخصوصية...");
+        }
+    }
+
+    /* 🟢 التفعيل الحقيقي لتسجيل الدخول عبر جوجل وحفظ بيانات الحساب الحقيقي */
+    function loginWithGoogle() {
+        const provider = new GoogleAuthProvider();
+        
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                let user = result.user;
+                if (typeof saveUserToDatabase === 'function') {
+                    saveUserToDatabase(user); // حفظ الحقيقي في قاعدة البيانات
+                }
+                isUserLoggedIn = true;
+                closeAuthModal();
+                alert("✅ تم تسجيل الدخول الحقيقي بنجاح عبر Google!");
+                openPaymentGateway();
+            })
+            .catch((error) => {
+                console.error("خطأ في تسجيل الدخول عبر جوجل:", error);
+                alert("❌ حدث خطأ أثناء تسجيل الدخول بجوجل: " + error.message);
+            });
+    }
+
+    function loginWithEmail() {
+        isUserLoggedIn = true;
+        closeAuthModal();
+        alert("تم تسجيل الدخول بنجاح عبر البريد الإلكتروني!");
+        openPaymentGateway();
+    }
+
+    function openPaymentGateway() {
+        alert("جاري فتح نافذة الدفع لتأكيد الاشتراك...");
+    }
+</script>
