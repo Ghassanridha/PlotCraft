@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" id="appHtml">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="pageTitle">الإعدادات - PlotCraft</title>
+    <title>الإعدادات - PlotCraft</title>
     <style>
         * {
             box-sizing: border-box;
@@ -15,9 +15,9 @@
         body {
             background-color: #000;
             overflow: hidden;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
+        /* حاوية الشاشة مع الخلفية (مخفية افتراضياً ولن تظهر عند بدء التطبيق) */
         .settings-screen {
             position: fixed;
             top: 0;
@@ -26,6 +26,7 @@
             height: 100vh;
             background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3c0d837613bae10a387c91a8a059563aa7cccd10/Ghas.jpg') center/100% 100% no-repeat;
             z-index: 999999;
+            direction: rtl;
             transform: translateX(-100vw);
             transition: transform 0.3s ease-out;
             visibility: hidden;
@@ -51,47 +52,54 @@
             z-index: 50;
         }
 
-        /* 1. زر إغلاق (X) في الأعلى على اليمين */
+        /* زر علامة X المرفوع للأعلى */
         .btn-close-x {
             position: absolute;
-            top: 18px;
+            top: 10px;
             right: 18px;
             background: transparent;
             border: none;
             color: #9ca3af;
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 300;
             cursor: pointer;
             z-index: 999;
             padding: 5px;
         }
 
-        /* 2. زر تسجيل الدخول */
-        .btn-login {
+        .btn-close-x:hover {
+            color: #ffffff;
+        }
+
+        /* مناطق النقر الأساسية */
+        .banner-link {
             top: 70px;
             left: 4%;
             width: 92%;
             height: 130px;
         }
 
-        /* 3. زر الإشعارات (مفتاح التبديل) */
+        .link-points {
+            top: 215px;
+            left: 4%;
+            width: 92%;
+            height: 55px;
+        }
+
+        .link-feedback {
+            top: 275px;
+            left: 4%;
+            width: 92%;
+            height: 55px;
+        }
+
         .toggle-notifications {
             top: 350px;
             right: 15px;
             width: 50px;
             height: 30px;
-            background: #d1d5db; /* أبيض/رمادي عند الإطفاء */
-            border-radius: 15px;
-            cursor: pointer;
-            transition: background 0.3s;
-            position: absolute;
-            z-index: 50;
-        }
-        .toggle-notifications.active {
-            background: #3b82f6; /* أزرق عند التشغيل */
         }
 
-        /* 4. زر اللغة */
         .link-language {
             top: 395px;
             left: 4%;
@@ -99,7 +107,6 @@
             height: 55px;
         }
 
-        /* 5. زر انضم إلينا */
         .link-join {
             top: 455px;
             left: 4%;
@@ -107,7 +114,6 @@
             height: 55px;
         }
 
-        /* 6. زر اتصل بنا */
         .link-contact {
             top: 515px;
             left: 4%;
@@ -115,7 +121,6 @@
             height: 55px;
         }
 
-        /* 7. زر الإعدادات الفرعية */
         .link-sub-settings {
             top: 590px;
             left: 4%;
@@ -123,185 +128,65 @@
             height: 55px;
         }
 
-        /* 8. زر مسح الذاكرة المؤقتة */
         .link-clear-cache {
             top: 545px;
             left: 4%;
             width: 92%;
             height: 55px;
         }
-
-        /* تنسيق القائمة المنبثقة الخاصة باللغات فقط */
-        .craft-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.85);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .craft-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .craft-modal-content {
-            background: #18181b;
-            color: #fff;
-            width: 90%;
-            max-width: 350px;
-            border-radius: 20px;
-            padding: 20px;
-            border: 1px solid #27272a;
-            text-align: right;
-        }
-
-        .lang-list-container {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-top: 15px;
-            max-height: 220px;
-            overflow-y: auto;
-        }
-
-        .lang-option {
-            padding: 10px;
-            background: #27272a;
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .lang-option:hover {
-            background: #3f3f46;
-        }
-
-        .craft-btn-close {
-            margin-top: 15px;
-            width: 100%;
-            padding: 8px;
-            background: #ef4444;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
 
-    <div id="settingsScreen" class="settings-screen show">
+    <!-- تم إزالة الكلاس show من هنا لكي تبدأ الشاشة مخفية وتظهر الواجهة الرئيسية أولاً -->
+    <div id="settingsScreen" class="settings-screen">
         <div class="click-overlay-container">
             
-            <!-- 1. زر إغلاق (X) -->
+            <!-- زر إغلاق (X) المرفوع للأعلى -->
             <button class="btn-close-x" onclick="closeSettingsScreen()">&times;</button>
             
-            <!-- 2. زر تسجيل الدخول -->
-            <a href="#" class="clickable-area btn-login" onclick="openLoginModal(); return false;"></a>
+            <!-- أزرارك الأصلية النظيفة -->
+            <a href="#" class="clickable-area banner-link" onclick="handleAction('banner'); return false;"></a>
+            <a href="#" class="clickable-area link-points" onclick="handleAction('points'); return false;"></a>
+            <a href="#" class="clickable-area link-feedback" onclick="handleAction('feedback'); return false;"></a>
             
-            <!-- 3. زر الإشعارات (أزرق عند التشغيل، أبيض/رمادي عند الإطفاء بدون أي تنبيهات) -->
-            <div id="notifToggle" class="toggle-notifications" onclick="toggleNotifications()"></div>
+            <div class="clickable-area toggle-notifications" onclick="toggleNotifications()"></div>
             
-            <!-- 4. زر اللغة (يعرض قائمة اللغات العمودية الحقيقية حصرياً) -->
-            <a href="#" class="clickable-area link-language" onclick="openLanguageModal(); return false;"></a>
-            
-            <!-- 5. زر انضم إلينا (يحول إلى تلغرام مباشرة بدون تنبيهات) -->
-            <a href="#" class="clickable-area link-join" onclick="openTelegram(); return false;"></a>
-            
-            <!-- 6. زر اتصل بنا (يفتح البريد الإلكتروني مباشرة) -->
-            <a href="#" class="clickable-area link-contact" onclick="openEmail(); return false;"></a>
-            
-            <!-- 7. زر الإعدادات -->
-            <a href="#" class="clickable-area link-sub-settings" onclick="openSubSettings(); return false;"></a>
-            
-            <!-- 8. زر مسح الذاكرة المؤقتة (يحذف الملفات ويظهر تنبيه النجاح الخاص به فقط) -->
+            <a href="#" class="clickable-area link-language" onclick="handleAction('language'); return false;"></a>
+            <a href="#" class="clickable-area link-join" onclick="handleAction('join'); return false;"></a>
+            <a href="#" class="clickable-area link-contact" onclick="handleAction('contact'); return false;"></a>
+            <a href="#" class="clickable-area link-sub-settings" onclick="handleAction('sub-settings'); return false;"></a>
             <a href="#" class="clickable-area link-clear-cache" onclick="clearCacheAction(); return false;"></a>
 
         </div>
     </div>
 
-    <!-- نافذة اللغات المنبثقة -->
-    <div id="langModal" class="craft-modal">
-        <div class="craft-modal-content">
-            <h3 style="color: #3b82f6; font-size: 16px;">اختر لغة التطبيق</h3>
-            <div class="lang-list-container">
-                <div class="lang-option" onclick="changeLanguage('ar')">العربية (Arabic)</div>
-                <div class="lang-option" onclick="changeLanguage('en')">English (الإنجليزية)</div>
-                <div class="lang-option" onclick="changeLanguage('fr')">Français (الفرنسية)</div>
-                <div class="lang-option" onclick="changeLanguage('es')">Español (الإسبانية)</div>
-                <div class="lang-option" onclick="changeLanguage('de')">Deutsch (الألمانية)</div>
-            </div>
-            <button class="craft-btn-close" onclick="closeLanguageModal()">إغلاق</button>
-        </div>
-    </div>
-
     <script>
-        // 1. زر الإغلاق (X)
+        // دالة لإظهار شاشة الإعدادات عندما تحتاجها (مثلاً عند الضغط على زر الإعدادات في الواجهة الرئيسية)
+        function openSettingsScreen() {
+            const screen = document.getElementById('settingsScreen');
+            if (screen) {
+                screen.classList.add('show');
+            }
+        }
+
         function closeSettingsScreen() {
             const screen = document.getElementById('settingsScreen');
-            if (screen) screen.classList.remove('show');
-        }
-
-        // 2. زر تسجيل الدخول
-        function openLoginModal() {
-            // ضع هنا دالة فتح نافذة الحسابات الخاصة بك
-        }
-
-        // 3. زر الإشعارات (يتحول للأزرق أو الأبيض بصمت)
-        function toggleNotifications() {
-            const toggle = document.getElementById('notifToggle');
-            toggle.classList.toggle('active');
-        }
-
-        // 4. زر اللغة (فتح وإغلاق القائمة العمودية للغات)
-        function openLanguageModal() {
-            document.getElementById('langModal').classList.add('active');
-        }
-        function closeLanguageModal() {
-            document.getElementById('langModal').classList.remove('active');
-        }
-        function changeLanguage(lang) {
-            const htmlTag = document.getElementById('appHtml');
-            if (lang === 'ar') {
-                htmlTag.setAttribute('dir', 'rtl');
-                htmlTag.setAttribute('lang', 'ar');
-            } else {
-                htmlTag.setAttribute('dir', 'ltr');
-                htmlTag.setAttribute('lang', lang);
+            if (screen) {
+                screen.classList.remove('show');
             }
-            closeLanguageModal();
         }
 
-        // 5. زر انضم إلينا (يحول إلى تلغرام مباشرة)
-        function openTelegram() {
-            window.open('https://t.me/', '_blank');
+        function handleAction(type) {
+            console.log("تم الضغط على: " + type);
         }
 
-        // 6. زر اتصل بنا (يفتح البريد الإلكتروني)
-        function openEmail() {
-            window.location.href = 'mailto:support@plotcraft.ai';
+        function toggleNotifications() {
+            console.log("تم تغيير حالة الإشعارات");
         }
 
-        // 7. زر الإعدادات
-        function openSubSettings() {
-            // ضع هنا دالة فتح الإعدادات الفرعية
-        }
-
-        // 8. زر مسح الذاكرة المؤقتة (ينفذ المسح ويعرض رسالة النجاح الخاصة به حصرياً)
         function clearCacheAction() {
-            localStorage.removeItem('temp_cache');
-            localStorage.removeItem('corrupted_projects');
-            alert("تم مسح الذاكرة المؤقتة بنجاح");
+            console.log("تم مسح الذاكرة المؤقتة");
         }
     </script>
 </body>
