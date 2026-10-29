@@ -17,7 +17,7 @@
             overflow: hidden;
         }
 
-        /* حاوية الشاشة مع تصميم الإعدادات (Ghs.jpg) بالرابط المباشر الصحيح وبملء الشاشة */
+        /* حاوية الشاشة مع رابط التصميم الصحيح تماماً Ghs.jpg */
         .settings-screen {
             position: fixed;
             top: 0;
@@ -52,7 +52,7 @@
             z-index: 50;
         }
 
-        /* زر السهم (يخرج من القائمة حصرياً) */
+        /* زر السهم للخروج حصرياً */
         .btn-back {
             top: 15px;
             right: 15px;
@@ -61,7 +61,7 @@
             z-index: 100;
         }
 
-        /* زر الترقية (يفتح نافذة الاشتراكات حصرياً) */
+        /* زر الترقية لفتح نافذة الاشتراكات حصرياً */
         .btn-upgrade {
             top: 15px;
             left: 15px;
@@ -119,6 +119,7 @@
             height: 55px;
         }
 
+        /* زر الإعدادات الفرعي داخل القائمة */
         .link-sub-settings {
             top: 590px;
             left: 4%;
@@ -139,7 +140,10 @@
     <div id="settingsScreen" class="settings-screen">
         <div class="click-overlay-container">
             
+            <!-- زر السهم (يغلق الإعدادات فقط) -->
             <div class="clickable-area btn-back" onclick="closeSettingsScreen()"></div>
+            
+            <!-- زر الترقية (يفتح الاشتراكات فقط) -->
             <div class="clickable-area btn-upgrade" onclick="openSubscriptionModal()"></div>
             
             <a href="#" class="clickable-area banner-link" onclick="handleAction('banner'); return false;"></a>
@@ -151,7 +155,10 @@
             <a href="#" class="clickable-area link-language" onclick="handleAction('language'); return false;"></a>
             <a href="#" class="clickable-area link-join" onclick="handleAction('join'); return false;"></a>
             <a href="#" class="clickable-area link-contact" onclick="handleAction('contact'); return false;"></a>
-            <a href="#" class="clickable-area link-sub-settings" onclick="handleAction('settings'); return false;"></a>
+            
+            <!-- زر الإعدادات الفرعي (يعمل بشكل مستقل تماماً ولا يفتح الاشتراكات) -->
+            <a href="#" class="clickable-area link-sub-settings" onclick="handleAction('sub-settings'); return false;"></a>
+            
             <a href="#" class="clickable-area link-clear-cache" onclick="clearCacheAction()"></a>
 
         </div>
@@ -173,16 +180,16 @@
             if (typeof openSubscription === "function") {
                 openSubscription();
             } else {
-                alert("فتح نافذة الترقية والاشتراك");
+                console.log("فتح نافذة الترقية والاشتراك");
             }
         }
 
         function toggleNotifications() {
-            alert("تم تغيير حالة الإشعارات");
+            console.log("تم تغيير حالة الإشعارات");
         }
 
         function clearCacheAction() {
-            alert("تم مسح الذاكرة المؤقتة بنجاح!");
+            console.log("تم مسح الذاكرة المؤقتة");
         }
     </script>
 </body>
