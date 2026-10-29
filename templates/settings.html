@@ -17,14 +17,14 @@
             overflow: hidden;
         }
 
-        /* حاوية الشاشة مع رابط التصميم الصحيح تماماً Ghs.jpg */
+        /* حاوية الشاشة مع اسم الملف الصحيح تماماً Ghas.jpg والرابط المباشر */
         .settings-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3c0d837613bae10a387c91a8a059563aa7cccd10/Ghs.jpg') center/100% 100% no-repeat;
+            background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3c0d837613bae10a387c91a8a059563aa7cccd10/Ghas.jpg') center/100% 100% no-repeat;
             z-index: 999999;
             direction: rtl;
             transform: translateX(-100vw);
@@ -119,7 +119,6 @@
             height: 55px;
         }
 
-        /* زر الإعدادات الفرعي داخل القائمة */
         .link-sub-settings {
             top: 590px;
             left: 4%;
@@ -140,10 +139,7 @@
     <div id="settingsScreen" class="settings-screen">
         <div class="click-overlay-container">
             
-            <!-- زر السهم (يغلق الإعدادات فقط) -->
             <div class="clickable-area btn-back" onclick="closeSettingsScreen()"></div>
-            
-            <!-- زر الترقية (يفتح الاشتراكات فقط) -->
             <div class="clickable-area btn-upgrade" onclick="openSubscriptionModal()"></div>
             
             <a href="#" class="clickable-area banner-link" onclick="handleAction('banner'); return false;"></a>
@@ -155,10 +151,7 @@
             <a href="#" class="clickable-area link-language" onclick="handleAction('language'); return false;"></a>
             <a href="#" class="clickable-area link-join" onclick="handleAction('join'); return false;"></a>
             <a href="#" class="clickable-area link-contact" onclick="handleAction('contact'); return false;"></a>
-            
-            <!-- زر الإعدادات الفرعي (يعمل بشكل مستقل تماماً ولا يفتح الاشتراكات) -->
             <a href="#" class="clickable-area link-sub-settings" onclick="handleAction('sub-settings'); return false;"></a>
-            
             <a href="#" class="clickable-area link-clear-cache" onclick="clearCacheAction()"></a>
 
         </div>
