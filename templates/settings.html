@@ -15,9 +15,10 @@
         body {
             background-color: #000;
             overflow: hidden;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
 
-        /* حاوية الشاشة مع اسم الملف الصحيح تماماً Ghas.jpg والرابط المباشر */
+        /* حاوية الشاشة مع الخلفية */
         .settings-screen {
             position: fixed;
             top: 0;
@@ -52,24 +53,63 @@
             z-index: 50;
         }
 
-        /* زر السهم للخروج حصرياً */
-        .btn-back {
-            top: 15px;
-            right: 15px;
-            width: 45px;
-            height: 45px;
-            z-index: 100;
+        /* ---------------------------------------------------- */
+        /* بناء الأزرار المرئية الجديدة في الشريط العلوي بصورة صحيحة */
+        /* ---------------------------------------------------- */
+        
+        /* زر السهم المرئي للرجوع - أعلى اليمين */
+        .custom-visible-back {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 999;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: background 0.2s, transform 0.1s;
         }
 
-        /* زر الترقية لفتح نافذة الاشتراكات حصرياً */
-        .btn-upgrade {
-            top: 15px;
-            left: 15px;
-            width: 90px;
-            height: 40px;
-            z-index: 100;
+        .custom-visible-back:active {
+            transform: scale(0.92);
+            background: rgba(255, 255, 255, 0.25);
         }
 
+        /* زر الترقية المرئي - أعلى اليسار */
+        .custom-visible-upgrade {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            padding: 6px 14px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            border: none;
+            border-radius: 20px;
+            color: #000;
+            font-weight: bold;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+            transition: transform 0.1s;
+        }
+
+        .custom-visible-upgrade:active {
+            transform: scale(0.95);
+        }
+
+        /* باقي مناطق النقر الشفافة المحددة في التصميم */
         .banner-link {
             top: 70px;
             left: 4%;
@@ -136,12 +176,14 @@
 </head>
 <body>
 
-    <div id="settingsScreen" class="settings-screen">
+    <div id="settingsScreen" class="settings-screen show">
         <div class="click-overlay-container">
             
-            <div class="clickable-area btn-back" onclick="closeSettingsScreen()"></div>
-            <div class="clickable-area btn-upgrade" onclick="openSubscriptionModal()"></div>
+            <!-- الأزرار المرئية التفاعلية الجديدة الممتازة للنقر -->
+            <button class="custom-visible-back" onclick="closeSettingsScreen()" title="رجوع">&#x276F;</button>
+            <button class="custom-visible-upgrade" onclick="openSubscriptionModal()">⭐ ترقية</button>
             
+            <!-- باقي مناطق النقر للتصميم -->
             <a href="#" class="clickable-area banner-link" onclick="handleAction('banner'); return false;"></a>
             <a href="#" class="clickable-area link-points" onclick="handleAction('points'); return false;"></a>
             <a href="#" class="clickable-area link-feedback" onclick="handleAction('feedback'); return false;"></a>
@@ -168,22 +210,20 @@
         function handleAction(type) {
             console.log("تم الضغط على: " + type);
             
-            // هنا يمكنك ربط الوظائف الحقيقية الخاصة بك لكل زر حسب نوعه (banner, points, feedback, etc.)
             if (type === 'banner') {
-                // وظيفة زر تسجيل الدخول أو عرض الحسابات
-                alert("جاري فتح نافذة الحسابات وتسجيل الدخول...");
+                alert("جاري فتح نافذة تسجيل الدخول بالحسابات الحقيقية...");
             } else if (type === 'points') {
-                alert("عرض رصيد النقاط والمكافآت");
+                alert("عرض النقاط والمكافآت");
             } else if (type === 'feedback') {
                 alert("فتح نافذة الآراء والمقترحات");
             } else if (type === 'language') {
-                alert("تغيير لغة التطبيق");
+                alert("تغيير اللغة");
             } else if (type === 'join') {
                 alert("الانضمام إلى مجتمع PlotCraft");
             } else if (type === 'contact') {
-                alert("تواصل معنا والدعم الفني");
+                alert("اتصل بنا والبريد الإلكتروني");
             } else if (type === 'sub-settings') {
-                alert("فتح الإعدادات الفرعية");
+                alert("الإعدادات الفرعية");
             }
         }
 
@@ -191,18 +231,18 @@
             if (typeof openSubscription === "function") {
                 openSubscription();
             } else {
-                alert("فتح نافذة الترقية والاشتراك");
+                alert("فتح نافذة الاشتراكات والترقية");
             }
         }
 
         function toggleNotifications() {
             console.log("تم تغيير حالة الإشعارات");
-            alert("تم تبديل حالة الإشعارات بنجاح");
+            alert("تم تغيير حالة مفتاح الإشعارات");
         }
 
         function clearCacheAction() {
             console.log("تم مسح الذاكرة المؤقتة");
-            alert("تم مسح الذاكرة المؤقتة (Cache) بنجاح");
+            alert("تم مسح الذاكرة المؤقتة بنجاح");
         }
     </script>
 </body>
