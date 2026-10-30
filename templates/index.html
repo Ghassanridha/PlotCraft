@@ -84,7 +84,9 @@
         .top-left-actions {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            position: relative;
+            left: -4px;
         }
 
         .top-settings-btn {
@@ -92,8 +94,8 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 50%;
-            width: 38px;
-            height: 38px;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -101,14 +103,12 @@
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             flex-shrink: 0;
-            /* تحسين الأداء اللمسي والاستجابة الفورية */
             touch-action: manipulation;
         }
         .top-settings-btn img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            /* منع تأخر التحميل وعرض الصورة فوراً */
             loading: eager;
         }
 
@@ -152,8 +152,35 @@
 
         #worksScreen.screen-view {
             background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/d25e86296ea2db1540c7756cc90a01b936d589a2/Gh3.jpg') center/100% 100% no-repeat !important;
-            padding: 0 !important;
+            padding: 16px !important;
             overflow-y: auto;
+        }
+
+        .works-header-custom {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            width: 100%;
+        }
+
+        .works-title-right {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .tools-header-custom {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            width: 100%;
+            padding: 16px;
+        }
+
+        .tools-title-left {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 700;
         }
 
         .plotcraft-nav-bar {
@@ -246,7 +273,6 @@
 </head>
 <body>
 
-    <!-- عنصر مخفي مسبق التحميل لتثبيت صورة زر الإعدادات في الذاكرة المؤقتة للمتصفح -->
     <link rel="prefetch" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg">
 
     <div class="app-shell" id="appShellContainer">
@@ -259,9 +285,8 @@
                     <div class="brand-title">PlotCraft</div>
                     
                     <div class="top-left-actions">
-                        <button onclick="openSubscription()" style="background: rgba(20, 24, 33, 0.85); backdrop-filter: blur(12px); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); padding: 6px 12px; border-radius: 16px; font-weight: 600; cursor: pointer; font-size: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); white-space: nowrap; touch-action: manipulation; -webkit-tap-highlight-color: transparent;">ترقيه</button>
+                        <button onclick="openSubscription()" style="background: rgba(20, 24, 33, 0.85); backdrop-filter: blur(12px); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); padding: 5px 10px; border-radius: 14px; font-weight: 600; cursor: pointer; font-size: 11px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); white-space: nowrap; touch-action: manipulation; -webkit-tap-highlight-color: transparent;">ترقيه</button>
                         
-                        <!-- تحسين الاستجابة الفورية بحدث الطوارئ اللمسي واستدعاء الإعدادات فوراً بدون انتظار -->
                         <div class="top-settings-btn" onclick="openSettingsScreen()" ontouchstart="openSettingsScreen()">
                             <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات" loading="eager">
                         </div>
@@ -275,18 +300,15 @@
 
         <!-- 2️⃣ شاشة الأعمال -->
         <div id="worksScreen" class="screen-view">
+            <div class="works-header-custom">
+                <div class="works-title-right">الأعمال</div>
+            </div>
         </div>
 
         <!-- 3️⃣ شاشة الأدوات -->
         <div id="toolsScreen" class="screen-view">
-            <div class="works-top-header">
-                <div class="works-screen-title">الأعمال والأدوات</div>
-                <div class="top-settings-btn" onclick="openSettingsScreen()" ontouchstart="openSettingsScreen()">
-                    <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات" loading="eager">
-                </div>
-            </div>
-            <div style="padding: 20px; color: #cbd5e1; text-align: center; margin-top: 50px;">
-                قريباً ستتوفر أدوات الذكاء الاصطناعي المتقدمة هنا.
+            <div class="tools-header-custom">
+                <div class="tools-title-left">الأدوات</div>
             </div>
         </div>
 
@@ -317,10 +339,7 @@
         </div>
     </div>
 
-    <!-- حاوية جلب ملف الاشتراكات المستقل -->
     <div id="subscriptionModalWrapper"></div>
-    
-    <!-- حاوية جلب ملف الإعدادات المستقل -->
     <div id="settingsModalWrapper"></div>
 
     <script>
@@ -352,11 +371,6 @@
             document.querySelectorAll('.plotcraft-nav-item').forEach(i => i.classList.remove('active'));
             let targetNav = document.getElementById(navId);
             if(targetNav) targetNav.classList.add('active');
-        };
-
-        window.switchWorksTab = function(element) {
-            document.querySelectorAll('.works-tab').forEach(t => t.classList.remove('active'));
-            element.classList.add('active');
         };
 
         function openSparkleDialog(event) {
@@ -412,7 +426,6 @@
                 .catch(err => console.error(err));
         }
 
-        // جلب الملفات فوراً عند بدء التشغيل
         window.addEventListener('DOMContentLoaded', () => {
             preloadSubscriptionModal();
             preloadSettingsModal();
@@ -435,7 +448,6 @@
             }
         };
 
-        // دالة فتح الإعدادات محسنة لتستجيب في أجزاء من الثانية من اللمسة الأولى
         window.openSettingsScreen = function() {
             if (event) {
                 event.stopPropagation();
