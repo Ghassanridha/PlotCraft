@@ -70,16 +70,16 @@
             padding: 2px;
         }
 
-        /* زر تسجيل الدخول الشفاف بالنص الأسود */
+        /* زر تسجيل الدخول الأسود المتناسق مع المستطيل الأبيض */
         .btn-login-overlay {
             position: absolute;
-            top: 102px;
-            left: 36px;
-            width: 110px;
-            height: 38px;
+            top: 105px;
+            left: 20px;
+            width: 125px;
+            height: 42px;
             background: transparent;
             border: none;
-            color: #000000;
+            color: #000000; /* نص أسود داكن */
             font-size: 13px;
             font-weight: 700;
             cursor: pointer;
@@ -91,7 +91,7 @@
 
         html[dir="ltr"] .btn-login-overlay {
             left: auto;
-            right: 36px;
+            right: 20px;
         }
 
         .btn-login-overlay:active {
@@ -214,14 +214,14 @@
             transform: translateX(20px);
         }
 
-        /* نافذة اختيار اللغات السفلية (لون أبيض داكن) */
+        /* نافذة اختيار اللغات السفلية بلون رمادي داكن مطفأ */
         #languageBottomSheet {
             position: fixed;
             bottom: -100%;
             left: 0;
             width: 100%;
             height: 50vh;
-            background: #2a303c; /* لون أبيض داكن */
+            background: #2a2e35;
             border-top-left-radius: 24px;
             border-top-right-radius: 24px;
             box-shadow: 0 -10px 30px rgba(0,0,0,0.6);
@@ -229,7 +229,7 @@
             transition: bottom 0.35s cubic-bezier(0.1, 0.9, 0.2, 1);
             display: flex;
             flex-direction: column;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.08);
         }
 
         #languageBottomSheet.show {
@@ -241,7 +241,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 14px 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
             color: #ffffff;
             font-weight: 600;
         }
@@ -259,25 +259,24 @@
             flex-grow: 1;
             overflow-y: scroll;
             scroll-snap-type: y mandatory;
-            padding: 60px 0;
+            padding: calc(50% - 21px) 0;
             scrollbar-width: none;
         }
         .lang-scroll-container::-webkit-scrollbar {
             display: none;
         }
 
-        /* عناصر القائمة (ألوان متناسقة مع الأبيض الداكن) */
         .lang-item {
             height: 42px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #94a3b8;
+            color: #8c96a5;
             font-size: 14px;
             font-weight: 500;
             cursor: pointer;
             scroll-snap-align: center;
-            transition: color 0.2s ease;
+            transition: color 0.2s ease, font-size 0.2s ease;
         }
 
         .lang-item.active-center {
@@ -290,15 +289,14 @@
             padding: 10px 20px 18px 20px;
             display: flex;
             justify-content: center;
-            border-top: 1px solid rgba(255,255,255,0.08);
+            border-top: 1px solid rgba(255,255,255,0.06);
         }
 
-        /* زر تطبيق: أبيض وكلمة سوداء مع تصغير ارتفاعه قليلاً */
         .lang-apply-btn {
             background: #ffffff;
             color: #000000;
             border: none;
-            padding: 7px 0; /* تصغير الارتفاع قليلاً */
+            padding: 7px 0;
             width: 100%;
             max-width: 300px;
             border-radius: 12px;
@@ -347,7 +345,7 @@
                 <button class="btn-back" onclick="closeSettingsScreen()">&#10095;</button>
             </div>
 
-            <!-- زر تسجيل الدخول الشفاف بالنص الأسود -->
+            <!-- زر تسجيل الدخول الأسود داخل المستطيل الأبيض -->
             <button class="btn-login-overlay" id="btnLoginText" onclick="handleLoginAction()">تسجيل الدخول</button>
 
             <!-- أزرار المربع الأوسط -->
@@ -371,7 +369,7 @@
                         <span class="icon-svg">
                             <svg width="22" height="22" viewBox="0 0 24 24">
                                 <circle cx="12" cy="12" r="10" fill="#ffffff" />
-                                <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10z" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round"/>
                             </svg>
                         </span>
                         <span id="txtLangTitle">اللغة</span>
