@@ -43,54 +43,59 @@
             width: 100%;
             max-width: 480px;
             margin: 0 auto;
-            padding: 20px 24px;
+            padding: 10px 24px 20px 24px;
             display: flex;
             flex-direction: column;
         }
 
-        /* زر العودة العلوية */
+        /* زر الشفرة (الرجوع) مرفوع للأعلى وبحجم أصغر */
         .settings-header {
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            padding: 10px 0;
+            padding: 2px 0;
         }
 
         .btn-back {
             background: transparent;
             border: none;
             color: #ffffff;
-            font-size: 22px;
+            font-size: 18px; /* تصغير حجم الشفرة */
             cursor: pointer;
-            padding: 4px;
+            padding: 2px;
         }
 
         /* المربع الأول (المستطيل الأوسط) */
         .group-middle {
-            margin-top: 145px;
+            margin-top: 135px; /* تم تعديل الموضع لتنسيق الرفع */
             display: flex;
             flex-direction: column;
+            gap: 15px; /* مسافة 15px بين كل زر والآخر */
         }
 
-        /* رفع زر الإشعارات للأعلى قليلاً داخل المربع */
+        /* رفع زر الإشعارات للأعلى ليصبح قريباً من حافة المربع */
         .group-middle .setting-item:first-child {
-            padding-top: 4px;
-            padding-bottom: 12px;
-            margin-top: -6px;
+            margin-top: -12px;
         }
 
-        /* المربع الثاني (المستطيل السفلي - تم ضبطه ليبقى زر الإعدادات داخله تماماً) */
+        /* المربع الثاني (المستطيل السفلي) */
         .group-bottom {
-            margin-top: 31px; 
+            margin-top: 35px; 
             display: flex;
             flex-direction: column;
+            gap: 15px; /* مسافة 15px بين زر الإعدادات ومسح الذاكرة */
+        }
+
+        /* رفع زر الإعدادات مع عدم الخروج من المستطيل */
+        .group-bottom .setting-item:first-child {
+            margin-top: -8px;
         }
 
         .setting-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 48px;
+            height: 44px;
             padding: 0 8px;
             color: #ffffff;
             text-decoration: none;
@@ -289,14 +294,14 @@
     <div id="settingsScreen" class="settings-screen">
         <div class="settings-container">
             
-            <!-- زر العودة العلوية -->
+            <!-- زر الشفرة العلوية الأصغر والمرفوع -->
             <div class="settings-header">
                 <button class="btn-back" onclick="closeSettingsScreen()">&#10095;</button>
             </div>
 
-            <!-- أزرار المربع الأوسط -->
+            <!-- أزرار المربع الأوسط بمسافة 15px -->
             <div class="group-middle">
-                <!-- 1. الإشعارات -->
+                <!-- 1. الإشعارات (مرفوع لطرف المربع العلوي) -->
                 <div class="setting-item" onclick="toggleNotifications()">
                     <div class="setting-right">
                         <span class="icon-svg">
@@ -354,9 +359,9 @@
                 </div>
             </div>
 
-            <!-- أزرار المستطيل السفلي الأخير -->
+            <!-- أزرار المستطيل السفلي -->
             <div class="group-bottom">
-                <!-- 5. الإعدادات -->
+                <!-- 5. الإعدادات (مرفوع قليلاً بدون الخروج من مستطيله) -->
                 <div class="setting-item" onclick="handleSubSettings()">
                     <div class="setting-right">
                         <span class="icon-svg">
@@ -369,7 +374,7 @@
                     <span class="arrow-icon">&#10094;</span>
                 </div>
 
-                <!-- 6. مسح الذاكرة المؤقتة -->
+                <!-- 6. مسح الذاكرة المؤقتة (ثابت بمكانه) -->
                 <div class="setting-item" onclick="clearCacheAction()">
                     <div class="setting-right">
                         <span class="icon-svg">
