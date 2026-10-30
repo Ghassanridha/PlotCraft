@@ -156,6 +156,7 @@
             overflow-y: auto;
         }
 
+        /* 🖼️ تطبيق رابط التصميم Gh3.jpg داخل زر/شاشة الأدوات مع الحفاظ على كلمة الأدوات بالأعلى تماماً وباللون الأبيض */
         #toolsScreen.screen-view {
             background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/e34a11096e0d5851f6a12fe58f61a2a93b688bd0/Gh3.jpg') center/100% 100% no-repeat !important;
             padding: 16px !important;
@@ -237,6 +238,7 @@
             margin-right: -2px;
         }
 
+        /* 🔘 مستطيل الأزرار السفلي في الواجهة الرئيسية (شفاف قليلاً والخلفية تظهر تحته مع بقاء الأزرار كما هي) */
         .plotcraft-nav-pill {
             background-color: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(12px);
@@ -311,7 +313,7 @@
             </div>
         </div>
 
-        <!-- 3️⃣ شاشة الأدوات -->
+        <!-- 3️⃣ شاشة الأدوات (تحتوي على التصميم الجديد مع إبقاء كلمة الأدوات باللون الأبيض في الأعلى) -->
         <div id="toolsScreen" class="screen-view">
             <div class="tools-header-custom">
                 <div class="tools-title-left">الأدوات</div>
@@ -345,169 +347,9 @@
         </div>
     </div>
 
-    <!-- حاوية جلب ملف الاشتراكات والإعدادات -->
     <div id="subscriptionModalWrapper"></div>
     <div id="settingsModalWrapper"></div>
 
-    <!-- ========================================== -->
-    <!-- قسم الفايرباس وتحديث نظام تسجيل الدخول عبر جوجل (Redirect للتغلب على حظر النوافذ) -->
-    <!-- ========================================== -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
-        import { 
-            getAuth, 
-            createUserWithEmailAndPassword, 
-            signInWithEmailAndPassword, 
-            GoogleAuthProvider, 
-            signInWithRedirect,
-            getRedirectResult 
-        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-
-        const firebaseConfig = {
-          apiKey: "AIzaSyC0yqVlGpM159foKmpMFiuySgF5uFxOA_k",
-          authDomain: "plotcraft2.firebaseapp.com",
-          projectId: "plotcraft2",
-          storageBucket: "plotcraft2.firebasestorage.app",
-          messagingSenderId: "338171528711",
-          appId: "1:338171528711:web:f13544fb4e496fe39e8ca2",
-          measurementId: "G-T2ZXFTGD5H"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const auth = getAuth(app);
-        const db = getDatabase(app);
-
-        function saveUserToDatabase(user) {
-            if (!user) return;
-
-            const userEmail = user.email || '';
-            const userHandle = userEmail ? '@' + userEmail.split('@')[0] : '@user_' + user.uid.substring(0, 5);
-            const userName = user.displayName || userEmail.split('@')[0] || 'مخرج PlotCraft';
-            const userPicture = user.photoURL || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100';
-
-            const userData = {
-                uid: user.uid,
-                name: userName,
-                email: userEmail,
-                handle: userHandle,
-                picture: userPicture,
-                lastLogin: Date.now()
-            };
-
-            set(ref(db, 'users/' + user.uid), userData)
-                .then(() => {
-                    localStorage.setItem('plotcraft_user_session', JSON.stringify(userData));
-                    localStorage.setItem('plotcraft_user_uid', user.uid);
-                })
-                .catch((error) => {
-                    console.error("خطأ في حفظ البيانات:", error);
-                });
-        }
-
-        // معالجة نتيجة العودة من تسجيل الدخول بجوجل
-        getRedirectResult(auth)
-            .then((result) => {
-                if (result && result.user) {
-                    let user = result.user;
-                    saveUserToDatabase(user);
-                    alert("✅ تم تسجيل الدخول بواسطة جوجل بنجاح!");
-                    if (typeof window.switchScreen === 'function') {
-                        window.switchScreen('homeScreen');
-                    }
-                }
-            })
-            .catch((error) => {
-                console.error("خطأ التوجيه:", error);
-            });
-
-        window.switchScreen = function(screenId, event) {
-            if (event) event.preventDefault();
-            var screens = document.querySelectorAll('.screen-view');
-            screens.forEach(s => s.classList.remove('active'));
-            
-            let targetScreen = document.getElementById(screenId);
-            if (targetScreen) {
-                targetScreen.classList.add('active');
-            }
-        };
-
-        window.applySelectedLanguage = function() {
-            if (typeof tempSelectedLangName !== 'undefined') {
-                var langName = tempSelectedLangName;
-                let displayEl = document.getElementById('currentLangDisplay');
-                if (displayEl) {
-                    displayEl.innerText = langName;
-                }
-            }
-        };
-
-        window.handleRegister = function() {
-            let emailField = document.getElementById('registerEmailField') || document.getElementById('loginEmailField');
-            let passField = document.getElementById('registerPasswordField') || document.getElementById('loginPasswordField');
-            
-            if (!emailField || !passField) return;
-
-            let email = emailField.value.trim();
-            let pass = passField.value.trim();
-
-            if (email === "" || pass === "") {
-                alert("⚠️ يرجى ملء جميع الحقول المطلوبة.");
-                return;
-            }
-
-            createUserWithEmailAndPassword(auth, email, pass)
-                .then((userCredential) => {
-                    let user = userCredential.user;
-                    saveUserToDatabase(user);
-                    alert("✅ تم إنشاء الحساب بنجاح!");
-                    window.switchScreen('homeScreen');
-                })
-                .catch((error) => {
-                    alert("❌ خطأ في إنشاء الحساب: " + error.message);
-                });
-        };
-
-        window.handleExistingLogin = function() {
-            let emailField = document.getElementById('loginEmailField');
-            let passField = document.getElementById('loginPasswordField');
-            
-            if (!emailField || !passField) return;
-
-            let email = emailField.value.trim();
-            let pass = passField.value.trim();
-
-            if (email === "" || pass === "") {
-                alert("⚠️ يرجى ملء جميع الحقول المطلوبة.");
-                return;
-            }
-
-            signInWithEmailAndPassword(auth, email, pass)
-                .then((userCredential) => {
-                    let user = userCredential.user;
-                    saveUserToDatabase(user);
-                    alert("مرحباً بك مجدداً! تم تسجيل الدخول بنجاح.");
-                    window.switchScreen('homeScreen');
-                })
-                .catch((error) => {
-                    alert("❌ فشل تسجيل الدخول: تأكد من البريد أو كلمة المرور.");
-                });
-        };
-
-        // دالة تسجيل الدخول عبر جوجل بنظام التوجيه المباشر لضمان ظهور الإيميلات وتجنب الحظر
-        window.handleGoogleLogin = function() {
-            const provider = new GoogleAuthProvider();
-            provider.setCustomParameters({ prompt: 'select_account' });
-            
-            signInWithRedirect(auth, provider).catch((error) => {
-                alert("❌ حدث خطأ أثناء التوجيه لتسجيل الدخول: " + error.message);
-            });
-        };
-    </script>
-
-    <!-- سكربت واجهات التطبيق والدوال التفاعلية -->
     <script>
         window.vibrateDevice = function() {
             if ("vibrate" in navigator) {
@@ -521,6 +363,15 @@
                 toast.innerText = message;
                 toast.classList.add('show');
                 setTimeout(() => { toast.classList.remove('show'); }, 1500);
+            }
+        };
+
+        window.switchScreen = function(screenId, event) {
+            if (event) event.preventDefault();
+            document.querySelectorAll('.screen-view').forEach(s => s.classList.remove('active'));
+            const targetScreen = document.getElementById(screenId);
+            if (targetScreen) {
+                targetScreen.classList.add('active');
             }
         };
 
