@@ -18,7 +18,7 @@
             overflow: hidden;
         }
 
-        /* حاوية الشاشة مع الخلفية الجديدة G2.jpg */
+        /* استرجاع خلفية G2.jpg الأصلية لصفحة الإعدادات */
         .settings-screen {
             position: fixed;
             top: 0;
@@ -43,11 +43,10 @@
             width: 100%;
             max-width: 480px;
             margin: 0 auto;
-            padding: 20px;
-            min-height: 100vh;
+            padding: 15px 20px 20px 20px; /* مرفوعة للأعلى */
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 10px;
         }
 
         /* شريط العنوان العلوي */
@@ -56,7 +55,7 @@
             justify-content: space-between;
             align-items: center;
             color: #ffffff;
-            padding: 10px 0;
+            padding: 5px 0 10px 0;
         }
 
         .settings-title {
@@ -73,75 +72,24 @@
             padding: 4px 8px;
         }
 
-        /* قسم تسجيل الدخول البروفايل */
-        .profile-card {
-            background: rgba(25, 29, 38, 0.75);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .profile-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #ffffff;
-        }
-
-        .profile-avatar {
-            width: 45px;
-            height: 45px;
-            background: #2a324b;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-        }
-
-        .profile-name {
-            font-size: 15px;
-            font-weight: 600;
-        }
-
-        .btn-login {
-            background: #ffffff;
-            color: #000000;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        /* البطاقات القائمة */
+        /* مجموعة الأزرار بدون أي خلفيات مربعة */
         .settings-group {
-            background: rgba(25, 29, 38, 0.75);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            overflow: hidden;
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
 
         .setting-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px;
+            padding: 14px 8px;
             color: #ffffff;
             text-decoration: none;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             cursor: pointer;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             transition: background 0.2s;
-        }
-
-        .setting-item:last-child {
-            border-bottom: none;
         }
 
         .setting-item:active {
@@ -156,10 +104,12 @@
             font-weight: 500;
         }
 
-        .setting-icon {
-            font-size: 18px;
-            width: 24px;
-            text-align: center;
+        .icon-svg {
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .setting-left {
@@ -171,7 +121,7 @@
         }
 
         .arrow-icon {
-            color: #94a3b8;
+            color: #ffffff;
             font-size: 14px;
         }
 
@@ -206,7 +156,7 @@
             transform: translateX(-20px);
         }
 
-        /* نافذة اختيار اللغات السفلية (Bottom Sheet) */
+        /* نافذة اختيار اللغات السفلية */
         #languageBottomSheet {
             position: fixed;
             bottom: -100%;
@@ -304,7 +254,6 @@
             text-align: center;
         }
 
-        /* رسالة نجاح مسح الكاش */
         #cacheToast {
             position: fixed;
             bottom: 30px;
@@ -341,30 +290,30 @@
                 <button class="btn-back" onclick="closeSettingsScreen()">&#10094;</button>
             </div>
 
-            <!-- بطاقة تسجيل الدخول -->
-            <div class="profile-card">
-                <div class="profile-info">
-                    <div class="profile-avatar">🤖</div>
-                    <span class="profile-name" id="txtLoginPrompt">يرجي تسجيل الدخول</span>
-                </div>
-                <button class="btn-login" id="btnLoginText" onclick="handleLogin()">تسجيل الدخول</button>
-            </div>
-
-            <!-- مجموعة الخيارات الأولى -->
+            <!-- قائمة الأزرار بدون خلفيات فوق G2.jpg -->
             <div class="settings-group">
-                <!-- الإشعارات -->
+                <!-- 1. الإشعارات (جرس أبيض) -->
                 <div class="setting-item" onclick="toggleNotifications()">
                     <div class="setting-right">
-                        <span class="setting-icon">🔔</span>
+                        <span class="icon-svg">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+                                <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+                            </svg>
+                        </span>
                         <span id="txtNotif">الإشعارات</span>
                     </div>
                     <div class="toggle-switch" id="notifToggle"></div>
                 </div>
 
-                <!-- اللغة -->
+                <!-- 2. اللغة (كرة بيضاء بخطوط مموجة سوداء) -->
                 <div class="setting-item" onclick="openLanguageSheet()">
                     <div class="setting-right">
-                        <span class="setting-icon">🌐</span>
+                        <span class="icon-svg">
+                            <svg width="22" height="22" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" fill="#ffffff" />
+                                <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                        </span>
                         <span id="txtLang">اللغة</span>
                     </div>
                     <div class="setting-left">
@@ -373,40 +322,54 @@
                     </div>
                 </div>
 
-                <!-- انضم إلينا -->
+                <!-- 3. انضم إلينا (صاروخ ورقي أبيض) -->
                 <div class="setting-item" onclick="openTelegram()">
                     <div class="setting-right">
-                        <span class="setting-icon">✈️</span>
+                        <span class="icon-svg">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+                                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                            </svg>
+                        </span>
                         <span id="txtJoin">انضم إلينا</span>
                     </div>
                     <span class="arrow-icon">&#10094;</span>
                 </div>
 
-                <!-- اتصل بنا -->
+                <!-- 4. اتصل بنا (بريد أبيض مع خطوط تفاصيل سوداء) -->
                 <div class="setting-item" onclick="openEmail()">
                     <div class="setting-right">
-                        <span class="setting-icon">✉️</span>
+                        <span class="icon-svg">
+                            <svg width="22" height="22" viewBox="0 0 24 24">
+                                <rect x="2" y="4" width="20" height="16" rx="3" fill="#ffffff"/>
+                                <path d="M22 6l-10 7L2 6" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
                         <span id="txtContact">اتصل بنا</span>
                     </div>
                     <span class="arrow-icon">&#10094;</span>
                 </div>
-            </div>
 
-            <!-- مجموعة الخيارات الثانية -->
-            <div class="settings-group">
-                <!-- الإعدادات الفرعية -->
+                <!-- 5. الإعدادات الفرعية (أيقونة مسنن أبيض) -->
                 <div class="setting-item" onclick="handleSubSettings()">
                     <div class="setting-right">
-                        <span class="setting-icon">⚙️</span>
+                        <span class="icon-svg">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+                                <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+                            </svg>
+                        </span>
                         <span id="txtSubSettings">الإعدادات</span>
                     </div>
                     <span class="arrow-icon">&#10094;</span>
                 </div>
 
-                <!-- مسح الذاكرة المؤقتة -->
+                <!-- 6. مسح الذاكرة المؤقتة (ماسحة بيضاء) -->
                 <div class="setting-item" onclick="clearCacheAction()">
                     <div class="setting-right">
-                        <span class="setting-icon">🧹</span>
+                        <span class="icon-svg">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+                                <path d="M15 16h4v2h-4zm0-8h7v2h-7zm0 4h6v2h-6zM3 18c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2V8H3v10zM14 5h-3l-1-1H6L5 5H2v2h12z"/>
+                            </svg>
+                        </span>
                         <span id="txtClearCache">مسح الذاكرة المؤقتة</span>
                     </div>
                     <div class="setting-left">
@@ -418,7 +381,7 @@
         </div>
     </div>
 
-    <!-- قائمة اختيار اللغات التحتية -->
+    <!-- قائمة اختيار اللغات السفلية -->
     <div id="languageBottomSheet">
         <div class="lang-sheet-header">
             <span class="lang-sheet-title" id="langHeaderTitle">اللغة</span>
@@ -442,7 +405,7 @@
         </div>
     </div>
 
-    <!-- تنبيه نجاح المسح -->
+    <!-- تنبيه مسح الذاكرة -->
     <div id="cacheToast">تم المسح بنجاح</div>
 
     <script>
@@ -456,7 +419,6 @@
             document.getElementById('settingsScreen').classList.remove('show');
         }
 
-        // تفاعل زر الإشعارات
         function toggleNotifications() {
             isNotifActive = !isNotifActive;
             const toggle = document.getElementById('notifToggle');
@@ -465,11 +427,6 @@
             } else {
                 toggle.classList.remove('active');
             }
-        }
-
-        // روابط وتفاعلات الأزرار
-        function handleLogin() {
-            console.log("تسجيل الدخول");
         }
 
         function openTelegram() {
@@ -492,7 +449,6 @@
             }, 2000);
         }
 
-        // القائمة السفلية للغات
         function openLanguageSheet() {
             document.getElementById('languageBottomSheet').classList.add('show');
         }
@@ -500,11 +456,6 @@
         function closeLanguageSheet() {
             document.getElementById('languageBottomSheet').classList.remove('show');
         }
-
-        const translations = {
-            ar: { title: "الإعدادات", login: "يرجي تسجيل الدخول", btnLogin: "تسجيل الدخول", notif: "الإشعارات", lang: "اللغة", join: "انضم إلينا", contact: "اتصل بنا", sub: "الإعدادات", cache: "مسح الذاكرة المؤقتة", apply: "تطبيق" },
-            en: { title: "Settings", login: "Please sign in", btnLogin: "Sign In", notif: "Notifications", lang: "Language", join: "Join Us", contact: "Contact Us", sub: "Settings", cache: "Clear Cache", apply: "Apply" }
-        };
 
         function applySelectedLanguage() {
             const container = document.getElementById('langScrollContainer');
