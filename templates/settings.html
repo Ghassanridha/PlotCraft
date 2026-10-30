@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="appHtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الإعدادات - PlotCraft</title>
+    <title id="pageTitle">الإعدادات - PlotCraft</title>
     <style>
         * {
             box-sizing: border-box;
@@ -27,7 +27,7 @@
             height: 100vh;
             background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/87ec5eff439c8c227933258a0e1738538ab7d07b/G2.jpg') center/100% 100% no-repeat;
             z-index: 999999;
-            direction: rtl;
+            direction: inherit;
             transform: translateX(-100vw);
             transition: transform 0.3s ease-out;
             visibility: hidden;
@@ -49,12 +49,16 @@
             flex-direction: column;
         }
 
-        /* زر الشفرة (الرجوع) العلوي */
+        /* زر العودة العلوي */
         .settings-header {
             display: flex;
             justify-content: flex-start;
             align-items: center;
             padding: 2px 0;
+        }
+
+        html[dir="ltr"] .settings-header {
+            flex-direction: row-reverse;
         }
 
         .btn-back {
@@ -66,7 +70,7 @@
             padding: 2px;
         }
 
-        /* زر تسجيل الدخول الشفاف داخل المستطيل الأبيض الفارغ على اليسار */
+        /* زر تسجيل الدخول الشفاف بالنص الأسود */
         .btn-login-overlay {
             position: absolute;
             top: 102px;
@@ -75,7 +79,7 @@
             height: 38px;
             background: transparent;
             border: none;
-            color: #000000; /* كتابة باللون الأسود */
+            color: #000000;
             font-size: 13px;
             font-weight: 700;
             cursor: pointer;
@@ -85,11 +89,16 @@
             z-index: 10;
         }
 
+        html[dir="ltr"] .btn-login-overlay {
+            left: auto;
+            right: 36px;
+        }
+
         .btn-login-overlay:active {
             opacity: 0.6;
         }
 
-        /* المربع الأول (المستطيل الأوسط) - ثابت بمكانه */
+        /* المربع الأول (المستطيل الأوسط) */
         .group-middle {
             margin-top: 135px;
             display: flex;
@@ -101,9 +110,9 @@
             margin-top: -12px;
         }
 
-        /* المربع الثاني (المستطيل السفلي) - تم تنزيله قليلاً لأسفل */
+        /* المربع الثاني (المستطيل السفلي) */
         .group-bottom {
-            margin-top: 48px; /* تنزيل زر الإعدادات ومسح الذاكرة إلى الأسفل */
+            margin-top: 48px;
             display: flex;
             flex-direction: column;
             gap: 15px;
@@ -136,6 +145,10 @@
             font-weight: 500;
         }
 
+        html[dir="ltr"] .setting-right {
+            flex-direction: row;
+        }
+
         .icon-svg {
             width: 22px;
             height: 22px;
@@ -155,6 +168,10 @@
         .arrow-icon {
             color: #ffffff;
             font-size: 14px;
+        }
+
+        html[dir="ltr"] .arrow-icon {
+            transform: scaleX(-1);
         }
 
         /* زر التبديل للإشعارات */
@@ -180,6 +197,11 @@
             transition: transform 0.3s;
         }
 
+        html[dir="ltr"] .toggle-switch::after {
+            right: auto;
+            left: 2px;
+        }
+
         .toggle-switch.active {
             background: #3b82f6;
         }
@@ -188,14 +210,18 @@
             transform: translateX(-20px);
         }
 
-        /* نافذة اختيار اللغات السفلية */
+        html[dir="ltr"] .toggle-switch.active::after {
+            transform: translateX(20px);
+        }
+
+        /* نافذة اختيار اللغات السفلية (خلفية أبيض داكن) */
         #languageBottomSheet {
             position: fixed;
             bottom: -100%;
             left: 0;
             width: 100%;
             height: 50vh;
-            background: #151922;
+            background: #1c212b; /* خلفية أبيض داكن هادئ */
             border-top-left-radius: 24px;
             border-top-right-radius: 24px;
             box-shadow: 0 -10px 30px rgba(0,0,0,0.6);
@@ -239,30 +265,39 @@
             display: none;
         }
 
+        /* مستطيل صغير وثابت في الوسط تماماً للإطار */
         .lang-selection-indicator {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 85%;
-            height: 48px;
-            background: rgba(255, 255, 255, 0.06);
+            width: 75%;
+            height: 42px;
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
+            border-radius: 10px;
             pointer-events: none;
             z-index: 5;
         }
 
+        /* عناصر القائمة بلون داكن وغير نشط افتراضياً */
         .lang-item {
-            height: 48px;
+            height: 42px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #94a3b8;
-            font-size: 15px;
-            font-weight: 600;
+            color: #64748b; /* لون داكن للغات غير المختارة في المنتصف */
+            font-size: 14px;
+            font-weight: 500;
             cursor: pointer;
             scroll-snap-align: center;
+            transition: color 0.2s ease;
+        }
+
+        /* عندما تصبح اللغة في المنتصف تتحول للون الأبيض الناصع */
+        .lang-item.active-center {
+            color: #ffffff !important;
+            font-weight: 700;
         }
 
         .lang-sheet-footer {
@@ -272,10 +307,11 @@
             border-top: 1px solid rgba(255,255,255,0.08);
         }
 
+        /* زر تطبيق: خلفية بيضاء وكلمة سوداء */
         .lang-apply-btn {
-            background: #1f242d;
-            color: #ffffff;
-            border: 1px solid rgba(255,255,255,0.2);
+            background: #ffffff;
+            color: #000000;
+            border: none;
             padding: 12px 0;
             width: 100%;
             max-width: 300px;
@@ -284,6 +320,10 @@
             font-weight: 700;
             cursor: pointer;
             text-align: center;
+        }
+
+        .lang-apply-btn:active {
+            opacity: 0.8;
         }
 
         #cacheToast {
@@ -316,15 +356,15 @@
     <div id="settingsScreen" class="settings-screen">
         <div class="settings-container">
             
-            <!-- زر الشفرة العلوية -->
+            <!-- زر العودة العلوي -->
             <div class="settings-header">
                 <button class="btn-back" onclick="closeSettingsScreen()">&#10095;</button>
             </div>
 
-            <!-- زر تسجيل الدخول الشفاف بالنص الأسود على المستطيل الأبيض الفارغ -->
-            <button class="btn-login-overlay" onclick="handleLoginAction()">تسجيل الدخول</button>
+            <!-- زر تسجيل الدخول الشفاف بالنص الأسود -->
+            <button class="btn-login-overlay" id="btnLoginText" onclick="handleLoginAction()">تسجيل الدخول</button>
 
-            <!-- أزرار المربع الأوسط (ثابتين بمكانهم) -->
+            <!-- أزرار المربع الأوسط -->
             <div class="group-middle">
                 <!-- 1. الإشعارات -->
                 <div class="setting-item" onclick="toggleNotifications()">
@@ -334,7 +374,7 @@
                                 <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
                             </svg>
                         </span>
-                        <span>الإشعارات</span>
+                        <span id="txtNotif">الإشعارات</span>
                     </div>
                     <div class="toggle-switch" id="notifToggle"></div>
                 </div>
@@ -348,7 +388,7 @@
                                 <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round"/>
                             </svg>
                         </span>
-                        <span>اللغة</span>
+                        <span id="txtLangTitle">اللغة</span>
                     </div>
                     <div class="setting-left">
                         <span id="currentLangDisplay">العربية</span>
@@ -364,7 +404,7 @@
                                 <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
                             </svg>
                         </span>
-                        <span>انضم إلينا</span>
+                        <span id="txtJoin">انضم إلينا</span>
                     </div>
                     <span class="arrow-icon">&#10094;</span>
                 </div>
@@ -378,13 +418,13 @@
                                 <path d="M22 6l-10 7L2 6" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </span>
-                        <span>اتصل بنا</span>
+                        <span id="txtContact">اتصل بنا</span>
                     </div>
                     <span class="arrow-icon">&#10094;</span>
                 </div>
             </div>
 
-            <!-- أزرار المستطيل السفلي (الإعدادات ومسح الذاكرة تم تنزيلهم) -->
+            <!-- أزرار المستطيل السفلي -->
             <div class="group-bottom">
                 <!-- 5. الإعدادات -->
                 <div class="setting-item" onclick="handleSubSettings()">
@@ -394,7 +434,7 @@
                                 <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
                             </svg>
                         </span>
-                        <span>الإعدادات</span>
+                        <span id="txtSettings">الإعدادات</span>
                     </div>
                     <span class="arrow-icon">&#10094;</span>
                 </div>
@@ -407,10 +447,10 @@
                                 <path d="M15 16h4v2h-4zm0-8h7v2h-7zm0 4h6v2h-6zM3 18c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2V8H3v10zM14 5h-3l-1-1H6L5 5H2v2h12z"/>
                             </svg>
                         </span>
-                        <span>مسح الذاكرة المؤقتة</span>
+                        <span id="txtClearCache">مسح الذاكرة المؤقتة</span>
                     </div>
                     <div class="setting-left">
-                        <span>MB 131.48</span>
+                        <span id="txtCacheSize">MB 131.48</span>
                     </div>
                 </div>
             </div>
@@ -421,10 +461,10 @@
     <!-- نافذة اللغات السفلية -->
     <div id="languageBottomSheet">
         <div class="lang-sheet-header">
-            <span>اللغة</span>
+            <span id="txtSheetLangTitle">اللغة</span>
             <button class="lang-sheet-close" onclick="closeLanguageSheet()">&#x2715;</button>
         </div>
-        <div class="lang-scroll-container" id="langScrollContainer">
+        <div class="lang-scroll-container" id="langScrollContainer" onscroll="updateCenterLanguageHighlight()">
             <div class="lang-selection-indicator"></div>
             <div class="lang-item" data-code="ar" data-name="العربية">العربية</div>
             <div class="lang-item" data-code="sa" data-name="العربية (السعودية)">العربية (السعودية)</div>
@@ -438,7 +478,7 @@
             <div class="lang-item" data-code="ja" data-name="日本語">日本語</div>
         </div>
         <div class="lang-sheet-footer">
-            <button class="lang-apply-btn" onclick="applySelectedLanguage()">تطبيق</button>
+            <button class="lang-apply-btn" id="txtApplyBtn" onclick="applySelectedLanguage()">تطبيق</button>
         </div>
     </div>
 
@@ -446,6 +486,136 @@
 
     <script>
         let isNotifActive = false;
+
+        // القاموس للترجمة الفورية للكلمات عند تغيير اللغة
+        const translations = {
+            ar: {
+                title: "الإعدادات - PlotCraft",
+                login: "تسجيل الدخول",
+                notif: "الإشعارات",
+                langTitle: "اللغة",
+                join: "انضم إلينا",
+                contact: "اتصل بنا",
+                settings: "الإعدادات",
+                clearCache: "مسح الذاكرة المؤقتة",
+                sheetTitle: "اللغة",
+                apply: "تطبيق",
+                toast: "تم المسح بنجاح"
+            },
+            en: {
+                title: "Settings - PlotCraft",
+                login: "Sign In",
+                notif: "Notifications",
+                langTitle: "Language",
+                join: "Join Us",
+                contact: "Contact Us",
+                settings: "Settings",
+                clearCache: "Clear Cache",
+                sheetTitle: "Language",
+                apply: "Apply",
+                toast: "Cleared successfully"
+            },
+            fr: {
+                title: "Paramètres - PlotCraft",
+                login: "Connexion",
+                notif: "Notifications",
+                langTitle: "Langue",
+                join: "Rejoignez-nous",
+                contact: "Contactez-nous",
+                settings: "Paramètres",
+                clearCache: "Vider le cache",
+                sheetTitle: "Langue",
+                apply: "Appliquer",
+                toast: "Effacé avec succès"
+            },
+            es: {
+                title: "Ajustes - PlotCraft",
+                login: "Iniciar sesión",
+                notif: "Notificaciones",
+                langTitle: "Idioma",
+                join: "Únete",
+                contact: "Contacto",
+                settings: "Ajustes",
+                clearCache: "Borrar caché",
+                sheetTitle: "Idioma",
+                apply: "Aplicar",
+                toast: "Borrado con éxito"
+            },
+            de: {
+                title: "Einstellungen - PlotCraft",
+                login: "Anmelden",
+                notif: "Benachrichtigungen",
+                langTitle: "Sprache",
+                join: "Mach mit",
+                contact: "Kontakt",
+                settings: "Einstellungen",
+                clearCache: "Cache leeren",
+                sheetTitle: "Sprache",
+                apply: "Anwenden",
+                toast: "Erfolgreich gelöscht"
+            },
+            tr: {
+                title: "Ayarlar - PlotCraft",
+                login: "Giriş Yap",
+                notif: "Bildirimler",
+                langTitle: "Dil",
+                join: "Bize Katıl",
+                contact: "İletişim",
+                settings: "Ayarlar",
+                clearCache: "Önbelleği Temizle",
+                sheetTitle: "Dil",
+                apply: "Uygula",
+                toast: "Başarıyla temizlendi"
+            },
+            ru: {
+                title: "Настройки - PlotCraft",
+                login: "Войти",
+                notif: "Уведомления",
+                langTitle: "Язык",
+                join: "Присоединяйтесь",
+                contact: "Контакты",
+                settings: "Настройки",
+                clearCache: "Очистить кэш",
+                sheetTitle: "Язык",
+                apply: "Применить",
+                toast: "Успешно очищено"
+            },
+            zh: {
+                title: "设置 - PlotCraft",
+                login: "登录",
+                notif: "通知",
+                langTitle: "语言",
+                join: "加入我们",
+                contact: "联系我们",
+                settings: "设置",
+                clearCache: "清除缓存",
+                sheetTitle: "语言",
+                apply: "应用",
+                toast: "清除成功"
+            },
+            ja: {
+                title: "設定 - PlotCraft",
+                login: "ログイン",
+                notif: "通知",
+                langTitle: "言語",
+                join: "参加する",
+                contact: "お問い合わせ",
+                settings: "設定",
+                clearCache: "キャッシュをクリア",
+                sheetTitle: "言語",
+                apply: "適用",
+                toast: "正常にクリアされました"
+            }
+        };
+
+        // استرجاع اللغة المحفوظة في localStorage عند فتح التطبيق
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLangCode = localStorage.getItem('plotcraft_lang_code') || 'ar';
+            const savedLangName = localStorage.getItem('plotcraft_lang_name') || 'العربية';
+            
+            document.getElementById('currentLangDisplay').innerText = savedLangName;
+            setAppLanguage(savedLangCode, false);
+        });
 
         function openSettingsScreen() {
             document.getElementById('settingsScreen').classList.add('show');
@@ -456,7 +626,7 @@
         }
 
         function handleLoginAction() {
-            console.log("تم الضغط على تسجيل الدخول");
+            console.log("تسجيل الدخول");
         }
 
         function toggleNotifications() {
@@ -482,7 +652,9 @@
         }
 
         function clearCacheAction() {
+            const lang = localStorage.getItem('plotcraft_lang_code') || 'ar';
             const toast = document.getElementById('cacheToast');
+            toast.innerText = translations[lang] ? translations[lang].toast : translations['ar'].toast;
             toast.classList.add('show');
             setTimeout(() => {
                 toast.classList.remove('show');
@@ -491,12 +663,42 @@
 
         function openLanguageSheet() {
             document.getElementById('languageBottomSheet').classList.add('show');
+            // التمرير إلى العنصر المحدد مسبقاً
+            setTimeout(() => {
+                const container = document.getElementById('langScrollContainer');
+                const items = container.querySelectorAll('.lang-item');
+                const currentName = document.getElementById('currentLangDisplay').innerText;
+                items.forEach(item => {
+                    if(item.getAttribute('data-name') === currentName) {
+                        container.scrollTop = item.offsetTop - container.clientHeight / 2 + item.clientHeight / 2;
+                    }
+                });
+                updateCenterLanguageHighlight();
+            }, 50);
         }
 
         function closeLanguageSheet() {
             document.getElementById('languageBottomSheet').classList.remove('show');
         }
 
+        // دالة تحديث اللغة التي تتوسط الإطار الداكن لتصبح بيضاء ساطعة
+        function updateCenterLanguageHighlight() {
+            const container = document.getElementById('langScrollContainer');
+            const items = container.querySelectorAll('.lang-item');
+            const containerCenter = container.scrollTop + container.clientHeight / 2;
+
+            items.forEach(item => {
+                const itemCenter = item.offsetTop + item.offsetHeight / 2;
+                const distance = Math.abs(containerCenter - itemCenter);
+                if (distance < 25) {
+                    item.classList.add('active-center');
+                } else {
+                    item.classList.remove('active-center');
+                }
+            });
+        }
+
+        // تطبيق اللغة المختار وحفظه يدويًا
         function applySelectedLanguage() {
             const container = document.getElementById('langScrollContainer');
             const items = container.querySelectorAll('.lang-item');
@@ -516,14 +718,43 @@
             if (closestItem) {
                 const code = closestItem.getAttribute('data-code');
                 const name = closestItem.getAttribute('data-name');
+                
                 document.getElementById('currentLangDisplay').innerText = name;
                 
-                if (code === 'en') {
-                    document.documentElement.setAttribute('dir', 'ltr');
-                } else {
-                    document.documentElement.setAttribute('dir', 'rtl');
-                }
+                // حفظ اللغة في الذاكرة لتظل ثابتة حتى تغيرها يدوياً
+                localStorage.setItem('plotcraft_lang_code', code);
+                localStorage.setItem('plotcraft_lang_name', name);
+
+                setAppLanguage(code, true);
                 closeLanguageSheet();
+            }
+        }
+
+        // دالة تغيير اتجاه التطبيق ونصوصه بالكامل
+        function setAppLanguage(code, animate) {
+            const t = translations[code] || translations['ar'];
+            
+            document.getElementById('pageTitle').innerText = t.title;
+            document.getElementById('btnLoginText').innerText = t.login;
+            document.getElementById('txtNotif').innerText = t.notif;
+            document.getElementById('txtLangTitle').innerText = t.langTitle;
+            document.getElementById('txtJoin').innerText = t.join;
+            document.getElementById('txtContact').innerText = t.contact;
+            document.getElementById('txtSettings').innerText = t.settings;
+            document.getElementById('txtClearCache').innerText = t.clearCache;
+            document.getElementById('txtSheetLangTitle').innerText = t.sheetTitle;
+            document.getElementById('txtApplyBtn').innerText = t.apply;
+
+            // تحديد اتجاه اللغات الإنجليزية واللغات الأخرى (LTR) أو العربية (RTL)
+            if (code === 'en' || code === 'fr' || code === 'es' || code === 'de' || code === 'tr' || code === 'ru') {
+                document.getElementById('appHtml').setAttribute('dir', 'ltr');
+                document.getElementById('appHtml').setAttribute('lang', code);
+            } else if (code === 'zh' || code === 'ja') {
+                document.getElementById('appHtml').setAttribute('dir', 'ltr');
+                document.getElementById('appHtml').setAttribute('lang', code);
+            } else {
+                document.getElementById('appHtml').setAttribute('dir', 'rtl');
+                document.getElementById('appHtml').setAttribute('lang', 'ar');
             }
         }
     </script>
