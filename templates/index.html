@@ -150,86 +150,10 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        .works-top-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px;
-            width: 100%;
-            flex-shrink: 0;
-        }
-
-        .works-screen-title {
-            color: #ffffff;
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        .works-body-container {
-            padding: 10px 20px 20px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            flex-grow: 1;
-        }
-
-        .works-tabs-container {
-            display: flex;
-            background: #282f3d;
-            border-radius: 30px;
-            padding: 4px;
-            width: 100%;
-            max-width: 360px;
-            margin-top: 15px;
-            margin-bottom: 60px;
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .works-tab {
-            flex: 1;
-            text-align: center;
-            padding: 10px 0;
-            font-size: 13px;
-            font-weight: 600;
-            color: #cbd5e1;
-            background: transparent;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .works-tab.active {
-            background: #343d50 !important;
-            color: #ffffff !important;
-            font-weight: 700;
-        }
-
-        .works-empty-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            flex-grow: 1;
-            text-align: center;
-        }
-
-        .works-create-btn {
-            width: 100%;
-            max-width: 220px;
-            background: #ffffff;
-            color: #1f242d;
-            font-size: 14px;
-            font-weight: 700;
-            padding: 12px 16px;
-            border-radius: 14px;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255,255,255,0.15);
-            transition: 0.2s;
-        }
-        .works-create-btn:active {
-            transform: scale(0.98);
-            background: #e2e8f0;
+        #worksScreen.screen-view {
+            background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/d25e86296ea2db1540c7756cc90a01b936d589a2/Gh3.jpg') center/100% 100% no-repeat !important;
+            padding: 0 !important;
+            overflow-y: auto;
         }
 
         .plotcraft-nav-bar {
@@ -351,22 +275,6 @@
 
         <!-- 2️⃣ شاشة الأعمال -->
         <div id="worksScreen" class="screen-view">
-            <div class="works-top-header">
-                <div class="works-screen-title">الأعمال</div>
-                <div class="top-settings-btn" onclick="openSettingsScreen()" ontouchstart="openSettingsScreen()">
-                    <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات" loading="eager">
-                </div>
-            </div>
-            <div class="works-body-container">
-                <div class="works-tabs-container">
-                    <div class="works-tab active" onclick="switchWorksTab(this)">المشاريع</div>
-                    <div class="works-tab" onclick="switchWorksTab(this)">مكتبة الوسائط</div>
-                </div>
-                <div class="works-empty-content">
-                    <div style="color: #cbd5e1; font-size: 14px; margin-bottom: 25px;">ستظهر هنا مشاريع القصة الخاصة بك.</div>
-                    <button class="works-create-btn" onclick="openSparkleDialog(event)">إنشاء قصة</button>
-                </div>
-            </div>
         </div>
 
         <!-- 3️⃣ شاشة الأدوات -->
