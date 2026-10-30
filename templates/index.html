@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PlotCraft UI</title>
+    <link rel="manifest" href="/manifest.json">
     
-    <!-- التحميل المسبق لصورة زر الإعدادات لتظهر فوراً بلا أي تأخير عند فتح التطبيق -->
-    <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg">
-
     <style>
         * {
             box-sizing: border-box;
@@ -89,7 +87,6 @@
             gap: 8px;
         }
 
-        /* زر الإعدادات الدائري الفوري */
         .top-settings-btn {
             background: rgba(20, 24, 33, 0.85);
             backdrop-filter: blur(12px);
@@ -104,12 +101,15 @@
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             flex-shrink: 0;
+            /* تحسين الأداء اللمسي والاستجابة الفورية */
             touch-action: manipulation;
         }
         .top-settings-btn img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            /* منع تأخر التحميل وعرض الصورة فوراً */
+            loading: eager;
         }
 
         .welcome-section {
@@ -232,73 +232,6 @@
             background: #e2e8f0;
         }
 
-        /* شاشة الإعدادات */
-        .settings-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3c0d837613bae10a387c91a8a059563aa7cccd10/Ghas.jpg') center/100% 100% no-repeat;
-            z-index: 999999;
-            direction: rtl;
-            transform: translateX(-100vw);
-            transition: transform 0.2s ease-out;
-            visibility: hidden;
-            overflow: hidden;
-        }
-
-        .settings-screen.show {
-            visibility: visible;
-            transform: translateX(0);
-        }
-
-        .click-overlay-container {
-            position: relative;
-            width: 100%;
-            max-width: 480px;
-            height: 100vh;
-            margin: 0 auto;
-        }
-
-        .clickable-area {
-            position: absolute;
-            cursor: pointer;
-            z-index: 50;
-        }
-
-        /* زر الشفرة (Chevron) للرجوع بصمت وبدون اهتزاز */
-        .btn-back-chevron {
-            position: absolute;
-            top: 14px;
-            right: 12px;
-            background: transparent;
-            border: none;
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 999;
-            padding: 4px 8px;
-            line-height: 1;
-        }
-
-        .btn-back-chevron:hover {
-            opacity: 0.8;
-        }
-
-        /* مناطق النقر للإعدادات */
-        .banner-link { top: 70px; left: 4%; width: 92%; height: 130px; }
-        .link-points { top: 215px; left: 4%; width: 92%; height: 55px; }
-        .link-feedback { top: 275px; left: 4%; width: 92%; height: 55px; }
-        .toggle-notifications { top: 350px; right: 15px; width: 50px; height: 30px; }
-        .link-language { top: 395px; left: 4%; width: 92%; height: 55px; }
-        .link-join { top: 455px; left: 4%; width: 92%; height: 55px; }
-        .link-contact { top: 515px; left: 4%; width: 92%; height: 55px; }
-        .link-sub-settings { top: 590px; left: 4%; width: 92%; height: 55px; }
-        .link-clear-cache { top: 545px; left: 4%; width: 92%; height: 55px; }
-
-        /* شريط التنقل السفلي */
         .plotcraft-nav-bar {
             position: absolute;
             bottom: 0; left: 0; width: 100%;
@@ -385,123 +318,12 @@
             font-weight: 700;
             background-color: rgba(255, 255, 255, 0.15);
         }
-
-        /* تنسيق نافذة الاشتراكات */
-        .modal-overlay {
-            display: block; 
-            position: fixed; 
-            top: 0; left: 0; 
-            width: 100vw; height: 100vh;
-            background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/0f1d146fbd9d2334aa927340f811c68891749269/Gh.jpg') center/cover no-repeat;
-            z-index: 99999;
-            direction: rtl;
-            overflow: hidden !important;
-            touch-action: none !important;
-            transform: translateX(-100vw);
-            transition: transform 0.3s ease-out;
-            visibility: hidden;
-        }
-
-        .modal-overlay.show {
-            visibility: visible;
-            transform: translateX(0);
-        }
-
-        .modal-absolute-container {
-            position: relative;
-            width: 100%; height: 100vh;
-            background: linear-gradient(180deg, rgba(11,15,25,0) 0%, rgba(11,15,25,0.3) 25%, rgba(11,15,25,0.85) 45%, #0b0f19 100%);
-            overflow-y: auto;
-            padding-bottom: 140px;
-        }
-
-        .close-modal-btn {
-            position: absolute; 
-            top: 14px; 
-            right: 12px;
-            background: transparent; 
-            border: none;
-            color: #ffffff;
-            font-size: 16px; 
-            font-weight: bold;
-            cursor: pointer; 
-            z-index: 100000;
-            line-height: 1; 
-            padding: 4px 8px;
-        }
-
-        .plans-list-absolute {
-            position: relative; 
-            top: 290px; 
-            margin: 0 auto;
-            width: 92%; max-width: 420px;
-            display: flex; flex-direction: column; 
-            gap: 12px;
-        }
-
-        .plan-card {
-            position: relative;
-            background: rgba(20, 26, 41, 0.94);
-            backdrop-filter: blur(12px);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px; 
-            height: 95px;
-            padding: 12px 16px;
-            display: flex; justify-content: space-between; align-items: center;
-            cursor: pointer; transition: all 0.2s ease;
-            box-sizing: border-box;
-        }
-
-        .plan-card.active {
-            border-color: #3b82f6 !important;
-            background: rgba(22, 32, 53, 0.98) !important;
-            box-shadow: 0 0 18px rgba(59, 130, 246, 0.5);
-        }
-
-        .plan-badge {
-            position: absolute; top: 10px; left: 16px;
-            background: #3b82f6; color: #fff;
-            font-size: 10px; font-weight: bold;
-            padding: 2px 8px; border-radius: 8px;
-        }
-
-        .plan-info h3 { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
-        .plan-info p { font-size: 11px; color: #9ca3af; line-height: 1.3; }
-        .plan-pricing { text-align: left; }
-        .plan-pricing .price { font-size: 16px; font-weight: 800; color: #fff; }
-        .plan-pricing .period { font-size: 11px; color: #9ca3af; margin-top: 2px; }
-
-        .bottom-fixed-area {
-            position: fixed; bottom: 70px; 
-            left: 50%;
-            transform: translateX(-50%);
-            width: 92%; max-width: 420px;
-            display: flex; flex-direction: column; align-items: center;
-            background: rgba(11, 15, 25, 0.95);
-            backdrop-filter: blur(8px);
-            padding-top: 10px;
-            z-index: 10000;
-        }
-
-        .footer-note {
-            font-size: 11px; color: #9ca3af; margin-bottom: 8px;
-            display: flex; align-items: center; gap: 6px;
-        }
-
-        .subscribe-btn {
-            width: 100%; height: 50px;
-            background: #ffffff; color: #000;
-            border: none; border-radius: 30px;
-            font-size: 17px; font-weight: 800; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.25);
-        }
-
-        .bottom-links { display: flex; gap: 12px; font-size: 11px; margin-top: 10px; }
-        .bottom-links a { color: #9ca3af; text-decoration: none; }
-        .bottom-links .dot { color: #4b5563; }
     </style>
 </head>
 <body>
+
+    <!-- عنصر مخفي مسبق التحميل لتثبيت صورة زر الإعدادات في الذاكرة المؤقتة للمتصفح -->
+    <link rel="prefetch" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg">
 
     <div class="app-shell" id="appShellContainer">
         <div class="toast-notification" id="toastNotification"></div>
@@ -513,12 +335,11 @@
                     <div class="brand-title">PlotCraft</div>
                     
                     <div class="top-left-actions">
-                        <!-- زر الترقية لفتح نافذة الاشتراكات -->
-                        <button onclick="openSubscription()" style="background: rgba(20, 24, 33, 0.85); backdrop-filter: blur(12px); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); padding: 6px 12px; border-radius: 16px; font-weight: 600; cursor: pointer; font-size: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); white-space: nowrap; touch-action: manipulation;">ترقيه</button>
+                        <button onclick="openSubscription()" style="background: rgba(20, 24, 33, 0.85); backdrop-filter: blur(12px); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); padding: 6px 12px; border-radius: 16px; font-weight: 600; cursor: pointer; font-size: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); white-space: nowrap; touch-action: manipulation; -webkit-tap-highlight-color: transparent;">ترقيه</button>
                         
-                        <!-- زر الإعدادات الدائري الفوري مع تحميل سريع مسبق -->
-                        <div class="top-settings-btn" onclick="openSettingsScreen()">
-                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات" loading="eager" fetchpriority="high">
+                        <!-- تحسين الاستجابة الفورية بحدث الطوارئ اللمسي واستدعاء الإعدادات فوراً بدون انتظار -->
+                        <div class="top-settings-btn" onclick="openSettingsScreen()" ontouchstart="openSettingsScreen()">
+                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات" loading="eager">
                         </div>
                     </div>
                 </div>
@@ -532,8 +353,8 @@
         <div id="worksScreen" class="screen-view">
             <div class="works-top-header">
                 <div class="works-screen-title">الأعمال</div>
-                <div class="top-settings-btn" onclick="openSettingsScreen()">
-                    <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات" loading="eager" fetchpriority="high">
+                <div class="top-settings-btn" onclick="openSettingsScreen()" ontouchstart="openSettingsScreen()">
+                    <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات" loading="eager">
                 </div>
             </div>
             <div class="works-body-container">
@@ -552,8 +373,8 @@
         <div id="toolsScreen" class="screen-view">
             <div class="works-top-header">
                 <div class="works-screen-title">الأعمال والأدوات</div>
-                <div class="top-settings-btn" onclick="openSettingsScreen()">
-                    <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات" loading="eager" fetchpriority="high">
+                <div class="top-settings-btn" onclick="openSettingsScreen()" ontouchstart="openSettingsScreen()">
+                    <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات" loading="eager">
                 </div>
             </div>
             <div style="padding: 20px; color: #cbd5e1; text-align: center; margin-top: 50px;">
@@ -563,24 +384,24 @@
 
         <!-- 🔘 شريط التنقل السفلي الأنيق -->
         <div class="plotcraft-nav-bar" id="mainNavBar">
-            <div class="plotcraft-nav-square" onclick="openSparkleDialog(event)">
+            <div class="plotcraft-nav-square" onclick="vibrateDevice(); openSparkleDialog(event)">
                 <div class="nav-logo-icon">
                     <div class="nav-logo-play"></div>
                 </div>
             </div>
 
             <div class="plotcraft-nav-pill">
-                <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="switchScreen('homeScreen', event); setActiveNav('navHome')">
+                <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="vibrateDevice(); switchScreen('homeScreen', event); setActiveNav('navHome')">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                     <span>الصفحة الرئيسية</span>
                 </a>
 
-                <a href="#" class="plotcraft-nav-item" id="navTools" onclick="switchScreen('toolsScreen', event); setActiveNav('navTools')">
+                <a href="#" class="plotcraft-nav-item" id="navTools" onclick="vibrateDevice(); switchScreen('toolsScreen', event); setActiveNav('navTools')">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"></path></svg>
                     <span>الأدوات</span>
                 </a>
 
-                <a href="#" class="plotcraft-nav-item" id="navWorks" onclick="switchScreen('worksScreen', event); setActiveNav('navWorks')">
+                <a href="#" class="plotcraft-nav-item" id="navWorks" onclick="vibrateDevice(); switchScreen('worksScreen', event); setActiveNav('navWorks')">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
                     <span>الأعمال</span>
                 </a>
@@ -588,84 +409,19 @@
         </div>
     </div>
 
-    <!-- شاشة الإعدادات -->
-    <div id="settingsScreen" class="settings-screen">
-        <div class="click-overlay-container">
-            <button class="btn-back-chevron" onclick="closeSettingsScreen()">&#x276F;</button>
-            
-            <a href="#" class="clickable-area banner-link" onclick="return false;"></a>
-            <a href="#" class="clickable-area link-points" onclick="return false;"></a>
-            <a href="#" class="clickable-area link-feedback" onclick="return false;"></a>
-            <div class="clickable-area toggle-notifications" onclick="toggleNotifications()"></div>
-            <a href="#" class="clickable-area link-language" onclick="return false;"></a>
-            <a href="#" class="clickable-area link-join" onclick="window.open('https://t.me/', '_blank'); return false;"></a>
-            <a href="#" class="clickable-area link-contact" onclick="window.location.href='mailto:support@plotcraft.ai'; return false;"></a>
-            <a href="#" class="clickable-area link-sub-settings" onclick="return false;"></a>
-            <a href="#" class="clickable-area link-clear-cache" onclick="clearCacheAction(); return false;"></a>
-        </div>
-    </div>
-
-    <!-- نافذة الاشتراكات -->
-    <div id="subscriptionModal" class="modal-overlay">
-        <div class="modal-absolute-container">
-            <button class="close-modal-btn" onclick="closeSubscription()">&#x276F;</button>
-
-            <div class="plans-list-absolute">
-                <div class="plan-card" onclick="choosePlan(this)">
-                    <div class="plan-info">
-                        <h3>PlotCraft Pro Weekly</h3>
-                        <p>Credits / Week, Try AI Drama Creation 500</p>
-                    </div>
-                    <div class="plan-pricing">
-                        <div class="price">US 9.99$</div>
-                        <div class="period">أسبوع</div>
-                    </div>
-                </div>
-
-                <div class="plan-card active" onclick="choosePlan(this)">
-                    <div class="plan-badge">رائج</div>
-                    <div class="plan-info">
-                        <h3>PlotCraft Pro Monthly</h3>
-                        <p>Credits / Month, Ideal for regular creators 1800</p>
-                    </div>
-                    <div class="plan-pricing">
-                        <div class="price">US 29.99$</div>
-                        <div class="period">شهر</div>
-                    </div>
-                </div>
-
-                <div class="plan-card" onclick="choosePlan(this)">
-                    <div class="plan-info">
-                        <h3>PlotCraft Pro Annual</h3>
-                        <p>Credits / Year, Ideal for professional creators 5000</p>
-                    </div>
-                    <div class="plan-pricing">
-                        <div class="price">US 69.99$</div>
-                        <div class="period">سنة</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bottom-fixed-area">
-                <div class="footer-note">
-                    <span>تجديد تلقائي، يمكن الإلغاء في أي وقت</span>
-                    <svg width="12" height="12" fill="#fbbf24" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
-                </div>
-
-                <button class="subscribe-btn" onclick="handleSubscribeClick()">اشتراك</button>
-
-                <div class="bottom-links">
-                    <a href="#" onclick="handleLink('restore'); return false;">استعادة</a>
-                    <span class="dot">|</span>
-                    <a href="#" onclick="handleLink('terms'); return false;">شروط الاستخدام</a>
-                    <span class="dot">|</span>
-                    <a href="#" onclick="handleLink('privacy'); return false;">الخصوصية</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- حاوية جلب ملف الاشتراكات المستقل -->
+    <div id="subscriptionModalWrapper"></div>
+    
+    <!-- حاوية جلب ملف الإعدادات المستقل -->
+    <div id="settingsModalWrapper"></div>
 
     <script>
+        window.vibrateDevice = function() {
+            if ("vibrate" in navigator) {
+                navigator.vibrate(50);
+            }
+        };
+
         window.showToast = function(message) {
             const toast = document.getElementById('toastNotification');
             if (toast) {
@@ -700,58 +456,95 @@
             showToast('تم النقر على إنشاء قصة');
         }
 
-        // فتح الإعدادات فوراً بدون تأخير
-        window.openSettingsScreen = function() {
-            const screen = document.getElementById('settingsScreen');
-            if (screen) {
-                screen.classList.add('show');
-            }
-        };
+        let isSubscriptionLoaded = false;
 
-        window.closeSettingsScreen = function() {
-            const screen = document.getElementById('settingsScreen');
-            if (screen) {
-                screen.classList.remove('show');
-            }
-        };
-
-        window.toggleNotifications = function() {};
-
-        window.clearCacheAction = function() {
-            alert("تم مسح الذاكرة المؤقتة بنجاح");
-        };
-
-        // فتح نافذة الاشتراكات عند الضغط على زر ترقية
-        window.openSubscription = function() {
-            const modal = document.getElementById('subscriptionModal');
-            if (modal) {
-                modal.classList.add('show');
-            }
-        };
-
-        window.closeSubscription = function() {
-            const modal = document.getElementById('subscriptionModal');
-            if (modal) {
-                modal.classList.remove('show');
-            }
-        };
-
-        function choosePlan(cardElement) {
-            document.querySelectorAll('.plan-card').forEach(card => card.classList.remove('active'));
-            cardElement.classList.add('active');
+        function preloadSubscriptionModal() {
+            if (isSubscriptionLoaded) return;
+            fetch('/subscription-modal')
+                .then(response => {
+                    if (!response.ok) throw new Error('فشل جلب ملف الاشتراكات');
+                    return response.text();
+                })
+                .then(html => {
+                    const wrapper = document.getElementById('subscriptionModalWrapper');
+                    wrapper.innerHTML = html;
+                    
+                    const scripts = wrapper.querySelectorAll('script');
+                    scripts.forEach(script => {
+                        const newScript = document.createElement('script');
+                        newScript.text = script.innerHTML;
+                        document.body.appendChild(newScript);
+                    });
+                    isSubscriptionLoaded = true;
+                })
+                .catch(err => console.error(err));
         }
 
-        window.handleSubscribeClick = function() {
-            alert("جاري فتح نافذة الدفع لتأكيد الاشتراك...");
+        let isSettingsLoaded = false;
+
+        function preloadSettingsModal() {
+            if (isSettingsLoaded) return;
+            fetch('/settings')
+                .then(response => {
+                    if (!response.ok) throw new Error('فشل جلب ملف الإعدادات');
+                    return response.text();
+                })
+                .then(html => {
+                    const wrapper = document.getElementById('settingsModalWrapper');
+                    wrapper.innerHTML = html;
+                    
+                    const scripts = wrapper.querySelectorAll('script');
+                    scripts.forEach(script => {
+                        const newScript = document.createElement('script');
+                        newScript.text = script.innerHTML;
+                        document.body.appendChild(newScript);
+                    });
+                    isSettingsLoaded = true;
+                })
+                .catch(err => console.error(err));
+        }
+
+        // جلب الملفات فوراً عند بدء التشغيل
+        window.addEventListener('DOMContentLoaded', () => {
+            preloadSubscriptionModal();
+            preloadSettingsModal();
+        });
+
+        window.openSubscription = function() {
+            const loadedModal = document.getElementById('subscriptionModal');
+            if (loadedModal) {
+                loadedModal.style.display = 'flex';
+                setTimeout(() => loadedModal.classList.add('show'), 10);
+            } else {
+                preloadSubscriptionModal();
+                setTimeout(() => {
+                    const m = document.getElementById('subscriptionModal');
+                    if(m) {
+                        m.style.display = 'flex';
+                        m.classList.add('show');
+                    }
+                }, 300);
+            }
         };
 
-        window.handleLink = function(type) {
-            if (type === 'restore') {
-                alert("جاري التحقق من المشتريات السابقة للاستعادة...");
-            } else if (type === 'terms') {
-                alert("جاري فتح شروط الاستخدام...");
-            } else if (type === 'privacy') {
-                alert("جاري فتح سياسة الخصوصية...");
+        // دالة فتح الإعدادات محسنة لتستجيب في أجزاء من الثانية من اللمسة الأولى
+        window.openSettingsScreen = function() {
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            vibrateDevice();
+            const settingsScreen = document.getElementById('settingsScreen');
+            if (settingsScreen) {
+                settingsScreen.classList.add('show');
+            } else {
+                preloadSettingsModal();
+                setTimeout(() => {
+                    const s = document.getElementById('settingsScreen');
+                    if(s) {
+                        s.classList.add('show');
+                    }
+                }, 100);
             }
         };
     </script>
