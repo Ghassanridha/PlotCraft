@@ -1,8 +1,8 @@
 <!-- ================= 1. نافذة الاشتراكات (Subscription Modal) ================= -->
-<div id="subscriptionModal" class="modal-overlay">
+<div id="subscriptionModal" class="modal-overlay show">
     <div class="modal-absolute-container">
         
-        <!-- تم استبدال زر علامة X برمز الشفرة (Chevron) بحجم مناسب ومسحوب لليمين -->
+        <!-- زر الإغلاق -->
         <button class="close-modal-btn" onclick="closeSubscription()">&#x276F;</button>
 
         <div class="plans-list-absolute">
@@ -99,7 +99,7 @@
 
 
 <style>
-    /* ================= تنسيق نافذة الاشتراكات ================= */
+    /* ================= 1. تنسيق نافذة الاشتراكات ================= */
     .modal-overlay {
         display: block; 
         position: fixed; 
@@ -108,8 +108,6 @@
         background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/0f1d146fbd9d2334aa927340f811c68891749269/Gh.jpg') center/cover no-repeat;
         z-index: 99999;
         direction: rtl;
-        overflow: hidden !important;
-        touch-action: none !important;
         transform: translateX(-100vw);
         transition: transform 0.3s ease-out;
         visibility: hidden;
@@ -128,7 +126,6 @@
         padding-bottom: 140px;
     }
 
-    /* تنسيق زر الشفرة (Chevron) الجديد في نافذة الاشتراكات */
     .close-modal-btn {
         position: absolute; 
         top: 14px; 
@@ -153,6 +150,7 @@
         width: 92%; max-width: 420px;
         display: flex; flex-direction: column; 
         gap: 12px;
+        z-index: 10;
     }
 
     .plan-card {
@@ -226,8 +224,6 @@
         background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/a44fde0525a9b0cefa60594554a174f0f18044a2/Gh1.png') center/cover no-repeat;
         z-index: 999999;
         direction: rtl;
-        overflow: hidden !important;
-        touch-action: none !important;
         transform: translateY(100vh);
         transition: transform 0.3s ease-out;
         visibility: hidden;
@@ -346,7 +342,7 @@
 </style>
 
 
-<!-- سكربت Firebase التفاعلي وتوصيل مصادقة جوجل الحقيقية -->
+<!-- سكربت Firebase المباشر والتفاعلي -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
@@ -357,7 +353,6 @@
     } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
     import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-    // إعدادات Firebase الخاصة بمشروع PlotCraft
     const firebaseConfig = {
       apiKey: "AIzaSyC0yqVlGpM159foKmpMFiuySgF5uFxOA_k",
       authDomain: "plotcraft2.firebaseapp.com",
@@ -375,7 +370,6 @@
 
     let isUserLoggedIn = false; 
 
-    // حفظ بيانات المستخدم في قاعدة البيانات و localStorage بعد نجاح تسجيل الدخول
     function saveUserToDatabase(user) {
         if (!user) return;
 
@@ -395,16 +389,15 @@
 
         set(ref(db, 'users/' + user.uid), userData)
             .then(() => {
-                console.log("✅ تم حفظ بيانات الحساب بنجاح");
+                console.log("✅ تم حفظ البيانات بنجاح");
                 localStorage.setItem('plotcraft_user_session', JSON.stringify(userData));
                 localStorage.setItem('plotcraft_user_uid', user.uid);
             })
             .catch((error) => {
-                console.error("❌ خطأ في حفظ بيانات المستخدم:", error);
+                console.error("❌ خطأ الحفظ:", error);
             });
     }
 
-    // دوال التحكم بالواجهة المتاحة عالمياً عبر window
     window.choosePlan = function(cardElement) {
         document.querySelectorAll('.plan-card').forEach(card => card.classList.remove('active'));
         cardElement.classList.add('active');
@@ -412,24 +405,18 @@
 
     window.openSubscription = function() {
         const modal = document.getElementById('subscriptionModal');
-        if (modal) {
-            modal.classList.add('show');
-        }
+        if (modal) modal.classList.add('show');
     }
 
     window.closeSubscription = function() {
         const modal = document.getElementById('subscriptionModal');
-        if (modal) {
-            modal.classList.remove('show');
-        }
+        if (modal) modal.classList.remove('show');
     }
 
     window.handleSubscribeClick = function() {
         if (!isUserLoggedIn) {
             const authModal = document.getElementById('authModal');
-            if (authModal) {
-                authModal.classList.add('show');
-            }
+            if (authModal) authModal.classList.add('show');
         } else {
             openPaymentGateway();
         }
@@ -437,42 +424,33 @@
 
     window.closeAuthModal = function() {
         const authModal = document.getElementById('authModal');
-        if (authModal) {
-            authModal.classList.remove('show');
-        }
+        if (authModal) authModal.classList.remove('show');
     }
 
     window.handleLink = function(type) {
-        if (type === 'restore') {
-            alert("جاري التحقق من المشتريات السابقة للاستعادة...");
-        } else if (type === 'terms') {
-            alert("جاري فتح شروط الاستخدام...");
-        } else if (type === 'privacy') {
-            alert("جاري فتح سياسة الخصوصية...");
-        }
+        if (type === 'restore') alert("جاري التحقق من المشتريات السابقة...");
+        else if (type === 'terms') alert("جاري فتح شروط الاستخدام...");
+        else if (type === 'privacy') alert("جاري فتح سياسة الخصوصية...");
     }
 
-    // تفعيل تسجيل الدخول الحقيقي عبر نافذة Google المنبثقة والآمنة
     window.loginWithGoogle = function() {
         const provider = new GoogleAuthProvider();
         
         signInWithPopup(auth, provider)
             .then((result) => {
                 let user = result.user;
-                saveUserToDatabase(user); // حفظ وتحديث البيانات في Firebase Realtime Database
+                saveUserToDatabase(user);
                 isUserLoggedIn = true;
                 closeAuthModal();
                 alert("✅ تم تسجيل الدخول بواسطة جوجل بنجاح!");
                 openPaymentGateway();
             })
             .catch((error) => {
-                console.error("خطأ المصادقة:", error);
-                alert("❌ حدث خطأ أثناء تسجيل الدخول بجوجل: " + error.message);
+                alert("❌ خطأ: " + error.message);
             });
     }
 
     window.loginWithEmail = function() {
-        // يمكنك ربطها لاحقاً بخدمة البريد الإلكتروني إذا رغبت
         isUserLoggedIn = true;
         closeAuthModal();
         alert("تم تسجيل الدخول بنجاح عبر البريد الإلكتروني!");
