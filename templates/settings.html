@@ -17,7 +17,7 @@
             overflow: hidden;
         }
 
-        /* حاوية الشاشة مع الخلفية (مخفية افتراضياً لتظهر الواجهة الرئيسية أولاً) */
+        /* حاوية الشاشة مع خلفية التصميم الجديد */
         .settings-screen {
             position: fixed;
             top: 0;
@@ -52,7 +52,7 @@
             z-index: 50;
         }
 
-        /* زر الشفرة (Chevron) بحجم أصغر ومسحوب لأقصى اليمين بالأعلى */
+        /* زر الرجوع الشفرة في أقصى اليمين بالأعلى */
         .btn-back-chevron {
             position: absolute;
             top: 14px;
@@ -72,7 +72,7 @@
             opacity: 0.8;
         }
 
-        /* مناطق النقر المتبقية */
+        /* مناطق النقر الموزعة */
         .toggle-notifications {
             top: 350px;
             right: 15px;
@@ -121,10 +121,10 @@
     <div id="settingsScreen" class="settings-screen">
         <div class="click-overlay-container">
             
-            <!-- زر الشفرة بالحجم الأصغر في أقصى اليمين -->
+            <!-- زر الرجوع (الشفرة) -->
             <button class="btn-back-chevron" onclick="closeSettingsScreen()">&#x276F;</button>
             
-            <!-- مناطق النقر المتبقية -->
+            <!-- مناطق النقر الأساسية -->
             <div class="clickable-area toggle-notifications" onclick="toggleNotifications()"></div>
             
             <a href="#" class="clickable-area link-language" onclick="handleAction('language'); return false;"></a>
