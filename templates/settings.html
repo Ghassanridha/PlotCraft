@@ -48,7 +48,7 @@
             flex-direction: column;
         }
 
-        /* زر الإغلاق والرجوع في الأعلى */
+        /* زر العودة العلوية */
         .settings-header {
             display: flex;
             justify-content: flex-start;
@@ -65,16 +65,23 @@
             padding: 4px;
         }
 
-        /* المربع الأول (المستطيل الأوسط الخالي في الخلفية) */
+        /* المربع الأول (المستطيل الأوسط) */
         .group-middle {
-            margin-top: 145px; /* تنزيل المجموعات لتحت لتطابق المربع الأوسط */
+            margin-top: 145px;
             display: flex;
             flex-direction: column;
         }
 
-        /* المربع الثاني (المستطيل السفلي في الخلفية) */
+        /* رفع زر الإشعارات للأعلى قليلاً داخل المربع */
+        .group-middle .setting-item:first-child {
+            padding-top: 4px;
+            padding-bottom: 12px;
+            margin-top: -6px;
+        }
+
+        /* المربع الثاني (المستطيل السفلي - تم ضبطه ليبقى زر الإعدادات داخله تماماً) */
         .group-bottom {
-            margin-top: 38px; /* تنزيل زر الإعدادات ومسح الذاكرة إلى المستطيل الأخير */
+            margin-top: 31px; 
             display: flex;
             flex-direction: column;
         }
@@ -287,7 +294,7 @@
                 <button class="btn-back" onclick="closeSettingsScreen()">&#10095;</button>
             </div>
 
-            <!-- أزرار المربع الأوسط (الإشعارات، اللغة، انضم إلينا، اتصل بنا) -->
+            <!-- أزرار المربع الأوسط -->
             <div class="group-middle">
                 <!-- 1. الإشعارات -->
                 <div class="setting-item" onclick="toggleNotifications()">
@@ -332,7 +339,7 @@
                     <span class="arrow-icon">&#10094;</span>
                 </div>
 
-                <!-- 4. اتصل بنا -->
+                <!-- 4. اتصل بنا (ثابت بمكانه) -->
                 <div class="setting-item" onclick="openEmail()">
                     <div class="setting-right">
                         <span class="icon-svg">
@@ -347,7 +354,7 @@
                 </div>
             </div>
 
-            <!-- أزرار المستطيل السفلي الأخير (الإعدادات، مسح الذاكرة) -->
+            <!-- أزرار المستطيل السفلي الأخير -->
             <div class="group-bottom">
                 <!-- 5. الإعدادات -->
                 <div class="setting-item" onclick="handleSubSettings()">
