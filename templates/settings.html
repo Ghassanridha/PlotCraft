@@ -18,7 +18,7 @@
             overflow: hidden;
         }
 
-        /* خلفية G2.jpg الأساسية - مخفية افتراضياً */
+        /* خلفية الإعدادات - مخفية تماماً افتراضياً ولا تظهر إلا بالضغط على الزر الخاص بها */
         .settings-screen {
             position: fixed;
             top: 0;
@@ -338,7 +338,7 @@
 </head>
 <body>
 
-    <!-- الواجهة مخفية افتراضياً ولن تظهر حتى يتم استدعاء openSettingsScreen() -->
+    <!-- الواجهة مخفية تماماً افتراضياً -->
     <div id="settingsScreen" class="settings-screen">
         <div class="settings-container">
             
@@ -347,7 +347,7 @@
                 <button class="btn-back" onclick="closeSettingsScreen()">&#10095;</button>
             </div>
 
-            <!-- زر تسجيل الدخول المربوط بـ Firebase و Google مباشرة -->
+            <!-- زر تسجيل الدخول المربوط بدالة جوجل مباشرة وتتطابق مع handleLoginAction -->
             <button class="btn-login-overlay" id="btnLoginText" onclick="handleLoginAction()">تسجيل الدخول</button>
 
             <!-- أزرار المربع الأوسط -->
@@ -457,7 +457,7 @@
             <div class="lang-item" data-code="fr" data-name="Français">Français</div>
             <div class="lang-item" data-code="es" data-name="Español">Español</div>
             <div class="lang-item" data-code="de" data-name="Deutsch">Deutsch</div>
-            <div class="lang-item" data-code="tr" data-name="Türkçe">Türkçe</div>
+            <div class="lang-item" data-name="Türkçe" data-code="tr">Türkçe</div>
             <div class="lang-item" data-code="ru" data-name="Русский">Русский</div>
             <div class="lang-item" data-code="zh" data-name="中文">中文</div>
             <div class="lang-item" data-code="ja" data-name="日本語">日本語</div>
@@ -469,7 +469,7 @@
 
     <div id="cacheToast">تم المسح بنجاح</div>
 
-    <!-- سكربت Firebase المباشر والمكشوف لـ window لفتح نافذة Google فوراً -->
+    <!-- سكربت Firebase المتصل بـ Google وتثبيت البيانات مع تطابق اسم الدالة تماماً -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
@@ -527,7 +527,7 @@
                 });
         }
 
-        // جعل دالة الضغط مكشوفة للـ HTML العام مباشرة لضمان فتح نافذة الإيميلات
+        // اسم الدالة متطابق 100% مع الـ HTML لكي تفتح نافذة جوجل فور النقر
         window.handleLoginAction = function() {
             const provider = new GoogleAuthProvider();
             
@@ -539,11 +539,10 @@
                 })
                 .catch((error) => {
                     console.error("خطأ المصادقة:", error);
-                    alert("❌ حدث خطأ: " + error.message);
+                    alert("❌ حدث خطأ أثناء تسجيل الدخول: " + error.message);
                 });
         };
 
-        // فحص وجود جلسة مسجلة سابقاً عند فتح الصفحة
         window.addEventListener('DOMContentLoaded', () => {
             const savedSession = localStorage.getItem('plotcraft_user_session');
             if (savedSession) {
@@ -558,7 +557,7 @@
         });
     </script>
 
-    <!-- سكربت التحكم بالواجهة والتفاعل والترجمة -->
+    <!-- سكربت التحكم بالواجهة واللغات والتفاعلات -->
     <script>
         let isNotifActive = false;
 
