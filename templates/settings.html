@@ -40,6 +40,7 @@
         }
 
         .settings-container {
+            position: relative;
             width: 100%;
             max-width: 480px;
             margin: 0 auto;
@@ -48,7 +49,7 @@
             flex-direction: column;
         }
 
-        /* زر الشفرة (الرجوع) مرفوع للأعلى وبحجم أصغر */
+        /* زر الشفرة (الرجوع) العلوي */
         .settings-header {
             display: flex;
             justify-content: flex-start;
@@ -60,35 +61,56 @@
             background: transparent;
             border: none;
             color: #ffffff;
-            font-size: 18px; /* تصغير حجم الشفرة */
+            font-size: 18px;
             cursor: pointer;
             padding: 2px;
         }
 
-        /* المربع الأول (المستطيل الأوسط) */
-        .group-middle {
-            margin-top: 135px; /* تم تعديل الموضع لتنسيق الرفع */
+        /* زر تسجيل الدخول الشفاف داخل المستطيل الأبيض الفارغ على اليسار */
+        .btn-login-overlay {
+            position: absolute;
+            top: 102px;
+            left: 36px;
+            width: 110px;
+            height: 38px;
+            background: transparent;
+            border: none;
+            color: #000000; /* كتابة باللون الأسود */
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
             display: flex;
-            flex-direction: column;
-            gap: 15px; /* مسافة 15px بين كل زر والآخر */
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
         }
 
-        /* رفع زر الإشعارات للأعلى ليصبح قريباً من حافة المربع */
+        .btn-login-overlay:active {
+            opacity: 0.6;
+        }
+
+        /* المربع الأول (المستطيل الأوسط) - ثابت بمكانه */
+        .group-middle {
+            margin-top: 135px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
         .group-middle .setting-item:first-child {
             margin-top: -12px;
         }
 
-        /* المربع الثاني (المستطيل السفلي) */
+        /* المربع الثاني (المستطيل السفلي) - تم تنزيله قليلاً لأسفل */
         .group-bottom {
-            margin-top: 35px; 
+            margin-top: 48px; /* تنزيل زر الإعدادات ومسح الذاكرة إلى الأسفل */
             display: flex;
             flex-direction: column;
-            gap: 15px; /* مسافة 15px بين زر الإعدادات ومسح الذاكرة */
+            gap: 15px;
         }
 
-        /* رفع زر الإعدادات مع عدم الخروج من المستطيل */
         .group-bottom .setting-item:first-child {
-            margin-top: -8px;
+            margin-top: 0px;
         }
 
         .setting-item {
@@ -294,14 +316,17 @@
     <div id="settingsScreen" class="settings-screen">
         <div class="settings-container">
             
-            <!-- زر الشفرة العلوية الأصغر والمرفوع -->
+            <!-- زر الشفرة العلوية -->
             <div class="settings-header">
                 <button class="btn-back" onclick="closeSettingsScreen()">&#10095;</button>
             </div>
 
-            <!-- أزرار المربع الأوسط بمسافة 15px -->
+            <!-- زر تسجيل الدخول الشفاف بالنص الأسود على المستطيل الأبيض الفارغ -->
+            <button class="btn-login-overlay" onclick="handleLoginAction()">تسجيل الدخول</button>
+
+            <!-- أزرار المربع الأوسط (ثابتين بمكانهم) -->
             <div class="group-middle">
-                <!-- 1. الإشعارات (مرفوع لطرف المربع العلوي) -->
+                <!-- 1. الإشعارات -->
                 <div class="setting-item" onclick="toggleNotifications()">
                     <div class="setting-right">
                         <span class="icon-svg">
@@ -344,7 +369,7 @@
                     <span class="arrow-icon">&#10094;</span>
                 </div>
 
-                <!-- 4. اتصل بنا (ثابت بمكانه) -->
+                <!-- 4. اتصل بنا -->
                 <div class="setting-item" onclick="openEmail()">
                     <div class="setting-right">
                         <span class="icon-svg">
@@ -359,9 +384,9 @@
                 </div>
             </div>
 
-            <!-- أزرار المستطيل السفلي -->
+            <!-- أزرار المستطيل السفلي (الإعدادات ومسح الذاكرة تم تنزيلهم) -->
             <div class="group-bottom">
-                <!-- 5. الإعدادات (مرفوع قليلاً بدون الخروج من مستطيله) -->
+                <!-- 5. الإعدادات -->
                 <div class="setting-item" onclick="handleSubSettings()">
                     <div class="setting-right">
                         <span class="icon-svg">
@@ -374,7 +399,7 @@
                     <span class="arrow-icon">&#10094;</span>
                 </div>
 
-                <!-- 6. مسح الذاكرة المؤقتة (ثابت بمكانه) -->
+                <!-- 6. مسح الذاكرة المؤقتة -->
                 <div class="setting-item" onclick="clearCacheAction()">
                     <div class="setting-right">
                         <span class="icon-svg">
@@ -428,6 +453,10 @@
 
         function closeSettingsScreen() {
             document.getElementById('settingsScreen').classList.remove('show');
+        }
+
+        function handleLoginAction() {
+            console.log("تم الضغط على تسجيل الدخول");
         }
 
         function toggleNotifications() {
