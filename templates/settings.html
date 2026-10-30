@@ -18,7 +18,7 @@
             overflow: hidden;
         }
 
-        /* خلفية الإعدادات - مخفية تماماً افتراضياً ولا تظهر إلا بالضغط على الزر الخاص بها */
+        /* خلفية G2.jpg الأساسية */
         .settings-screen {
             position: fixed;
             top: 0;
@@ -32,7 +32,6 @@
             transition: transform 0.3s ease-out;
             visibility: hidden;
             overflow-y: auto;
-            pointer-events: auto;
         }
 
         .settings-screen.show {
@@ -71,7 +70,7 @@
             padding: 2px;
         }
 
-        /* زر تسجيل الدخول المرفوع والمعدل الموضع */
+        /* تعديل موقع زر تسجيل الدخول (مرفوع أكثر ومسحوب لليسار) */
         .btn-login-overlay {
             position: absolute;
             top: 76px;
@@ -215,7 +214,7 @@
             transform: translateX(20px);
         }
 
-        /* نافذة اختيار اللغات السفلية */
+        /* نافذة اختيار اللغات السفلية بلون رمادي داكن مطفأ */
         #languageBottomSheet {
             position: fixed;
             bottom: -100%;
@@ -338,7 +337,6 @@
 </head>
 <body>
 
-    <!-- الواجهة مخفية تماماً افتراضياً -->
     <div id="settingsScreen" class="settings-screen">
         <div class="settings-container">
             
@@ -347,7 +345,7 @@
                 <button class="btn-back" onclick="closeSettingsScreen()">&#10095;</button>
             </div>
 
-            <!-- زر تسجيل الدخول المربوط بدالة جوجل مباشرة وتتطابق مع handleLoginAction -->
+            <!-- زر تسجيل الدخول المرفوع والمعدل الموضع -->
             <button class="btn-login-overlay" id="btnLoginText" onclick="handleLoginAction()">تسجيل الدخول</button>
 
             <!-- أزرار المربع الأوسط -->
@@ -457,7 +455,7 @@
             <div class="lang-item" data-code="fr" data-name="Français">Français</div>
             <div class="lang-item" data-code="es" data-name="Español">Español</div>
             <div class="lang-item" data-code="de" data-name="Deutsch">Deutsch</div>
-            <div class="lang-item" data-name="Türkçe" data-code="tr">Türkçe</div>
+            <div class="lang-item" data-code="tr" data-name="Türkçe">Türkçe</div>
             <div class="lang-item" data-code="ru" data-name="Русский">Русский</div>
             <div class="lang-item" data-code="zh" data-name="中文">中文</div>
             <div class="lang-item" data-code="ja" data-name="日本語">日本語</div>
@@ -469,95 +467,6 @@
 
     <div id="cacheToast">تم المسح بنجاح</div>
 
-    <!-- سكربت Firebase المتصل بـ Google وتثبيت البيانات مع تطابق اسم الدالة تماماً -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
-        import { 
-            getAuth, 
-            GoogleAuthProvider, 
-            signInWithPopup 
-        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-
-        const firebaseConfig = {
-          apiKey: "AIzaSyC0yqVlGpM159foKmpMFiuySgF5uFxOA_k",
-          authDomain: "plotcraft2.firebaseapp.com",
-          projectId: "plotcraft2",
-          storageBucket: "plotcraft2.firebasestorage.app",
-          messagingSenderId: "338171528711",
-          appId: "1:338171528711:web:f13544fb4e496fe39e8ca2",
-          measurementId: "G-T2ZXFTGD5H"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const auth = getAuth(app);
-        const db = getDatabase(app);
-
-        function saveUserToDatabase(user) {
-            if (!user) return;
-
-            const userEmail = user.email || '';
-            const userHandle = userEmail ? '@' + userEmail.split('@')[0] : '@user_' + user.uid.substring(0, 5);
-            const userName = user.displayName || userEmail.split('@')[0] || 'مخرج PlotCraft';
-            const userPicture = user.photoURL || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100';
-
-            const userData = {
-                uid: user.uid,
-                name: userName,
-                email: userEmail,
-                handle: userHandle,
-                picture: userPicture,
-                lastLogin: Date.now()
-            };
-
-            set(ref(db, 'users/' + user.uid), userData)
-                .then(() => {
-                    localStorage.setItem('plotcraft_user_session', JSON.stringify(userData));
-                    localStorage.setItem('plotcraft_user_uid', user.uid);
-                    
-                    const loginBtn = document.getElementById('btnLoginText');
-                    if (loginBtn) {
-                        loginBtn.innerText = userName;
-                    }
-                })
-                .catch((error) => {
-                    console.error("خطأ الحفظ:", error);
-                });
-        }
-
-        // اسم الدالة متطابق 100% مع الـ HTML لكي تفتح نافذة جوجل فور النقر
-        window.handleLoginAction = function() {
-            const provider = new GoogleAuthProvider();
-            
-            signInWithPopup(auth, provider)
-                .then((result) => {
-                    let user = result.user;
-                    saveUserToDatabase(user);
-                    alert("✅ تم تسجيل الدخول بنجاح!");
-                })
-                .catch((error) => {
-                    console.error("خطأ المصادقة:", error);
-                    alert("❌ حدث خطأ أثناء تسجيل الدخول: " + error.message);
-                });
-        };
-
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedSession = localStorage.getItem('plotcraft_user_session');
-            if (savedSession) {
-                try {
-                    const userData = JSON.parse(savedSession);
-                    const loginBtn = document.getElementById('btnLoginText');
-                    if (loginBtn && userData.name) {
-                        loginBtn.innerText = userData.name;
-                    }
-                } catch(e) {}
-            }
-        });
-    </script>
-
-    <!-- سكربت التحكم بالواجهة واللغات والتفاعلات -->
     <script>
         let isNotifActive = false;
 
@@ -697,6 +606,10 @@
             document.getElementById('settingsScreen').classList.remove('show');
         }
 
+        function handleLoginAction() {
+            console.log("تسجيل الدخول");
+        }
+
         function toggleNotifications() {
             isNotifActive = !isNotifActive;
             const toggle = document.getElementById('notifToggle');
@@ -798,12 +711,7 @@
             const t = translations[code] || translations['ar'];
             
             document.getElementById('pageTitle').innerText = t.title;
-            
-            const savedSession = localStorage.getItem('plotcraft_user_session');
-            if (!savedSession) {
-                document.getElementById('btnLoginText').innerText = t.login;
-            }
-
+            document.getElementById('btnLoginText').innerText = t.login;
             document.getElementById('txtNotif').innerText = t.notif;
             document.getElementById('txtLangTitle').innerText = t.langTitle;
             document.getElementById('txtJoin').innerText = t.join;
