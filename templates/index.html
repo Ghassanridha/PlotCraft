@@ -101,12 +101,15 @@
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             flex-shrink: 0;
+            /* تحسين الأداء اللمسي والاستجابة الفورية */
             touch-action: manipulation;
         }
         .top-settings-btn img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            /* منع تأخر التحميل وعرض الصورة فوراً */
+            loading: eager;
         }
 
         .welcome-section {
@@ -229,147 +232,6 @@
             background: #e2e8f0;
         }
 
-        /* تنسيقات نافذة تسجيل الدخول بـ Google المتموضعة في اليمين وبالطول الكامل */
-        #googleAuthModal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
-            z-index: 999999;
-            display: none;
-            justify-content: flex-end; /* لضمان الالتصاق بالطرف الأيمن تماماً */
-            align-items: stretch;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        #googleAuthModal.show {
-            display: flex;
-            opacity: 1;
-        }
-        .google-auth-drawer {
-            width: 100%;
-            max-width: 420px; /* عرض مناسب وملائم للشاشات المختلفة */
-            height: 100%;
-            background: #151922;
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            flex-direction: column;
-            box-shadow: -5px 0 25px rgba(0,0,0,0.5);
-            transform: translateX(100%);
-            transition: transform 0.3s ease-in-out;
-        }
-        #googleAuthModal.show .google-auth-drawer {
-            transform: translateX(0);
-        }
-        .google-auth-header {
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .google-auth-header h2 {
-            color: #ffffff;
-            font-size: 18px;
-            font-weight: 700;
-        }
-        .google-auth-close {
-            background: transparent;
-            border: none;
-            color: #94a3b8;
-            font-size: 22px;
-            cursor: pointer;
-            width: 35px;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: background 0.2s;
-        }
-        .google-auth-close:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-        }
-        .google-auth-body {
-            padding: 20px;
-            overflow-y: auto; /* قابلة للتمرير للأعلى والأسفل */
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .google-email-card {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            background: #1f242d;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 14px 16px;
-            border-radius: 14px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .google-email-card:hover {
-            background: #282f3d;
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-        .google-user-avatar {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background: #3b82f6;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 16px;
-            flex-shrink: 0;
-        }
-        .google-user-info {
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        .google-user-name {
-            color: #ffffff;
-            font-size: 14px;
-            font-weight: 600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .google-user-email {
-            color: #94a3b8;
-            font-size: 12px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .google-add-account {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            background: transparent;
-            border: 1px dashed rgba(255, 255, 255, 0.2);
-            padding: 14px 16px;
-            border-radius: 14px;
-            cursor: pointer;
-            color: #60a5fa;
-            font-size: 14px;
-            font-weight: 600;
-            transition: background 0.2s;
-            text-align: right;
-            width: 100%;
-        }
-        .google-add-account:hover {
-            background: rgba(96, 165, 250, 0.05);
-        }
-
         .plotcraft-nav-bar {
             position: absolute;
             bottom: 0; left: 0; width: 100%;
@@ -475,7 +337,7 @@
                     <div class="top-left-actions">
                         <button onclick="openSubscription()" style="background: rgba(20, 24, 33, 0.85); backdrop-filter: blur(12px); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); padding: 6px 12px; border-radius: 16px; font-weight: 600; cursor: pointer; font-size: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); white-space: nowrap; touch-action: manipulation; -webkit-tap-highlight-color: transparent;">ترقيه</button>
                         
-                        <!-- زر الإعدادات -->
+                        <!-- تحسين الاستجابة الفورية بحدث الطوارئ اللمسي واستدعاء الإعدادات فوراً بدون انتظار -->
                         <div class="top-settings-btn" onclick="openSettingsScreen()" ontouchstart="openSettingsScreen()">
                             <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات" loading="eager">
                         </div>
@@ -484,11 +346,6 @@
                 <div class="welcome-section">
                     <h1>مساء الخير، أيها المخرج<br>أي قصة سنصنع اليوم؟</h1>
                 </div>
-            </div>
-            
-            <!-- زر تجريبي لاختبار فتح قائمة Google الفورية -->
-            <div style="padding: 20px; text-align: center;">
-                <button onclick="openGoogleAuthDrawer()" style="background: #ffffff; color: #1f242d; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 700; cursor: pointer;">تسجيل الدخول عبر Google</button>
             </div>
         </div>
 
@@ -552,58 +409,6 @@
         </div>
     </div>
 
-    <!-- نافذة Google Auth المتموضعة في اليمين وبالطول الكامل مع محتوى عمودي وقابل للتمرير -->
-    <div id="googleAuthModal" onclick="closeGoogleAuthDrawer(event)">
-        <div class="google-auth-drawer" onclick="event.stopPropagation()">
-            <div class="google-auth-header">
-                <h2>تسجيل الدخول باستخدام Google</h2>
-                <button class="google-auth-close" onclick="closeGoogleAuthDrawer()">&times;</button>
-            </div>
-            <div class="google-auth-body">
-                <div style="color: #94a3b8; font-size: 13px; margin-bottom: 5px;">اختر حساباً للمتابعة إلى PlotCraft</div>
-                
-                <!-- قائمة الحسابات بشكل عمودي وقابلة للتمرير -->
-                <div class="google-email-card" onclick="selectGoogleAccount('ghassan.ridha@gmail.com', 'غسان رضا')">
-                    <div class="google-user-avatar" style="background: #ef4444;">غ</div>
-                    <div class="google-user-info">
-                        <span class="google-user-name">غسان رضا</span>
-                        <span class="google-user-email">ghassan.ridha@gmail.com</span>
-                    </div>
-                </div>
-
-                <div class="google-email-card" onclick="selectGoogleAccount('plotcraft.dev@gmail.com', 'PlotCraft Official')">
-                    <div class="google-user-avatar" style="background: #3b82f6;">P</div>
-                    <div class="google-user-info">
-                        <span class="google-user-name">PlotCraft Official</span>
-                        <span class="google-user-email">plotcraft.dev@gmail.com</span>
-                    </div>
-                </div>
-
-                <div class="google-email-card" onclick="selectGoogleAccount('user.test1@gmail.com', 'مستخدم تجريبي أول')">
-                    <div class="google-user-avatar" style="background: #10b981;">م</div>
-                    <div class="google-user-info">
-                        <span class="google-user-name">مستخدم تجريبي أول</span>
-                        <span class="google-user-email">user.test1@gmail.com</span>
-                    </div>
-                </div>
-
-                <div class="google-email-card" onclick="selectGoogleAccount('user.test2@gmail.com', 'مستخدم تجريبي ثانٍ')">
-                    <div class="google-user-avatar" style="background: #f59e0b;">ت</div>
-                    <div class="google-user-info">
-                        <span class="google-user-name">مستخدم تجريبي ثانٍ</span>
-                        <span class="google-user-email">user.test2@gmail.com</span>
-                    </div>
-                </div>
-
-                <!-- زر إضافة حساب آخر -->
-                <button class="google-add-account" onclick="showToast('جارٍ إضافة حساب جديد...')">
-                    <svg style="width: 20px; height: 20px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"></path></svg>
-                    <span>استخدام حساب آخر</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- حاوية جلب ملف الاشتراكات المستقل -->
     <div id="subscriptionModalWrapper"></div>
     
@@ -624,23 +429,6 @@
                 toast.classList.add('show');
                 setTimeout(() => { toast.classList.remove('show'); }, 1500);
             }
-        };
-
-        window.openGoogleAuthDrawer = function() {
-            vibrateDevice();
-            const modal = document.getElementById('googleAuthModal');
-            if (modal) modal.classList.add('show');
-        };
-
-        window.closeGoogleAuthDrawer = function(event) {
-            const modal = document.getElementById('googleAuthModal');
-            if (modal) modal.classList.remove('show');
-        };
-
-        window.selectGoogleAccount = function(email, name) {
-            showToast('تم تسجيل الدخول بنجاح: ' + name);
-            closeGoogleAuthDrawer();
-            // هنا يمكنك ربط دالة Firebase الخاصة بك لتسجيل الدخول الفعلي بالإيميل المحدد
         };
 
         window.switchScreen = function(screenId, event) {
