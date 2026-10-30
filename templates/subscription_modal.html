@@ -346,29 +346,85 @@
 </style>
 
 
-<script>
+<!-- سكربت Firebase التفاعلي وتوصيل مصادقة جوجل الحقيقية -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+    import { 
+        getAuth, 
+        GoogleAuthProvider, 
+        signInWithPopup 
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    // إعدادات Firebase الخاصة بمشروع PlotCraft
+    const firebaseConfig = {
+      apiKey: "AIzaSyC0yqVlGpM159foKmpMFiuySgF5uFxOA_k",
+      authDomain: "plotcraft2.firebaseapp.com",
+      projectId: "plotcraft2",
+      storageBucket: "plotcraft2.firebasestorage.app",
+      messagingSenderId: "338171528711",
+      appId: "1:338171528711:web:f13544fb4e496fe39e8ca2",
+      measurementId: "G-T2ZXFTGD5H"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
     let isUserLoggedIn = false; 
 
-    function choosePlan(cardElement) {
+    // حفظ بيانات المستخدم في قاعدة البيانات و localStorage بعد نجاح تسجيل الدخول
+    function saveUserToDatabase(user) {
+        if (!user) return;
+
+        const userEmail = user.email || '';
+        const userHandle = userEmail ? '@' + userEmail.split('@')[0] : '@user_' + user.uid.substring(0, 5);
+        const userName = user.displayName || userEmail.split('@')[0] || 'مخرج PlotCraft';
+        const userPicture = user.photoURL || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100';
+
+        const userData = {
+            uid: user.uid,
+            name: userName,
+            email: userEmail,
+            handle: userHandle,
+            picture: userPicture,
+            lastLogin: Date.now()
+        };
+
+        set(ref(db, 'users/' + user.uid), userData)
+            .then(() => {
+                console.log("✅ تم حفظ بيانات الحساب بنجاح");
+                localStorage.setItem('plotcraft_user_session', JSON.stringify(userData));
+                localStorage.setItem('plotcraft_user_uid', user.uid);
+            })
+            .catch((error) => {
+                console.error("❌ خطأ في حفظ بيانات المستخدم:", error);
+            });
+    }
+
+    // دوال التحكم بالواجهة المتاحة عالمياً عبر window
+    window.choosePlan = function(cardElement) {
         document.querySelectorAll('.plan-card').forEach(card => card.classList.remove('active'));
         cardElement.classList.add('active');
     }
 
-    function openSubscription() {
+    window.openSubscription = function() {
         const modal = document.getElementById('subscriptionModal');
         if (modal) {
             modal.classList.add('show');
         }
     }
 
-    function closeSubscription() {
+    window.closeSubscription = function() {
         const modal = document.getElementById('subscriptionModal');
         if (modal) {
             modal.classList.remove('show');
         }
     }
 
-    function handleSubscribeClick() {
+    window.handleSubscribeClick = function() {
         if (!isUserLoggedIn) {
             const authModal = document.getElementById('authModal');
             if (authModal) {
@@ -379,14 +435,14 @@
         }
     }
 
-    function closeAuthModal() {
+    window.closeAuthModal = function() {
         const authModal = document.getElementById('authModal');
         if (authModal) {
             authModal.classList.remove('show');
         }
     }
 
-    function handleLink(type) {
+    window.handleLink = function(type) {
         if (type === 'restore') {
             alert("جاري التحقق من المشتريات السابقة للاستعادة...");
         } else if (type === 'terms') {
@@ -396,21 +452,34 @@
         }
     }
 
-    function loginWithGoogle() {
-        isUserLoggedIn = true;
-        closeAuthModal();
-        alert("تم تسجيل الدخول بنجاح عبر Google!");
-        openPaymentGateway();
+    // تفعيل تسجيل الدخول الحقيقي عبر نافذة Google المنبثقة والآمنة
+    window.loginWithGoogle = function() {
+        const provider = new GoogleAuthProvider();
+        
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                let user = result.user;
+                saveUserToDatabase(user); // حفظ وتحديث البيانات في Firebase Realtime Database
+                isUserLoggedIn = true;
+                closeAuthModal();
+                alert("✅ تم تسجيل الدخول بواسطة جوجل بنجاح!");
+                openPaymentGateway();
+            })
+            .catch((error) => {
+                console.error("خطأ المصادقة:", error);
+                alert("❌ حدث خطأ أثناء تسجيل الدخول بجوجل: " + error.message);
+            });
     }
 
-    function loginWithEmail() {
+    window.loginWithEmail = function() {
+        // يمكنك ربطها لاحقاً بخدمة البريد الإلكتروني إذا رغبت
         isUserLoggedIn = true;
         closeAuthModal();
         alert("تم تسجيل الدخول بنجاح عبر البريد الإلكتروني!");
         openPaymentGateway();
     }
 
-    function openPaymentGateway() {
+    window.openPaymentGateway = function() {
         alert("جاري فتح نافذة الدفع لتأكيد الاشتراك...");
     }
 </script>
