@@ -18,7 +18,7 @@
             overflow: hidden;
         }
 
-        /* استرجاع خلفية G2.jpg الأصلية لصفحة الإعدادات */
+        /* خلفية G2.jpg الأساسية */
         .settings-screen {
             position: fixed;
             top: 0;
@@ -43,57 +43,55 @@
             width: 100%;
             max-width: 480px;
             margin: 0 auto;
-            padding: 15px 20px 20px 20px; /* مرفوعة للأعلى */
+            padding: 20px 24px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
         }
 
-        /* شريط العنوان العلوي */
+        /* زر الإغلاق والرجوع في الأعلى */
         .settings-header {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: center;
-            color: #ffffff;
-            padding: 5px 0 10px 0;
-        }
-
-        .settings-title {
-            font-size: 18px;
-            font-weight: 700;
+            padding: 10px 0;
         }
 
         .btn-back {
             background: transparent;
             border: none;
             color: #ffffff;
-            font-size: 20px;
+            font-size: 22px;
             cursor: pointer;
-            padding: 4px 8px;
+            padding: 4px;
         }
 
-        /* مجموعة الأزرار بدون أي خلفيات مربعة */
-        .settings-group {
-            background: transparent;
+        /* المربع الأول (المستطيل الأوسط الخالي في الخلفية) */
+        .group-middle {
+            margin-top: 145px; /* تنزيل المجموعات لتحت لتطابق المربع الأوسط */
             display: flex;
             flex-direction: column;
-            gap: 4px;
+        }
+
+        /* المربع الثاني (المستطيل السفلي في الخلفية) */
+        .group-bottom {
+            margin-top: 38px; /* تنزيل زر الإعدادات ومسح الذاكرة إلى المستطيل الأخير */
+            display: flex;
+            flex-direction: column;
         }
 
         .setting-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 8px;
+            height: 48px;
+            padding: 0 8px;
             color: #ffffff;
             text-decoration: none;
             cursor: pointer;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            transition: background 0.2s;
         }
 
         .setting-item:active {
-            background: rgba(255, 255, 255, 0.05);
+            opacity: 0.7;
         }
 
         .setting-right {
@@ -125,7 +123,7 @@
             font-size: 14px;
         }
 
-        /* زر تبديل الإشعارات */
+        /* زر التبديل للإشعارات */
         .toggle-switch {
             width: 44px;
             height: 24px;
@@ -284,15 +282,14 @@
     <div id="settingsScreen" class="settings-screen">
         <div class="settings-container">
             
-            <!-- الهيدر -->
+            <!-- زر العودة العلوية -->
             <div class="settings-header">
-                <span class="settings-title" id="txtSettingsTitle">الإعدادات</span>
-                <button class="btn-back" onclick="closeSettingsScreen()">&#10094;</button>
+                <button class="btn-back" onclick="closeSettingsScreen()">&#10095;</button>
             </div>
 
-            <!-- قائمة الأزرار بدون خلفيات فوق G2.jpg -->
-            <div class="settings-group">
-                <!-- 1. الإشعارات (جرس أبيض) -->
+            <!-- أزرار المربع الأوسط (الإشعارات، اللغة، انضم إلينا، اتصل بنا) -->
+            <div class="group-middle">
+                <!-- 1. الإشعارات -->
                 <div class="setting-item" onclick="toggleNotifications()">
                     <div class="setting-right">
                         <span class="icon-svg">
@@ -300,12 +297,12 @@
                                 <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
                             </svg>
                         </span>
-                        <span id="txtNotif">الإشعارات</span>
+                        <span>الإشعارات</span>
                     </div>
                     <div class="toggle-switch" id="notifToggle"></div>
                 </div>
 
-                <!-- 2. اللغة (كرة بيضاء بخطوط مموجة سوداء) -->
+                <!-- 2. اللغة -->
                 <div class="setting-item" onclick="openLanguageSheet()">
                     <div class="setting-right">
                         <span class="icon-svg">
@@ -314,7 +311,7 @@
                                 <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round"/>
                             </svg>
                         </span>
-                        <span id="txtLang">اللغة</span>
+                        <span>اللغة</span>
                     </div>
                     <div class="setting-left">
                         <span id="currentLangDisplay">العربية</span>
@@ -322,7 +319,7 @@
                     </div>
                 </div>
 
-                <!-- 3. انضم إلينا (صاروخ ورقي أبيض) -->
+                <!-- 3. انضم إلينا -->
                 <div class="setting-item" onclick="openTelegram()">
                     <div class="setting-right">
                         <span class="icon-svg">
@@ -330,12 +327,12 @@
                                 <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
                             </svg>
                         </span>
-                        <span id="txtJoin">انضم إلينا</span>
+                        <span>انضم إلينا</span>
                     </div>
                     <span class="arrow-icon">&#10094;</span>
                 </div>
 
-                <!-- 4. اتصل بنا (بريد أبيض مع خطوط تفاصيل سوداء) -->
+                <!-- 4. اتصل بنا -->
                 <div class="setting-item" onclick="openEmail()">
                     <div class="setting-right">
                         <span class="icon-svg">
@@ -344,12 +341,15 @@
                                 <path d="M22 6l-10 7L2 6" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </span>
-                        <span id="txtContact">اتصل بنا</span>
+                        <span>اتصل بنا</span>
                     </div>
                     <span class="arrow-icon">&#10094;</span>
                 </div>
+            </div>
 
-                <!-- 5. الإعدادات الفرعية (أيقونة مسنن أبيض) -->
+            <!-- أزرار المستطيل السفلي الأخير (الإعدادات، مسح الذاكرة) -->
+            <div class="group-bottom">
+                <!-- 5. الإعدادات -->
                 <div class="setting-item" onclick="handleSubSettings()">
                     <div class="setting-right">
                         <span class="icon-svg">
@@ -357,12 +357,12 @@
                                 <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
                             </svg>
                         </span>
-                        <span id="txtSubSettings">الإعدادات</span>
+                        <span>الإعدادات</span>
                     </div>
                     <span class="arrow-icon">&#10094;</span>
                 </div>
 
-                <!-- 6. مسح الذاكرة المؤقتة (ماسحة بيضاء) -->
+                <!-- 6. مسح الذاكرة المؤقتة -->
                 <div class="setting-item" onclick="clearCacheAction()">
                     <div class="setting-right">
                         <span class="icon-svg">
@@ -370,7 +370,7 @@
                                 <path d="M15 16h4v2h-4zm0-8h7v2h-7zm0 4h6v2h-6zM3 18c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2V8H3v10zM14 5h-3l-1-1H6L5 5H2v2h12z"/>
                             </svg>
                         </span>
-                        <span id="txtClearCache">مسح الذاكرة المؤقتة</span>
+                        <span>مسح الذاكرة المؤقتة</span>
                     </div>
                     <div class="setting-left">
                         <span>MB 131.48</span>
@@ -381,10 +381,10 @@
         </div>
     </div>
 
-    <!-- قائمة اختيار اللغات السفلية -->
+    <!-- نافذة اللغات السفلية -->
     <div id="languageBottomSheet">
         <div class="lang-sheet-header">
-            <span class="lang-sheet-title" id="langHeaderTitle">اللغة</span>
+            <span>اللغة</span>
             <button class="lang-sheet-close" onclick="closeLanguageSheet()">&#x2715;</button>
         </div>
         <div class="lang-scroll-container" id="langScrollContainer">
@@ -401,11 +401,10 @@
             <div class="lang-item" data-code="ja" data-name="日本語">日本語</div>
         </div>
         <div class="lang-sheet-footer">
-            <button class="lang-apply-btn" id="applyLangBtnText" onclick="applySelectedLanguage()">تطبيق</button>
+            <button class="lang-apply-btn" onclick="applySelectedLanguage()">تطبيق</button>
         </div>
     </div>
 
-    <!-- تنبيه مسح الذاكرة -->
     <div id="cacheToast">تم المسح بنجاح</div>
 
     <script>
