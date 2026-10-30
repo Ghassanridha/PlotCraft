@@ -60,7 +60,7 @@
             background: transparent;
             border: none;
             color: #ffffff;
-            font-size: 16px; /* تم تصغير الحجم هنا */
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
             z-index: 999;
@@ -72,28 +72,7 @@
             opacity: 0.8;
         }
 
-        /* مناطق النقر الأساسية */
-        .banner-link {
-            top: 70px;
-            left: 4%;
-            width: 92%;
-            height: 130px;
-        }
-
-        .link-points {
-            top: 215px;
-            left: 4%;
-            width: 92%;
-            height: 55px;
-        }
-
-        .link-feedback {
-            top: 275px;
-            left: 4%;
-            width: 92%;
-            height: 55px;
-        }
-
+        /* مناطق النقر المتبقية */
         .toggle-notifications {
             top: 350px;
             right: 15px;
@@ -145,11 +124,7 @@
             <!-- زر الشفرة بالحجم الأصغر في أقصى اليمين -->
             <button class="btn-back-chevron" onclick="closeSettingsScreen()">&#x276F;</button>
             
-            <!-- مناطق النقر للأزرار الأصلية -->
-            <a href="#" class="clickable-area banner-link" onclick="handleAction('banner'); return false;"></a>
-            <a href="#" class="clickable-area link-points" onclick="handleAction('points'); return false;"></a>
-            <a href="#" class="clickable-area link-feedback" onclick="handleAction('feedback'); return false;"></a>
-            
+            <!-- مناطق النقر المتبقية -->
             <div class="clickable-area toggle-notifications" onclick="toggleNotifications()"></div>
             
             <a href="#" class="clickable-area link-language" onclick="handleAction('language'); return false;"></a>
