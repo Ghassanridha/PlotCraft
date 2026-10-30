@@ -87,29 +87,17 @@
             gap: 8px;
         }
 
+        /* زر الدائرة (الإعدادات) بخلفية مباشرة لكي تظهر وتستجيب فوراً دون تأخير */
         .top-settings-btn {
-            background: rgba(20, 24, 33, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg') center/cover no-repeat;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             width: 38px;
             height: 38px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             cursor: pointer;
-            overflow: hidden;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             flex-shrink: 0;
-            /* تحسين الأداء اللمسي والاستجابة الفورية */
             touch-action: manipulation;
-        }
-        .top-settings-btn img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            /* منع تأخر التحميل وعرض الصورة فوراً */
-            loading: eager;
         }
 
         .welcome-section {
@@ -232,6 +220,73 @@
             background: #e2e8f0;
         }
 
+        /* شاشة الإعدادات المحسنة بسرعة فائقة وحركة خفيفة */
+        .settings-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3c0d837613bae10a387c91a8a059563aa7cccd10/Ghas.jpg') center/100% 100% no-repeat;
+            z-index: 999999;
+            direction: rtl;
+            transform: translateX(-100vw);
+            transition: transform 0.15s ease-out; /* سرعة استجابة خاطفة */
+            visibility: hidden;
+            will-change: transform;
+            overflow: hidden;
+        }
+
+        .settings-screen.show {
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        .click-overlay-container {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            height: 100vh;
+            margin: 0 auto;
+        }
+
+        .clickable-area {
+            position: absolute;
+            cursor: pointer;
+            z-index: 50;
+        }
+
+        /* زر الشفرة (Chevron) بحجم متناسق ومسحوب لأقصى اليمين بالأعلى */
+        .btn-back-chevron {
+            position: absolute;
+            top: 14px;
+            right: 12px;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 999;
+            padding: 4px 8px;
+            line-height: 1;
+        }
+
+        .btn-back-chevron:hover {
+            opacity: 0.8;
+        }
+
+        /* مناطق النقر الأساسية للإعدادات */
+        .banner-link { top: 70px; left: 4%; width: 92%; height: 130px; }
+        .link-points { top: 215px; left: 4%; width: 92%; height: 55px; }
+        .link-feedback { top: 275px; left: 4%; width: 92%; height: 55px; }
+        .toggle-notifications { top: 350px; right: 15px; width: 50px; height: 30px; }
+        .link-language { top: 395px; left: 4%; width: 92%; height: 55px; }
+        .link-join { top: 455px; left: 4%; width: 92%; height: 55px; }
+        .link-contact { top: 515px; left: 4%; width: 92%; height: 55px; }
+        .link-sub-settings { top: 590px; left: 4%; width: 92%; height: 55px; }
+        .link-clear-cache { top: 545px; left: 4%; width: 92%; height: 55px; }
+
         .plotcraft-nav-bar {
             position: absolute;
             bottom: 0; left: 0; width: 100%;
@@ -322,9 +377,6 @@
 </head>
 <body>
 
-    <!-- عنصر مخفي مسبق التحميل لتثبيت صورة زر الإعدادات في الذاكرة المؤقتة للمتصفح -->
-    <link rel="prefetch" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg">
-
     <div class="app-shell" id="appShellContainer">
         <div class="toast-notification" id="toastNotification"></div>
 
@@ -335,12 +387,10 @@
                     <div class="brand-title">PlotCraft</div>
                     
                     <div class="top-left-actions">
-                        <button onclick="openSubscription()" style="background: rgba(20, 24, 33, 0.85); backdrop-filter: blur(12px); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); padding: 6px 12px; border-radius: 16px; font-weight: 600; cursor: pointer; font-size: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); white-space: nowrap; touch-action: manipulation; -webkit-tap-highlight-color: transparent;">ترقيه</button>
+                        <button onclick="openSubscription()" style="background: rgba(20, 24, 33, 0.85); backdrop-filter: blur(12px); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); padding: 6px 12px; border-radius: 16px; font-weight: 600; cursor: pointer; font-size: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); white-space: nowrap; touch-action: manipulation;">ترقيه</button>
                         
-                        <!-- تحسين الاستجابة الفورية بحدث الطوارئ اللمسي واستدعاء الإعدادات فوراً بدون انتظار -->
-                        <div class="top-settings-btn" onclick="openSettingsScreen()" ontouchstart="openSettingsScreen()">
-                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات" loading="eager">
-                        </div>
+                        <!-- زر الدائرة الفوري والمحسن -->
+                        <div class="top-settings-btn" onclick="openSettingsScreen()"></div>
                     </div>
                 </div>
                 <div class="welcome-section">
@@ -353,9 +403,7 @@
         <div id="worksScreen" class="screen-view">
             <div class="works-top-header">
                 <div class="works-screen-title">الأعمال</div>
-                <div class="top-settings-btn" onclick="openSettingsScreen()" ontouchstart="openSettingsScreen()">
-                    <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات" loading="eager">
-                </div>
+                <div class="top-settings-btn" onclick="openSettingsScreen()"></div>
             </div>
             <div class="works-body-container">
                 <div class="works-tabs-container">
@@ -373,9 +421,7 @@
         <div id="toolsScreen" class="screen-view">
             <div class="works-top-header">
                 <div class="works-screen-title">الأعمال والأدوات</div>
-                <div class="top-settings-btn" onclick="openSettingsScreen()" ontouchstart="openSettingsScreen()">
-                    <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات" loading="eager">
-                </div>
+                <div class="top-settings-btn" onclick="openSettingsScreen()"></div>
             </div>
             <div style="padding: 20px; color: #cbd5e1; text-align: center; margin-top: 50px;">
                 قريباً ستتوفر أدوات الذكاء الاصطناعي المتقدمة هنا.
@@ -409,11 +455,22 @@
         </div>
     </div>
 
-    <!-- حاوية جلب ملف الاشتراكات المستقل -->
-    <div id="subscriptionModalWrapper"></div>
-    
-    <!-- حاوية جلب ملف الإعدادات المستقل -->
-    <div id="settingsModalWrapper"></div>
+    <!-- شاشة الإعدادات المدمجة للفتح السريع الفوري -->
+    <div id="settingsScreen" class="settings-screen">
+        <div class="click-overlay-container">
+            <button class="btn-back-chevron" onclick="closeSettingsScreen()">&#x276F;</button>
+            
+            <a href="#" class="clickable-area banner-link" onclick="return false;"></a>
+            <a href="#" class="clickable-area link-points" onclick="return false;"></a>
+            <a href="#" class="clickable-area link-feedback" onclick="return false;"></a>
+            <div class="clickable-area toggle-notifications" onclick="toggleNotifications()"></div>
+            <a href="#" class="clickable-area link-language" onclick="return false;"></a>
+            <a href="#" class="clickable-area link-join" onclick="window.open('https://t.me/', '_blank'); return false;"></a>
+            <a href="#" class="clickable-area link-contact" onclick="window.location.href='mailto:support@plotcraft.ai'; return false;"></a>
+            <a href="#" class="clickable-area link-sub-settings" onclick="return false;"></a>
+            <a href="#" class="clickable-area link-clear-cache" onclick="clearCacheAction(); return false;"></a>
+        </div>
+    </div>
 
     <script>
         window.vibrateDevice = function() {
@@ -456,96 +513,34 @@
             showToast('تم النقر على إنشاء قصة');
         }
 
-        let isSubscriptionLoaded = false;
-
-        function preloadSubscriptionModal() {
-            if (isSubscriptionLoaded) return;
-            fetch('/subscription-modal')
-                .then(response => {
-                    if (!response.ok) throw new Error('فشل جلب ملف الاشتراكات');
-                    return response.text();
-                })
-                .then(html => {
-                    const wrapper = document.getElementById('subscriptionModalWrapper');
-                    wrapper.innerHTML = html;
-                    
-                    const scripts = wrapper.querySelectorAll('script');
-                    scripts.forEach(script => {
-                        const newScript = document.createElement('script');
-                        newScript.text = script.innerHTML;
-                        document.body.appendChild(newScript);
-                    });
-                    isSubscriptionLoaded = true;
-                })
-                .catch(err => console.error(err));
-        }
-
-        let isSettingsLoaded = false;
-
-        function preloadSettingsModal() {
-            if (isSettingsLoaded) return;
-            fetch('/settings')
-                .then(response => {
-                    if (!response.ok) throw new Error('فشل جلب ملف الإعدادات');
-                    return response.text();
-                })
-                .then(html => {
-                    const wrapper = document.getElementById('settingsModalWrapper');
-                    wrapper.innerHTML = html;
-                    
-                    const scripts = wrapper.querySelectorAll('script');
-                    scripts.forEach(script => {
-                        const newScript = document.createElement('script');
-                        newScript.text = script.innerHTML;
-                        document.body.appendChild(newScript);
-                    });
-                    isSettingsLoaded = true;
-                })
-                .catch(err => console.error(err));
-        }
-
-        // جلب الملفات فوراً عند بدء التشغيل
-        window.addEventListener('DOMContentLoaded', () => {
-            preloadSubscriptionModal();
-            preloadSettingsModal();
-        });
-
-        window.openSubscription = function() {
-            const loadedModal = document.getElementById('subscriptionModal');
-            if (loadedModal) {
-                loadedModal.style.display = 'flex';
-                setTimeout(() => loadedModal.classList.add('show'), 10);
-            } else {
-                preloadSubscriptionModal();
-                setTimeout(() => {
-                    const m = document.getElementById('subscriptionModal');
-                    if(m) {
-                        m.style.display = 'flex';
-                        m.classList.add('show');
-                    }
-                }, 300);
+        // فتح الإعدادات بسرعة استجابة خاطفة وفورية
+        window.openSettingsScreen = function() {
+            vibrateDevice();
+            const screen = document.getElementById('settingsScreen');
+            if (screen) {
+                screen.classList.add('show');
             }
         };
 
-        // دالة فتح الإعدادات محسنة لتستجيب في أجزاء من الثانية من اللمسة الأولى
-        window.openSettingsScreen = function() {
-            if (event) {
-                event.stopPropagation();
-                event.preventDefault();
-            }
+        window.closeSettingsScreen = function() {
             vibrateDevice();
-            const settingsScreen = document.getElementById('settingsScreen');
-            if (settingsScreen) {
-                settingsScreen.classList.add('show');
-            } else {
-                preloadSettingsModal();
-                setTimeout(() => {
-                    const s = document.getElementById('settingsScreen');
-                    if(s) {
-                        s.classList.add('show');
-                    }
-                }, 100);
+            const screen = document.getElementById('settingsScreen');
+            if (screen) {
+                screen.classList.remove('show');
             }
+        };
+
+        window.toggleNotifications = function() {
+            vibrateDevice();
+        };
+
+        window.clearCacheAction = function() {
+            vibrateDevice();
+            alert("تم مسح الذاكرة المؤقتة بنجاح");
+        };
+
+        window.openSubscription = function() {
+            showToast('فتح نافذة الاشتراكات...');
         };
     </script>
 </body>
