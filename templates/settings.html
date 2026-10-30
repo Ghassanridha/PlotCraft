@@ -18,7 +18,7 @@
             overflow: hidden;
         }
 
-        /* خلفية G2.jpg الأساسية - تكون مخفية تماماً بشكل افتراضي */
+        /* خلفية G2.jpg الأساسية - مخفية افتراضياً */
         .settings-screen {
             position: fixed;
             top: 0;
@@ -71,7 +71,7 @@
             padding: 2px;
         }
 
-        /* زر تسجيل الدخول */
+        /* زر تسجيل الدخول المرفوع والمعدل الموضع */
         .btn-login-overlay {
             position: absolute;
             top: 76px;
@@ -338,7 +338,7 @@
 </head>
 <body>
 
-    <!-- الشاشة مخفية افتراضياً بدون كلاس show -->
+    <!-- الواجهة مخفية افتراضياً ولن تظهر حتى يتم استدعاء openSettingsScreen() -->
     <div id="settingsScreen" class="settings-screen">
         <div class="settings-container">
             
@@ -347,7 +347,7 @@
                 <button class="btn-back" onclick="closeSettingsScreen()">&#10095;</button>
             </div>
 
-            <!-- زر تسجيل الدخول المربوط مع دالة Google -->
+            <!-- زر تسجيل الدخول المربوط بـ Firebase و Google مباشرة -->
             <button class="btn-login-overlay" id="btnLoginText" onclick="handleLoginAction()">تسجيل الدخول</button>
 
             <!-- أزرار المربع الأوسط -->
@@ -469,7 +469,7 @@
 
     <div id="cacheToast">تم المسح بنجاح</div>
 
-    <!-- سكربت تفاعلي مع ربط دائم بـ Firebase Authentication -->
+    <!-- سكربت Firebase المباشر والمكشوف لـ window لفتح نافذة Google فوراً -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
@@ -480,7 +480,6 @@
         } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-        // إعدادات مشروع PlotCraft على Firebase
         const firebaseConfig = {
           apiKey: "AIzaSyC0yqVlGpM159foKmpMFiuySgF5uFxOA_k",
           authDomain: "plotcraft2.firebaseapp.com",
@@ -496,7 +495,6 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
 
-        // حفظ بيانات الحساب في Realtime Database و LocalStorage
         function saveUserToDatabase(user) {
             if (!user) return;
 
@@ -516,43 +514,36 @@
 
             set(ref(db, 'users/' + user.uid), userData)
                 .then(() => {
-                    console.log("✅ تم حفظ بيانات الحساب في فايرباس بنجاح");
                     localStorage.setItem('plotcraft_user_session', JSON.stringify(userData));
                     localStorage.setItem('plotcraft_user_uid', user.uid);
                     
-                    // تحديث نص زر تسجيل الدخول ليعرض اسم المستخدم المصادق عليه
                     const loginBtn = document.getElementById('btnLoginText');
                     if (loginBtn) {
                         loginBtn.innerText = userName;
                     }
                 })
                 .catch((error) => {
-                    console.error("❌ خطأ في حفظ بيانات المستخدم:", error);
+                    console.error("خطأ الحفظ:", error);
                 });
         }
 
-        // تفعيل نافذة Google الحقيقية واستدعاؤها في كائنات window العامة
-        window.loginWithGoogle = function() {
+        // جعل دالة الضغط مكشوفة للـ HTML العام مباشرة لضمان فتح نافذة الإيميلات
+        window.handleLoginAction = function() {
             const provider = new GoogleAuthProvider();
             
             signInWithPopup(auth, provider)
                 .then((result) => {
                     let user = result.user;
                     saveUserToDatabase(user);
-                    alert("✅ تم تسجيل الدخول بواسطة جوجل بنجاح!");
+                    alert("✅ تم تسجيل الدخول بنجاح!");
                 })
                 .catch((error) => {
                     console.error("خطأ المصادقة:", error);
-                    alert("❌ حدث خطأ أثناء تسجيل الدخول بجوجل: " + error.message);
+                    alert("❌ حدث خطأ: " + error.message);
                 });
         };
 
-        // ربط زر تسجيل الدخول العلوي في صفحة الإعدادات بدالة جوجل مباشرة
-        window.handleLoginAction = function() {
-            window.loginWithGoogle();
-        };
-
-        // التحقق من وجود جلسة سابقة عند الفتح
+        // فحص وجود جلسة مسجلة سابقاً عند فتح الصفحة
         window.addEventListener('DOMContentLoaded', () => {
             const savedSession = localStorage.getItem('plotcraft_user_session');
             if (savedSession) {
@@ -567,7 +558,7 @@
         });
     </script>
 
-    <!-- سكربت التحكم بالواجهات والترجمات واللغة -->
+    <!-- سكربت التحكم بالواجهة والتفاعل والترجمة -->
     <script>
         let isNotifActive = false;
 
@@ -809,7 +800,6 @@
             
             document.getElementById('pageTitle').innerText = t.title;
             
-            // عدم تغيير نص زر تسجيل الدخول إذا كان هناك اسم مستخدم مسجل مسبقاً
             const savedSession = localStorage.getItem('plotcraft_user_session');
             if (!savedSession) {
                 document.getElementById('btnLoginText').innerText = t.login;
