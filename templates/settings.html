@@ -70,16 +70,16 @@
             padding: 2px;
         }
 
-        /* زر تسجيل الدخول الأسود المتناسق مع المستطيل الأبيض */
+        /* زر تسجيل الدخول المرفوع والمسحوب قليلاً لليسار ليدخل داخل المستطيل الأبيض بدقة */
         .btn-login-overlay {
             position: absolute;
-            top: 105px;
-            left: 20px;
+            top: 96px;
+            left: 14px;
             width: 125px;
             height: 42px;
             background: transparent;
             border: none;
-            color: #000000; /* نص أسود داكن */
+            color: #000000;
             font-size: 13px;
             font-weight: 700;
             cursor: pointer;
@@ -91,7 +91,7 @@
 
         html[dir="ltr"] .btn-login-overlay {
             left: auto;
-            right: 20px;
+            right: 14px;
         }
 
         .btn-login-overlay:active {
@@ -345,7 +345,7 @@
                 <button class="btn-back" onclick="closeSettingsScreen()">&#10095;</button>
             </div>
 
-            <!-- زر تسجيل الدخول الأسود داخل المستطيل الأبيض -->
+            <!-- زر تسجيل الدخول المرفوع والمسحوب لليسار داخل المستطيل الأبيض -->
             <button class="btn-login-overlay" id="btnLoginText" onclick="handleLoginAction()">تسجيل الدخول</button>
 
             <!-- أزرار المربع الأوسط -->
@@ -369,7 +369,7 @@
                         <span class="icon-svg">
                             <svg width="22" height="22" viewBox="0 0 24 24">
                                 <circle cx="12" cy="12" r="10" fill="#ffffff" />
-                                <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10z" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round"/>
                             </svg>
                         </span>
                         <span id="txtLangTitle">اللغة</span>
