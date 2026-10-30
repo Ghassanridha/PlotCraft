@@ -10,7 +10,6 @@
             margin: 0;
             padding: 0;
             -webkit-tap-highlight-color: transparent;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
@@ -18,6 +17,7 @@
             overflow: hidden;
         }
 
+        /* حاوية الشاشة مع الخلفية (مخفية افتراضياً لتظهر الواجهة الرئيسية أولاً) */
         .settings-screen {
             position: fixed;
             top: 0;
@@ -52,6 +52,7 @@
             z-index: 50;
         }
 
+        /* زر الشفرة (Chevron) بحجم أصغر ومسحوب لأقصى اليمين بالأعلى */
         .btn-back-chevron {
             position: absolute;
             top: 14px;
@@ -67,19 +68,16 @@
             line-height: 1;
         }
 
-        /* زر الإشعارات التفاعلي (أزرق مفعل / أبيض مطفأ) */
+        .btn-back-chevron:hover {
+            opacity: 0.8;
+        }
+
+        /* مناطق النقر المتبقية */
         .toggle-notifications {
             top: 350px;
             right: 15px;
             width: 50px;
             height: 30px;
-            border-radius: 15px;
-            background-color: #ffffff; /* افتراضياً أبيض (مطفأ) */
-            transition: background-color 0.3s ease;
-            cursor: pointer;
-        }
-        .toggle-notifications.active {
-            background-color: #3b82f6; /* أزرق عند التفعيل */
         }
 
         .link-language {
@@ -116,144 +114,6 @@
             width: 92%;
             height: 55px;
         }
-
-        /* نافذة اختيار اللغات السفلية (Bottom Sheet) */
-        #languageBottomSheet {
-            position: fixed;
-            bottom: -100%;
-            left: 0;
-            width: 100%;
-            height: 50vh; /* ارتفاع تحت النصف */
-            background: #151922;
-            border-top-left-radius: 24px;
-            border-top-right-radius: 24px;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.6);
-            z-index: 1000000;
-            transition: bottom 0.35s cubic-bezier(0.1, 0.9, 0.2, 1);
-            display: flex;
-            flex-direction: column;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        #languageBottomSheet.show {
-            bottom: 0;
-        }
-
-        .lang-sheet-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .lang-sheet-title {
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: 700;
-        }
-
-        .lang-sheet-close {
-            background: transparent;
-            border: none;
-            color: #ffffff;
-            font-size: 20px;
-            cursor: pointer;
-            padding: 4px;
-        }
-
-        /* حاوية اللغات مع تأثير التلاشي للأعلى والأسفل والتمرير */
-        .lang-scroll-container {
-            position: relative;
-            flex-grow: 1;
-            overflow-y: scroll;
-            scroll-snap-type: y mandatory;
-            padding: 60px 0;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        .lang-scroll-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* المستطيل الوهمي بالمنتصف لتثبيت اللغة المختارة */
-        .lang-selection-indicator {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 85%;
-            height: 48px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-            pointer-events: none;
-            z-index: 5;
-        }
-
-        .lang-item {
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #94a3b8;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            scroll-snap-align: center;
-            transition: color 0.2s;
-        }
-
-        .lang-item.selected {
-            color: #ffffff;
-            font-weight: 700;
-        }
-
-        .lang-sheet-footer {
-            padding: 12px 20px 20px 20px;
-            display: flex;
-            justify-content: center;
-            border-top: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .lang-apply-btn {
-            background: #1f242d;
-            color: #ffffff;
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 12px 0;
-            width: 100%;
-            max-width: 300px;
-            border-radius: 14px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        /* رسالة نجاح المسح المؤقت */
-        #cacheToast {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(20px);
-            background: #1f242d;
-            color: #ffffff;
-            padding: 8px 16px;
-            border-radius: 10px;
-            font-size: 12px;
-            font-weight: 600;
-            border: 1px solid rgba(255,255,255,0.15);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 1000;
-            white-space: nowrap;
-        }
-        #cacheToast.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
-        }
     </style>
 </head>
 <body>
@@ -261,167 +121,46 @@
     <div id="settingsScreen" class="settings-screen">
         <div class="click-overlay-container">
             
+            <!-- زر الشفرة بالحجم الأصغر في أقصى اليمين -->
             <button class="btn-back-chevron" onclick="closeSettingsScreen()">&#x276F;</button>
             
-            <!-- زر الإشعارات القابل للنقر والتلوين -->
-            <div class="clickable-area toggle-notifications" id="notifToggleBtn" onclick="toggleNotifications()"></div>
+            <!-- مناطق النقر المتبقية -->
+            <div class="clickable-area toggle-notifications" onclick="toggleNotifications()"></div>
             
-            <!-- زر اللغة (يفتح القائمة السفلية) -->
-            <a href="#" class="clickable-area link-language" onclick="openLanguageSheet(); return false;"></a>
-            
-            <!-- زر انضم إلينا (يحول إلى تيليجرام) -->
-            <a href="#" class="clickable-area link-join" onclick="openTelegramChannel(); return false;"></a>
-            
-            <!-- زر اتصل بنا (يفتح البريد الإلكتروني) -->
-            <a href="#" class="clickable-area link-contact" onclick="openEmailContact(); return false;"></a>
-            
+            <a href="#" class="clickable-area link-language" onclick="handleAction('language'); return false;"></a>
+            <a href="#" class="clickable-area link-join" onclick="handleAction('join'); return false;"></a>
+            <a href="#" class="clickable-area link-contact" onclick="handleAction('contact'); return false;"></a>
             <a href="#" class="clickable-area link-sub-settings" onclick="handleAction('sub-settings'); return false;"></a>
-            
-            <!-- زر مسح الذاكرة المؤقتة مع تنبيه النجاح -->
             <a href="#" class="clickable-area link-clear-cache" onclick="clearCacheAction(); return false;"></a>
 
-            <!-- رسالة تم المسح بنجاح -->
-            <div id="cacheToast">تم المسح بنجاح</div>
-        </div>
-    </div>
-
-    <!-- قائمة اختيار اللغات التحتية -->
-    <div id="languageBottomSheet">
-        <div class="lang-sheet-header">
-            <span class="lang-sheet-title" id="langHeaderTitle">اللغة</span>
-            <button class="lang-sheet-close" onclick="closeLanguageSheet()">&#x2715;</button>
-        </div>
-        <div class="lang-scroll-container" id="langScrollContainer">
-            <div class="lang-selection-indicator"></div>
-            <!-- قائمة اللغات العالمية -->
-            <div class="lang-item" data-code="ar">العربية</div>
-            <div class="lang-item" data-code="sa">العربية (السعودية)</div>
-            <div class="lang-item" data-code="en">English</div>
-            <div class="lang-item" data-code="fr">Français</div>
-            <div class="lang-item" data-code="es">Español</div>
-            <div class="lang-item" data-code="de">Deutsch</div>
-            <div class="lang-item" data-code="tr">Türkçe</div>
-            <div class="lang-item" data-code="ru">Русский</div>
-            <div class="lang-item" data-code="zh">中文</div>
-            <div class="lang-item" data-code="ja">日本語</div>
-        </div>
-        <div class="lang-sheet-footer">
-            <button class="lang-apply-btn" id="applyLangBtnText" onclick="applySelectedLanguage()">تطبيق</button>
         </div>
     </div>
 
     <script>
-        let isNotifActive = false;
-        let selectedLangCode = 'ar';
-
         function openSettingsScreen() {
             const screen = document.getElementById('settingsScreen');
-            if (screen) screen.classList.add('show');
+            if (screen) {
+                screen.classList.add('show');
+            }
         }
 
         function closeSettingsScreen() {
             const screen = document.getElementById('settingsScreen');
-            if (screen) screen.classList.remove('show');
+            if (screen) {
+                screen.classList.remove('show');
+            }
         }
 
-        // تفاعل زر الإشعارات (تغيير اللون بين الأزرق والأبيض)
+        function handleAction(type) {
+            console.log("تم الضغط على: " + type);
+        }
+
         function toggleNotifications() {
-            isNotifActive = !isNotifActive;
-            const btn = document.getElementById('notifToggleBtn');
-            if (isNotifActive) {
-                btn.classList.add('active');
-                console.log("الإشعارات: مفعلة");
-            } else {
-                btn.classList.remove('active');
-                console.log("الإشعارات: مطفأة");
-            }
+            console.log("تم تغيير حالة الإشعارات");
         }
 
-        // فتح وإغلاق نافذة اللغات
-        function openLanguageSheet() {
-            const sheet = document.getElementById('languageBottomSheet');
-            if (sheet) sheet.classList.add('show');
-        }
-
-        function closeLanguageSheet() {
-            const sheet = document.getElementById('languageBottomSheet');
-            if (sheet) sheet.classList.remove('show');
-        }
-
-        // تحويل الرابط إلى تيليجرام
-        function openTelegramChannel() {
-            window.open('https://t.me/G_ri63', '_blank');
-        }
-
-        // تحويل الرابط إلى البريد الإلكتروني
-        function openEmailContact() {
-            window.location.href = 'mailto:support@plotcraft.com';
-        }
-
-        // مسح الذاكرة المؤقتة وإظهار تنبيه النجاح
         function clearCacheAction() {
-            const toast = document.getElementById('cacheToast');
-            if (toast) {
-                toast.classList.add('show');
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 2000);
-            }
-        }
-
-        // نظام تطبيق اللغة وتغيير النصوص ديناميكياً
-        const translations = {
-            ar: { title: "الإعدادات", langTitle: "اللغة", apply: "تطبيق" },
-            sa: { title: "الإعدادات", langTitle: "اللغة", apply: "تطبيق" },
-            en: { title: "Settings", langTitle: "Language", apply: "Apply" },
-            fr: { title: "Paramètres", langTitle: "Langue", apply: "Appliquer" },
-            de: { title: "Einstellungen", langTitle: "Sprache", apply: "Anwenden" },
-            tr: { title: "Ayarlar", langTitle: "Dil", apply: "Uygula" },
-            ru: { title: "Настройки", langTitle: "Язык", apply: "Применить" },
-            zh: { title: "设置", langTitle: "语言", apply: "应用" },
-            ja: { title: "設定", langTitle: "言語", apply: "適用" },
-            es: { title: "Ajustes", langTitle: "Idioma", apply: "Aplicar" }
-        };
-
-        function applySelectedLanguage() {
-            const container = document.getElementById('langScrollContainer');
-            const items = container.querySelectorAll('.lang-item');
-            
-            // تحديد العنصر الموجود في المنتصف بدقة بناءً على التمرير
-            const containerCenter = container.scrollTop + container.clientHeight / 2;
-            let closestItem = items[0];
-            let minDistance = Infinity;
-
-            items.forEach(item => {
-                const itemCenter = item.offsetTop + item.offsetHeight / 2;
-                const distance = Math.abs(containerCenter - itemCenter);
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    closestItem = item;
-                }
-            });
-
-            if (closestItem) {
-                selectedLangCode = closestItem.getAttribute('data-code');
-                updateAppLanguage(selectedLangCode);
-                closeLanguageSheet();
-            }
-        }
-
-        function updateAppLanguage(langCode) {
-            const t = translations[langCode] || translations['ar'];
-            
-            // تغيير اتجاه الصفحة بناءً على اللغة (RTL أو LTR)
-            if (langCode === 'en' || langCode === 'fr' || langCode === 'es' || langCode === 'de' || langCode === 'ru') {
-                document.documentElement.setAttribute('dir', 'ltr');
-            } else {
-                document.documentElement.setAttribute('dir', 'rtl');
-            }
-
-            // تحديث نصوص الواجهة
-            document.getElementById('langHeaderTitle').innerText = t.langTitle;
-            document.getElementById('applyLangBtnText').innerText = t.apply;
-            console.log("تم تحويل لغة التطبيق إلى: " + langCode);
+            console.log("تم مسح الذاكرة المؤقتة");
         }
     </script>
 </body>
