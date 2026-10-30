@@ -345,14 +345,14 @@
         </div>
     </div>
 
+    <!-- حاوية جلب ملف الاشتراكات والإعدادات -->
     <div id="subscriptionModalWrapper"></div>
     <div id="settingsModalWrapper"></div>
 
     <!-- ========================================== -->
-    <!-- 5. قسم البرامج والوظائف التفاعلية JavaScript (مؤمن ومحدث مع Firebase) -->
+    <!-- قسم الفايرباس وتحديث نظام تسجيل الدخول عبر جوجل (Redirect للتغلب على حظر النوافذ) -->
     <!-- ========================================== -->
     <script type="module">
-        // استيراد مكتبات Firebase (التوثيق، التطبيق، قاعدة البيانات، وتحليل البيانات)
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
         import { 
@@ -360,11 +360,11 @@
             createUserWithEmailAndPassword, 
             signInWithEmailAndPassword, 
             GoogleAuthProvider, 
-            signInWithPopup 
+            signInWithRedirect,
+            getRedirectResult 
         } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-        // إعدادات Firebase الخاصة بمشروعك
         const firebaseConfig = {
           apiKey: "AIzaSyC0yqVlGpM159foKmpMFiuySgF5uFxOA_k",
           authDomain: "plotcraft2.firebaseapp.com",
@@ -375,13 +375,11 @@
           measurementId: "G-T2ZXFTGD5H"
         };
 
-        // تهيئة Firebase
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
-        const auth = getAuth(app); // تفعيل نظام المصادقة
-        const db = getDatabase(app); // تفعيل قاعدة البيانات الحية
+        const auth = getAuth(app);
+        const db = getDatabase(app);
 
-        // دالة تثبيت وحفظ بيانات المستخدم كاملة (البريد، المعرف، الاسم، الصورة، والـ UID)
         function saveUserToDatabase(user) {
             if (!user) return;
 
@@ -394,24 +392,37 @@
                 uid: user.uid,
                 name: userName,
                 email: userEmail,
-                handle: userHandle,       // المعرف المستخرج تلقائياً من الإيميل
+                handle: userHandle,
                 picture: userPicture,
                 lastLogin: Date.now()
             };
 
-            // حفظ البيانات في مسار users/{uid} داخل Realtime Database
             set(ref(db, 'users/' + user.uid), userData)
                 .then(() => {
-                    console.log("✅ تم حفظ البريد والمعرف والبيانات في قاعدة البيانات بنجاح");
                     localStorage.setItem('plotcraft_user_session', JSON.stringify(userData));
                     localStorage.setItem('plotcraft_user_uid', user.uid);
                 })
                 .catch((error) => {
-                    console.error("❌ خطأ في حفظ بيانات المستخدم:", error);
+                    console.error("خطأ في حفظ البيانات:", error);
                 });
         }
 
-        // دالة التنقل بين الشاشات
+        // معالجة نتيجة العودة من تسجيل الدخول بجوجل
+        getRedirectResult(auth)
+            .then((result) => {
+                if (result && result.user) {
+                    let user = result.user;
+                    saveUserToDatabase(user);
+                    alert("✅ تم تسجيل الدخول بواسطة جوجل بنجاح!");
+                    if (typeof window.switchScreen === 'function') {
+                        window.switchScreen('homeScreen');
+                    }
+                }
+            })
+            .catch((error) => {
+                console.error("خطأ التوجيه:", error);
+            });
+
         window.switchScreen = function(screenId, event) {
             if (event) event.preventDefault();
             var screens = document.querySelectorAll('.screen-view');
@@ -423,7 +434,6 @@
             }
         };
 
-        // دالة تغيير اللغة (عربي / إنجليزي وباقي اللغات)
         window.applySelectedLanguage = function() {
             if (typeof tempSelectedLangName !== 'undefined') {
                 var langName = tempSelectedLangName;
@@ -434,19 +444,11 @@
             }
         };
 
-        // ==========================================
-        // وظائف الحسابات والاتصال الفعلي بـ Firebase Auth
-        // ==========================================
-
-        // 1. دالة إنشاء حساب جديد بالبريد الإلكتروني وكلمة المرور
         window.handleRegister = function() {
             let emailField = document.getElementById('registerEmailField') || document.getElementById('loginEmailField');
             let passField = document.getElementById('registerPasswordField') || document.getElementById('loginPasswordField');
             
-            if (!emailField || !passField) {
-                alert("⚠️ حقول المدخلات غير متوفرة في هذه الشاشة.");
-                return;
-            }
+            if (!emailField || !passField) return;
 
             let email = emailField.value.trim();
             let pass = passField.value.trim();
@@ -456,17 +458,10 @@
                 return;
             }
 
-            let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert("⚠️ يرجى إدخال بريد إلكتروني صالح.");
-                return;
-            }
-
-            // إرسال البيانات إلى Firebase لإنشاء الحساب
             createUserWithEmailAndPassword(auth, email, pass)
                 .then((userCredential) => {
                     let user = userCredential.user;
-                    saveUserToDatabase(user); // حفظ بيانات الحساب والمعرف في القاعدة
+                    saveUserToDatabase(user);
                     alert("✅ تم إنشاء الحساب بنجاح!");
                     window.switchScreen('homeScreen');
                 })
@@ -475,7 +470,6 @@
                 });
         };
 
-        // 2. دالة تسجيل الدخول للحسابات الموجودة مسبقاً
         window.handleExistingLogin = function() {
             let emailField = document.getElementById('loginEmailField');
             let passField = document.getElementById('loginPasswordField');
@@ -490,17 +484,10 @@
                 return;
             }
 
-            let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert("⚠️ يرجى إدخال بريد إلكتروني صالح.");
-                return;
-            }
-
-            // التحقق وتسجيل الدخول عبر Firebase
             signInWithEmailAndPassword(auth, email, pass)
                 .then((userCredential) => {
                     let user = userCredential.user;
-                    saveUserToDatabase(user); // تحديث وتثبيت البيانات في القاعدة
+                    saveUserToDatabase(user);
                     alert("مرحباً بك مجدداً! تم تسجيل الدخول بنجاح.");
                     window.switchScreen('homeScreen');
                 })
@@ -509,25 +496,18 @@
                 });
         };
 
-        // 3. دالة تسجيل الدخول عبر جوجل (باستخدام النافذة المنبثقة السريعة والآمنة)
+        // دالة تسجيل الدخول عبر جوجل بنظام التوجيه المباشر لضمان ظهور الإيميلات وتجنب الحظر
         window.handleGoogleLogin = function() {
             const provider = new GoogleAuthProvider();
             provider.setCustomParameters({ prompt: 'select_account' });
             
-            signInWithPopup(auth, provider)
-                .then((result) => {
-                    let user = result.user;
-                    saveUserToDatabase(user); // حفظ البريد والمعرف والصورة الخاصة بجوجل في القاعدة
-                    alert("✅ تم تسجيل الدخول بواسطة جوجل بنجاح!");
-                    window.switchScreen('homeScreen');
-                })
-                .catch((error) => {
-                    alert("❌ حدث خطأ أثناء تسجيل الدخول بجوجل: " + error.message);
-                });
+            signInWithRedirect(auth, provider).catch((error) => {
+                alert("❌ حدث خطأ أثناء التوجيه لتسجيل الدخول: " + error.message);
+            });
         };
     </script>
 
-    <!-- سكربت واجهات التطبيق الإضافية والدوال المساعدة -->
+    <!-- سكربت واجهات التطبيق والدوال التفاعلية -->
     <script>
         window.vibrateDevice = function() {
             if ("vibrate" in navigator) {
