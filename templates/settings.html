@@ -17,7 +17,7 @@
             overflow: hidden;
         }
 
-        /* حاوية الشاشة مع الخلفية (مخفية افتراضياً ولن تظهر عند بدء التطبيق) */
+        /* حاوية الشاشة مع الخلفية (مخفية افتراضياً لتظهر الواجهة الرئيسية أولاً) */
         .settings-screen {
             position: fixed;
             top: 0;
@@ -52,23 +52,24 @@
             z-index: 50;
         }
 
-        /* زر علامة X المرفوع للأعلى */
-        .btn-close-x {
+        /* زر الشفرة (Chevron) باللون الأبيض في أقصى اليمين بالأعلى */
+        .btn-back-chevron {
             position: absolute;
-            top: 10px;
-            right: 18px;
+            top: 12px;
+            right: 8px;
             background: transparent;
             border: none;
-            color: #9ca3af;
+            color: #ffffff;
             font-size: 24px;
-            font-weight: 300;
+            font-weight: bold;
             cursor: pointer;
             z-index: 999;
-            padding: 5px;
+            padding: 5px 10px;
+            line-height: 1;
         }
 
-        .btn-close-x:hover {
-            color: #ffffff;
+        .btn-back-chevron:hover {
+            opacity: 0.8;
         }
 
         /* مناطق النقر الأساسية */
@@ -138,14 +139,13 @@
 </head>
 <body>
 
-    <!-- تم إزالة الكلاس show من هنا لكي تبدأ الشاشة مخفية وتظهر الواجهة الرئيسية أولاً -->
     <div id="settingsScreen" class="settings-screen">
         <div class="click-overlay-container">
             
-            <!-- زر إغلاق (X) المرفوع للأعلى -->
-            <button class="btn-close-x" onclick="closeSettingsScreen()">&times;</button>
+            <!-- زر الشفرة البيضاء للرجوع في أقصى اليمين -->
+            <button class="btn-back-chevron" onclick="closeSettingsScreen()">&#x276F;</button>
             
-            <!-- أزرارك الأصلية النظيفة -->
+            <!-- مناطق النقر للأزرار الأصلية -->
             <a href="#" class="clickable-area banner-link" onclick="handleAction('banner'); return false;"></a>
             <a href="#" class="clickable-area link-points" onclick="handleAction('points'); return false;"></a>
             <a href="#" class="clickable-area link-feedback" onclick="handleAction('feedback'); return false;"></a>
@@ -162,7 +162,6 @@
     </div>
 
     <script>
-        // دالة لإظهار شاشة الإعدادات عندما تحتاجها (مثلاً عند الضغط على زر الإعدادات في الواجهة الرئيسية)
         function openSettingsScreen() {
             const screen = document.getElementById('settingsScreen');
             if (screen) {
