@@ -214,14 +214,14 @@
             transform: translateX(20px);
         }
 
-        /* نافذة اختيار اللغات السفلية (خلفية أبيض داكن) */
+        /* نافذة اختيار اللغات السفلية (لون أبيض داكن) */
         #languageBottomSheet {
             position: fixed;
             bottom: -100%;
             left: 0;
             width: 100%;
             height: 50vh;
-            background: #1c212b; /* خلفية أبيض داكن هادئ */
+            background: #2a303c; /* لون أبيض داكن */
             border-top-left-radius: 24px;
             border-top-right-radius: 24px;
             box-shadow: 0 -10px 30px rgba(0,0,0,0.6);
@@ -240,9 +240,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 20px;
+            padding: 14px 20px;
             border-bottom: 1px solid rgba(255,255,255,0.08);
             color: #ffffff;
+            font-weight: 600;
         }
 
         .lang-sheet-close {
@@ -265,28 +266,13 @@
             display: none;
         }
 
-        /* مستطيل صغير وثابت في الوسط تماماً للإطار */
-        .lang-selection-indicator {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 75%;
-            height: 42px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 10px;
-            pointer-events: none;
-            z-index: 5;
-        }
-
-        /* عناصر القائمة بلون داكن وغير نشط افتراضياً */
+        /* عناصر القائمة (ألوان متناسقة مع الأبيض الداكن) */
         .lang-item {
             height: 42px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #64748b; /* لون داكن للغات غير المختارة في المنتصف */
+            color: #94a3b8;
             font-size: 14px;
             font-weight: 500;
             cursor: pointer;
@@ -294,28 +280,28 @@
             transition: color 0.2s ease;
         }
 
-        /* عندما تصبح اللغة في المنتصف تتحول للون الأبيض الناصع */
         .lang-item.active-center {
             color: #ffffff !important;
             font-weight: 700;
+            font-size: 15px;
         }
 
         .lang-sheet-footer {
-            padding: 12px 20px 20px 20px;
+            padding: 10px 20px 18px 20px;
             display: flex;
             justify-content: center;
             border-top: 1px solid rgba(255,255,255,0.08);
         }
 
-        /* زر تطبيق: خلفية بيضاء وكلمة سوداء */
+        /* زر تطبيق: أبيض وكلمة سوداء مع تصغير ارتفاعه قليلاً */
         .lang-apply-btn {
             background: #ffffff;
             color: #000000;
             border: none;
-            padding: 12px 0;
+            padding: 7px 0; /* تصغير الارتفاع قليلاً */
             width: 100%;
             max-width: 300px;
-            border-radius: 14px;
+            border-radius: 12px;
             font-size: 14px;
             font-weight: 700;
             cursor: pointer;
@@ -465,7 +451,6 @@
             <button class="lang-sheet-close" onclick="closeLanguageSheet()">&#x2715;</button>
         </div>
         <div class="lang-scroll-container" id="langScrollContainer" onscroll="updateCenterLanguageHighlight()">
-            <div class="lang-selection-indicator"></div>
             <div class="lang-item" data-code="ar" data-name="العربية">العربية</div>
             <div class="lang-item" data-code="sa" data-name="العربية (السعودية)">العربية (السعودية)</div>
             <div class="lang-item" data-code="en" data-name="English">English</div>
@@ -487,7 +472,6 @@
     <script>
         let isNotifActive = false;
 
-        // القاموس للترجمة الفورية للكلمات عند تغيير اللغة
         const translations = {
             ar: {
                 title: "الإعدادات - PlotCraft",
@@ -608,7 +592,6 @@
             }
         };
 
-        // استرجاع اللغة المحفوظة في localStorage عند فتح التطبيق
         window.addEventListener('DOMContentLoaded', () => {
             const savedLangCode = localStorage.getItem('plotcraft_lang_code') || 'ar';
             const savedLangName = localStorage.getItem('plotcraft_lang_name') || 'العربية';
@@ -663,7 +646,6 @@
 
         function openLanguageSheet() {
             document.getElementById('languageBottomSheet').classList.add('show');
-            // التمرير إلى العنصر المحدد مسبقاً
             setTimeout(() => {
                 const container = document.getElementById('langScrollContainer');
                 const items = container.querySelectorAll('.lang-item');
@@ -681,7 +663,6 @@
             document.getElementById('languageBottomSheet').classList.remove('show');
         }
 
-        // دالة تحديث اللغة التي تتوسط الإطار الداكن لتصبح بيضاء ساطعة
         function updateCenterLanguageHighlight() {
             const container = document.getElementById('langScrollContainer');
             const items = container.querySelectorAll('.lang-item');
@@ -698,7 +679,6 @@
             });
         }
 
-        // تطبيق اللغة المختار وحفظه يدويًا
         function applySelectedLanguage() {
             const container = document.getElementById('langScrollContainer');
             const items = container.querySelectorAll('.lang-item');
@@ -721,7 +701,6 @@
                 
                 document.getElementById('currentLangDisplay').innerText = name;
                 
-                // حفظ اللغة في الذاكرة لتظل ثابتة حتى تغيرها يدوياً
                 localStorage.setItem('plotcraft_lang_code', code);
                 localStorage.setItem('plotcraft_lang_name', name);
 
@@ -730,7 +709,6 @@
             }
         }
 
-        // دالة تغيير اتجاه التطبيق ونصوصه بالكامل
         function setAppLanguage(code, animate) {
             const t = translations[code] || translations['ar'];
             
@@ -745,7 +723,6 @@
             document.getElementById('txtSheetLangTitle').innerText = t.sheetTitle;
             document.getElementById('txtApplyBtn').innerText = t.apply;
 
-            // تحديد اتجاه اللغات الإنجليزية واللغات الأخرى (LTR) أو العربية (RTL)
             if (code === 'en' || code === 'fr' || code === 'es' || code === 'de' || code === 'tr' || code === 'ru') {
                 document.getElementById('appHtml').setAttribute('dir', 'ltr');
                 document.getElementById('appHtml').setAttribute('lang', code);
