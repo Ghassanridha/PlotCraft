@@ -10,6 +10,7 @@
             margin: 0;
             padding: 0;
             -webkit-tap-highlight-color: transparent;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
@@ -17,7 +18,7 @@
             overflow: hidden;
         }
 
-        /* حاوية الشاشة مع الخلفية الجديدة (G2.jpg) */
+        /* حاوية الشاشة مع الخلفية الجديدة G2.jpg */
         .settings-screen {
             position: fixed;
             top: 0;
@@ -30,7 +31,7 @@
             transform: translateX(-100vw);
             transition: transform 0.3s ease-out;
             visibility: hidden;
-            overflow: hidden;
+            overflow-y: auto;
         }
 
         .settings-screen.show {
@@ -38,129 +39,501 @@
             transform: translateX(0);
         }
 
-        .click-overlay-container {
-            position: relative;
+        .settings-container {
             width: 100%;
             max-width: 480px;
-            height: 100vh;
             margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
 
-        .clickable-area {
-            position: absolute;
-            cursor: pointer;
-            z-index: 50;
+        /* شريط العنوان العلوي */
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #ffffff;
+            padding: 10px 0;
         }
 
-        /* زر الشفرة (Chevron) بحجم أصغر ومسحوب لأقصى اليمين بالأعلى */
-        .btn-back-chevron {
-            position: absolute;
-            top: 14px;
-            right: 12px;
+        .settings-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .btn-back {
             background: transparent;
             border: none;
             color: #ffffff;
-            font-size: 16px;
-            font-weight: bold;
+            font-size: 20px;
             cursor: pointer;
-            z-index: 999;
             padding: 4px 8px;
-            line-height: 1;
         }
 
-        .btn-back-chevron:hover {
-            opacity: 0.8;
+        /* قسم تسجيل الدخول البروفايل */
+        .profile-card {
+            background: rgba(25, 29, 38, 0.75);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        /* مناطق النقر المتبقية */
-        .toggle-notifications {
-            top: 350px;
-            right: 15px;
-            width: 50px;
-            height: 30px;
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #ffffff;
         }
 
-        .link-language {
-            top: 395px;
-            left: 4%;
-            width: 92%;
-            height: 55px;
+        .profile-avatar {
+            width: 45px;
+            height: 45px;
+            background: #2a324b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
         }
 
-        .link-join {
-            top: 455px;
-            left: 4%;
-            width: 92%;
-            height: 55px;
+        .profile-name {
+            font-size: 15px;
+            font-weight: 600;
         }
 
-        .link-contact {
-            top: 515px;
-            left: 4%;
-            width: 92%;
-            height: 55px;
+        .btn-login {
+            background: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
         }
 
-        .link-sub-settings {
-            top: 590px;
-            left: 4%;
-            width: 92%;
-            height: 55px;
+        /* البطاقات القائمة */
+        .settings-group {
+            background: rgba(25, 29, 38, 0.75);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            overflow: hidden;
         }
 
-        .link-clear-cache {
-            top: 545px;
-            left: 4%;
-            width: 92%;
-            height: 55px;
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            color: #ffffff;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .setting-item:active {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .setting-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .setting-icon {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .setting-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .arrow-icon {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        /* زر تبديل الإشعارات */
+        .toggle-switch {
+            width: 44px;
+            height: 24px;
+            background: #475569;
+            border-radius: 12px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 20px;
+            height: 20px;
+            background: #ffffff;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .toggle-switch.active {
+            background: #3b82f6;
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(-20px);
+        }
+
+        /* نافذة اختيار اللغات السفلية (Bottom Sheet) */
+        #languageBottomSheet {
+            position: fixed;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            height: 50vh;
+            background: #151922;
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.6);
+            z-index: 1000000;
+            transition: bottom 0.35s cubic-bezier(0.1, 0.9, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        #languageBottomSheet.show {
+            bottom: 0;
+        }
+
+        .lang-sheet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            color: #ffffff;
+        }
+
+        .lang-sheet-close {
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .lang-scroll-container {
+            position: relative;
+            flex-grow: 1;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            padding: 60px 0;
+            scrollbar-width: none;
+        }
+        .lang-scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .lang-selection-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85%;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .lang-item {
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            scroll-snap-align: center;
+        }
+
+        .lang-sheet-footer {
+            padding: 12px 20px 20px 20px;
+            display: flex;
+            justify-content: center;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .lang-apply-btn {
+            background: #1f242d;
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 12px 0;
+            width: 100%;
+            max-width: 300px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        /* رسالة نجاح مسح الكاش */
+        #cacheToast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #1f242d;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.15);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 2000000;
+            white-space: nowrap;
+        }
+        #cacheToast.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
         }
     </style>
 </head>
 <body>
 
     <div id="settingsScreen" class="settings-screen">
-        <div class="click-overlay-container">
+        <div class="settings-container">
             
-            <!-- زر الشفرة بالحجم الأصغر في أقصى اليمين -->
-            <button class="btn-back-chevron" onclick="closeSettingsScreen()">&#x276F;</button>
-            
-            <!-- مناطق النقر المتبقية -->
-            <div class="clickable-area toggle-notifications" onclick="toggleNotifications()"></div>
-            
-            <a href="#" class="clickable-area link-language" onclick="handleAction('language'); return false;"></a>
-            <a href="#" class="clickable-area link-join" onclick="handleAction('join'); return false;"></a>
-            <a href="#" class="clickable-area link-contact" onclick="handleAction('contact'); return false;"></a>
-            <a href="#" class="clickable-area link-sub-settings" onclick="handleAction('sub-settings'); return false;"></a>
-            <a href="#" class="clickable-area link-clear-cache" onclick="clearCacheAction(); return false;"></a>
+            <!-- الهيدر -->
+            <div class="settings-header">
+                <span class="settings-title" id="txtSettingsTitle">الإعدادات</span>
+                <button class="btn-back" onclick="closeSettingsScreen()">&#10094;</button>
+            </div>
+
+            <!-- بطاقة تسجيل الدخول -->
+            <div class="profile-card">
+                <div class="profile-info">
+                    <div class="profile-avatar">🤖</div>
+                    <span class="profile-name" id="txtLoginPrompt">يرجي تسجيل الدخول</span>
+                </div>
+                <button class="btn-login" id="btnLoginText" onclick="handleLogin()">تسجيل الدخول</button>
+            </div>
+
+            <!-- مجموعة الخيارات الأولى -->
+            <div class="settings-group">
+                <!-- الإشعارات -->
+                <div class="setting-item" onclick="toggleNotifications()">
+                    <div class="setting-right">
+                        <span class="setting-icon">🔔</span>
+                        <span id="txtNotif">الإشعارات</span>
+                    </div>
+                    <div class="toggle-switch" id="notifToggle"></div>
+                </div>
+
+                <!-- اللغة -->
+                <div class="setting-item" onclick="openLanguageSheet()">
+                    <div class="setting-right">
+                        <span class="setting-icon">🌐</span>
+                        <span id="txtLang">اللغة</span>
+                    </div>
+                    <div class="setting-left">
+                        <span id="currentLangDisplay">العربية</span>
+                        <span class="arrow-icon">&#10094;</span>
+                    </div>
+                </div>
+
+                <!-- انضم إلينا -->
+                <div class="setting-item" onclick="openTelegram()">
+                    <div class="setting-right">
+                        <span class="setting-icon">✈️</span>
+                        <span id="txtJoin">انضم إلينا</span>
+                    </div>
+                    <span class="arrow-icon">&#10094;</span>
+                </div>
+
+                <!-- اتصل بنا -->
+                <div class="setting-item" onclick="openEmail()">
+                    <div class="setting-right">
+                        <span class="setting-icon">✉️</span>
+                        <span id="txtContact">اتصل بنا</span>
+                    </div>
+                    <span class="arrow-icon">&#10094;</span>
+                </div>
+            </div>
+
+            <!-- مجموعة الخيارات الثانية -->
+            <div class="settings-group">
+                <!-- الإعدادات الفرعية -->
+                <div class="setting-item" onclick="handleSubSettings()">
+                    <div class="setting-right">
+                        <span class="setting-icon">⚙️</span>
+                        <span id="txtSubSettings">الإعدادات</span>
+                    </div>
+                    <span class="arrow-icon">&#10094;</span>
+                </div>
+
+                <!-- مسح الذاكرة المؤقتة -->
+                <div class="setting-item" onclick="clearCacheAction()">
+                    <div class="setting-right">
+                        <span class="setting-icon">🧹</span>
+                        <span id="txtClearCache">مسح الذاكرة المؤقتة</span>
+                    </div>
+                    <div class="setting-left">
+                        <span>MB 131.48</span>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
 
+    <!-- قائمة اختيار اللغات التحتية -->
+    <div id="languageBottomSheet">
+        <div class="lang-sheet-header">
+            <span class="lang-sheet-title" id="langHeaderTitle">اللغة</span>
+            <button class="lang-sheet-close" onclick="closeLanguageSheet()">&#x2715;</button>
+        </div>
+        <div class="lang-scroll-container" id="langScrollContainer">
+            <div class="lang-selection-indicator"></div>
+            <div class="lang-item" data-code="ar" data-name="العربية">العربية</div>
+            <div class="lang-item" data-code="sa" data-name="العربية (السعودية)">العربية (السعودية)</div>
+            <div class="lang-item" data-code="en" data-name="English">English</div>
+            <div class="lang-item" data-code="fr" data-name="Français">Français</div>
+            <div class="lang-item" data-code="es" data-name="Español">Español</div>
+            <div class="lang-item" data-code="de" data-name="Deutsch">Deutsch</div>
+            <div class="lang-item" data-code="tr" data-name="Türkçe">Türkçe</div>
+            <div class="lang-item" data-code="ru" data-name="Русский">Русский</div>
+            <div class="lang-item" data-code="zh" data-name="中文">中文</div>
+            <div class="lang-item" data-code="ja" data-name="日本語">日本語</div>
+        </div>
+        <div class="lang-sheet-footer">
+            <button class="lang-apply-btn" id="applyLangBtnText" onclick="applySelectedLanguage()">تطبيق</button>
+        </div>
+    </div>
+
+    <!-- تنبيه نجاح المسح -->
+    <div id="cacheToast">تم المسح بنجاح</div>
+
     <script>
+        let isNotifActive = false;
+
         function openSettingsScreen() {
-            const screen = document.getElementById('settingsScreen');
-            if (screen) {
-                screen.classList.add('show');
-            }
+            document.getElementById('settingsScreen').classList.add('show');
         }
 
         function closeSettingsScreen() {
-            const screen = document.getElementById('settingsScreen');
-            if (screen) {
-                screen.classList.remove('show');
+            document.getElementById('settingsScreen').classList.remove('show');
+        }
+
+        // تفاعل زر الإشعارات
+        function toggleNotifications() {
+            isNotifActive = !isNotifActive;
+            const toggle = document.getElementById('notifToggle');
+            if (isNotifActive) {
+                toggle.classList.add('active');
+            } else {
+                toggle.classList.remove('active');
             }
         }
 
-        function handleAction(type) {
-            console.log("تم الضغط على: " + type);
+        // روابط وتفاعلات الأزرار
+        function handleLogin() {
+            console.log("تسجيل الدخول");
         }
 
-        function toggleNotifications() {
-            console.log("تم تغيير حالة الإشعارات");
+        function openTelegram() {
+            window.open('https://t.me/G_ri63', '_blank');
+        }
+
+        function openEmail() {
+            window.location.href = 'mailto:support@plotcraft.com';
+        }
+
+        function handleSubSettings() {
+            console.log("الإعدادات الفرعية");
         }
 
         function clearCacheAction() {
-            console.log("تم مسح الذاكرة المؤقتة");
+            const toast = document.getElementById('cacheToast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+
+        // القائمة السفلية للغات
+        function openLanguageSheet() {
+            document.getElementById('languageBottomSheet').classList.add('show');
+        }
+
+        function closeLanguageSheet() {
+            document.getElementById('languageBottomSheet').classList.remove('show');
+        }
+
+        const translations = {
+            ar: { title: "الإعدادات", login: "يرجي تسجيل الدخول", btnLogin: "تسجيل الدخول", notif: "الإشعارات", lang: "اللغة", join: "انضم إلينا", contact: "اتصل بنا", sub: "الإعدادات", cache: "مسح الذاكرة المؤقتة", apply: "تطبيق" },
+            en: { title: "Settings", login: "Please sign in", btnLogin: "Sign In", notif: "Notifications", lang: "Language", join: "Join Us", contact: "Contact Us", sub: "Settings", cache: "Clear Cache", apply: "Apply" }
+        };
+
+        function applySelectedLanguage() {
+            const container = document.getElementById('langScrollContainer');
+            const items = container.querySelectorAll('.lang-item');
+            const containerCenter = container.scrollTop + container.clientHeight / 2;
+            let closestItem = items[0];
+            let minDistance = Infinity;
+
+            items.forEach(item => {
+                const itemCenter = item.offsetTop + item.offsetHeight / 2;
+                const distance = Math.abs(containerCenter - itemCenter);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestItem = item;
+                }
+            });
+
+            if (closestItem) {
+                const code = closestItem.getAttribute('data-code');
+                const name = closestItem.getAttribute('data-name');
+                document.getElementById('currentLangDisplay').innerText = name;
+                
+                if (code === 'en') {
+                    document.documentElement.setAttribute('dir', 'ltr');
+                } else {
+                    document.documentElement.setAttribute('dir', 'rtl');
+                }
+                closeLanguageSheet();
+            }
         }
     </script>
 </body>
