@@ -214,14 +214,14 @@
             transform: translateX(20px);
         }
 
-        /* نافذة اختيار اللغات السفلية بلون رمادي داكن مطفأ */
+        /* نافذة اختيار اللغات السفلية (لون أبيض داكن) */
         #languageBottomSheet {
             position: fixed;
             bottom: -100%;
             left: 0;
             width: 100%;
             height: 50vh;
-            background: #2a2e35; /* لون رمادي داكن مطفأ المطلوب */
+            background: #2a303c; /* لون أبيض داكن */
             border-top-left-radius: 24px;
             border-top-right-radius: 24px;
             box-shadow: 0 -10px 30px rgba(0,0,0,0.6);
@@ -229,7 +229,7 @@
             transition: bottom 0.35s cubic-bezier(0.1, 0.9, 0.2, 1);
             display: flex;
             flex-direction: column;
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         #languageBottomSheet.show {
@@ -241,7 +241,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 14px 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
             color: #ffffff;
             font-weight: 600;
         }
@@ -254,30 +254,30 @@
             cursor: pointer;
         }
 
-        /* تم ضبط الـ padding هنا لضمان وصول أول وأخر لغة للوسط تماماً */
         .lang-scroll-container {
             position: relative;
             flex-grow: 1;
             overflow-y: scroll;
             scroll-snap-type: y mandatory;
-            padding: calc(50% - 21px) 0;
+            padding: 60px 0;
             scrollbar-width: none;
         }
         .lang-scroll-container::-webkit-scrollbar {
             display: none;
         }
 
+        /* عناصر القائمة (ألوان متناسقة مع الأبيض الداكن) */
         .lang-item {
             height: 42px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #8c96a5;
+            color: #94a3b8;
             font-size: 14px;
             font-weight: 500;
             cursor: pointer;
             scroll-snap-align: center;
-            transition: color 0.2s ease, font-size 0.2s ease;
+            transition: color 0.2s ease;
         }
 
         .lang-item.active-center {
@@ -290,14 +290,15 @@
             padding: 10px 20px 18px 20px;
             display: flex;
             justify-content: center;
-            border-top: 1px solid rgba(255,255,255,0.06);
+            border-top: 1px solid rgba(255,255,255,0.08);
         }
 
+        /* زر تطبيق: أبيض وكلمة سوداء مع تصغير ارتفاعه قليلاً */
         .lang-apply-btn {
             background: #ffffff;
             color: #000000;
             border: none;
-            padding: 7px 0;
+            padding: 7px 0; /* تصغير الارتفاع قليلاً */
             width: 100%;
             max-width: 300px;
             border-radius: 12px;
