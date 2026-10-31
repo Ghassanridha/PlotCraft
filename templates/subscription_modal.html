@@ -2,7 +2,6 @@
 <div id="subscriptionModal" class="modal-overlay">
     <div class="modal-absolute-container">
         
-        <!-- تم استبدال زر علامة X برمز الشفرة (Chevron) بحجم مناسب ومسحوب لليمين -->
         <button class="close-modal-btn" onclick="closeSubscription()">&#x276F;</button>
 
         <div class="plans-list-absolute">
@@ -128,7 +127,6 @@
         padding-bottom: 140px;
     }
 
-    /* تنسيق زر الشفرة (Chevron) الجديد في نافذة الاشتراكات */
     .close-modal-btn {
         position: absolute; 
         top: 14px; 
@@ -346,47 +344,61 @@
 </style>
 
 
-<script>
-    let isUserLoggedIn = false; 
+<!-- استيراد مكتبات Firebase المطلوبة للتشغيل الحقيقي -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-    function choosePlan(cardElement) {
+    // إعدادات مشروعك المعتمدة على Firebase (Plotcraft2)
+    const firebaseConfig = {
+        apiKey: "AIzaSyD...", // استبدلها بمفتاحك الصحيح إذا لزم الأمر أو اتركها كما هي إذا كانت مضبوطة
+        authDomain: "plotcraft2.firebaseapp.com",
+        databaseURL: "https://plotcraft2-default-rtdb.firebaseio.com",
+        projectId: "plotcraft2",
+        storageBucket: "plotcraft2.appspot.com",
+        messagingSenderId: "...",
+        appId: "..."
+    };
+
+    // تهيئة فايربيس
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    let isUserLoggedIn = false;
+
+    // دوال الواجهات
+    window.choosePlan = function(cardElement) {
         document.querySelectorAll('.plan-card').forEach(card => card.classList.remove('active'));
         cardElement.classList.add('active');
-    }
+    };
 
-    function openSubscription() {
+    window.openSubscription = function() {
         const modal = document.getElementById('subscriptionModal');
-        if (modal) {
-            modal.classList.add('show');
-        }
-    }
+        if (modal) modal.classList.add('show');
+    };
 
-    function closeSubscription() {
+    window.closeSubscription = function() {
         const modal = document.getElementById('subscriptionModal');
-        if (modal) {
-            modal.classList.remove('show');
-        }
-    }
+        if (modal) modal.classList.remove('show');
+    };
 
-    function handleSubscribeClick() {
+    window.handleSubscribeClick = function() {
         if (!isUserLoggedIn) {
             const authModal = document.getElementById('authModal');
-            if (authModal) {
-                authModal.classList.add('show');
-            }
+            if (authModal) authModal.classList.add('show');
         } else {
             openPaymentGateway();
         }
-    }
+    };
 
-    function closeAuthModal() {
+    window.closeAuthModal = function() {
         const authModal = document.getElementById('authModal');
-        if (authModal) {
-            authModal.classList.remove('show');
-        }
-    }
+        if (authModal) authModal.classList.remove('show');
+    };
 
-    function handleLink(type) {
+    window.handleLink = function(type) {
         if (type === 'restore') {
             alert("جاري التحقق من المشتريات السابقة للاستعادة...");
         } else if (type === 'terms') {
@@ -394,23 +406,45 @@
         } else if (type === 'privacy') {
             alert("جاري فتح سياسة الخصوصية...");
         }
-    }
+    };
 
-    function loginWithGoogle() {
-        isUserLoggedIn = true;
-        closeAuthModal();
-        alert("تم تسجيل الدخول بنجاح عبر Google!");
-        openPaymentGateway();
-    }
+    // الدالة الحقيقية لفتح نافذة تسجيل الدخول عبر جوجل وتفعيل الـ Popup
+    window.loginWithGoogle = async function() {
+        const provider = new GoogleAuthProvider();
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+            isUserLoggedIn = true;
+            
+            // حفظ بيانات المستخدم في قاعدة البيانات Realtime Database
+            set(ref(db, 'users/' + user.uid), {
+                username: user.displayName,
+                email: user.email,
+                lastLogin: new Date().toISOString()
+            });
 
-    function loginWithEmail() {
+            closeAuthModal();
+            alert("✅ تم تسجيل الدخول بنجاح عبر Google: " + user.displayName);
+            openPaymentGateway();
+        } catch (error) {
+            console.error("خطأ في تسجيل الدخول:", error);
+            // إذا واجه متصفح الموبايل حظر للـ Popup، نلجأ تلقائياً للتحويل (Redirect)
+            try {
+                await signInWithRedirect(auth, provider);
+            } catch (redirError) {
+                alert("❌ فشل تسجيل الدخول: " + error.message);
+            }
+        }
+    };
+
+    window.loginWithEmail = function() {
         isUserLoggedIn = true;
         closeAuthModal();
         alert("تم تسجيل الدخول بنجاح عبر البريد الإلكتروني!");
         openPaymentGateway();
-    }
+    };
 
-    function openPaymentGateway() {
+    window.openPaymentGateway = function() {
         alert("جاري فتح نافذة الدفع لتأكيد الاشتراك...");
-    }
+    };
 </script>
