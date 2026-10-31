@@ -1,175 +1,265 @@
-// ==========================================
-// 5. قسم البرامج والوظائف التفاعلية JavaScript (مؤمن ومحدث مع Firebase)
-// ==========================================
+<!-- ================= 1. واجهات الاشتراكات وتسجيل الدخول ================= -->
+<div id="subscriptionModal" class="modal-overlay">
+    <div class="modal-absolute-container">
+        <button class="close-modal-btn" onclick="closeSubscription()">&#x276F;</button>
+        <div class="plans-list-absolute">
+            <div class="plan-card" onclick="choosePlan(this)">
+                <div class="plan-info">
+                    <h3>PlotCraft Pro Weekly</h3>
+                    <p>Credits / Week, Try AI Drama Creation 500</p>
+                </div>
+                <div class="plan-pricing">
+                    <div class="price">US 9.99$</div>
+                    <div class="period">أسبوع</div>
+                </div>
+            </div>
+            <div class="plan-card active" onclick="choosePlan(this)">
+                <div class="plan-badge">رائج</div>
+                <div class="plan-info">
+                    <h3>PlotCraft Pro Monthly</h3>
+                    <p>Credits / Month, Ideal for regular creators 1800</p>
+                </div>
+                <div class="plan-pricing">
+                    <div class="price">US 29.99$</div>
+                    <div class="period">شهر</div>
+                </div>
+            </div>
+            <div class="plan-card" onclick="choosePlan(this)">
+                <div class="plan-info">
+                    <h3>PlotCraft Pro Annual</h3>
+                    <p>Credits / Year, Ideal for professional creators 5000</p>
+                </div>
+                <div class="plan-pricing">
+                    <div class="price">US 69.99$</div>
+                    <div class="period">سنة</div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-fixed-area">
+            <div class="footer-note">
+                <span>تجديد تلقائي، يمكن الإلغاء في أي وقت</span>
+                <svg width="12" height="12" fill="#fbbf24" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+            </div>
+            <button class="subscribe-btn" onclick="handleSubscribeClick()">اشتراك</button>
+            <div class="bottom-links">
+                <a href="#" onclick="handleLink('restore'); return false;">استعادة</a>
+                <span class="dot">|</span>
+                <a href="#" onclick="handleLink('terms'); return false;">شروط الاستخدام</a>
+                <span class="dot">|</span>
+                <a href="#" onclick="handleLink('privacy'); return false;">الخصوصية</a>
+            </div>
+        </div>
+    </div>
+</div>
 
-// استيراد مكتبات Firebase (التوثيق، التطبيق، قاعدة البيانات، وتحليل البيانات)
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
-import { 
-    getAuth, 
-    createUserWithEmailAndPassword, 
-    signInWithEmailAndPassword, 
-    GoogleAuthProvider, 
-    signInWithPopup 
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+<div id="authModal" class="auth-modal-overlay">
+    <div class="auth-modal-container">
+        <div class="auth-bottom-card">
+            <div class="auth-header">
+                <h2>تسجيل الدخول إلى Plotcraft</h2>
+                <button class="inline-close-btn" onclick="closeAuthModal()">&times;</button>
+            </div>
 
-// إعدادات Firebase الخاصة بمشروعك
-const firebaseConfig = {
-  apiKey: "AIzaSyC0yqVlGpM159foKmpMFiuySgF5uFxOA_k",
-  authDomain: "plotcraft2.firebaseapp.com",
-  projectId: "plotcraft2",
-  storageBucket: "plotcraft2.firebasestorage.app",
-  messagingSenderId: "338171528711",
-  appId: "1:338171528711:web:f13544fb4e496fe39e8ca2",
-  measurementId: "G-T2ZXFTGD5H"
-};
+            <button class="auth-btn google-btn" onclick="handleGoogleLogin()">
+                <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+                <span>استمر مع Google</span>
+            </button>
 
-// تهيئة Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app); // تفعيل نظام المصادقة
-const db = getDatabase(app); // تفعيل قاعدة البيانات الحية
+            <div class="auth-switch">
+                <span>ليس لديك حساب؟</span>
+                <a href="#" onclick="handleRegister(); return false;">اشتراك</a>
+            </div>
 
-// دالة تثبيت وحفظ بيانات المستخدم كاملة (البريد، المعرف، الاسم، الصورة، والـ UID)
-function saveUserToDatabase(user) {
-    if (!user) return;
+            <div class="auth-footer-links">
+                <a href="#" onclick="handleLink('terms'); return false;">شروط الاستخدام</a>
+                <span class="dot">|</span>
+                <a href="#" onclick="handleLink('privacy'); return false;">الخصوصية</a>
+            </div>
+        </div>
+    </div>
+</div>
 
-    const userEmail = user.email || '';
-    const userHandle = userEmail ? '@' + userEmail.split('@')[0] : '@user_' + user.uid.substring(0, 5);
-    const userName = user.displayName || userEmail.split('@')[0] || 'مخرج PlotCraft';
-    const userPicture = user.photoURL || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100';
+<!-- ================= 2. التنسيقات (CSS) ================= -->
+<style>
+    .modal-overlay {
+        display: block; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/0f1d146fbd9d2334aa927340f811c68891749269/Gh.jpg') center/cover no-repeat;
+        z-index: 99999; direction: rtl; overflow: hidden !important; touch-action: none !important;
+        transform: translateX(-100vw); transition: transform 0.3s ease-out; visibility: hidden;
+    }
+    .modal-overlay.show { visibility: visible; transform: translateX(0); }
+    .modal-absolute-container {
+        position: relative; width: 100%; height: 100vh;
+        background: linear-gradient(180deg, rgba(11,15,25,0) 0%, rgba(11,15,25,0.3) 25%, rgba(11,15,25,0.85) 45%, #0b0f19 100%);
+        overflow-y: auto; padding-bottom: 140px;
+    }
+    .close-modal-btn {
+        position: absolute; top: 14px; right: 12px; background: transparent; border: none;
+        color: #ffffff; font-size: 16px; font-weight: bold; cursor: pointer; z-index: 100000; line-height: 1; padding: 4px 8px;
+    }
+    .plans-list-absolute {
+        position: relative; top: 290px; margin: 0 auto; width: 92%; max-width: 420px;
+        display: flex; flex-direction: column; gap: 12px;
+    }
+    .plan-card {
+        position: relative; background: rgba(20, 26, 41, 0.94); backdrop-filter: blur(12px);
+        border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 16px; height: 95px; padding: 12px 16px;
+        display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.2s ease; box-sizing: border-box;
+    }
+    .plan-card.active { border-color: #3b82f6 !important; background: rgba(22, 32, 53, 0.98) !important; box-shadow: 0 0 18px rgba(59, 130, 246, 0.5); }
+    .plan-badge { position: absolute; top: 10px; left: 16px; background: #3b82f6; color: #fff; font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 8px; }
+    .plan-info h3 { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .plan-info p { font-size: 11px; color: #9ca3af; line-height: 1.3; }
+    .plan-pricing { text-align: left; }
+    .plan-pricing .price { font-size: 16px; font-weight: 800; color: #fff; }
+    .plan-pricing .period { font-size: 11px; color: #9ca3af; margin-top: 2px; }
+    .bottom-fixed-area {
+        position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%);
+        width: 92%; max-width: 420px; display: flex; flex-direction: column; align-items: center;
+        background: rgba(11, 15, 25, 0.95); backdrop-filter: blur(8px); padding-top: 10px; z-index: 10000;
+    }
+    .footer-note { font-size: 11px; color: #9ca3af; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+    .subscribe-btn {
+        width: 100%; height: 50px; background: #ffffff; color: #000; border: none; border-radius: 30px;
+        font-size: 17px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 255, 255, 0.25);
+    }
+    .bottom-links { display: flex; gap: 12px; font-size: 11px; margin-top: 10px; }
+    .bottom-links a { color: #9ca3af; text-decoration: none; }
+    .bottom-links .dot { color: #4b5563; }
 
-    const userData = {
-        uid: user.uid,
-        name: userName,
-        email: userEmail,
-        handle: userHandle,       // المعرف المستخرج تلقائياً من الإيميل
-        picture: userPicture,
-        lastLogin: Date.now()
+    .auth-modal-overlay {
+        display: block; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/a44fde0525a9b0cefa60594554a174f0f18044a2/Gh1.png') center/cover no-repeat;
+        z-index: 999999; direction: rtl; overflow: hidden !important; touch-action: none !important;
+        transform: translateY(100vh); transition: transform 0.3s ease-out; visibility: hidden;
+    }
+    .auth-modal-overlay.show { visibility: visible; transform: translateY(0); }
+    .auth-modal-container { position: relative; width: 100%; height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; box-sizing: border-box; }
+    .auth-bottom-card {
+        width: 100%; max-width: 480px; margin: 0 auto; background: rgba(18, 22, 33, 0.95); backdrop-filter: blur(16px);
+        border-top-left-radius: 24px; border-top-right-radius: 24px; padding: 16px 20px; box-sizing: border-box;
+        display: flex; flex-direction: column; gap: 10px; border-top: 1px solid rgba(255, 255, 255, 0.1); transform: translateY(-55px);
+    }
+    .auth-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; position: relative; }
+    .auth-header h2 { color: #ffffff; font-size: 16px; font-weight: 700; margin: 0 auto; text-align: center; }
+    .inline-close-btn { background: transparent; border: none; color: #d1d5db; font-size: 26px; cursor: pointer; position: absolute; right: 0; top: 50%; transform: translateY(-50%); }
+    .auth-btn { width: 100%; height: 44px; border-radius: 22px; border: none; font-size: 14px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; }
+    .google-btn { background: #ffffff; color: #000000; }
+    .auth-switch { text-align: center; font-size: 12px; color: #9ca3af; margin-top: 2px; }
+    .auth-switch a { color: #3b82f6; text-decoration: none; margin-right: 4px; font-weight: 600; }
+    .auth-footer-links { display: flex; justify-content: center; align-items: center; gap: 10px; font-size: 11px; color: #6b7280; margin-top: 2px; }
+    .auth-footer-links a { color: #6b7280; text-decoration: none; }
+</style>
+
+<!-- ================= 3. كود الفايرباس والتفاعل (JavaScript Module) ================= -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+    import { 
+        getAuth, 
+        createUserWithEmailAndPassword, 
+        signInWithEmailAndPassword, 
+        GoogleAuthProvider, 
+        signInWithPopup 
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC0yqVlGpM159foKmpMFiuySgF5uFxOA_k",
+      authDomain: "plotcraft2.firebaseapp.com",
+      projectId: "plotcraft2",
+      storageBucket: "plotcraft2.firebasestorage.app",
+      messagingSenderId: "338171528711",
+      appId: "1:338171528711:web:f13544fb4e496fe39e8ca2",
+      measurementId: "G-T2ZXFTGD5H"
     };
 
-    // حفظ البيانات في مسار users/{uid} داخل Realtime Database
-    set(ref(db, 'users/' + user.uid), userData)
-        .then(() => {
-            console.log("✅ تم حفظ البريد والمعرف والبيانات في قاعدة البيانات بنجاح");
-            localStorage.setItem('plotcraft_user_session', JSON.stringify(userData));
-            localStorage.setItem('plotcraft_user_uid', user.uid);
-        })
-        .catch((error) => {
-            console.error("❌ خطأ في حفظ بيانات المستخدم:", error);
-        });
-}
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
 
-// دالة التنقل بين الشاشات
-function switchScreen(screenId, event) {
-    var screens = document.querySelectorAll('.screen-view');
-    screens.forEach(s => s.classList.remove('active'));
-    
-    let targetScreen = document.getElementById(screenId);
-    if (targetScreen) {
-        targetScreen.classList.add('active');
+    let isUserLoggedIn = false;
+
+    function saveUserToDatabase(user) {
+        if (!user) return;
+        const userEmail = user.email || '';
+        const userHandle = userEmail ? '@' + userEmail.split('@')[0] : '@user_' + user.uid.substring(0, 5);
+        const userName = user.displayName || userEmail.split('@')[0] || 'مخرج PlotCraft';
+        const userPicture = user.photoURL || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100';
+
+        const userData = {
+            uid: user.uid,
+            name: userName,
+            email: userEmail,
+            handle: userHandle,
+            picture: userPicture,
+            lastLogin: Date.now()
+        };
+
+        set(ref(db, 'users/' + user.uid), userData)
+            .then(() => {
+                console.log("✅ تم حفظ البيانات في قاعدة البيانات بنجاح");
+                localStorage.setItem('plotcraft_user_session', JSON.stringify(userData));
+                localStorage.setItem('plotcraft_user_uid', user.uid);
+                isUserLoggedIn = true;
+            })
+            .catch((error) => {
+                console.error("❌ خطأ في حفظ بيانات المستخدم:", error);
+            });
     }
-}
 
-// دالة تغيير اللغة (عربي / إنجليزي وباقي اللغات)
-function applySelectedLanguage() {
-    if (typeof tempSelectedLangName !== 'undefined') {
-        var langName = tempSelectedLangName;
-        let displayEl = document.getElementById('currentLangDisplay');
-        if (displayEl) {
-            displayEl.innerText = langName;
+    window.choosePlan = function(cardElement) {
+        document.querySelectorAll('.plan-card').forEach(card => card.classList.remove('active'));
+        cardElement.classList.add('active');
+    };
+
+    window.openSubscription = function() {
+        const modal = document.getElementById('subscriptionModal');
+        if (modal) modal.classList.add('show');
+    };
+
+    window.closeSubscription = function() {
+        const modal = document.getElementById('subscriptionModal');
+        if (modal) modal.classList.remove('show');
+    };
+
+    window.handleSubscribeClick = function() {
+        if (!isUserLoggedIn) {
+            const authModal = document.getElementById('authModal');
+            if (authModal) authModal.classList.add('show');
+        } else {
+            openPaymentGateway();
         }
-    }
-}
+    };
 
-// ==========================================
-// وظائف الحسابات والاتصال الفعلي بـ Firebase Auth
-// ==========================================
+    window.closeAuthModal = function() {
+        const authModal = document.getElementById('authModal');
+        if (authModal) authModal.classList.remove('show');
+    };
 
-// 1. دالة إنشاء حساب جديد بالبريد الإلكتروني وكلمة المرور
-window.handleRegister = function() {
-    let emailField = document.getElementById('registerEmailField') || document.getElementById('loginEmailField');
-    let passField = document.getElementById('registerPasswordField') || document.getElementById('loginPasswordField');
-    
-    if (!emailField || !passField) {
-        alert("⚠️ حقول المدخلات غير متوفرة في هذه الشاشة.");
-        return;
-    }
+    window.handleLink = function(type) {
+        if (type === 'restore') alert("جاري التحقق من المشتريات السابقة للاستعادة...");
+        else if (type === 'terms') alert("جاري فتح شروط الاستخدام...");
+        else if (type === 'privacy') alert("جاري فتح سياسة الخصوصية...");
+    };
 
-    let email = emailField.value.trim();
-    let pass = passField.value.trim();
+    window.handleGoogleLogin = function() {
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                let user = result.user;
+                saveUserToDatabase(user);
+                closeAuthModal();
+                alert("✅ تم تسجيل الدخول بواسطة جوجل بنجاح: " + user.displayName);
+                openPaymentGateway();
+            })
+            .catch((error) => {
+                alert("❌ حدث خطأ أثناء تسجيل الدخول بجوجل: " + error.message);
+            });
+    };
 
-    if (email === "" || pass === "") {
-        alert("⚠️ يرجى ملء جميع الحقول المطلوبة.");
-        return;
-    }
-
-    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        alert("⚠️ يرجى إدخال بريد إلكتروني صالح.");
-        return;
-    }
-
-    // إرسال البيانات إلى Firebase لإنشاء الحساب
-    createUserWithEmailAndPassword(auth, email, pass)
-        .then((userCredential) => {
-            let user = userCredential.user;
-            saveUserToDatabase(user); // حفظ بيانات الحساب والمعرف في القاعدة
-            alert("✅ تم إنشاء الحساب بنجاح!");
-            switchScreen('mainDashboardScreen');
-        })
-        .catch((error) => {
-            alert("❌ خطأ في إنشاء الحساب: " + error.message);
-        });
-};
-
-// 2. دالة تسجيل الدخول للحسابات الموجودة مسبقاً
-window.handleExistingLogin = function() {
-    let emailField = document.getElementById('loginEmailField');
-    let passField = document.getElementById('loginPasswordField');
-    
-    if (!emailField || !passField) return;
-
-    let email = emailField.value.trim();
-    let pass = passField.value.trim();
-
-    if (email === "" || pass === "") {
-        alert("⚠️ يرجى ملء جميع الحقول المطلوبة.");
-        return;
-    }
-
-    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        alert("⚠️ يرجى إدخال بريد إلكتروني صالح.");
-        return;
-    }
-
-    // التحقق وتسجيل الدخول عبر Firebase
-    signInWithEmailAndPassword(auth, email, pass)
-        .then((userCredential) => {
-            let user = userCredential.user;
-            saveUserToDatabase(user); // تحديث وتثبيت البيانات في القاعدة
-            alert("مرحباً بك مجدداً! تم تسجيل الدخول بنجاح.");
-            switchScreen('mainDashboardScreen');
-        })
-        .catch((error) => {
-            alert("❌ فشل تسجيل الدخول: تأكد من البريد أو كلمة المرور.");
-        });
-};
-
-// 3. دالة تسجيل الدخول عبر جوجل (باستخدام النافذة المنبثقة السريعة والآمنة)
-window.handleGoogleLogin = function() {
-    const provider = new GoogleAuthProvider();
-    
-    signInWithPopup(auth, provider)
-        .then((result) => {
-            let user = result.user;
-            saveUserToDatabase(user); // حفظ البريد والمعرف والصورة الخاصة بجوجل في القاعدة
-            alert("✅ تم تسجيل الدخول بواسطة جوجل بنجاح!");
-            switchScreen('mainDashboardScreen');
-        })
-        .catch((error) => {
-            alert("❌ حدث خطأ أثناء تسجيل الدخول بجوجل: " + error.message);
-        });
-};
+    window.openPaymentGateway = function() {
+        alert("جاري فتح نافذة الدفع لتأكيد الاشتراك...");
+    };
+</script>
