@@ -31,8 +31,6 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app); // تفعيل نظام المصادقة
 const db = getDatabase(app); // تفعيل قاعدة البيانات الحية
 
-let isUserLoggedIn = false;
-
 // دالة تثبيت وحفظ بيانات المستخدم كاملة (البريد، المعرف، الاسم، الصورة، والـ UID)
 function saveUserToDatabase(user) {
     if (!user) return;
@@ -57,7 +55,6 @@ function saveUserToDatabase(user) {
             console.log("✅ تم حفظ البريد والمعرف والبيانات في قاعدة البيانات بنجاح");
             localStorage.setItem('plotcraft_user_session', JSON.stringify(userData));
             localStorage.setItem('plotcraft_user_uid', user.uid);
-            isUserLoggedIn = true;
         })
         .catch((error) => {
             console.error("❌ خطأ في حفظ بيانات المستخدم:", error);
@@ -87,48 +84,6 @@ function applySelectedLanguage() {
 }
 
 // ==========================================
-// دوال واجهة الاشتراكات والنافذة (ربط مع الـ window)
-// ==========================================
-window.choosePlan = function(cardElement) {
-    document.querySelectorAll('.plan-card').forEach(card => card.classList.remove('active'));
-    cardElement.classList.add('active');
-};
-
-window.openSubscription = function() {
-    const modal = document.getElementById('subscriptionModal');
-    if (modal) modal.classList.add('show');
-};
-
-window.closeSubscription = function() {
-    const modal = document.getElementById('subscriptionModal');
-    if (modal) modal.classList.remove('show');
-};
-
-window.handleSubscribeClick = function() {
-    if (!isUserLoggedIn) {
-        const authModal = document.getElementById('authModal');
-        if (authModal) authModal.classList.add('show');
-    } else {
-        window.openPaymentGateway();
-    }
-};
-
-window.closeAuthModal = function() {
-    const authModal = document.getElementById('authModal');
-    if (authModal) authModal.classList.remove('show');
-};
-
-window.handleLink = function(type) {
-    if (type === 'restore') alert("جاري التحقق من المشتريات السابقة للاستعادة...");
-    else if (type === 'terms') alert("جاري فتح شروط الاستخدام...");
-    else if (type === 'privacy') alert("جاري فتح سياسة الخصوصية...");
-};
-
-window.openPaymentGateway = function() {
-    alert("جاري فتح نافذة الدفع لتأكيد الاشتراك...");
-};
-
-// ==========================================
 // وظائف الحسابات والاتصال الفعلي بـ Firebase Auth
 // ==========================================
 
@@ -138,9 +93,7 @@ window.handleRegister = function() {
     let passField = document.getElementById('registerPasswordField') || document.getElementById('loginPasswordField');
     
     if (!emailField || !passField) {
-        // إذا لم تكن الحقول موجودة، افتح نافذة تسجيل الدخول مباشرة كاحتياط
-        const authModal = document.getElementById('authModal');
-        if (authModal) authModal.classList.add('show');
+        alert("⚠️ حقول المدخلات غير متوفرة في هذه الشاشة.");
         return;
     }
 
@@ -213,7 +166,6 @@ window.handleGoogleLogin = function() {
         .then((result) => {
             let user = result.user;
             saveUserToDatabase(user); // حفظ البريد والمعرف والصورة الخاصة بجوجل في القاعدة
-            window.closeAuthModal();
             alert("✅ تم تسجيل الدخول بواسطة جوجل بنجاح!");
             switchScreen('mainDashboardScreen');
         })
