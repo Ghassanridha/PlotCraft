@@ -76,9 +76,9 @@
                 <input type="email" id="loginEmail" class="auth-input" placeholder="البريد الإلكتروني">
                 <input type="password" id="loginPassword" class="auth-input" placeholder="كلمة المرور">
                 
-                <!-- رسالة صغيرة تظهر عند إدخال بريد غير مسجل -->
+                <!-- تنبيه الحساب غير موجود أو كلمة المرور خطأ -->
                 <div id="notRegisteredMsg" style="color: #ef4444; font-size: 11px; text-align: center; display: none; margin-top: -4px;">
-                    ليس لديك حساب بهذا البريد! يرجى إنشاء حساب جديد.
+                    ليس لديك حساب بهذا البريد أو كلمة المرور خاطئة! يرجى إنشاء حساب جديد.
                 </div>
 
                 <button class="auth-btn email-btn" onclick="submitLogin()">تسجيل الدخول</button>
@@ -260,7 +260,7 @@
         width: 100%;
         max-width: 480px;
         margin: 0 auto;
-        background: rgba(42, 46, 53, 0.95); /* رمادي داكن مطفأ */
+        background: rgba(42, 46, 53, 0.95);
         backdrop-filter: blur(16px);
         border-top-left-radius: 24px;
         border-top-right-radius: 24px;
@@ -390,8 +390,19 @@
 
 <script>
     let isUserLoggedIn = false; 
-    // قائمة وهمية للحسابات المسجلة مسبقاً للتجربة
-    let registeredUsers = ["test@gmail.com", "ghassan@gmail.com"];
+
+    // جلب قائمة الحسابات المحفوظة من ذاكرة المتصفح تلقائياً
+    function getStoredUsers() {
+        const stored = localStorage.getItem('plotcraft_users');
+        return stored ? JSON.parse(stored) : {};
+    }
+
+    // حفظ حساب جديد في الذاكرة الدائمة
+    function saveUserToStorage(email, password) {
+        const users = getStoredUsers();
+        users[email.toLowerCase()] = password;
+        localStorage.setItem('plotcraft_users', JSON.stringify(users));
+    }
 
     function choosePlan(cardElement) {
         document.querySelectorAll('.plan-card').forEach(card => card.classList.remove('active'));
@@ -473,7 +484,7 @@
     }
 
     function submitLogin() {
-        const email = document.getElementById('loginEmail').value.trim();
+        const email = document.getElementById('loginEmail').value.trim().toLowerCase();
         const pass = document.getElementById('loginPassword').value;
         const msgDiv = document.getElementById('notRegisteredMsg');
 
@@ -482,9 +493,12 @@
             return;
         }
 
-        // التحقق مما إذا كان البريد مسجلاً مسبقاً
-        if (!registeredUsers.includes(email)) {
-            msgDiv.style.display = 'block'; // إظهار شعار "ليس لديك حساب"
+        const users = getStoredUsers();
+
+        // التحقق مما إذا كان البريد موجوداً وكلمة المرور مطابقة
+        if (!users[email] || users[email] !== pass) {
+            msgDiv.innerText = "ليس لديك حساب بهذا البريد أو كلمة المرور خاطئة! يرجى إنشاء حساب جديد.";
+            msgDiv.style.display = 'block';
             return;
         }
 
@@ -496,7 +510,7 @@
     }
 
     function submitRegister() {
-        const email = document.getElementById('regEmail').value.trim();
+        const email = document.getElementById('regEmail').value.trim().toLowerCase();
         const pass = document.getElementById('regPassword').value;
         const confirmPass = document.getElementById('regConfirmPassword').value;
 
@@ -513,14 +527,19 @@
             return;
         }
 
-        // إضافة البريد الجديد لقائمة المسجلين
-        if (!registeredUsers.includes(email)) {
-            registeredUsers.push(email);
+        const users = getStoredUsers();
+        if(users[email]) {
+            alert("هذا البريد الإلكتروني مسجل مسبقاً! يمكنك الانتقال لتسجيل الدخول.");
+            resetAuthModalView();
+            return;
         }
+
+        // حفظ بيانات الحساب الجديد بشكل دائم
+        saveUserToStorage(email, pass);
 
         isUserLoggedIn = true;
         closeAuthModal();
-        alert("تم إنشاء الحساب وتسجيل الدخول بنجاح!");
+        alert("تم إنشاء الحساب وحفظ معلوماتك بنجاح!");
         openPaymentGateway();
     }
 
