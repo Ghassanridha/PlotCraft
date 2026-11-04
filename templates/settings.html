@@ -49,15 +49,12 @@
             flex-direction: column;
         }
 
-        /* زر العودة العلوي (السهم) - مخصص فقط لإغلاق الإعدادات */
+        /* زر العودة العلوي */
         .settings-header {
             display: flex;
             justify-content: flex-start;
             align-items: center;
             padding: 2px 0;
-            width: fit-content;
-            position: relative;
-            z-index: 1000;
         }
 
         html[dir="ltr"] .settings-header {
@@ -70,16 +67,16 @@
             color: #ffffff;
             font-size: 18px;
             cursor: pointer;
-            padding: 8px;
+            padding: 2px;
         }
 
-        /* زر تسجيل الدخول العلوي - مستقل بذاته بالكامل */
-        .top-login-btn {
+        /* تعديل موقع زر تسجيل الدخول (مرفوع أكثر ومسحوب لليسار) */
+        .btn-login-overlay {
             position: absolute;
-            top: 72px;
-            left: 12px;
-            width: 110px;
-            height: 38px;
+            top: 76px;
+            left: 8px;
+            width: 125px;
+            height: 42px;
             background: transparent;
             border: none;
             color: #000000;
@@ -89,16 +86,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1001;
+            z-index: 10;
         }
 
-        html[dir="ltr"] .top-login-btn {
+        html[dir="ltr"] .btn-login-overlay {
             left: auto;
-            right: 12px;
+            right: 8px;
         }
 
-        .top-login-btn:active {
-            opacity: 0.5;
+        .btn-login-overlay:active {
+            opacity: 0.6;
         }
 
         /* المربع الأول (المستطيل الأوسط) */
@@ -217,7 +214,7 @@
             transform: translateX(20px);
         }
 
-        /* نافذة اختيار اللغات السفلية */
+        /* نافذة اختيار اللغات السفلية بلون رمادي داكن مطفأ */
         #languageBottomSheet {
             position: fixed;
             bottom: -100%;
@@ -343,13 +340,13 @@
     <div id="settingsScreen" class="settings-screen">
         <div class="settings-container">
             
-            <!-- زر العودة العلوي (السهم لإغلاق شاشة الإعدادات فقط) -->
+            <!-- زر العودة العلوي -->
             <div class="settings-header">
-                <button class="btn-back" onclick="closeSettingsScreen(event)">&#10095;</button>
+                <button class="btn-back" onclick="closeSettingsScreen()">&#10095;</button>
             </div>
 
-            <!-- زر تسجيل الدخول في المستطيل الأبيض العلوي -->
-            <button class="top-login-btn" id="btnLoginText" onclick="handleLoginAction(event)">تسجيل الدخول</button>
+            <!-- زر تسجيل الدخول المرفوع والمعدل الموضع -->
+            <button class="btn-login-overlay" id="btnLoginText" onclick="handleLoginAction()">تسجيل الدخول</button>
 
             <!-- أزرار المربع الأوسط -->
             <div class="group-middle">
@@ -411,7 +408,7 @@
                 </div>
             </div>
 
-            <!-- أزرار المربع السفلي -->
+            <!-- أزرار المستطيل السفلي -->
             <div class="group-bottom">
                 <!-- 5. الإعدادات -->
                 <div class="setting-item" onclick="handleSubSettings()">
@@ -576,4 +573,165 @@
                 clearCache: "清除缓存",
                 sheetTitle: "语言",
                 apply: "应用",
-                toast: "清除
+                toast: "清除成功"
+            },
+            ja: {
+                title: "設定 - PlotCraft",
+                login: "ログイン",
+                notif: "通知",
+                langTitle: "言語",
+                join: "参加する",
+                contact: "お問い合わせ",
+                settings: "設定",
+                clearCache: "キャッシュをクリア",
+                sheetTitle: "言語",
+                apply: "適用",
+                toast: "正常にクリアされました"
+            }
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLangCode = localStorage.getItem('plotcraft_lang_code') || 'ar';
+            const savedLangName = localStorage.getItem('plotcraft_lang_name') || 'العربية';
+            
+            document.getElementById('currentLangDisplay').innerText = savedLangName;
+            setAppLanguage(savedLangCode, false);
+        });
+
+        function openSettingsScreen() {
+            document.getElementById('settingsScreen').classList.add('show');
+        }
+
+        function closeSettingsScreen() {
+            document.getElementById('settingsScreen').classList.remove('show');
+        }
+
+        function handleLoginAction() {
+            console.log("تسجيل الدخول");
+        }
+
+        function toggleNotifications() {
+            isNotifActive = !isNotifActive;
+            const toggle = document.getElementById('notifToggle');
+            if (isNotifActive) {
+                toggle.classList.add('active');
+            } else {
+                toggle.classList.remove('active');
+            }
+        }
+
+        function openTelegram() {
+            window.open('https://t.me/G_ri63', '_blank');
+        }
+
+        function openEmail() {
+            window.location.href = 'mailto:support@plotcraft.com';
+        }
+
+        function handleSubSettings() {
+            console.log("الإعدادات الفرعية");
+        }
+
+        function clearCacheAction() {
+            const lang = localStorage.getItem('plotcraft_lang_code') || 'ar';
+            const toast = document.getElementById('cacheToast');
+            toast.innerText = translations[lang] ? translations[lang].toast : translations['ar'].toast;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+
+        function openLanguageSheet() {
+            document.getElementById('languageBottomSheet').classList.add('show');
+            setTimeout(() => {
+                const container = document.getElementById('langScrollContainer');
+                const items = container.querySelectorAll('.lang-item');
+                const currentName = document.getElementById('currentLangDisplay').innerText;
+                items.forEach(item => {
+                    if(item.getAttribute('data-name') === currentName) {
+                        container.scrollTop = item.offsetTop - container.clientHeight / 2 + item.clientHeight / 2;
+                    }
+                });
+                updateCenterLanguageHighlight();
+            }, 50);
+        }
+
+        function closeLanguageSheet() {
+            document.getElementById('languageBottomSheet').classList.remove('show');
+        }
+
+        function updateCenterLanguageHighlight() {
+            const container = document.getElementById('langScrollContainer');
+            const items = container.querySelectorAll('.lang-item');
+            const containerCenter = container.scrollTop + container.clientHeight / 2;
+
+            items.forEach(item => {
+                const itemCenter = item.offsetTop + item.offsetHeight / 2;
+                const distance = Math.abs(containerCenter - itemCenter);
+                if (distance < 25) {
+                    item.classList.add('active-center');
+                } else {
+                    item.classList.remove('active-center');
+                }
+            });
+        }
+
+        function applySelectedLanguage() {
+            const container = document.getElementById('langScrollContainer');
+            const items = container.querySelectorAll('.lang-item');
+            const containerCenter = container.scrollTop + container.clientHeight / 2;
+            let closestItem = items[0];
+            let minDistance = Infinity;
+
+            items.forEach(item => {
+                const itemCenter = item.offsetTop + item.offsetHeight / 2;
+                const distance = Math.abs(containerCenter - itemCenter);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestItem = item;
+                }
+            });
+
+            if (closestItem) {
+                const code = closestItem.getAttribute('data-code');
+                const name = closestItem.getAttribute('data-name');
+                
+                document.getElementById('currentLangDisplay').innerText = name;
+                
+                localStorage.setItem('plotcraft_lang_code', code);
+                localStorage.setItem('plotcraft_lang_name', name);
+
+                setAppLanguage(code, true);
+                closeLanguageSheet();
+            }
+        }
+
+        function setAppLanguage(code, animate) {
+            const t = translations[code] || translations['ar'];
+            
+            document.getElementById('pageTitle').innerText = t.title;
+            document.getElementById('btnLoginText').innerText = t.login;
+            document.getElementById('txtNotif').innerText = t.notif;
+            document.getElementById('txtLangTitle').innerText = t.langTitle;
+            document.getElementById('txtJoin').innerText = t.join;
+            document.getElementById('txtContact').innerText = t.contact;
+            document.getElementById('txtSettings').innerText = t.settings;
+            document.getElementById('txtClearCache').innerText = t.clearCache;
+            document.getElementById('txtSheetLangTitle').innerText = t.sheetTitle;
+            document.getElementById('txtApplyBtn').innerText = t.apply;
+
+            if (code === 'en' || code === 'fr' || code === 'es' || code === 'de' || code === 'tr' || code === 'ru') {
+                document.getElementById('appHtml').setAttribute('dir', 'ltr');
+                document.getElementById('appHtml').setAttribute('lang', code);
+            } else if (code === 'zh' || code === 'ja') {
+                document.getElementById('appHtml').setAttribute('dir', 'ltr');
+                document.getElementById('appHtml').setAttribute('lang', code);
+            } else {
+                document.getElementById('appHtml').setAttribute('dir', 'rtl');
+                document.getElementById('appHtml').setAttribute('lang', 'ar');
+            }
+        }
+    </script>
+</body>
+</html>
