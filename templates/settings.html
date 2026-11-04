@@ -606,8 +606,16 @@
             document.getElementById('settingsScreen').classList.remove('show');
         }
 
+        // استدعاء نافذة تسجيل الدخول الخاصة بكود السوبسكرايب فوراً
         function handleLoginAction() {
-            console.log("تسجيل الدخول");
+            if (typeof window.openAuthModal === 'function') {
+                window.openAuthModal();
+            } else {
+                const authModal = document.getElementById('authModal');
+                if (authModal) {
+                    authModal.classList.add('show');
+                }
+            }
         }
 
         function toggleNotifications() {
