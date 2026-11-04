@@ -423,13 +423,18 @@
         }
     }
 
+    // دالة عامة لفتح نافذة تسجيل الدخول مباشرة لاستدعائها من ملف الإعدادات
+    window.openAuthModal = function() {
+        const authModal = document.getElementById('authModal');
+        if (authModal) {
+            resetAuthModalView();
+            authModal.classList.add('show');
+        }
+    };
+
     function handleSubscribeClick() {
         if (!isUserLoggedIn) {
-            const authModal = document.getElementById('authModal');
-            if (authModal) {
-                resetAuthModalView();
-                authModal.classList.add('show');
-            }
+            window.openAuthModal();
         } else {
             openPaymentGateway();
         }
