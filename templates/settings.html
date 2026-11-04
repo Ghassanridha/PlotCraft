@@ -70,32 +70,36 @@
             padding: 2px;
         }
 
-        /* تعديل موقع زر تسجيل الدخول (مرفوع أكثر ومسحوب لليسار) */
-        .btn-login-overlay {
+        /* ================= الزر الجديد كلياً والجاهز للضغط بدون أي عوائق ================= */
+        .brand-new-login-btn {
             position: absolute;
-            top: 76px;
-            left: 8px;
-            width: 125px;
-            height: 42px;
-            background: transparent;
-            border: none;
-            color: #000000;
-            font-size: 13px;
-            font-weight: 700;
+            top: 72px;
+            left: 12px;
+            width: 130px;
+            height: 44px;
+            background: rgba(59, 130, 246, 0.2);
+            border: 2px solid #3b82f6;
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 800;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 10;
+            z-index: 99999;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+            transition: all 0.2s ease;
         }
 
-        html[dir="ltr"] .btn-login-overlay {
+        html[dir="ltr"] .brand-new-login-btn {
             left: auto;
-            right: 8px;
+            right: 12px;
         }
 
-        .btn-login-overlay:active {
-            opacity: 0.6;
+        .brand-new-login-btn:active {
+            transform: scale(0.95);
+            background: rgba(59, 130, 246, 0.4);
         }
 
         /* المربع الأول (المستطيل الأوسط) */
@@ -345,8 +349,8 @@
                 <button class="btn-back" onclick="closeSettingsScreen()">&#10095;</button>
             </div>
 
-            <!-- زر تسجيل الدخول المرفوع والمعدل الموضع -->
-            <button class="btn-login-overlay" id="btnLoginText" onclick="handleLoginAction()">تسجيل الدخول</button>
+            <!-- الزر الجديد كلياً لتسجيل الدخول (معزول ومرئي وقابل للضغط فوراً) -->
+            <button class="brand-new-login-btn" id="btnLoginText" onclick="handleLoginAction()">تسجيل الدخول</button>
 
             <!-- أزرار المربع الأوسط -->
             <div class="group-middle">
@@ -606,7 +610,7 @@
             document.getElementById('settingsScreen').classList.remove('show');
         }
 
-        // استدعاء نافذة تسجيل الدخول الخاصة بكود السوبسكرايب فوراً
+        // دالة استدعاء نافذة تسجيل الدخول الجديدة
         function handleLoginAction() {
             if (typeof window.openAuthModal === 'function') {
                 window.openAuthModal();
@@ -614,6 +618,8 @@
                 const authModal = document.getElementById('authModal');
                 if (authModal) {
                     authModal.classList.add('show');
+                } else {
+                    alert("خطأ: نافذة تسجيل الدخول غير متصلة بالصفحة الحالية!");
                 }
             }
         }
