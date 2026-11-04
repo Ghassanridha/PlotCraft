@@ -49,12 +49,14 @@
             flex-direction: column;
         }
 
-        /* زر العودة العلوي (السهم) */
+        /* زر العودة العلوي (السهم) - معزول تماماً */
         .settings-header {
             display: flex;
             justify-content: flex-start;
             align-items: center;
             padding: 2px 0;
+            width: fit-content;
+            pointer-events: auto;
         }
 
         html[dir="ltr"] .settings-header {
@@ -70,7 +72,7 @@
             padding: 8px;
         }
 
-        /* زر تسجيل الدخول في المستطيل الأبيض العلوي (مستقل تماماً وبدون أي تداخل) */
+        /* زر تسجيل الدخول العلوي - مستمر ومنفصل في جهة اليسار داخل المستطيل الأبيض */
         .top-login-btn {
             position: absolute;
             top: 72px;
@@ -86,7 +88,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 999999;
+            pointer-events: auto;
         }
 
         html[dir="ltr"] .top-login-btn {
@@ -340,15 +342,15 @@
     <div id="settingsScreen" class="settings-screen">
         <div class="settings-container">
             
-            <!-- زر العودة العلوي (السهم) -->
+            <!-- زر العودة العلوي (السهم فقط إغلاق للشاشة) -->
             <div class="settings-header">
                 <button class="btn-back" onclick="closeSettingsScreen()">&#10095;</button>
             </div>
 
-            <!-- زر تسجيل الدخول في المستطيل الأبيض العلوي (منفصل وله دالة مستقلة تماماً) -->
+            <!-- زر تسجيل الدخول المستقل بالكامل دون أي شفرات أو دمج مع السهم -->
             <button class="top-login-btn" id="btnLoginText" onclick="handleLoginAction()">تسجيل الدخول</button>
 
-            <!-- أزرار المربع الأوسط (أماكنها الأصلية) -->
+            <!-- أزرار المربع الأوسط -->
             <div class="group-middle">
                 <!-- 1. الإشعارات -->
                 <div class="setting-item" onclick="toggleNotifications()">
@@ -408,7 +410,7 @@
                 </div>
             </div>
 
-            <!-- أزرار المربع السفلي (أماكنها الأصلية) -->
+            <!-- أزرار المربع السفلي -->
             <div class="group-bottom">
                 <!-- 5. الإعدادات -->
                 <div class="setting-item" onclick="handleSubSettings()">
@@ -606,7 +608,7 @@
             document.getElementById('settingsScreen').classList.remove('show');
         }
 
-        /* دالة مستقلة تماماً لزر تسجيل الدخول العلوي (تفتح النافذة بضغطة مباشرة بدون أي ارتباط بالسهم) */
+        /* فتح نافذة تسجيل الدخول مباشرة وبشكل مستقل كلياً بدون أي تأثير أو ربط بالسهم */
         function handleLoginAction() {
             const authModal = document.getElementById('authModal');
             if (authModal) {
@@ -617,7 +619,7 @@
             } else if (typeof window.openAuthModal === 'function') {
                 window.openAuthModal();
             } else {
-                alert("خطأ: نافذة تسجيل الدخول غير متصلة بالصفحة الحالية!");
+                alert("نافذة تسجيل الدخول (authModal) غير متصلة بالشكل الصحيح في هذه الصفحة.");
             }
         }
 
