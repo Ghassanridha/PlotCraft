@@ -610,27 +610,22 @@
             document.getElementById('settingsScreen').classList.remove('show');
         }
 
-        /* فتح نافذة البريد بدون إخفاء الإعدادات لجعلها تظهر كـ Modal فوق الإعدادات */
+        /* عند الضغط على تسجيل الدخول: نفتح نافذة البريد ونخفي قائمة الإعدادات مؤقتاً */
         function handleLoginAction() {
             const authModal = document.getElementById('authModal');
             if (authModal) {
                 authModal.classList.add('show');
+                closeSettingsScreen();
             }
         }
 
-        /* دالة الإغلاق أو إتمام التسجيل - تغلق نافذة البريد وتضمن بقائك في شاشة الإعدادات */
+        /* عند إغلاق نافذة تسجيل الدخول عبر البريد: يتم إغلاقها وإعادة إظهار شاشة الإعدادات حصرياً دون أي تغيير لمكانك */
         function closeAuthModal() {
             const authModal = document.getElementById('authModal');
             if (authModal) {
                 authModal.classList.remove('show');
             }
-            // إجبار النظام على الإبقاء/العودة إلى شاشة الإعدادات
             openSettingsScreen();
-        }
-
-        /* دالة تستدعيها عند نجاح تسجيل الدخول لكي تضمن بقائك بالإعدادات وتغلق النافذة */
-        function onAuthSuccess() {
-            closeAuthModal();
         }
 
         function toggleNotifications() {
