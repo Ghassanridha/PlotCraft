@@ -589,7 +589,7 @@
                 settings: "設定",
                 clearCache: "キャッシュをクリア",
                 sheetTitle: "適用",
-                apply: "أومبي",
+                apply: "適用",
                 toast: "正常にクリアされました"
             }
         };
@@ -610,15 +610,22 @@
             document.getElementById('settingsScreen').classList.remove('show');
         }
 
-        /* تعديل الدالة لفتح النافذة فوراً وإغلاق شاشة الإعدادات حتى لا تحدث المباغتة */
+        /* عند الضغط على تسجيل الدخول: نفتح نافذة البريد ونخفي قائمة الإعدادات مؤقتاً */
         function handleLoginAction() {
             const authModal = document.getElementById('authModal');
             if (authModal) {
-                // تظهر نافذة تسجيل الدخول فوراً
                 authModal.classList.add('show');
-                // نغلق شاشة الإعدادات لتجنب التداخل وحالة التخفي
                 closeSettingsScreen();
             }
+        }
+
+        /* عند إغلاق نافذة تسجيل الدخول عبر البريد: يتم إغلاقها وإعادة إظهار شاشة الإعدادات حصرياً دون أي تغيير لمكانك */
+        function closeAuthModal() {
+            const authModal = document.getElementById('authModal');
+            if (authModal) {
+                authModal.classList.remove('show');
+            }
+            openSettingsScreen();
         }
 
         function toggleNotifications() {
