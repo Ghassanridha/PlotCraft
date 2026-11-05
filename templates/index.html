@@ -6,6 +6,11 @@
     <title>PlotCraft UI</title>
     <link rel="manifest" href="/manifest.json">
     
+    <!-- 🚀 روابط التحميل المسبق للصور لضمان ظهورها الفوري بدون تأخير -->
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg">
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/d25e86296ea2db1540c7756cc90a01b936d589a2/Gh3.jpg">
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/e34a11096e0d5851f6a12fe58f61a2a93b688bd0/Gh3.jpg">
+
     <style>
         * {
             box-sizing: border-box;
@@ -109,7 +114,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            loading: eager;
         }
 
         .welcome-section {
@@ -156,35 +160,20 @@
             overflow-y: auto;
         }
 
-        /* 🖼️ تطبيق رابط التصميم Gh3.jpg داخل زر/شاشة الأدوات مع الحفاظ على كلمة الأدوات بالأعلى تماماً وباللون الأبيض */
         #toolsScreen.screen-view {
             background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/e34a11096e0d5851f6a12fe58f61a2a93b688bd0/Gh3.jpg') center/100% 100% no-repeat !important;
             padding: 16px !important;
             overflow-y: auto;
         }
 
-        .works-header-custom {
+        .works-header-custom, .tools-header-custom {
             display: flex;
             justify-content: flex-start;
             align-items: center;
             width: 100%;
         }
 
-        .works-title-right {
-            color: #ffffff;
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        .tools-header-custom {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            width: 100%;
-            padding: 0;
-        }
-
-        .tools-title-left {
+        .works-title-right, .tools-title-left {
             color: #ffffff;
             font-size: 20px;
             font-weight: 700;
@@ -238,7 +227,6 @@
             margin-right: -2px;
         }
 
-        /* 🔘 مستطيل الأزرار السفلي في الواجهة الرئيسية (شفاف قليلاً والخلفية تظهر تحته مع بقاء الأزرار كما هي) */
         .plotcraft-nav-pill {
             background-color: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(12px);
@@ -281,8 +269,6 @@
 </head>
 <body>
 
-    <link rel="prefetch" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg">
-
     <div class="app-shell" id="appShellContainer">
         <div class="toast-notification" id="toastNotification"></div>
 
@@ -293,10 +279,10 @@
                     <div class="brand-title">PlotCraft</div>
                     
                     <div class="top-left-actions">
-                        <button onclick="openSubscription()" style="background: rgba(20, 24, 33, 0.85); backdrop-filter: blur(12px); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); padding: 5px 10px; border-radius: 14px; font-weight: 600; cursor: pointer; font-size: 11px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); white-space: nowrap; touch-action: manipulation; -webkit-tap-highlight-color: transparent;">ترقيه</button>
+                        <button onclick="openSubscription()" style="background: rgba(20, 24, 33, 0.85); backdrop-filter: blur(12px); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); padding: 5px 10px; border-radius: 14px; font-weight: 600; cursor: pointer; font-size: 11px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); white-space: nowrap; touch-action: manipulation;">ترقيه</button>
                         
-                        <div class="top-settings-btn" onclick="openSettingsScreen()" ontouchstart="openSettingsScreen()">
-                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات" loading="eager">
+                        <div class="top-settings-btn" onclick="openSettingsScreen()">
+                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات">
                         </div>
                     </div>
                 </div>
@@ -313,14 +299,14 @@
             </div>
         </div>
 
-        <!-- 3️⃣ شاشة الأدوات (تحتوي على التصميم الجديد مع إبقاء كلمة الأدوات باللون الأبيض في الأعلى) -->
+        <!-- 3️⃣ شاشة الأدوات -->
         <div id="toolsScreen" class="screen-view">
             <div class="tools-header-custom">
                 <div class="tools-title-left">الأدوات</div>
             </div>
         </div>
 
-        <!-- 🔘 شريط التنقل السفلي الأنيق -->
+        <!-- 🔘 شريط التنقل السفلي -->
         <div class="plotcraft-nav-bar" id="mainNavBar">
             <div class="plotcraft-nav-square" onclick="vibrateDevice(); openSparkleDialog(event)">
                 <div class="nav-logo-icon">
@@ -347,6 +333,7 @@
         </div>
     </div>
 
+    <!-- حاويات النوافذ -->
     <div id="subscriptionModalWrapper"></div>
     <div id="settingsModalWrapper"></div>
 
@@ -386,57 +373,23 @@
             showToast('تم النقر على إنشاء قصة');
         }
 
-        let isSubscriptionLoaded = false;
-
-        function preloadSubscriptionModal() {
-            if (isSubscriptionLoaded) return;
+        // تحميل نوافذ الـ Modal في الخلفية فور تشغيل الصفحة لتكون جاهزة وفورية الاستجابة
+        function preloadModals() {
             fetch('/subscription-modal')
-                .then(response => {
-                    if (!response.ok) throw new Error('فشل جلب ملف الاشتراكات');
-                    return response.text();
-                })
+                .then(res => res.text())
                 .then(html => {
-                    const wrapper = document.getElementById('subscriptionModalWrapper');
-                    wrapper.innerHTML = html;
-                    
-                    const scripts = wrapper.querySelectorAll('script');
-                    scripts.forEach(script => {
-                        const newScript = document.createElement('script');
-                        newScript.text = script.innerHTML;
-                        document.body.appendChild(newScript);
-                    });
-                    isSubscriptionLoaded = true;
-                })
-                .catch(err => console.error(err));
-        }
+                    document.getElementById('subscriptionModalWrapper').innerHTML = html;
+                }).catch(err => {});
 
-        let isSettingsLoaded = false;
-
-        function preloadSettingsModal() {
-            if (isSettingsLoaded) return;
             fetch('/settings')
-                .then(response => {
-                    if (!response.ok) throw new Error('فشل جلب ملف الإعدادات');
-                    return response.text();
-                })
+                .then(res => res.text())
                 .then(html => {
-                    const wrapper = document.getElementById('settingsModalWrapper');
-                    wrapper.innerHTML = html;
-                    
-                    const scripts = wrapper.querySelectorAll('script');
-                    scripts.forEach(script => {
-                        const newScript = document.createElement('script');
-                        newScript.text = script.innerHTML;
-                        document.body.appendChild(newScript);
-                    });
-                    isSettingsLoaded = true;
-                })
-                .catch(err => console.error(err));
+                    document.getElementById('settingsModalWrapper').innerHTML = html;
+                }).catch(err => {});
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            preloadSubscriptionModal();
-            preloadSettingsModal();
+            preloadModals(); // التشغيل الفوري بالخلفية
         });
 
         window.openSubscription = function() {
@@ -444,15 +397,6 @@
             if (loadedModal) {
                 loadedModal.style.display = 'flex';
                 setTimeout(() => loadedModal.classList.add('show'), 10);
-            } else {
-                preloadSubscriptionModal();
-                setTimeout(() => {
-                    const m = document.getElementById('subscriptionModal');
-                    if(m) {
-                        m.style.display = 'flex';
-                        m.classList.add('show');
-                    }
-                }, 300);
             }
         };
 
@@ -466,13 +410,11 @@
             if (settingsScreen) {
                 settingsScreen.classList.add('show');
             } else {
-                preloadSettingsModal();
+                // إذا لم يتم تحميلها بعد، يتم إظهارها فور توفرها
                 setTimeout(() => {
                     const s = document.getElementById('settingsScreen');
-                    if(s) {
-                        s.classList.add('show');
-                    }
-                }, 100);
+                    if(s) s.classList.add('show');
+                }, 50);
             }
         };
     </script>
