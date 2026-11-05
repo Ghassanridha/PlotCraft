@@ -74,13 +74,13 @@
             z-index: 25;
         }
 
-        /* تعديل موقع وحجم زر تسجيل الدخول لضمان عزل مساحة النقر تماماً عن زر العودة */
+        /* زر تسجيل الدخول المرفوع والمعدل الموضع */
         .btn-login-overlay {
             position: absolute;
             top: 76px;
-            left: 16px;
-            width: 105px;
-            height: 38px;
+            left: 8px;
+            width: 125px;
+            height: 42px;
             background: transparent;
             border: none;
             color: #000000;
@@ -95,7 +95,7 @@
 
         html[dir="ltr"] .btn-login-overlay {
             left: auto;
-            right: 16px;
+            right: 8px;
         }
 
         .btn-login-overlay:active {
@@ -588,8 +588,8 @@
                 contact: "お問い合わせ",
                 settings: "設定",
                 clearCache: "キャッシュをクリア",
-                sheetTitle: "言語",
-                apply: "適用",
+                sheetTitle: "適用",
+                apply: "أومبي",
                 toast: "正常にクリアされました"
             }
         };
@@ -610,11 +610,14 @@
             document.getElementById('settingsScreen').classList.remove('show');
         }
 
-        /* دالة زر تسجيل الدخول لاستدعاء نافذة authModal البريدية المسؤولة عن تسجيل الدخول */
+        /* تعديل الدالة لفتح النافذة فوراً وإغلاق شاشة الإعدادات حتى لا تحدث المباغتة */
         function handleLoginAction() {
             const authModal = document.getElementById('authModal');
             if (authModal) {
+                // تظهر نافذة تسجيل الدخول فوراً
                 authModal.classList.add('show');
+                // نغلق شاشة الإعدادات لتجنب التداخل وحالة التخفي
+                closeSettingsScreen();
             }
         }
 
