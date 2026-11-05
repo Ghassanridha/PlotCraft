@@ -606,8 +606,12 @@
             document.getElementById('settingsScreen').classList.remove('show');
         }
 
+        /* دالة زر تسجيل الدخول لاستدعاء نافذة authModal الموجودة في صفحتك الرئيسية */
         function handleLoginAction() {
-            console.log("تسجيل الدخول");
+            const authModal = document.getElementById('authModal');
+            if (authModal) {
+                authModal.classList.add('show');
+            }
         }
 
         function toggleNotifications() {
