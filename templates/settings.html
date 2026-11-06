@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="pageTitle">الإعدادات - PlotCraft</title>
     
-    <!-- التحميل المسبق للخلفيات بالروابط المباشرة المتطابقة 100% -->
+    <!-- التحميل المسبق للخلفيات بالروابط الصحيحة 100% -->
     <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/87ec5eff439c8c227933258a0e1738538ab7d07b/G2.jpg">
     <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/4d6212dde00d8debb396a53e5d3cec625ce3f8e0/N.jpg">
 
@@ -39,7 +39,7 @@
             overflow-y: auto;
         }
 
-        /* 2️⃣ التصميم الجديد (يظهر فور تسجيل الدخول بنفس صيغة الرابط القديم المضمونة) */
+        /* 2️⃣ التصميم الجديد (يظهر فور تسجيل الدخول تلقائياً) */
         .settings-screen.logged-in {
             background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/4d6212dde00d8debb396a53e5d3cec625ce3f8e0/N.jpg') center/100% 100% no-repeat;
         }
@@ -374,7 +374,7 @@
                 <div class="setting-item" onclick="showToast('الإعدادات الفرعية')">
                     <div class="setting-right">
                         <span class="icon-svg">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c-.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
                         </span>
                         <span>الإعدادات</span>
                     </div>
@@ -463,16 +463,28 @@
             }
         }
 
+        /* 🟢 التعديل الجذري هنا: بمجرد نجاح تسجيل الدخول، يتم الحفظ وتحديث الصفحة تلقائياً لتظهر خلفية N.jpg فوراً */
         function onLoginSuccess() {
             localStorage.setItem('plotcraft_logged_in', 'true');
             renderUIState(true);
-            closeAuthModal();
+            
+            // إغلاق أي نافذة تسجيل دخول منبثقة إن وجدت
+            const authModal = document.getElementById('authModal');
+            if (authModal) authModal.classList.remove('show');
+
+            // تحديث الصفحة فوراً لتطبيق التصميم الجديد N.jpg بدون أي تأخير
+            setTimeout(() => {
+                location.reload();
+            }, 300);
         }
 
         function handleLogoutAction() {
             localStorage.setItem('plotcraft_logged_in', 'false');
             renderUIState(false);
             showToast("تم تسجيل الخروج بنجاح");
+            setTimeout(() => {
+                location.reload();
+            }, 300);
         }
 
         function renderUIState(loggedIn) {
@@ -481,23 +493,6 @@
                 settingsScreen.classList.add('logged-in');
             } else {
                 settingsScreen.classList.remove('logged-in');
-            }
-        }
-
-        function closeAuthModal() {
-            const authModal = document.getElementById('authModal');
-            if (authModal) authModal.classList.remove('show');
-
-            if (window.authSource === 'settings') {
-                openSettingsScreen();
-                window.authSource = null;
-            } else if (window.authSource === 'subscription') {
-                const subModal = document.getElementById('subscriptionModal');
-                if (subModal) {
-                    subModal.style.display = 'flex';
-                    setTimeout(() => subModal.classList.add('show'), 10);
-                }
-                window.authSource = null;
             }
         }
 
