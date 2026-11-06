@@ -4,11 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="pageTitle">الإعدادات - PlotCraft</title>
-    
-    <!-- التحميل المسبق للخلفيات بالروابط الصحيحة 100% -->
-    <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/87ec5eff439c8c227933258a0e1738538ab7d07b/G2.jpg">
-    <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/4d6212dde00d8debb396a53e5d3cec625ce3f8e0/N.jpg">
-
     <style>
         * {
             box-sizing: border-box;
@@ -23,7 +18,7 @@
             overflow: hidden;
         }
 
-        /* 1️⃣ التصميم القديم (حالة الزائر) */
+        /* خلفية G2.jpg الأساسية */
         .settings-screen {
             position: fixed;
             top: 0;
@@ -37,11 +32,6 @@
             transition: transform 0.3s ease-out;
             visibility: hidden;
             overflow-y: auto;
-        }
-
-        /* 2️⃣ التصميم الجديد (يظهر فور تسجيل الدخول تلقائياً) */
-        .settings-screen.logged-in {
-            background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/4d6212dde00d8debb396a53e5d3cec625ce3f8e0/N.jpg') center/100% 100% no-repeat;
         }
 
         .settings-screen.show {
@@ -59,6 +49,7 @@
             flex-direction: column;
         }
 
+        /* زر العودة العلوي */
         .settings-header {
             display: flex;
             justify-content: flex-start;
@@ -66,6 +57,10 @@
             padding: 2px 0;
             position: relative;
             z-index: 20;
+        }
+
+        html[dir="ltr"] .settings-header {
+            flex-direction: row-reverse;
         }
 
         .btn-back {
@@ -79,6 +74,7 @@
             z-index: 25;
         }
 
+        /* زر تسجيل الدخول المرفوع والمعدل الموضع */
         .btn-login-overlay {
             position: absolute;
             top: 76px;
@@ -97,10 +93,16 @@
             z-index: 10;
         }
 
+        html[dir="ltr"] .btn-login-overlay {
+            left: auto;
+            right: 8px;
+        }
+
         .btn-login-overlay:active {
             opacity: 0.6;
         }
 
+        /* المربع الأول (المستطيل الأوسط) */
         .group-middle {
             margin-top: 135px;
             display: flex;
@@ -108,11 +110,20 @@
             gap: 15px;
         }
 
+        .group-middle .setting-item:first-child {
+            margin-top: -12px;
+        }
+
+        /* المربع الثاني (المستطيل السفلي) */
         .group-bottom {
             margin-top: 48px;
             display: flex;
             flex-direction: column;
             gap: 15px;
+        }
+
+        .group-bottom .setting-item:first-child {
+            margin-top: 0px;
         }
 
         .setting-item {
@@ -138,6 +149,10 @@
             font-weight: 500;
         }
 
+        html[dir="ltr"] .setting-right {
+            flex-direction: row;
+        }
+
         .icon-svg {
             width: 22px;
             height: 22px;
@@ -159,6 +174,11 @@
             font-size: 14px;
         }
 
+        html[dir="ltr"] .arrow-icon {
+            transform: scaleX(-1);
+        }
+
+        /* زر التبديل للإشعارات */
         .toggle-switch {
             width: 44px;
             height: 24px;
@@ -181,6 +201,11 @@
             transition: transform 0.3s;
         }
 
+        html[dir="ltr"] .toggle-switch::after {
+            right: auto;
+            left: 2px;
+        }
+
         .toggle-switch.active {
             background: #3b82f6;
         }
@@ -189,14 +214,11 @@
             transform: translateX(-20px);
         }
 
-        .loggedIn-only {
-            display: none !important;
+        html[dir="ltr"] .toggle-switch.active::after {
+            transform: translateX(20px);
         }
 
-        .settings-screen.logged-in .loggedIn-only {
-            display: flex !important;
-        }
-
+        /* نافذة اختيار اللغات السفلية بلون رمادي داكن مطفأ */
         #languageBottomSheet {
             position: fixed;
             bottom: -100%;
@@ -288,6 +310,10 @@
             text-align: center;
         }
 
+        .lang-apply-btn:active {
+            opacity: 0.8;
+        }
+
         #cacheToast {
             position: fixed;
             bottom: 30px;
@@ -318,28 +344,37 @@
     <div id="settingsScreen" class="settings-screen">
         <div class="settings-container">
             
+            <!-- زر العودة العلوي -->
             <div class="settings-header">
                 <button class="btn-back" onclick="closeSettingsScreen()">&#10095;</button>
             </div>
 
-            <!-- زر تسجيل الدخول يظهر فقط للزائر -->
+            <!-- زر تسجيل الدخول المرفوع والمعدل الموضع -->
             <button class="btn-login-overlay" id="btnLoginText" onclick="handleLoginAction()">تسجيل الدخول</button>
 
+            <!-- أزرار المربع الأوسط -->
             <div class="group-middle">
+                <!-- 1. الإشعارات -->
                 <div class="setting-item" onclick="toggleNotifications()">
                     <div class="setting-right">
                         <span class="icon-svg">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+                                <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+                            </svg>
                         </span>
                         <span id="txtNotif">الإشعارات</span>
                     </div>
                     <div class="toggle-switch" id="notifToggle"></div>
                 </div>
 
+                <!-- 2. اللغة -->
                 <div class="setting-item" onclick="openLanguageSheet()">
                     <div class="setting-right">
                         <span class="icon-svg">
-                            <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#ffffff" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10z" fill="none" stroke="#000000" stroke-width="1.5"/></svg>
+                            <svg width="22" height="22" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" fill="#ffffff" />
+                                <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10z" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
                         </span>
                         <span id="txtLangTitle">اللغة</span>
                     </div>
@@ -349,77 +384,88 @@
                     </div>
                 </div>
 
-                <div class="setting-item" onclick="window.open('https://t.me/G_ri63', '_blank')">
+                <!-- 3. انضم إلينا -->
+                <div class="setting-item" onclick="openTelegram()">
                     <div class="setting-right">
                         <span class="icon-svg">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+                                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                            </svg>
                         </span>
-                        <span>انضم إلينا</span>
+                        <span id="txtJoin">انضم إلينا</span>
                     </div>
                     <span class="arrow-icon">&#10094;</span>
                 </div>
 
-                <div class="setting-item" onclick="window.location.href='mailto:support@plotcraft.com'">
+                <!-- 4. اتصل بنا -->
+                <div class="setting-item" onclick="openEmail()">
                     <div class="setting-right">
                         <span class="icon-svg">
-                            <svg width="22" height="22" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3" fill="#ffffff"/><path d="M22 6l-10 7L2 6" fill="none" stroke="#000000" stroke-width="1.5"/></svg>
+                            <svg width="22" height="22" viewBox="0 0 24 24">
+                                <rect x="2" y="4" width="20" height="16" rx="3" fill="#ffffff"/>
+                                <path d="M22 6l-10 7L2 6" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
                         </span>
-                        <span>اتصل بنا</span>
+                        <span id="txtContact">اتصل بنا</span>
                     </div>
                     <span class="arrow-icon">&#10094;</span>
                 </div>
             </div>
 
+            <!-- أزرار المستطيل السفلي -->
             <div class="group-bottom">
-                <div class="setting-item" onclick="showToast('الإعدادات الفرعية')">
+                <!-- 5. الإعدادات -->
+                <div class="setting-item" onclick="handleSubSettings()">
                     <div class="setting-right">
                         <span class="icon-svg">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c-.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+                                <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6-3.6z"/>
+                            </svg>
                         </span>
-                        <span>الإعدادات</span>
+                        <span id="txtSettings">الإعدادات</span>
                     </div>
                     <span class="arrow-icon">&#10094;</span>
                 </div>
 
-                <div class="setting-item" onclick="showToast('تم مسح الذاكرة المؤقتة بنجاح')">
+                <!-- 6. مسح الذاكرة المؤقتة -->
+                <div class="setting-item" onclick="clearCacheAction()">
                     <div class="setting-right">
                         <span class="icon-svg">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff"><path d="M15 16h4v2h-4zm0-8h7v2h-7zm0 4h6v2h-6zM3 18c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2V8H3v10zM14 5h-3l-1-1H6L5 5H2v2h12z"/></svg>
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+                                <path d="M15 16h4v2h-4zm0-8h7v2h-7zm0 4h6v2h-6zM3 18c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2V8H3v10zM14 5h-3l-1-1H6L5 5H2v2h12z"/>
+                            </svg>
                         </span>
-                        <span>مسح الذاكرة المؤقتة</span>
+                        <span id="txtClearCache">مسح الذاكرة المؤقتة</span>
                     </div>
                     <div class="setting-left">
-                        <span>MB 131.48</span>
+                        <span id="txtCacheSize">MB 131.48</span>
                     </div>
-                </div>
-
-                <!-- زر تسجيل الخروج يظهر فقط عند تسجيل الدخول -->
-                <div class="setting-item loggedIn-only" onclick="handleLogoutAction()" style="color: #ef4444;">
-                    <div class="setting-right">
-                        <span class="icon-svg">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ef4444"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
-                        </span>
-                        <span>تسجيل الخروج</span>
-                    </div>
-                    <span class="arrow-icon" style="color: #ef4444;">&#10094;</span>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <!-- نافذة اختيار اللغات -->
+    <!-- نافذة اختيار اللغات السفلية -->
     <div id="languageBottomSheet">
         <div class="lang-sheet-header">
             <span id="txtSheetLangTitle">اللغة</span>
             <button class="lang-sheet-close" onclick="closeLanguageSheet()">&#x2715;</button>
         </div>
-        <div class="lang-scroll-container" id="langScrollContainer">
-            <div class="lang-item">العربية</div>
-            <div class="lang-item">English</div>
+        <div class="lang-scroll-container" id="langScrollContainer" onscroll="updateCenterLanguageHighlight()">
+            <div class="lang-item" data-code="ar" data-name="العربية">العربية</div>
+            <div class="lang-item" data-code="sa" data-name="العربية (السعودية)">العربية (السعودية)</div>
+            <div class="lang-item" data-code="en" data-name="English">English</div>
+            <div class="lang-item" data-code="fr" data-name="Français">Français</div>
+            <div class="lang-item" data-code="es" data-name="Español">Español</div>
+            <div class="lang-item" data-code="de" data-name="Deutsch">Deutsch</div>
+            <div class="lang-item" data-code="tr" data-name="Türkçe">Türkçe</div>
+            <div class="lang-item" data-code="ru" data-name="Русский">Русский</div>
+            <div class="lang-item" data-code="zh" data-name="中文">中文</div>
+            <div class="lang-item" data-code="ja" data-name="日本語">日本語</div>
         </div>
         <div class="lang-sheet-footer">
-            <button class="lang-apply-btn" onclick="closeLanguageSheet()">تطبيق</button>
+            <button class="lang-apply-btn" id="txtApplyBtn" onclick="applySelectedLanguage()">تطبيق</button>
         </div>
     </div>
 
@@ -428,96 +474,295 @@
     <script>
         let isNotifActive = false;
 
-        window.addEventListener('DOMContentLoaded', () => {
-            checkLoginState();
-        });
-
-        window.addEventListener('storage', (event) => {
-            if (event.key === 'plotcraft_logged_in') {
-                checkLoginState();
+        const translations = {
+            ar: {
+                title: "الإعدادات - PlotCraft",
+                login: "تسجيل الدخول",
+                notif: "الإشعارات",
+                langTitle: "اللغة",
+                join: "انضم إلينا",
+                contact: "اتصل بنا",
+                settings: "الإعدادات",
+                clearCache: "مسح الذاكرة المؤقتة",
+                sheetTitle: "اللغة",
+                apply: "تطبيق",
+                toast: "تم المسح بنجاح"
+            },
+            en: {
+                title: "Settings - PlotCraft",
+                login: "Sign In",
+                notif: "Notifications",
+                langTitle: "Language",
+                join: "Join Us",
+                contact: "Contact Us",
+                settings: "Settings",
+                clearCache: "Clear Cache",
+                sheetTitle: "Language",
+                apply: "Apply",
+                toast: "Cleared successfully"
+            },
+            fr: {
+                title: "Paramètres - PlotCraft",
+                login: "Connexion",
+                notif: "Notifications",
+                langTitle: "Langue",
+                join: "Rejoignez-nous",
+                contact: "Contactez-nous",
+                settings: "Paramètres",
+                clearCache: "Vider le cache",
+                sheetTitle: "Langue",
+                apply: "Appliquer",
+                toast: "Effacé avec succès"
+            },
+            es: {
+                title: "Ajustes - PlotCraft",
+                login: "Iniciar sesión",
+                notif: "Notificaciones",
+                langTitle: "Idioma",
+                join: "Únete",
+                contact: "Contacto",
+                settings: "Ajustes",
+                clearCache: "Borrar caché",
+                sheetTitle: "Idioma",
+                apply: "Aplicar",
+                toast: "Borrado con éxito"
+            },
+            de: {
+                title: "Einstellungen - PlotCraft",
+                login: "Anmelden",
+                notif: "Benachrichtigungen",
+                langTitle: "Sprache",
+                join: "Mach mit",
+                contact: "Kontakt",
+                settings: "Einstellungen",
+                clearCache: "Cache leeren",
+                sheetTitle: "Sprache",
+                apply: "Anwenden",
+                toast: "Erfolgreich gelöscht"
+            },
+            tr: {
+                title: "Ayarlar - PlotCraft",
+                login: "Giriş Yap",
+                notif: "Bildirimler",
+                langTitle: "Dil",
+                join: "Bize Katıl",
+                contact: "İletişim",
+                settings: "Ayarlar",
+                clearCache: "Önbelleği Temizle",
+                sheetTitle: "Dil",
+                apply: "Uygula",
+                toast: "Başarıyla temizlendi"
+            },
+            ru: {
+                title: "Настройки - PlotCraft",
+                login: "Войти",
+                notif: "Уведомления",
+                langTitle: "Язык",
+                join: "Присоединяйтесь",
+                contact: "Контакты",
+                settings: "Настройки",
+                clearCache: "Очистить кэш",
+                sheetTitle: "Язык",
+                apply: "Применить",
+                toast: "Успешно очищено"
+            },
+            zh: {
+                title: "设置 - PlotCraft",
+                login: "登录",
+                notif: "通知",
+                langTitle: "语言",
+                join: "加入我们",
+                contact: "联系我们",
+                settings: "设置",
+                clearCache: "清除缓存",
+                sheetTitle: "语言",
+                apply: "应用",
+                toast: "清除成功"
+            },
+            ja: {
+                title: "設定 - PlotCraft",
+                login: "ログイン",
+                notif: "通知",
+                langTitle: "言語",
+                join: "参加する",
+                contact: "お問い合わせ",
+                settings: "設定",
+                clearCache: "キャッシュをクリア",
+                sheetTitle: "適用",
+                apply: "適用",
+                toast: "正常にクリアされました"
             }
-        });
+        };
 
-        function checkLoginState() {
-            const isLogged = localStorage.getItem('plotcraft_logged_in') === 'true';
-            renderUIState(isLogged);
-        }
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLangCode = localStorage.getItem('plotcraft_lang_code') || 'ar';
+            const savedLangName = localStorage.getItem('plotcraft_lang_name') || 'العربية';
+            
+            document.getElementById('currentLangDisplay').innerText = savedLangName;
+            setAppLanguage(savedLangCode, false);
+        });
 
         function openSettingsScreen() {
             document.getElementById('settingsScreen').classList.add('show');
-            checkLoginState();
         }
 
         function closeSettingsScreen() {
             document.getElementById('settingsScreen').classList.remove('show');
         }
 
+        /* عند الضغط على تسجيل الدخول من الإعدادات: نحدد مصدر الدخول كـ 'settings' */
         function handleLoginAction() {
-            window.authSource = 'settings';
+            window.authSource = 'settings'; // تحديد أن الدخول تم من الإعدادات
             const authModal = document.getElementById('authModal');
             if (authModal) {
                 authModal.classList.add('show');
                 closeSettingsScreen();
-            } else {
-                onLoginSuccess();
             }
         }
 
-        /* 🟢 التعديل الجذري هنا: بمجرد نجاح تسجيل الدخول، يتم الحفظ وتحديث الصفحة تلقائياً لتظهر خلفية N.jpg فوراً */
-        function onLoginSuccess() {
-            localStorage.setItem('plotcraft_logged_in', 'true');
-            renderUIState(true);
-            
-            // إغلاق أي نافذة تسجيل دخول منبثقة إن وجدت
+        /* دالة الإغلاق الذكية: نتحقق من المصدر لإرجاع المستخدم للمكان الصحيح */
+        function closeAuthModal() {
             const authModal = document.getElementById('authModal');
-            if (authModal) authModal.classList.remove('show');
+            if (authModal) {
+                authModal.classList.remove('show');
+            }
 
-            // تحديث الصفحة فوراً لتطبيق التصميم الجديد N.jpg بدون أي تأخير
-            setTimeout(() => {
-                location.reload();
-            }, 300);
-        }
-
-        function handleLogoutAction() {
-            localStorage.setItem('plotcraft_logged_in', 'false');
-            renderUIState(false);
-            showToast("تم تسجيل الخروج بنجاح");
-            setTimeout(() => {
-                location.reload();
-            }, 300);
-        }
-
-        function renderUIState(loggedIn) {
-            const settingsScreen = document.getElementById('settingsScreen');
-            if (loggedIn) {
-                settingsScreen.classList.add('logged-in');
-            } else {
-                settingsScreen.classList.remove('logged-in');
+            // إذا كان الدخول صادراً من الإعدادات فقط نفتح شاشة الإعدادات
+            if (window.authSource === 'settings') {
+                openSettingsScreen();
+                window.authSource = null; // إعادة تعيين المصدر
+            } else if (window.authSource === 'subscription') {
+                // إذا كان الدخول من الترقية/الاشتراكات تفتح نافذة الاشتراكات
+                const subModal = document.getElementById('subscriptionModal');
+                if (subModal) {
+                    subModal.style.display = 'flex';
+                    setTimeout(() => subModal.classList.add('show'), 10);
+                }
+                window.authSource = null; // إعادة تعيين المصدر
             }
         }
 
         function toggleNotifications() {
             isNotifActive = !isNotifActive;
             const toggle = document.getElementById('notifToggle');
-            if (toggle) {
-                if (isNotifActive) toggle.classList.add('active');
-                else toggle.classList.remove('active');
+            if (isNotifActive) {
+                toggle.classList.add('active');
+            } else {
+                toggle.classList.remove('active');
             }
         }
 
-        function showToast(msg) {
+        function openTelegram() {
+            window.open('https://t.me/G_ri63', '_blank');
+        }
+
+        function openEmail() {
+            window.location.href = 'mailto:support@plotcraft.com';
+        }
+
+        function handleSubSettings() {
+            console.log("الإعدادات الفرعية");
+        }
+
+        function clearCacheAction() {
+            const lang = localStorage.getItem('plotcraft_lang_code') || 'ar';
             const toast = document.getElementById('cacheToast');
-            toast.innerText = msg;
+            toast.innerText = translations[lang] ? translations[lang].toast : translations['ar'].toast;
             toast.classList.add('show');
-            setTimeout(() => { toast.classList.remove('show'); }, 2000);
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
         }
 
         function openLanguageSheet() {
             document.getElementById('languageBottomSheet').classList.add('show');
+            setTimeout(() => {
+                const container = document.getElementById('langScrollContainer');
+                const items = container.querySelectorAll('.lang-item');
+                const currentName = document.getElementById('currentLangDisplay').innerText;
+                items.forEach(item => {
+                    if(item.getAttribute('data-name') === currentName) {
+                        container.scrollTop = item.offsetTop - container.clientHeight / 2 + item.clientHeight / 2;
+                    }
+                });
+                updateCenterLanguageHighlight();
+            }, 50);
         }
 
         function closeLanguageSheet() {
             document.getElementById('languageBottomSheet').classList.remove('show');
+        }
+
+        function updateCenterLanguageHighlight() {
+            const container = document.getElementById('langScrollContainer');
+            const items = container.querySelectorAll('.lang-item');
+            const containerCenter = container.scrollTop + container.clientHeight / 2;
+
+            items.forEach(item => {
+                const itemCenter = item.offsetTop + item.offsetHeight / 2;
+                const distance = Math.abs(containerCenter - itemCenter);
+                if (distance < 25) {
+                    item.classList.add('active-center');
+                } else {
+                    item.classList.remove('active-center');
+                }
+            });
+        }
+
+        function applySelectedLanguage() {
+            const container = document.getElementById('langScrollContainer');
+            const items = container.querySelectorAll('.lang-item');
+            const containerCenter = container.scrollTop + container.clientHeight / 2;
+            let closestItem = items[0];
+            let minDistance = Infinity;
+
+            items.forEach(item => {
+                const itemCenter = item.offsetTop + item.offsetHeight / 2;
+                const distance = Math.abs(containerCenter - itemCenter);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestItem = item;
+                }
+            });
+
+            if (closestItem) {
+                const code = closestItem.getAttribute('data-code');
+                const name = closestItem.getAttribute('data-name');
+                
+                document.getElementById('currentLangDisplay').innerText = name;
+                
+                localStorage.getItem('plotcraft_lang_code', code);
+                localStorage.setItem('plotcraft_lang_name', name);
+
+                setAppLanguage(code, true);
+                closeLanguageSheet();
+            }
+        }
+
+        function setAppLanguage(code, animate) {
+            const t = translations[code] || translations['ar'];
+            
+            document.getElementById('pageTitle').innerText = t.title;
+            document.getElementById('btnLoginText').innerText = t.login;
+            document.getElementById('txtNotif').innerText = t.notif;
+            document.getElementById('txtLangTitle').innerText = t.langTitle;
+            document.getElementById('txtJoin').innerText = t.join;
+            document.getElementById('txtContact').innerText = t.contact;
+            document.getElementById('txtSettings').innerText = t.settings;
+            document.getElementById('txtClearCache').innerText = t.clearCache;
+            document.getElementById('txtSheetLangTitle').innerText = t.sheetTitle;
+            document.getElementById('txtApplyBtn').innerText = t.apply;
+
+            if (code === 'en' || code === 'fr' || code === 'es' || code === 'de' || code === 'tr' || code === 'ru') {
+                document.getElementById('appHtml').setAttribute('dir', 'ltr');
+                document.getElementById('appHtml').setAttribute('lang', code);
+            } else if (code === 'zh' || code === 'ja') {
+                document.getElementById('appHtml').setAttribute('dir', 'ltr');
+                document.getElementById('appHtml').setAttribute('lang', code);
+            } else {
+                document.getElementById('appHtml').setAttribute('dir', 'rtl');
+                document.getElementById('appHtml').setAttribute('lang', 'ar');
+            }
         }
     </script>
 </body>
