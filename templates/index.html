@@ -6,12 +6,12 @@
     <title>PlotCraft UI</title>
     <link rel="manifest" href="/manifest.json">
     
-    <!-- 🚀 التحميل المسبق الفوري لجميع التصاميم البصرية والخلفيات لكي تظهر بدون أي تأخير -->
-    <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/87ec5eff439c8c227933258a0e1738538ab7d07b/G2.jpg">
+    <!-- 🚀 التحميل المسبق الفوري للتصاميم البصرية والخلفيات لكي تظهر بدون أي تأخير -->
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg">
     <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/d25e86296ea2db1540c7756cc90a01b936d589a2/Gh3.jpg">
     <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/e34a11096e0d5851f6a12fe58f61a2a93b688bd0/Gh3.jpg">
-    <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg">
-
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1080&auto=format&fit=crop">
+    
     <style>
         * {
             box-sizing: border-box;
@@ -109,11 +109,13 @@
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             flex-shrink: 0;
+            touch-action: manipulation;
         }
         .top-settings-btn img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            loading: eager;
         }
 
         .welcome-section {
@@ -160,187 +162,40 @@
             overflow-y: auto;
         }
 
+        /* 🖼️ تطبيق رابط التصميم Gh3.jpg داخل زر/شاشة الأدوات مع الحفاظ على كلمة الأدوات بالأعلى تماماً وباللون الأبيض */
         #toolsScreen.screen-view {
             background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/e34a11096e0d5851f6a12fe58f61a2a93b688bd0/Gh3.jpg') center/100% 100% no-repeat !important;
             padding: 16px !important;
             overflow-y: auto;
         }
 
-        .works-header-custom, .tools-header-custom {
+        .works-header-custom {
             display: flex;
             justify-content: flex-start;
             align-items: center;
             width: 100%;
         }
 
-        .works-title-right, .tools-title-left {
+        .works-title-right {
             color: #ffffff;
             font-size: 20px;
             font-weight: 700;
         }
 
-        /* تنسيقات شاشة الإعدادات المدمجة لتعمل فوراً بدون تأخير */
-        .settings-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/87ec5eff439c8c227933258a0e1738538ab7d07b/G2.jpg') center/100% 100% no-repeat;
-            z-index: 999999;
-            direction: rtl;
-            transform: translateX(-100vw);
-            transition: transform 0.3s ease-out;
-            visibility: hidden;
-            overflow-y: auto;
-        }
-
-        .settings-screen.show {
-            visibility: visible;
-            transform: translateX(0);
-        }
-
-        .settings-container {
-            position: relative;
-            width: 100%;
-            max-width: 480px;
-            margin: 0 auto;
-            padding: 10px 24px 20px 24px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .settings-header {
+        .tools-header-custom {
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            padding: 2px 0;
-            position: relative;
-            z-index: 20;
+            width: 100%;
+            padding: 0;
         }
 
-        .btn-back {
-            background: transparent;
-            border: none;
+        .tools-title-left {
             color: #ffffff;
-            font-size: 18px;
-            cursor: pointer;
-            padding: 6px 12px;
-            position: relative;
-            z-index: 25;
-        }
-
-        .btn-login-overlay {
-            position: absolute;
-            top: 76px;
-            left: 8px;
-            width: 125px;
-            height: 42px;
-            background: transparent;
-            border: none;
-            color: #000000;
-            font-size: 13px;
+            font-size: 20px;
             font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
         }
 
-        .group-middle {
-            margin-top: 135px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .group-middle .setting-item:first-child {
-            margin-top: -12px;
-        }
-
-        .group-bottom {
-            margin-top: 48px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .setting-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 44px;
-            padding: 0 8px;
-            color: #ffffff;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .setting-item:active {
-            opacity: 0.7;
-        }
-
-        .setting-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 15px;
-            font-weight: 500;
-        }
-
-        .icon-svg {
-            width: 22px;
-            height: 22px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .setting-left {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #94a3b8;
-            font-size: 13px;
-        }
-
-        .arrow-icon {
-            color: #ffffff;
-            font-size: 14px;
-        }
-
-        .toggle-switch {
-            width: 44px;
-            height: 24px;
-            background: #475569;
-            border-radius: 12px;
-            position: relative;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .toggle-switch::after {
-            content: '';
-            position: absolute;
-            top: 2px;
-            right: 2px;
-            width: 20px;
-            height: 20px;
-            background: #ffffff;
-            border-radius: 50%;
-            transition: transform 0.3s;
-        }
-
-        .toggle-switch.active {
-            background: #3b82f6;
-        }
-
-        .toggle-switch.active::after {
-            transform: translateX(-20px);
-        }
-
-        /* شريط التنقل السفلي */
         .plotcraft-nav-bar {
             position: absolute;
             bottom: 0; left: 0; width: 100%;
@@ -389,6 +244,7 @@
             margin-right: -2px;
         }
 
+        /* 🔘 مستطيل الأزرار السفلي في الواجهة الرئيسية (شفاف قليلاً والخلفية تظهر تحته مع بقاء الأزرار كما هي) */
         .plotcraft-nav-pill {
             background-color: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(12px);
@@ -441,10 +297,10 @@
                     <div class="brand-title">PlotCraft</div>
                     
                     <div class="top-left-actions">
-                        <button onclick="openSubscription()" style="background: rgba(20, 24, 33, 0.85); backdrop-filter: blur(12px); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); padding: 5px 10px; border-radius: 14px; font-weight: 600; cursor: pointer; font-size: 11px; box-shadow: 0 4px 12px rgba(0,0,0,0.4);">ترقيه</button>
+                        <button onclick="openSubscription()" style="background: rgba(20, 24, 33, 0.85); backdrop-filter: blur(12px); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); padding: 5px 10px; border-radius: 14px; font-weight: 600; cursor: pointer; font-size: 11px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); white-space: nowrap; touch-action: manipulation; -webkit-tap-highlight-color: transparent;">ترقيه</button>
                         
-                        <div class="top-settings-btn" onclick="openSettingsScreen()">
-                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات">
+                        <div class="top-settings-btn" onclick="openSettingsScreen()" ontouchstart="openSettingsScreen()">
+                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات" loading="eager">
                         </div>
                     </div>
                 </div>
@@ -461,14 +317,14 @@
             </div>
         </div>
 
-        <!-- 3️⃣ شاشة الأدوات -->
+        <!-- 3️⃣ شاشة الأدوات (تحتوي على التصميم الجديد مع إبقاء كلمة الأدوات باللون الأبيض في الأعلى) -->
         <div id="toolsScreen" class="screen-view">
             <div class="tools-header-custom">
                 <div class="tools-title-left">الأدوات</div>
             </div>
         </div>
 
-        <!-- 🔘 شريط التنقل السفلي -->
+        <!-- 🔘 شريط التنقل السفلي الأنيق -->
         <div class="plotcraft-nav-bar" id="mainNavBar">
             <div class="plotcraft-nav-square" onclick="vibrateDevice(); openSparkleDialog(event)">
                 <div class="nav-logo-icon">
@@ -495,89 +351,14 @@
         </div>
     </div>
 
-    <!-- ⚙️ شاشة الإعدادات المدمجة مباشرة لتعمل فوراً بدون تأخير -->
-    <div id="settingsScreen" class="settings-screen">
-        <div class="settings-container">
-            <div class="settings-header">
-                <button class="btn-back" onclick="closeSettingsScreen()">&#10095;</button>
-            </div>
-
-            <button class="btn-login-overlay" id="btnLoginText" onclick="handleLoginAction()">تسجيل الدخول</button>
-
-            <div class="group-middle">
-                <div class="setting-item" onclick="toggleNotifications()">
-                    <div class="setting-right">
-                        <span class="icon-svg">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
-                        </span>
-                        <span>الإشعارات</span>
-                    </div>
-                    <div class="toggle-switch" id="notifToggle"></div>
-                </div>
-
-                <div class="setting-item" onclick="showToast('جارٍ اختيار اللغة')">
-                    <div class="setting-right">
-                        <span class="icon-svg">
-                            <svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#ffffff" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10z" fill="none" stroke="#000000" stroke-width="1.5"/></svg>
-                        </span>
-                        <span>اللغة</span>
-                    </div>
-                    <div class="setting-left">
-                        <span>العربية</span>
-                        <span class="arrow-icon">&#10094;</span>
-                    </div>
-                </div>
-
-                <div class="setting-item" onclick="window.open('https://t.me/G_ri63', '_blank')">
-                    <div class="setting-right">
-                        <span class="icon-svg">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-                        </span>
-                        <span>انضم إلينا</span>
-                    </div>
-                    <span class="arrow-icon">&#10094;</span>
-                </div>
-
-                <div class="setting-item" onclick="window.location.href='mailto:support@plotcraft.com'">
-                    <div class="setting-right">
-                        <span class="icon-svg">
-                            <svg width="22" height="22" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3" fill="#ffffff"/><path d="M22 6l-10 7L2 6" fill="none" stroke="#000000" stroke-width="1.5"/></svg>
-                        </span>
-                        <span>اتصل بنا</span>
-                    </div>
-                    <span class="arrow-icon">&#10094;</span>
-                </div>
-            </div>
-
-            <div class="group-bottom">
-                <div class="setting-item" onclick="showToast('الإعدادات الفرعية')">
-                    <div class="setting-right">
-                        <span class="icon-svg">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
-                        </span>
-                        <span>الإعدادات</span>
-                    </div>
-                    <span class="arrow-icon">&#10094;</span>
-                </div>
-
-                <div class="setting-item" onclick="showToast('تم مسح الذاكرة المؤقتة بنجاح')">
-                    <div class="setting-right">
-                        <span class="icon-svg">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff"><path d="M15 16h4v2h-4zm0-8h7v2h-7zm0 4h6v2h-6zM3 18c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2V8H3v10zM14 5h-3l-1-1H6L5 5H2v2h12z"/></svg>
-                        </span>
-                        <span>مسح الذاكرة المؤقتة</span>
-                    </div>
-                    <div class="setting-left">
-                        <span>MB 131.48</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id="subscriptionModalWrapper"></div>
+    <div id="settingsModalWrapper"></div>
 
     <script>
         window.vibrateDevice = function() {
-            if ("vibrate" in navigator) navigator.vibrate(50);
+            if ("vibrate" in navigator) {
+                navigator.vibrate(50);
+            }
         };
 
         window.showToast = function(message) {
@@ -593,13 +374,15 @@
             if (event) event.preventDefault();
             document.querySelectorAll('.screen-view').forEach(s => s.classList.remove('active'));
             const targetScreen = document.getElementById(screenId);
-            if (targetScreen) targetScreen.classList.add('active');
+            if (targetScreen) {
+                targetScreen.classList.add('active');
+            }
         };
 
         window.setActiveNav = function(navId) {
             document.querySelectorAll('.plotcraft-nav-item').forEach(i => i.classList.remove('active'));
             let targetNav = document.getElementById(navId);
-            if (targetNav) targetNav.classList.add('active');
+            if(targetNav) targetNav.classList.add('active');
         };
 
         function openSparkleDialog(event) {
@@ -607,35 +390,95 @@
             showToast('تم النقر على إنشاء قصة');
         }
 
+        let isSubscriptionLoaded = false;
+
+        function preloadSubscriptionModal() {
+            if (isSubscriptionLoaded) return;
+            fetch('/subscription-modal')
+                .then(response => {
+                    if (!response.ok) throw new Error('فشل جلب ملف الاشتراكات');
+                    return response.text();
+                })
+                .then(html => {
+                    const wrapper = document.getElementById('subscriptionModalWrapper');
+                    wrapper.innerHTML = html;
+                    
+                    const scripts = wrapper.querySelectorAll('script');
+                    scripts.forEach(script => {
+                        const newScript = document.createElement('script');
+                        newScript.text = script.innerHTML;
+                        document.body.appendChild(newScript);
+                    });
+                    isSubscriptionLoaded = true;
+                })
+                .catch(err => console.error(err));
+        }
+
+        let isSettingsLoaded = false;
+
+        function preloadSettingsModal() {
+            if (isSettingsLoaded) return;
+            fetch('/settings')
+                .then(response => {
+                    if (!response.ok) throw new Error('فشل جلب ملف الإعدادات');
+                    return response.text();
+                })
+                .then(html => {
+                    const wrapper = document.getElementById('settingsModalWrapper');
+                    wrapper.innerHTML = html;
+                    
+                    const scripts = wrapper.querySelectorAll('script');
+                    scripts.forEach(script => {
+                        const newScript = document.createElement('script');
+                        newScript.text = script.innerHTML;
+                        document.body.appendChild(newScript);
+                    });
+                    isSettingsLoaded = true;
+                })
+                .catch(err => console.error(err));
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            preloadSubscriptionModal();
+            preloadSettingsModal();
+        });
+
+        window.openSubscription = function() {
+            const loadedModal = document.getElementById('subscriptionModal');
+            if (loadedModal) {
+                loadedModal.style.display = 'flex';
+                setTimeout(() => loadedModal.classList.add('show'), 10);
+            } else {
+                preloadSubscriptionModal();
+                setTimeout(() => {
+                    const m = document.getElementById('subscriptionModal');
+                    if(m) {
+                        m.style.display = 'flex';
+                        m.classList.add('show');
+                    }
+                }, 300);
+            }
+        };
+
         window.openSettingsScreen = function() {
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
             vibrateDevice();
             const settingsScreen = document.getElementById('settingsScreen');
             if (settingsScreen) {
                 settingsScreen.classList.add('show');
+            } else {
+                preloadSettingsModal();
+                setTimeout(() => {
+                    const s = document.getElementById('settingsScreen');
+                    if(s) {
+                        s.classList.add('show');
+                    }
+                }, 100);
             }
         };
-
-        window.closeSettingsScreen = function() {
-            vibrateDevice();
-            const settingsScreen = document.getElementById('settingsScreen');
-            if (settingsScreen) {
-                settingsScreen.classList.remove('show');
-            }
-        };
-
-        let isNotifActive = false;
-        function toggleNotifications() {
-            isNotifActive = !isNotifActive;
-            const toggle = document.getElementById('notifToggle');
-            if (toggle) {
-                if (isNotifActive) toggle.classList.add('active');
-                else toggle.classList.remove('active');
-            }
-        }
-
-        function handleLoginAction() {
-            showToast('جاري فتح نافذة تسجيل الدخول...');
-        }
     </script>
 </body>
 </html>
