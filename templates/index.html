@@ -10,6 +10,7 @@
     <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg">
     <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/d25e86296ea2db1540c7756cc90a01b936d589a2/Gh3.jpg">
     <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/e34a11096e0d5851f6a12fe58f61a2a93b688bd0/Gh3.jpg">
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/14982d00efdd1d4c377f7f74896b28bfdc49045a/R.jpg">
     <link rel="preload" as="image" href="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1080&auto=format&fit=crop">
     
     <style>
@@ -222,26 +223,25 @@
             align-items: center;
             flex-shrink: 0;
             cursor: pointer;
+            overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
         .nav-logo-icon {
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(135deg, #1e3a8a 0%, #60a5fa 100%);
-            border-radius: 7px;
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .nav-logo-play {
-            width: 0;
-            height: 0;
-            border-top: 6px solid transparent;
-            border-bottom: 6px solid transparent;
-            border-left: 8px solid #0b0f19;
-            margin-right: -2px;
+        .nav-logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         /* 🔘 مستطيل الأزرار السفلي في الواجهة الرئيسية (شفاف قليلاً والخلفية تظهر تحته مع بقاء الأزرار كما هي) */
@@ -328,7 +328,7 @@
         <div class="plotcraft-nav-bar" id="mainNavBar">
             <div class="plotcraft-nav-square" onclick="vibrateDevice(); openSparkleDialog(event)">
                 <div class="nav-logo-icon">
-                    <div class="nav-logo-play"></div>
+                    <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/14982d00efdd1d4c377f7f74896b28bfdc49045a/R.jpg" alt="شعار PlotCraft" loading="eager">
                 </div>
             </div>
 
