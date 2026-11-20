@@ -50,6 +50,13 @@
             display: none !important;
         }
 
+        /* منع ظهور نافذة تسجيل الدخول بالبريد إذا كان المستخدم مسجلاً دخوله */
+        body.email-already-logged-in #authModal {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+        }
+
         .settings-screen.show {
             visibility: visible;
             transform: translateX(0);
@@ -489,6 +496,7 @@
 
     <script>
         let isNotifActive = false;
+        const EMAIL_AUTH_STORAGE_KEY = 'plotcraft_email_logged_in';
 
         const translations = {
             ar: {
@@ -610,14 +618,59 @@
             }
         };
 
-        /* setEmailLoggedIn(true) عند نجاح الدخول بالبريد، و setEmailLoggedIn(false) عند تسجيل الخروج */
-        window.setEmailLoggedIn = function(isLoggedIn) {
-            const screen = document.getElementById('settingsScreen');
-            if (!screen) return;
-            screen.classList.toggle('email-logged-in', Boolean(isLoggedIn));
+        /* التحقق من حالة تسجيل الدخول بالبريد */
+        window.isEmailLoggedIn = function() {
+            try {
+                return localStorage.getItem(EMAIL_AUTH_STORAGE_KEY) === 'true';
+            } catch (e) {
+                return false;
+            }
         };
 
+        /* إخفاء نافذة الدخول عبر البريد إذا كان المستخدم مسجلاً دخوله */
+        window.guardAuthModal = function() {
+            if (!window.isEmailLoggedIn()) return false;
+            const authModal = document.getElementById('authModal');
+            if (authModal) {
+                authModal.classList.remove('show');
+                authModal.style.display = 'none';
+            }
+            return true;
+        };
+
+        /* setEmailLoggedIn(true) يحفظ الحالة دائماً ويمنع ظهور نافذة الدخول بالبريد، و setEmailLoggedIn(false) يمسحها */
+        window.setEmailLoggedIn = function(isLoggedIn) {
+            const loggedIn = Boolean(isLoggedIn);
+            try {
+                if (loggedIn) {
+                    localStorage.setItem(EMAIL_AUTH_STORAGE_KEY, 'true');
+                } else {
+                    localStorage.removeItem(EMAIL_AUTH_STORAGE_KEY);
+                }
+            } catch (e) {}
+
+            document.body.classList.toggle('email-already-logged-in', loggedIn);
+
+            const screen = document.getElementById('settingsScreen');
+            if (screen) {
+                screen.classList.toggle('email-logged-in', loggedIn);
+            }
+
+            if (loggedIn) {
+                window.guardAuthModal();
+            }
+        };
+
+        /* استعادة حالة تسجيل الدخول تلقائياً عند فتح التطبيق أو إعادة التحميل */
+        function restoreEmailLoginState() {
+            window.setEmailLoggedIn(window.isEmailLoggedIn());
+        }
+
+        restoreEmailLoginState();
+
         window.addEventListener('DOMContentLoaded', () => {
+            restoreEmailLoginState();
+
             const savedLangCode = localStorage.getItem('plotcraft_lang_code') || 'ar';
             const savedLangName = localStorage.getItem('plotcraft_lang_name') || 'العربية';
             
@@ -626,6 +679,7 @@
         });
 
         function openSettingsScreen() {
+            restoreEmailLoginState();
             document.getElementById('settingsScreen').classList.add('show');
         }
 
@@ -633,11 +687,16 @@
             document.getElementById('settingsScreen').classList.remove('show');
         }
 
-        /* عند الضغط على تسجيل الدخول من الإعدادات: نحدد مصدر الدخول كـ 'settings' */
+        /* عند الضغط على تسجيل الدخول: إذا مسجل دخول بالبريد لا تفتح نافذة البريد نهائياً */
         function handleLoginAction() {
+            if (window.guardAuthModal()) {
+                openSettingsScreen();
+                return;
+            }
             window.authSource = 'settings'; // تحديد أن الدخول تم من الإعدادات
             const authModal = document.getElementById('authModal');
             if (authModal) {
+                authModal.style.display = '';
                 authModal.classList.add('show');
                 closeSettingsScreen();
             }
