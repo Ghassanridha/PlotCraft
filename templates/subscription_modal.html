@@ -391,13 +391,11 @@
 <script>
     let isUserLoggedIn = false; 
 
-    // جلب قائمة الحسابات المحفوظة من ذاكرة المتصفح تلقائياً
     function getStoredUsers() {
         const stored = localStorage.getItem('plotcraft_users');
         return stored ? JSON.parse(stored) : {};
     }
 
-    // حفظ حساب جديد في الذاكرة الدائمة
     function saveUserToStorage(email, password) {
         const users = getStoredUsers();
         users[email.toLowerCase()] = password;
@@ -440,6 +438,7 @@
         if (authModal) {
             authModal.classList.remove('show');
         }
+        window.authSource = null;
     }
 
     function handleLink(type) {
@@ -483,6 +482,25 @@
         switchArea.innerHTML = '<span>ليس لديك حساب؟</span> <a href="#" onclick="toggleRegisterView(event);">اشتراك</a>';
     }
 
+    function applyEmailLoginSuccess() {
+        isUserLoggedIn = true;
+        if (typeof window.setEmailLoggedIn === 'function') {
+            window.setEmailLoggedIn(true);
+        }
+        closeAuthModal();
+        if (typeof openSettingsScreen === 'function') {
+            openSettingsScreen();
+        }
+        alert("تم تسجيل الدخول");
+    }
+
+    function logoutEmailUser() {
+        isUserLoggedIn = false;
+        if (typeof window.setEmailLoggedIn === 'function') {
+            window.setEmailLoggedIn(false);
+        }
+    }
+
     function submitLogin() {
         const email = document.getElementById('loginEmail').value.trim().toLowerCase();
         const pass = document.getElementById('loginPassword').value;
@@ -495,7 +513,6 @@
 
         const users = getStoredUsers();
 
-        // التحقق مما إذا كان البريد موجوداً وكلمة المرور مطابقة
         if (!users[email] || users[email] !== pass) {
             msgDiv.innerText = "ليس لديك حساب بهذا البريد أو كلمة المرور خاطئة! يرجى إنشاء حساب جديد.";
             msgDiv.style.display = 'block';
@@ -503,10 +520,7 @@
         }
 
         msgDiv.style.display = 'none';
-        isUserLoggedIn = true;
-        closeAuthModal();
-        alert("تم تسجيل الدخول بنجاح!");
-        openPaymentGateway();
+        applyEmailLoginSuccess();
     }
 
     function submitRegister() {
@@ -534,13 +548,8 @@
             return;
         }
 
-        // حفظ بيانات الحساب الجديد بشكل دائم
         saveUserToStorage(email, pass);
-
-        isUserLoggedIn = true;
-        closeAuthModal();
-        alert("تم إنشاء الحساب وحفظ معلوماتك بنجاح!");
-        openPaymentGateway();
+        applyEmailLoginSuccess();
     }
 
     function openPaymentGateway() {
