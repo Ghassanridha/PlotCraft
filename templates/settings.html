@@ -39,6 +39,13 @@
             background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/7e9c4dcba8dfa829f34586143b46786a795226c2/N.jpg') center/100% 100% no-repeat;
         }
 
+        /* إخفاء عناصر الإعدادات القديمة بالكامل عند ظهور التصميم الجديد N.jpg */
+        .settings-screen.email-logged-in .btn-login-overlay,
+        .settings-screen.email-logged-in .group-middle,
+        .settings-screen.email-logged-in .group-bottom {
+            display: none !important;
+        }
+
         .settings-screen.show {
             visibility: visible;
             transform: translateX(0);
