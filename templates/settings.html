@@ -18,7 +18,7 @@
             overflow: hidden;
         }
 
-        /* خلفية G2.jpg الأساسية */
+        /* خلفية G2.jpg الأساسية (قبل تسجيل الدخول عبر البريد أو بعد تسجيل الخروج) */
         .settings-screen {
             position: fixed;
             top: 0;
@@ -29,9 +29,14 @@
             z-index: 999999;
             direction: inherit;
             transform: translateX(-100vw);
-            transition: transform 0.3s ease-out;
+            transition: transform 0.3s ease-out, background-image 0.25s ease;
             visibility: hidden;
             overflow-y: auto;
+        }
+
+        /* خلفية N.jpg الجديدة تظهر فقط عند تسجيل الدخول عبر البريد الإلكتروني */
+        .settings-screen.email-logged-in {
+            background-image: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/7e9c4dcba8dfa829f34586143b46786a795226c2/N.jpg');
         }
 
         .settings-screen.show {
@@ -473,6 +478,7 @@
 
     <script>
         let isNotifActive = false;
+        const EMAIL_AUTH_STORAGE_KEY = 'plotcraft_email_logged_in';
 
         const translations = {
             ar: {
@@ -594,15 +600,67 @@
             }
         };
 
+        /* التحقق مما إذا كان المستخدم مسجلاً عبر البريد الإلكتروني تحديداً */
+        function isLoggedInViaEmail() {
+            if (window.plotcraftAuthMethod === 'email' && window.plotcraftIsAuthenticated) {
+                return true;
+            }
+            if (localStorage.getItem(EMAIL_AUTH_STORAGE_KEY) === 'true') {
+                return true;
+            }
+            const fbUser = window.firebase?.auth?.().currentUser;
+            if (fbUser && fbUser.email && fbUser.providerData?.some(p => p.providerId === 'password' || p.providerId === 'emailLink')) {
+                return true;
+            }
+            return false;
+        }
+
+        /* تحديث تصميم شاشة الإعدادات: N.jpg فقط عند تسجيل الدخول عبر البريد، وG2.jpg في غير ذلك */
+        function syncEmailAuthState() {
+            const screen = document.getElementById('settingsScreen');
+            if (!screen) return;
+
+            if (isLoggedInViaEmail()) {
+                screen.classList.add('email-logged-in');
+            } else {
+                screen.classList.remove('email-logged-in');
+            }
+        }
+
+        /* استدعِ هذه الدالة بعد نجاح تسجيل الدخول عبر البريد الإلكتروني */
+        window.onEmailLoginSuccess = function(emailAddress) {
+            window.plotcraftAuthMethod = 'email';
+            window.plotcraftIsAuthenticated = true;
+            if (emailAddress) {
+                localStorage.setItem('plotcraft_user_email', emailAddress);
+            }
+            localStorage.setItem(EMAIL_AUTH_STORAGE_KEY, 'true');
+            syncEmailAuthState();
+        };
+
+        /* استدعِ هذه الدالة عند تسجيل الخروج لإخفاء التصميم الجديد وإظهار G2.jpg */
+        window.onLogoutSuccess = function() {
+            window.plotcraftAuthMethod = null;
+            window.plotcraftIsAuthenticated = false;
+            localStorage.removeItem(EMAIL_AUTH_STORAGE_KEY);
+            localStorage.removeItem('plotcraft_user_email');
+            syncEmailAuthState();
+        };
+
         window.addEventListener('DOMContentLoaded', () => {
             const savedLangCode = localStorage.getItem('plotcraft_lang_code') || 'ar';
             const savedLangName = localStorage.getItem('plotcraft_lang_name') || 'العربية';
             
             document.getElementById('currentLangDisplay').innerText = savedLangName;
             setAppLanguage(savedLangCode, false);
+            syncEmailAuthState();
         });
 
+        window.addEventListener('storage', syncEmailAuthState);
+        window.addEventListener('plotcraft-auth-changed', syncEmailAuthState);
+
         function openSettingsScreen() {
+            syncEmailAuthState();
             document.getElementById('settingsScreen').classList.add('show');
         }
 
@@ -626,6 +684,8 @@
             if (authModal) {
                 authModal.classList.remove('show');
             }
+
+            syncEmailAuthState();
 
             // إذا كان الدخول صادراً من الإعدادات فقط نفتح شاشة الإعدادات
             if (window.authSource === 'settings') {
@@ -731,7 +791,7 @@
                 
                 document.getElementById('currentLangDisplay').innerText = name;
                 
-                localStorage.getItem('plotcraft_lang_code', code);
+                localStorage.setItem('plotcraft_lang_code', code);
                 localStorage.setItem('plotcraft_lang_name', name);
 
                 setAppLanguage(code, true);
