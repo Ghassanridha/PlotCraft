@@ -50,7 +50,7 @@
             display: none !important;
         }
 
-        /* حاوية الأزرار الشفافة للتصميم الجديد N.jpg */
+        /* حاوية الأزرار فوق التصميم الجديد N.jpg */
         .email-ui-layer {
             display: none;
             position: relative;
@@ -62,7 +62,7 @@
             display: block;
         }
 
-        /* زر القلم لتعديل الاسم (شفاف فوق التصميم) */
+        /* زر القلم لتعديل الاسم فوق التصميم */
         .btn-edit-name-overlay {
             position: absolute;
             top: 76px;
@@ -71,11 +71,15 @@
             height: 30px;
             background: transparent;
             border: none;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
             z-index: 20;
         }
 
-        /* مكان ظهور الآيدي العشوائي المكون من 7 أرقام داخل المستطيل الصغير تحت الاسم */
+        /* المستطيل الصغير تحت الاسم: عرض الآيدي المكون من 7 أرقام عشوائية */
         .user-id-display-overlay {
             position: absolute;
             top: 108px;
@@ -85,7 +89,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #e2e8f0;
+            color: #f1f5f9;
             font-size: 12px;
             font-weight: 700;
             letter-spacing: 1px;
@@ -94,7 +98,7 @@
             z-index: 20;
         }
 
-        /* زر نسخ الآيدي بجانب المستطيل الصغير (شفاف فوق التصميم) */
+        /* زر نسخ الآيدي بجانب المستطيل الصغير */
         .btn-copy-id-overlay {
             position: absolute;
             top: 106px;
@@ -103,107 +107,91 @@
             height: 28px;
             background: transparent;
             border: none;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
             z-index: 20;
         }
 
-        /* أزرار المستطيل الأول: سجل النقاط ، التعليقات */
-        .card1-btn-points {
+        /* المستطيل الأول: سجل النقاط ، التعليقات */
+        .card1-group {
             position: absolute;
             top: 162px;
             left: 16px;
             right: 16px;
-            height: 54px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
+            display: flex;
+            flex-direction: column;
             z-index: 15;
         }
 
-        .card1-btn-comments {
-            position: absolute;
-            top: 218px;
-            left: 16px;
-            right: 16px;
-            height: 54px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            z-index: 15;
-        }
-
-        /* أزرار المستطيل الثاني: الإشعارات ، اللغة ، انضم إلينا ، اتصل بنا */
-        .card2-btn-notif {
+        /* المستطيل الثاني: الإشعارات ، اللغة ، انضم إلينا ، اتصل بنا */
+        .card2-group {
             position: absolute;
             top: 294px;
             left: 16px;
             right: 16px;
-            height: 54px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
+            display: flex;
+            flex-direction: column;
             z-index: 15;
         }
 
-        .card2-btn-lang {
-            position: absolute;
-            top: 350px;
-            left: 16px;
-            right: 16px;
-            height: 56px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            z-index: 15;
-        }
-
-        .card2-btn-join {
-            position: absolute;
-            top: 408px;
-            left: 16px;
-            right: 16px;
-            height: 54px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            z-index: 15;
-        }
-
-        .card2-btn-contact {
-            position: absolute;
-            top: 464px;
-            left: 16px;
-            right: 16px;
-            height: 54px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            z-index: 15;
-        }
-
-        /* أزرار المستطيل الثالث: الإعدادات ، مسح الذاكرة المؤقتة */
-        .card3-btn-settings {
+        /* المستطيل الثالث: الإعدادات ، مسح الذاكرة المؤقتة */
+        .card3-group {
             position: absolute;
             top: 542px;
             left: 16px;
             right: 16px;
-            height: 54px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
+            display: flex;
+            flex-direction: column;
             z-index: 15;
         }
 
-        .card3-btn-cache {
-            position: absolute;
-            top: 598px;
-            left: 16px;
-            right: 16px;
-            height: 54px;
+        .n-row-btn {
+            width: 100%;
+            height: 55px;
             background: transparent;
             border: none;
+            padding: 0 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #ffffff;
             cursor: pointer;
-            z-index: 15;
+        }
+
+        .n-row-btn:active {
+            opacity: 0.7;
+        }
+
+        .n-row-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .n-lang-text-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1.25;
+        }
+
+        .n-lang-sub {
+            font-size: 12px;
+            color: #cbd5e1;
+            font-weight: 400;
+        }
+
+        .n-row-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #cbd5e1;
+            font-size: 13px;
         }
 
         /* نافذة صغيرة لتغيير اسم المستخدم عند النقر على القلم */
@@ -593,30 +581,103 @@
                 <button class="btn-back" onclick="closeSettingsScreen()">&#10095;</button>
             </div>
 
-            <!-- الأزرار الشفافة للتصميم الجديد N.jpg بالترتيب -->
+            <!-- الأزرار فوق التصميم الجديد N.jpg بالترتيب -->
             <div class="email-ui-layer">
                 <!-- زر القلم لتعديل الاسم -->
-                <button type="button" class="btn-edit-name-overlay" id="editNameBtn" onclick="openEditNameModal()" aria-label="تعديل الاسم"></button>
+                <button type="button" class="btn-edit-name-overlay" id="editNameBtn" onclick="openEditNameModal()" aria-label="تعديل الاسم">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1.003 1.003 0 0 0 0-1.42l-2.34-2.34a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.82z"/>
+                    </svg>
+                </button>
 
                 <!-- المستطيل الصغير تحت الاسم: آيدي من 7 أرقام عشوائية خاص بكل مستخدم -->
                 <div class="user-id-display-overlay" id="userIdBox"></div>
 
                 <!-- زر نسخ الآيدي بجانب المستطيل الصغير -->
-                <button type="button" class="btn-copy-id-overlay" id="copyIdBtn" onclick="copyUserId()" aria-label="نسخ الآيدي"></button>
+                <button type="button" class="btn-copy-id-overlay" id="copyIdBtn" onclick="copyUserId()" aria-label="نسخ الآيدي">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2"/>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                    </svg>
+                </button>
 
                 <!-- المستطيل الأول: 1. سجل النقاط | 2. التعليقات -->
-                <button type="button" class="card1-btn-points" onclick="handlePointsHistory()" aria-label="سجل النقاط"></button>
-                <button type="button" class="card1-btn-comments" onclick="handleComments()" aria-label="التعليقات"></button>
+                <div class="card1-group">
+                    <button type="button" class="n-row-btn" onclick="handlePointsHistory()">
+                        <span class="n-row-right">
+                            <span class="icon-svg">✦</span>
+                            <span id="nTxtPoints">سجل النقاط</span>
+                        </span>
+                        <span class="arrow-icon">&#10094;</span>
+                    </button>
+
+                    <button type="button" class="n-row-btn" onclick="handleComments()">
+                        <span class="n-row-right">
+                            <span class="icon-svg">💬</span>
+                            <span id="nTxtComments">التعليقات</span>
+                        </span>
+                        <span class="arrow-icon">&#10094;</span>
+                    </button>
+                </div>
 
                 <!-- المستطيل الثاني: 1. الإشعارات | 2. اللغة | 3. انضم إلينا | 4. اتصل بنا -->
-                <button type="button" class="card2-btn-notif" onclick="toggleNotifications()" aria-label="الإشعارات"></button>
-                <button type="button" class="card2-btn-lang" onclick="openLanguageSheet()" aria-label="اللغة"></button>
-                <button type="button" class="card2-btn-join" onclick="openTelegram()" aria-label="انضم إلينا"></button>
-                <button type="button" class="card2-btn-contact" onclick="openEmail()" aria-label="اتصل بنا"></button>
+                <div class="card2-group">
+                    <button type="button" class="n-row-btn" onclick="toggleNotifications()">
+                        <span class="n-row-right">
+                            <span class="icon-svg">🔔</span>
+                            <span id="nTxtNotif">الإشعارات</span>
+                        </span>
+                        <span class="toggle-switch" id="nNotifToggle"></span>
+                    </button>
+
+                    <button type="button" class="n-row-btn" onclick="openLanguageSheet()">
+                        <span class="n-row-right">
+                            <span class="icon-svg">🌐</span>
+                            <span class="n-lang-text-wrap">
+                                <span id="nTxtLangTitle">اللغة</span>
+                                <span class="n-lang-sub" id="nCurrentLangDisplay">العربية</span>
+                            </span>
+                        </span>
+                        <span class="arrow-icon">&#10094;</span>
+                    </button>
+
+                    <button type="button" class="n-row-btn" onclick="openTelegram()">
+                        <span class="n-row-right">
+                            <span class="icon-svg">✈️</span>
+                            <span id="nTxtJoin">انضم إلينا</span>
+                        </span>
+                        <span class="arrow-icon">&#10094;</span>
+                    </button>
+
+                    <button type="button" class="n-row-btn" onclick="openEmail()">
+                        <span class="n-row-right">
+                            <span class="icon-svg">✉️</span>
+                            <span id="nTxtContact">اتصل بنا</span>
+                        </span>
+                        <span class="arrow-icon">&#10094;</span>
+                    </button>
+                </div>
 
                 <!-- المستطيل الثالث: 1. الإعدادات | 2. مسح الذاكرة المؤقتة -->
-                <button type="button" class="card3-btn-settings" onclick="handleSubSettings()" aria-label="الإعدادات"></button>
-                <button type="button" class="card3-btn-cache" onclick="clearCacheAction()" aria-label="مسح الذاكرة المؤقتة"></button>
+                <div class="card3-group">
+                    <button type="button" class="n-row-btn" onclick="handleSubSettings()">
+                        <span class="n-row-right">
+                            <span class="icon-svg">⚙️</span>
+                            <span id="nTxtSettings">الإعدادات</span>
+                        </span>
+                        <span class="arrow-icon">&#10094;</span>
+                    </button>
+
+                    <button type="button" class="n-row-btn" onclick="clearCacheAction()">
+                        <span class="n-row-right">
+                            <span class="icon-svg">🧹</span>
+                            <span id="nTxtClearCache">مسح الذاكرة المؤقتة</span>
+                        </span>
+                        <span class="n-row-left">
+                            <span id="nTxtCacheSize">MB 131.48</span>
+                        </span>
+                    </button>
+                </div>
             </div>
 
             <!-- زر تسجيل الدخول المرفوع والمعدل الموضع -->
@@ -763,6 +824,8 @@
             ar: {
                 title: "الإعدادات - PlotCraft",
                 login: "تسجيل الدخول",
+                points: "سجل النقاط",
+                comments: "التعليقات",
                 notif: "الإشعارات",
                 langTitle: "اللغة",
                 join: "انضم إلينا",
@@ -777,6 +840,8 @@
             en: {
                 title: "Settings - PlotCraft",
                 login: "Sign In",
+                points: "Points History",
+                comments: "Comments",
                 notif: "Notifications",
                 langTitle: "Language",
                 join: "Join Us",
@@ -791,6 +856,8 @@
             fr: {
                 title: "Paramètres - PlotCraft",
                 login: "Connexion",
+                points: "Historique des points",
+                comments: "Commentaires",
                 notif: "Notifications",
                 langTitle: "Langue",
                 join: "Rejoignez-nous",
@@ -805,6 +872,8 @@
             es: {
                 title: "Ajustes - PlotCraft",
                 login: "Iniciar sesión",
+                points: "Historial de puntos",
+                comments: "Comentarios",
                 notif: "Notificaciones",
                 langTitle: "Idioma",
                 join: "Únete",
@@ -819,6 +888,8 @@
             de: {
                 title: "Einstellungen - PlotCraft",
                 login: "Anmelden",
+                points: "Punkteverlauf",
+                comments: "Kommentare",
                 notif: "Benachrichtigungen",
                 langTitle: "Sprache",
                 join: "Mach mit",
@@ -833,6 +904,8 @@
             tr: {
                 title: "Ayarlar - PlotCraft",
                 login: "Giriş Yap",
+                points: "Puan Geçmişi",
+                comments: "Yorumlar",
                 notif: "Bildirimler",
                 langTitle: "Dil",
                 join: "Bize Katıl",
@@ -847,6 +920,8 @@
             ru: {
                 title: "Настройки - PlotCraft",
                 login: "Войти",
+                points: "История баллов",
+                comments: "Комментарии",
                 notif: "Уведомления",
                 langTitle: "Язык",
                 join: "Присоединяйтесь",
@@ -861,6 +936,8 @@
             zh: {
                 title: "设置 - PlotCraft",
                 login: "登录",
+                points: "积分记录",
+                comments: "评论",
                 notif: "通知",
                 langTitle: "语言",
                 join: "加入我们",
@@ -875,6 +952,8 @@
             ja: {
                 title: "設定 - PlotCraft",
                 login: "ログイン",
+                points: "ポイント履歴",
+                comments: "コメント",
                 notif: "通知",
                 langTitle: "言語",
                 join: "参加する",
@@ -1046,6 +1125,7 @@
             const savedLangName = localStorage.getItem('plotcraft_lang_name') || 'العربية';
             
             document.getElementById('currentLangDisplay').innerText = savedLangName;
+            document.getElementById('nCurrentLangDisplay').innerText = savedLangName;
             setAppLanguage(savedLangCode, false);
         });
 
@@ -1098,10 +1178,13 @@
         function toggleNotifications() {
             isNotifActive = !isNotifActive;
             const toggle = document.getElementById('notifToggle');
+            const nToggle = document.getElementById('nNotifToggle');
             if (isNotifActive) {
                 toggle.classList.add('active');
+                if (nToggle) nToggle.classList.add('active');
             } else {
                 toggle.classList.remove('active');
+                if (nToggle) nToggle.classList.remove('active');
             }
         }
 
@@ -1177,6 +1260,7 @@
                 const name = closestItem.getAttribute('data-name');
                 
                 document.getElementById('currentLangDisplay').innerText = name;
+                document.getElementById('nCurrentLangDisplay').innerText = name;
                 
                 localStorage.setItem('plotcraft_lang_code', code);
                 localStorage.setItem('plotcraft_lang_name', name);
@@ -1191,12 +1275,20 @@
             
             document.getElementById('pageTitle').innerText = t.title;
             document.getElementById('btnLoginText').innerText = t.login;
+            document.getElementById('nTxtPoints').innerText = t.points;
+            document.getElementById('nTxtComments').innerText = t.comments;
             document.getElementById('txtNotif').innerText = t.notif;
+            document.getElementById('nTxtNotif').innerText = t.notif;
             document.getElementById('txtLangTitle').innerText = t.langTitle;
+            document.getElementById('nTxtLangTitle').innerText = t.langTitle;
             document.getElementById('txtJoin').innerText = t.join;
+            document.getElementById('nTxtJoin').innerText = t.join;
             document.getElementById('txtContact').innerText = t.contact;
+            document.getElementById('nTxtContact').innerText = t.contact;
             document.getElementById('txtSettings').innerText = t.settings;
+            document.getElementById('nTxtSettings').innerText = t.settings;
             document.getElementById('txtClearCache').innerText = t.clearCache;
+            document.getElementById('nTxtClearCache').innerText = t.clearCache;
             document.getElementById('txtSheetLangTitle').innerText = t.sheetTitle;
             document.getElementById('txtApplyBtn').innerText = t.apply;
 
