@@ -407,6 +407,24 @@
         cardElement.classList.add('active');
     }
 
+    function getSelectedPlanData() {
+        const activeCard = document.querySelector('.plan-card.active') || document.querySelector('.plan-card');
+        if (!activeCard) {
+            return { planId: "monthly", credits: 1800, title: "PlotCraft Pro Monthly" };
+        }
+        const title = activeCard.querySelector('.plan-info h3')?.innerText.trim() || "PlotCraft Pro";
+        const desc = activeCard.querySelector('.plan-info p')?.innerText || "";
+        const creditsMatch = desc.match(/(\d+)\s*$/);
+        const credits = creditsMatch ? Number(creditsMatch[1]) : 0;
+
+        let planId = "custom";
+        if (title.toLowerCase().includes("weekly")) planId = "weekly";
+        else if (title.toLowerCase().includes("monthly")) planId = "monthly";
+        else if (title.toLowerCase().includes("annual")) planId = "annual";
+
+        return { planId, credits, title };
+    }
+
     function openSubscription() {
         const modal = document.getElementById('subscriptionModal');
         if (modal) {
@@ -494,14 +512,17 @@
         alert("تم تسجيل الدخول");
     }
 
-    function logoutEmailUser() {
+    async function logoutEmailUser() {
+        if (window.plotcraftAuthBridge && typeof window.plotcraftAuthBridge.logout === 'function') {
+            await window.plotcraftAuthBridge.logout();
+        }
         isUserLoggedIn = false;
         if (typeof window.setEmailLoggedIn === 'function') {
             window.setEmailLoggedIn(false);
         }
     }
 
-    function submitLogin() {
+    async function submitLogin() {
         const email = document.getElementById('loginEmail').value.trim().toLowerCase();
         const pass = document.getElementById('loginPassword').value;
         const msgDiv = document.getElementById('notRegisteredMsg');
@@ -511,8 +532,21 @@
             return;
         }
 
-        const users = getStoredUsers();
+        if (window.plotcraftAuthBridge && typeof window.plotcraftAuthBridge.login === 'function') {
+            try {
+                await window.plotcraftAuthBridge.login(email, pass);
+                saveUserToStorage(email, pass);
+                msgDiv.style.display = 'none';
+                applyEmailLoginSuccess();
+                return;
+            } catch (err) {
+                msgDiv.innerText = "ليس لديك حساب بهذا البريد أو كلمة المرور خاطئة! يرجى إنشاء حساب جديد.";
+                msgDiv.style.display = 'block';
+                return;
+            }
+        }
 
+        const users = getStoredUsers();
         if (!users[email] || users[email] !== pass) {
             msgDiv.innerText = "ليس لديك حساب بهذا البريد أو كلمة المرور خاطئة! يرجى إنشاء حساب جديد.";
             msgDiv.style.display = 'block';
@@ -523,7 +557,7 @@
         applyEmailLoginSuccess();
     }
 
-    function submitRegister() {
+    async function submitRegister() {
         const email = document.getElementById('regEmail').value.trim().toLowerCase();
         const pass = document.getElementById('regPassword').value;
         const confirmPass = document.getElementById('regConfirmPassword').value;
@@ -541,6 +575,23 @@
             return;
         }
 
+        if (window.plotcraftAuthBridge && typeof window.plotcraftAuthBridge.register === 'function') {
+            try {
+                await window.plotcraftAuthBridge.register(email, pass);
+                saveUserToStorage(email, pass);
+                applyEmailLoginSuccess();
+                return;
+            } catch (err) {
+                if (err.code === 'auth/email-already-in-use') {
+                    alert("هذا البريد الإلكتروني مسجل مسبقاً! يمكنك الانتقال لتسجيل الدخول.");
+                    resetAuthModalView();
+                } else {
+                    alert(err.message || "تعذر إنشاء الحساب.");
+                }
+                return;
+            }
+        }
+
         const users = getStoredUsers();
         if(users[email]) {
             alert("هذا البريد الإلكتروني مسجل مسبقاً! يمكنك الانتقال لتسجيل الدخول.");
@@ -552,7 +603,33 @@
         applyEmailLoginSuccess();
     }
 
-    function openPaymentGateway() {
+    async function openPaymentGateway() {
+        const selectedPlan = getSelectedPlanData();
+        if (window.plotcraftAuthBridge && typeof window.plotcraftAuthBridge.requestSubscription === 'function') {
+            try {
+                await window.plotcraftAuthBridge.requestSubscription(selectedPlan);
+                alert("تم إرسال طلب الاشتراك بنجاح.");
+                return;
+            } catch (err) {
+                alert(err.message || "تعذر إتمام طلب الاشتراك.");
+                return;
+            }
+        }
         alert("جاري فتح نافذة الدفع لتأكيد الاشتراك...");
+    }
+
+    if (window.plotcraftAuthBridge) {
+        window.plotcraftAuthBridge.onLoginSuccess = function () {
+            isUserLoggedIn = true;
+            if (typeof window.setEmailLoggedIn === 'function') {
+                window.setEmailLoggedIn(true);
+            }
+        };
+        window.plotcraftAuthBridge.onLogout = function () {
+            isUserLoggedIn = false;
+            if (typeof window.setEmailLoggedIn === 'function') {
+                window.setEmailLoggedIn(false);
+            }
+        };
     }
 </script>
