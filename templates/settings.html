@@ -34,6 +34,11 @@
             overflow-y: auto;
         }
 
+        .settings-screen.show {
+            visibility: visible;
+            transform: translateX(0);
+        }
+
         /* خلفية N.jpg الجديدة: العرض 100% ثابت والارتفاع تلقائي ومسحوبة شوية لفوق */
         .settings-screen.email-logged-in {
             background-color: #121418;
@@ -43,7 +48,7 @@
             background-repeat: no-repeat;
         }
 
-        /* نافذة الإعدادات الفرعية M.jpg تظهر من اليسار وتملى الشاشة بالكامل */
+        /* نافذة الإعدادات الفرعية M.jpg تظهر من اليسار وتنسحب لليسار عند الإغلاق */
         .sub-settings-screen {
             position: fixed;
             top: 0;
@@ -371,11 +376,6 @@
             opacity: 0 !important;
         }
 
-        .settings-screen.show {
-            visibility: visible;
-            transform: translateX(0);
-        }
-
         .settings-container {
             position: relative;
             width: 100%;
@@ -400,15 +400,28 @@
             flex-direction: row-reverse;
         }
 
-        .btn-back {
+        /* توحيد وتصغير أزرار الإغلاق / الرجوع في كل النوافذ */
+        .btn-back,
+        .lang-sheet-close {
+            width: 28px;
+            height: 28px;
             background: transparent;
             border: none;
             color: #ffffff;
-            font-size: 18px;
+            font-size: 15px;
+            line-height: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            padding: 6px 12px;
+            padding: 0;
             position: relative;
             z-index: 25;
+        }
+
+        .btn-back:active,
+        .lang-sheet-close:active {
+            opacity: 0.7;
         }
 
         /* زر تسجيل الدخول المرفوع والمعدل الموضع */
@@ -588,14 +601,6 @@
             font-weight: 600;
         }
 
-        .lang-sheet-close {
-            background: transparent;
-            border: none;
-            color: #ffffff;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
         .lang-scroll-container {
             position: relative;
             flex-grow: 1;
@@ -684,7 +689,7 @@
             
             <!-- زر العودة العلوي -->
             <div class="settings-header">
-                <button class="btn-back" onclick="closeSettingsScreen()">&#10095;</button>
+                <button class="btn-back" onclick="closeSettingsScreen()" aria-label="إغلاق">&#10095;</button>
             </div>
 
             <!-- الأزرار فوق التصميم الجديد N.jpg بالترتيب -->
@@ -922,7 +927,7 @@
     <!-- نافذة الإعدادات الفرعية M.jpg تظهر من اليسار وتملى الشاشة -->
     <div id="subSettingsScreen" class="sub-settings-screen">
         <div class="sub-settings-header">
-            <button type="button" class="btn-back" onclick="closeSubSettingsScreen()" aria-label="رجوع">&#10095;</button>
+            <button type="button" class="btn-back" onclick="closeSubSettingsScreen()" aria-label="إغلاق الإعدادات الفرعية">&#10095;</button>
         </div>
     </div>
 
@@ -942,7 +947,7 @@
     <div id="languageBottomSheet">
         <div class="lang-sheet-header">
             <span id="txtSheetLangTitle">اللغة</span>
-            <button class="lang-sheet-close" onclick="closeLanguageSheet()">&#x2715;</button>
+            <button type="button" class="lang-sheet-close" onclick="closeLanguageSheet()" aria-label="إغلاق نافذة اللغة">&#x2715;</button>
         </div>
         <div class="lang-scroll-container" id="langScrollContainer" onscroll="updateCenterLanguageHighlight()">
             <div class="lang-item" data-code="ar" data-name="العربية">العربية</div>
@@ -1421,12 +1426,22 @@
 
         function openSettingsScreen() {
             restoreEmailLoginState();
-            document.getElementById('settingsScreen').classList.add('show');
+            const screen = document.getElementById('settingsScreen');
+            screen.style.visibility = 'visible';
+            requestAnimationFrame(() => {
+                screen.classList.add('show');
+            });
         }
 
         function closeSettingsScreen() {
             closeSubSettingsScreen();
-            document.getElementById('settingsScreen').classList.remove('show');
+            const screen = document.getElementById('settingsScreen');
+            screen.classList.remove('show');
+            setTimeout(() => {
+                if (!screen.classList.contains('show')) {
+                    screen.style.visibility = 'hidden';
+                }
+            }, 300);
         }
 
         /* عند الضغط على تسجيل الدخول: إذا مسجل دخول بالبريد لا تفتح نافذة البريد نهائياً */
@@ -1490,7 +1505,10 @@
         function handleSubSettings() {
             const subScreen = document.getElementById('subSettingsScreen');
             if (subScreen) {
-                subScreen.classList.add('show');
+                subScreen.style.visibility = 'visible';
+                requestAnimationFrame(() => {
+                    subScreen.classList.add('show');
+                });
             }
         }
 
@@ -1498,6 +1516,11 @@
             const subScreen = document.getElementById('subSettingsScreen');
             if (subScreen) {
                 subScreen.classList.remove('show');
+                setTimeout(() => {
+                    if (!subScreen.classList.contains('show')) {
+                        subScreen.style.visibility = 'hidden';
+                    }
+                }, 300);
             }
         }
 
