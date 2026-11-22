@@ -393,8 +393,8 @@
         let isSubscriptionLoaded = false;
 
         function preloadSubscriptionModal() {
-            if (isSubscriptionLoaded) return;
-            fetch('/subscription-modal')
+            if (isSubscriptionLoaded) return Promise.resolve();
+            return fetch('/subscription-modal')
                 .then(response => {
                     if (!response.ok) throw new Error('فشل جلب ملف الاشتراكات');
                     return response.text();
@@ -406,10 +406,14 @@
                     const scripts = wrapper.querySelectorAll('script');
                     scripts.forEach(script => {
                         const newScript = document.createElement('script');
+                        if (script.type) newScript.type = script.type;
                         newScript.text = script.innerHTML;
                         document.body.appendChild(newScript);
                     });
                     isSubscriptionLoaded = true;
+                    if (window.plotcraftAuthBridge) {
+                        window.dispatchEvent(new CustomEvent("plotcraft:firebase-ready", { detail: window.plotcraftAuthBridge }));
+                    }
                 })
                 .catch(err => console.error(err));
         }
@@ -417,8 +421,8 @@
         let isSettingsLoaded = false;
 
         function preloadSettingsModal() {
-            if (isSettingsLoaded) return;
-            fetch('/settings')
+            if (isSettingsLoaded) return Promise.resolve();
+            return fetch('/settings')
                 .then(response => {
                     if (!response.ok) throw new Error('فشل جلب ملف الإعدادات');
                     return response.text();
@@ -430,10 +434,14 @@
                     const scripts = wrapper.querySelectorAll('script');
                     scripts.forEach(script => {
                         const newScript = document.createElement('script');
+                        if (script.type) newScript.type = script.type;
                         newScript.text = script.innerHTML;
                         document.body.appendChild(newScript);
                     });
                     isSettingsLoaded = true;
+                    if (window.plotcraftAuthBridge) {
+                        window.dispatchEvent(new CustomEvent("plotcraft:firebase-ready", { detail: window.plotcraftAuthBridge }));
+                    }
                 })
                 .catch(err => console.error(err));
         }
@@ -449,14 +457,13 @@
                 loadedModal.style.display = 'flex';
                 setTimeout(() => loadedModal.classList.add('show'), 10);
             } else {
-                preloadSubscriptionModal();
-                setTimeout(() => {
+                preloadSubscriptionModal().then(() => {
                     const m = document.getElementById('subscriptionModal');
-                    if(m) {
+                    if (m) {
                         m.style.display = 'flex';
-                        m.classList.add('show');
+                        setTimeout(() => m.classList.add('show'), 10);
                     }
-                }, 300);
+                });
             }
         };
 
@@ -468,17 +475,91 @@
             vibrateDevice();
             const settingsScreen = document.getElementById('settingsScreen');
             if (settingsScreen) {
-                settingsScreen.classList.add('show');
+                settingsScreen.style.visibility = 'visible';
+                requestAnimationFrame(() => settingsScreen.classList.add('show'));
             } else {
-                preloadSettingsModal();
-                setTimeout(() => {
+                preloadSettingsModal().then(() => {
                     const s = document.getElementById('settingsScreen');
-                    if(s) {
-                        s.classList.add('show');
+                    if (s) {
+                        s.style.visibility = 'visible';
+                        requestAnimationFrame(() => s.classList.add('show'));
                     }
-                }, 100);
+                });
             }
         };
+
+        /* 🔌 أداة الاستدعاء الموحدة لـ Firebase والنوافذ */
+        function waitForFirebaseBridge(timeoutMs = 5000) {
+            return new Promise((resolve, reject) => {
+                if (window.plotcraftAuthBridge && window.plotcraftAuthBridge.ready) {
+                    return resolve(window.plotcraftAuthBridge);
+                }
+
+                const timer = setTimeout(() => {
+                    window.removeEventListener('plotcraft:firebase-ready', onReady);
+                    reject(new Error('انتهت مهلة انتظار جاهزية Firebase.'));
+                }, timeoutMs);
+
+                function onReady(ev) {
+                    clearTimeout(timer);
+                    resolve(ev?.detail || window.plotcraftAuthBridge);
+                }
+
+                window.addEventListener('plotcraft:firebase-ready', onReady, { once: true });
+            });
+        }
+
+        window.plotcraftCall = async function(action, payload = {}) {
+            switch (action) {
+                case 'openAuth': {
+                    await preloadSubscriptionModal();
+                    const authModal = document.getElementById('authModal');
+                    if (authModal) {
+                        authModal.style.display = 'flex';
+                        setTimeout(() => authModal.classList.add('show'), 10);
+                        return true;
+                    }
+                    return false;
+                }
+                case 'openSubscription': {
+                    window.openSubscription();
+                    return true;
+                }
+                case 'openSettings': {
+                    window.openSettingsScreen();
+                    return true;
+                }
+                case 'login': {
+                    const bridge = await waitForFirebaseBridge();
+                    return await bridge.login(payload.email, payload.password);
+                }
+                case 'register': {
+                    const bridge = await waitForFirebaseBridge();
+                    return await bridge.register(payload.email, payload.password);
+                }
+                case 'logout': {
+                    const bridge = await waitForFirebaseBridge();
+                    return await bridge.logout();
+                }
+                case 'profile': {
+                    const bridge = await waitForFirebaseBridge();
+                    return await bridge.getCurrentUserProfile();
+                }
+                case 'subscribe': {
+                    const bridge = await waitForFirebaseBridge();
+                    return await bridge.requestSubscription(payload);
+                }
+                default: {
+                    const bridge = await waitForFirebaseBridge();
+                    if (typeof bridge[action] === 'function') {
+                        return await bridge[action](payload);
+                    }
+                    throw new Error('عملية غير معروفة في plotcraftCall: ' + action);
+                }
+            }
+        };
+
+        window.callFirebase = window.plotcraftCall;
     </script>
 
     <script type="module">
@@ -549,7 +630,7 @@
 
                 bridge.onLoginSuccess = function (data) {
                     window.isUserLoggedIn = true;
-                    window.setEmailLoggedIn(true);
+                    window.setEmailLoggedIn(true, data?.email || "");
                     if (typeof prevLogin === "function") prevLogin(data);
                 };
 
@@ -637,6 +718,16 @@
 
             bindUiHooks(bridge);
             window.dispatchEvent(new CustomEvent("plotcraft:firebase-ready", { detail: bridge }));
+
+            const modalObserver = new MutationObserver(() => {
+                const authModal = document.getElementById('authModal');
+                if (authModal && !authModal.dataset.firebaseBound) {
+                    authModal.dataset.firebaseBound = 'true';
+                    bindUiHooks(bridge);
+                    window.dispatchEvent(new CustomEvent("plotcraft:firebase-ready", { detail: bridge }));
+                }
+            });
+            modalObserver.observe(document.body, { childList: true, subtree: true });
 
             onAuthStateChanged(auth, async (user) => {
                 bindUiHooks(bridge);
