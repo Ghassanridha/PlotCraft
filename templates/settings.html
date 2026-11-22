@@ -43,6 +43,39 @@
             background-repeat: no-repeat;
         }
 
+        /* نافذة الإعدادات الفرعية M.jpg تظهر من اليسار وتملى الشاشة بالكامل */
+        .sub-settings-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #121418;
+            background-image: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/12fc4f99896b7bbb9bcbdf0bb36f1eefb7d8032f/M.jpg');
+            background-position: center;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            z-index: 1200000;
+            transform: translateX(-100vw);
+            transition: transform 0.3s ease-out;
+            visibility: hidden;
+            overflow-y: auto;
+        }
+
+        .sub-settings-screen.show {
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        .sub-settings-header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 12px 24px;
+            position: relative;
+            z-index: 25;
+        }
+
         /* إخفاء عناصر الإعدادات القديمة بالكامل عند ظهور التصميم الجديد N.jpg */
         .settings-screen.email-logged-in .btn-login-overlay,
         .settings-screen.email-logged-in .group-middle,
@@ -886,6 +919,13 @@
         </div>
     </div>
 
+    <!-- نافذة الإعدادات الفرعية M.jpg تظهر من اليسار وتملى الشاشة -->
+    <div id="subSettingsScreen" class="sub-settings-screen">
+        <div class="sub-settings-header">
+            <button type="button" class="btn-back" onclick="closeSubSettingsScreen()" aria-label="رجوع">&#10095;</button>
+        </div>
+    </div>
+
     <!-- نافذة تعديل الاسم عند النقر على القلم -->
     <div id="editNameModal">
         <div class="edit-name-box">
@@ -1385,6 +1425,7 @@
         }
 
         function closeSettingsScreen() {
+            closeSubSettingsScreen();
             document.getElementById('settingsScreen').classList.remove('show');
         }
 
@@ -1447,7 +1488,17 @@
         }
 
         function handleSubSettings() {
-            console.log("الإعدادات الفرعية");
+            const subScreen = document.getElementById('subSettingsScreen');
+            if (subScreen) {
+                subScreen.classList.add('show');
+            }
+        }
+
+        function closeSubSettingsScreen() {
+            const subScreen = document.getElementById('subSettingsScreen');
+            if (subScreen) {
+                subScreen.classList.remove('show');
+            }
         }
 
         function clearCacheAction() {
