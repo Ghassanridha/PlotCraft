@@ -498,21 +498,28 @@
         switchArea.innerHTML = '<span>ليس لديك حساب؟</span> <a href="#" onclick="toggleRegisterView(event);">اشتراك</a>';
     }
 
-    function applyEmailLoginSuccess() {
+    function applyEmailLoginSuccess(email) {
         isUserLoggedIn = true;
+        window.isUserLoggedIn = true;
         if (typeof window.setEmailLoggedIn === 'function') {
-            window.setEmailLoggedIn(true);
+            window.setEmailLoggedIn(true, email || '');
         }
         closeAuthModal();
+        closeSubscription();
         if (typeof openSettingsScreen === 'function') {
             openSettingsScreen();
         }
+        window.dispatchEvent(new CustomEvent('plotcraft:auth-logged-in', { detail: { email: email || '' } }));
         alert("تم تسجيل الدخول");
     }
 
     function logoutEmailUser() {
         isUserLoggedIn = false;
-        callAuthBridge('logout');
+        window.isUserLoggedIn = false;
+        const logoutTask = callAuthBridge('logout');
+        if (logoutTask && typeof logoutTask.catch === 'function') {
+            logoutTask.catch(() => {});
+        }
         if (typeof window.setEmailLoggedIn === 'function') {
             window.setEmailLoggedIn(false);
         }
@@ -534,7 +541,7 @@
                 await bridgeTask;
                 saveUserToStorage(email, pass);
                 msgDiv.style.display = 'none';
-                applyEmailLoginSuccess();
+                applyEmailLoginSuccess(email);
                 return;
             } catch (err) {
                 msgDiv.innerText = "ليس لديك حساب بهذا البريد أو كلمة المرور خاطئة! يرجى إنشاء حساب جديد.";
@@ -552,7 +559,7 @@
         }
 
         msgDiv.style.display = 'none';
-        applyEmailLoginSuccess();
+        applyEmailLoginSuccess(email);
     }
 
     async function submitRegister() {
@@ -578,7 +585,7 @@
             try {
                 await bridgeTask;
                 saveUserToStorage(email, pass);
-                applyEmailLoginSuccess();
+                applyEmailLoginSuccess(email);
                 return;
             } catch (err) {
                 if (err && err.code === 'auth/email-already-in-use') {
@@ -597,7 +604,7 @@
         }
 
         saveUserToStorage(email, pass);
-        applyEmailLoginSuccess();
+        applyEmailLoginSuccess(email);
     }
 
     function openPaymentGateway() {
