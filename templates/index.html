@@ -1,3 +1,486 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="appHtmlRoot">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PlotCraft UI</title>
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- 🚀 التحميل المسبق الفوري للتصاميم البصرية والخلفيات لكي تظهر بدون أي تأخير -->
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg">
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/d25e86296ea2db1540c7756cc90a01b936d589a2/Gh3.jpg">
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/e34a11096e0d5851f6a12fe58f61a2a93b688bd0/Gh3.jpg">
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/14982d00efdd1d4c377f7f74896b28bfdc49045a/R.jpg">
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1080&auto=format&fit=crop">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background-color: #0b0f19;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .app-shell {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            background-color: #0b0f19;
+        }
+
+        .screen-view {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            background-color: #1f242d;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-bottom: 110px;
+            box-sizing: border-box;
+        }
+
+        .screen-view.active {
+            display: flex;
+        }
+
+        #homeScreen.screen-view {
+            background-color: #0b0f19;
+        }
+
+        .hero-box {
+            position: relative;
+            width: 100%;
+            min-height: 30vh;
+            background: linear-gradient(180deg, rgba(11,15,25,0.2) 0%, rgba(11,15,25,0.8) 75%, #0b0f19 100%),
+                        url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1080&auto=format&fit=crop') center/cover no-repeat;
+            border-bottom-left-radius: 35px;
+            border-bottom-right-radius: 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 16px 16px 20px 16px;
+            flex-shrink: 0;
+        }
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .brand-title {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .top-left-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            position: relative;
+            left: -4px;
+        }
+
+        .top-settings-btn {
+            background: rgba(20, 24, 33, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            flex-shrink: 0;
+            touch-action: manipulation;
+        }
+        .top-settings-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            loading: eager;
+        }
+
+        .welcome-section {
+            margin-top: 15px;
+        }
+
+        .welcome-section h1 {
+            color: #ffffff;
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 1.4;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+        }
+
+        .toast-notification {
+            position: fixed;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-20px);
+            background: rgba(31, 36, 45, 0.95);
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            z-index: 9999999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            text-align: center;
+            white-space: nowrap;
+        }
+        .toast-notification.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        #worksScreen.screen-view {
+            background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/d25e86296ea2db1540c7756cc90a01b936d589a2/Gh3.jpg') center/100% 100% no-repeat !important;
+            padding: 16px !important;
+            overflow-y: auto;
+        }
+
+        /* 🖼️ تطبيق رابط التصميم Gh3.jpg داخل زر/شاشة الأدوات مع الحفاظ على كلمة الأدوات بالأعلى تماماً وباللون الأبيض */
+        #toolsScreen.screen-view {
+            background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/e34a11096e0d5851f6a12fe58f61a2a93b688bd0/Gh3.jpg') center/100% 100% no-repeat !important;
+            padding: 16px !important;
+            overflow-y: auto;
+        }
+
+        .works-header-custom {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            width: 100%;
+        }
+
+        .works-title-right {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .tools-header-custom {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            width: 100%;
+            padding: 0;
+        }
+
+        .tools-title-left {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .plotcraft-nav-bar {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            background-color: transparent;
+            padding: 8px 12px 14px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            box-sizing: border-box;
+            direction: rtl;
+        }
+
+        .plotcraft-nav-square {
+            background-color: rgba(20, 24, 33, 0.95);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            cursor: pointer;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .nav-logo-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* 🔘 مستطيل الأزرار السفلي في الواجهة الرئيسية (شفاف قليلاً والخلفية تظهر تحته مع بقاء الأزرار كما هي) */
+        .plotcraft-nav-pill {
+            background-color: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 35px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 6px 10px;
+            flex-grow: 1;
+            height: 50px;
+        }
+
+        .plotcraft-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #94a3b8;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            white-space: nowrap;
+            padding: 7px 12px;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .plotcraft-nav-item svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .plotcraft-nav-item.active {
+            color: #ffffff;
+            font-weight: 700;
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-shell" id="appShellContainer">
+        <div class="toast-notification" id="toastNotification"></div>
+
+        <!-- 1️⃣ شاشة الرئيسية -->
+        <div id="homeScreen" class="screen-view active">
+            <div class="hero-box">
+                <div class="top-header">
+                    <div class="brand-title">PlotCraft</div>
+                    
+                    <div class="top-left-actions">
+                        <button onclick="openSubscription()" style="background: rgba(20, 24, 33, 0.85); backdrop-filter: blur(12px); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); padding: 5px 10px; border-radius: 14px; font-weight: 600; cursor: pointer; font-size: 11px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); white-space: nowrap; touch-action: manipulation; -webkit-tap-highlight-color: transparent;">ترقيه</button>
+                        
+                        <div class="top-settings-btn" onclick="openSettingsScreen(event)" ontouchstart="openSettingsScreen(event)">
+                            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/3849f99fd5e725111fe963f86b91f712cbe5bd9f/Gh2.jpg" alt="الإعدادات" loading="eager">
+                        </div>
+                    </div>
+                </div>
+                <div class="welcome-section">
+                    <h1>مساء الخير، أيها المخرج<br>أي قصة سنصنع اليوم؟</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2️⃣ شاشة الأعمال -->
+        <div id="worksScreen" class="screen-view">
+            <div class="works-header-custom">
+                <div class="works-title-right">الأعمال</div>
+            </div>
+        </div>
+
+        <!-- 3️⃣ شاشة الأدوات (تحتوي على التصميم الجديد مع إبقاء كلمة الأدوات باللون الأبيض في الأعلى) -->
+        <div id="toolsScreen" class="screen-view">
+            <div class="tools-header-custom">
+                <div class="tools-title-left">الأدوات</div>
+            </div>
+        </div>
+
+        <!-- 🔘 شريط التنقل السفلي الأنيق -->
+        <div class="plotcraft-nav-bar" id="mainNavBar">
+            <div class="plotcraft-nav-square" onclick="vibrateDevice(); openSparkleDialog(event)">
+                <div class="nav-logo-icon">
+                    <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/14982d00efdd1d4c377f7f74896b28bfdc49045a/R.jpg" alt="شعار PlotCraft" loading="eager">
+                </div>
+            </div>
+
+            <div class="plotcraft-nav-pill">
+                <a href="#" class="plotcraft-nav-item active" id="navHome" onclick="vibrateDevice(); switchScreen('homeScreen', event); setActiveNav('navHome')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    <span>الصفحة الرئيسية</span>
+                </a>
+
+                <a href="#" class="plotcraft-nav-item" id="navTools" onclick="vibrateDevice(); switchScreen('toolsScreen', event); setActiveNav('navTools')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"></path></svg>
+                    <span>الأدوات</span>
+                </a>
+
+                <a href="#" class="plotcraft-nav-item" id="navWorks" onclick="vibrateDevice(); switchScreen('worksScreen', event); setActiveNav('navWorks')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    <span>الأعمال</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="subscriptionModalWrapper"></div>
+    <div id="settingsModalWrapper"></div>
+
+    <script>
+        window.vibrateDevice = function() {
+            if ("vibrate" in navigator) {
+                navigator.vibrate(50);
+            }
+        };
+
+        window.showToast = function(message) {
+            const toast = document.getElementById('toastNotification');
+            if (toast) {
+                toast.innerText = message;
+                toast.classList.add('show');
+                setTimeout(() => { toast.classList.remove('show'); }, 1500);
+            }
+        };
+
+        window.switchScreen = function(screenId, event) {
+            if (event) event.preventDefault();
+            document.querySelectorAll('.screen-view').forEach(s => s.classList.remove('active'));
+            const targetScreen = document.getElementById(screenId);
+            if (targetScreen) {
+                targetScreen.classList.add('active');
+            }
+        };
+
+        window.setActiveNav = function(navId) {
+            document.querySelectorAll('.plotcraft-nav-item').forEach(i => i.classList.remove('active'));
+            let targetNav = document.getElementById(navId);
+            if(targetNav) targetNav.classList.add('active');
+        };
+
+        function openSparkleDialog(event) {
+            if (event) event.preventDefault();
+            showToast('تم النقر على إنشاء قصة');
+        }
+
+        let isSubscriptionLoaded = false;
+
+        function preloadSubscriptionModal() {
+            if (isSubscriptionLoaded) return;
+            fetch('/subscription-modal')
+                .then(response => {
+                    if (!response.ok) throw new Error('فشل جلب ملف الاشتراكات');
+                    return response.text();
+                })
+                .then(html => {
+                    const wrapper = document.getElementById('subscriptionModalWrapper');
+                    wrapper.innerHTML = html;
+                    
+                    const scripts = wrapper.querySelectorAll('script');
+                    scripts.forEach(script => {
+                        const newScript = document.createElement('script');
+                        newScript.text = script.innerHTML;
+                        document.body.appendChild(newScript);
+                    });
+                    isSubscriptionLoaded = true;
+                })
+                .catch(err => console.error(err));
+        }
+
+        let isSettingsLoaded = false;
+
+        function preloadSettingsModal() {
+            if (isSettingsLoaded) return;
+            fetch('/settings')
+                .then(response => {
+                    if (!response.ok) throw new Error('فشل جلب ملف الإعدادات');
+                    return response.text();
+                })
+                .then(html => {
+                    const wrapper = document.getElementById('settingsModalWrapper');
+                    wrapper.innerHTML = html;
+                    
+                    const scripts = wrapper.querySelectorAll('script');
+                    scripts.forEach(script => {
+                        const newScript = document.createElement('script');
+                        newScript.text = script.innerHTML;
+                        document.body.appendChild(newScript);
+                    });
+                    isSettingsLoaded = true;
+                })
+                .catch(err => console.error(err));
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            preloadSubscriptionModal();
+            preloadSettingsModal();
+        });
+
+        window.openSubscription = function() {
+            const loadedModal = document.getElementById('subscriptionModal');
+            if (loadedModal) {
+                loadedModal.style.display = 'flex';
+                setTimeout(() => loadedModal.classList.add('show'), 10);
+            } else {
+                preloadSubscriptionModal();
+                setTimeout(() => {
+                    const m = document.getElementById('subscriptionModal');
+                    if(m) {
+                        m.style.display = 'flex';
+                        m.classList.add('show');
+                    }
+                }, 300);
+            }
+        };
+
+        window.openSettingsScreen = function(event) {
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            vibrateDevice();
+            const settingsScreen = document.getElementById('settingsScreen');
+            if (settingsScreen) {
+                settingsScreen.classList.add('show');
+            } else {
+                preloadSettingsModal();
+                setTimeout(() => {
+                    const s = document.getElementById('settingsScreen');
+                    if(s) {
+                        s.classList.add('show');
+                    }
+                }, 100);
+            }
+        };
+    </script>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
         import {
@@ -10,6 +493,7 @@
         import {
             getFirestore,
             doc,
+            getDoc,
             setDoc,
             addDoc,
             collection,
@@ -30,19 +514,50 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        async function persistUserDoc(user, extraFields = {}) {
-            if (!user) return;
-            try {
-                const userRef = doc(db, "users", user.uid);
+        async function saveUserProfile(user) {
+            if (!user) return null;
+
+            const userRef = doc(db, "users", user.uid);
+            const snap = await getDoc(userRef);
+
+            const payload = {
+                uid: user.uid,
+                email: user.email || "",
+                lastSeenAt: serverTimestamp(),
+                updatedAt: serverTimestamp()
+            };
+
+            if (!snap.exists()) {
                 await setDoc(userRef, {
-                    uid: user.uid,
-                    email: user.email || "",
-                    lastLoginAt: serverTimestamp(),
-                    updatedAt: serverTimestamp(),
-                    ...extraFields
-                }, { merge: true });
-            } catch (err) {
-                console.error("Firestore user save error:", err);
+                    ...payload,
+                    createdAt: serverTimestamp(),
+                    role: "user",
+                    credits: 0
+                });
+            } else {
+                await setDoc(userRef, payload, { merge: true });
+            }
+
+            const freshSnap = await getDoc(userRef);
+            return freshSnap.exists() ? freshSnap.data() : null;
+        }
+
+        function bindUiHooks(bridge) {
+            if (typeof window.setEmailLoggedIn === "function") {
+                const prevLogin = bridge.onLoginSuccess;
+                const prevLogout = bridge.onLogout;
+
+                bridge.onLoginSuccess = function (data) {
+                    window.isUserLoggedIn = true;
+                    window.setEmailLoggedIn(true);
+                    if (typeof prevLogin === "function") prevLogin(data);
+                };
+
+                bridge.onLogout = function () {
+                    window.isUserLoggedIn = false;
+                    window.setEmailLoggedIn(false);
+                    if (typeof prevLogout === "function") prevLogout();
+                };
             }
         }
 
@@ -52,43 +567,46 @@
             bridge.auth = auth;
             bridge.db = db;
 
-            const doLogin = async function (email, password) {
+            bridge.login = async function (email, password) {
                 const cred = await signInWithEmailAndPassword(auth, email, password);
-                await persistUserDoc(cred.user);
-                return cred.user;
+                const profile = await saveUserProfile(cred.user);
+                return {
+                    uid: cred.user.uid,
+                    email: cred.user.email,
+                    ...(profile || {})
+                };
             };
 
-            const doRegister = async function (email, password) {
+            bridge.signIn = bridge.login;
+
+            bridge.register = async function (email, password) {
                 const cred = await createUserWithEmailAndPassword(auth, email, password);
-                await persistUserDoc(cred.user, {
-                    createdAt: serverTimestamp(),
-                    role: "user",
-                    credits: 0
-                });
-                return cred.user;
+                const profile = await saveUserProfile(cred.user);
+                return {
+                    uid: cred.user.uid,
+                    email: cred.user.email,
+                    ...(profile || {})
+                };
             };
 
-            const doLogout = async function () {
+            bridge.logout = async function () {
                 await signOut(auth);
             };
 
-            bridge.login = doLogin;
-            bridge.signIn = doLogin;
-            bridge.emailLogin = doLogin;
-
-            bridge.register = doRegister;
-            bridge.signUp = doRegister;
-            bridge.emailRegister = doRegister;
-
-            bridge.logout = doLogout;
-            bridge.signOut = doLogout;
-            bridge.emailLogout = doLogout;
+            bridge.getCurrentUserProfile = async function () {
+                const user = auth.currentUser;
+                if (!user) return null;
+                const snap = await getDoc(doc(db, "users", user.uid));
+                return snap.exists() ? { uid: user.uid, ...snap.data() } : null;
+            };
 
             bridge.requestSubscription = async function (selectedPlan) {
                 const user = auth.currentUser;
                 if (!user) {
                     throw new Error("يجب تسجيل الدخول أولاً لإتمام الاشتراك.");
                 }
+
+                await saveUserProfile(user);
 
                 const subData = {
                     userId: user.uid,
@@ -100,10 +618,11 @@
                     updatedAt: serverTimestamp()
                 };
 
-                await persistUserDoc(user, {
+                await setDoc(doc(db, "users", user.uid), {
                     subscription: subData,
-                    credits: subData.credits
-                });
+                    credits: subData.credits,
+                    updatedAt: serverTimestamp()
+                }, { merge: true });
 
                 const created = await addDoc(collection(db, "subscriptions"), {
                     ...subData,
@@ -116,45 +635,37 @@
                 };
             };
 
-            bridge.subscribe = bridge.requestSubscription;
-
+            bindUiHooks(bridge);
             window.dispatchEvent(new CustomEvent("plotcraft:firebase-ready", { detail: bridge }));
 
-            onAuthStateChanged(auth, (user) => {
+            onAuthStateChanged(auth, async (user) => {
+                bindUiHooks(bridge);
+
                 if (!user) {
                     window.isUserLoggedIn = false;
-                    if (typeof window.setEmailLoggedIn === "function") {
-                        window.setEmailLoggedIn(false);
-                    }
-                    if (typeof bridge.setAuthState === "function") {
-                        bridge.setAuthState(null);
-                    }
-                    if (typeof bridge.onLogout === "function") {
-                        bridge.onLogout();
-                    }
+                    if (typeof bridge.setAuthState === "function") bridge.setAuthState(null);
+                    if (typeof bridge.onLogout === "function") bridge.onLogout();
                     return;
                 }
 
-                window.isUserLoggedIn = true;
-                if (typeof window.setEmailLoggedIn === "function") {
-                    window.setEmailLoggedIn(true);
-                }
+                try {
+                    const profile = await saveUserProfile(user);
+                    const userPayload = {
+                        uid: user.uid,
+                        email: user.email,
+                        ...(profile || {})
+                    };
 
-                const payload = {
-                    uid: user.uid,
-                    email: user.email
-                };
-
-                if (typeof bridge.setAuthState === "function") {
-                    bridge.setAuthState(payload);
+                    window.isUserLoggedIn = true;
+                    if (typeof bridge.setAuthState === "function") bridge.setAuthState(userPayload);
+                    if (typeof bridge.onLoginSuccess === "function") bridge.onLoginSuccess(userPayload);
+                } catch (err) {
+                    console.error("PlotCraft Save Error:", err);
                 }
-                if (typeof bridge.onLoginSuccess === "function") {
-                    bridge.onLoginSuccess(payload);
-                }
-
-                persistUserDoc(user);
             });
         }
 
         setupFirebaseBridge();
     </script>
+</body>
+</html>
