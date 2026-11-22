@@ -39,16 +39,16 @@
             transform: translateX(0);
         }
 
-        /* خلفية H.jpg الجديدة بدلاً من التصميم القديم */
+        /* خلفية M.png الجديدة مكان التصميم القديم (سجل النقاط والتعليقات واللغة) */
         .settings-screen.email-logged-in {
             background-color: #121418;
-            background-image: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/f90c8bc7ae5a25946787c5e2cb2fa3803154cff1/H.jpg');
-            background-position: center 6px;
-            background-size: 100% auto;
+            background-image: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/6bf972848aba742338ec420c8fe7e4c168ae23c3/M.png');
+            background-position: center;
+            background-size: 100% 100%;
             background-repeat: no-repeat;
         }
 
-        /* نافذة الإعدادات الفرعية M.png الجديدة تظهر من اليسار وتنسحب لليسار عند الإغلاق */
+        /* نافذة الإعدادات الفرعية تظهر من اليسار وتنسحب لليسار عند الإغلاق */
         .sub-settings-screen {
             position: fixed;
             top: 0;
@@ -56,7 +56,6 @@
             width: 100vw;
             height: 100vh;
             background-color: #121418;
-            background-image: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/6bf972848aba742338ec420c8fe7e4c168ae23c3/M.png');
             background-position: center;
             background-size: 100% 100%;
             background-repeat: no-repeat;
@@ -692,7 +691,7 @@
                 <button class="btn-back" onclick="closeSettingsScreen()" aria-label="إغلاق">&#10095;</button>
             </div>
 
-            <!-- الأزرار فوق التصميم الجديد H.jpg بالترتيب -->
+            <!-- الأزرار فوق التصميم الجديد M.png بالترتيب -->
             <div class="email-ui-layer">
                 <!-- اسم المستخدم ظاهر فوق الآيدي -->
                 <span class="user-name-display" id="userNameValue"></span>
@@ -924,7 +923,7 @@
         </div>
     </div>
 
-    <!-- نافذة الإعدادات الفرعية M.png الجديدة تظهر من اليسار وتملى الشاشة -->
+    <!-- نافذة الإعدادات الفرعية تظهر من اليسار وتملى الشاشة -->
     <div id="subSettingsScreen" class="sub-settings-screen">
         <div class="sub-settings-header">
             <button type="button" class="btn-back" onclick="closeSubSettingsScreen()" aria-label="إغلاق الإعدادات الفرعية">&#10095;</button>
