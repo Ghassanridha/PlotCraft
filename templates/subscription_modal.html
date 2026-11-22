@@ -5,7 +5,7 @@
         <button class="close-modal-btn" onclick="closeSubscription()">&#x276F;</button>
 
         <div class="plans-list-absolute">
-            <div class="plan-card" onclick="choosePlan(this)">
+            <div class="plan-card" data-plan-id="weekly" data-credits="500" onclick="choosePlan(this)">
                 <div class="plan-info">
                     <h3>PlotCraft Pro Weekly</h3>
                     <p>Credits / Week, Try AI Drama Creation 500</p>
@@ -16,7 +16,7 @@
                 </div>
             </div>
 
-            <div class="plan-card active" onclick="choosePlan(this)">
+            <div class="plan-card active" data-plan-id="monthly" data-credits="1800" onclick="choosePlan(this)">
                 <div class="plan-badge">رائج</div>
                 <div class="plan-info">
                     <h3>PlotCraft Pro Monthly</h3>
@@ -28,7 +28,7 @@
                 </div>
             </div>
 
-            <div class="plan-card" onclick="choosePlan(this)">
+            <div class="plan-card" data-plan-id="annual" data-credits="5000" onclick="choosePlan(this)">
                 <div class="plan-info">
                     <h3>PlotCraft Pro Annual</h3>
                     <p>Credits / Year, Ideal for professional creators 5000</p>
@@ -301,7 +301,7 @@
         position: absolute;
         right: 0;
         top: 50%;
-        transform: translateY(-50%);
+        transform: translateY(-55%);
     }
 
     .inline-close-btn:active { opacity: 0.6; }
@@ -389,17 +389,17 @@
 
 
 <script>
-    let isUserLoggedIn = false; 
+    let isUserLoggedIn = false;
+    let currentUserData = null;
 
-    function getStoredUsers() {
-        const stored = localStorage.getItem('plotcraft_users');
-        return stored ? JSON.parse(stored) : {};
-    }
-
-    function saveUserToStorage(email, password) {
-        const users = getStoredUsers();
-        users[email.toLowerCase()] = password;
-        localStorage.setItem('plotcraft_users', JSON.stringify(users));
+    function getSelectedPlan() {
+        const activeCard = document.querySelector('.plan-card.active');
+        if (!activeCard) return { planId: "monthly", credits: 1800, title: "PlotCraft Pro Monthly" };
+        return {
+            planId: activeCard.dataset.planId || "monthly",
+            credits: Number(activeCard.dataset.credits || 1800),
+            title: activeCard.querySelector("h3") ? activeCard.querySelector("h3").innerText.trim() : "PlotCraft Pro"
+        };
     }
 
     function choosePlan(cardElement) {
@@ -428,9 +428,9 @@
                 resetAuthModalView();
                 authModal.classList.add('show');
             }
-        } else {
-            openPaymentGateway();
+            return;
         }
+        openPaymentGateway();
     }
 
     function closeAuthModal() {
@@ -484,6 +484,8 @@
 
     function applyEmailLoginSuccess(userPayload) {
         isUserLoggedIn = true;
+        currentUserData = userPayload || null;
+
         if (typeof window.setEmailLoggedIn === 'function') {
             window.setEmailLoggedIn(true, userPayload && userPayload.email ? userPayload.email : undefined);
         }
@@ -499,85 +501,110 @@
 
     function logoutEmailUser() {
         isUserLoggedIn = false;
+        currentUserData = null;
+
         if (typeof window.setEmailLoggedIn === 'function') {
             window.setEmailLoggedIn(false);
+        }
+        if (window.plotcraftAuthBridge && typeof window.plotcraftAuthBridge.logout === 'function') {
+            window.plotcraftAuthBridge.logout();
         }
         if (window.plotcraftAuthBridge && typeof window.plotcraftAuthBridge.onLogout === 'function') {
             window.plotcraftAuthBridge.onLogout();
         }
     }
 
-    function submitLogin() {
+    async function submitLogin() {
         const email = document.getElementById('loginEmail').value.trim().toLowerCase();
         const pass = document.getElementById('loginPassword').value;
         const msgDiv = document.getElementById('notRegisteredMsg');
 
-        if(!email || !pass) {
+        if (!email || !pass) {
             alert("الرجاء إدخال البريد الإلكتروني وكلمة المرور");
             return;
         }
 
-        if (window.plotcraftAuthBridge && typeof window.plotcraftAuthBridge.signIn === 'function') {
-            window.plotcraftAuthBridge.signIn(email, pass);
+        const authFn = window.plotcraftAuthBridge && (window.plotcraftAuthBridge.login || window.plotcraftAuthBridge.signIn);
+        if (typeof authFn === 'function') {
+            try {
+                msgDiv.style.display = 'none';
+                const userPayload = await authFn(email, pass);
+                applyEmailLoginSuccess(userPayload || { email });
+            } catch (err) {
+                msgDiv.innerText = "ليس لديك حساب بهذا البريد أو كلمة المرور خاطئة! يرجى إنشاء حساب جديد.";
+                msgDiv.style.display = 'block';
+            }
             return;
         }
 
-        const users = getStoredUsers();
-
-        if (!users[email] || users[email] !== pass) {
-            msgDiv.innerText = "ليس لديك حساب بهذا البريد أو كلمة المرور خاطئة! يرجى إنشاء حساب جديد.";
-            msgDiv.style.display = 'block';
-            return;
-        }
-
-        msgDiv.style.display = 'none';
-        applyEmailLoginSuccess({ email: email });
+        msgDiv.innerText = "نظام المصادقة غير متصل حالياً، تأكد من تحميل ملف Firebase.";
+        msgDiv.style.display = 'block';
     }
 
-    function submitRegister() {
+    async function submitRegister() {
         const email = document.getElementById('regEmail').value.trim().toLowerCase();
         const pass = document.getElementById('regPassword').value;
         const confirmPass = document.getElementById('regConfirmPassword').value;
+        const msgDiv = document.getElementById('notRegisteredMsg');
 
-        if(!email || !pass || !confirmPass) {
+        if (!email || !pass || !confirmPass) {
             alert("الرجاء تعبئة كافة الحقول المطلوبة");
             return;
         }
-        if(pass !== confirmPass) {
+        if (pass !== confirmPass) {
             alert("كلمة المرور غير متطابقة مع تأكيد الرمز");
             return;
         }
-        if(pass.length < 8) {
+        if (pass.length < 8) {
             alert("كلمة المرور يجب أن تتكون من 8 خانات على الأقل");
             return;
         }
 
         if (window.plotcraftAuthBridge && typeof window.plotcraftAuthBridge.register === 'function') {
-            window.plotcraftAuthBridge.register(email, pass);
+            try {
+                const userPayload = await window.plotcraftAuthBridge.register(email, pass);
+                applyEmailLoginSuccess(userPayload || { email });
+            } catch (err) {
+                alert(err && err.message ? err.message : "تعذر إنشاء الحساب، تأكد من البيانات أو حاول مرة أخرى.");
+            }
             return;
         }
 
-        const users = getStoredUsers();
-        if(users[email]) {
-            alert("هذا البريد الإلكتروني مسجل مسبقاً! يمكنك الانتقال لتسجيل الدخول.");
-            resetAuthModalView();
+        if (msgDiv) {
+            msgDiv.innerText = "نظام المصادقة غير متصل حالياً، تأكد من تحميل ملف Firebase.";
+            msgDiv.style.display = 'block';
+        }
+    }
+
+    // إرسال طلب الاشتراك إلى السيرفر (بدلاً من منح النقاط مباشرة من المتصفح)
+    async function openPaymentGateway() {
+        const selectedPlan = getSelectedPlan();
+
+        if (window.plotcraftAuthBridge && typeof window.plotcraftAuthBridge.requestSubscription === 'function') {
+            try {
+                await window.plotcraftAuthBridge.requestSubscription(selectedPlan);
+            } catch (err) {
+                alert("تعذر إرسال طلب الاشتراك حالياً.");
+            }
             return;
         }
 
-        saveUserToStorage(email, pass);
-        applyEmailLoginSuccess({ email: email });
+        alert("تم اختيار باقة: " + selectedPlan.title + " — جاري فتح نافذة الدفع...");
     }
 
-    function openPaymentGateway() {
-        alert("جاري فتح نافذة الدفع لتأكيد الاشتراك...");
-    }
-
-    // أداة استدعاء مستقلة لربط هذا الملف بأي ملف خارجي لـ Firebase دون دمج الأكواد
-    window.plotcraftAuthBridge = window.plotcraftAuthBridge || {
+    // أداة استدعاء مستقلة لربط هذا الملف بملف Firebase الخارجي بشكل آمن
+    window.plotcraftAuthBridge = Object.assign({
+        login: null,
         signIn: null,
         register: null,
+        logout: null,
+        requestSubscription: null,
         onLoginSuccess: null,
         onLogout: null,
+        setAuthState: function(userPayload) {
+            isUserLoggedIn = Boolean(userPayload);
+            currentUserData = userPayload || null;
+        },
         completeLogin: function(userPayload) {
             applyEmailLoginSuccess(userPayload);
         },
@@ -588,5 +615,5 @@
                 msgDiv.style.display = 'block';
             }
         }
-    };
+    }, window.plotcraftAuthBridge || {});
 </script>
