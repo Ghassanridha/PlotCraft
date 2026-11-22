@@ -140,10 +140,10 @@
             z-index: 20;
         }
 
-        /* كلمة ID: محركة شوية لليسار */
+        /* كلمة ID: مرفوعة قليلاً لتتوسط المستطيل الصغير */
         .user-id-label {
             position: absolute;
-            top: 52px;
+            top: 49px;
             right: 70px;
             color: #ffffff;
             font-size: 12px;
@@ -152,10 +152,10 @@
             line-height: 1;
         }
 
-        /* أرقام الآيدي: ثابتة دون أي تحريك */
+        /* أرقام الآيدي: مرفوعة قليلاً لتتوسط المستطيل الصغير */
         .user-id-value {
             position: absolute;
-            top: 52px;
+            top: 49px;
             right: 84px;
             color: #f1f5f9;
             font-size: 12.5px;
@@ -164,7 +164,7 @@
             line-height: 1;
         }
 
-        /* زر نسخ الآيدي: محرك قليل لليسار */
+        /* زر نسخ الآيدي بجانب المستطيل الصغير */
         .btn-copy-id-overlay {
             position: absolute;
             top: 46px;
@@ -199,7 +199,7 @@
         }
 
         .row-comments-n {
-            transform: translateY(-6px);
+            transform: translateY(3px);
             height: 46px;
         }
 
@@ -215,22 +215,22 @@
         }
 
         .row-notif-n {
-            transform: translateY(-21px);
+            transform: translateY(-13px);
             height: 44px;
         }
 
         .row-lang-n {
-            transform: translateY(-19px);
+            transform: translateY(-10px);
             height: 48px;
         }
 
         .row-join-n {
-            transform: translateY(-13px);
+            transform: translateY(-4px);
             height: 46px;
         }
 
         .row-contact-n {
-            transform: translateY(0px);
+            transform: translateY(7px);
             height: 52px;
         }
 
@@ -246,7 +246,12 @@
         }
 
         .row-settings-n {
-            transform: translateY(0px);
+            transform: translateY(7px);
+            height: 52px;
+        }
+
+        .row-cache-n {
+            transform: translateY(7px);
             height: 52px;
         }
 
@@ -809,7 +814,7 @@
                         <span class="arrow-icon">&#10094;</span>
                     </button>
 
-                    <button type="button" class="n-row-btn" onclick="clearCacheAction()">
+                    <button type="button" class="n-row-btn row-cache-n" onclick="clearCacheAction()">
                         <span class="n-row-right">
                             <span class="icon-svg">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff">
