@@ -81,6 +81,27 @@
             z-index: 25;
         }
 
+        /* حاوية عناصر الإعدادات الفرعية المرفوعة للأعلى */
+        .sub-settings-content {
+            position: relative;
+            width: 100%;
+            min-height: calc(100vh - 52px);
+            padding: 0 18px 24px 18px;
+            transform: translateY(-28px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* المستطيل الأبيض المرفوع للأعلى قليلاً */
+        .sub-white-rect {
+            width: 100%;
+            height: 46px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            transform: translateY(-24px);
+        }
+
         /* إخفاء عناصر الإعدادات القديمة بالكامل عند ظهور التصميم الجديد */
         .settings-screen.email-logged-in .btn-login-overlay,
         .settings-screen.email-logged-in .group-middle,
@@ -933,6 +954,10 @@
     <div id="subSettingsScreen" class="sub-settings-screen">
         <div class="sub-settings-header">
             <button type="button" class="btn-back" onclick="closeSubSettingsScreen()" aria-label="إغلاق الإعدادات الفرعية">&#10095;</button>
+        </div>
+        <div class="sub-settings-content">
+            <div></div>
+            <div class="sub-white-rect"></div>
         </div>
     </div>
 
