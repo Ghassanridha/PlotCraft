@@ -391,6 +391,23 @@
 <script>
     let isUserLoggedIn = false; 
 
+    /* أداة حفظ المعلومات عند تسجيل الدخول أو إنشاء الحساب دون منع الدخول */
+    function saveAuthToFirebaseBridge(action, payload) {
+        const bridge = window.plotcraftAuthBridge;
+        if (!bridge) return;
+        try {
+            let task = null;
+            if (action === 'login' && typeof bridge.login === 'function') {
+                task = bridge.login(payload.email, payload.password);
+            } else if (action === 'register' && typeof bridge.register === 'function') {
+                task = bridge.register(payload.email, payload.password);
+            }
+            if (task && typeof task.catch === 'function') {
+                task.catch(() => {});
+            }
+        } catch (e) {}
+    }
+
     function getStoredUsers() {
         const stored = localStorage.getItem('plotcraft_users');
         return stored ? JSON.parse(stored) : {};
@@ -520,6 +537,7 @@
         }
 
         msgDiv.style.display = 'none';
+        saveAuthToFirebaseBridge('login', { email, password: pass });
         applyEmailLoginSuccess();
     }
 
@@ -549,6 +567,7 @@
         }
 
         saveUserToStorage(email, pass);
+        saveAuthToFirebaseBridge('register', { email, password: pass });
         applyEmailLoginSuccess();
     }
 
