@@ -163,6 +163,19 @@
             overflow-y: auto;
         }
 
+        .works-login-btn {
+            margin-top: 14px;
+            background-color: #000000;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 10px 18px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            align-self: flex-start;
+        }
+
         /* 🖼️ تطبيق رابط التصميم Gh3.jpg داخل زر/شاشة الأدوات مع الحفاظ على كلمة الأدوات بالأعلى تماماً وباللون الأبيض */
         #toolsScreen.screen-view {
             background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/e34a11096e0d5851f6a12fe58f61a2a93b688bd0/Gh3.jpg') center/100% 100% no-repeat !important;
@@ -315,6 +328,7 @@
             <div class="works-header-custom">
                 <div class="works-title-right">الأعمال</div>
             </div>
+            <button type="button" class="works-login-btn" onclick="vibrateDevice(); window.plotcraftCall('openAuth');">تسجيل الدخول</button>
         </div>
 
         <!-- 3️⃣ شاشة الأدوات (تحتوي على التصميم الجديد مع إبقاء كلمة الأدوات باللون الأبيض في الأعلى) -->
