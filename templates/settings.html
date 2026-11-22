@@ -62,6 +62,23 @@
             display: block;
         }
 
+        /* اسم المستخدم ظاهر فوق الآيدي مباشرة */
+        .user-name-display {
+            position: absolute;
+            top: 24px;
+            right: 84px;
+            max-width: 90px;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            pointer-events: none;
+            z-index: 20;
+        }
+
         /* زر القلم لتعديل الاسم مرفوع لفوق ومسحوب لليمين */
         .btn-edit-name-overlay {
             position: absolute;
@@ -642,6 +659,9 @@
 
             <!-- الأزرار فوق التصميم الجديد N.jpg بالترتيب -->
             <div class="email-ui-layer">
+                <!-- اسم المستخدم ظاهر فوق الآيدي -->
+                <span class="user-name-display" id="userNameValue"></span>
+
                 <!-- زر القلم لتعديل الاسم -->
                 <button type="button" class="btn-edit-name-overlay" id="editNameBtn" onclick="openEditNameModal()" aria-label="تعديل الاسم">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
@@ -905,6 +925,8 @@
     <script>
         let isNotifActive = false;
         const EMAIL_AUTH_STORAGE_KEY = 'plotcraft_email_logged_in';
+        const ACTIVE_EMAIL_KEY = 'plotcraft_active_email';
+        const ACCOUNTS_MAP_KEY = 'plotcraft_accounts_map_v1';
         const USER_ID_STORAGE_KEY = 'plotcraft_user_unique_id_7';
         const USER_NAME_STORAGE_KEY = 'plotcraft_custom_username';
 
@@ -1055,24 +1077,133 @@
             }
         };
 
-        /* توليد آيدي عشوائي من 7 أرقام خاص بكل مستخدم وحفظه */
-        function getOrCreateUserId() {
+        const RANDOM_NICKNAMES = [
+            "صقر", "ليث", "نجم", "سحاب", "رعد", "موج", "فهد", "بدر", "طارق", "كريم",
+            "زائر", "مبدع", "بطل", "ذئب", "شهاب", "سيف", "رحال", "مرايا", "أفق", "ظل"
+        ];
+
+        function normalizeEmail(email) {
+            return String(email || '').trim().toLowerCase();
+        }
+
+        function getAccountsMap() {
             try {
-                let savedId = localStorage.getItem(USER_ID_STORAGE_KEY);
-                if (!/^\d{7}$/.test(savedId || '')) {
-                    savedId = String(Math.floor(1000000 + Math.random() * 9000000));
-                    localStorage.setItem(USER_ID_STORAGE_KEY, savedId);
-                }
-                return savedId;
+                const raw = localStorage.getItem(ACCOUNTS_MAP_KEY);
+                const parsed = raw ? JSON.parse(raw) : {};
+                return parsed && typeof parsed === 'object' ? parsed : {};
             } catch (e) {
-                return String(Math.floor(1000000 + Math.random() * 9000000));
+                return {};
             }
         }
 
+        function saveAccountsMap(map) {
+            try {
+                localStorage.setItem(ACCOUNTS_MAP_KEY, JSON.stringify(map));
+            } catch (e) {}
+        }
+
+        function generateRandomUniqueId(existingIdsSet) {
+            let candidate = '';
+            let tries = 0;
+            do {
+                candidate = String(Math.floor(1000000 + Math.random() * 9000000));
+                tries++;
+            } while (existingIdsSet.has(candidate) && tries < 200);
+            return candidate;
+        }
+
+        function generateRandomNameFromEmail(email) {
+            const cleanEmail = normalizeEmail(email);
+            const prefix = (cleanEmail.split('@')[0] || 'user').replace(/[^a-zA-Z0-9\u0600-\u06FF]/g, '');
+            const basePart = prefix.slice(0, 6) || 'User';
+            const nick = RANDOM_NICKNAMES[Math.floor(Math.random() * RANDOM_NICKNAMES.length)];
+            const num = Math.floor(10 + Math.random() * 89);
+            return `${nick}_${basePart}${num}`;
+        }
+
+        function ensureAccountProfile(email) {
+            const map = getAccountsMap();
+            const cleanEmail = normalizeEmail(email) || 'guest_session';
+            const usedIds = new Set(
+                Object.values(map)
+                    .map(acc => acc && acc.id)
+                    .filter(Boolean)
+            );
+
+            if (!map[cleanEmail]) {
+                map[cleanEmail] = {
+                    id: generateRandomUniqueId(usedIds),
+                    name: generateRandomNameFromEmail(cleanEmail)
+                };
+                saveAccountsMap(map);
+            } else {
+                if (!/^\d{7}$/.test(map[cleanEmail].id || '')) {
+                    map[cleanEmail].id = generateRandomUniqueId(usedIds);
+                    saveAccountsMap(map);
+                }
+                if (!map[cleanEmail].name || !String(map[cleanEmail].name).trim()) {
+                    map[cleanEmail].name = generateRandomNameFromEmail(cleanEmail);
+                    saveAccountsMap(map);
+                }
+            }
+
+            try {
+                if (normalizeEmail(email)) {
+                    localStorage.setItem(ACTIVE_EMAIL_KEY, cleanEmail);
+                }
+                localStorage.setItem(USER_ID_STORAGE_KEY, map[cleanEmail].id);
+                localStorage.setItem(USER_NAME_STORAGE_KEY, map[cleanEmail].name);
+            } catch (e) {}
+
+            return map[cleanEmail];
+        }
+
+        function getActiveAccountProfile() {
+            let activeEmail = '';
+            try {
+                activeEmail = normalizeEmail(localStorage.getItem(ACTIVE_EMAIL_KEY) || '');
+            } catch (e) {}
+
+            if (!activeEmail) {
+                const authModal = document.getElementById('authModal');
+                if (authModal) {
+                    const emailInput = authModal.querySelector('input[type="email"], input[name*="email" i], input[id*="email" i]');
+                    if (emailInput && emailInput.value && emailInput.value.includes('@')) {
+                        activeEmail = normalizeEmail(emailInput.value);
+                    }
+                }
+            }
+
+            const profile = ensureAccountProfile(activeEmail || 'default_account');
+
+            try {
+                const customName = (localStorage.getItem(USER_NAME_STORAGE_KEY) || '').trim();
+                if (customName) {
+                    profile.name = customName;
+                }
+            } catch (e) {}
+
+            return profile;
+        }
+
+        /* توليد آيدي عشوائي من 7 أرقام خاص بكل حساب وحفظه */
+        function getOrCreateUserId() {
+            return getActiveAccountProfile().id;
+        }
+
+        function getOrCreateUserName() {
+            return getActiveAccountProfile().name;
+        }
+
         function renderUserId() {
+            const profile = getActiveAccountProfile();
             const valEl = document.getElementById('userIdValue');
+            const nameEl = document.getElementById('userNameValue');
             if (valEl) {
-                valEl.textContent = getOrCreateUserId();
+                valEl.textContent = profile.id;
+            }
+            if (nameEl) {
+                nameEl.textContent = profile.name;
             }
         }
 
@@ -1101,11 +1232,7 @@
             const modal = document.getElementById('editNameModal');
             const input = document.getElementById('newUserNameInput');
             if (!modal || !input) return;
-            try {
-                input.value = localStorage.getItem(USER_NAME_STORAGE_KEY) || '';
-            } catch (e) {
-                input.value = '';
-            }
+            input.value = getOrCreateUserName();
             modal.classList.add('show');
             setTimeout(() => input.focus(), 50);
         }
@@ -1122,10 +1249,26 @@
             if (!input) return;
             const trimmed = input.value.trim();
             if (trimmed) {
+                const profile = getActiveAccountProfile();
+                const map = getAccountsMap();
+                let activeEmail = '';
+                try {
+                    activeEmail = normalizeEmail(localStorage.getItem(ACTIVE_EMAIL_KEY) || '') || 'default_account';
+                } catch (e) {
+                    activeEmail = 'default_account';
+                }
+                map[activeEmail] = {
+                    id: profile.id,
+                    name: trimmed
+                };
+                saveAccountsMap(map);
+
                 try {
                     localStorage.setItem(USER_NAME_STORAGE_KEY, trimmed);
                 } catch (e) {}
-                window.dispatchEvent(new CustomEvent('plotcraft:usernameChanged', { detail: { name: trimmed } }));
+
+                renderUserId();
+                window.dispatchEvent(new CustomEvent('plotcraft:usernameChanged', { detail: { name: trimmed, id: profile.id } }));
             }
             closeEditNameModal();
         }
@@ -1174,8 +1317,8 @@
             return true;
         };
 
-        /* setEmailLoggedIn(true) يحفظ الحالة دائماً ويمنع ظهور نافذة الدخول بالبريد، و setEmailLoggedIn(false) يمسحها */
-        window.setEmailLoggedIn = function(isLoggedIn) {
+        /* setEmailLoggedIn(true, email) يحفظ الحالة ويولّد اسماً عشوائياً وآيدي خاصاً لكل بريد جديد، و setEmailLoggedIn(false) يمسح الحالة */
+        window.setEmailLoggedIn = function(isLoggedIn, email) {
             const loggedIn = Boolean(isLoggedIn);
             try {
                 if (loggedIn) {
@@ -1193,10 +1336,28 @@
             }
 
             if (loggedIn) {
+                const cleanEmail = normalizeEmail(email);
+                if (cleanEmail) {
+                    const map = getAccountsMap();
+                    const isNewEmail = !map[cleanEmail];
+                    const acc = ensureAccountProfile(cleanEmail);
+                    try {
+                        localStorage.setItem(ACTIVE_EMAIL_KEY, cleanEmail);
+                        if (isNewEmail) {
+                            localStorage.setItem(USER_NAME_STORAGE_KEY, acc.name);
+                        }
+                        localStorage.setItem(USER_ID_STORAGE_KEY, acc.id);
+                    } catch (e) {}
+                }
                 renderUserId();
                 window.guardAuthModal();
             }
         };
+
+        window.addEventListener('plotcraft:emailLogin', (ev) => {
+            const emailArg = ev && ev.detail && ev.detail.email ? ev.detail.email : '';
+            window.setEmailLoggedIn(true, emailArg);
+        });
 
         /* استعادة حالة تسجيل الدخول تلقائياً عند فتح التطبيق أو إعادة التحميل */
         function restoreEmailLoginState() {
