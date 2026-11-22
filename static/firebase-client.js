@@ -30,39 +30,63 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-async function saveUserData(user) {
+async function saveUserProfile(user) {
   if (!user) return null;
+
   const userRef = doc(db, "users", user.uid);
   const snap = await getDoc(userRef);
 
-  const baseData = {
+  const payload = {
     uid: user.uid,
     email: user.email || "",
-    lastLoginAt: serverTimestamp(),
+    lastSeenAt: serverTimestamp(),
     updatedAt: serverTimestamp()
   };
 
   if (!snap.exists()) {
     await setDoc(userRef, {
-      ...baseData,
+      ...payload,
       createdAt: serverTimestamp(),
       role: "user",
       credits: 0
     });
   } else {
-    await setDoc(userRef, baseData, { merge: true });
+    await setDoc(userRef, payload, { merge: true });
   }
 
-  const updatedSnap = await getDoc(userRef);
-  return updatedSnap.exists() ? updatedSnap.data() : null;
+  const freshSnap = await getDoc(userRef);
+  return freshSnap.exists() ? freshSnap.data() : null;
 }
 
-function attachPlotcraftAuthBridge() {
+function bindUiHooks(bridge) {
+  // ربط أحداث الواجهة تلقائياً إذا كانت موجودة
+  if (typeof window.setEmailLoggedIn === "function") {
+    const prevLogin = bridge.onLoginSuccess;
+    const prevLogout = bridge.onLogout;
+
+    bridge.onLoginSuccess = function (data) {
+      window.isUserLoggedIn = true;
+      window.setEmailLoggedIn(true);
+      if (typeof prevLogin === "function") prevLogin(data);
+    };
+
+    bridge.onLogout = function () {
+      window.isUserLoggedIn = false;
+      window.setEmailLoggedIn(false);
+      if (typeof prevLogout === "function") prevLogout();
+    };
+  }
+}
+
+function setupFirebaseBridge() {
   const bridge = window.plotcraftAuthBridge = window.plotcraftAuthBridge || {};
+  bridge.ready = true;
+  bridge.auth = auth;
+  bridge.db = db;
 
   bridge.login = async function (email, password) {
     const cred = await signInWithEmailAndPassword(auth, email, password);
-    const profile = await saveUserData(cred.user);
+    const profile = await saveUserProfile(cred.user);
     return {
       uid: cred.user.uid,
       email: cred.user.email,
@@ -74,7 +98,7 @@ function attachPlotcraftAuthBridge() {
 
   bridge.register = async function (email, password) {
     const cred = await createUserWithEmailAndPassword(auth, email, password);
-    const profile = await saveUserData(cred.user);
+    const profile = await saveUserProfile(cred.user);
     return {
       uid: cred.user.uid,
       email: cred.user.email,
@@ -99,9 +123,9 @@ function attachPlotcraftAuthBridge() {
       throw new Error("يجب تسجيل الدخول أولاً لإتمام الاشتراك.");
     }
 
-    await saveUserData(user);
+    await saveUserProfile(user);
 
-    const subscriptionData = {
+    const subData = {
       userId: user.uid,
       email: user.email || "",
       planId: selectedPlan?.planId || "monthly",
@@ -112,51 +136,50 @@ function attachPlotcraftAuthBridge() {
     };
 
     await setDoc(doc(db, "users", user.uid), {
-      subscription: subscriptionData,
-      credits: subscriptionData.credits,
+      subscription: subData,
+      credits: subData.credits,
       updatedAt: serverTimestamp()
     }, { merge: true });
 
-    const subDoc = await addDoc(collection(db, "subscriptions"), {
-      ...subscriptionData,
+    const created = await addDoc(collection(db, "subscriptions"), {
+      ...subData,
       createdAt: serverTimestamp()
     });
 
     return {
-      id: subDoc.id,
-      ...subscriptionData
+      id: created.id,
+      ...subData
     };
   };
 
+  bindUiHooks(bridge);
+  window.dispatchEvent(new CustomEvent("plotcraft:firebase-ready", { detail: bridge }));
+
   onAuthStateChanged(auth, async (user) => {
+    bindUiHooks(bridge);
+
     if (!user) {
-      if (typeof bridge.setAuthState === "function") {
-        bridge.setAuthState(null);
-      }
-      if (typeof bridge.onLogout === "function") {
-        bridge.onLogout();
-      }
+      window.isUserLoggedIn = false;
+      if (typeof bridge.setAuthState === "function") bridge.setAuthState(null);
+      if (typeof bridge.onLogout === "function") bridge.onLogout();
       return;
     }
 
     try {
-      const profile = await saveUserData(user);
-      const payload = {
+      const profile = await saveUserProfile(user);
+      const userPayload = {
         uid: user.uid,
         email: user.email,
         ...(profile || {})
       };
 
-      if (typeof bridge.setAuthState === "function") {
-        bridge.setAuthState(payload);
-      }
-      if (typeof bridge.onLoginSuccess === "function") {
-        bridge.onLoginSuccess(payload);
-      }
-    } catch (error) {
-      console.error("PlotCraft Firestore save error:", error);
+      window.isUserLoggedIn = true;
+      if (typeof bridge.setAuthState === "function") bridge.setAuthState(userPayload);
+      if (typeof bridge.onLoginSuccess === "function") bridge.onLoginSuccess(userPayload);
+    } catch (err) {
+      console.error("PlotCraft Save Error:", err);
     }
   });
 }
 
-attachPlotcraftAuthBridge();
+setupFirebaseBridge();
