@@ -1151,10 +1151,34 @@
 
         function extractFirstNameFromEmail(email) {
             const cleanEmail = normalizeEmail(email);
-            if (!cleanEmail || !cleanEmail.includes('@')) return '';
-            const localPart = cleanEmail.split('@')[0] || '';
+            if (!cleanEmail) return '';
+            const localPart = cleanEmail.includes('@') ? (cleanEmail.split('@')[0] || '') : cleanEmail;
             const firstToken = localPart.split(/[._+-]/)[0] || localPart;
             return firstToken.trim();
+        }
+
+        function findEmailFromDomInputs() {
+            try {
+                const selectors = [
+                    '#authModal input[type="email"]',
+                    '#authModal input[name*="email" i]',
+                    '#authModal input[id*="email" i]',
+                    '#authModal input[type="text"]',
+                    'input[type="email"]',
+                    'input[name*="email" i]',
+                    'input[id*="email" i]'
+                ];
+                for (const sel of selectors) {
+                    const inputs = document.querySelectorAll(sel);
+                    for (const inp of inputs) {
+                        const val = normalizeEmail(inp && inp.value);
+                        if (val && val.includes('@')) {
+                            return val;
+                        }
+                    }
+                }
+            } catch (e) {}
+            return '';
         }
 
         function getAccountsMap() {
@@ -1185,49 +1209,68 @@
 
         function ensureAccountProfile(email) {
             const cleanEmail = normalizeEmail(email);
-            if (!cleanEmail || !cleanEmail.includes('@')) {
-                return { id: '', name: '' };
-            }
-
             const map = getAccountsMap();
             const usedIds = new Set(
                 Object.values(map)
                     .map(acc => acc && acc.id)
                     .filter(Boolean)
             );
-            const emailFirstName = extractFirstNameFromEmail(cleanEmail);
 
-            if (!map[cleanEmail]) {
-                map[cleanEmail] = {
-                    id: generateRandomUniqueId(usedIds),
-                    name: emailFirstName
-                };
-                saveAccountsMap(map);
-            } else {
-                let updated = false;
-                if (!/^\d{7}$/.test(map[cleanEmail].id || '')) {
-                    map[cleanEmail].id = generateRandomUniqueId(usedIds);
-                    updated = true;
-                }
-                if (!map[cleanEmail].name || !String(map[cleanEmail].name).trim()) {
-                    map[cleanEmail].name = emailFirstName;
-                    updated = true;
-                }
-                if (updated) {
+            if (cleanEmail) {
+                const emailFirstName = extractFirstNameFromEmail(cleanEmail);
+                if (!map[cleanEmail]) {
+                    map[cleanEmail] = {
+                        id: generateRandomUniqueId(usedIds),
+                        name: emailFirstName
+                    };
                     saveAccountsMap(map);
+                } else {
+                    let updated = false;
+                    if (!/^\d{7}$/.test(map[cleanEmail].id || '')) {
+                        map[cleanEmail].id = generateRandomUniqueId(usedIds);
+                        updated = true;
+                    }
+                    if (!map[cleanEmail].name || !String(map[cleanEmail].name).trim()) {
+                        map[cleanEmail].name = emailFirstName;
+                        updated = true;
+                    }
+                    if (updated) {
+                        saveAccountsMap(map);
+                    }
                 }
+
+                try {
+                    localStorage.setItem(ACTIVE_EMAIL_KEY, cleanEmail);
+                    localStorage.setItem(USER_ID_STORAGE_KEY, map[cleanEmail].id);
+                    localStorage.setItem(USER_NAME_STORAGE_KEY, map[cleanEmail].name);
+                } catch (e) {}
+
+                return {
+                    id: map[cleanEmail].id,
+                    name: map[cleanEmail].name
+                };
+            }
+
+            let idVal = '';
+            let nameVal = '';
+            try {
+                idVal = (localStorage.getItem(USER_ID_STORAGE_KEY) || '').trim();
+                nameVal = (localStorage.getItem(USER_NAME_STORAGE_KEY) || '').trim();
+            } catch (e) {}
+
+            if (!/^\d{7}$/.test(idVal)) {
+                idVal = generateRandomUniqueId(usedIds);
+            }
+            if (!nameVal) {
+                nameVal = 'User';
             }
 
             try {
-                localStorage.setItem(ACTIVE_EMAIL_KEY, cleanEmail);
-                localStorage.setItem(USER_ID_STORAGE_KEY, map[cleanEmail].id);
-                localStorage.setItem(USER_NAME_STORAGE_KEY, map[cleanEmail].name);
+                localStorage.setItem(USER_ID_STORAGE_KEY, idVal);
+                localStorage.setItem(USER_NAME_STORAGE_KEY, nameVal);
             } catch (e) {}
 
-            return {
-                id: map[cleanEmail].id,
-                name: map[cleanEmail].name
-            };
+            return { id: idVal, name: nameVal };
         }
 
         function getActiveAccountProfile() {
@@ -1240,15 +1283,11 @@
                 activeEmail = normalizeEmail(localStorage.getItem(ACTIVE_EMAIL_KEY) || '');
             } catch (e) {}
 
-            if (!activeEmail || !activeEmail.includes('@')) {
-                return { id: '', name: '' };
+            if (!activeEmail) {
+                activeEmail = findEmailFromDomInputs();
             }
 
-            const profile = ensureAccountProfile(activeEmail);
-            return {
-                id: profile.id,
-                name: profile.name
-            };
+            return ensureAccountProfile(activeEmail);
         }
 
         /* توليد آيدي عشوائي من 7 أرقام خاص بكل حساب وحفظه */
@@ -1320,7 +1359,7 @@
                     activeEmail = normalizeEmail(localStorage.getItem(ACTIVE_EMAIL_KEY) || '');
                 } catch (e) {}
 
-                if (activeEmail && activeEmail.includes('@')) {
+                if (activeEmail) {
                     const map = getAccountsMap();
                     const existingId = (map[activeEmail] && map[activeEmail].id) || profile.id || generateRandomUniqueId(new Set(Object.values(map).map(a => a && a.id).filter(Boolean)));
                     map[activeEmail] = {
@@ -1328,12 +1367,11 @@
                         name: trimmed
                     };
                     saveAccountsMap(map);
-
-                    try {
-                        localStorage.setItem(USER_NAME_STORAGE_KEY, trimmed);
-                        localStorage.setItem(USER_ID_STORAGE_KEY, existingId);
-                    } catch (e) {}
                 }
+
+                try {
+                    localStorage.setItem(USER_NAME_STORAGE_KEY, trimmed);
+                } catch (e) {}
 
                 renderUserId();
                 window.dispatchEvent(new CustomEvent('plotcraft:usernameChanged', { detail: { name: trimmed, id: profile.id } }));
@@ -1399,7 +1437,10 @@
 
             if (loggedIn) {
                 let cleanEmail = normalizeEmail(email);
-                if (!cleanEmail || !cleanEmail.includes('@')) {
+                if (!cleanEmail) {
+                    cleanEmail = findEmailFromDomInputs();
+                }
+                if (!cleanEmail) {
                     try {
                         cleanEmail = normalizeEmail(localStorage.getItem(ACTIVE_EMAIL_KEY) || '');
                     } catch (e) {
@@ -1407,14 +1448,7 @@
                     }
                 }
 
-                if (cleanEmail && cleanEmail.includes('@')) {
-                    ensureAccountProfile(cleanEmail);
-                } else {
-                    try {
-                        localStorage.removeItem(USER_ID_STORAGE_KEY);
-                        localStorage.removeItem(USER_NAME_STORAGE_KEY);
-                    } catch (e) {}
-                }
+                ensureAccountProfile(cleanEmail);
                 renderUserId();
                 window.guardAuthModal();
             } else {
@@ -1449,7 +1483,16 @@
         }
 
         window.addEventListener('plotcraft:emailLogin', (ev) => {
-            const emailArg = ev && ev.detail && ev.detail.email ? ev.detail.email : '';
+            const detail = ev && ev.detail;
+            let emailArg = '';
+            if (typeof detail === 'string') {
+                emailArg = detail;
+            } else if (detail && typeof detail === 'object') {
+                emailArg = detail.email || detail.userEmail || detail.address || '';
+            }
+            if (!emailArg) {
+                emailArg = findEmailFromDomInputs();
+            }
             try {
                 localStorage.removeItem(USER_ID_STORAGE_KEY);
                 localStorage.removeItem(USER_NAME_STORAGE_KEY);
