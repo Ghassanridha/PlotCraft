@@ -482,10 +482,13 @@
         switchArea.innerHTML = '<span>ليس لديك حساب؟</span> <a href="#" onclick="toggleRegisterView(event);">اشتراك</a>';
     }
 
-    function applyEmailLoginSuccess() {
+    function applyEmailLoginSuccess(userPayload) {
         isUserLoggedIn = true;
         if (typeof window.setEmailLoggedIn === 'function') {
-            window.setEmailLoggedIn(true);
+            window.setEmailLoggedIn(true, userPayload && userPayload.email ? userPayload.email : undefined);
+        }
+        if (window.plotcraftAuthBridge && typeof window.plotcraftAuthBridge.onLoginSuccess === 'function') {
+            window.plotcraftAuthBridge.onLoginSuccess(userPayload || {});
         }
         closeAuthModal();
         if (typeof openSettingsScreen === 'function') {
@@ -499,6 +502,9 @@
         if (typeof window.setEmailLoggedIn === 'function') {
             window.setEmailLoggedIn(false);
         }
+        if (window.plotcraftAuthBridge && typeof window.plotcraftAuthBridge.onLogout === 'function') {
+            window.plotcraftAuthBridge.onLogout();
+        }
     }
 
     function submitLogin() {
@@ -511,6 +517,11 @@
             return;
         }
 
+        if (window.plotcraftAuthBridge && typeof window.plotcraftAuthBridge.signIn === 'function') {
+            window.plotcraftAuthBridge.signIn(email, pass);
+            return;
+        }
+
         const users = getStoredUsers();
 
         if (!users[email] || users[email] !== pass) {
@@ -520,7 +531,7 @@
         }
 
         msgDiv.style.display = 'none';
-        applyEmailLoginSuccess();
+        applyEmailLoginSuccess({ email: email });
     }
 
     function submitRegister() {
@@ -541,6 +552,11 @@
             return;
         }
 
+        if (window.plotcraftAuthBridge && typeof window.plotcraftAuthBridge.register === 'function') {
+            window.plotcraftAuthBridge.register(email, pass);
+            return;
+        }
+
         const users = getStoredUsers();
         if(users[email]) {
             alert("هذا البريد الإلكتروني مسجل مسبقاً! يمكنك الانتقال لتسجيل الدخول.");
@@ -549,10 +565,28 @@
         }
 
         saveUserToStorage(email, pass);
-        applyEmailLoginSuccess();
+        applyEmailLoginSuccess({ email: email });
     }
 
     function openPaymentGateway() {
         alert("جاري فتح نافذة الدفع لتأكيد الاشتراك...");
     }
+
+    // أداة استدعاء مستقلة لربط هذا الملف بأي ملف خارجي لـ Firebase دون دمج الأكواد
+    window.plotcraftAuthBridge = window.plotcraftAuthBridge || {
+        signIn: null,
+        register: null,
+        onLoginSuccess: null,
+        onLogout: null,
+        completeLogin: function(userPayload) {
+            applyEmailLoginSuccess(userPayload);
+        },
+        showAuthError: function(message) {
+            const msgDiv = document.getElementById('notRegisteredMsg');
+            if (msgDiv) {
+                msgDiv.innerText = message || "ليس لديك حساب بهذا البريد أو كلمة المرور خاطئة! يرجى إنشاء حساب جديد.";
+                msgDiv.style.display = 'block';
+            }
+        }
+    };
 </script>
