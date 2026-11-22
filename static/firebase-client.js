@@ -11,6 +11,8 @@ import {
   doc,
   getDoc,
   setDoc,
+  addDoc,
+  collection,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
@@ -28,9 +30,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// رابط السيرفر الخلفي لتأكيد الدفع وتفعيل الاشتراك (استبدله برابط السيرفر الفعلي عندك)
-const SUBSCRIPTION_ENDPOINT = "/api/subscriptions/request";
-
 async function ensureUserProfile(user) {
   const userRef = doc(db, "users", user.uid);
   const snap = await getDoc(userRef);
@@ -47,7 +46,6 @@ async function ensureUserProfile(user) {
   return updatedSnap.exists() ? updatedSnap.data() : null;
 }
 
-// أداة ربط Firebase مع واجهة الاشتراك وتسجيل الدخول عبر الجسر
 function attachPlotcraftAuthBridge() {
   const bridge = window.plotcraftAuthBridge = window.plotcraftAuthBridge || {};
 
@@ -84,33 +82,40 @@ function attachPlotcraftAuthBridge() {
     return snap.exists() ? { uid: user.uid, ...snap.data() } : null;
   };
 
-  // إرسال طلب الاشتراك إلى السيرفر مع توكن المستخدم للتحقق والحفظ الآمن
+  // حفظ الاشتراك مباشرة في Firestore
   bridge.requestSubscription = async function (selectedPlan) {
     const user = auth.currentUser;
     if (!user) {
       throw new Error("يجب تسجيل الدخول أولاً لإتمام الاشتراك.");
     }
 
-    const idToken = await user.getIdToken();
-    const response = await fetch(SUBSCRIPTION_ENDPOINT, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + idToken
-      },
-      body: JSON.stringify({
-        planId: selectedPlan.planId,
-        credits: selectedPlan.credits,
-        title: selectedPlan.title
-      })
+    await ensureUserProfile(user);
+
+    const subscriptionData = {
+      userId: user.uid,
+      email: user.email || "",
+      planId: selectedPlan.planId || "monthly",
+      credits: Number(selectedPlan.credits || 0),
+      title: selectedPlan.title || "PlotCraft Pro",
+      status: "active",
+      updatedAt: serverTimestamp()
+    };
+
+    await setDoc(doc(db, "users", user.uid), {
+      subscription: subscriptionData,
+      credits: subscriptionData.credits,
+      updatedAt: serverTimestamp()
+    }, { merge: true });
+
+    const subDoc = await addDoc(collection(db, "subscriptions"), {
+      ...subscriptionData,
+      createdAt: serverTimestamp()
     });
 
-    const data = await response.json().catch(() => ({}));
-    if (!response.ok) {
-      throw new Error(data.message || "فشل إرسال طلب الاشتراك إلى السيرفر.");
-    }
-
-    return data;
+    return {
+      id: subDoc.id,
+      ...subscriptionData
+    };
   };
 
   onAuthStateChanged(auth, async (user) => {
