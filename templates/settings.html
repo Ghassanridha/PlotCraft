@@ -89,6 +89,22 @@
             transform: translateY(-22px);
         }
 
+        /* إخفاء المستطيل الأبيض المرسوم في الخلفية عند عدم تسجيل الدخول */
+        .logout-white-box-cover {
+            position: absolute;
+            bottom: 72px;
+            left: 12px;
+            right: 12px;
+            height: 68px;
+            background-color: #121418;
+            z-index: 26;
+            pointer-events: none;
+        }
+
+        .sub-settings-screen.sub-logout-visible .logout-white-box-cover {
+            display: none;
+        }
+
         /* زر تسجيل الخروج مخفي افتراضياً ويظهر فقط عند تسجيل الدخول */
         .btn-logout-only {
             display: none;
@@ -946,6 +962,7 @@
             <button type="button" class="btn-back" onclick="closeSubSettingsScreen()" aria-label="إغلاق الإعدادات الفرعية">&#10095;</button>
         </div>
         <div class="sub-settings-body">
+            <div class="logout-white-box-cover" aria-hidden="true"></div>
             <button type="button" class="btn-logout-only" id="btnLogoutOnly" onclick="logoutAction()">تسجيل الخروج</button>
         </div>
     </div>
@@ -1461,7 +1478,7 @@
             }
         };
 
-        /* تنفيذ تسجيل الخروج بشكل نهائي للجلسة الحالية وإخفاء زر تسجيل الخروج */
+        /* تنفيذ تسجيل الخروج بشكل نهائي للجلسة الحالية وإخفاء زر تسجيل الخروج والمستطيل الأبيض */
         function logoutAction() {
             try {
                 localStorage.removeItem(EMAIL_AUTH_STORAGE_KEY);
