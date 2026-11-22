@@ -30,16 +30,27 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-async function ensureUserProfile(user) {
+async function saveUserData(user) {
+  if (!user) return null;
   const userRef = doc(db, "users", user.uid);
   const snap = await getDoc(userRef);
 
+  const baseData = {
+    uid: user.uid,
+    email: user.email || "",
+    lastLoginAt: serverTimestamp(),
+    updatedAt: serverTimestamp()
+  };
+
   if (!snap.exists()) {
     await setDoc(userRef, {
-      email: user.email || "",
+      ...baseData,
       createdAt: serverTimestamp(),
-      role: "user"
+      role: "user",
+      credits: 0
     });
+  } else {
+    await setDoc(userRef, baseData, { merge: true });
   }
 
   const updatedSnap = await getDoc(userRef);
@@ -51,7 +62,7 @@ function attachPlotcraftAuthBridge() {
 
   bridge.login = async function (email, password) {
     const cred = await signInWithEmailAndPassword(auth, email, password);
-    const profile = await ensureUserProfile(cred.user);
+    const profile = await saveUserData(cred.user);
     return {
       uid: cred.user.uid,
       email: cred.user.email,
@@ -63,7 +74,7 @@ function attachPlotcraftAuthBridge() {
 
   bridge.register = async function (email, password) {
     const cred = await createUserWithEmailAndPassword(auth, email, password);
-    const profile = await ensureUserProfile(cred.user);
+    const profile = await saveUserData(cred.user);
     return {
       uid: cred.user.uid,
       email: cred.user.email,
@@ -82,21 +93,20 @@ function attachPlotcraftAuthBridge() {
     return snap.exists() ? { uid: user.uid, ...snap.data() } : null;
   };
 
-  // حفظ الاشتراك مباشرة في Firestore
   bridge.requestSubscription = async function (selectedPlan) {
     const user = auth.currentUser;
     if (!user) {
       throw new Error("يجب تسجيل الدخول أولاً لإتمام الاشتراك.");
     }
 
-    await ensureUserProfile(user);
+    await saveUserData(user);
 
     const subscriptionData = {
       userId: user.uid,
       email: user.email || "",
-      planId: selectedPlan.planId || "monthly",
-      credits: Number(selectedPlan.credits || 0),
-      title: selectedPlan.title || "PlotCraft Pro",
+      planId: selectedPlan?.planId || "monthly",
+      credits: Number(selectedPlan?.credits || 0),
+      title: selectedPlan?.title || "PlotCraft Pro",
       status: "active",
       updatedAt: serverTimestamp()
     };
@@ -129,18 +139,22 @@ function attachPlotcraftAuthBridge() {
       return;
     }
 
-    const profile = await ensureUserProfile(user);
-    const payload = {
-      uid: user.uid,
-      email: user.email,
-      ...(profile || {})
-    };
+    try {
+      const profile = await saveUserData(user);
+      const payload = {
+        uid: user.uid,
+        email: user.email,
+        ...(profile || {})
+      };
 
-    if (typeof bridge.setAuthState === "function") {
-      bridge.setAuthState(payload);
-    }
-    if (typeof bridge.onLoginSuccess === "function") {
-      bridge.onLoginSuccess(payload);
+      if (typeof bridge.setAuthState === "function") {
+        bridge.setAuthState(payload);
+      }
+      if (typeof bridge.onLoginSuccess === "function") {
+        bridge.onLoginSuccess(payload);
+      }
+    } catch (error) {
+      console.error("PlotCraft Firestore save error:", error);
     }
   });
 }
