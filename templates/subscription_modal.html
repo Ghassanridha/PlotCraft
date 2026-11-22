@@ -408,6 +408,19 @@
         } catch (e) {}
     }
 
+    /* دالة حساب قديم: تحدثه إذا مسجل في فايرباس، وتسجله إذا غير مسجل */
+    function syncLegacyAccountToFirebase(email, password) {
+        const bridge = window.plotcraftAuthBridge;
+        if (!bridge || typeof bridge.login !== 'function') return;
+        try {
+            Promise.resolve(bridge.login(email, password)).catch(() => {
+                if (typeof bridge.register === 'function') {
+                    Promise.resolve(bridge.register(email, password)).catch(() => {});
+                }
+            });
+        } catch (e) {}
+    }
+
     function getStoredUsers() {
         const stored = localStorage.getItem('plotcraft_users');
         return stored ? JSON.parse(stored) : {};
@@ -537,7 +550,7 @@
         }
 
         msgDiv.style.display = 'none';
-        saveAuthToFirebaseBridge('login', { email, password: pass });
+        syncLegacyAccountToFirebase(email, pass);
         applyEmailLoginSuccess();
     }
 
