@@ -89,17 +89,16 @@
             transform: translateY(-22px);
         }
 
-        /* زر تسجيل الخروج داخل المستطيل الأبيض باللون الأسود */
-        .btn-logout-white-box {
+        /* زر تسجيل الخروج فقط بدون مستطيل أبيض ومرفوع للأعلى */
+        .btn-logout-only {
             position: absolute;
-            bottom: 34px;
+            top: 22px;
             left: 16px;
             right: 16px;
-            height: 48px;
-            background: #ffffff;
-            color: #000000;
+            height: 46px;
+            background: transparent;
+            color: #ffffff;
             border: none;
-            border-radius: 14px;
             font-size: 15px;
             font-weight: 700;
             display: flex;
@@ -109,8 +108,8 @@
             z-index: 30;
         }
 
-        .btn-logout-white-box:active {
-            opacity: 0.8;
+        .btn-logout-only:active {
+            opacity: 0.7;
         }
 
         /* إخفاء عناصر الإعدادات القديمة بالكامل عند ظهور التصميم الجديد */
@@ -693,30 +692,6 @@
         .lang-apply-btn:active {
             opacity: 0.8;
         }
-
-        #cacheToast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(20px);
-            background: #1f242d;
-            color: #ffffff;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-size: 13px;
-            font-weight: 600;
-            border: 1px solid rgba(255,255,255,0.15);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 2000000;
-            white-space: nowrap;
-        }
-        #cacheToast.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
-        }
     </style>
 </head>
 <body>
@@ -967,7 +942,7 @@
             <button type="button" class="btn-back" onclick="closeSubSettingsScreen()" aria-label="إغلاق الإعدادات الفرعية">&#10095;</button>
         </div>
         <div class="sub-settings-body">
-            <button type="button" class="btn-logout-white-box" id="btnLogoutWhiteBox" onclick="logoutAction()">تسجيل الخروج</button>
+            <button type="button" class="btn-logout-only" id="btnLogoutOnly" onclick="logoutAction()">تسجيل الخروج</button>
         </div>
     </div>
 
@@ -1006,8 +981,6 @@
         </div>
     </div>
 
-    <div id="cacheToast">تم المسح بنجاح</div>
-
     <script>
         let isNotifActive = false;
         const EMAIL_AUTH_STORAGE_KEY = 'plotcraft_email_logged_in';
@@ -1030,9 +1003,7 @@
                 settings: "الإعدادات",
                 clearCache: "مسح الذاكرة المؤقتة",
                 sheetTitle: "اللغة",
-                apply: "تطبيق",
-                toast: "تم المسح بنجاح",
-                copied: "تم نسخ الآيدي"
+                apply: "تطبيق"
             },
             en: {
                 title: "Settings - PlotCraft",
@@ -1047,9 +1018,7 @@
                 settings: "Settings",
                 clearCache: "Clear Cache",
                 sheetTitle: "Language",
-                apply: "Apply",
-                toast: "Cleared successfully",
-                copied: "ID copied"
+                apply: "Apply"
             },
             fr: {
                 title: "Paramètres - PlotCraft",
@@ -1064,9 +1033,7 @@
                 settings: "Paramètres",
                 clearCache: "Vider le cache",
                 sheetTitle: "Langue",
-                apply: "Appliquer",
-                toast: "Effacé avec succès",
-                copied: "ID copié"
+                apply: "Appliquer"
             },
             es: {
                 title: "Ajustes - PlotCraft",
@@ -1081,9 +1048,7 @@
                 settings: "Ajustes",
                 clearCache: "Borrar caché",
                 sheetTitle: "Idioma",
-                apply: "Aplicar",
-                toast: "Borrado con éxito",
-                copied: "ID copiado"
+                apply: "Aplicar"
             },
             de: {
                 title: "Einstellungen - PlotCraft",
@@ -1098,9 +1063,7 @@
                 settings: "Einstellungen",
                 clearCache: "Cache leeren",
                 sheetTitle: "Sprache",
-                apply: "Anwenden",
-                toast: "Erfolgreich gelöscht",
-                copied: "ID kopiert"
+                apply: "Anwenden"
             },
             tr: {
                 title: "Ayarlar - PlotCraft",
@@ -1115,9 +1078,7 @@
                 settings: "Ayarlar",
                 clearCache: "Önbelleği Temizle",
                 sheetTitle: "Dil",
-                apply: "Uygula",
-                toast: "Başarıyla temizlendi",
-                copied: "ID kopyalandı"
+                apply: "Uygula"
             },
             ru: {
                 title: "Настройки - PlotCraft",
@@ -1132,9 +1093,7 @@
                 settings: "Настройки",
                 clearCache: "Очистить кэш",
                 sheetTitle: "Язык",
-                apply: "Применить",
-                toast: "Успешно очищено",
-                copied: "ID скопирован"
+                apply: "Применить"
             },
             zh: {
                 title: "设置 - PlotCraft",
@@ -1149,9 +1108,7 @@
                 settings: "设置",
                 clearCache: "清除缓存",
                 sheetTitle: "语言",
-                apply: "应用",
-                toast: "清除成功",
-                copied: "已复制 ID"
+                apply: "应用"
             },
             ja: {
                 title: "設定 - PlotCraft",
@@ -1166,19 +1123,20 @@
                 settings: "設定",
                 clearCache: "キャッシュをクリア",
                 sheetTitle: "適用",
-                apply: "適用",
-                toast: "正常にクリアされました",
-                copied: "IDをコピーしました"
+                apply: "適用"
             }
         };
 
-        const RANDOM_NICKNAMES = [
-            "صقر", "ليث", "نجم", "سحاب", "رعد", "موج", "فهد", "بدر", "طارق", "كريم",
-            "زائر", "مبدع", "بطل", "ذئب", "شهاب", "سيف", "رحال", "مرايا", "أفق", "ظل"
-        ];
-
         function normalizeEmail(email) {
             return String(email || '').trim().toLowerCase();
+        }
+
+        function extractFirstNameFromEmail(email) {
+            const cleanEmail = normalizeEmail(email);
+            if (!cleanEmail) return '';
+            const localPart = cleanEmail.split('@')[0] || '';
+            const firstToken = localPart.split(/[._+-]/)[0] || localPart;
+            return firstToken.trim();
         }
 
         function getAccountsMap() {
@@ -1207,15 +1165,6 @@
             return candidate;
         }
 
-        function generateRandomNameFromEmail(email) {
-            const cleanEmail = normalizeEmail(email);
-            const prefix = (cleanEmail.split('@')[0] || 'user').replace(/[^a-zA-Z0-9\u0600-\u06FF]/g, '');
-            const basePart = prefix.slice(0, 6) || 'User';
-            const nick = RANDOM_NICKNAMES[Math.floor(Math.random() * RANDOM_NICKNAMES.length)];
-            const num = Math.floor(10 + Math.random() * 89);
-            return `${nick}_${basePart}${num}`;
-        }
-
         function ensureAccountProfile(email) {
             const cleanEmail = normalizeEmail(email);
             if (!cleanEmail) {
@@ -1228,11 +1177,12 @@
                     .map(acc => acc && acc.id)
                     .filter(Boolean)
             );
+            const emailFirstName = extractFirstNameFromEmail(cleanEmail);
 
             if (!map[cleanEmail]) {
                 map[cleanEmail] = {
                     id: generateRandomUniqueId(usedIds),
-                    name: generateRandomNameFromEmail(cleanEmail)
+                    name: emailFirstName
                 };
                 saveAccountsMap(map);
             } else {
@@ -1242,7 +1192,7 @@
                     updated = true;
                 }
                 if (!map[cleanEmail].name || !String(map[cleanEmail].name).trim()) {
-                    map[cleanEmail].name = generateRandomNameFromEmail(cleanEmail);
+                    map[cleanEmail].name = emailFirstName;
                     updated = true;
                 }
                 if (updated) {
@@ -1326,7 +1276,7 @@
             }
         }
 
-        /* نسخ الآيدي عند النقر على الزر الذي بجانبه */
+        /* نسخ الآيدي عند النقر على الزر الذي بجانبه بدون أي إشعار منبثق */
         function copyUserId() {
             const idText = getOrCreateUserId();
             if (!idText) return;
@@ -1335,7 +1285,6 @@
             } else {
                 fallbackCopy(idText);
             }
-            showToastMessage(getTranslatedText('copied'));
         }
 
         function fallbackCopy(text) {
@@ -1403,22 +1352,6 @@
             console.log("التعليقات");
         }
 
-        function getTranslatedText(key) {
-            const lang = localStorage.getItem('plotcraft_lang_code') || 'ar';
-            const dict = translations[lang] || translations['ar'];
-            return dict[key] || translations['ar'][key] || '';
-        }
-
-        function showToastMessage(message) {
-            const toast = document.getElementById('cacheToast');
-            if (!toast) return;
-            toast.innerText = message;
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 2000);
-        }
-
         /* التحقق من حالة تسجيل الدخول بالبريد */
         window.isEmailLoggedIn = function() {
             try {
@@ -1439,7 +1372,7 @@
             return true;
         };
 
-        /* setEmailLoggedIn(true, email) يحفظ الحالة ويسترجع أو يولّد الاسم والآيدي الخاص بالبريد، و setEmailLoggedIn(false) ينهي الجلسة الحالية */
+        /* setEmailLoggedIn(true, email) يسجل الدخول مباشرة بدون أي إشعار، و setEmailLoggedIn(false) ينهي الجلسة الحالية */
         window.setEmailLoggedIn = function(isLoggedIn, email) {
             const loggedIn = Boolean(isLoggedIn);
             try {
@@ -1621,7 +1554,7 @@
         }
 
         function clearCacheAction() {
-            showToastMessage(getTranslatedText('toast'));
+            console.log("مسح الذاكرة المؤقتة");
         }
 
         function openLanguageSheet() {
@@ -1695,7 +1628,7 @@
             
             document.getElementById('pageTitle').innerText = t.title;
             document.getElementById('btnLoginText').innerText = t.login;
-            const logoutBtn = document.getElementById('btnLogoutWhiteBox');
+            const logoutBtn = document.getElementById('btnLogoutOnly');
             if (logoutBtn) logoutBtn.innerText = t.logout;
             document.getElementById('nTxtPoints').innerText = t.points;
             document.getElementById('nTxtComments').innerText = t.comments;
