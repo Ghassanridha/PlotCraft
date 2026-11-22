@@ -129,22 +129,32 @@
             z-index: 20;
         }
 
-        /* المستطيل الأول: سجل النقاط ، التعليقات مرفوعان لفوق */
+        /* المستطيل الأول: سجل النقاط ، التعليقات مرفوعان أكثر لفوق */
         .card1-group {
             position: absolute;
-            top: 108px;
+            top: 96px;
             left: 16px;
             right: 16px;
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 0px;
             z-index: 15;
+        }
+
+        .row-points-n {
+            transform: translateY(-4px);
+            height: 46px;
+        }
+
+        .row-comments-n {
+            transform: translateY(-6px);
+            height: 46px;
         }
 
         /* المستطيل الثاني: الإشعارات ، اللغة ، انضم إلينا ، اتصل بنا */
         .card2-group {
             position: absolute;
-            top: 242px;
+            top: 234px;
             left: 16px;
             right: 16px;
             display: flex;
@@ -152,20 +162,20 @@
             z-index: 15;
         }
 
-        /* تحريكات دقيقة داخل المستطيل الثاني حسب الطلب */
+        /* تحريكات دقيقة ومرتبة داخل المستطيل الثاني حسب الطلب */
         .row-notif-n {
-            transform: translateY(-10px);
-            height: 46px;
+            transform: translateY(-16px);
+            height: 44px;
         }
 
         .row-lang-n {
-            transform: translateY(-10px);
-            height: 50px;
+            transform: translateY(-16px);
+            height: 48px;
         }
 
         .row-join-n {
-            transform: translateY(-8px);
-            height: 48px;
+            transform: translateY(-13px);
+            height: 46px;
         }
 
         /* اتصل بنا ثابت بمكانه */
@@ -174,7 +184,7 @@
             height: 52px;
         }
 
-        /* المستطيل الثالث: الإعدادات ، مسح الذاكرة المؤقتة */
+        /* المستطيل الثالث: الإعدادات ، مسح الذاكرة المؤقتة ثابتان تماماً دون أي تحريك */
         .card3-group {
             position: absolute;
             top: 486px;
@@ -185,10 +195,9 @@
             z-index: 15;
         }
 
-        /* الإعدادات مرفوع قليل شوية مو هواي */
         .row-settings-n {
-            transform: translateY(-6px);
-            height: 50px;
+            transform: translateY(0px);
+            height: 52px;
         }
 
         .n-row-btn {
@@ -649,7 +658,7 @@
 
                 <!-- المستطيل الأول: 1. سجل النقاط | 2. التعليقات -->
                 <div class="card1-group">
-                    <button type="button" class="n-row-btn" onclick="handlePointsHistory()">
+                    <button type="button" class="n-row-btn row-points-n" onclick="handlePointsHistory()">
                         <span class="n-row-right">
                             <span class="icon-svg">✦</span>
                             <span id="nTxtPoints">سجل النقاط</span>
@@ -657,7 +666,7 @@
                         <span class="arrow-icon">&#10094;</span>
                     </button>
 
-                    <button type="button" class="n-row-btn" onclick="handleComments()">
+                    <button type="button" class="n-row-btn row-comments-n" onclick="handleComments()">
                         <span class="n-row-right">
                             <span class="icon-svg">💬</span>
                             <span id="nTxtComments">التعليقات</span>
