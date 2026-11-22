@@ -92,7 +92,7 @@
         /* زر تسجيل الخروج فقط بدون مستطيل إضافي، مرفوع ليتوسط المستطيل الأبيض السفلي ولونه أسود */
         .btn-logout-only {
             position: absolute;
-            bottom: 58px;
+            bottom: 84px;
             left: 16px;
             right: 16px;
             height: 48px;
@@ -982,6 +982,20 @@
     </div>
 
     <script>
+        (function silenceLoginAlert() {
+            const origAlert = window.alert;
+            if (typeof origAlert === 'function' && !window.__plotcraftAlertGuarded) {
+                window.__plotcraftAlertGuarded = true;
+                window.alert = function(msg) {
+                    const text = String(msg || '').trim();
+                    if (text === 'تم تسجيل الدخول' || text.includes('تم تسجيل الدخول')) {
+                        return;
+                    }
+                    return origAlert.apply(window, arguments);
+                };
+            }
+        })();
+
         let isNotifActive = false;
         const EMAIL_AUTH_STORAGE_KEY = 'plotcraft_email_logged_in';
         const ACTIVE_EMAIL_KEY = 'plotcraft_active_email';
