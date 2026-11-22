@@ -18,7 +18,7 @@
             overflow: hidden;
         }
 
-        /* ================= الشاشة الرئيسية للإعدادات ================= */
+        /* خلفية G2.jpg الأساسية */
         .settings-screen {
             position: fixed;
             top: 0;
@@ -39,7 +39,7 @@
             transform: translateX(0);
         }
 
-        /* خلفية منفصلة لحالة تسجيل الدخول */
+        /* خلفية M.png الجديدة عند تسجيل الدخول */
         .settings-screen.email-logged-in {
             background-color: #121418;
             background-image: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/6bf972848aba742338ec420c8fe7e4c168ae23c3/M.png');
@@ -48,149 +48,275 @@
             background-repeat: no-repeat;
         }
 
-        /* ================= فصل حاويتي التصميم المنفصلتين ================= */
-        .logged-out-view {
-            display: block;
-            width: 100%;
+        /* نافذة الإعدادات الفرعية B.jpg */
+        .sub-settings-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #121418;
+            background-image: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/8088a8f191c6733f43bb5bc37af3be130929f3e2/B.jpg');
+            background-position: center calc(50% - 22px);
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            z-index: 1200000;
+            transform: translateX(-100vw);
+            transition: transform 0.3s ease-out;
+            visibility: hidden;
+            overflow-y: auto;
         }
 
-        .logged-in-view {
-            display: none;
-            width: 100%;
+        .sub-settings-screen.show {
+            visibility: visible;
+            transform: translateX(0);
         }
 
-        .settings-screen.email-logged-in .logged-out-view {
-            display: none !important;
-        }
-
-        .settings-screen.email-logged-in .logged-in-view {
-            display: block !important;
-        }
-
-        /* ================= تصميم حالة تسجيل الدخول (مع المستطيل الأبيض) ================= */
-        .logged-in-white-box {
-            margin-top: 16px;
-            background: #ffffff;
-            color: #0f172a;
-            border-radius: 16px;
-            padding: 14px 16px;
+        .sub-settings-header {
             display: flex;
+            justify-content: flex-start;
             align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+            padding: 12px 24px;
             position: relative;
             z-index: 25;
         }
 
-        .white-box-info {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            min-width: 0;
+        .sub-settings-body {
+            position: relative;
+            width: 100%;
+            min-height: calc(100vh - 52px);
+            padding: 16px 16px 150px 16px;
         }
 
-        .white-box-name-row {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .white-box-name {
+        /* المستطيل الأبيض داخل النافذة الفرعية: يظهر فقط عند تسجيل الدخول */
+        .sub-white-card {
+            display: none;
+            width: 100%;
+            background: #ffffff;
             color: #0f172a;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .sub-settings-screen.sub-logged-in .sub-white-card {
+            display: flex;
+        }
+
+        .sub-white-card-title {
             font-size: 15px;
             font-weight: 800;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .white-box-edit-btn {
-            background: transparent;
-            border: none;
             color: #0f172a;
-            width: 24px;
-            height: 24px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            flex-shrink: 0;
         }
 
-        .white-box-id-row {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 12px;
-            font-weight: 700;
+        .sub-white-card-text {
+            font-size: 13px;
+            font-weight: 500;
             color: #334155;
+            line-height: 1.5;
         }
 
-        .white-box-copy-btn {
-            background: transparent;
+        /* زر تسجيل الخروج داخل النافذة الفرعية: يظهر فقط عند تسجيل الدخول */
+        .btn-logout-only {
+            display: none;
+            position: fixed;
+            bottom: 84px;
+            left: 16px;
+            right: 16px;
+            height: 48px;
+            background: #ffffff;
+            color: #000000;
             border: none;
-            color: #334155;
-            width: 22px;
-            height: 22px;
-            display: inline-flex;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            flex-shrink: 0;
+            z-index: 30;
         }
 
-        .white-box-badge {
-            background: #0f172a;
-            color: #ffffff;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 5px 10px;
-            border-radius: 10px;
-            flex-shrink: 0;
+        .sub-settings-screen.sub-logged-in .btn-logout-only {
+            display: flex;
+        }
+
+        .btn-logout-only:active {
+            opacity: 0.7;
+        }
+
+        /* إخفاء عناصر الإعدادات القديمة عند ظهور التصميم الجديد */
+        .settings-screen.email-logged-in .btn-login-overlay,
+        .settings-screen.email-logged-in .group-middle,
+        .settings-screen.email-logged-in .group-bottom {
+            display: none !important;
         }
 
         .email-ui-layer {
+            display: none;
             position: relative;
             width: 100%;
             min-height: 100%;
         }
 
-        /* المستطيل الأول: سجل النقاط ، التعليقات */
+        .settings-screen.email-logged-in .email-ui-layer {
+            display: block;
+        }
+
+        .user-name-display {
+            position: absolute;
+            top: 22px;
+            right: 64px;
+            color: #ffffff;
+            font-size: 15.5px;
+            font-weight: 700;
+            line-height: 1.2;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        .btn-edit-name-overlay {
+            position: absolute;
+            top: 20px;
+            right: 162px;
+            width: 30px;
+            height: 28px;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 20;
+        }
+
+        .user-id-display-overlay {
+            position: relative;
+            width: 100%;
+            height: 0;
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        .user-id-label {
+            position: absolute;
+            top: 49px;
+            right: 70px;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            line-height: 1;
+        }
+
+        .user-id-value {
+            position: absolute;
+            top: 49px;
+            right: 84px;
+            color: #f1f5f9;
+            font-size: 12.5px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            line-height: 1;
+        }
+
+        .btn-copy-id-overlay {
+            position: absolute;
+            top: 46px;
+            right: 142px;
+            width: 26px;
+            height: 24px;
+            background: transparent;
+            border: none;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 20;
+        }
+
         .card1-group {
-            position: relative;
-            margin-top: 18px;
+            position: absolute;
+            top: 96px;
+            left: 10px;
+            right: 10px;
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 0px;
             z-index: 15;
         }
 
-        /* المستطيل الثاني: الإشعارات ، اللغة ، انضم إلينا ، اتصل بنا */
+        .row-points-n {
+            transform: translateY(-4px);
+            height: 46px;
+        }
+
+        .row-comments-n {
+            transform: translateY(3px);
+            height: 46px;
+        }
+
         .card2-group {
-            position: relative;
-            margin-top: 28px;
+            position: absolute;
+            top: 234px;
+            left: 10px;
+            right: 10px;
             display: flex;
             flex-direction: column;
-            gap: 6px;
             z-index: 15;
         }
 
-        /* المستطيل الثالث: الإعدادات ، مسح الذاكرة المؤقتة */
+        .row-notif-n {
+            transform: translateY(-8px);
+            height: 44px;
+        }
+
+        .row-lang-n {
+            transform: translateY(-5px);
+            height: 48px;
+        }
+
+        .row-join-n {
+            transform: translateY(1px);
+            height: 46px;
+        }
+
+        .row-contact-n {
+            transform: translateY(12px);
+            height: 52px;
+        }
+
         .card3-group {
-            position: relative;
-            margin-top: 34px;
+            position: absolute;
+            top: 486px;
+            left: 10px;
+            right: 10px;
             display: flex;
             flex-direction: column;
-            gap: 6px;
             z-index: 15;
+        }
+
+        .row-settings-n {
+            transform: translateY(12px);
+            height: 52px;
+        }
+
+        .row-cache-n {
+            transform: translateY(12px);
+            height: 52px;
         }
 
         .n-row-btn {
             width: 100%;
-            height: 48px;
+            height: 52px;
             background: transparent;
             border: none;
-            padding: 0 4px;
+            padding: 0 2px;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -238,75 +364,6 @@
             flex-shrink: 0;
         }
 
-        /* ================= نافذة الإعدادات الفرعية ================= */
-        .sub-settings-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #121418;
-            background-image: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/8088a8f191c6733f43bb5bc37af3be130929f3e2/B.jpg');
-            background-position: center calc(50% - 22px);
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
-            z-index: 1200000;
-            transform: translateX(-100vw);
-            transition: transform 0.3s ease-out;
-            visibility: hidden;
-            overflow-y: auto;
-        }
-
-        .sub-settings-screen.show {
-            visibility: visible;
-            transform: translateX(0);
-        }
-
-        .sub-settings-header {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            padding: 12px 24px;
-            position: relative;
-            z-index: 25;
-        }
-
-        .sub-settings-body {
-            position: relative;
-            width: 100%;
-            height: calc(100vh - 52px);
-            padding-bottom: 24px;
-        }
-
-        /* زر تسجيل الخروج: يظهر فقط عندما يكون المستخدم مسجلاً دخوله */
-        .btn-logout-only {
-            display: none;
-            position: absolute;
-            bottom: 84px;
-            left: 16px;
-            right: 16px;
-            height: 48px;
-            background: #ffffff;
-            color: #000000;
-            border: none;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 700;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 30;
-        }
-
-        .sub-settings-screen.sub-logout-visible .btn-logout-only {
-            display: flex;
-        }
-
-        .btn-logout-only:active {
-            opacity: 0.7;
-        }
-
-        /* ================= نافذة تعديل الاسم ================= */
         #editNameModal {
             display: none;
             position: fixed;
@@ -382,7 +439,7 @@
             width: 100%;
             max-width: 480px;
             margin: 0 auto;
-            padding: 10px 24px 28px 24px;
+            padding: 10px 24px 20px 24px;
             display: flex;
             flex-direction: column;
         }
@@ -423,17 +480,16 @@
             opacity: 0.7;
         }
 
-        /* ================= تصميم حالة تسجيل الخروج (بدون مستطيل أبيض وبدون زر خروج) ================= */
         .btn-login-overlay {
-            position: relative;
-            margin-top: 24px;
-            width: 100%;
-            height: 46px;
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            border-radius: 12px;
-            color: #ffffff;
-            font-size: 14px;
+            position: absolute;
+            top: 76px;
+            left: 8px;
+            width: 125px;
+            height: 42px;
+            background: transparent;
+            border: none;
+            color: #000000;
+            font-size: 13px;
             font-weight: 700;
             cursor: pointer;
             display: flex;
@@ -442,22 +498,35 @@
             z-index: 10;
         }
 
+        html[dir="ltr"] .btn-login-overlay {
+            left: auto;
+            right: 8px;
+        }
+
         .btn-login-overlay:active {
-            opacity: 0.7;
+            opacity: 0.6;
         }
 
         .group-middle {
-            margin-top: 26px;
+            margin-top: 135px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 15px;
+        }
+
+        .group-middle .setting-item:first-child {
+            margin-top: -12px;
         }
 
         .group-bottom {
-            margin-top: 26px;
+            margin-top: 48px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 15px;
+        }
+
+        .group-bottom .setting-item:first-child {
+            margin-top: 0px;
         }
 
         .setting-item {
@@ -552,7 +621,6 @@
             transform: translateX(20px);
         }
 
-        /* ================= نافذة اختيار اللغات السفلية ================= */
         #languageBottomSheet {
             position: fixed;
             bottom: -100%;
@@ -645,233 +713,227 @@
 
     <div id="settingsScreen" class="settings-screen">
         <div class="settings-container">
-
-            <!-- زر العودة العلوي المشترك -->
+            
+            <!-- زر العودة العلوي -->
             <div class="settings-header">
                 <button class="btn-back" onclick="closeSettingsScreen()" aria-label="إغلاق">&#10095;</button>
             </div>
 
-            <!-- ================= القسم المنفصل لحالة تسجيل الدخول (مع المستطيل الأبيض) ================= -->
-            <div class="logged-in-view">
-                <div class="email-ui-layer">
-                    <div class="logged-in-white-box" id="loggedInWhiteBox">
-                        <div class="white-box-info">
-                            <div class="white-box-name-row">
-                                <span class="white-box-name" id="userNameValue"></span>
-                                <button type="button" class="white-box-edit-btn" id="editNameBtn" onclick="openEditNameModal()" aria-label="تعديل الاسم">
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1.003 1.003 0 0 0 0-1.42l-2.34-2.34a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.82z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="white-box-id-row" id="userIdBox">
-                                <span class="user-id-label">ID</span>
-                                <span class="user-id-value" id="userIdValue"></span>
-                                <button type="button" class="white-box-copy-btn" id="copyIdBtn" onclick="copyUserId()" aria-label="نسخ الآيدي">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <rect x="9" y="9" width="13" height="13" rx="2"/>
-                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                        <span class="white-box-badge" id="whiteBoxBadge">متصل</span>
-                    </div>
+            <!-- الأزرار فوق التصميم الجديد M.png بالترتيب -->
+            <div class="email-ui-layer">
+                <span class="user-name-display" id="userNameValue"></span>
 
-                    <!-- المستطيل الأول: 1. سجل النقاط | 2. التعليقات -->
-                    <div class="card1-group">
-                        <button type="button" class="n-row-btn row-points-n" onclick="handlePointsHistory()">
-                            <span class="n-row-right">
-                                <span class="icon-svg">✦</span>
-                                <span id="nTxtPoints">سجل النقاط</span>
-                            </span>
-                            <span class="arrow-icon">&#10094;</span>
-                        </button>
+                <button type="button" class="btn-edit-name-overlay" id="editNameBtn" onclick="openEditNameModal()" aria-label="تعديل الاسم">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1.003 1.003 0 0 0 0-1.42l-2.34-2.34a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.82z"/>
+                    </svg>
+                </button>
 
-                        <button type="button" class="n-row-btn row-comments-n" onclick="handleComments()">
-                            <span class="n-row-right">
-                                <span class="icon-svg">💬</span>
-                                <span id="nTxtComments">التعليقات</span>
-                            </span>
-                            <span class="arrow-icon">&#10094;</span>
-                        </button>
-                    </div>
-
-                    <!-- المستطيل الثاني: 1. الإشعارات | 2. اللغة | 3. انضم إلينا | 4. اتصل بنا -->
-                    <div class="card2-group">
-                        <button type="button" class="n-row-btn row-notif-n" onclick="toggleNotifications()">
-                            <span class="n-row-right">
-                                <span class="icon-svg">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff">
-                                        <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
-                                    </svg>
-                                </span>
-                                <span id="nTxtNotif">الإشعارات</span>
-                            </span>
-                            <span class="toggle-switch" id="nNotifToggle"></span>
-                        </button>
-
-                        <button type="button" class="n-row-btn row-lang-n" onclick="openLanguageSheet()">
-                            <span class="n-row-right">
-                                <span class="icon-svg">
-                                    <svg width="20" height="20" viewBox="0 0 24 24">
-                                        <circle cx="12" cy="12" r="10" fill="#ffffff"/>
-                                        <path d="M5.5 8.5c2.2 1.2 4.1 0.3 6.2 1.4 1.8 0.9 3.1 2.5 5.6 1.8" fill="none" stroke="#000000" stroke-width="1.6" stroke-linecap="round"/>
-                                        <path d="M4.2 13.5c2.4-1.2 4.7 1.3 7.3 0.2 2.2-0.9 3.8-2.4 6.8-1.4" fill="none" stroke="#000000" stroke-width="1.6" stroke-linecap="round"/>
-                                        <path d="M7.2 18.2c2.5-1.4 4.8 0.8 7.5-0.4 1.4-0.6 2.5-1.4 3.6-2.1" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round"/>
-                                    </svg>
-                                </span>
-                                <span class="n-lang-text-wrap">
-                                    <span id="nTxtLangTitle">اللغة</span>
-                                    <span class="n-lang-sub" id="nCurrentLangDisplay">العربية</span>
-                                </span>
-                            </span>
-                            <span class="arrow-icon">&#10094;</span>
-                        </button>
-
-                        <button type="button" class="n-row-btn row-join-n" onclick="openTelegram()">
-                            <span class="n-row-right">
-                                <span class="icon-svg">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff">
-                                        <path d="M21.5 3.5L2.5 11.2l6.2 2.4 2.4 6.2 3.1-3.6 4.8 3.6L21.5 3.5zm-11.2 10.7l8.2-7.1-6.5 8.5-.3 3.1-1.4-4.5z"/>
-                                    </svg>
-                                </span>
-                                <span id="nTxtJoin">انضم إلينا</span>
-                            </span>
-                            <span class="arrow-icon">&#10094;</span>
-                        </button>
-
-                        <button type="button" class="n-row-btn row-contact-n" onclick="openEmail()">
-                            <span class="n-row-right">
-                                <span class="icon-svg">
-                                    <svg width="20" height="20" viewBox="0 0 24 24">
-                                        <rect x="2" y="4" width="20" height="16" rx="2.5" fill="#ffffff"/>
-                                        <path d="M2.8 5.2L12 12.4l9.2-7.2" fill="none" stroke="#000000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </span>
-                                <span id="nTxtContact">اتصل بنا</span>
-                            </span>
-                            <span class="arrow-icon">&#10094;</span>
-                        </button>
-                    </div>
-
-                    <!-- المستطيل الثالث: 1. الإعدادات | 2. مسح الذاكرة المؤقتة -->
-                    <div class="card3-group">
-                        <button type="button" class="n-row-btn row-settings-n" onclick="handleSubSettings()">
-                            <span class="n-row-right">
-                                <span class="icon-svg">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff">
-                                        <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6-3.6z"/>
-                                    </svg>
-                                </span>
-                                <span id="nTxtSettings">الإعدادات</span>
-                            </span>
-                            <span class="arrow-icon">&#10094;</span>
-                        </button>
-
-                        <button type="button" class="n-row-btn row-cache-n" onclick="clearCacheAction()">
-                            <span class="n-row-right">
-                                <span class="icon-svg">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff">
-                                        <path d="M15 16h4v2h-4zm0-8h7v2h-7zm0 4h6v2h-6zM3 18c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2V8H3v10zM14 5h-3l-1-1H6L5 5H2v2h12z"/>
-                                    </svg>
-                                </span>
-                                <span id="nTxtClearCache">مسح الذاكرة المؤقتة</span>
-                            </span>
-                            <span class="n-row-left">
-                                <span id="nTxtCacheSize">MB 131.48</span>
-                            </span>
-                        </button>
-                    </div>
+                <div class="user-id-display-overlay" id="userIdBox">
+                    <span class="user-id-label">ID</span>
+                    <span class="user-id-value" id="userIdValue"></span>
                 </div>
-            </div>
 
-            <!-- ================= القسم المنفصل لحالة تسجيل الخروج (بدون مستطيل أبيض وبدون زر خروج) ================= -->
-            <div class="logged-out-view">
-                <button class="btn-login-overlay" id="btnLoginText" onclick="handleLoginAction()">تسجيل الدخول</button>
+                <button type="button" class="btn-copy-id-overlay" id="copyIdBtn" onclick="copyUserId()" aria-label="نسخ الآيدي">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2"/>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                    </svg>
+                </button>
 
-                <div class="group-middle">
-                    <div class="setting-item" onclick="toggleNotifications()">
-                        <div class="setting-right">
+                <!-- المستطيل الأول: 1. سجل النقاط | 2. التعليقات -->
+                <div class="card1-group">
+                    <button type="button" class="n-row-btn row-points-n" onclick="handlePointsHistory()">
+                        <span class="n-row-right">
+                            <span class="icon-svg">✦</span>
+                            <span id="nTxtPoints">سجل النقاط</span>
+                        </span>
+                        <span class="arrow-icon">&#10094;</span>
+                    </button>
+
+                    <button type="button" class="n-row-btn row-comments-n" onclick="handleComments()">
+                        <span class="n-row-right">
+                            <span class="icon-svg">💬</span>
+                            <span id="nTxtComments">التعليقات</span>
+                        </span>
+                        <span class="arrow-icon">&#10094;</span>
+                    </button>
+                </div>
+
+                <!-- المستطيل الثاني: 1. الإشعارات | 2. اللغة | 3. انضم إلينا | 4. اتصل بنا -->
+                <div class="card2-group">
+                    <button type="button" class="n-row-btn row-notif-n" onclick="toggleNotifications()">
+                        <span class="n-row-right">
                             <span class="icon-svg">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff">
                                     <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
                                 </svg>
                             </span>
-                            <span id="txtNotif">الإشعارات</span>
-                        </div>
-                        <div class="toggle-switch" id="notifToggle"></div>
-                    </div>
+                            <span id="nTxtNotif">الإشعارات</span>
+                        </span>
+                        <span class="toggle-switch" id="nNotifToggle"></span>
+                    </button>
 
-                    <div class="setting-item" onclick="openLanguageSheet()">
-                        <div class="setting-right">
+                    <button type="button" class="n-row-btn row-lang-n" onclick="openLanguageSheet()">
+                        <span class="n-row-right">
                             <span class="icon-svg">
-                                <svg width="22" height="22" viewBox="0 0 24 24">
-                                    <circle cx="12" cy="12" r="10" fill="#ffffff" />
+                                <svg width="20" height="20" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10" fill="#ffffff"/>
                                     <path d="M5.5 8.5c2.2 1.2 4.1 0.3 6.2 1.4 1.8 0.9 3.1 2.5 5.6 1.8" fill="none" stroke="#000000" stroke-width="1.6" stroke-linecap="round"/>
                                     <path d="M4.2 13.5c2.4-1.2 4.7 1.3 7.3 0.2 2.2-0.9 3.8-2.4 6.8-1.4" fill="none" stroke="#000000" stroke-width="1.6" stroke-linecap="round"/>
                                     <path d="M7.2 18.2c2.5-1.4 4.8 0.8 7.5-0.4 1.4-0.6 2.5-1.4 3.6-2.1" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round"/>
                                 </svg>
                             </span>
-                            <span id="txtLangTitle">اللغة</span>
-                        </div>
-                        <div class="setting-left">
-                            <span id="currentLangDisplay">العربية</span>
-                            <span class="arrow-icon">&#10094;</span>
-                        </div>
-                    </div>
-
-                    <div class="setting-item" onclick="openTelegram()">
-                        <div class="setting-right">
-                            <span class="icon-svg">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
-                                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-                                </svg>
+                            <span class="n-lang-text-wrap">
+                                <span id="nTxtLangTitle">اللغة</span>
+                                <span class="n-lang-sub" id="nCurrentLangDisplay">العربية</span>
                             </span>
-                            <span id="txtJoin">انضم إلينا</span>
-                        </div>
+                        </span>
                         <span class="arrow-icon">&#10094;</span>
-                    </div>
+                    </button>
 
-                    <div class="setting-item" onclick="openEmail()">
-                        <div class="setting-right">
+                    <button type="button" class="n-row-btn row-join-n" onclick="openTelegram()">
+                        <span class="n-row-right">
                             <span class="icon-svg">
-                                <svg width="22" height="22" viewBox="0 0 24 24">
-                                    <rect x="2" y="4" width="20" height="16" rx="3" fill="#ffffff"/>
-                                    <path d="M22 6l-10 7L2 6" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff">
+                                    <path d="M21.5 3.5L2.5 11.2l6.2 2.4 2.4 6.2 3.1-3.6 4.8 3.6L21.5 3.5zm-11.2 10.7l8.2-7.1-6.5 8.5-.3 3.1-1.4-4.5z"/>
                                 </svg>
                             </span>
-                            <span id="txtContact">اتصل بنا</span>
-                        </div>
+                            <span id="nTxtJoin">انضم إلينا</span>
+                        </span>
+                        <span class="arrow-icon">&#10094;</span>
+                    </button>
+
+                    <button type="button" class="n-row-btn row-contact-n" onclick="openEmail()">
+                        <span class="n-row-right">
+                            <span class="icon-svg">
+                                <svg width="20" height="20" viewBox="0 0 24 24">
+                                    <rect x="2" y="4" width="20" height="16" rx="2.5" fill="#ffffff"/>
+                                    <path d="M2.8 5.2L12 12.4l9.2-7.2" fill="none" stroke="#000000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span id="nTxtContact">اتصل بنا</span>
+                        </span>
+                        <span class="arrow-icon">&#10094;</span>
+                    </button>
+                </div>
+
+                <!-- المستطيل الثالث: 1. الإعدادات | 2. مسح الذاكرة المؤقتة -->
+                <div class="card3-group">
+                    <button type="button" class="n-row-btn row-settings-n" onclick="handleSubSettings()">
+                        <span class="n-row-right">
+                            <span class="icon-svg">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff">
+                                    <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6-3.6z"/>
+                                </svg>
+                            </span>
+                            <span id="nTxtSettings">الإعدادات</span>
+                        </span>
+                        <span class="arrow-icon">&#10094;</span>
+                    </button>
+
+                    <button type="button" class="n-row-btn row-cache-n" onclick="clearCacheAction()">
+                        <span class="n-row-right">
+                            <span class="icon-svg">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff">
+                                    <path d="M15 16h4v2h-4zm0-8h7v2h-7zm0 4h6v2h-6zM3 18c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2V8H3v10zM14 5h-3l-1-1H6L5 5H2v2h12z"/>
+                                </svg>
+                            </span>
+                            <span id="nTxtClearCache">مسح الذاكرة المؤقتة</span>
+                        </span>
+                        <span class="n-row-left">
+                            <span id="nTxtCacheSize">MB 131.48</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- زر تسجيل الدخول المرفوع والمعدل الموضع -->
+            <button class="btn-login-overlay" id="btnLoginText" onclick="handleLoginAction()">تسجيل الدخول</button>
+
+            <!-- أزرار المربع الأوسط -->
+            <div class="group-middle">
+                <div class="setting-item" onclick="toggleNotifications()">
+                    <div class="setting-right">
+                        <span class="icon-svg">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+                                <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+                            </svg>
+                        </span>
+                        <span id="txtNotif">الإشعارات</span>
+                    </div>
+                    <div class="toggle-switch" id="notifToggle"></div>
+                </div>
+
+                <div class="setting-item" onclick="openLanguageSheet()">
+                    <div class="setting-right">
+                        <span class="icon-svg">
+                            <svg width="22" height="22" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" fill="#ffffff" />
+                                <path d="M5.5 8.5c2.2 1.2 4.1 0.3 6.2 1.4 1.8 0.9 3.1 2.5 5.6 1.8" fill="none" stroke="#000000" stroke-width="1.6" stroke-linecap="round"/>
+                                <path d="M4.2 13.5c2.4-1.2 4.7 1.3 7.3 0.2 2.2-0.9 3.8-2.4 6.8-1.4" fill="none" stroke="#000000" stroke-width="1.6" stroke-linecap="round"/>
+                                <path d="M7.2 18.2c2.5-1.4 4.8 0.8 7.5-0.4 1.4-0.6 2.5-1.4 3.6-2.1" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                        <span id="txtLangTitle">اللغة</span>
+                    </div>
+                    <div class="setting-left">
+                        <span id="currentLangDisplay">العربية</span>
                         <span class="arrow-icon">&#10094;</span>
                     </div>
                 </div>
 
-                <div class="group-bottom">
-                    <div class="setting-item" onclick="handleSubSettings()">
-                        <div class="setting-right">
-                            <span class="icon-svg">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
-                                    <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6-3.6z"/>
-                                </svg>
-                            </span>
-                            <span id="txtSettings">الإعدادات</span>
-                        </div>
-                        <span class="arrow-icon">&#10094;</span>
+                <div class="setting-item" onclick="openTelegram()">
+                    <div class="setting-right">
+                        <span class="icon-svg">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+                                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                            </svg>
+                        </span>
+                        <span id="txtJoin">انضم إلينا</span>
                     </div>
+                    <span class="arrow-icon">&#10094;</span>
+                </div>
 
-                    <div class="setting-item" onclick="clearCacheAction()">
-                        <div class="setting-right">
-                            <span class="icon-svg">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
-                                    <path d="M15 16h4v2h-4zm0-8h7v2h-7zm0 4h6v2h-6zM3 18c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2V8H3v10zM14 5h-3l-1-1H6L5 5H2v2h12z"/>
-                                </svg>
-                            </span>
-                            <span id="txtClearCache">مسح الذاكرة المؤقتة</span>
-                        </div>
-                        <div class="setting-left">
-                            <span id="txtCacheSize">MB 131.48</span>
-                        </div>
+                <div class="setting-item" onclick="openEmail()">
+                    <div class="setting-right">
+                        <span class="icon-svg">
+                            <svg width="22" height="22" viewBox="0 0 24 24">
+                                <rect x="2" y="4" width="20" height="16" rx="3" fill="#ffffff"/>
+                                <path d="M22 6l-10 7L2 6" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                        <span id="txtContact">اتصل بنا</span>
+                    </div>
+                    <span class="arrow-icon">&#10094;</span>
+                </div>
+            </div>
+
+            <!-- أزرار المستطيل السفلي -->
+            <div class="group-bottom">
+                <div class="setting-item" onclick="handleSubSettings()">
+                    <div class="setting-right">
+                        <span class="icon-svg">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+                                <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6-3.6z"/>
+                            </svg>
+                        </span>
+                        <span id="txtSettings">الإعدادات</span>
+                    </div>
+                    <span class="arrow-icon">&#10094;</span>
+                </div>
+
+                <div class="setting-item" onclick="clearCacheAction()">
+                    <div class="setting-right">
+                        <span class="icon-svg">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+                                <path d="M15 16h4v2h-4zm0-8h7v2h-7zm0 4h6v2h-6zM3 18c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2V8H3v10zM14 5h-3l-1-1H6L5 5H2v2h12z"/>
+                            </svg>
+                        </span>
+                        <span id="txtClearCache">مسح الذاكرة المؤقتة</span>
+                    </div>
+                    <div class="setting-left">
+                        <span id="txtCacheSize">MB 131.48</span>
                     </div>
                 </div>
             </div>
@@ -879,12 +941,19 @@
         </div>
     </div>
 
-    <!-- نافذة الإعدادات الفرعية -->
+    <!-- نافذة الإعدادات الفرعية B.jpg -->
     <div id="subSettingsScreen" class="sub-settings-screen">
         <div class="sub-settings-header">
             <button type="button" class="btn-back" onclick="closeSubSettingsScreen()" aria-label="إغلاق الإعدادات الفرعية">&#10095;</button>
         </div>
         <div class="sub-settings-body">
+            <!-- المستطيل الأبيض داخل النافذة الفرعية: يظهر فقط عند تسجيل الدخول -->
+            <div class="sub-white-card" id="subWhiteCard">
+                <div class="sub-white-card-title">إعدادات الحساب</div>
+                <div class="sub-white-card-text" id="subWhiteCardDetails"></div>
+            </div>
+
+            <!-- زر تسجيل الخروج داخل النافذة الفرعية: يظهر فقط عند تسجيل الدخول -->
             <button type="button" class="btn-logout-only" id="btnLogoutOnly" onclick="logoutAction()">تسجيل الخروج</button>
         </div>
     </div>
@@ -1241,11 +1310,15 @@
             const profile = getActiveAccountProfile();
             const valEl = document.getElementById('userIdValue');
             const nameEl = document.getElementById('userNameValue');
+            const subDetailsEl = document.getElementById('subWhiteCardDetails');
             if (valEl) {
                 valEl.textContent = profile.id;
             }
             if (nameEl) {
                 nameEl.textContent = profile.name;
+            }
+            if (subDetailsEl) {
+                subDetailsEl.textContent = profile.name ? `${profile.name} — ID: ${profile.id}` : '';
             }
         }
 
@@ -1331,11 +1404,11 @@
             }
         };
 
-        /* إظهار زر تسجيل الخروج في الشاشة الفرعية فقط عند تسجيل الدخول */
+        /* مزامنة حالة النافذة الفرعية (المستطيل الأبيض + زر تسجيل الخروج) عند تسجيل الدخول فقط */
         function syncSubSettingsLogoutVisibility(loggedIn) {
             const subScreen = document.getElementById('subSettingsScreen');
             if (subScreen) {
-                subScreen.classList.toggle('sub-logout-visible', Boolean(loggedIn));
+                subScreen.classList.toggle('sub-logged-in', Boolean(loggedIn));
             }
         }
 
@@ -1349,7 +1422,6 @@
             return true;
         };
 
-        /* التبديل الواضح بين تصميم تسجيل الدخول (مع المستطيل الأبيض) وتصميم تسجيل الخروج (بدون مستطيل أبيض وبدون زر خروج) */
         window.setEmailLoggedIn = function(isLoggedIn, email) {
             const loggedIn = Boolean(isLoggedIn);
             try {
@@ -1395,7 +1467,6 @@
             }
         };
 
-        /* عند تسجيل الخروج: يعود التصميم المنفصل بدون مستطيل أبيض وبدون زر تسجيل خروج */
         function logoutAction() {
             try {
                 localStorage.removeItem(EMAIL_AUTH_STORAGE_KEY);
@@ -1515,10 +1586,10 @@
             const toggle = document.getElementById('notifToggle');
             const nToggle = document.getElementById('nNotifToggle');
             if (isNotifActive) {
-                if (toggle) toggle.classList.add('active');
+                toggle.classList.add('active');
                 if (nToggle) nToggle.classList.add('active');
             } else {
-                if (toggle) toggle.classList.remove('active');
+                toggle.classList.remove('active');
                 if (nToggle) nToggle.classList.remove('active');
             }
         }
@@ -1533,6 +1604,7 @@
 
         function handleSubSettings() {
             syncSubSettingsLogoutVisibility(window.isEmailLoggedIn());
+            renderUserId();
             const subScreen = document.getElementById('subSettingsScreen');
             if (subScreen) {
                 subScreen.style.visibility = 'visible';
