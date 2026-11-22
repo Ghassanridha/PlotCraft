@@ -48,7 +48,7 @@
             background-repeat: no-repeat;
         }
 
-        /* نافذة الإعدادات الفرعية B.jpg تظهر من اليسار وتنسحب لليسار عند الإغلاق */
+        /* نافذة الإعدادات الفرعية B.jpg تظهر من اليسار وتنسحب لليسار عند الإغلاق (خاصة بوضع تسجيل الخروج) */
         .sub-settings-screen {
             position: fixed;
             top: 0;
@@ -87,6 +87,68 @@
             height: calc(100vh - 52px);
             padding-bottom: 24px;
             transform: translateY(-22px);
+        }
+
+        /* نافذة الإعدادات المستقلة الخاصة بزر الإعدادات عند تسجيل الدخول فقط */
+        .logged-in-sub-settings-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #121418;
+            background-image: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/051b3e4ac08d51a24f3ccbb88485e24970d2ac92/M.jpg');
+            background-position: center;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            z-index: 1250000;
+            transform: translateX(-100vw);
+            transition: transform 0.3s ease-out;
+            visibility: hidden;
+            overflow-y: auto;
+        }
+
+        .logged-in-sub-settings-screen.show {
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        .logged-in-sub-header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 12px 24px;
+            position: relative;
+            z-index: 25;
+        }
+
+        .logged-in-sub-body {
+            position: relative;
+            width: 100%;
+            height: calc(100vh - 52px);
+            padding-bottom: 24px;
+        }
+
+        .btn-logged-in-logout {
+            position: absolute;
+            bottom: 84px;
+            left: 16px;
+            right: 16px;
+            height: 48px;
+            background: transparent;
+            color: #000000;
+            border: none;
+            font-size: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 30;
+        }
+
+        .btn-logged-in-logout:active {
+            opacity: 0.7;
         }
 
         /* زر تسجيل الخروج مخفي افتراضياً ويظهر فقط عند تسجيل الدخول */
@@ -811,9 +873,9 @@
                     </button>
                 </div>
 
-                <!-- المستطيل الثالث: 1. الإعدادات | 2. مسح الذاكرة المؤقتة -->
+                <!-- المستطيل الثالث: 1. الإعدادات (تفتح نافذة تسجيل الدخول المستقلة الجديدة) | 2. مسح الذاكرة المؤقتة -->
                 <div class="card3-group">
-                    <button type="button" class="n-row-btn row-settings-n" onclick="handleSubSettings()">
+                    <button type="button" class="n-row-btn row-settings-n" onclick="openLoggedInSubSettings()">
                         <span class="n-row-right">
                             <span class="icon-svg">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff">
@@ -906,7 +968,7 @@
                 </div>
             </div>
 
-            <!-- أزرار المستطيل السفلي -->
+            <!-- أزرار المستطيل السفلي (خاص بوضع تسجيل الخروج دون أي ربط بالتصميم الجديد) -->
             <div class="group-bottom">
                 <!-- 5. الإعدادات -->
                 <div class="setting-item" onclick="handleSubSettings()">
@@ -940,7 +1002,17 @@
         </div>
     </div>
 
-    <!-- نافذة الإعدادات الفرعية B.jpg تظهر من اليسار وتملى الشاشة -->
+    <!-- نافذة الإعدادات المستقلة الخاصة بزر الإعدادات عند تسجيل الدخول فقط -->
+    <div id="loggedInSubSettingsScreen" class="logged-in-sub-settings-screen">
+        <div class="logged-in-sub-header">
+            <button type="button" class="btn-back" onclick="closeLoggedInSubSettingsScreen()" aria-label="إغلاق">&#10095;</button>
+        </div>
+        <div class="logged-in-sub-body">
+            <button type="button" class="btn-logged-in-logout" id="btnLoggedInLogout" onclick="logoutAction()">تسجيل الخروج</button>
+        </div>
+    </div>
+
+    <!-- نافذة الإعدادات الفرعية B.jpg تظهر من اليسار وتملى الشاشة (خاصة بوضع تسجيل الخروج) -->
     <div id="subSettingsScreen" class="sub-settings-screen">
         <div class="sub-settings-header">
             <button type="button" class="btn-back" onclick="closeSubSettingsScreen()" aria-label="إغلاق الإعدادات الفرعية">&#10095;</button>
@@ -1435,6 +1507,10 @@
 
             syncSubSettingsLogoutVisibility(loggedIn);
 
+            if (!loggedIn) {
+                closeLoggedInSubSettingsScreen();
+            }
+
             if (loggedIn) {
                 let cleanEmail = normalizeEmail(email);
                 if (!cleanEmail) {
@@ -1471,6 +1547,7 @@
             } catch (e) {}
 
             window.setEmailLoggedIn(false);
+            closeLoggedInSubSettingsScreen();
             closeSubSettingsScreen();
 
             const authModal = document.getElementById('authModal');
@@ -1528,6 +1605,7 @@
         }
 
         function closeSettingsScreen() {
+            closeLoggedInSubSettingsScreen();
             closeSubSettingsScreen();
             const screen = document.getElementById('settingsScreen');
             screen.classList.remove('show');
@@ -1600,6 +1678,30 @@
 
         function openEmail() {
             window.location.href = 'mailto:support@plotcraft.com';
+        }
+
+        /* فتح نافذة الإعدادات الخاصة بزر الإعدادات عند تسجيل الدخول فقط */
+        function openLoggedInSubSettings() {
+            if (!window.isEmailLoggedIn()) return;
+            const screen = document.getElementById('loggedInSubSettingsScreen');
+            if (screen) {
+                screen.style.visibility = 'visible';
+                requestAnimationFrame(() => {
+                    screen.classList.add('show');
+                });
+            }
+        }
+
+        function closeLoggedInSubSettingsScreen() {
+            const screen = document.getElementById('loggedInSubSettingsScreen');
+            if (screen) {
+                screen.classList.remove('show');
+                setTimeout(() => {
+                    if (!screen.classList.contains('show')) {
+                        screen.style.visibility = 'hidden';
+                    }
+                }, 300);
+            }
         }
 
         function handleSubSettings() {
@@ -1702,6 +1804,8 @@
             document.getElementById('btnLoginText').innerText = t.login;
             const logoutBtn = document.getElementById('btnLogoutOnly');
             if (logoutBtn) logoutBtn.innerText = t.logout;
+            const loggedInLogoutBtn = document.getElementById('btnLoggedInLogout');
+            if (loggedInLogoutBtn) loggedInLogoutBtn.innerText = t.logout;
             document.getElementById('nTxtPoints').innerText = t.points;
             document.getElementById('nTxtComments').innerText = t.comments;
             document.getElementById('txtNotif').innerText = t.notif;
