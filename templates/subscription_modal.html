@@ -5,7 +5,7 @@
         <button class="close-modal-btn" onclick="closeSubscription()">&#x276F;</button>
 
         <div class="plans-list-absolute">
-            <div class="plan-card" onclick="choosePlan(this)">
+            <div class="plan-card" data-plan-id="weekly" data-credits="500" data-title="PlotCraft Pro Weekly" onclick="choosePlan(this)">
                 <div class="plan-info">
                     <h3>PlotCraft Pro Weekly</h3>
                     <p>Credits / Week, Try AI Drama Creation 500</p>
@@ -16,7 +16,7 @@
                 </div>
             </div>
 
-            <div class="plan-card active" onclick="choosePlan(this)">
+            <div class="plan-card active" data-plan-id="monthly" data-credits="1800" data-title="PlotCraft Pro Monthly" onclick="choosePlan(this)">
                 <div class="plan-badge">رائج</div>
                 <div class="plan-info">
                     <h3>PlotCraft Pro Monthly</h3>
@@ -28,7 +28,7 @@
                 </div>
             </div>
 
-            <div class="plan-card" onclick="choosePlan(this)">
+            <div class="plan-card" data-plan-id="annual" data-credits="5000" data-title="PlotCraft Pro Annual" onclick="choosePlan(this)">
                 <div class="plan-info">
                     <h3>PlotCraft Pro Annual</h3>
                     <p>Credits / Year, Ideal for professional creators 5000</p>
@@ -389,7 +389,37 @@
 
 
 <script>
-    let isUserLoggedIn = false; 
+    let isUserLoggedIn = false;
+
+    /* 🔌 أداة استدعاء آمنة لربط الاشتراكات وتسجيل الدخول بـ Firebase دون تعطيل النافذة */
+    function getFirebaseBridgeSafe(waitMs = 1500) {
+        return new Promise((resolve) => {
+            if (window.plotcraftAuthBridge && window.plotcraftAuthBridge.ready) {
+                return resolve(window.plotcraftAuthBridge);
+            }
+
+            let settled = false;
+            const done = (bridge) => {
+                if (settled) return;
+                settled = true;
+                clearTimeout(timer);
+                window.removeEventListener('plotcraft:firebase-ready', onReady);
+                resolve(bridge || window.plotcraftAuthBridge || null);
+            };
+
+            const onReady = (ev) => done(ev?.detail || window.plotcraftAuthBridge);
+            const timer = setTimeout(() => done(window.plotcraftAuthBridge || null), waitMs);
+            window.addEventListener('plotcraft:firebase-ready', onReady, { once: true });
+        });
+    }
+
+    window.plotcraftSubBridgeCall = async function(methodName, ...args) {
+        const bridge = await getFirebaseBridgeSafe();
+        if (bridge && typeof bridge[methodName] === 'function') {
+            return await bridge[methodName](...args);
+        }
+        return null;
+    };
 
     function getStoredUsers() {
         const stored = localStorage.getItem('plotcraft_users');
@@ -402,6 +432,18 @@
         localStorage.setItem('plotcraft_users', JSON.stringify(users));
     }
 
+    function getSelectedPlanData() {
+        const activeCard = document.querySelector('.plan-card.active') || document.querySelector('.plan-card');
+        if (!activeCard) {
+            return { planId: 'monthly', credits: 1800, title: 'PlotCraft Pro Monthly' };
+        }
+        return {
+            planId: activeCard.getAttribute('data-plan-id') || 'monthly',
+            credits: Number(activeCard.getAttribute('data-credits') || 1800),
+            title: activeCard.getAttribute('data-title') || (activeCard.querySelector('h3')?.innerText || 'PlotCraft Pro')
+        };
+    }
+
     function choosePlan(cardElement) {
         document.querySelectorAll('.plan-card').forEach(card => card.classList.remove('active'));
         cardElement.classList.add('active');
@@ -410,7 +452,8 @@
     function openSubscription() {
         const modal = document.getElementById('subscriptionModal');
         if (modal) {
-            modal.classList.add('show');
+            modal.style.visibility = 'visible';
+            requestAnimationFrame(() => modal.classList.add('show'));
         }
     }
 
@@ -418,15 +461,22 @@
         const modal = document.getElementById('subscriptionModal');
         if (modal) {
             modal.classList.remove('show');
+            setTimeout(() => {
+                if (!modal.classList.contains('show')) {
+                    modal.style.visibility = 'hidden';
+                }
+            }, 300);
         }
     }
 
     function handleSubscribeClick() {
-        if (!isUserLoggedIn) {
+        const currentLoggedIn = Boolean(isUserLoggedIn || window.isUserLoggedIn || (window.plotcraftAuthBridge && window.plotcraftAuthBridge.auth && window.plotcraftAuthBridge.auth.currentUser));
+        if (!currentLoggedIn) {
             const authModal = document.getElementById('authModal');
             if (authModal) {
                 resetAuthModalView();
-                authModal.classList.add('show');
+                authModal.style.visibility = 'visible';
+                requestAnimationFrame(() => authModal.classList.add('show'));
             }
         } else {
             openPaymentGateway();
@@ -437,6 +487,11 @@
         const authModal = document.getElementById('authModal');
         if (authModal) {
             authModal.classList.remove('show');
+            setTimeout(() => {
+                if (!authModal.classList.contains('show')) {
+                    authModal.style.visibility = 'hidden';
+                }
+            }, 300);
         }
         window.authSource = null;
     }
@@ -482,10 +537,11 @@
         switchArea.innerHTML = '<span>ليس لديك حساب؟</span> <a href="#" onclick="toggleRegisterView(event);">اشتراك</a>';
     }
 
-    function applyEmailLoginSuccess() {
+    function applyEmailLoginSuccess(email) {
         isUserLoggedIn = true;
+        window.isUserLoggedIn = true;
         if (typeof window.setEmailLoggedIn === 'function') {
-            window.setEmailLoggedIn(true);
+            window.setEmailLoggedIn(true, email || '');
         }
         closeAuthModal();
         if (typeof openSettingsScreen === 'function') {
@@ -494,25 +550,43 @@
         alert("تم تسجيل الدخول");
     }
 
-    function logoutEmailUser() {
+    async function logoutEmailUser() {
         isUserLoggedIn = false;
+        window.isUserLoggedIn = false;
+        try {
+            await window.plotcraftSubBridgeCall('logout');
+        } catch (e) {}
         if (typeof window.setEmailLoggedIn === 'function') {
             window.setEmailLoggedIn(false);
         }
     }
 
-    function submitLogin() {
+    async function submitLogin() {
         const email = document.getElementById('loginEmail').value.trim().toLowerCase();
         const pass = document.getElementById('loginPassword').value;
         const msgDiv = document.getElementById('notRegisteredMsg');
 
-        if(!email || !pass) {
+        if (!email || !pass) {
             alert("الرجاء إدخال البريد الإلكتروني وكلمة المرور");
             return;
         }
 
-        const users = getStoredUsers();
+        const bridge = await getFirebaseBridgeSafe();
+        if (bridge && typeof bridge.login === 'function') {
+            try {
+                await bridge.login(email, pass);
+                saveUserToStorage(email, pass);
+                msgDiv.style.display = 'none';
+                applyEmailLoginSuccess(email);
+                return;
+            } catch (err) {
+                msgDiv.innerText = "ليس لديك حساب بهذا البريد أو كلمة المرور خاطئة! يرجى إنشاء حساب جديد.";
+                msgDiv.style.display = 'block';
+                return;
+            }
+        }
 
+        const users = getStoredUsers();
         if (!users[email] || users[email] !== pass) {
             msgDiv.innerText = "ليس لديك حساب بهذا البريد أو كلمة المرور خاطئة! يرجى إنشاء حساب جديد.";
             msgDiv.style.display = 'block';
@@ -520,39 +594,69 @@
         }
 
         msgDiv.style.display = 'none';
-        applyEmailLoginSuccess();
+        applyEmailLoginSuccess(email);
     }
 
-    function submitRegister() {
+    async function submitRegister() {
         const email = document.getElementById('regEmail').value.trim().toLowerCase();
         const pass = document.getElementById('regPassword').value;
         const confirmPass = document.getElementById('regConfirmPassword').value;
 
-        if(!email || !pass || !confirmPass) {
+        if (!email || !pass || !confirmPass) {
             alert("الرجاء تعبئة كافة الحقول المطلوبة");
             return;
         }
-        if(pass !== confirmPass) {
+        if (pass !== confirmPass) {
             alert("كلمة المرور غير متطابقة مع تأكيد الرمز");
             return;
         }
-        if(pass.length < 8) {
+        if (pass.length < 8) {
             alert("كلمة المرور يجب أن تتكون من 8 خانات على الأقل");
             return;
         }
 
+        const bridge = await getFirebaseBridgeSafe();
+        if (bridge && typeof bridge.register === 'function') {
+            try {
+                await bridge.register(email, pass);
+                saveUserToStorage(email, pass);
+                applyEmailLoginSuccess(email);
+                return;
+            } catch (err) {
+                if (err && err.code === 'auth/email-already-in-use') {
+                    alert("هذا البريد الإلكتروني مسجل مسبقاً! يمكنك الانتقال لتسجيل الدخول.");
+                    resetAuthModalView();
+                } else {
+                    alert(err?.message || "تعذر إنشاء الحساب، تأكد من صحة البريد وكلمة المرور.");
+                }
+                return;
+            }
+        }
+
         const users = getStoredUsers();
-        if(users[email]) {
+        if (users[email]) {
             alert("هذا البريد الإلكتروني مسجل مسبقاً! يمكنك الانتقال لتسجيل الدخول.");
             resetAuthModalView();
             return;
         }
 
         saveUserToStorage(email, pass);
-        applyEmailLoginSuccess();
+        applyEmailLoginSuccess(email);
     }
 
-    function openPaymentGateway() {
+    async function openPaymentGateway() {
+        const plan = getSelectedPlanData();
+        const bridge = await getFirebaseBridgeSafe();
+        if (bridge && typeof bridge.requestSubscription === 'function') {
+            try {
+                await bridge.requestSubscription(plan);
+                alert("تم تفعيل اشتراك " + plan.title + " وحفظه بنجاح.");
+                return;
+            } catch (err) {
+                alert(err?.message || "تعذر إتمام الاشتراك، يرجى المحاولة مرة أخرى.");
+                return;
+            }
+        }
         alert("جاري فتح نافذة الدفع لتأكيد الاشتراك...");
     }
 </script>
