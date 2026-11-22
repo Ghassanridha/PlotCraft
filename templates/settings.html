@@ -62,28 +62,25 @@
             display: block;
         }
 
-        /* اسم المستخدم ظاهر فوق الآيدي بنفس مستوى مستطيل الآيدي دون أن يعبره */
+        /* اسم المستخدم ظاهر بالكامل فوق الآيدي وبمستوى مستطيل الآيدي لليمين */
         .user-name-display {
             position: absolute;
             top: 22px;
-            right: 62px;
-            max-width: 96px;
+            right: 70px;
             color: #ffffff;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 700;
             line-height: 1.2;
             white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
             pointer-events: none;
             z-index: 20;
         }
 
-        /* زر القلم لتعديل الاسم مرفوع لفوق ومسحوب أكثر لليمين */
+        /* زر القلم لتعديل الاسم مرفوع لفوق ومسحوب لليمين ليكون قريباً من الاسم */
         .btn-edit-name-overlay {
             position: absolute;
             top: 19px;
-            right: 222px;
+            right: 185px;
             width: 30px;
             height: 28px;
             background: transparent;
