@@ -164,6 +164,44 @@
             position: relative;
         }
 
+        .works-sub-tabs {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-top: 14px;
+            padding: 0 4px;
+            z-index: 15;
+        }
+
+        .works-sub-tab {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 14px;
+            font-weight: 600;
+            padding-bottom: 6px;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.2s ease;
+        }
+
+        .works-sub-tab.active {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .works-sub-tab.active::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #ffffff;
+            border-radius: 2px;
+        }
+
         .works-login-btn {
             position: absolute;
             bottom: 185px;
@@ -338,7 +376,11 @@
             <div class="works-header-custom">
                 <div class="works-title-right">الأعمال</div>
             </div>
-            <button type="button" class="works-login-btn" onclick="vibrateDevice(); window.plotcraftCall('openAuth');">تسجيل الدخول</button>
+            <div class="works-sub-tabs">
+                <button type="button" class="works-sub-tab" id="tabStoryProjects" onclick="vibrateDevice(); selectWorksTab('projects');">مشاريع القصة</button>
+                <button type="button" class="works-sub-tab" id="tabMediaLibrary" onclick="vibrateDevice(); selectWorksTab('media');">مكتبة الوسائط</button>
+            </div>
+            <button type="button" class="works-login-btn" id="worksActionBtn" onclick="vibrateDevice(); handleWorksActionBtn();">تسجيل الدخول</button>
         </div>
 
         <!-- 3️⃣ شاشة الأدوات (تحتوي على التصميم الجديد مع إبقاء كلمة الأدوات باللون الأبيض في الأعلى) -->
@@ -394,12 +436,50 @@
             }
         };
 
+        window.selectWorksTab = function(tabName) {
+            const projectsTab = document.getElementById('tabStoryProjects');
+            const mediaTab = document.getElementById('tabMediaLibrary');
+            if (projectsTab) projectsTab.classList.toggle('active', tabName === 'projects');
+            if (mediaTab) mediaTab.classList.toggle('active', tabName === 'media');
+        };
+
+        window.updateWorksActionBtn = function(loggedIn) {
+            const btn = document.getElementById('worksActionBtn');
+            if (!btn) return;
+            const active = Boolean(loggedIn ?? window.isUserLoggedIn);
+            btn.textContent = active ? 'انشاء قصة' : 'تسجيل الدخول';
+        };
+
+        window.handleWorksActionBtn = function() {
+            if (window.isUserLoggedIn) {
+                if (typeof window.openSparkleDialog === 'function' && window.openSparkleDialog.toString().indexOf('تم النقر على إنشاء قصة') === -1) {
+                    window.openSparkleDialog();
+                } else {
+                    window.showToast('انشاء قصة');
+                }
+            } else {
+                window.plotcraftCall('openAuth');
+            }
+        };
+
+        const originalSetEmailLoggedIn = window.setEmailLoggedIn;
+        window.setEmailLoggedIn = function(loggedIn, email) {
+            window.isUserLoggedIn = Boolean(loggedIn);
+            window.updateWorksActionBtn(window.isUserLoggedIn);
+            if (typeof originalSetEmailLoggedIn === 'function') {
+                originalSetEmailLoggedIn(loggedIn, email);
+            }
+        };
+
         window.switchScreen = function(screenId, event) {
             if (event) event.preventDefault();
             document.querySelectorAll('.screen-view').forEach(s => s.classList.remove('active'));
             const targetScreen = document.getElementById(screenId);
             if (targetScreen) {
                 targetScreen.classList.add('active');
+            }
+            if (screenId === 'worksScreen') {
+                window.updateWorksActionBtn();
             }
         };
 
@@ -435,6 +515,7 @@
                         document.body.appendChild(newScript);
                     });
                     isSubscriptionLoaded = true;
+                    window.updateWorksActionBtn();
                     if (window.plotcraftAuthBridge) {
                         window.dispatchEvent(new CustomEvent("plotcraft:firebase-ready", { detail: window.plotcraftAuthBridge }));
                     }
@@ -473,6 +554,7 @@
         window.addEventListener('DOMContentLoaded', () => {
             preloadSubscriptionModal();
             preloadSettingsModal();
+            window.updateWorksActionBtn();
         });
 
         window.openSubscription = function() {
@@ -758,6 +840,7 @@
 
                 if (!user) {
                     window.isUserLoggedIn = false;
+                    window.updateWorksActionBtn(false);
                     if (typeof bridge.setAuthState === "function") bridge.setAuthState(null);
                     if (typeof bridge.onLogout === "function") bridge.onLogout();
                     return;
@@ -772,6 +855,7 @@
                     };
 
                     window.isUserLoggedIn = true;
+                    window.updateWorksActionBtn(true);
                     if (typeof bridge.setAuthState === "function") bridge.setAuthState(userPayload);
                     if (typeof bridge.onLoginSuccess === "function") bridge.onLoginSuccess(userPayload);
                 } catch (err) {
