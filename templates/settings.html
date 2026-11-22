@@ -178,13 +178,13 @@
             height: 46px;
         }
 
-        /* اتصل بنا ثابت بمكانه */
+        /* اتصل بنا ثابت عمودياً بمكانه */
         .row-contact-n {
             transform: translateY(0px);
             height: 52px;
         }
 
-        /* المستطيل الثالث: الإعدادات ، مسح الذاكرة المؤقتة ثابتان تماماً دون أي تحريك */
+        /* المستطيل الثالث: الإعدادات ، مسح الذاكرة المؤقتة ثابتان عمودياً دون أي تحريك */
         .card3-group {
             position: absolute;
             top: 486px;
@@ -200,12 +200,13 @@
             height: 52px;
         }
 
+        /* محاذاة الأزرار إلى أقصى اليمين للطرف، والأسهم إلى أقصى اليسار للطرف */
         .n-row-btn {
             width: 100%;
             height: 52px;
             background: transparent;
             border: none;
-            padding: 0 18px;
+            padding: 0 4px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -220,6 +221,8 @@
         .n-row-right {
             display: flex;
             align-items: center;
+            justify-content: flex-start;
+            margin-right: auto;
             gap: 12px;
             font-size: 15px;
             font-weight: 500;
@@ -241,9 +244,16 @@
         .n-row-left {
             display: flex;
             align-items: center;
+            justify-content: flex-end;
+            margin-left: auto;
             gap: 8px;
             color: #cbd5e1;
             font-size: 13px;
+        }
+
+        .n-row-btn .arrow-icon {
+            margin-left: auto;
+            padding-left: 2px;
         }
 
         /* نافذة صغيرة لتغيير اسم المستخدم عند النقر على القلم */
