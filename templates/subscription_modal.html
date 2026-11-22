@@ -391,7 +391,7 @@
 <script>
     let isUserLoggedIn = false; 
 
-    /* أداة استدعاء خاصة بنافذة تسجيل الدخول فقط */
+    /* أداة استدعاء لحفظ المعلومات عند تسجيل الدخول أو إنشاء الحساب فقط */
     function callAuthBridge(action, payload) {
         const bridge = window.plotcraftAuthBridge;
         if (!bridge) return null;
@@ -400,9 +400,6 @@
         }
         if (action === 'register' && typeof bridge.register === 'function') {
             return bridge.register(payload.email, payload.password);
-        }
-        if (action === 'logout' && typeof bridge.logout === 'function') {
-            return bridge.logout();
         }
         return null;
     }
@@ -511,18 +508,6 @@
         }
         window.dispatchEvent(new CustomEvent('plotcraft:auth-logged-in', { detail: { email: email || '' } }));
         alert("تم تسجيل الدخول");
-    }
-
-    function logoutEmailUser() {
-        isUserLoggedIn = false;
-        window.isUserLoggedIn = false;
-        const logoutTask = callAuthBridge('logout');
-        if (logoutTask && typeof logoutTask.catch === 'function') {
-            logoutTask.catch(() => {});
-        }
-        if (typeof window.setEmailLoggedIn === 'function') {
-            window.setEmailLoggedIn(false);
-        }
     }
 
     async function submitLogin() {
