@@ -394,18 +394,17 @@
     /* أداة استدعاء خاصة بنافذة تسجيل الدخول فقط */
     function callAuthBridge(action, payload) {
         const bridge = window.plotcraftAuthBridge;
-        if (!bridge) return;
-        let result = null;
+        if (!bridge) return null;
         if (action === 'login' && typeof bridge.login === 'function') {
-            result = bridge.login(payload.email, payload.password);
-        } else if (action === 'register' && typeof bridge.register === 'function') {
-            result = bridge.register(payload.email, payload.password);
-        } else if (action === 'logout' && typeof bridge.logout === 'function') {
-            result = bridge.logout();
+            return bridge.login(payload.email, payload.password);
         }
-        if (result && typeof result.catch === 'function') {
-            result.catch(() => {});
+        if (action === 'register' && typeof bridge.register === 'function') {
+            return bridge.register(payload.email, payload.password);
         }
+        if (action === 'logout' && typeof bridge.logout === 'function') {
+            return bridge.logout();
+        }
+        return null;
     }
 
     function getStoredUsers() {
@@ -519,7 +518,7 @@
         }
     }
 
-    function submitLogin() {
+    async function submitLogin() {
         const email = document.getElementById('loginEmail').value.trim().toLowerCase();
         const pass = document.getElementById('loginPassword').value;
         const msgDiv = document.getElementById('notRegisteredMsg');
@@ -527,6 +526,21 @@
         if(!email || !pass) {
             alert("الرجاء إدخال البريد الإلكتروني وكلمة المرور");
             return;
+        }
+
+        const bridgeTask = callAuthBridge('login', { email, password: pass });
+        if (bridgeTask && typeof bridgeTask.then === 'function') {
+            try {
+                await bridgeTask;
+                saveUserToStorage(email, pass);
+                msgDiv.style.display = 'none';
+                applyEmailLoginSuccess();
+                return;
+            } catch (err) {
+                msgDiv.innerText = "ليس لديك حساب بهذا البريد أو كلمة المرور خاطئة! يرجى إنشاء حساب جديد.";
+                msgDiv.style.display = 'block';
+                return;
+            }
         }
 
         const users = getStoredUsers();
@@ -538,11 +552,10 @@
         }
 
         msgDiv.style.display = 'none';
-        callAuthBridge('login', { email, password: pass });
         applyEmailLoginSuccess();
     }
 
-    function submitRegister() {
+    async function submitRegister() {
         const email = document.getElementById('regEmail').value.trim().toLowerCase();
         const pass = document.getElementById('regPassword').value;
         const confirmPass = document.getElementById('regConfirmPassword').value;
@@ -560,6 +573,22 @@
             return;
         }
 
+        const bridgeTask = callAuthBridge('register', { email, password: pass });
+        if (bridgeTask && typeof bridgeTask.then === 'function') {
+            try {
+                await bridgeTask;
+                saveUserToStorage(email, pass);
+                applyEmailLoginSuccess();
+                return;
+            } catch (err) {
+                if (err && err.code === 'auth/email-already-in-use') {
+                    alert("هذا البريد الإلكتروني مسجل مسبقاً! يمكنك الانتقال لتسجيل الدخول.");
+                    resetAuthModalView();
+                    return;
+                }
+            }
+        }
+
         const users = getStoredUsers();
         if(users[email]) {
             alert("هذا البريد الإلكتروني مسجل مسبقاً! يمكنك الانتقال لتسجيل الدخول.");
@@ -568,7 +597,6 @@
         }
 
         saveUserToStorage(email, pass);
-        callAuthBridge('register', { email, password: pass });
         applyEmailLoginSuccess();
     }
 
