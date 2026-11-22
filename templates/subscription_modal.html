@@ -76,12 +76,12 @@
                 <input type="email" id="loginEmail" class="auth-input" placeholder="البريد الإلكتروني">
                 <input type="password" id="loginPassword" class="auth-input" placeholder="كلمة المرور">
                 
-                <!-- تنبيه الحساب غير موجود أو كلمة المرور خطأ -->
+                <!-- تنبيه الحساب غير موجود أو كلمة المرور خطأ أو حالة الاتصال -->
                 <div id="notRegisteredMsg" style="color: #ef4444; font-size: 11px; text-align: center; display: none; margin-top: -4px;">
                     ليس لديك حساب بهذا البريد أو كلمة المرور خاطئة! يرجى إنشاء حساب جديد.
                 </div>
 
-                <button class="auth-btn email-btn" onclick="submitLogin()">تسجيل الدخول</button>
+                <button id="loginSubmitBtn" class="auth-btn email-btn" onclick="submitLogin()">تسجيل الدخول</button>
             </div>
 
             <!-- نموذج إنشاء حساب جديد -->
@@ -89,7 +89,7 @@
                 <input type="email" id="regEmail" class="auth-input" placeholder="البريد الإلكتروني">
                 <input type="password" id="regPassword" class="auth-input" placeholder="كلمة المرور (8 أرقام أو أحرف)">
                 <input type="password" id="regConfirmPassword" class="auth-input" placeholder="تأكيد الرمز">
-                <button class="auth-btn register-submit-btn" onclick="submitRegister()">إنشاء الحساب</button>
+                <button id="registerSubmitBtn" class="auth-btn register-submit-btn" onclick="submitRegister()">إنشاء الحساب</button>
             </div>
 
             <div class="auth-switch" id="authSwitchArea">
@@ -392,6 +392,73 @@
     let isUserLoggedIn = false;
     let currentUserData = null;
 
+    // تهيئة جسر المصادقة دون مسح أي دوال تم تعيينها مسبقاً من ملف Firebase
+    const existingBridge = window.plotcraftAuthBridge || {};
+    window.plotcraftAuthBridge = Object.assign({
+        login: null,
+        signIn: null,
+        register: null,
+        logout: null,
+        requestSubscription: null,
+        onLoginSuccess: null,
+        onLogout: null,
+        setAuthState: function(userPayload) {
+            isUserLoggedIn = Boolean(userPayload);
+            currentUserData = userPayload || null;
+        },
+        completeLogin: function(userPayload) {
+            applyEmailLoginSuccess(userPayload);
+        },
+        showAuthError: function(message) {
+            const msgDiv = document.getElementById('notRegisteredMsg');
+            if (msgDiv) {
+                msgDiv.innerText = message || "ليس لديك حساب بهذا البريد أو كلمة المرور خاطئة! يرجى إنشاء حساب جديد.";
+                msgDiv.style.display = 'block';
+            }
+        }
+    }, existingBridge);
+
+    function getLoginBridgeFn() {
+        const b = window.plotcraftAuthBridge;
+        return b && (typeof b.login === 'function' ? b.login : (typeof b.signIn === 'function' ? b.signIn : null));
+    }
+
+    function getRegisterBridgeFn() {
+        const b = window.plotcraftAuthBridge;
+        return b && typeof b.register === 'function' ? b.register : null;
+    }
+
+    // انتظار جاهزية دوال Firebase لفترة قصيرة لتجنب إظهار "غير متصل" قبل اكتمال تحميل الموديول
+    function waitForAuthFn(getterFn, timeoutMs = 2000) {
+        return new Promise((resolve) => {
+            const immediateFn = getterFn();
+            if (immediateFn) {
+                resolve(immediateFn);
+                return;
+            }
+
+            let settled = false;
+            const finish = (fn) => {
+                if (settled) return;
+                settled = true;
+                clearTimeout(timer);
+                window.removeEventListener('plotcraft-auth-ready', onReady);
+                resolve(fn || null);
+            };
+
+            const onReady = () => {
+                const fn = getterFn();
+                if (fn) finish(fn);
+            };
+
+            const timer = setTimeout(() => {
+                finish(getterFn());
+            }, timeoutMs);
+
+            window.addEventListener('plotcraft-auth-ready', onReady);
+        });
+    }
+
     function getSelectedPlan() {
         const activeCard = document.querySelector('.plan-card.active');
         if (!activeCard) return { planId: "monthly", credits: 1800, title: "PlotCraft Pro Monthly" };
@@ -518,27 +585,32 @@
         const email = document.getElementById('loginEmail').value.trim().toLowerCase();
         const pass = document.getElementById('loginPassword').value;
         const msgDiv = document.getElementById('notRegisteredMsg');
+        const btn = document.getElementById('loginSubmitBtn');
 
         if (!email || !pass) {
             alert("الرجاء إدخال البريد الإلكتروني وكلمة المرور");
             return;
         }
 
-        const authFn = window.plotcraftAuthBridge && (window.plotcraftAuthBridge.login || window.plotcraftAuthBridge.signIn);
-        if (typeof authFn === 'function') {
-            try {
-                msgDiv.style.display = 'none';
+        msgDiv.style.display = 'none';
+        if (btn) btn.disabled = true;
+
+        try {
+            const authFn = await waitForAuthFn(getLoginBridgeFn, 2000);
+            if (typeof authFn === 'function') {
                 const userPayload = await authFn(email, pass);
                 applyEmailLoginSuccess(userPayload || { email });
-            } catch (err) {
-                msgDiv.innerText = "ليس لديك حساب بهذا البريد أو كلمة المرور خاطئة! يرجى إنشاء حساب جديد.";
-                msgDiv.style.display = 'block';
+                return;
             }
-            return;
-        }
 
-        msgDiv.innerText = "نظام المصادقة غير متصل حالياً، تأكد من تحميل ملف Firebase.";
-        msgDiv.style.display = 'block';
+            msgDiv.innerText = "نظام المصادقة غير متصل حالياً، تأكد من تحميل ملف Firebase.";
+            msgDiv.style.display = 'block';
+        } catch (err) {
+            msgDiv.innerText = "ليس لديك حساب بهذا البريد أو كلمة المرور خاطئة! يرجى إنشاء حساب جديد.";
+            msgDiv.style.display = 'block';
+        } finally {
+            if (btn) btn.disabled = false;
+        }
     }
 
     async function submitRegister() {
@@ -546,6 +618,7 @@
         const pass = document.getElementById('regPassword').value;
         const confirmPass = document.getElementById('regConfirmPassword').value;
         const msgDiv = document.getElementById('notRegisteredMsg');
+        const btn = document.getElementById('registerSubmitBtn');
 
         if (!email || !pass || !confirmPass) {
             alert("الرجاء تعبئة كافة الحقول المطلوبة");
@@ -560,19 +633,24 @@
             return;
         }
 
-        if (window.plotcraftAuthBridge && typeof window.plotcraftAuthBridge.register === 'function') {
-            try {
-                const userPayload = await window.plotcraftAuthBridge.register(email, pass);
-                applyEmailLoginSuccess(userPayload || { email });
-            } catch (err) {
-                alert(err && err.message ? err.message : "تعذر إنشاء الحساب، تأكد من البيانات أو حاول مرة أخرى.");
-            }
-            return;
-        }
+        if (btn) btn.disabled = true;
 
-        if (msgDiv) {
-            msgDiv.innerText = "نظام المصادقة غير متصل حالياً، تأكد من تحميل ملف Firebase.";
-            msgDiv.style.display = 'block';
+        try {
+            const registerFn = await waitForAuthFn(getRegisterBridgeFn, 2000);
+            if (typeof registerFn === 'function') {
+                const userPayload = await registerFn(email, pass);
+                applyEmailLoginSuccess(userPayload || { email });
+                return;
+            }
+
+            if (msgDiv) {
+                msgDiv.innerText = "نظام المصادقة غير متصل حالياً، تأكد من تحميل ملف Firebase.";
+                msgDiv.style.display = 'block';
+            }
+        } catch (err) {
+            alert(err && err.message ? err.message : "تعذر إنشاء الحساب، تأكد من البيانات أو حاول مرة أخرى.");
+        } finally {
+            if (btn) btn.disabled = false;
         }
     }
 
@@ -591,29 +669,4 @@
 
         alert("تم اختيار باقة: " + selectedPlan.title + " — جاري فتح نافذة الدفع...");
     }
-
-    // أداة استدعاء مستقلة لربط هذا الملف بملف Firebase الخارجي بشكل آمن
-    window.plotcraftAuthBridge = Object.assign({
-        login: null,
-        signIn: null,
-        register: null,
-        logout: null,
-        requestSubscription: null,
-        onLoginSuccess: null,
-        onLogout: null,
-        setAuthState: function(userPayload) {
-            isUserLoggedIn = Boolean(userPayload);
-            currentUserData = userPayload || null;
-        },
-        completeLogin: function(userPayload) {
-            applyEmailLoginSuccess(userPayload);
-        },
-        showAuthError: function(message) {
-            const msgDiv = document.getElementById('notRegisteredMsg');
-            if (msgDiv) {
-                msgDiv.innerText = message || "ليس لديك حساب بهذا البريد أو كلمة المرور خاطئة! يرجى إنشاء حساب جديد.";
-                msgDiv.style.display = 'block';
-            }
-        }
-    }, window.plotcraftAuthBridge || {});
 </script>
