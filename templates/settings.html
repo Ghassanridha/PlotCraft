@@ -82,10 +82,35 @@
         }
 
         .sub-settings-body {
+            position: relative;
             width: 100%;
-            min-height: calc(100vh - 52px);
+            height: calc(100vh - 52px);
             padding-bottom: 24px;
             transform: translateY(-22px);
+        }
+
+        /* زر تسجيل الخروج داخل المستطيل الأبيض باللون الأسود */
+        .btn-logout-white-box {
+            position: absolute;
+            bottom: 34px;
+            left: 16px;
+            right: 16px;
+            height: 48px;
+            background: #ffffff;
+            color: #000000;
+            border: none;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 30;
+        }
+
+        .btn-logout-white-box:active {
+            opacity: 0.8;
         }
 
         /* إخفاء عناصر الإعدادات القديمة بالكامل عند ظهور التصميم الجديد */
@@ -941,7 +966,9 @@
         <div class="sub-settings-header">
             <button type="button" class="btn-back" onclick="closeSubSettingsScreen()" aria-label="إغلاق الإعدادات الفرعية">&#10095;</button>
         </div>
-        <div class="sub-settings-body"></div>
+        <div class="sub-settings-body">
+            <button type="button" class="btn-logout-white-box" id="btnLogoutWhiteBox" onclick="logoutAction()">تسجيل الخروج</button>
+        </div>
     </div>
 
     <!-- نافذة تعديل الاسم عند النقر على القلم -->
@@ -993,6 +1020,7 @@
             ar: {
                 title: "الإعدادات - PlotCraft",
                 login: "تسجيل الدخول",
+                logout: "تسجيل الخروج",
                 points: "سجل النقاط",
                 comments: "التعليقات",
                 notif: "الإشعارات",
@@ -1009,6 +1037,7 @@
             en: {
                 title: "Settings - PlotCraft",
                 login: "Sign In",
+                logout: "Log Out",
                 points: "Points History",
                 comments: "Comments",
                 notif: "Notifications",
@@ -1025,6 +1054,7 @@
             fr: {
                 title: "Paramètres - PlotCraft",
                 login: "Connexion",
+                logout: "Déconnexion",
                 points: "Historique des points",
                 comments: "Commentaires",
                 notif: "Notifications",
@@ -1041,6 +1071,7 @@
             es: {
                 title: "Ajustes - PlotCraft",
                 login: "Iniciar sesión",
+                logout: "Cerrar sesión",
                 points: "Historial de puntos",
                 comments: "Comentarios",
                 notif: "Notificaciones",
@@ -1057,6 +1088,7 @@
             de: {
                 title: "Einstellungen - PlotCraft",
                 login: "Anmelden",
+                logout: "Abmelden",
                 points: "Punkteverlauf",
                 comments: "Kommentare",
                 notif: "Benachrichtigungen",
@@ -1073,6 +1105,7 @@
             tr: {
                 title: "Ayarlar - PlotCraft",
                 login: "Giriş Yap",
+                logout: "Çıkış Yap",
                 points: "Puan Geçmişi",
                 comments: "Yorumlar",
                 notif: "Bildirimler",
@@ -1089,6 +1122,7 @@
             ru: {
                 title: "Настройки - PlotCraft",
                 login: "Войти",
+                logout: "Выйти",
                 points: "История баллов",
                 comments: "Комментарии",
                 notif: "Уведомления",
@@ -1105,6 +1139,7 @@
             zh: {
                 title: "设置 - PlotCraft",
                 login: "登录",
+                logout: "退出登录",
                 points: "积分记录",
                 comments: "评论",
                 notif: "通知",
@@ -1121,6 +1156,7 @@
             ja: {
                 title: "設定 - PlotCraft",
                 login: "ログイン",
+                logout: "ログアウト",
                 points: "ポイント履歴",
                 comments: "コメント",
                 notif: "通知",
@@ -1181,8 +1217,12 @@
         }
 
         function ensureAccountProfile(email) {
+            const cleanEmail = normalizeEmail(email);
+            if (!cleanEmail) {
+                return { id: '', name: '' };
+            }
+
             const map = getAccountsMap();
-            const cleanEmail = normalizeEmail(email) || 'guest_session';
             const usedIds = new Set(
                 Object.values(map)
                     .map(acc => acc && acc.id)
@@ -1196,25 +1236,30 @@
                 };
                 saveAccountsMap(map);
             } else {
+                let updated = false;
                 if (!/^\d{7}$/.test(map[cleanEmail].id || '')) {
                     map[cleanEmail].id = generateRandomUniqueId(usedIds);
-                    saveAccountsMap(map);
+                    updated = true;
                 }
                 if (!map[cleanEmail].name || !String(map[cleanEmail].name).trim()) {
                     map[cleanEmail].name = generateRandomNameFromEmail(cleanEmail);
+                    updated = true;
+                }
+                if (updated) {
                     saveAccountsMap(map);
                 }
             }
 
             try {
-                if (normalizeEmail(email)) {
-                    localStorage.setItem(ACTIVE_EMAIL_KEY, cleanEmail);
-                }
+                localStorage.setItem(ACTIVE_EMAIL_KEY, cleanEmail);
                 localStorage.setItem(USER_ID_STORAGE_KEY, map[cleanEmail].id);
                 localStorage.setItem(USER_NAME_STORAGE_KEY, map[cleanEmail].name);
             } catch (e) {}
 
-            return map[cleanEmail];
+            return {
+                id: map[cleanEmail].id,
+                name: map[cleanEmail].name
+            };
         }
 
         function getActiveAccountProfile() {
@@ -1233,12 +1278,27 @@
                 }
             }
 
-            const profile = ensureAccountProfile(activeEmail || 'default_account');
+            if (!activeEmail) {
+                try {
+                    const fallbackId = (localStorage.getItem(USER_ID_STORAGE_KEY) || '').trim();
+                    const fallbackName = (localStorage.getItem(USER_NAME_STORAGE_KEY) || '').trim();
+                    return { id: fallbackId, name: fallbackName };
+                } catch (e) {
+                    return { id: '', name: '' };
+                }
+            }
+
+            const profile = ensureAccountProfile(activeEmail);
 
             try {
                 const customName = (localStorage.getItem(USER_NAME_STORAGE_KEY) || '').trim();
-                if (customName) {
+                if (customName && customName !== profile.name) {
                     profile.name = customName;
+                    const map = getAccountsMap();
+                    if (map[activeEmail]) {
+                        map[activeEmail].name = customName;
+                        saveAccountsMap(map);
+                    }
                 }
             } catch (e) {}
 
@@ -1269,6 +1329,7 @@
         /* نسخ الآيدي عند النقر على الزر الذي بجانبه */
         function copyUserId() {
             const idText = getOrCreateUserId();
+            if (!idText) return;
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(idText).catch(() => fallbackCopy(idText));
             } else {
@@ -1309,18 +1370,20 @@
             const trimmed = input.value.trim();
             if (trimmed) {
                 const profile = getActiveAccountProfile();
-                const map = getAccountsMap();
                 let activeEmail = '';
                 try {
-                    activeEmail = normalizeEmail(localStorage.getItem(ACTIVE_EMAIL_KEY) || '') || 'default_account';
-                } catch (e) {
-                    activeEmail = 'default_account';
+                    activeEmail = normalizeEmail(localStorage.getItem(ACTIVE_EMAIL_KEY) || '');
+                } catch (e) {}
+
+                if (activeEmail) {
+                    const map = getAccountsMap();
+                    const existingId = (map[activeEmail] && map[activeEmail].id) || profile.id;
+                    map[activeEmail] = {
+                        id: existingId,
+                        name: trimmed
+                    };
+                    saveAccountsMap(map);
                 }
-                map[activeEmail] = {
-                    id: profile.id,
-                    name: trimmed
-                };
-                saveAccountsMap(map);
 
                 try {
                     localStorage.setItem(USER_NAME_STORAGE_KEY, trimmed);
@@ -1376,7 +1439,7 @@
             return true;
         };
 
-        /* setEmailLoggedIn(true, email) يحفظ الحالة ويولّد اسماً عشوائياً وآيدي خاصاً لكل بريد جديد، و setEmailLoggedIn(false) يمسح الحالة */
+        /* setEmailLoggedIn(true, email) يحفظ الحالة ويسترجع أو يولّد الاسم والآيدي الخاص بالبريد، و setEmailLoggedIn(false) ينهي الجلسة الحالية */
         window.setEmailLoggedIn = function(isLoggedIn, email) {
             const loggedIn = Boolean(isLoggedIn);
             try {
@@ -1395,23 +1458,44 @@
             }
 
             if (loggedIn) {
-                const cleanEmail = normalizeEmail(email);
-                if (cleanEmail) {
-                    const map = getAccountsMap();
-                    const isNewEmail = !map[cleanEmail];
-                    const acc = ensureAccountProfile(cleanEmail);
+                const cleanEmail = normalizeEmail(email) || (() => {
                     try {
-                        localStorage.setItem(ACTIVE_EMAIL_KEY, cleanEmail);
-                        if (isNewEmail) {
-                            localStorage.setItem(USER_NAME_STORAGE_KEY, acc.name);
-                        }
-                        localStorage.setItem(USER_ID_STORAGE_KEY, acc.id);
-                    } catch (e) {}
+                        return normalizeEmail(localStorage.getItem(ACTIVE_EMAIL_KEY) || '');
+                    } catch (e) {
+                        return '';
+                    }
+                })();
+
+                if (cleanEmail) {
+                    ensureAccountProfile(cleanEmail);
                 }
                 renderUserId();
                 window.guardAuthModal();
+            } else {
+                renderUserId();
             }
         };
+
+        /* تنفيذ تسجيل الخروج بشكل نهائي للجلسة الحالية مع الحفاظ على الاسم والآيدي في سجل الحساب */
+        function logoutAction() {
+            try {
+                localStorage.removeItem(EMAIL_AUTH_STORAGE_KEY);
+                localStorage.removeItem(ACTIVE_EMAIL_KEY);
+                localStorage.removeItem(USER_ID_STORAGE_KEY);
+                localStorage.removeItem(USER_NAME_STORAGE_KEY);
+            } catch (e) {}
+
+            window.setEmailLoggedIn(false);
+            closeSubSettingsScreen();
+
+            const authModal = document.getElementById('authModal');
+            if (authModal) {
+                authModal.classList.remove('show');
+                authModal.style.display = '';
+            }
+
+            window.dispatchEvent(new CustomEvent('plotcraft:emailLogout'));
+        }
 
         window.addEventListener('plotcraft:emailLogin', (ev) => {
             const emailArg = ev && ev.detail && ev.detail.email ? ev.detail.email : '';
@@ -1420,7 +1504,6 @@
 
         /* استعادة حالة تسجيل الدخول تلقائياً عند فتح التطبيق أو إعادة التحميل */
         function restoreEmailLoginState() {
-            renderUserId();
             window.setEmailLoggedIn(window.isEmailLoggedIn());
         }
 
@@ -1612,6 +1695,8 @@
             
             document.getElementById('pageTitle').innerText = t.title;
             document.getElementById('btnLoginText').innerText = t.login;
+            const logoutBtn = document.getElementById('btnLogoutWhiteBox');
+            if (logoutBtn) logoutBtn.innerText = t.logout;
             document.getElementById('nTxtPoints').innerText = t.points;
             document.getElementById('nTxtComments').innerText = t.comments;
             document.getElementById('txtNotif').innerText = t.notif;
