@@ -161,19 +161,29 @@
             background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/d25e86296ea2db1540c7756cc90a01b936d589a2/Gh3.jpg') center/100% 100% no-repeat !important;
             padding: 16px !important;
             overflow-y: auto;
+            position: relative;
         }
 
         .works-login-btn {
-            margin-top: 14px;
-            background-color: #000000;
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            padding: 10px 18px;
-            font-size: 13px;
+            position: absolute;
+            bottom: 138px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 64px);
+            max-width: 340px;
+            height: 46px;
+            background: transparent;
+            color: #0b0f19;
+            border: none;
+            border-radius: 24px;
+            padding: 0 18px;
+            font-size: 14px;
             font-weight: 700;
             cursor: pointer;
-            align-self: flex-start;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
         }
 
         /* 🖼️ تطبيق رابط التصميم Gh3.jpg داخل زر/شاشة الأدوات مع الحفاظ على كلمة الأدوات بالأعلى تماماً وباللون الأبيض */
