@@ -498,23 +498,20 @@
         };
 
         window.pendingWorksLogin = false;
-        window.suppressSettingsAfterLogin = false;
 
         window.isWorksScreenActive = function() {
             const worksScreen = document.getElementById('worksScreen');
             return Boolean(worksScreen && worksScreen.classList.contains('active'));
         };
 
-        window.stayInWorksAfterLogin = function() {
+        window.keepUserInWorksScreen = function() {
             const settingsScreen = document.getElementById('settingsScreen');
             if (settingsScreen) {
                 settingsScreen.classList.remove('show');
                 settingsScreen.style.visibility = 'hidden';
             }
-            if (window.pendingWorksLogin || window.isWorksScreenActive()) {
-                window.switchScreen('worksScreen');
-                window.setActiveNav('navWorks');
-            }
+            window.switchScreen('worksScreen');
+            window.setActiveNav('navWorks');
         };
 
         window.openWorksDesignModal = function() {
@@ -534,12 +531,8 @@
         window.triggerWorksPostLoginModal = function() {
             if (window.pendingWorksLogin || window.isWorksScreenActive()) {
                 window.pendingWorksLogin = false;
-                window.suppressSettingsAfterLogin = true;
-                window.stayInWorksAfterLogin();
+                window.keepUserInWorksScreen();
                 window.openWorksDesignModal();
-                setTimeout(() => {
-                    window.suppressSettingsAfterLogin = false;
-                }, 400);
             }
         };
 
@@ -555,7 +548,7 @@
             const subTabs = document.getElementById('worksSubTabs');
             const active = Boolean(loggedIn ?? window.isUserLoggedIn);
             if (btn) {
-                btn.textContent = active ? 'انشاء القصة' : 'تسجيل الدخول';
+                btn.textContent = active ? 'إنشاء القصة' : 'تسجيل الدخول';
                 btn.classList.toggle('story-btn', active);
             }
             if (subTabs) {
@@ -571,7 +564,7 @@
 
         window.handleWorksActionBtn = function() {
             if (window.isUserLoggedIn) {
-                window.stayInWorksAfterLogin();
+                window.keepUserInWorksScreen();
                 window.openWorksDesignModal();
             } else {
                 window.pendingWorksLogin = true;
@@ -698,6 +691,7 @@
                 event.stopPropagation();
                 event.preventDefault();
             }
+            window.pendingWorksLogin = false;
             vibrateDevice();
             const settingsScreen = document.getElementById('settingsScreen');
             if (settingsScreen) {
@@ -713,15 +707,6 @@
                 });
             }
         };
-
-        const settingsAutoOpenGuard = new MutationObserver(() => {
-            const settingsScreen = document.getElementById('settingsScreen');
-            if (!settingsScreen) return;
-            if (window.suppressSettingsAfterLogin && settingsScreen.classList.contains('show')) {
-                window.stayInWorksAfterLogin();
-            }
-        });
-        settingsAutoOpenGuard.observe(document.body, { childList: true, subtree: true, attributes: true });
 
         /* 🔌 أداة الاستدعاء الموحدة لـ Firebase والنوافذ */
         function waitForFirebaseBridge(timeoutMs = 5000) {
