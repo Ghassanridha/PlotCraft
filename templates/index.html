@@ -165,18 +165,13 @@
         }
 
         .works-sub-tabs {
-            display: none;
-            justify-content: flex-end;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 18px;
             width: 100%;
             margin-top: 14px;
             padding: 0 4px;
             z-index: 15;
-        }
-
-        .works-sub-tabs.visible {
-            display: flex;
         }
 
         .works-sub-tab {
@@ -381,7 +376,7 @@
             <div class="works-header-custom">
                 <div class="works-title-right">الأعمال</div>
             </div>
-            <div class="works-sub-tabs" id="worksSubTabs">
+            <div class="works-sub-tabs">
                 <button type="button" class="works-sub-tab" id="tabStoryProjects" onclick="vibrateDevice(); selectWorksTab('projects');">مشاريع القصة</button>
                 <button type="button" class="works-sub-tab" id="tabMediaLibrary" onclick="vibrateDevice(); selectWorksTab('media');">مكتبة الوسائط</button>
             </div>
@@ -448,35 +443,12 @@
             if (mediaTab) mediaTab.classList.toggle('active', tabName === 'media');
         };
 
-        window.syncWorksLoggedInUI = function(loggedIn) {
-            const active = Boolean(loggedIn);
-            window.isUserLoggedIn = active;
-
+        window.updateWorksActionBtn = function(loggedIn) {
             const btn = document.getElementById('worksActionBtn');
-            const subTabs = document.getElementById('worksSubTabs');
-            const projectsTab = document.getElementById('tabStoryProjects');
-            const mediaTab = document.getElementById('tabMediaLibrary');
-
-            if (btn) {
-                btn.textContent = active ? 'انشاء قصة' : 'تسجيل الدخول';
-            }
-
-            if (subTabs) {
-                subTabs.classList.toggle('visible', active);
-                if (active) {
-                    const hasActiveTab = (projectsTab && projectsTab.classList.contains('active')) ||
-                                         (mediaTab && mediaTab.classList.contains('active'));
-                    if (!hasActiveTab) {
-                        window.selectWorksTab('projects');
-                    }
-                } else {
-                    if (projectsTab) projectsTab.classList.remove('active');
-                    if (mediaTab) mediaTab.classList.remove('active');
-                }
-            }
+            if (!btn) return;
+            const active = Boolean(loggedIn ?? window.isUserLoggedIn);
+            btn.textContent = active ? 'انشاء قصة' : 'تسجيل الدخول';
         };
-
-        window.updateWorksActionBtn = window.syncWorksLoggedInUI;
 
         window.handleWorksActionBtn = function() {
             if (window.isUserLoggedIn) {
@@ -490,6 +462,15 @@
             }
         };
 
+        const originalSetEmailLoggedIn = window.setEmailLoggedIn;
+        window.setEmailLoggedIn = function(loggedIn, email) {
+            window.isUserLoggedIn = Boolean(loggedIn);
+            window.updateWorksActionBtn(window.isUserLoggedIn);
+            if (typeof originalSetEmailLoggedIn === 'function') {
+                originalSetEmailLoggedIn(loggedIn, email);
+            }
+        };
+
         window.switchScreen = function(screenId, event) {
             if (event) event.preventDefault();
             document.querySelectorAll('.screen-view').forEach(s => s.classList.remove('active'));
@@ -498,7 +479,7 @@
                 targetScreen.classList.add('active');
             }
             if (screenId === 'worksScreen') {
-                window.syncWorksLoggedInUI(window.isUserLoggedIn);
+                window.updateWorksActionBtn();
             }
         };
 
@@ -513,58 +494,10 @@
             showToast('تم النقر على إنشاء قصة');
         }
 
-        function hookAuthModalFunctions() {
-            if (typeof window.applyEmailLoginSuccess === 'function' && !window.applyEmailLoginSuccess._worksHooked) {
-                const prevApply = window.applyEmailLoginSuccess;
-                window.applyEmailLoginSuccess = function() {
-                    const res = prevApply.apply(this, arguments);
-                    window.syncWorksLoggedInUI(true);
-                    return res;
-                };
-                window.applyEmailLoginSuccess._worksHooked = true;
-            }
-
-            if (typeof window.logoutEmailUser === 'function' && !window.logoutEmailUser._worksHooked) {
-                const prevLogout = window.logoutEmailUser;
-                window.logoutEmailUser = function() {
-                    const res = prevLogout.apply(this, arguments);
-                    window.syncWorksLoggedInUI(false);
-                    return res;
-                };
-                window.logoutEmailUser._worksHooked = true;
-            }
-        }
-
-        // مراقبة أي تغير في نافذة الدخول لضمان تفعيل التبويبات والزر في «الأعمال» بعد تسجيل الدخول
-        const authUiWatcher = new MutationObserver(() => {
-            hookAuthModalFunctions();
-            const authModal = document.getElementById('authModal');
-            if (window.isUserLoggedIn || (authModal && authModal.dataset.loggedIn === 'true')) {
-                window.syncWorksLoggedInUI(true);
-            }
-        });
-        authUiWatcher.observe(document.body, { childList: true, subtree: true, attributes: true });
-
-        document.addEventListener('click', (e) => {
-            const target = e.target.closest('button');
-            if (!target) return;
-            const label = (target.textContent || '').trim();
-            if (label === 'تسجيل الدخول' || label === 'إنشاء الحساب') {
-                setTimeout(() => {
-                    if (window.isUserLoggedIn) {
-                        window.syncWorksLoggedInUI(true);
-                    }
-                }, 120);
-            }
-        }, true);
-
         let isSubscriptionLoaded = false;
 
         function preloadSubscriptionModal() {
-            if (isSubscriptionLoaded) {
-                hookAuthModalFunctions();
-                return Promise.resolve();
-            }
+            if (isSubscriptionLoaded) return Promise.resolve();
             return fetch('/subscription-modal')
                 .then(response => {
                     if (!response.ok) throw new Error('فشل جلب ملف الاشتراكات');
@@ -582,8 +515,7 @@
                         document.body.appendChild(newScript);
                     });
                     isSubscriptionLoaded = true;
-                    hookAuthModalFunctions();
-                    window.syncWorksLoggedInUI(window.isUserLoggedIn);
+                    window.updateWorksActionBtn();
                     if (window.plotcraftAuthBridge) {
                         window.dispatchEvent(new CustomEvent("plotcraft:firebase-ready", { detail: window.plotcraftAuthBridge }));
                     }
@@ -622,7 +554,7 @@
         window.addEventListener('DOMContentLoaded', () => {
             preloadSubscriptionModal();
             preloadSettingsModal();
-            window.syncWorksLoggedInUI(window.isUserLoggedIn);
+            window.updateWorksActionBtn();
         });
 
         window.openSubscription = function() {
@@ -798,24 +730,22 @@
         }
 
         function bindUiHooks(bridge) {
-            const prevLogin = bridge.onLoginSuccess;
-            const prevLogout = bridge.onLogout;
+            if (typeof window.setEmailLoggedIn === "function") {
+                const prevLogin = bridge.onLoginSuccess;
+                const prevLogout = bridge.onLogout;
 
-            bridge.onLoginSuccess = function (data) {
-                window.syncWorksLoggedInUI(true);
-                if (typeof window.setEmailLoggedIn === "function") {
+                bridge.onLoginSuccess = function (data) {
+                    window.isUserLoggedIn = true;
                     window.setEmailLoggedIn(true, data?.email || "");
-                }
-                if (typeof prevLogin === "function") prevLogin(data);
-            };
+                    if (typeof prevLogin === "function") prevLogin(data);
+                };
 
-            bridge.onLogout = function () {
-                window.syncWorksLoggedInUI(false);
-                if (typeof window.setEmailLoggedIn === "function") {
+                bridge.onLogout = function () {
+                    window.isUserLoggedIn = false;
                     window.setEmailLoggedIn(false);
-                }
-                if (typeof prevLogout === "function") prevLogout();
-            };
+                    if (typeof prevLogout === "function") prevLogout();
+                };
+            }
         }
 
         function setupFirebaseBridge() {
@@ -909,7 +839,8 @@
                 bindUiHooks(bridge);
 
                 if (!user) {
-                    window.syncWorksLoggedInUI(false);
+                    window.isUserLoggedIn = false;
+                    window.updateWorksActionBtn(false);
                     if (typeof bridge.setAuthState === "function") bridge.setAuthState(null);
                     if (typeof bridge.onLogout === "function") bridge.onLogout();
                     return;
@@ -923,7 +854,8 @@
                         ...(profile || {})
                     };
 
-                    window.syncWorksLoggedInUI(true);
+                    window.isUserLoggedIn = true;
+                    window.updateWorksActionBtn(true);
                     if (typeof bridge.setAuthState === "function") bridge.setAuthState(userPayload);
                     if (typeof bridge.onLoginSuccess === "function") bridge.onLoginSuccess(userPayload);
                 } catch (err) {
