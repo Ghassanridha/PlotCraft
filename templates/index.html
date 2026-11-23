@@ -164,49 +164,6 @@
             position: relative;
         }
 
-        .works-sub-tabs {
-            display: none;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 18px;
-            width: 100%;
-            margin-top: 14px;
-            padding: 0 4px;
-            z-index: 15;
-        }
-
-        .works-sub-tabs.visible {
-            display: flex;
-        }
-
-        .works-sub-tab {
-            background: transparent;
-            border: none;
-            color: rgba(255, 255, 255, 0.55);
-            font-size: 14px;
-            font-weight: 600;
-            padding-bottom: 6px;
-            cursor: pointer;
-            position: relative;
-            transition: color 0.2s ease;
-        }
-
-        .works-sub-tab.active {
-            color: #ffffff;
-            font-weight: 700;
-        }
-
-        .works-sub-tab.active::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background-color: #ffffff;
-            border-radius: 2px;
-        }
-
         .works-login-btn {
             position: absolute;
             bottom: 185px;
@@ -227,6 +184,10 @@
             align-items: center;
             justify-content: center;
             z-index: 20;
+        }
+
+        .works-login-btn.logged-in-hidden {
+            display: none;
         }
 
         /* 🖼️ تطبيق رابط التصميم Gh3.jpg داخل زر/شاشة الأدوات مع الحفاظ على كلمة الأدوات بالأعلى تماماً وباللون الأبيض */
@@ -381,10 +342,6 @@
             <div class="works-header-custom">
                 <div class="works-title-right">الأعمال</div>
             </div>
-            <div class="works-sub-tabs" id="worksSubTabs">
-                <button type="button" class="works-sub-tab" id="tabStoryProjects" onclick="vibrateDevice(); selectWorksTab('projects');">مشاريع القصة</button>
-                <button type="button" class="works-sub-tab" id="tabMediaLibrary" onclick="vibrateDevice(); selectWorksTab('media');">مكتبة الوسائط</button>
-            </div>
             <button type="button" class="works-login-btn" id="worksActionBtn" onclick="vibrateDevice(); handleWorksActionBtn();">تسجيل الدخول</button>
         </div>
 
@@ -441,39 +398,33 @@
             }
         };
 
-        window.selectWorksTab = function(tabName) {
-            const projectsTab = document.getElementById('tabStoryProjects');
-            const mediaTab = document.getElementById('tabMediaLibrary');
-            if (projectsTab) projectsTab.classList.toggle('active', tabName === 'projects');
-            if (mediaTab) mediaTab.classList.toggle('active', tabName === 'media');
+        window.fromWorksAuth = false;
+
+        window.isWorksScreenActive = function() {
+            const worksScreen = document.getElementById('worksScreen');
+            return Boolean(worksScreen && worksScreen.classList.contains('active'));
+        };
+
+        window.closeSettingsIfFromWorks = function() {
+            const settingsScreen = document.getElementById('settingsScreen');
+            if (settingsScreen) {
+                settingsScreen.classList.remove('show');
+                settingsScreen.style.visibility = 'hidden';
+            }
+            window.switchScreen('worksScreen');
+            window.setActiveNav('navWorks');
         };
 
         window.updateWorksActionBtn = function(loggedIn) {
             const btn = document.getElementById('worksActionBtn');
-            const subTabs = document.getElementById('worksSubTabs');
+            if (!btn) return;
             const active = Boolean(loggedIn ?? window.isUserLoggedIn);
-            if (btn) {
-                btn.textContent = active ? 'انشاء قصة' : 'تسجيل الدخول';
-            }
-            if (subTabs) {
-                subTabs.classList.toggle('visible', active);
-                if (!active) {
-                    const projectsTab = document.getElementById('tabStoryProjects');
-                    const mediaTab = document.getElementById('tabMediaLibrary');
-                    if (projectsTab) projectsTab.classList.remove('active');
-                    if (mediaTab) mediaTab.classList.remove('active');
-                }
-            }
+            btn.classList.toggle('logged-in-hidden', active);
         };
 
         window.handleWorksActionBtn = function() {
-            if (window.isUserLoggedIn) {
-                if (typeof window.openSparkleDialog === 'function' && window.openSparkleDialog.toString().indexOf('تم النقر على إنشاء قصة') === -1) {
-                    window.openSparkleDialog();
-                } else {
-                    window.showToast('انشاء قصة');
-                }
-            } else {
+            if (!window.isUserLoggedIn) {
+                window.fromWorksAuth = true;
                 window.plotcraftCall('openAuth');
             }
         };
@@ -484,6 +435,10 @@
             window.updateWorksActionBtn(window.isUserLoggedIn);
             if (typeof originalSetEmailLoggedIn === 'function') {
                 originalSetEmailLoggedIn(loggedIn, email);
+            }
+            if (window.isUserLoggedIn && (window.fromWorksAuth || window.isWorksScreenActive())) {
+                window.fromWorksAuth = false;
+                window.closeSettingsIfFromWorks();
             }
         };
 
@@ -594,6 +549,7 @@
                 event.stopPropagation();
                 event.preventDefault();
             }
+            window.fromWorksAuth = false;
             vibrateDevice();
             const settingsScreen = document.getElementById('settingsScreen');
             if (settingsScreen) {
@@ -746,22 +702,30 @@
         }
 
         function bindUiHooks(bridge) {
-            if (typeof window.setEmailLoggedIn === "function") {
-                const prevLogin = bridge.onLoginSuccess;
-                const prevLogout = bridge.onLogout;
+            const prevLogin = bridge.onLoginSuccess;
+            const prevLogout = bridge.onLogout;
 
-                bridge.onLoginSuccess = function (data) {
-                    window.isUserLoggedIn = true;
+            bridge.onLoginSuccess = function (data) {
+                window.isUserLoggedIn = true;
+                window.updateWorksActionBtn(true);
+                if (typeof window.setEmailLoggedIn === "function") {
                     window.setEmailLoggedIn(true, data?.email || "");
-                    if (typeof prevLogin === "function") prevLogin(data);
-                };
+                }
+                if (window.fromWorksAuth || window.isWorksScreenActive()) {
+                    window.fromWorksAuth = false;
+                    window.closeSettingsIfFromWorks();
+                }
+                if (typeof prevLogin === "function") prevLogin(data);
+            };
 
-                bridge.onLogout = function () {
-                    window.isUserLoggedIn = false;
+            bridge.onLogout = function () {
+                window.isUserLoggedIn = false;
+                window.updateWorksActionBtn(false);
+                if (typeof window.setEmailLoggedIn === "function") {
                     window.setEmailLoggedIn(false);
-                    if (typeof prevLogout === "function") prevLogout();
-                };
-            }
+                }
+                if (typeof prevLogout === "function") prevLogout();
+            };
         }
 
         function setupFirebaseBridge() {
