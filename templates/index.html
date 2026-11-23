@@ -498,7 +498,7 @@
         };
 
         window.pendingWorksLogin = false;
-        window.allowOpenSettingsScreen = false;
+        window.suppressSettingsAfterLogin = false;
 
         window.isWorksScreenActive = function() {
             const worksScreen = document.getElementById('worksScreen');
@@ -534,8 +534,12 @@
         window.triggerWorksPostLoginModal = function() {
             if (window.pendingWorksLogin || window.isWorksScreenActive()) {
                 window.pendingWorksLogin = false;
+                window.suppressSettingsAfterLogin = true;
                 window.stayInWorksAfterLogin();
                 window.openWorksDesignModal();
+                setTimeout(() => {
+                    window.suppressSettingsAfterLogin = false;
+                }, 400);
             }
         };
 
@@ -694,11 +698,6 @@
                 event.stopPropagation();
                 event.preventDefault();
             }
-            if ((window.pendingWorksLogin || window.isWorksScreenActive()) && !window.allowOpenSettingsScreen) {
-                window.stayInWorksAfterLogin();
-                return;
-            }
-            window.allowOpenSettingsScreen = false;
             vibrateDevice();
             const settingsScreen = document.getElementById('settingsScreen');
             if (settingsScreen) {
@@ -718,7 +717,7 @@
         const settingsAutoOpenGuard = new MutationObserver(() => {
             const settingsScreen = document.getElementById('settingsScreen');
             if (!settingsScreen) return;
-            if ((window.pendingWorksLogin || window.isWorksScreenActive()) && settingsScreen.classList.contains('show')) {
+            if (window.suppressSettingsAfterLogin && settingsScreen.classList.contains('show')) {
                 window.stayInWorksAfterLogin();
             }
         });
@@ -762,7 +761,6 @@
                     return true;
                 }
                 case 'openSettings': {
-                    window.allowOpenSettingsScreen = true;
                     window.openSettingsScreen();
                     return true;
                 }
