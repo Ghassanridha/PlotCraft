@@ -164,6 +164,49 @@
             position: relative;
         }
 
+        .works-sub-tabs {
+            display: none;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 18px;
+            width: 100%;
+            margin-top: 14px;
+            padding: 0 4px;
+            z-index: 15;
+        }
+
+        .works-sub-tabs.visible {
+            display: flex;
+        }
+
+        .works-sub-tab {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 14px;
+            font-weight: 600;
+            padding-bottom: 6px;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.2s ease;
+        }
+
+        .works-sub-tab.active {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .works-sub-tab.active::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #ffffff;
+            border-radius: 2px;
+        }
+
         .works-login-btn {
             position: absolute;
             bottom: 185px;
@@ -338,6 +381,10 @@
             <div class="works-header-custom">
                 <div class="works-title-right">الأعمال</div>
             </div>
+            <div class="works-sub-tabs" id="worksSubTabs">
+                <button type="button" class="works-sub-tab" id="tabStoryProjects" onclick="vibrateDevice(); selectWorksTab('projects');">مشاريع القصة</button>
+                <button type="button" class="works-sub-tab" id="tabMediaLibrary" onclick="vibrateDevice(); selectWorksTab('media');">مكتبة الوسائط</button>
+            </div>
             <button type="button" class="works-login-btn" id="worksActionBtn" onclick="vibrateDevice(); handleWorksActionBtn();">تسجيل الدخول</button>
         </div>
 
@@ -394,11 +441,29 @@
             }
         };
 
+        window.selectWorksTab = function(tabName) {
+            const projectsTab = document.getElementById('tabStoryProjects');
+            const mediaTab = document.getElementById('tabMediaLibrary');
+            if (projectsTab) projectsTab.classList.toggle('active', tabName === 'projects');
+            if (mediaTab) mediaTab.classList.toggle('active', tabName === 'media');
+        };
+
         window.updateWorksActionBtn = function(loggedIn) {
             const btn = document.getElementById('worksActionBtn');
-            if (!btn) return;
+            const subTabs = document.getElementById('worksSubTabs');
             const active = Boolean(loggedIn ?? window.isUserLoggedIn);
-            btn.textContent = active ? 'انشاء قصة' : 'تسجيل الدخول';
+            if (btn) {
+                btn.textContent = active ? 'انشاء قصة' : 'تسجيل الدخول';
+            }
+            if (subTabs) {
+                subTabs.classList.toggle('visible', active);
+                if (!active) {
+                    const projectsTab = document.getElementById('tabStoryProjects');
+                    const mediaTab = document.getElementById('tabMediaLibrary');
+                    if (projectsTab) projectsTab.classList.remove('active');
+                    if (mediaTab) mediaTab.classList.remove('active');
+                }
+            }
         };
 
         window.handleWorksActionBtn = function() {
