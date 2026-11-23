@@ -11,6 +11,7 @@
     <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/d25e86296ea2db1540c7756cc90a01b936d589a2/Gh3.jpg">
     <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/e34a11096e0d5851f6a12fe58f61a2a93b688bd0/Gh3.jpg">
     <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/14982d00efdd1d4c377f7f74896b28bfdc49045a/R.jpg">
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/cff09bb2270c1cd7cbc2b55461e8ce0392d73c4a/O.jpg">
     <link rel="preload" as="image" href="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1080&auto=format&fit=crop">
     
     <style>
@@ -229,6 +230,50 @@
             z-index: 20;
         }
 
+        /* 🖼️ نافذة التصميم الجديدة التي تظهر من اليسار لليمين وتملأ الشاشة بالكامل */
+        .works-design-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #0b0f19;
+            z-index: 999990;
+            transform: translateX(-100%);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+        }
+
+        .works-design-overlay.open {
+            transform: translateX(0);
+        }
+
+        .works-design-overlay img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .works-design-close-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(11, 15, 25, 0.72);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            font-size: 16px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 2;
+        }
+
         /* 🖼️ تطبيق رابط التصميم Gh3.jpg داخل زر/شاشة الأدوات مع الحفاظ على كلمة الأدوات بالأعلى تماماً وباللون الأبيض */
         #toolsScreen.screen-view {
             background: url('https://raw.githubusercontent.com/Ghassanridha/PlotCraft/e34a11096e0d5851f6a12fe58f61a2a93b688bd0/Gh3.jpg') center/100% 100% no-repeat !important;
@@ -388,6 +433,12 @@
             <button type="button" class="works-login-btn" id="worksActionBtn" onclick="vibrateDevice(); handleWorksActionBtn();">تسجيل الدخول</button>
         </div>
 
+        <!-- نافذة التصميم الجديدة بعد تسجيل الدخول من الأعمال -->
+        <div class="works-design-overlay" id="worksDesignOverlay">
+            <button type="button" class="works-design-close-btn" onclick="vibrateDevice(); closeWorksDesignModal();">✕</button>
+            <img src="https://raw.githubusercontent.com/Ghassanridha/PlotCraft/cff09bb2270c1cd7cbc2b55461e8ce0392d73c4a/O.jpg" alt="تصميم الأعمال" loading="eager">
+        </div>
+
         <!-- 3️⃣ شاشة الأدوات (تحتوي على التصميم الجديد مع إبقاء كلمة الأدوات باللون الأبيض في الأعلى) -->
         <div id="toolsScreen" class="screen-view">
             <div class="tools-header-custom">
@@ -441,6 +492,31 @@
             }
         };
 
+        window.pendingWorksLogin = false;
+
+        window.openWorksDesignModal = function() {
+            const overlay = document.getElementById('worksDesignOverlay');
+            if (overlay) {
+                requestAnimationFrame(() => overlay.classList.add('open'));
+            }
+        };
+
+        window.closeWorksDesignModal = function() {
+            const overlay = document.getElementById('worksDesignOverlay');
+            if (overlay) {
+                overlay.classList.remove('open');
+            }
+        };
+
+        window.triggerWorksPostLoginModal = function() {
+            const worksScreen = document.getElementById('worksScreen');
+            const isInWorks = Boolean(worksScreen && worksScreen.classList.contains('active'));
+            if (window.pendingWorksLogin || isInWorks) {
+                window.pendingWorksLogin = false;
+                window.openWorksDesignModal();
+            }
+        };
+
         window.selectWorksTab = function(tabName) {
             const projectsTab = document.getElementById('tabStoryProjects');
             const mediaTab = document.getElementById('tabMediaLibrary');
@@ -468,12 +544,9 @@
 
         window.handleWorksActionBtn = function() {
             if (window.isUserLoggedIn) {
-                if (typeof window.openSparkleDialog === 'function' && window.openSparkleDialog.toString().indexOf('تم النقر على إنشاء قصة') === -1) {
-                    window.openSparkleDialog();
-                } else {
-                    window.showToast('انشاء قصة');
-                }
+                window.openWorksDesignModal();
             } else {
+                window.pendingWorksLogin = true;
                 window.plotcraftCall('openAuth');
             }
         };
@@ -484,6 +557,9 @@
             window.updateWorksActionBtn(window.isUserLoggedIn);
             if (typeof originalSetEmailLoggedIn === 'function') {
                 originalSetEmailLoggedIn(loggedIn, email);
+            }
+            if (window.isUserLoggedIn) {
+                window.triggerWorksPostLoginModal();
             }
         };
 
@@ -746,22 +822,27 @@
         }
 
         function bindUiHooks(bridge) {
-            if (typeof window.setEmailLoggedIn === "function") {
-                const prevLogin = bridge.onLoginSuccess;
-                const prevLogout = bridge.onLogout;
+            const prevLogin = bridge.onLoginSuccess;
+            const prevLogout = bridge.onLogout;
 
-                bridge.onLoginSuccess = function (data) {
-                    window.isUserLoggedIn = true;
+            bridge.onLoginSuccess = function (data) {
+                window.isUserLoggedIn = true;
+                window.updateWorksActionBtn(true);
+                if (typeof window.setEmailLoggedIn === "function") {
                     window.setEmailLoggedIn(true, data?.email || "");
-                    if (typeof prevLogin === "function") prevLogin(data);
-                };
+                }
+                window.triggerWorksPostLoginModal();
+                if (typeof prevLogin === "function") prevLogin(data);
+            };
 
-                bridge.onLogout = function () {
-                    window.isUserLoggedIn = false;
+            bridge.onLogout = function () {
+                window.isUserLoggedIn = false;
+                window.updateWorksActionBtn(false);
+                if (typeof window.setEmailLoggedIn === "function") {
                     window.setEmailLoggedIn(false);
-                    if (typeof prevLogout === "function") prevLogout();
-                };
-            }
+                }
+                if (typeof prevLogout === "function") prevLogout();
+            };
         }
 
         function setupFirebaseBridge() {
