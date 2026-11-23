@@ -1079,11 +1079,6 @@
         const USER_ID_STORAGE_KEY = 'plotcraft_user_unique_id_7';
         const USER_NAME_STORAGE_KEY = 'plotcraft_custom_username';
 
-        /* واجهة الملف الشخصي داخل الإعدادات تظهر لكل مستخدم مسجل دخول أياً كان مصدر دخوله */
-        function shouldShowSettingsProfileUI() {
-            return Boolean(window.isEmailLoggedIn && window.isEmailLoggedIn());
-        }
-
         const translations = {
             ar: {
                 title: "الإعدادات - PlotCraft",
@@ -1367,6 +1362,7 @@
             return ensureAccountProfile(activeEmail);
         }
 
+        /* توليد آيدي عشوائي من 7 أرقام خاص بكل حساب وحفظه */
         function getOrCreateUserId() {
             return getActiveAccountProfile().id;
         }
@@ -1387,6 +1383,7 @@
             }
         }
 
+        /* نسخ الآيدي عند النقر على الزر الذي بجانبه بدون أي إشعار منبثق */
         function copyUserId() {
             const idText = getOrCreateUserId();
             if (!idText) return;
@@ -1406,8 +1403,8 @@
             document.body.removeChild(temp);
         }
 
+        /* فتح نافذة تعديل الاسم عند النقر على القلم */
         function openEditNameModal() {
-            if (!shouldShowSettingsProfileUI()) return;
             const modal = document.getElementById('editNameModal');
             const input = document.getElementById('newUserNameInput');
             if (!modal || !input) return;
@@ -1462,6 +1459,7 @@
             console.log("التعليقات");
         }
 
+        /* التحقق من حالة تسجيل الدخول بالبريد */
         window.isEmailLoggedIn = function() {
             try {
                 return localStorage.getItem(EMAIL_AUTH_STORAGE_KEY) === 'true';
@@ -1470,21 +1468,7 @@
             }
         };
 
-        function syncSettingsProfileUI() {
-            const showProfile = shouldShowSettingsProfileUI();
-            document.body.classList.toggle('email-already-logged-in', showProfile);
-
-            const screen = document.getElementById('settingsScreen');
-            if (screen) {
-                screen.classList.toggle('email-logged-in', showProfile);
-            }
-
-            if (!showProfile) {
-                closeLoggedInSubSettingsScreen();
-                closeEditNameModal();
-            }
-        }
-
+        /* مزامنة حالة زر تسجيل الخروج داخل شاشة الإعدادات الفرعية */
         function syncSubSettingsLogoutVisibility(loggedIn) {
             const subScreen = document.getElementById('subSettingsScreen');
             if (subScreen) {
@@ -1492,8 +1476,9 @@
             }
         }
 
+        /* إخفاء نافذة الدخول عبر البريد إذا كان المستخدم مسجلاً دخوله */
         window.guardAuthModal = function() {
-            if (!shouldShowSettingsProfileUI()) return false;
+            if (!window.isEmailLoggedIn()) return false;
             const authModal = document.getElementById('authModal');
             if (authModal) {
                 authModal.classList.remove('show');
@@ -1502,6 +1487,7 @@
             return true;
         };
 
+        /* setEmailLoggedIn(true, email) يسجل الدخول مباشرة بالبريد الحالي فقط، و setEmailLoggedIn(false) ينهي الجلسة الحالية */
         window.setEmailLoggedIn = function(isLoggedIn, email) {
             const loggedIn = Boolean(isLoggedIn);
             try {
@@ -1512,8 +1498,18 @@
                 }
             } catch (e) {}
 
-            syncSettingsProfileUI();
+            document.body.classList.toggle('email-already-logged-in', loggedIn);
+
+            const screen = document.getElementById('settingsScreen');
+            if (screen) {
+                screen.classList.toggle('email-logged-in', loggedIn);
+            }
+
             syncSubSettingsLogoutVisibility(loggedIn);
+
+            if (!loggedIn) {
+                closeLoggedInSubSettingsScreen();
+            }
 
             if (loggedIn) {
                 let cleanEmail = normalizeEmail(email);
@@ -1541,6 +1537,7 @@
             }
         };
 
+        /* تنفيذ تسجيل الخروج بشكل نهائي للجلسة الحالية وإخفاء زر تسجيل الخروج */
         function logoutAction() {
             try {
                 localStorage.removeItem(EMAIL_AUTH_STORAGE_KEY);
@@ -1548,11 +1545,6 @@
                 localStorage.removeItem(USER_ID_STORAGE_KEY);
                 localStorage.removeItem(USER_NAME_STORAGE_KEY);
             } catch (e) {}
-
-            window.authSource = null;
-            window.fromSettingsLogin = false;
-            window.fromWorksLogin = false;
-            window.fromSubscriptionsLogin = false;
 
             window.setEmailLoggedIn(false);
             closeLoggedInSubSettingsScreen();
@@ -1578,29 +1570,16 @@
             if (!emailArg) {
                 emailArg = findEmailFromDomInputs();
             }
-
             try {
                 localStorage.removeItem(USER_ID_STORAGE_KEY);
                 localStorage.removeItem(USER_NAME_STORAGE_KEY);
             } catch (e) {}
-
             window.setEmailLoggedIn(true, emailArg);
-            renderUserId();
-
-            /* نفتح شاشة الإعدادات تلقائياً فقط إذا كان الدخول بدأ من الإعدادات؛ أما من الأعمال أو الاشتراكات فتظهر عند فتح الإعدادات */
-            if (window.authSource === 'settings' || window.fromSettingsLogin === true) {
-                openSettingsScreen();
-                window.authSource = null;
-                window.fromSettingsLogin = false;
-            }
         });
 
+        /* استعادة حالة تسجيل الدخول تلقائياً عند فتح التطبيق أو إعادة التحميل */
         function restoreEmailLoginState() {
-            syncSettingsProfileUI();
-            syncSubSettingsLogoutVisibility(window.isEmailLoggedIn());
-            if (shouldShowSettingsProfileUI()) {
-                renderUserId();
-            }
+            window.setEmailLoggedIn(window.isEmailLoggedIn());
         }
 
         restoreEmailLoginState();
@@ -1637,13 +1616,9 @@
             }, 300);
         }
 
+        /* عند الضغط على تسجيل الدخول: إذا مسجل دخول بالبريد لا تفتح نافذة البريد نهائياً */
         function handleLoginAction() {
-            window.authSource = 'settings';
-            window.fromSettingsLogin = true;
-
             if (window.guardAuthModal()) {
-                renderUserId();
-                syncSettingsProfileUI();
                 openSettingsScreen();
                 return;
             }
@@ -1653,6 +1628,7 @@
                 localStorage.removeItem(USER_NAME_STORAGE_KEY);
             } catch (e) {}
             renderUserId();
+            window.authSource = 'settings'; // تحديد أن الدخول تم من الإعدادات
             const authModal = document.getElementById('authModal');
             if (authModal) {
                 authModal.style.display = '';
@@ -1661,25 +1637,25 @@
             }
         }
 
+        /* دالة الإغلاق الذكية: نتحقق من المصدر لإرجاع المستخدم للمكان الصحيح */
         function closeAuthModal() {
             const authModal = document.getElementById('authModal');
             if (authModal) {
                 authModal.classList.remove('show');
             }
 
-            if (window.authSource === 'settings' || window.fromSettingsLogin === true) {
+            // إذا كان الدخول صادراً من الإعدادات فقط نفتح شاشة الإعدادات
+            if (window.authSource === 'settings') {
                 openSettingsScreen();
-                window.authSource = null;
-                window.fromSettingsLogin = false;
+                window.authSource = null; // إعادة تعيين المصدر
             } else if (window.authSource === 'subscription') {
+                // إذا كان الدخول من الترقية/الاشتراكات تفتح نافذة الاشتراكات
                 const subModal = document.getElementById('subscriptionModal');
                 if (subModal) {
                     subModal.style.display = 'flex';
                     setTimeout(() => subModal.classList.add('show'), 10);
                 }
-                window.authSource = null;
-            } else if (window.authSource === 'works') {
-                window.authSource = null;
+                window.authSource = null; // إعادة تعيين المصدر
             }
         }
 
@@ -1704,8 +1680,9 @@
             window.location.href = 'mailto:support@plotcraft.com';
         }
 
+        /* فتح نافذة الإعدادات الخاصة بزر الإعدادات عند تسجيل الدخول فقط */
         function openLoggedInSubSettings() {
-            if (!shouldShowSettingsProfileUI()) return;
+            if (!window.isEmailLoggedIn()) return;
             const screen = document.getElementById('loggedInSubSettingsScreen');
             if (screen) {
                 screen.style.visibility = 'visible';
