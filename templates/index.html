@@ -230,6 +230,11 @@
             z-index: 20;
         }
 
+        .works-login-btn.story-btn {
+            background: transparent;
+            color: #000000;
+        }
+
         /* 🖼️ نافذة التصميم الجديدة التي تظهر من اليسار لليمين وتملأ الشاشة بالكامل */
         .works-design-overlay {
             position: fixed;
@@ -493,6 +498,24 @@
         };
 
         window.pendingWorksLogin = false;
+        window.allowOpenSettingsScreen = false;
+
+        window.isWorksScreenActive = function() {
+            const worksScreen = document.getElementById('worksScreen');
+            return Boolean(worksScreen && worksScreen.classList.contains('active'));
+        };
+
+        window.stayInWorksAfterLogin = function() {
+            const settingsScreen = document.getElementById('settingsScreen');
+            if (settingsScreen) {
+                settingsScreen.classList.remove('show');
+                settingsScreen.style.visibility = 'hidden';
+            }
+            if (window.pendingWorksLogin || window.isWorksScreenActive()) {
+                window.switchScreen('worksScreen');
+                window.setActiveNav('navWorks');
+            }
+        };
 
         window.openWorksDesignModal = function() {
             const overlay = document.getElementById('worksDesignOverlay');
@@ -509,10 +532,9 @@
         };
 
         window.triggerWorksPostLoginModal = function() {
-            const worksScreen = document.getElementById('worksScreen');
-            const isInWorks = Boolean(worksScreen && worksScreen.classList.contains('active'));
-            if (window.pendingWorksLogin || isInWorks) {
+            if (window.pendingWorksLogin || window.isWorksScreenActive()) {
                 window.pendingWorksLogin = false;
+                window.stayInWorksAfterLogin();
                 window.openWorksDesignModal();
             }
         };
@@ -529,7 +551,8 @@
             const subTabs = document.getElementById('worksSubTabs');
             const active = Boolean(loggedIn ?? window.isUserLoggedIn);
             if (btn) {
-                btn.textContent = active ? 'انشاء قصة' : 'تسجيل الدخول';
+                btn.textContent = active ? 'انشاء القصة' : 'تسجيل الدخول';
+                btn.classList.toggle('story-btn', active);
             }
             if (subTabs) {
                 subTabs.classList.toggle('visible', active);
@@ -544,6 +567,7 @@
 
         window.handleWorksActionBtn = function() {
             if (window.isUserLoggedIn) {
+                window.stayInWorksAfterLogin();
                 window.openWorksDesignModal();
             } else {
                 window.pendingWorksLogin = true;
@@ -670,6 +694,11 @@
                 event.stopPropagation();
                 event.preventDefault();
             }
+            if ((window.pendingWorksLogin || window.isWorksScreenActive()) && !window.allowOpenSettingsScreen) {
+                window.stayInWorksAfterLogin();
+                return;
+            }
+            window.allowOpenSettingsScreen = false;
             vibrateDevice();
             const settingsScreen = document.getElementById('settingsScreen');
             if (settingsScreen) {
@@ -685,6 +714,15 @@
                 });
             }
         };
+
+        const settingsAutoOpenGuard = new MutationObserver(() => {
+            const settingsScreen = document.getElementById('settingsScreen');
+            if (!settingsScreen) return;
+            if ((window.pendingWorksLogin || window.isWorksScreenActive()) && settingsScreen.classList.contains('show')) {
+                window.stayInWorksAfterLogin();
+            }
+        });
+        settingsAutoOpenGuard.observe(document.body, { childList: true, subtree: true, attributes: true });
 
         /* 🔌 أداة الاستدعاء الموحدة لـ Firebase والنوافذ */
         function waitForFirebaseBridge(timeoutMs = 5000) {
@@ -724,6 +762,7 @@
                     return true;
                 }
                 case 'openSettings': {
+                    window.allowOpenSettingsScreen = true;
                     window.openSettingsScreen();
                     return true;
                 }
